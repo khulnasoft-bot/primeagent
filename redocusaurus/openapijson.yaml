@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Aiexec
+  title: Primeagent
   version: 1.6.4
 paths:
   /api/v1/build/{flow_id}/vertices:
@@ -746,7 +746,7 @@ paths:
             application/json:
               schema:
                 $ref: >-
-                  #/components/schemas/aiexec__api__v1__schemas__UploadFileResponse
+                  #/components/schemas/primeagent__api__v1__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -2136,7 +2136,7 @@ paths:
             application/json:
               schema:
                 $ref: >-
-                  #/components/schemas/aiexec__api__v1__schemas__UploadFileResponse
+                  #/components/schemas/primeagent__api__v1__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -3602,11 +3602,11 @@ paths:
       description: >-
         Create a response using OpenAI Responses API format.<br><br>This
         endpoint accepts a flow_id in the model parameter and processes<br>the
-        input through the specified Aiexec flow.<br><br>Args:<br>    request:
-        OpenAI Responses API request with model (flow_id) and input<br>   
-        background_tasks: FastAPI background task manager<br>    api_key_user:
-        Authenticated user from API key<br>    http_request: The incoming HTTP
-        request<br>    telemetry_service: Telemetry service for
+        input through the specified Primeagent flow.<br><br>Args:<br>   
+        request: OpenAI Responses API request with model (flow_id) and
+        input<br>    background_tasks: FastAPI background task manager<br>   
+        api_key_user: Authenticated user from API key<br>    http_request: The
+        incoming HTTP request<br>    telemetry_service: Telemetry service for
         logging<br><br>Returns:<br>    OpenAI-compatible response or streaming
         response<br><br>Raises:<br>    HTTPException: For validation errors or
         flow execution issues
@@ -3647,7 +3647,7 @@ paths:
               schema:
                 items:
                   $ref: >-
-                    #/components/schemas/aiexec__services__database__models__file__model__File
+                    #/components/schemas/primeagent__services__database__models__file__model__File
                 type: array
                 title: Response List Files Api V2 Files  Get
       security:
@@ -3672,7 +3672,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aiexec__api__schemas__UploadFileResponse'
+                $ref: >-
+                  #/components/schemas/primeagent__api__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -3714,7 +3715,7 @@ paths:
               schema:
                 items:
                   $ref: >-
-                    #/components/schemas/aiexec__services__database__models__file__model__File
+                    #/components/schemas/primeagent__services__database__models__file__model__File
                 type: array
                 title: Response List Files Api V2 Files Get
       security:
@@ -3739,7 +3740,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aiexec__api__schemas__UploadFileResponse'
+                $ref: >-
+                  #/components/schemas/primeagent__api__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -3906,7 +3908,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aiexec__api__schemas__UploadFileResponse'
+                $ref: >-
+                  #/components/schemas/primeagent__api__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -4649,7 +4652,7 @@ components:
           title: Component Id
         files:
           items:
-            $ref: '#/components/schemas/aiexec__utils__schemas__File'
+            $ref: '#/components/schemas/primeagent__utils__schemas__File'
           type: array
           title: Files
           default: []
@@ -7725,7 +7728,7 @@ components:
         - 'y'
         - zoom
       title: ViewPort
-    aiexec__api__schemas__UploadFileResponse:
+    primeagent__api__schemas__UploadFileResponse:
       properties:
         id:
           type: string
@@ -7754,7 +7757,7 @@ components:
         - size
       title: UploadFileResponse
       description: File upload response schema.
-    aiexec__api__v1__schemas__UploadFileResponse:
+    primeagent__api__v1__schemas__UploadFileResponse:
       properties:
         flowId:
           type: string
@@ -7769,7 +7772,7 @@ components:
         - file_path
       title: UploadFileResponse
       description: Upload file response schema.
-    aiexec__services__database__models__file__model__File:
+    primeagent__services__database__models__file__model__File:
       properties:
         id:
           type: string
@@ -7808,7 +7811,7 @@ components:
         - path
         - size
       title: File
-    aiexec__utils__schemas__File:
+    primeagent__utils__schemas__File:
       properties:
         path:
           type: string

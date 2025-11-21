@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: Aiexec
+  title: Primeagent
   version: 1.6.4
 paths:
   /api/v1/build/{flow_id}/vertices:
@@ -537,7 +537,7 @@ paths:
             - Tracks execution time and success/failure via telemetry
             - Handles graceful client disconnection in streaming mode
             - Provides detailed error handling with appropriate HTTP status codes
-            - Extracts global variables from HTTP headers with prefix X-AIEXEC-GLOBAL-VAR-*
+            - Extracts global variables from HTTP headers with prefix X-PRIMEAGENT-GLOBAL-VAR-*
             - Merges extracted variables with the context parameter as "request_variables"
             - In streaming mode, uses EventManager to handle events:
                 - "add_message": New messages during execution
@@ -877,7 +877,7 @@ paths:
             application/json:
               schema:
                 $ref: >-
-                  #/components/schemas/aiexec__api__v1__schemas__UploadFileResponse
+                  #/components/schemas/primeagent__api__v1__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -2287,7 +2287,7 @@ paths:
             application/json:
               schema:
                 $ref: >-
-                  #/components/schemas/aiexec__api__v1__schemas__UploadFileResponse
+                  #/components/schemas/primeagent__api__v1__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -3762,7 +3762,7 @@ paths:
         Create a response using OpenAI Responses API format.
 
         This endpoint accepts a flow_id in the model parameter and processes
-        the input through the specified Aiexec flow.
+        the input through the specified Primeagent flow.
 
         Args:
             request: OpenAI Responses API request with model (flow_id) and input
@@ -3837,7 +3837,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aiexec__api__schemas__UploadFileResponse'
+                $ref: >-
+                  #/components/schemas/primeagent__api__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -3903,7 +3904,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aiexec__api__schemas__UploadFileResponse'
+                $ref: >-
+                  #/components/schemas/primeagent__api__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -4074,7 +4076,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/aiexec__api__schemas__UploadFileResponse'
+                $ref: >-
+                  #/components/schemas/primeagent__api__schemas__UploadFileResponse
         '422':
           description: Validation Error
           content:
@@ -6578,7 +6581,7 @@ components:
           title: Edit
           default: false
         properties:
-          $ref: '#/components/schemas/aiexec__schema__properties__Properties'
+          $ref: '#/components/schemas/primeagent__schema__properties__Properties'
         category:
           type: string
           title: Category
@@ -6654,7 +6657,7 @@ components:
           title: Duration
         properties:
           anyOf:
-            - $ref: '#/components/schemas/aiexec__schema__properties__Properties'
+            - $ref: '#/components/schemas/primeagent__schema__properties__Properties'
             - type: 'null'
         category:
           anyOf:
@@ -6724,7 +6727,7 @@ components:
           title: Duration
         properties:
           anyOf:
-            - $ref: '#/components/schemas/aiexec__schema__properties__Properties'
+            - $ref: '#/components/schemas/primeagent__schema__properties__Properties'
             - type: 'null'
         category:
           anyOf:
@@ -6787,7 +6790,7 @@ components:
           title: Error
         properties:
           anyOf:
-            - $ref: '#/components/schemas/aiexec__schema__properties__Properties'
+            - $ref: '#/components/schemas/primeagent__schema__properties__Properties'
             - type: 'null'
       type: object
       title: MessageUpdate
@@ -7094,7 +7097,7 @@ components:
       properties:
         properties:
           anyOf:
-            - $ref: '#/components/schemas/aiexec__schema__properties__Properties'
+            - $ref: '#/components/schemas/primeagent__schema__properties__Properties'
             - type: 'null'
         sender_name:
           anyOf:
@@ -7147,7 +7150,7 @@ components:
       properties:
         properties:
           anyOf:
-            - $ref: '#/components/schemas/aiexec__schema__properties__Properties'
+            - $ref: '#/components/schemas/primeagent__schema__properties__Properties'
             - type: 'null'
         sender_name:
           anyOf:
@@ -8248,7 +8251,7 @@ components:
         - 'y'
         - zoom
       title: ViewPort
-    aiexec__api__schemas__UploadFileResponse:
+    primeagent__api__schemas__UploadFileResponse:
       properties:
         id:
           type: string
@@ -8277,7 +8280,7 @@ components:
         - size
       title: UploadFileResponse
       description: File upload response schema.
-    aiexec__api__v1__schemas__UploadFileResponse:
+    primeagent__api__v1__schemas__UploadFileResponse:
       properties:
         flowId:
           type: string
@@ -8292,7 +8295,7 @@ components:
         - file_path
       title: UploadFileResponse
       description: Upload file response schema.
-    aiexec__schema__content_block__ContentBlock-Input:
+    primeagent__schema__content_block__ContentBlock-Input:
       properties:
         title:
           type: string
@@ -8301,10 +8304,10 @@ components:
           items:
             oneOf:
               - $ref: >-
-                  #/components/schemas/aiexec__schema__content_types__ToolContent
+                  #/components/schemas/primeagent__schema__content_types__ToolContent
               - $ref: '#/components/schemas/wfx__schema__content_types__ErrorContent'
               - $ref: >-
-                  #/components/schemas/aiexec__schema__content_types__TextContent
+                  #/components/schemas/primeagent__schema__content_types__TextContent
               - $ref: '#/components/schemas/wfx__schema__content_types__MediaContent'
               - $ref: '#/components/schemas/wfx__schema__content_types__CodeContent'
               - $ref: '#/components/schemas/wfx__schema__content_types__JSONContent'
@@ -8327,7 +8330,7 @@ components:
         - contents
       title: ContentBlock
       description: A block of content that can contain different types of content.
-    aiexec__schema__content_types__TextContent:
+    primeagent__schema__content_types__TextContent:
       properties:
         type:
           type: string
@@ -8351,7 +8354,7 @@ components:
         - text
       title: TextContent
       description: Content type for simple text content.
-    aiexec__schema__content_types__ToolContent:
+    primeagent__schema__content_types__ToolContent:
       properties:
         type:
           type: string
@@ -8388,7 +8391,7 @@ components:
       type: object
       title: ToolContent
       description: Content type for tool start content.
-    aiexec__schema__properties__Properties:
+    primeagent__schema__properties__Properties:
       properties:
         text_color:
           anyOf:
@@ -8405,7 +8408,7 @@ components:
           title: Edited
           default: false
         source:
-          $ref: '#/components/schemas/aiexec__schema__properties__Source'
+          $ref: '#/components/schemas/primeagent__schema__properties__Source'
         icon:
           anyOf:
             - type: string
@@ -8434,7 +8437,7 @@ components:
           default: []
       type: object
       title: Properties
-    aiexec__schema__properties__Source:
+    primeagent__schema__properties__Source:
       properties:
         id:
           anyOf:
@@ -8467,10 +8470,10 @@ components:
           items:
             oneOf:
               - $ref: >-
-                  #/components/schemas/aiexec__schema__content_types__ToolContent
+                  #/components/schemas/primeagent__schema__content_types__ToolContent
               - $ref: '#/components/schemas/wfx__schema__content_types__ErrorContent'
               - $ref: >-
-                  #/components/schemas/aiexec__schema__content_types__TextContent
+                  #/components/schemas/primeagent__schema__content_types__TextContent
               - $ref: '#/components/schemas/wfx__schema__content_types__MediaContent'
               - $ref: '#/components/schemas/wfx__schema__content_types__CodeContent'
               - $ref: '#/components/schemas/wfx__schema__content_types__JSONContent'
