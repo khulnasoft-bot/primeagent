@@ -31,7 +31,7 @@ def get_file_paths(files: list[str | dict]):
         # Extract paths from dicts if present
 
         extracted_files = []
-        cache_dir = Path(user_cache_dir("aiexec"))
+        cache_dir = Path(user_cache_dir("primeagent"))
 
         for file in files:
             if not file:  # Skip empty/None files

@@ -1,0 +1,115 @@
+{{- if .Values.primeagent.frontend.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "primeagent.fullname" . }}-frontend
+  labels:
+    app: {{ template "primeagent.name" . }}
+    chart: {{ template "primeagent.chart" . }}
+    release: {{ .Release.Name }}
+    primeagent-scope: "frontend"
+spec:
+  replicas: {{ .Values.primeagent.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "primeagent.name" . }}
+      chart: {{ template "primeagent.chart" . }}
+      release: {{ .Release.Name }}
+      primeagent-scope: "frontend"
+  template:
+    metadata:
+      {{- with .Values.primeagent.frontend.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        app: {{ template "primeagent.name" . }}
+        chart: {{ template "primeagent.chart" . }}
+        release: {{ .Release.Name }}
+        primeagent-scope: "frontend"
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "primeagent.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        {{- if .Values.secretProvider.enabled }}
+        - name: secrets-store-inline
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: "{{- .Values.secretProvider.name }}"
+        {{- end }}
+        {{- with .Values.primeagent.frontend.volumes }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        - name: nginx
+          emptyDir: {}
+        - name: nginx-cache
+          emptyDir: {}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.primeagent.frontend.image.repository }}:{{ .Values.primeagent.frontend.image.tag | default .Values.primeagent.global.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.primeagent.frontend.image.imagePullPolicy | default .Values.primeagent.global.image.imagePullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.primeagent.frontend.service.port }}
+              protocol: TCP
+          volumeMounts:
+            {{- if .Values.secretProvider.enabled }}
+            - name: secrets-store-inline
+              mountPath: "/mnt/secrets"
+              readOnly: true
+            {{- end }}
+            {{- with .Values.primeagent.frontend.volumeMounts }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+
+            - name: nginx
+              mountPath: "/tmp/nginx"
+              readOnly: false
+            - name: nginx-cache
+              mountPath: "/var/cache/nginx"
+              readOnly: false
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: http
+            initialDelaySeconds: {{ .Values.primeagent.frontend.probe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.primeagent.frontend.probe.periodSeconds }}
+            timeoutSeconds: {{ .Values.primeagent.frontend.probe.timeoutSeconds }}
+            failureThreshold: {{ .Values.primeagent.frontend.probe.failureThreshold }}   
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: http
+            initialDelaySeconds: {{ .Values.primeagent.frontend.probe.initialDelaySeconds }}
+            periodSeconds: {{ .Values.primeagent.frontend.probe.periodSeconds }}
+            timeoutSeconds: {{ .Values.primeagent.frontend.probe.timeoutSeconds }}
+            failureThreshold: {{ .Values.primeagent.frontend.probe.failureThreshold }}   
+          env:
+            - name: BACKEND_URL
+              value: "http://{{ template "primeagent.fullname" . }}-backend.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.primeagent.backend.service.port }}"
+            - name: FRONTEND_PORT
+              value: "{{ .Values.primeagent.frontend.service.port }}"
+          resources:
+            {{- toYaml .Values.primeagent.frontend.resources | nindent 12 }}
+      {{- with .Values.primeagent.frontend.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.primeagent.frontend.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.primeagent.frontend.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+{{- end }}

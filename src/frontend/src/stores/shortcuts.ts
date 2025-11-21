@@ -41,8 +41,8 @@ export const useShortcutsStore = create<shortcutsStoreType>((set, get) => ({
     });
   },
   getShortcutsFromStorage: () => {
-    if (localStorage.getItem("aiexec-shortcuts")) {
-      const savedShortcuts = localStorage.getItem("aiexec-shortcuts");
+    if (localStorage.getItem("primeagent-shortcuts")) {
+      const savedShortcuts = localStorage.getItem("primeagent-shortcuts");
       const savedArr = JSON.parse(savedShortcuts!);
       savedArr.forEach(({ name, shortcut }) => {
         const shortcutName = toCamelCase(name);

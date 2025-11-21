@@ -1,17 +1,17 @@
 """Helpers module for the wfx package.
 
-This module automatically chooses between the full aiexec implementation
+This module automatically chooses between the full primeagent implementation
 (when available) and the wfx implementation (when standalone).
 """
 
-from wfx.utils.aiexec_utils import has_aiexec_memory
+from wfx.utils.primeagent_utils import has_primeagent_memory
 
 # Import the appropriate implementation
-if has_aiexec_memory():
+if has_primeagent_memory():
     try:
-        # Import full aiexec implementation
+        # Import full primeagent implementation
         # Base Model
-        from aiexec.helpers.base_model import (
+        from primeagent.helpers.base_model import (
             BaseModel,
             SchemaField,
             build_model_from_schema,
@@ -19,12 +19,12 @@ if has_aiexec_memory():
         )
 
         # Custom
-        from aiexec.helpers.custom import (
+        from primeagent.helpers.custom import (
             format_type,
         )
 
         # Data
-        from aiexec.helpers.data import (
+        from primeagent.helpers.data import (
             clean_string,
             data_to_text,
             data_to_text_list,
@@ -33,7 +33,7 @@ if has_aiexec_memory():
         )
 
         # Flow
-        from aiexec.helpers.flow import (
+        from primeagent.helpers.flow import (
             build_schema_from_inputs,
             get_arg_names,
             get_flow_inputs,
@@ -42,7 +42,7 @@ if has_aiexec_memory():
             run_flow,
         )
     except ImportError:
-        # Fallback to wfx implementation if aiexec import fails
+        # Fallback to wfx implementation if primeagent import fails
         # Base Model
         from wfx.helpers.base_model import (
             BaseModel,

@@ -1,10 +1,10 @@
-export const custom = `from aiexec.custom import CustomComponent
+export const custom = `from primeagent.custom import CustomComponent
 
-from aiexec.field_typing import BaseLanguageModel
+from primeagent.field_typing import BaseLanguageModel
 from langchain.chains import LLMChain
 from langchain.prompts import PromptTemplate
 from langchain_core.documents import Document
-from aiexec.field_typing import NestedDict
+from primeagent.field_typing import NestedDict
 
 import requests
 

@@ -1,6 +1,6 @@
-# wfx - Aiexec Executor
+# wfx - Primeagent Executor
 
-wfx is a command-line tool for running Aiexec workflows. It provides two main commands: `serve` and `run`.
+wfx is a command-line tool for running Primeagent workflows. It provides two main commands: `serve` and `run`.
 
 ## Installation
 
@@ -19,8 +19,8 @@ uvx wfx run my_flow.json "input"
 
 ```bash
 # Clone and run in workspace
-git clone https://github.com/khulnasoft/aiexec
-cd aiexec/src/wfx
+git clone https://github.com/khulnasoft/primeagent
+cd primeagent/src/wfx
 uv run wfx serve my_flow.json
 ```
 
@@ -61,12 +61,12 @@ chat_output = cp.ChatOutput()
 
 ### `wfx serve` - Run flows as an API
 
-Serve a Aiexec workflow as a REST API.
+Serve a Primeagent workflow as a REST API.
 
-**Important:** You must set the `AIEXEC_API_KEY` environment variable before running the serve command.
+**Important:** You must set the `PRIMEAGENT_API_KEY` environment variable before running the serve command.
 
 ```bash
-export AIEXEC_API_KEY=your-secret-key
+export PRIMEAGENT_API_KEY=your-secret-key
 uv run wfx serve my_flow.json --port 8000
 ```
 
@@ -85,7 +85,7 @@ This creates a FastAPI server with your flow available at `/flows/{flow_id}/run`
 
 ```bash
 # Set API key (required)
-export AIEXEC_API_KEY=your-secret-key
+export PRIMEAGENT_API_KEY=your-secret-key
 
 # Start server
 uv run wfx serve simple_chat.json --host 0.0.0.0 --port 8000
@@ -102,7 +102,7 @@ curl -X POST http://localhost:8000/flows/af9edd65-6393-58e2-9ae5-d5f012e714f4/ru
 
 ### `wfx run` - Run flows directly
 
-Execute a Aiexec workflow and get results immediately.
+Execute a Primeagent workflow and get results immediately.
 
 ```bash
 uv run wfx run my_flow.json "What is AI?"
@@ -148,14 +148,14 @@ Here's a step-by-step example of creating and running an agent workflow with dep
 Create a file called `simple_agent.py`:
 
 ```python
-"""A simple agent flow example for Aiexec.
+"""A simple agent flow example for Primeagent.
 
-This script demonstrates how to set up a conversational agent using Aiexec's
+This script demonstrates how to set up a conversational agent using Primeagent's
 Agent component with web search capabilities.
 
 Features:
 - Uses the new flattened component access (cp.AgentComponent instead of deep imports)
-- Configures logging to 'aiexec.log' at INFO level
+- Configures logging to 'primeagent.log' at INFO level
 - Creates an agent with OpenAI GPT model
 - Provides web search tools via URLComponent
 - Connects ChatInput → Agent → ChatOutput
@@ -174,7 +174,7 @@ from wfx.log.logger import LogConfig
 
 log_config = LogConfig(
     log_level="INFO",
-    log_file=Path("aiexec.log"),
+    log_file=Path("primeagent.log"),
 )
 
 # Showcase the new flattened component access - no need for deep imports!

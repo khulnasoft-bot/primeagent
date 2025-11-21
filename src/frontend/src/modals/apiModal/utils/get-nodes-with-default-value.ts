@@ -1,6 +1,6 @@
 import { cloneDeep } from "lodash";
 import type { AllNodeType } from "@/types/flow";
-import { AIEXEC_SUPPORTED_TYPES } from "../../../constants/constants";
+import { PRIMEAGENT_SUPPORTED_TYPES } from "../../../constants/constants";
 
 export const getNodesWithDefaultValue = (
   nodes: AllNodeType[],
@@ -18,7 +18,7 @@ export const getNodesWithDefaultValue = (
         (templateField) =>
           templateField.charAt(0) !== "_" &&
           node!.data!.node!.template[templateField]?.show &&
-          AIEXEC_SUPPORTED_TYPES.has(
+          PRIMEAGENT_SUPPORTED_TYPES.has(
             node!.data!.node!.template[templateField].type,
           ) &&
           templateField !== "code",

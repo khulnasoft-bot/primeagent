@@ -19,8 +19,10 @@ class MCPSse(Component):
     tools = types.ListToolsResult
     tool_names = [str]
     display_name = "MCP Tools (SSE) [DEPRECATED]"
-    description = "Connects to an MCP server over SSE and exposes it's tools as aiexec tools to be used by an Agent."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-custom-components"
+    description = (
+        "Connects to an MCP server over SSE and exposes it's tools as primeagent tools to be used by an Agent."
+    )
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-custom-components"
     icon = "code"
     name = "MCPSse"
     legacy = True

@@ -47,7 +47,7 @@ except ModuleNotFoundError:
 MAX_PORT_NUMBER = 65535
 
 # Fixed namespace constant for deterministic UUID5 generation across runs
-_AIEXEC_NAMESPACE_UUID = uuid.UUID("3c091057-e799-4e32-8ebc-27bc31e1108c")
+_PRIMEAGENT_NAMESPACE_UUID = uuid.UUID("3c091057-e799-4e32-8ebc-27bc31e1108c")
 
 # Environment variable for GitHub token
 _GITHUB_TOKEN_ENV = "GITHUB_TOKEN"
@@ -107,9 +107,9 @@ def get_best_access_host(host: str) -> str:
 
 def get_api_key() -> str:
     """Get the API key from environment variable."""
-    api_key = os.getenv("AIEXEC_API_KEY")
+    api_key = os.getenv("PRIMEAGENT_API_KEY")
     if not api_key:
-        msg = "AIEXEC_API_KEY environment variable is not set"
+        msg = "PRIMEAGENT_API_KEY environment variable is not set"
         raise ValueError(msg)
     return api_key
 
@@ -224,7 +224,7 @@ def validate_script_path(script_path: Path | str, verbose_print) -> tuple[str, P
     return file_extension, script_path
 
 
-def load_graph_from_path(script_path: Path, file_extension: str, verbose_print, *, verbose: bool = False):
+async def load_graph_from_path(script_path: Path, file_extension: str, verbose_print, *, verbose: bool = False):
     """Load a graph from a Python script or JSON file.
 
     Args:
@@ -259,7 +259,7 @@ def load_graph_from_path(script_path: Path, file_extension: str, verbose_print, 
                 raise ValueError(error_msg)
 
             verbose_print("Loading graph...")
-            graph = load_graph_from_script(script_path)
+            graph = await load_graph_from_script(script_path)
         else:  # .json
             verbose_print("Loading JSON flow...")
             graph = load_flow_from_json(script_path, disable_logs=not verbose)
@@ -517,7 +517,7 @@ def flow_id_from_path(file_path: Path, root_dir: Path) -> str:
         Canonical UUID string (36 chars, including hyphens).
     """
     relative = file_path.relative_to(root_dir).as_posix()
-    return str(uuid.uuid5(_AIEXEC_NAMESPACE_UUID, relative))
+    return str(uuid.uuid5(_PRIMEAGENT_NAMESPACE_UUID, relative))
 
 
 # ---------------------------------------------------------------------------

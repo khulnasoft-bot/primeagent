@@ -12,10 +12,10 @@ from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 import pandas as pd
-from aiexec.services.auth.utils import decrypt_api_key, encrypt_api_key
-from aiexec.services.database.models.user.crud import get_user_by_id
 from cryptography.fernet import InvalidToken
 from langchain_chroma import Chroma
+from primeagent.services.auth.utils import decrypt_api_key, encrypt_api_key
+from primeagent.services.database.models.user.crud import get_user_by_id
 
 from wfx.base.knowledge_bases.knowledge_base_utils import get_knowledge_bases
 from wfx.base.models.openai_constants import OPENAI_EMBEDDING_MODEL_NAMES
@@ -57,11 +57,11 @@ KNOWLEDGE_BASES_ROOT_PATH = Path(knowledge_directory).expanduser()
 
 
 class KnowledgeIngestionComponent(Component):
-    """Create or append to Aiexec Knowledge from a DataFrame."""
+    """Create or append to Primeagent Knowledge from a DataFrame."""
 
     # ------ UI metadata ---------------------------------------------------
     display_name = "Knowledge Ingestion"
-    description = "Create or update knowledge in Aiexec."
+    description = "Create or update knowledge in Primeagent."
     icon = "upload"
     name = "KnowledgeIngestion"
 
@@ -77,7 +77,7 @@ class KnowledgeIngestionComponent(Component):
                 "data": {
                     "node": {
                         "name": "create_knowledge_base",
-                        "description": "Create new knowledge in Aiexec.",
+                        "description": "Create new knowledge in Primeagent.",
                         "display_name": "Create new knowledge",
                         "field_order": [
                             "01_new_kb_name",

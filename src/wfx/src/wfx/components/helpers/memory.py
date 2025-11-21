@@ -15,8 +15,8 @@ from wfx.utils.constants import MESSAGE_SENDER_AI, MESSAGE_SENDER_NAME_AI, MESSA
 
 class MemoryComponent(Component):
     display_name = "Message History"
-    description = "Stores or retrieves stored chat messages from Aiexec tables or an external memory."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-helpers#message-history"
+    description = "Stores or retrieves stored chat messages from Primeagent tables or an external memory."
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-helpers#message-history"
     icon = "message-square-more"
     name = "Memory"
     default_keys = ["mode", "memory", "session_id", "context_id"]
@@ -46,7 +46,7 @@ class MemoryComponent(Component):
             name="memory",
             display_name="External Memory",
             input_types=["Memory"],
-            info="Retrieve messages from an external memory. If empty, it will use the Aiexec tables.",
+            info="Retrieve messages from an external memory. If empty, it will use the Primeagent tables.",
             advanced=True,
         ),
         DropdownInput(

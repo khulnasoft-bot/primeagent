@@ -1,10 +1,10 @@
 import tempfile
 import uuid
 
-from aiexec.services.database.models import Flow
 from anyio import Path
 from fastapi import status
 from httpx import AsyncClient
+from primeagent.services.database.models import Flow
 
 
 async def test_create_flow(client: AsyncClient, logged_in_headers):
@@ -194,9 +194,9 @@ async def test_read_flows_user_isolation(client: AsyncClient, logged_in_headers,
     """Test that read_flows returns only flows from the current user."""
     from uuid import uuid4
 
-    from aiexec.services.auth.utils import get_password_hash
-    from aiexec.services.database.models.user.model import User
-    from aiexec.services.deps import session_scope
+    from primeagent.services.auth.utils import get_password_hash
+    from primeagent.services.database.models.user.model import User
+    from primeagent.services.deps import session_scope
 
     # Create a second user
     other_user_id = uuid4()

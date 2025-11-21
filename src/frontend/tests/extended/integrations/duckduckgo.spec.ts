@@ -31,7 +31,7 @@ test(
 
     await page
       .getByTestId("popover-anchor-input-input_value")
-      .fill("what is aiexec?");
+      .fill("what is primeagent?");
 
     await page.getByTestId("button_run_duckduckgo search").click();
 
@@ -55,7 +55,7 @@ test(
         await page.getByRole("gridcell").first().click();
         const searchResults = await page.getByPlaceholder("Empty").inputValue();
         expect(searchResults.length).toBeGreaterThan(10);
-        expect(searchResults.toLowerCase()).toContain("aiexec");
+        expect(searchResults.toLowerCase()).toContain("primeagent");
       } else {
         const value = await page.getByPlaceholder("Empty").inputValue();
         expect(value.length).toBeGreaterThan(10);

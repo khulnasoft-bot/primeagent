@@ -48,7 +48,7 @@ class AuthSettings(BaseSettings):
         default=True,
         description="Allow creation of superusers via CLI. Set to False in production for security.",
     )
-    """If True, allows creation of superusers via the CLI 'aiexec superuser' command."""
+    """If True, allows creation of superusers via the CLI 'primeagent superuser' command."""
 
     NEW_USER_IS_ACTIVE: bool = False
     SUPERUSER: str = DEFAULT_SUPERUSER
@@ -73,7 +73,7 @@ class AuthSettings(BaseSettings):
 
     pwd_context: CryptContext = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-    model_config = SettingsConfigDict(validate_assignment=True, extra="ignore", env_prefix="AIEXEC_")
+    model_config = SettingsConfigDict(validate_assignment=True, extra="ignore", env_prefix="PRIMEAGENT_")
 
     def reset_credentials(self) -> None:
         # Preserve the configured username but scrub the password from memory to avoid plaintext exposure.

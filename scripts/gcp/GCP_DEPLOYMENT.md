@@ -1,22 +1,22 @@
-# Run Aiexec from a New Google Cloud Project
+# Run Primeagent from a New Google Cloud Project
 
-This guide will help you set up a Aiexec development VM in a Google Cloud Platform project using Google Cloud Shell.
+This guide will help you set up a Primeagent development VM in a Google Cloud Platform project using Google Cloud Shell.
 
 > **Note**: When Cloud Shell opens, be sure to select **Trust repo**. Some `gcloud` commands might not run in an ephemeral Cloud Shell environment.
 
 ## Standard VM
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/khulnasoft/aiexec&working_dir=scripts/gcp&shellonly=true&tutorial=walkthroughtutorial.md)
+[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/khulnasoft/primeagent&working_dir=scripts/gcp&shellonly=true&tutorial=walkthroughtutorial.md)
 
-This script sets up a Debian-based VM with the Aiexec package, Nginx, and the necessary configurations to run the Aiexec Dev environment.
+This script sets up a Debian-based VM with the Primeagent package, Nginx, and the necessary configurations to run the Primeagent Dev environment.
 
 <hr>
 
 ## Spot/Preemptible Instance
 
-[![Open in Cloud Shell - Spot Instance](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/khulnasoft/aiexec&working_dir=scripts/gcp&shellonly=true&tutorial=walkthroughtutorial_spot.md)
+[![Open in Cloud Shell - Spot Instance](https://gstatic.com/cloudssh/images/open-btn.svg)](https://console.cloud.google.com/cloudshell/open?git_repo=https://github.com/khulnasoft/primeagent&working_dir=scripts/gcp&shellonly=true&tutorial=walkthroughtutorial_spot.md)
 
-When running as a [spot (preemptible) instance](https://cloud.google.com/compute/docs/instances/preemptible), the code and VM will behave the same way as in a regular instance, executing the startup script to configure the environment, install necessary dependencies, and run the Aiexec application. However, **due to the nature of spot instances, the VM may be terminated at any time if Google Cloud needs to reclaim the resources**. This makes spot instances suitable for fault-tolerant, stateless, or interruptible workloads that can handle unexpected terminations and restarts.
+When running as a [spot (preemptible) instance](https://cloud.google.com/compute/docs/instances/preemptible), the code and VM will behave the same way as in a regular instance, executing the startup script to configure the environment, install necessary dependencies, and run the Primeagent application. However, **due to the nature of spot instances, the VM may be terminated at any time if Google Cloud needs to reclaim the resources**. This makes spot instances suitable for fault-tolerant, stateless, or interruptible workloads that can handle unexpected terminations and restarts.
 
 ## Pricing (approximate)
 

@@ -1,5 +1,5 @@
 @echo off
-echo Starting Aiexec build and run process...
+echo Starting Primeagent build and run process...
 
 REM Check if .env file exists and set env file flag
 set "USE_ENV_FILE="
@@ -11,7 +11,7 @@ if exist "%ENV_PATH%" (
     set "USE_ENV_FILE=1"
 ) else (
     echo .env file not found at: %ENV_PATH%
-    echo Aiexec will use default configuration
+    echo Primeagent will use default configuration
 )
 
 echo.
@@ -57,21 +57,21 @@ if not exist "src\frontend\build" (
     set BUILD_DIR=src\frontend\build
 )
 
-echo Copying from %BUILD_DIR% to src\backend\base\aiexec\frontend\
+echo Copying from %BUILD_DIR% to src\backend\base\primeagent\frontend\
 REM Create target directory if it doesn't exist
-if not exist "src\backend\base\aiexec\frontend" (
-    mkdir "src\backend\base\aiexec\frontend"
+if not exist "src\backend\base\primeagent\frontend" (
+    mkdir "src\backend\base\primeagent\frontend"
 )
 
 REM Remove existing files in target directory (FORCES CLEAN REPLACEMENT)
 echo Removing existing files from target directory...
-if exist "src\backend\base\aiexec\frontend\*" (
-    del /q /s "src\backend\base\aiexec\frontend\*"
-    for /d %%d in ("src\backend\base\aiexec\frontend\*") do rmdir /s /q "%%d"
+if exist "src\backend\base\primeagent\frontend\*" (
+    del /q /s "src\backend\base\primeagent\frontend\*"
+    for /d %%d in ("src\backend\base\primeagent\frontend\*") do rmdir /s /q "%%d"
 )
 
 REM Copy all files from build directory
-xcopy "%BUILD_DIR%\*" "src\backend\base\aiexec\frontend\" /e /i /y
+xcopy "%BUILD_DIR%\*" "src\backend\base\primeagent\frontend\" /e /i /y
 if errorlevel 1 (
     echo Error: Failed to copy build files
     pause
@@ -81,7 +81,7 @@ if errorlevel 1 (
 echo Build files copied successfully!
 
 echo.
-echo Step 4: Running Aiexec...
+echo Step 4: Running Primeagent...
 echo.
 echo Attention: Wait until uvicorn is running before opening the browser
 echo.
@@ -89,16 +89,16 @@ REM Change to project root directory for uv
 cd "%PROJECT_ROOT%"
 if defined USE_ENV_FILE (
     echo Using env file: .env
-    uv run --env-file ".env" aiexec run
+    uv run --env-file ".env" primeagent run
 ) else (
-    uv run aiexec run
+    uv run primeagent run
 )
 if errorlevel 1 (
-    echo Error: Failed to run aiexec
+    echo Error: Failed to run primeagent
     pause
     exit /b 1
 )
 
 echo.
-echo Aiexec build and run process completed!
+echo Primeagent build and run process completed!
 pause

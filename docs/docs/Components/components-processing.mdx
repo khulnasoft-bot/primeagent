@@ -117,9 +117,9 @@ Click <Icon name="Plus" aria-hidden="true" /> **Add more** to add a field for ea
 For more information about the webhook endpoint, see [Trigger flows with webhooks](/webhook).
 
     ```bash
-    curl -X POST "http://$AIEXEC_SERVER_URL/api/v1/webhook/$FLOW_ID" \
+    curl -X POST "http://$PRIMEAGENT_SERVER_URL/api/v1/webhook/$FLOW_ID" \
     -H "Content-Type: application/json" \
-    -H "x-api-key: $AIEXEC_API_KEY" \
+    -H "x-api-key: $PRIMEAGENT_API_KEY" \
     -d '{
       "id": 1,
       "name": "Leanne Graham",
@@ -410,7 +410,7 @@ For example:
     ```text
     Model Selection Decision:
     - Selected Model Index: 0
-    - Selected Aiexec Model Name: gpt-4o-mini
+    - Selected Primeagent Model Name: gpt-4o-mini
     - Selected API Model ID (if resolved): openai/gpt-4o-mini
     - Optimization Preference: cost
     - Input Query Length: 27 characters (~5 tokens)
@@ -448,7 +448,7 @@ In **Parser** mode, you create a template for text output that can include liter
 Use curly braces to define variables anywhere in the template.
 Variables must match keys in the `DataFrame` or `Data` input, such as column names.
 For example, `{name}` extracts the value of a `name` key.
-For more information about the content and structure of `DataFrame` and `Data` objects, see [Aiexec data types](/data-types).
+For more information about the content and structure of `DataFrame` and `Data` objects, see [Primeagent data types](/data-types).
 
 <PartialCurlyBraces />
 
@@ -557,7 +557,7 @@ There are several ways you can address these inconsistencies:
 
 This component allows you to execute Python code with imported packages.
 
-The **Python Interpreter** component can only import packages that are already installed in your Aiexec environment.
+The **Python Interpreter** component can only import packages that are already installed in your Primeagent environment.
 If you encounter an `ImportError` when trying to use a package, you need to install it first.
 
 To install custom packages, see [Install custom dependencies](/install-custom-dependencies).
@@ -636,7 +636,7 @@ If you don't include the package imports in the chat, the agent can still create
 ## Save File
 
 The **Save File** component creates a file containing data produced by another component.
-Several file formats are supported, and you can store files in [Aiexec storage](/memory) or the local file system.
+Several file formats are supported, and you can store files in [Primeagent storage](/memory) or the local file system.
 
 To configure the **Save File** component and use it in a flow, do the following:
 
@@ -649,10 +649,10 @@ To configure the **Save File** component and use it in a flow, do the following:
     The **File Name** parameter controls where the file is saved.
     It can contain a file name or an entire file path:
 
-    * **Default location**: If you only provide a file name, then the file is stored in the Aiexec data directory. For example,`~/Library/Caches/aiexec/data` on macOS.
+    * **Default location**: If you only provide a file name, then the file is stored in the Primeagent data directory. For example,`~/Library/Caches/primeagent/data` on macOS.
 
     * **Subdirectory**: To store files in subdirectories, add the path to the **File Name** parameter.
-    If a given subdirectory doesn't already exist, Aiexec automatically creates it.
+    If a given subdirectory doesn't already exist, Primeagent automatically creates it.
     For example, `files/my_file` creates `my_file` in `/data/files`, and it creates the `files` subdirectory if it doesn't already exist.
 
     * **Absolute or relative path**: To store files elsewhere in your environment or local file storage, provide the absolute or relative path to the desired location.
@@ -673,7 +673,7 @@ To configure the **Save File** component and use it in a flow, do the following:
 
     :::warning Overwrites allowed
     If you have multiple **Save File** components, in one or more flows, with the same file name, path, and extension, the file contains the data from the most recent run only.
-    Aiexec doesn't block overwrites if a matching file already exists.
+    Primeagent doesn't block overwrites if a matching file already exists.
     To avoid unintended overwrites, use unique file names and paths.
     :::
 
@@ -683,7 +683,7 @@ To configure the **Save File** component and use it in a flow, do the following:
     For example:
 
     ```text
-    DataFrame saved successfully as 'my_file.csv' at /Users/user.name/Library/Caches/aiexec/data/my_file.csv
+    DataFrame saved successfully as 'my_file.csv' at /Users/user.name/Library/Caches/primeagent/data/my_file.csv
     ```
 
     If the **File Name** contains a subdirectory or other non-default path, this is reflected in the `Message` output.
@@ -698,7 +698,7 @@ To configure the **Save File** component and use it in a flow, do the following:
 
 ## Smart Function {#smart-transform}
 
-In Aiexec version 1.5, this component was renamed from **Lambda Filter** to **Smart Function**.
+In Primeagent version 1.5, this component was renamed from **Lambda Filter** to **Smart Function**.
 
 The **Smart Function** component uses an LLM to generate a Lambda function to filter or transform structured data based on natural language instructions.
 You must connect this component to a [language model component](/components-models), which is used to generate a function based on the natural language instructions you provide in the **Instructions** parameter.
@@ -878,7 +878,7 @@ Supported types are `str` (default), `int`, `float`, `bool`, and `dict`.
 * **As List**: Enable this setting if you want the field to contain a list of values rather than a single value.
 
 For simple schemas, you might only extract a few `string` or `int` fields.
-For more complex schemas with lists and dictionaries, it might help to refer to the `Data` and `DataFrame` structures and attributes, as described in [Aiexec data types](/data-types).
+For more complex schemas with lists and dictionaries, it might help to refer to the `Data` and `DataFrame` structures and attributes, as described in [Primeagent data types](/data-types).
 You can also emit a rough `Data` or `DataFrame`, and then use downstream components for further refinement, such as a **Data Operations** component.
 
 ## Type Convert
@@ -949,7 +949,7 @@ However, the entire `Message` object can include metadata about the message, par
 </TabItem>
 </Tabs>
 
-For more information, see [Aiexec data types](/data-types).
+For more information, see [Primeagent data types](/data-types).
 
 ### Use the Type Convert component in a flow
 

@@ -36,13 +36,13 @@ export class Web extends Construct {
   };
 
   // CDKにて 静的WebサイトをホストするためのAmazon S3バケットを作成
-  const websiteBucket = new s3.Bucket(this, 'AiexecWebsiteBucket', commonBucketProps);
+  const websiteBucket = new s3.Bucket(this, 'PrimeagentWebsiteBucket', commonBucketProps);
 
   const originAccessIdentity = new cloudfront.OriginAccessIdentity(
     this,
     'OriginAccessIdentity',
     {
-      comment: 'aiexec-distribution-originAccessIdentity',
+      comment: 'primeagent-distribution-originAccessIdentity',
     }
   );
 
@@ -75,7 +75,7 @@ export class Web extends Construct {
   }
 
   const cloudFrontWebDistribution = new cloudfront.Distribution(this, 'distribution', {
-    comment: 'aiexec-distribution',
+    comment: 'primeagent-distribution',
     defaultRootObject: 'index.html',
     errorResponses: [
       {

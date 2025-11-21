@@ -26,7 +26,7 @@ class ChromaVectorStoreComponent(LCVectorStoreComponent):
         StrInput(
             name="collection_name",
             display_name="Collection Name",
-            value="aiexec",
+            value="primeagent",
         ),
         StrInput(
             name="persist_directory",

@@ -3,4 +3,4 @@
 import os
 
 # Development mode flag - can be overridden by environment variable
-DEV = os.getenv("AIEXEC_DEV", "false").lower() == "true"
+DEV = os.getenv("PRIMEAGENT_DEV", "false").lower() == "true"

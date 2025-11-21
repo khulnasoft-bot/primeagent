@@ -1,4 +1,4 @@
-"""Dot-notation dictionary implementation copied from aiexec for wfx package."""
+"""Dot-notation dictionary implementation copied from primeagent for wfx package."""
 
 
 class dotdict(dict):  # noqa: N801

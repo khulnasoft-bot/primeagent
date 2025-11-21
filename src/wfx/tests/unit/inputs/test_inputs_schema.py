@@ -6,7 +6,7 @@ import pytest
 from pydantic import BaseModel, Field, ValidationError
 
 from wfx.inputs.inputs import BoolInput, DictInput, FloatInput, InputTypes, IntInput, MessageTextInput
-from wfx.io.schema import schema_to_aiexec_inputs
+from wfx.io.schema import schema_to_primeagent_inputs
 from wfx.schema.data import Data
 from wfx.template import Input, Output
 from wfx.template.field.base import UNDEFINED
@@ -179,7 +179,7 @@ class TestPostProcessType:
         assert set(post_process_type(Union[CustomType, int])) == {CustomType, int}  # noqa: UP007
 
 
-def test_schema_to_aiexec_inputs():
+def test_schema_to_primeagent_inputs():
     # Define a test Pydantic model with various field types
     class TestSchema(BaseModel):
         text_field: str = Field(title="Custom Text Title", description="A text field")
@@ -188,8 +188,8 @@ def test_schema_to_aiexec_inputs():
         dict_field: dict = Field(description="A dictionary field")
         list_field: list[str] = Field(description="A list of strings")
 
-    # Convert schema to Aiexec inputs
-    inputs = schema_to_aiexec_inputs(TestSchema)
+    # Convert schema to Primeagent inputs
+    inputs = schema_to_primeagent_inputs(TestSchema)
 
     # Verify the number of inputs matches the schema fields
     expected_len = 5
@@ -228,7 +228,7 @@ def test_schema_to_aiexec_inputs():
     assert isinstance(list_input, MessageTextInput)
 
 
-def test_schema_to_aiexec_inputs_invalid_type():
+def test_schema_to_primeagent_inputs_invalid_type():
     # Define a schema with an unsupported type
     class CustomType:
         pass
@@ -239,4 +239,4 @@ def test_schema_to_aiexec_inputs_invalid_type():
 
     # Test that attempting to convert an unsupported type raises TypeError
     with pytest.raises(TypeError, match="Unsupported field type:"):
-        schema_to_aiexec_inputs(InvalidSchema)
+        schema_to_primeagent_inputs(InvalidSchema)

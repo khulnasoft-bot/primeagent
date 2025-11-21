@@ -22,7 +22,7 @@ class MilvusVectorStoreComponent(LCVectorStoreComponent):
     icon = "Milvus"
 
     inputs = [
-        StrInput(name="collection_name", display_name="Collection Name", value="aiexec"),
+        StrInput(name="collection_name", display_name="Collection Name", value="primeagent"),
         StrInput(name="collection_description", display_name="Collection Description", value=""),
         StrInput(
             name="uri",

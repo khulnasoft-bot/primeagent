@@ -1,7 +1,7 @@
 from unittest.mock import Mock, patch
 
 import pytest
-from aiexec.schema.data import Data
+from primeagent.schema.data import Data
 from tests.base import ComponentTestBaseWithoutClient
 from wfx.components.vlmrun import VLMRunTranscription
 

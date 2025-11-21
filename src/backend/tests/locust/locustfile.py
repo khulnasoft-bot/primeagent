@@ -14,13 +14,13 @@ def _(environment, **_kwargs):
 
 
 class FlowRunUser(FastHttpUser):
-    """FlowRunUser simulates users sending requests to the Aiexec run endpoint.
+    """FlowRunUser simulates users sending requests to the Primeagent run endpoint.
 
     Designed for high-load testing with proper wait times and connection handling.
     Uses FastHttpUser for better performance with keep-alive connections and connection pooling.
 
     Environment Variables:
-      - AIEXEC_HOST: Base URL for the Aiexec server (default: http://localhost:7860)
+      - PRIMEAGENT_HOST: Base URL for the Primeagent server (default: http://localhost:7860)
       - FLOW_ID: UUID or endpoint name of the flow to test (default: 62c21279-f7ca-43e2-b5e3-326ac573db04)
       - API_KEY: API key for authentication, sent as header 'x-api-key' (Required)
       - MIN_WAIT: Minimum wait time between requests in ms (default: 2000)
@@ -40,7 +40,7 @@ class FlowRunUser(FastHttpUser):
     )
 
     # Use the host provided by environment variable or default
-    host = os.getenv("AIEXEC_HOST", "http://localhost:7860")
+    host = os.getenv("PRIMEAGENT_HOST", "http://localhost:7860")
 
     # Flow ID from environment variable or default example UUID
     flow_id = os.getenv("FLOW_ID")
@@ -89,7 +89,7 @@ class FlowRunUser(FastHttpUser):
         # Realistic payload that exercises the system
         payload = {
             "input_value": (
-                "Hey, Could you check https://aiexec-docs.khulnasoft.com for me? Later, could you calculate 1390 / 192 ?"
+                "Hey, Could you check https://primeagent-docs.khulnasoft.com for me? Later, could you calculate 1390 / 192 ?"
             ),
             "output_type": "chat",
             "input_type": "chat",

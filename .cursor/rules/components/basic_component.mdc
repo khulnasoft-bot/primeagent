@@ -1,16 +1,16 @@
 ---
-description: "Guide for creating a basic Aiexec component, including requirements gathering, component structure, and implementation best practices."
+description: "Guide for creating a basic Primeagent component, including requirements gathering, component structure, and implementation best practices."
 globs:
   - "src/backend/**/components/**/*.py"
-  - "src/backend/base/aiexec/components/**/*.py"
+  - "src/backend/base/primeagent/components/**/*.py"
 alwaysApply: false
 ---
 
 
-# Rule: How to Create a Basic Aiexec Component
+# Rule: How to Create a Basic Primeagent Component
 
 ## Purpose
-Guide for Creating a Aiexec Component
+Guide for Creating a Primeagent Component
 
 ---
 
@@ -21,7 +21,7 @@ Ask the user for:
 - **Description:** What does the component do?
 - **Inputs:** What are the required inputs? (e.g., text, dropdown, boolean, etc.)
 - **Outputs:** What should the component output? (e.g., a message, a value, etc.)
-- **Category:** Which component category should this component be stored under in `aiexec/src/backend/base/aiexec/components`
+- **Category:** Which component category should this component be stored under in `primeagent/src/backend/base/primeagent/components`
 
 ### 2. Define the Component
 

@@ -3,24 +3,12 @@ from .model_metadata import create_model_metadata
 # Unified model metadata - single source of truth
 GROQ_MODELS_DETAILED = [
     # Production Models - Stable and reliable for production use
-    create_model_metadata(  # Google
-        provider="Groq", name="gemma2-9b-it", icon="Groq", tool_calling=True
-    ),
-    create_model_metadata(  # Meta
-        provider="Groq", name="llama-3.3-70b-versatile", icon="Groq", tool_calling=True
-    ),
-    create_model_metadata(  # Meta
-        provider="Groq", name="llama-3.1-8b-instant", icon="Groq"
-    ),
-    create_model_metadata(  # Meta
-        provider="Groq", name="llama-guard-3-8b", icon="Groq"
-    ),
-    create_model_metadata(  # Meta
-        provider="Groq", name="llama3-70b-8192", icon="Groq"
-    ),
-    create_model_metadata(  # Meta
-        provider="Groq", name="llama3-8b-8192", icon="Groq"
-    ),
+    create_model_metadata(provider="Groq", name="gemma2-9b-it", icon="Groq", tool_calling=True),  # Google
+    create_model_metadata(provider="Groq", name="llama-3.3-70b-versatile", icon="Groq", tool_calling=True),  # Meta
+    create_model_metadata(provider="Groq", name="llama-3.1-8b-instant", icon="Groq"),  # Meta
+    create_model_metadata(provider="Groq", name="llama-guard-3-8b", icon="Groq"),  # Meta
+    create_model_metadata(provider="Groq", name="llama3-70b-8192", icon="Groq"),  # Meta
+    create_model_metadata(provider="Groq", name="llama3-8b-8192", icon="Groq"),  # Meta
     # Preview Models - For evaluation purposes only
     create_model_metadata(  # Meta
         provider="Groq", name="meta-llama/llama-4-scout-17b-16e-instruct", icon="Groq", tool_calling=True, preview=True
@@ -44,9 +32,7 @@ GROQ_MODELS_DETAILED = [
     create_model_metadata(  # DeepSeek
         provider="Groq", name="deepseek-r1-distill-qwen-32b", icon="Groq", tool_calling=True, preview=True
     ),
-    create_model_metadata(  # DeepSeek
-        provider="Groq", name="deepseek-r1-distill-llama-70b", icon="Groq", preview=True
-    ),
+    create_model_metadata(provider="Groq", name="deepseek-r1-distill-llama-70b", icon="Groq", preview=True),  # DeepSeek
     create_model_metadata(  # Meta
         provider="Groq", name="llama-3.3-70b-specdec", icon="Groq", tool_calling=True, preview=True
     ),
@@ -56,9 +42,7 @@ GROQ_MODELS_DETAILED = [
     create_model_metadata(  # Meta
         provider="Groq", name="llama-3.2-3b-preview", icon="Groq", tool_calling=True, preview=True
     ),
-    create_model_metadata(  # Meta
-        provider="Groq", name="llama-3.2-11b-vision-preview", icon="Groq", preview=True
-    ),
+    create_model_metadata(provider="Groq", name="llama-3.2-11b-vision-preview", icon="Groq", preview=True),  # Meta
     create_model_metadata(  # Meta
         provider="Groq", name="llama-3.2-90b-vision-preview", icon="Groq", tool_calling=True, preview=True
     ),
@@ -82,21 +66,11 @@ GROQ_MODELS_DETAILED = [
         provider="Groq", name="mixtral-8x7b-32768", icon="Groq", tool_calling=True, deprecated=True
     ),
     # Unsupported Models
-    create_model_metadata(  # Mistral
-        provider="Groq", name="mistral-saba-24b", icon="Groq", not_supported=True
-    ),
-    create_model_metadata(  # Playht, Inc
-        provider="Groq", name="playai-tts", icon="Groq", not_supported=True
-    ),
-    create_model_metadata(  # Playht, Inc
-        provider="Groq", name="playai-tts-arabic", icon="Groq", not_supported=True
-    ),
-    create_model_metadata(  # OpenAI
-        provider="Groq", name="whisper-large-v3", icon="Groq", not_supported=True
-    ),
-    create_model_metadata(  # OpenAI
-        provider="Groq", name="whisper-large-v3-turbo", icon="Groq", not_supported=True
-    ),
+    create_model_metadata(provider="Groq", name="mistral-saba-24b", icon="Groq", not_supported=True),  # Mistral
+    create_model_metadata(provider="Groq", name="playai-tts", icon="Groq", not_supported=True),  # Playht, Inc
+    create_model_metadata(provider="Groq", name="playai-tts-arabic", icon="Groq", not_supported=True),  # Playht, Inc
+    create_model_metadata(provider="Groq", name="whisper-large-v3", icon="Groq", not_supported=True),  # OpenAI
+    create_model_metadata(provider="Groq", name="whisper-large-v3-turbo", icon="Groq", not_supported=True),  # OpenAI
     create_model_metadata(  # Hugging Face
         provider="Groq", name="distil-whisper-large-v3-en", icon="Groq", not_supported=True
     ),

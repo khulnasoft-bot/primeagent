@@ -1,4 +1,4 @@
-"""Logging configuration for Aiexec using structlog."""
+"""Logging configuration for Primeagent using structlog."""
 
 import json
 import logging
@@ -39,7 +39,7 @@ class SizedLogBuffer:
     ):
         """Initialize the buffer.
 
-        The buffer can be overwritten by an env variable AIEXEC_LOG_RETRIEVER_BUFFER_SIZE
+        The buffer can be overwritten by an env variable PRIMEAGENT_LOG_RETRIEVER_BUFFER_SIZE
         because the logger is initialized before the settings_service are loaded.
         """
         self.buffer: deque = deque()
@@ -137,7 +137,7 @@ class SizedLogBuffer:
         """Get the maximum buffer size."""
         # Get it dynamically to allow for env variable changes
         if self._max == 0:
-            env_buffer_size = os.getenv("AIEXEC_LOG_RETRIEVER_BUFFER_SIZE", "0")
+            env_buffer_size = os.getenv("PRIMEAGENT_LOG_RETRIEVER_BUFFER_SIZE", "0")
             if env_buffer_size.isdigit():
                 self._max = int(env_buffer_size)
         return self._max
@@ -216,10 +216,10 @@ def configure(
     cfg = structlog.get_config() if structlog.is_configured() else {}
     wrapper_class = cfg.get("wrapper_class")
     current_min_level = getattr(wrapper_class, "min_level", None)
-    if os.getenv("AIEXEC_LOG_LEVEL", "").upper() in VALID_LOG_LEVELS and log_level is None:
-        log_level = os.getenv("AIEXEC_LOG_LEVEL")
+    if os.getenv("PRIMEAGENT_LOG_LEVEL", "").upper() in VALID_LOG_LEVELS and log_level is None:
+        log_level = os.getenv("PRIMEAGENT_LOG_LEVEL")
 
-    log_level_str = os.getenv("AIEXEC_LOG_LEVEL", "ERROR")
+    log_level_str = os.getenv("PRIMEAGENT_LOG_LEVEL", "ERROR")
     if log_level is not None:
         log_level_str = log_level
 
@@ -231,15 +231,15 @@ def configure(
         log_level = "ERROR"
 
     if log_file is None:
-        env_log_file = os.getenv("AIEXEC_LOG_FILE", "")
+        env_log_file = os.getenv("PRIMEAGENT_LOG_FILE", "")
         log_file = Path(env_log_file) if env_log_file else None
 
     if log_env is None:
-        log_env = os.getenv("AIEXEC_LOG_ENV", "")
+        log_env = os.getenv("PRIMEAGENT_LOG_ENV", "")
 
     # Get log format from env if not provided
     if log_format is None:
-        log_format = os.getenv("AIEXEC_LOG_FORMAT")
+        log_format = os.getenv("PRIMEAGENT_LOG_FORMAT")
 
     # Configure processors based on environment
     processors = [
@@ -248,7 +248,7 @@ def configure(
         structlog.processors.TimeStamper(fmt="iso"),
     ]
 
-    # Add callsite information only when AIEXEC_DEV is set
+    # Add callsite information only when PRIMEAGENT_DEV is set
     if DEV:
         processors.append(
             structlog.processors.CallsiteParameterAdder(
@@ -280,7 +280,7 @@ def configure(
         processors.append(structlog.processors.KeyValueRenderer(key_order=key_order, drop_missing=True))
     else:
         # Use rich console for pretty printing based on environment variable
-        log_stdout_pretty = os.getenv("AIEXEC_PRETTY_LOGS", "true").lower() == "true"
+        log_stdout_pretty = os.getenv("PRIMEAGENT_PRETTY_LOGS", "true").lower() == "true"
         if log_stdout_pretty:
             # If custom format is provided, use KeyValueRenderer with custom format
             if log_format:
@@ -305,17 +305,17 @@ def configure(
         processors=processors,
         wrapper_class=wrapper_class,
         context_class=dict,
-        logger_factory=structlog.PrintLoggerFactory(file=log_output_file)
-        if not log_file
-        else structlog.stdlib.LoggerFactory(),
+        logger_factory=(
+            structlog.PrintLoggerFactory(file=log_output_file) if not log_file else structlog.stdlib.LoggerFactory()
+        ),
         cache_logger_on_first_use=cache if cache is not None else True,
     )
 
     # Set up file logging if needed
     if log_file:
         if not log_file.parent.exists():
-            cache_dir = Path(user_cache_dir("aiexec"))
-            log_file = cache_dir / "aiexec.log"
+            cache_dir = Path(user_cache_dir("primeagent"))
+            log_file = cache_dir / "primeagent.log"
 
         # Parse rotation settings
         if log_rotation:

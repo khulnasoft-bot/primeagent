@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { addFlowToTestOnEmptyAiexec } from "../../utils/add-flow-to-test-on-empty-aiexec";
+import { addFlowToTestOnEmptyPrimeagent } from "../../utils/add-flow-to-test-on-empty-primeagent";
 import { adjustScreenView } from "../../utils/adjust-screen-view";
 import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 
@@ -77,7 +77,7 @@ test(
       .getByTestId("new_project_btn_empty_page")
       .count();
     if (countEmptyButton > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
     await page.getByTestId("upload-project-button").last().click();
   },

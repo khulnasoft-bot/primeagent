@@ -5,10 +5,10 @@ from datetime import timezone
 from uuid import uuid4
 
 import pytest
-from aiexec.services.database.models.flow import Flow as FlowTable
-from aiexec.services.database.models.message.model import MessageTable
-from aiexec.services.deps import get_settings_service, get_storage_service, session_scope
-from aiexec.services.task.temp_flow_cleanup import (
+from primeagent.services.database.models.flow import Flow as FlowTable
+from primeagent.services.database.models.message.model import MessageTable
+from primeagent.services.deps import get_settings_service, get_storage_service, session_scope
+from primeagent.services.task.temp_flow_cleanup import (
     CleanupWorker,
     cleanup_orphaned_records,
 )
@@ -97,7 +97,7 @@ async def test_cleanup_worker_start_stop():
 async def test_cleanup_worker_run_with_exception(mocker):
     """Test CleanupWorker handles exceptions gracefully."""
     # Mock the logger to capture log calls
-    mock_logger = mocker.patch("aiexec.services.task.temp_flow_cleanup.logger")
+    mock_logger = mocker.patch("primeagent.services.task.temp_flow_cleanup.logger")
     mock_logger.adebug = mocker.AsyncMock()
     mock_logger.awarning = mocker.AsyncMock()
 

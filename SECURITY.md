@@ -1,4 +1,4 @@
-# 🛡️ Aiexec Security Policy & Responsible Disclosure
+# 🛡️ Primeagent Security Policy & Responsible Disclosure
 
 ## Security Policy
 
@@ -15,7 +15,7 @@ We encourage responsible disclosure of security vulnerabilities. If you find som
 
 ### How to Report
 
-Use the "Report a vulnerability" button under the "Security" tab of the [Aiexec GitHub repository](https://github.com/khulnasoft/aiexec/security). This creates a private communication channel between you and the maintainers.
+Use the "Report a vulnerability" button under the "Security" tab of the [Primeagent GitHub repository](https://github.com/khulnasoft/primeagent/security). This creates a private communication channel between you and the maintainers.
 
 ### Reporting Guidelines
 
@@ -34,9 +34,9 @@ Use the "Report a vulnerability" button under the "Security" tab of the [Aiexec 
 - Do not publicly disclose vulnerabilities until we have assessed, resolved, and notified affected users
 - If you plan to present your research (e.g., at a conference or in a blog), share a draft with us at least 30 days in advance for review
 - Avoid including:
-  - Data from any Aiexec customer projects
-  - Aiexec user/customer information
-  - Details about Aiexec employees, contractors, or partners
+  - Data from any Primeagent customer projects
+  - Primeagent user/customer information
+  - Details about Primeagent employees, contractors, or partners
 
 We appreciate your efforts in helping us maintain a secure platform and look forward to working together to resolve any issues responsibly.
 
@@ -44,72 +44,72 @@ We appreciate your efforts in helping us maintain a secure platform and look for
 
 ### Environment Variable Loading Bug (Fixed in 1.6.4)
 
-Aiexec versions `1.6.0` through `1.6.3` have a critical bug where environment variables from `.env` files are not being read. This affects all deployments using environment variables for configuration, including security settings.
+Primeagent versions `1.6.0` through `1.6.3` have a critical bug where environment variables from `.env` files are not being read. This affects all deployments using environment variables for configuration, including security settings.
 
 **Potential security impact:**
 - Environment variables from `.env` files are not read.
 - Security configurations like `AUTO_LOGIN=false` may not be applied, potentially allowing users to log in as the default superuser.
 - Database credentials, API keys, and other sensitive configuration may not be loaded.
 
-**DO NOT** upgrade to Aiexec versions `1.6.0` through `1.6.3` if you use `.env` files for configuration. Instead, upgrade to version `1.6.4`, which includes a fix for this bug.
+**DO NOT** upgrade to Primeagent versions `1.6.0` through `1.6.3` if you use `.env` files for configuration. Instead, upgrade to version `1.6.4`, which includes a fix for this bug.
 
-**Fixed in**: Aiexec >= 1.6.4
+**Fixed in**: Primeagent >= 1.6.4
 
 ### Code Execution Vulnerability (Fixed in 1.3.0)
 
-Aiexec allows users to define and run **custom code components** through endpoints like `/api/v1/validate/code`. In versions < 1.3.0, this endpoint did not enforce authentication or proper sandboxing, allowing **unauthenticated arbitrary code execution**.
+Primeagent allows users to define and run **custom code components** through endpoints like `/api/v1/validate/code`. In versions < 1.3.0, this endpoint did not enforce authentication or proper sandboxing, allowing **unauthenticated arbitrary code execution**.
 
 This means an attacker could send malicious code to the endpoint and have it executed on the server—leading to full system compromise, including data theft, remote shell access, or lateral movement within the network.
 
 **CVE**: [CVE-2025-3248](https://nvd.nist.gov/vuln/detail/CVE-2025-3248)
-**Fixed in**: Aiexec >= 1.3.0
+**Fixed in**: Primeagent >= 1.3.0
 
 ### Privilege Escalation via CLI Superuser Creation (Fixed in 1.5.1)
 
-A privilege escalation vulnerability exists in Aiexec containers where an authenticated user with RCE access can invoke the internal CLI command `aiexec superuser` to create a new administrative user. This results in full superuser access, even if the user initially registered through the UI as a regular (non-admin) account.
+A privilege escalation vulnerability exists in Primeagent containers where an authenticated user with RCE access can invoke the internal CLI command `primeagent superuser` to create a new administrative user. This results in full superuser access, even if the user initially registered through the UI as a regular (non-admin) account.
 
-**CVE**: [CVE-2025-57760](https://github.com/khulnasoft/aiexec/security/advisories/GHSA-4gv9-mp8m-592r)
-**Fixed in**: Aiexec >= 1.5.1
+**CVE**: [CVE-2025-57760](https://github.com/khulnasoft/primeagent/security/advisories/GHSA-4gv9-mp8m-592r)
+**Fixed in**: Primeagent >= 1.5.1
 
-### No API key required if running Aiexec with `AIEXEC_AUTO_LOGIN=true` and `AIEXEC_SKIP_AUTH_AUTO_LOGIN=true`
+### No API key required if running Primeagent with `PRIMEAGENT_AUTO_LOGIN=true` and `PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN=true`
 
-In Aiexec versions earlier than 1.5, if `AIEXEC_AUTO_LOGIN=true`, then Aiexec automatically logs users in as a superuser without requiring authentication. In this case, API requests don't require a Aiexec API key.
+In Primeagent versions earlier than 1.5, if `PRIMEAGENT_AUTO_LOGIN=true`, then Primeagent automatically logs users in as a superuser without requiring authentication. In this case, API requests don't require a Primeagent API key.
 
-In Aiexec version 1.5, a Aiexec API key is required to authenticate requests.
-Setting `AIEXEC_SKIP_AUTH_AUTO_LOGIN=true` and `AIEXEC_AUTO_LOGIN=true` skips authentication for API requests. However, the `AIEXEC_SKIP_AUTH_AUTO_LOGIN` option will be removed in v1.6.
+In Primeagent version 1.5, a Primeagent API key is required to authenticate requests.
+Setting `PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN=true` and `PRIMEAGENT_AUTO_LOGIN=true` skips authentication for API requests. However, the `PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN` option will be removed in v1.6.
 
-`AIEXEC_SKIP_AUTH_AUTO_LOGIN=true` is the default behavior, so users do not need to change existing workflows in 1.5. To update your workflows to require authentication, set `AIEXEC_SKIP_AUTH_AUTO_LOGIN=false`.
+`PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN=true` is the default behavior, so users do not need to change existing workflows in 1.5. To update your workflows to require authentication, set `PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN=false`.
 
-For more information, see [API keys and authentication](https://aiexec-docs.khulnasoft.com/api-keys-and-authentication).
+For more information, see [API keys and authentication](https://primeagent-docs.khulnasoft.com/api-keys-and-authentication).
 
 ## Security Configuration Guidelines
 
 ### Superuser Creation Security
 
-The `aiexec superuser` CLI command can present a privilege escalation risk if not properly secured.
+The `primeagent superuser` CLI command can present a privilege escalation risk if not properly secured.
 
 #### Security Measures
 
 1. **Authentication Required in Production**
-   - When `AIEXEC_AUTO_LOGIN=false`, superuser creation requires authentication
+   - When `PRIMEAGENT_AUTO_LOGIN=false`, superuser creation requires authentication
    - Use `--auth-token` parameter with a valid superuser API key or JWT token
 
 2. **Disable CLI Superuser Creation**
-   - Set `AIEXEC_ENABLE_SUPERUSER_CLI=false` to disable the command entirely
+   - Set `PRIMEAGENT_ENABLE_SUPERUSER_CLI=false` to disable the command entirely
    - Strongly recommended for production environments
 
 3. **Secure AUTO_LOGIN Setting**
    - Default is `true` for <=1.5. This may change in a future release.
-   - When `true`, creates default superuser `aiexec/aiexec` - **ONLY USE IN DEVELOPMENT**
+   - When `true`, creates default superuser `primeagent/primeagent` - **ONLY USE IN DEVELOPMENT**
 
 #### Production Security Configuration
 
 ```bash
 # Recommended production settings
-export AIEXEC_AUTO_LOGIN=false
-export AIEXEC_ENABLE_SUPERUSER_CLI=false
-export AIEXEC_SUPERUSER="<your-superuser-username>"
-export AIEXEC_SUPERUSER_PASSWORD="<your-superuser-password>"
-export AIEXEC_DATABASE_URL="<your-production-database-url>" # e.g. "postgresql+psycopg://aiexec:secure_pass@db.internal:5432/aiexec"
-export AIEXEC_SECRET_KEY="your-strong-random-secret-key"
+export PRIMEAGENT_AUTO_LOGIN=false
+export PRIMEAGENT_ENABLE_SUPERUSER_CLI=false
+export PRIMEAGENT_SUPERUSER="<your-superuser-username>"
+export PRIMEAGENT_SUPERUSER_PASSWORD="<your-superuser-password>"
+export PRIMEAGENT_DATABASE_URL="<your-production-database-url>" # e.g. "postgresql+psycopg://primeagent:secure_pass@db.internal:5432/primeagent"
+export PRIMEAGENT_SECRET_KEY="your-strong-random-secret-key"
 ```

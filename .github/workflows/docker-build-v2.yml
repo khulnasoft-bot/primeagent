@@ -59,7 +59,7 @@ jobs:
       matrix:
         include:
           - arch: amd64
-            runner: [Aiexec-runner]
+            runner: [Primeagent-runner]
           - arch: arm64
             runner: [self-hosted, linux, ARM64, khulnasoft-arm64-40gb]
     runs-on: ${{ matrix.runner }}
@@ -82,7 +82,7 @@ jobs:
         id: version
         run: |
           echo "Extracting base version from pyproject.toml"
-          version=$(uv tree 2>/dev/null | grep '^aiexec-base' | cut -d' ' -f2 | sed 's/^v//')
+          version=$(uv tree 2>/dev/null | grep '^primeagent-base' | cut -d' ' -f2 | sed 's/^v//')
           echo "Using version: $version"
           echo version=$version >> $GITHUB_OUTPUT
 
@@ -90,8 +90,8 @@ jobs:
         id: tags
         run: |
           version="${{ steps.version.outputs.version }}"
-          echo "docker_tags=khulnasoft/aiexec:base-${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
-          echo "ghcr_tags=ghcr.io/khulnasoft/aiexec:base-${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "docker_tags=khulnasoft/primeagent:base-${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "ghcr_tags=ghcr.io/khulnasoft/primeagent:base-${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
 
       - name: Docker cleanup
         run: |
@@ -145,7 +145,7 @@ jobs:
       matrix:
         include:
           - arch: amd64
-            runner: [Aiexec-runner]
+            runner: [Primeagent-runner]
           - arch: arm64
             runner: [self-hosted, linux, ARM64, khulnasoft-arm64-40gb]
     runs-on: ${{ matrix.runner }}
@@ -168,7 +168,7 @@ jobs:
         id: version
         run: |
           echo "Extracting main version from pyproject.toml"
-          version=$(uv tree 2>/dev/null | grep '^aiexec' | grep -v '^aiexec-base' | cut -d' ' -f2 | sed 's/^v//')
+          version=$(uv tree 2>/dev/null | grep '^primeagent' | grep -v '^primeagent-base' | cut -d' ' -f2 | sed 's/^v//')
           echo "Using version: $version"
           echo version=$version >> $GITHUB_OUTPUT
 
@@ -176,8 +176,8 @@ jobs:
         id: tags
         run: |
           version="${{ steps.version.outputs.version }}"
-          echo "docker_tags=khulnasoft/aiexec:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
-          echo "ghcr_tags=ghcr.io/khulnasoft/aiexec:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "docker_tags=khulnasoft/primeagent:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "ghcr_tags=ghcr.io/khulnasoft/primeagent:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
 
       - name: Docker cleanup
         run: |
@@ -231,7 +231,7 @@ jobs:
       matrix:
         include:
           - arch: amd64
-            runner: [Aiexec-runner]
+            runner: [Primeagent-runner]
           - arch: arm64
             runner: [self-hosted, linux, ARM64, khulnasoft-arm64-40gb]
     runs-on: ${{ matrix.runner }}
@@ -254,7 +254,7 @@ jobs:
         id: version
         run: |
           echo "Extracting main version from pyproject.toml"
-          version=$(uv tree 2>/dev/null | grep '^aiexec' | grep -v '^aiexec-base' | cut -d' ' -f2 | sed 's/^v//')
+          version=$(uv tree 2>/dev/null | grep '^primeagent' | grep -v '^primeagent-base' | cut -d' ' -f2 | sed 's/^v//')
           echo "Using version: $version"
           echo version=$version >> $GITHUB_OUTPUT
 
@@ -262,8 +262,8 @@ jobs:
         id: tags
         run: |
           version="${{ steps.version.outputs.version }}"
-          echo "docker_tags=khulnasoft/aiexec-ep:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
-          echo "ghcr_tags=ghcr.io/khulnasoft/aiexec-ep:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "docker_tags=khulnasoft/primeagent-ep:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "ghcr_tags=ghcr.io/khulnasoft/primeagent-ep:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
 
       - name: Docker cleanup
         run: |
@@ -317,7 +317,7 @@ jobs:
       matrix:
         include:
           - arch: amd64
-            runner: [Aiexec-runner]
+            runner: [Primeagent-runner]
           - arch: arm64
             runner: [self-hosted, linux, ARM64, khulnasoft-arm64-40gb]
     runs-on: ${{ matrix.runner }}
@@ -339,7 +339,7 @@ jobs:
         id: version
         run: |
           echo "Extracting main version from pyproject.toml"
-          version=$(uv tree 2>/dev/null | grep '^aiexec' | grep -v '^aiexec-base' | cut -d' ' -f2 | sed 's/^v//')
+          version=$(uv tree 2>/dev/null | grep '^primeagent' | grep -v '^primeagent-base' | cut -d' ' -f2 | sed 's/^v//')
           echo "Using version: $version"
           echo version=$version >> $GITHUB_OUTPUT
 
@@ -347,8 +347,8 @@ jobs:
         id: tags
         run: |
           version="${{ steps.version.outputs.version }}"
-          echo "docker_tags=khulnasoft/aiexec-all:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
-          echo "ghcr_tags=ghcr.io/khulnasoft/aiexec-all:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "docker_tags=khulnasoft/primeagent-all:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "ghcr_tags=ghcr.io/khulnasoft/primeagent-all:${version}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
 
       - name: Docker cleanup
         run: |
@@ -418,9 +418,9 @@ jobs:
         id: version
         run: |
           if [[ "${{ inputs.release_type }}" == "base" ]]; then
-            version=$(uv tree 2>/dev/null | grep '^aiexec-base' | cut -d' ' -f2 | sed 's/^v//')
+            version=$(uv tree 2>/dev/null | grep '^primeagent-base' | cut -d' ' -f2 | sed 's/^v//')
           else
-            version=$(uv tree 2>/dev/null | grep '^aiexec' | grep -v '^aiexec-base' | cut -d' ' -f2 | sed 's/^v//')
+            version=$(uv tree 2>/dev/null | grep '^primeagent' | grep -v '^primeagent-base' | cut -d' ' -f2 | sed 's/^v//')
           fi
           echo "Using version: $version"
           echo version=$version >> $GITHUB_OUTPUT
@@ -432,31 +432,31 @@ jobs:
           case "${{ inputs.release_type }}" in
             "base")
               if [[ "${{ inputs.pre_release }}" == "true" ]]; then
-                echo "final_tags=khulnasoft/aiexec:base-${version},ghcr.io/khulnasoft/aiexec:base-${version}" >> $GITHUB_OUTPUT
+                echo "final_tags=khulnasoft/primeagent:base-${version},ghcr.io/khulnasoft/primeagent:base-${version}" >> $GITHUB_OUTPUT
               else
-                echo "final_tags=khulnasoft/aiexec:base-${version},khulnasoft/aiexec:base-latest,ghcr.io/khulnasoft/aiexec:base-${version},ghcr.io/khulnasoft/aiexec:base-latest" >> $GITHUB_OUTPUT
+                echo "final_tags=khulnasoft/primeagent:base-${version},khulnasoft/primeagent:base-latest,ghcr.io/khulnasoft/primeagent:base-${version},ghcr.io/khulnasoft/primeagent:base-latest" >> $GITHUB_OUTPUT
               fi
-              echo "arch_base=khulnasoft/aiexec:base-${version}" >> $GITHUB_OUTPUT
-              echo "ghcr_arch_base=ghcr.io/khulnasoft/aiexec:base-${version}" >> $GITHUB_OUTPUT
+              echo "arch_base=khulnasoft/primeagent:base-${version}" >> $GITHUB_OUTPUT
+              echo "ghcr_arch_base=ghcr.io/khulnasoft/primeagent:base-${version}" >> $GITHUB_OUTPUT
               ;;
             "main")
               if [[ "${{ inputs.pre_release }}" == "true" ]]; then
-                echo "final_tags=khulnasoft/aiexec:${version},ghcr.io/khulnasoft/aiexec:${version}" >> $GITHUB_OUTPUT
+                echo "final_tags=khulnasoft/primeagent:${version},ghcr.io/khulnasoft/primeagent:${version}" >> $GITHUB_OUTPUT
               else
-                echo "final_tags=khulnasoft/aiexec:${version},khulnasoft/aiexec:latest,ghcr.io/khulnasoft/aiexec:${version},ghcr.io/khulnasoft/aiexec:latest" >> $GITHUB_OUTPUT
+                echo "final_tags=khulnasoft/primeagent:${version},khulnasoft/primeagent:latest,ghcr.io/khulnasoft/primeagent:${version},ghcr.io/khulnasoft/primeagent:latest" >> $GITHUB_OUTPUT
               fi
-              echo "arch_base=khulnasoft/aiexec:${version}" >> $GITHUB_OUTPUT
-              echo "ghcr_arch_base=ghcr.io/khulnasoft/aiexec:${version}" >> $GITHUB_OUTPUT
+              echo "arch_base=khulnasoft/primeagent:${version}" >> $GITHUB_OUTPUT
+              echo "ghcr_arch_base=ghcr.io/khulnasoft/primeagent:${version}" >> $GITHUB_OUTPUT
               ;;
             "main-ep")
-              echo "final_tags=khulnasoft/aiexec-ep:${version},khulnasoft/aiexec-ep:latest,ghcr.io/khulnasoft/aiexec-ep:${version},ghcr.io/khulnasoft/aiexec-ep:latest" >> $GITHUB_OUTPUT
-              echo "arch_base=khulnasoft/aiexec-ep:${version}" >> $GITHUB_OUTPUT
-              echo "ghcr_arch_base=ghcr.io/khulnasoft/aiexec-ep:${version}" >> $GITHUB_OUTPUT
+              echo "final_tags=khulnasoft/primeagent-ep:${version},khulnasoft/primeagent-ep:latest,ghcr.io/khulnasoft/primeagent-ep:${version},ghcr.io/khulnasoft/primeagent-ep:latest" >> $GITHUB_OUTPUT
+              echo "arch_base=khulnasoft/primeagent-ep:${version}" >> $GITHUB_OUTPUT
+              echo "ghcr_arch_base=ghcr.io/khulnasoft/primeagent-ep:${version}" >> $GITHUB_OUTPUT
               ;;
             "main-all")
-              echo "final_tags=khulnasoft/aiexec-all:${version},khulnasoft/aiexec-all:latest,ghcr.io/khulnasoft/aiexec-all:${version},ghcr.io/khulnasoft/aiexec-all:latest" >> $GITHUB_OUTPUT
-              echo "arch_base=khulnasoft/aiexec-all:${version}" >> $GITHUB_OUTPUT
-              echo "ghcr_arch_base=ghcr.io/khulnasoft/aiexec-all:${version}" >> $GITHUB_OUTPUT
+              echo "final_tags=khulnasoft/primeagent-all:${version},khulnasoft/primeagent-all:latest,ghcr.io/khulnasoft/primeagent-all:${version},ghcr.io/khulnasoft/primeagent-all:latest" >> $GITHUB_OUTPUT
+              echo "arch_base=khulnasoft/primeagent-all:${version}" >> $GITHUB_OUTPUT
+              echo "ghcr_arch_base=ghcr.io/khulnasoft/primeagent-all:${version}" >> $GITHUB_OUTPUT
               ;;
             *)
               echo "Error: Invalid release_type: ${{ inputs.release_type }}" >&2

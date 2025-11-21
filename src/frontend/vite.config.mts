@@ -14,11 +14,11 @@ import {
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
-  const envAiexecResult = dotenv.config({
+  const envPrimeagentResult = dotenv.config({
     path: path.resolve(__dirname, "../../.env"),
   });
 
-  const envAiexec = envAiexecResult.parsed || {};
+  const envPrimeagent = envPrimeagentResult.parsed || {};
 
   const apiRoutes = API_ROUTES || ["^/api/v1/", "^/api/v2/", "/health"];
 
@@ -44,17 +44,17 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       "import.meta.env.BACKEND_URL": JSON.stringify(
-        envAiexec.BACKEND_URL ?? "http://localhost:7860",
+        envPrimeagent.BACKEND_URL ?? "http://localhost:7860",
       ),
       "import.meta.env.ACCESS_TOKEN_EXPIRE_SECONDS": JSON.stringify(
-        envAiexec.ACCESS_TOKEN_EXPIRE_SECONDS ?? 60,
+        envPrimeagent.ACCESS_TOKEN_EXPIRE_SECONDS ?? 60,
       ),
-      "import.meta.env.CI": JSON.stringify(envAiexec.CI ?? false),
-      "import.meta.env.AIEXEC_AUTO_LOGIN": JSON.stringify(
-        envAiexec.AIEXEC_AUTO_LOGIN ?? true,
+      "import.meta.env.CI": JSON.stringify(envPrimeagent.CI ?? false),
+      "import.meta.env.PRIMEAGENT_AUTO_LOGIN": JSON.stringify(
+        envPrimeagent.PRIMEAGENT_AUTO_LOGIN ?? true,
       ),
-      "import.meta.env.AIEXEC_MCP_COMPOSER_ENABLED": JSON.stringify(
-        envAiexec.AIEXEC_MCP_COMPOSER_ENABLED ?? "true",
+      "import.meta.env.PRIMEAGENT_MCP_COMPOSER_ENABLED": JSON.stringify(
+        envPrimeagent.PRIMEAGENT_MCP_COMPOSER_ENABLED ?? "true",
       ),
     },
     plugins: [react(), svgr(), tsconfigPaths()],

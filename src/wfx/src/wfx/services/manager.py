@@ -1,7 +1,7 @@
-"""ServiceManager extracted from aiexec for wfx package.
+"""ServiceManager extracted from primeagent for wfx package.
 
 This maintains the same API and most of the functionality, but removes
-aiexec-specific auto-discovery to break dependencies.
+primeagent-specific auto-discovery to break dependencies.
 """
 
 from __future__ import annotations

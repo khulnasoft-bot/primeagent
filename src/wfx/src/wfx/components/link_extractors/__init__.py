@@ -1,3 +1,3 @@
-"""AiExec link extractors components."""
+"""PrimeAgent link extractors components."""
 
 __all__: list[str] = []

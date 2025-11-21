@@ -1,6 +1,6 @@
 import pytest
-from aiexec.components.logic.pass_message import PassMessageComponent
-from aiexec.schema.message import Message
+from primeagent.components.logic.pass_message import PassMessageComponent
+from primeagent.schema.message import Message
 
 from tests.base import ComponentTestBaseWithoutClient
 
@@ -166,7 +166,8 @@ class TestPassMessageComponent(ComponentTestBaseWithoutClient):
 
         # Should have Message return annotation
         assert (
-            sig.return_annotation == Message or str(sig.return_annotation) == "<class 'aiexec.schema.message.Message'>"
+            sig.return_annotation == Message
+            or str(sig.return_annotation) == "<class 'primeagent.schema.message.Message'>"
         )
 
     async def test_component_legacy_status(self, component_class, default_kwargs):
@@ -178,7 +179,7 @@ class TestPassMessageComponent(ComponentTestBaseWithoutClient):
     async def test_component_inheritance(self, component_class, default_kwargs):
         """Test that component properly inherits from Component base class."""
         component = await self.component_setup(component_class, default_kwargs)
-        from aiexec.custom.custom_component.component import Component
+        from primeagent.custom.custom_component.component import Component
 
         assert isinstance(component, Component)
 

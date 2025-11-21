@@ -63,9 +63,11 @@ class Payload(BaseModel):
         # Extra: the extra if it exists don't show if it doesn't
         return sep.join(
             [
-                f"Result: {result_pair.result}\nExtra: {result_pair.extra}"
-                if result_pair.extra is not None
-                else f"Result: {result_pair.result}"
+                (
+                    f"Result: {result_pair.result}\nExtra: {result_pair.extra}"
+                    if result_pair.extra is not None
+                    else f"Result: {result_pair.result}"
+                )
                 for result_pair in self.result_pairs[:-1]
             ]
         )

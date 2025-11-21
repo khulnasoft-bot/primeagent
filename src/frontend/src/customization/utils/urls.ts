@@ -1,3 +1,3 @@
-export const AiexecButtonRedirectTarget = () => {
-  return "https://aiexec.org";
+export const PrimeagentButtonRedirectTarget = () => {
+  return "https://primeagent.org";
 };

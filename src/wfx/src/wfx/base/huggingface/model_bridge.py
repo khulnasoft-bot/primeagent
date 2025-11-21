@@ -130,4 +130,4 @@ class LangChainHFModel(Model):
 #         model=model,
 #         tools=[hf_tool],
 #     )
-#     rprint(code_agent.run("Search for Aiexec on DuckDuckGo and return the first result"))
+#     rprint(code_agent.run("Search for Primeagent on DuckDuckGo and return the first result"))

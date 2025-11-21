@@ -1,0 +1,9 @@
+apiVersion: v2
+name: primeagent-runtime
+description: A helm chart for running PrimeAgent flows as a service
+type: application
+version: 0.1.1
+appVersion: latest
+maintainers:
+  - name: Primeagent
+    email: support@khulnasoft.com

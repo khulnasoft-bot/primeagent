@@ -5,7 +5,7 @@ class FeatureFlags(BaseSettings):
     mvp_components: bool = False
 
     class Config:
-        env_prefix = "AIEXEC_FEATURE_"
+        env_prefix = "PRIMEAGENT_FEATURE_"
 
 
 FEATURE_FLAGS = FeatureFlags()

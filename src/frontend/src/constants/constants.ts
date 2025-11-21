@@ -160,7 +160,7 @@ export const EDIT_DIALOG_SUBTITLE =
  * @constant
  */
 export const CODE_PROMPT_DIALOG_SUBTITLE =
-  "Edit your Python code snippet. Refer to the Aiexec documentation for more information on how to write your own component.";
+  "Edit your Python code snippet. Refer to the Primeagent documentation for more information on how to write your own component.";
 
 export const CODE_DICT_DIALOG_SUBTITLE =
   "Customize your dictionary, adding or editing key-value pairs as needed. Supports adding new objects {} or arrays [].";
@@ -256,13 +256,13 @@ export const DESCRIPTIONS: string[] = [
   "Your Hub for Text Generation.",
   "Promptly Ingenious!",
   "Building Linguistic Labyrinths.",
-  "Aiexec: Create, Chain, Communicate.",
+  "Primeagent: Create, Chain, Communicate.",
   "Connect the Dots, Craft Language.",
   "Interactive Language Weaving.",
   "Generate, Innovate, Communicate.",
   "Conversation Catalyst Engine.",
   "Language Chainlink Master.",
-  "Design Dialogues with Aiexec.",
+  "Design Dialogues with Primeagent.",
   "Nurture NLP Nodes Here.",
   "Conversational Cartography Unlocked.",
   "Design, Develop, Dialogize.",
@@ -657,7 +657,7 @@ export const TIMEOUT_ERROR_DESCRIPION = "Server is busy.";
 export const SIGN_UP_SUCCESS = "Account created! Await admin activation. ";
 
 export const API_PAGE_PARAGRAPH =
-  "Your secret Aiexec API keys are listed below. Do not share your API key with others, or expose it in the browser or other client-side code.";
+  "Your secret Primeagent API keys are listed below. Do not share your API key with others, or expose it in the browser or other client-side code.";
 
 export const API_PAGE_USER_KEYS =
   "This user does not have any keys assigned at the moment.";
@@ -667,7 +667,7 @@ export const LAST_USED_SPAN_1 = "The last time this key was used.";
 export const LAST_USED_SPAN_2 =
   "Accurate to within the hour from the most recent usage.";
 
-export const AIEXEC_SUPPORTED_TYPES = new Set([
+export const PRIMEAGENT_SUPPORTED_TYPES = new Set([
   "str",
   "bool",
   "float",
@@ -738,7 +738,7 @@ export const INPUT_HANDLER_HOVER = "Avaliable input components:";
 export const OUTPUT_HANDLER_HOVER = "Avaliable output components:";
 export const TEXT_INPUT_MODAL_TITLE = "Inputs";
 export const OUTPUTS_MODAL_TITLE = "Outputs";
-export const AIEXEC_CHAT_TITLE = "Aiexec Chat";
+export const PRIMEAGENT_CHAT_TITLE = "Primeagent Chat";
 export const CHAT_INPUT_PLACEHOLDER =
   "No chat input variables found. Click to run your flow.";
 export const CHAT_INPUT_PLACEHOLDER_SEND = "Send a message...";
@@ -746,9 +746,9 @@ export const EDIT_CODE_TITLE = "Edit Code";
 export const MY_COLLECTION_DESC =
   "Manage your projects. Download and upload entire collections.";
 export const STORE_DESC = "Explore community-shared flows and components.";
-export const STORE_TITLE = "Aiexec Store";
+export const STORE_TITLE = "Primeagent Store";
 export const NO_API_KEY = "You don't have an API key.";
-export const INSERT_API_KEY = "Insert your Aiexec API key.";
+export const INSERT_API_KEY = "Insert your Primeagent API key.";
 export const INVALID_API_KEY = "Your API key is not valid. ";
 export const CREATE_API_KEY = `Don't have an API key? Sign up at`;
 export const STATUS_BUILD = "Build to validate status.";
@@ -859,13 +859,13 @@ export const TABS_ORDER = [
   "chat widget html",
 ];
 
-export const AIEXEC_ACCESS_TOKEN = "access_token_lf";
-export const AIEXEC_API_TOKEN = "apikey_tkn_lflw";
-export const AIEXEC_AUTO_LOGIN_OPTION = "auto_login_lf";
-export const AIEXEC_REFRESH_TOKEN = "refresh_token_lf";
+export const PRIMEAGENT_ACCESS_TOKEN = "access_token_lf";
+export const PRIMEAGENT_API_TOKEN = "apikey_tkn_lflw";
+export const PRIMEAGENT_AUTO_LOGIN_OPTION = "auto_login_lf";
+export const PRIMEAGENT_REFRESH_TOKEN = "refresh_token_lf";
 
-export const AIEXEC_ACCESS_TOKEN_EXPIRE_SECONDS = 60 * 60 - 60 * 60 * 0.1;
-export const AIEXEC_ACCESS_TOKEN_EXPIRE_SECONDS_ENV =
+export const PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS = 60 * 60 - 60 * 60 * 0.1;
+export const PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS_ENV =
   Number(getEnvVar("ACCESS_TOKEN_EXPIRE_SECONDS", 60)) -
   Number(getEnvVar("ACCESS_TOKEN_EXPIRE_SECONDS", 60)) * 0.1;
 export const TEXT_FIELD_TYPES: string[] = ["str", "SecretStr"];
@@ -934,8 +934,8 @@ export const POLLING_MESSAGES = {
 export const BUILD_POLLING_INTERVAL = 25;
 
 export const IS_AUTO_LOGIN =
-  !getEnvVar("AIEXEC_AUTO_LOGIN") ||
-  String(getEnvVar("AIEXEC_AUTO_LOGIN"))?.toLowerCase() !== "false";
+  !getEnvVar("PRIMEAGENT_AUTO_LOGIN") ||
+  String(getEnvVar("PRIMEAGENT_AUTO_LOGIN"))?.toLowerCase() !== "false";
 
 export const AUTO_LOGIN_RETRY_DELAY = 2000;
 export const AUTO_LOGIN_MAX_RETRY_DELAY = 60000;
@@ -981,12 +981,13 @@ export const DEFAULT_POLLING_INTERVAL = 5000;
 export const DEFAULT_TIMEOUT = 30000;
 export const DEFAULT_FILE_PICKER_TIMEOUT = 60000;
 export const DISCORD_URL = "https://discord.com/invite/EqksyE2EX9";
-export const GITHUB_URL = "https://github.com/aiexec-ai/aiexec";
-export const TWITTER_URL = "https://x.com/aiexec_ai";
-export const DOCS_URL = "https://aiexec-docs.khulnasoft.com";
+export const GITHUB_URL = "https://github.com/primeagent-ai/primeagent";
+export const TWITTER_URL = "https://x.com/primeagent_ai";
+export const DOCS_URL = "https://primeagent-docs.khulnasoft.com";
 export const DATASTAX_DOCS_URL =
-  "https://docs.datastax.com/en/aiexec/index.html";
-export const DESKTOP_URL = "https://www.aiexec.org/desktop";
-export const BUG_REPORT_URL = "https://github.com/aiexec-ai/aiexec/issues";
+  "https://docs.datastax.com/en/primeagent/index.html";
+export const DESKTOP_URL = "https://www.primeagent.org/desktop";
+export const BUG_REPORT_URL =
+  "https://github.com/primeagent-ai/primeagent/issues";
 
 export const UUID_PARSING_ERROR = "uuid_parsing";

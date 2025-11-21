@@ -7,7 +7,7 @@ from wfx.schema.data import Data
 
 class WebhookComponent(Component):
     display_name = "Webhook"
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-data#webhook"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-data#webhook"
     name = "Webhook"
     icon = "webhook"
 

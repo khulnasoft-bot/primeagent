@@ -1,5 +1,5 @@
 ---
-title: Use Aiexec agents
+title: Use Primeagent agents
 slug: /agents
 ---
 
@@ -7,7 +7,7 @@ import Icon from "@site/src/components/icon";
 import PartialParams from '@site/docs/_partial-hidden-params.mdx';
 import PartialAgentsWork from '@site/docs/_partial-agents-work.mdx';
 
-Aiexec's [**Agent** component](/components-agents) is critical for building agent flows.
+Primeagent's [**Agent** component](/components-agents) is critical for building agent flows.
 This component provides everything you need to create an agent, including multiple Large Language Model (LLM) providers, tool calling, and custom instructions.
 It simplifies agent configuration so you can focus on application development.
 
@@ -15,8 +15,8 @@ It simplifies agent configuration so you can focus on application development.
 
 ## Use the Agent component in a flow
 
-The following steps explain how to create an agent flow in Aiexec from a blank flow.
-For a prebuilt example, use the **Simple Agent** template or the [Aiexec quickstart](/get-started-quickstart).
+The following steps explain how to create an agent flow in Primeagent from a blank flow.
+For a prebuilt example, use the **Simple Agent** template or the [Primeagent quickstart](/get-started-quickstart).
 
 1. Click **New Flow**, and then click **Blank Flow**.
 
@@ -77,7 +77,7 @@ Make sure that the credential has permission to call the selected model.
 
 You've successfully created a basic agent flow that uses some generic tools.
 
-To continue building on this tutorial, try connecting other tool components or [use Aiexec as an MCP client](/mcp-client) to support more complex and specialized tasks.
+To continue building on this tutorial, try connecting other tool components or [use Primeagent as an MCP client](/mcp-client) to support more complex and specialized tasks.
 
 For a multi-agent example, see [Use an agent as a tool](/agents-tools#use-an-agent-as-a-tool).
 
@@ -107,7 +107,7 @@ For example, to use the default OpenAI model, you must provide a valid OpenAI AP
 
 You can enter the key directly, but it is recommended that you follow industry best practices for storing and referencing API keys.
 For example, you can use a <Icon name="Globe" aria-hidden="true"/> [global variable](/configuration-global-variables) or [environment variables](/environment-variables).
-For more information, see [Add component API keys to Aiexec](/api-keys-and-authentication#component-api-keys).
+For more information, see [Add component API keys to Primeagent](/api-keys-and-authentication#component-api-keys).
 
 If you select **Connect other models** as the model provider, authentication is handled in the incoming language model component.
 
@@ -121,7 +121,7 @@ These instructions are applied in addition to the **Input** (`input_value`), whi
 
 Agents are most useful when they have the appropriate tools available to complete requests.
 
-An **Agent** component can use any Aiexec component as a tool, including other agents and MCP servers.
+An **Agent** component can use any Primeagent component as a tool, including other agents and MCP servers.
 
 To attach a component as a tool, you must enable **Tool Mode** on the component that you want to attach, and then attach it to the **Agent** component's **Tools** port.
 For more information, see [Configure tools for agents](/agents-tools).
@@ -132,13 +132,13 @@ To allow agents to use tools from MCP servers, use the [**MCP Tools** component]
 
 ### Agent memory
 
-Aiexec agents have built-in chat memory that is enabled by default.
+Primeagent agents have built-in chat memory that is enabled by default.
 This memory allows them to retrieve and reference messages from previous conversations, maintaining a rolling context window for each chat session ID.
 
 Chat memories are grouped by [session ID (`session_id`)](/session-id).
 It is recommended to use custom session IDs if you need to segregate chat memory for different users or applications that run the same flow.
 
-By default, the **Agent** component uses your Aiexec installation's storage, and it retrieves a limited number of chat messages, which you can configure with the **Number of Chat History Messages** parameter.
+By default, the **Agent** component uses your Primeagent installation's storage, and it retrieves a limited number of chat messages, which you can configure with the **Number of Chat History Messages** parameter.
 
 The **Message History** component isn't required for default chat memory, but it is required if you want to use external chat memory like Mem0.
 Additionally, the **Message History** component provides more options for sorting, filtering, and limiting memories. Although, most of these options are built-in to the **Agent** component with default values.

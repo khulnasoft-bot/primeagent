@@ -12,7 +12,7 @@ from wfx.interface.components import (
     _parse_dev_mode,
     _read_component_index,
     _save_generated_index,
-    import_aiexec_components,
+    import_primeagent_components,
 )
 
 
@@ -298,8 +298,8 @@ class TestSaveGeneratedIndex:
 
 
 @pytest.mark.asyncio
-class TestImportAiexecComponents:
-    """Tests for import_aiexec_components() async function."""
+class TestImportPrimeagentComponents:
+    """Tests for import_primeagent_components() async function."""
 
     async def test_import_with_dev_mode(self, monkeypatch):
         """Test import in dev mode (dynamic loading)."""
@@ -316,7 +316,7 @@ class TestImportAiexecComponents:
                     (None, "wfx.components.category1", False),
                 ]
 
-                result = await import_aiexec_components()
+                result = await import_primeagent_components()
 
         assert "components" in result
         assert "category1" in result["components"]
@@ -340,7 +340,7 @@ class TestImportAiexecComponents:
         ):
             mock_read.return_value = index
 
-            result = await import_aiexec_components()
+            result = await import_primeagent_components()
 
         assert "components" in result
         assert "category1" in result["components"]
@@ -363,7 +363,7 @@ class TestImportAiexecComponents:
             mock_process.return_value = ("category1", {"comp1": {"template": {}}})
             mock_walk.return_value = [(None, "wfx.components.category1", False)]
 
-            result = await import_aiexec_components()
+            result = await import_primeagent_components()
 
         assert "components" in result
         assert cache_file.exists()
@@ -391,7 +391,7 @@ class TestImportAiexecComponents:
         ):
             mock_read.return_value = index
 
-            result = await import_aiexec_components(mock_settings)
+            result = await import_primeagent_components(mock_settings)
 
         assert "components" in result
         # Verify custom path was used
@@ -409,7 +409,7 @@ class TestImportAiexecComponents:
             mock_process.side_effect = ImportError("Failed to import")
             mock_walk.return_value = [(None, "wfx.components.broken", False)]
 
-            result = await import_aiexec_components()
+            result = await import_primeagent_components()
 
         # Should return empty dict, not raise
         assert "components" in result

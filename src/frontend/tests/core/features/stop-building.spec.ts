@@ -112,16 +112,16 @@ test(
     await page.getByTestId("int_int_chunk_overlap").fill("1");
 
     const timerCode = `
-# from aiexec.field_typing import Data
-from aiexec.custom import Component
-from aiexec.io import MessageTextInput, Output
-from aiexec.schema import Data
+# from primeagent.field_typing import Data
+from primeagent.custom import Component
+from primeagent.io import MessageTextInput, Output
+from primeagent.schema import Data
 import time
 
 class CustomComponent(Component):
     display_name = "Custom Component"
     description = "Use as a template to create your own component."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-custom-components"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-custom-components"
     icon = "custom_components"
     name = "CustomComponent"
 

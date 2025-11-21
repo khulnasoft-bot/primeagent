@@ -1,5 +1,5 @@
 import pytest
-from aiexec.utils.connection_string_parser import transform_connection_string
+from primeagent.utils.connection_string_parser import transform_connection_string
 
 
 @pytest.mark.parametrize(

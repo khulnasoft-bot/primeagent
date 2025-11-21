@@ -1,7 +1,7 @@
-"""Unit tests for aiexec.core.celeryconfig module."""
+"""Unit tests for primeagent.core.celeryconfig module."""
 
 # Import the module to test
-from aiexec.core import celeryconfig
+from primeagent.core import celeryconfig
 
 
 class TestCeleryConfigAcceptContent:

@@ -1,5 +1,8 @@
 import { Cookies } from "react-cookie";
-import { AIEXEC_AUTO_LOGIN_OPTION, IS_AUTO_LOGIN } from "@/constants/constants";
+import {
+  PRIMEAGENT_AUTO_LOGIN_OPTION,
+  IS_AUTO_LOGIN,
+} from "@/constants/constants";
 import useAuthStore from "@/stores/authStore";
 import useFlowStore from "@/stores/flowStore";
 import useFlowsManagerStore from "@/stores/flowsManagerStore";
@@ -21,7 +24,7 @@ export const useLogout: useMutationFunctionType<undefined, void> = (
   async function logoutUser(): Promise<any> {
     const autoLogin =
       useAuthStore.getState().autoLogin ||
-      getAuthCookie(cookies, AIEXEC_AUTO_LOGIN_OPTION) === "auto" ||
+      getAuthCookie(cookies, PRIMEAGENT_AUTO_LOGIN_OPTION) === "auto" ||
       isAutoLoginEnv;
 
     if (autoLogin) {

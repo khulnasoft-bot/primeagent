@@ -1,6 +1,6 @@
 import * as Form from "@radix-ui/react-form";
 import { type FormEvent, useEffect, useState } from "react";
-import AiexecLogo from "@/assets/AiexecLogo.svg?react";
+import PrimeagentLogo from "@/assets/PrimeagentLogo.svg?react";
 import InputComponent from "@/components/core/parameterRenderComponent/components/inputComponent";
 import { useAddUser } from "@/controllers/API/queries/auth";
 import { CustomLink } from "@/customization/components/custom-link";
@@ -90,12 +90,12 @@ export default function SignUp(): JSX.Element {
     >
       <div className="flex h-full w-full flex-col items-center justify-center bg-muted">
         <div className="flex w-72 flex-col items-center justify-center gap-2">
-          <AiexecLogo
-            title="Aiexec logo"
+          <PrimeagentLogo
+            title="Primeagent logo"
             className="mb-4 h-10 w-10 scale-[1.5]"
           />
           <span className="mb-6 text-2xl font-semibold text-primary">
-            Sign up for Aiexec
+            Sign up for Primeagent
           </span>
           <div className="mb-3 w-full">
             <Form.Field name="username">

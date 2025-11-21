@@ -24,12 +24,12 @@ def test_auto_login_true_forces_default_and_scrubs_password(tmp_path: Path):
     # Validator forces default username and scrubs password
     assert settings.SUPERUSER == DEFAULT_SUPERUSER
     assert isinstance(settings.SUPERUSER_PASSWORD, SecretStr)
-    assert settings.SUPERUSER_PASSWORD.get_secret_value() == "aiexec"
+    assert settings.SUPERUSER_PASSWORD.get_secret_value() == "primeagent"
 
     # reset_credentials keeps default username (AUTO_LOGIN on) and keeps password scrubbed
     settings.reset_credentials()
     assert settings.SUPERUSER == DEFAULT_SUPERUSER
-    assert settings.SUPERUSER_PASSWORD.get_secret_value() == "aiexec"
+    assert settings.SUPERUSER_PASSWORD.get_secret_value() == "primeagent"
 
 
 def test_auto_login_false_preserves_username_and_scrubs_password_on_reset(tmp_path: Path):

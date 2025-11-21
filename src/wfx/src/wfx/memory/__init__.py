@@ -1,16 +1,16 @@
 """Memory management for wfx with dynamic loading.
 
-This module automatically chooses between the full aiexec implementation
+This module automatically chooses between the full primeagent implementation
 (when available) and the wfx implementation (when standalone).
 """
 
-from wfx.utils.aiexec_utils import has_aiexec_memory
+from wfx.utils.primeagent_utils import has_primeagent_memory
 
 # Import the appropriate implementation
-if has_aiexec_memory():
+if has_primeagent_memory():
     try:
-        # Import full aiexec implementation
-        from aiexec.memory import (
+        # Import full primeagent implementation
+        from primeagent.memory import (
             aadd_messages,
             aadd_messagetables,
             add_messages,
@@ -24,7 +24,7 @@ if has_aiexec_memory():
             store_message,
         )
     except ImportError:
-        # Fallback to wfx implementation if aiexec import fails
+        # Fallback to wfx implementation if primeagent import fails
         from wfx.memory.stubs import (
             aadd_messages,
             aadd_messagetables,

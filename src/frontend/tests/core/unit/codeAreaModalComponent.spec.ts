@@ -32,17 +32,17 @@ test(
     await page.getByTestId("code-button-modal").last().click();
 
     const codeInputCode = `
-# from aiexec.field_typing import Data
-from aiexec.custom import Component
-from aiexec.io import CodeInput, Output
-from aiexec.schema import Data
+# from primeagent.field_typing import Data
+from primeagent.custom import Component
+from primeagent.io import CodeInput, Output
+from primeagent.schema import Data
 from time import sleep
-from aiexec.schema.message import Message
+from primeagent.schema.message import Message
 
 class CustomComponent(Component):
     display_name = "Custom Component"
     description = "Use as a template to create your own component."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-custom-components"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-custom-components"
     icon = "custom_components"
     name = "CustomComponent"
 
@@ -78,9 +78,9 @@ class CustomComponent(Component):
       'def python_function(text: str) -> st:    """This is a default python function that returns the input text"""    return text';
 
     const customComponentCode = `from typing import Callable
-from aiexec.field_typing import Code
-from aiexec.interface.custom.custom_component import CustomComponent
-from aiexec.interface.custom.utils import get_function
+from primeagent.field_typing import Code
+from primeagent.interface.custom.custom_component import CustomComponent
+from primeagent.interface.custom.utils import get_function
 
 class PythonFunctionComponent(CustomComponent):
     def python_function(text: str) -> str:

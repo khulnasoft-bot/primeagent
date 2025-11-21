@@ -59,7 +59,7 @@ export default function PlaygroundPage() {
   }, []);
 
   useEffect(() => {
-    document.title = currentSavedFlow?.name || "Aiexec";
+    document.title = currentSavedFlow?.name || "Primeagent";
     if (currentSavedFlow?.data) {
       const { inputs, outputs } = getInputsAndOutputs(
         currentSavedFlow?.data?.nodes || [],

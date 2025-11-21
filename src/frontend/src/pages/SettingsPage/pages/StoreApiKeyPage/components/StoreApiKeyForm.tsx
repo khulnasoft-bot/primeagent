@@ -75,11 +75,11 @@ const StoreApiKeyFormComponent = ({
                 {CREATE_API_KEY}{" "}
                 <a
                   className="text-high-indigo underline"
-                  href="https://aiexec.store/"
+                  href="https://primeagent.store/"
                   target="_blank"
                   rel="noopener"
                 >
-                  aiexec.store
+                  primeagent.store
                 </a>
               </span>
             </div>

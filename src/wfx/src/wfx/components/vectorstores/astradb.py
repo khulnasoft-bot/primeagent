@@ -31,7 +31,7 @@ from wfx.utils.version import get_version_info
 class AstraDBVectorStoreComponent(LCVectorStoreComponent):
     display_name: str = "Astra DB"
     description: str = "Ingest and search documents in Astra DB"
-    documentation: str = "https://docs.datastax.com/en/aiexec/astra-components.html"
+    documentation: str = "https://docs.datastax.com/en/primeagent/astra-components.html"
     name = "AstraDB"
     icon: str = "AstraDB"
 
@@ -164,7 +164,7 @@ class AstraDBVectorStoreComponent(LCVectorStoreComponent):
         DropdownInput(
             name="api_endpoint",
             display_name="Astra DB API Endpoint",
-            info="The API Endpoint for the Astra DB instance. Supercedes database selection.",
+            info="The API Endpoint for the Astra DB instance. Supersedes database selection.",
             advanced=True,
         ),
         DropdownInput(
@@ -804,7 +804,7 @@ class AstraDBVectorStoreComponent(LCVectorStoreComponent):
         admin_client = client.get_admin()
         db_admin = admin_client.get_database_admin(self.get_api_endpoint(), token=self.token)
 
-        # We will try to get the reranking providers to see if its hybrid emabled
+        # We will try to get the reranking providers to see if its hybrid enabled
         try:
             providers = db_admin.find_reranking_providers()
             build_config["reranker"]["options"] = [
@@ -1110,11 +1110,11 @@ class AstraDBVectorStoreComponent(LCVectorStoreComponent):
         # Get the additional parameters
         additional_params = self.astradb_vectorstore_kwargs or {}
 
-        # Get Aiexec version and platform information
+        # Get Primeagent version and platform information
         __version__ = get_version_info()["version"]
-        aiexec_prefix = ""
+        primeagent_prefix = ""
         # if os.getenv("AWS_EXECUTION_ENV") == "AWS_ECS_FARGATE":  # TODO: More precise way of detecting
-        #     aiexec_prefix = "ds-"
+        #     primeagent_prefix = "ds-"
 
         # Get the database object
         database = self.get_database_object()
@@ -1151,7 +1151,7 @@ class AstraDBVectorStoreComponent(LCVectorStoreComponent):
                 # Hybrid Search Parameters
                 hybrid_search=hybrid_search_mode,
                 # Astra DB Usage Tracking Parameters
-                ext_callers=[(f"{aiexec_prefix}aiexec", __version__)],
+                ext_callers=[(f"{primeagent_prefix}primeagent", __version__)],
                 # Astra DB Vector Store Parameters
                 **autodetect_params,
                 **embedding_params,

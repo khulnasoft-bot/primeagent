@@ -31,17 +31,17 @@ test(
     await page.getByTestId("code-button-modal").last().click();
 
     const waitTimeoutCode = `
-# from aiexec.field_typing import Data
-from aiexec.custom import Component
-from aiexec.io import MessageTextInput, Output
-from aiexec.schema import Data
+# from primeagent.field_typing import Data
+from primeagent.custom import Component
+from primeagent.io import MessageTextInput, Output
+from primeagent.schema import Data
 from time import sleep
-from aiexec.schema.message import Message
+from primeagent.schema.message import Message
 
 class CustomComponent(Component):
     display_name = "Custom Component"
     description = "Use as a template to create your own component."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-custom-components"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-custom-components"
     icon = "custom_components"
     name = "CustomComponent"
 

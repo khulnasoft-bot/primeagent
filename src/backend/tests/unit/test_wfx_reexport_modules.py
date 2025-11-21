@@ -1,37 +1,37 @@
-"""Test to ensure all aiexec modules that re-export wfx modules work correctly.
+"""Test to ensure all primeagent modules that re-export wfx modules work correctly.
 
-This test validates that every aiexec module that re-exports from wfx
+This test validates that every primeagent module that re-exports from wfx
 can successfully import and access all expected symbols, maintaining
 backward compatibility and proper API exposure.
 
-Based on analysis, there are 24 aiexec modules that re-export from wfx:
+Based on analysis, there are 24 primeagent modules that re-export from wfx:
 
 Base Modules (11):
-- aiexec.base (wildcard from wfx.base)
-- aiexec.base.agents (from wfx.base.agents)
-- aiexec.base.data (from wfx.base.data)
-- aiexec.base.embeddings (from wfx.base.embeddings)
-- aiexec.base.io (from wfx.base.io)
-- aiexec.base.memory (from wfx.base.memory)
-- aiexec.base.models (from wfx.base.models)
-- aiexec.base.prompts (from wfx.base.prompts)
-- aiexec.base.textsplitters (from wfx.base.textsplitters)
-- aiexec.base.tools (from wfx.base.tools)
-- aiexec.base.vectorstores (from wfx.base.vectorstores)
+- primeagent.base (wildcard from wfx.base)
+- primeagent.base.agents (from wfx.base.agents)
+- primeagent.base.data (from wfx.base.data)
+- primeagent.base.embeddings (from wfx.base.embeddings)
+- primeagent.base.io (from wfx.base.io)
+- primeagent.base.memory (from wfx.base.memory)
+- primeagent.base.models (from wfx.base.models)
+- primeagent.base.prompts (from wfx.base.prompts)
+- primeagent.base.textsplitters (from wfx.base.textsplitters)
+- primeagent.base.tools (from wfx.base.tools)
+- primeagent.base.vectorstores (from wfx.base.vectorstores)
 
 Core System Modules (13):
-- aiexec.custom (from wfx.custom)
-- aiexec.custom.custom_component (from wfx.custom.custom_component)
-- aiexec.field_typing (from wfx.field_typing with __getattr__)
-- aiexec.graph (from wfx.graph)
-- aiexec.inputs (from wfx.inputs.inputs)
-- aiexec.interface (from wfx.interface)
-- aiexec.io (from wfx.io + wfx.template)
-- aiexec.load (from wfx.load)
-- aiexec.logging (from wfx.log.logger)
-- aiexec.schema (from wfx.schema)
-- aiexec.template (wildcard from wfx.template)
-- aiexec.template.field (from wfx.template.field)
+- primeagent.custom (from wfx.custom)
+- primeagent.custom.custom_component (from wfx.custom.custom_component)
+- primeagent.field_typing (from wfx.field_typing with __getattr__)
+- primeagent.graph (from wfx.graph)
+- primeagent.inputs (from wfx.inputs.inputs)
+- primeagent.interface (from wfx.interface)
+- primeagent.io (from wfx.io + wfx.template)
+- primeagent.load (from wfx.load)
+- primeagent.logging (from wfx.log.logger)
+- primeagent.schema (from wfx.schema)
+- primeagent.template (wildcard from wfx.template)
+- primeagent.template.field (from wfx.template.field)
 """
 
 import importlib
@@ -48,38 +48,38 @@ def get_all_reexport_modules():
     """Get all known re-export modules for parametrized testing."""
     # Define the modules here so they can be accessed by parametrize
     direct_reexport_modules = {
-        "aiexec.base.agents": "wfx.base.agents",
-        "aiexec.base.data": "wfx.base.data",
-        "aiexec.base.embeddings": "wfx.base.embeddings",
-        "aiexec.base.io": "wfx.base.io",
-        "aiexec.base.memory": "wfx.base.memory",
-        "aiexec.base.models": "wfx.base.models",
-        "aiexec.base.prompts": "wfx.base.prompts",
-        "aiexec.base.textsplitters": "wfx.base.textsplitters",
-        "aiexec.base.tools": "wfx.base.tools",
-        "aiexec.base.vectorstores": "wfx.base.vectorstores",
-        "aiexec.custom.custom_component": "wfx.custom.custom_component",
-        "aiexec.graph": "wfx.graph",
-        "aiexec.inputs": "wfx.inputs.inputs",
-        "aiexec.interface": "wfx.interface",
-        "aiexec.load": "wfx.load",
-        "aiexec.logging": "wfx.log",
-        "aiexec.schema": "wfx.schema",
-        "aiexec.template.field": "wfx.template.field",
+        "primeagent.base.agents": "wfx.base.agents",
+        "primeagent.base.data": "wfx.base.data",
+        "primeagent.base.embeddings": "wfx.base.embeddings",
+        "primeagent.base.io": "wfx.base.io",
+        "primeagent.base.memory": "wfx.base.memory",
+        "primeagent.base.models": "wfx.base.models",
+        "primeagent.base.prompts": "wfx.base.prompts",
+        "primeagent.base.textsplitters": "wfx.base.textsplitters",
+        "primeagent.base.tools": "wfx.base.tools",
+        "primeagent.base.vectorstores": "wfx.base.vectorstores",
+        "primeagent.custom.custom_component": "wfx.custom.custom_component",
+        "primeagent.graph": "wfx.graph",
+        "primeagent.inputs": "wfx.inputs.inputs",
+        "primeagent.interface": "wfx.interface",
+        "primeagent.load": "wfx.load",
+        "primeagent.logging": "wfx.log",
+        "primeagent.schema": "wfx.schema",
+        "primeagent.template.field": "wfx.template.field",
     }
 
     wildcard_reexport_modules = {
-        "aiexec.base": "wfx.base",
-        "aiexec.template": "wfx.template",
+        "primeagent.base": "wfx.base",
+        "primeagent.template": "wfx.template",
     }
 
     complex_reexport_modules = {
-        "aiexec.custom": ["wfx.custom", "wfx.custom.custom_component", "wfx.custom.utils"],
-        "aiexec.io": ["wfx.io", "wfx.template"],
+        "primeagent.custom": ["wfx.custom", "wfx.custom.custom_component", "wfx.custom.utils"],
+        "primeagent.io": ["wfx.io", "wfx.template"],
     }
 
     dynamic_reexport_modules = {
-        "aiexec.field_typing": "wfx.field_typing",
+        "primeagent.field_typing": "wfx.field_typing",
     }
 
     return list(
@@ -93,20 +93,20 @@ def get_all_reexport_modules():
 
 
 class TestWfxReexportModules:
-    """Test that all aiexec modules that re-export from wfx work correctly."""
+    """Test that all primeagent modules that re-export from wfx work correctly."""
 
     @classmethod
-    def _discover_aiexec_modules(cls) -> list[str]:
-        """Dynamically discover all aiexec modules."""
-        aiexec_modules = []
+    def _discover_primeagent_modules(cls) -> list[str]:
+        """Dynamically discover all primeagent modules."""
+        primeagent_modules = []
         try:
-            import aiexec
+            import primeagent
 
-            for _importer, modname, _ispkg in pkgutil.walk_packages(aiexec.__path__, aiexec.__name__ + "."):
-                aiexec_modules.append(modname)
+            for _importer, modname, _ispkg in pkgutil.walk_packages(primeagent.__path__, primeagent.__name__ + "."):
+                primeagent_modules.append(modname)
         except ImportError:
             pass
-        return aiexec_modules
+        return primeagent_modules
 
     @classmethod
     def _detect_reexport_pattern(cls, module_name: str) -> dict[str, str | None]:
@@ -164,53 +164,53 @@ class TestWfxReexportModules:
     # Define all the modules that re-export from wfx (kept for backward compatibility)
     DIRECT_REEXPORT_MODULES = {
         # Base modules with direct re-exports
-        "aiexec.base.agents": "wfx.base.agents",
-        "aiexec.base.data": "wfx.base.data",
-        "aiexec.base.embeddings": "wfx.base.embeddings",
-        "aiexec.base.io": "wfx.base.io",
-        "aiexec.base.memory": "wfx.base.memory",
-        "aiexec.base.models": "wfx.base.models",
-        "aiexec.base.prompts": "wfx.base.prompts",
-        "aiexec.base.textsplitters": "wfx.base.textsplitters",
-        "aiexec.base.tools": "wfx.base.tools",
-        "aiexec.base.vectorstores": "wfx.base.vectorstores",
+        "primeagent.base.agents": "wfx.base.agents",
+        "primeagent.base.data": "wfx.base.data",
+        "primeagent.base.embeddings": "wfx.base.embeddings",
+        "primeagent.base.io": "wfx.base.io",
+        "primeagent.base.memory": "wfx.base.memory",
+        "primeagent.base.models": "wfx.base.models",
+        "primeagent.base.prompts": "wfx.base.prompts",
+        "primeagent.base.textsplitters": "wfx.base.textsplitters",
+        "primeagent.base.tools": "wfx.base.tools",
+        "primeagent.base.vectorstores": "wfx.base.vectorstores",
         # Core system modules with direct re-exports
-        "aiexec.custom.custom_component": "wfx.custom.custom_component",
-        "aiexec.graph": "wfx.graph",
-        "aiexec.inputs": "wfx.inputs.inputs",
-        "aiexec.interface": "wfx.interface",
-        "aiexec.load": "wfx.load",
-        "aiexec.logging": "wfx.log",  # Note: imports from wfx.log.logger
-        "aiexec.schema": "wfx.schema",
-        "aiexec.template.field": "wfx.template.field",
+        "primeagent.custom.custom_component": "wfx.custom.custom_component",
+        "primeagent.graph": "wfx.graph",
+        "primeagent.inputs": "wfx.inputs.inputs",
+        "primeagent.interface": "wfx.interface",
+        "primeagent.load": "wfx.load",
+        "primeagent.logging": "wfx.log",  # Note: imports from wfx.log.logger
+        "primeagent.schema": "wfx.schema",
+        "primeagent.template.field": "wfx.template.field",
     }
 
     # Modules that use wildcard imports from wfx
     WILDCARD_REEXPORT_MODULES = {
-        "aiexec.base": "wfx.base",
-        "aiexec.template": "wfx.template",
+        "primeagent.base": "wfx.base",
+        "primeagent.template": "wfx.template",
     }
 
     # Modules with complex/mixed import patterns
     COMPLEX_REEXPORT_MODULES = {
-        "aiexec.custom": ["wfx.custom", "wfx.custom.custom_component", "wfx.custom.utils"],
-        "aiexec.io": ["wfx.io", "wfx.template"],  # Mixed imports
+        "primeagent.custom": ["wfx.custom", "wfx.custom.custom_component", "wfx.custom.utils"],
+        "primeagent.io": ["wfx.io", "wfx.template"],  # Mixed imports
     }
 
     # Modules with dynamic __getattr__ patterns
     DYNAMIC_REEXPORT_MODULES = {
-        "aiexec.field_typing": "wfx.field_typing",
+        "primeagent.field_typing": "wfx.field_typing",
     }
 
     def test_direct_reexport_modules_importable(self):
         """Test that all direct re-export modules can be imported."""
         successful_imports = 0
 
-        for aiexec_module, wfx_module in self.DIRECT_REEXPORT_MODULES.items():
+        for primeagent_module, wfx_module in self.DIRECT_REEXPORT_MODULES.items():
             try:
-                # Import the aiexec module
-                lf_module = importlib.import_module(aiexec_module)
-                assert lf_module is not None, f"Aiexec module {aiexec_module} is None"
+                # Import the primeagent module
+                lf_module = importlib.import_module(primeagent_module)
+                assert lf_module is not None, f"Primeagent module {primeagent_module} is None"
 
                 # Import the corresponding wfx module to compare
 
@@ -220,17 +220,17 @@ class TestWfxReexportModules:
                 successful_imports += 1
 
             except Exception as e:
-                pytest.fail(f"Failed to import direct re-export module {aiexec_module}: {e!s}")
+                pytest.fail(f"Failed to import direct re-export module {primeagent_module}: {e!s}")
 
     def test_wildcard_reexport_modules_importable(self):
         """Test that modules using wildcard imports work correctly."""
         successful_imports = 0
 
-        for aiexec_module, wfx_module in self.WILDCARD_REEXPORT_MODULES.items():
+        for primeagent_module, wfx_module in self.WILDCARD_REEXPORT_MODULES.items():
             try:
-                # Import the aiexec module
-                lf_module = importlib.import_module(aiexec_module)
-                assert lf_module is not None, f"Aiexec module {aiexec_module} is None"
+                # Import the primeagent module
+                lf_module = importlib.import_module(primeagent_module)
+                assert lf_module is not None, f"Primeagent module {primeagent_module} is None"
 
                 # Wildcard imports should expose most/all attributes from wfx module
                 wfx_mod = importlib.import_module(wfx_module)
@@ -240,56 +240,58 @@ class TestWfxReexportModules:
                     all_attrs = list(wfx_mod.__all__)  # Test all attributes
                     for attr in all_attrs:
                         if hasattr(wfx_mod, attr):
-                            assert hasattr(lf_module, attr), f"Attribute {attr} missing from {aiexec_module}"
+                            assert hasattr(lf_module, attr), f"Attribute {attr} missing from {primeagent_module}"
 
                 successful_imports += 1
 
             except Exception as e:
-                pytest.fail(f"Failed to import wildcard re-export module {aiexec_module}: {e!s}")
+                pytest.fail(f"Failed to import wildcard re-export module {primeagent_module}: {e!s}")
 
     def test_complex_reexport_modules_importable(self):
         """Test that modules with complex/mixed import patterns work correctly."""
         successful_imports = 0
 
-        for aiexec_module in self.COMPLEX_REEXPORT_MODULES:
+        for primeagent_module in self.COMPLEX_REEXPORT_MODULES:
             try:
-                # Import the aiexec module
-                lf_module = importlib.import_module(aiexec_module)
-                assert lf_module is not None, f"Aiexec module {aiexec_module} is None"
+                # Import the primeagent module
+                lf_module = importlib.import_module(primeagent_module)
+                assert lf_module is not None, f"Primeagent module {primeagent_module} is None"
 
                 # Verify it has __all__ attribute for complex modules
-                assert hasattr(lf_module, "__all__"), f"Complex module {aiexec_module} missing __all__"
-                assert len(lf_module.__all__) > 0, f"Complex module {aiexec_module} has empty __all__"
+                assert hasattr(lf_module, "__all__"), f"Complex module {primeagent_module} missing __all__"
+                assert len(lf_module.__all__) > 0, f"Complex module {primeagent_module} has empty __all__"
 
                 # Try to access all items from __all__
                 all_items = lf_module.__all__  # Test all items
                 for item in all_items:
                     try:
                         attr = getattr(lf_module, item)
-                        assert attr is not None, f"Attribute {item} is None in {aiexec_module}"
+                        assert attr is not None, f"Attribute {item} is None in {primeagent_module}"
                     except AttributeError:
-                        pytest.fail(f"Complex module {aiexec_module} missing expected attribute {item} from __all__")
+                        pytest.fail(
+                            f"Complex module {primeagent_module} missing expected attribute {item} from __all__"
+                        )
 
                 successful_imports += 1
 
             except Exception as e:
-                pytest.fail(f"Failed to import complex re-export module {aiexec_module}: {e!s}")
+                pytest.fail(f"Failed to import complex re-export module {primeagent_module}: {e!s}")
 
     def test_dynamic_reexport_modules_importable(self):
         """Test that modules with __getattr__ dynamic loading work correctly."""
         successful_imports = 0
 
-        for aiexec_module in self.DYNAMIC_REEXPORT_MODULES:
+        for primeagent_module in self.DYNAMIC_REEXPORT_MODULES:
             try:
-                # Import the aiexec module
-                lf_module = importlib.import_module(aiexec_module)
-                assert lf_module is not None, f"Aiexec module {aiexec_module} is None"
+                # Import the primeagent module
+                lf_module = importlib.import_module(primeagent_module)
+                assert lf_module is not None, f"Primeagent module {primeagent_module} is None"
 
                 # Dynamic modules should have __getattr__ method
-                assert hasattr(lf_module, "__getattr__"), f"Dynamic module {aiexec_module} missing __getattr__"
+                assert hasattr(lf_module, "__getattr__"), f"Dynamic module {primeagent_module} missing __getattr__"
 
                 # Test accessing some known attributes dynamically
-                if aiexec_module == "aiexec.field_typing":
+                if primeagent_module == "primeagent.field_typing":
                     # Test some known field typing constants
                     test_attrs = ["Data", "Text", "LanguageModel"]
                     for attr in test_attrs:
@@ -297,12 +299,12 @@ class TestWfxReexportModules:
                             value = getattr(lf_module, attr)
                             assert value is not None, f"Dynamic attribute {attr} is None"
                         except AttributeError:
-                            pytest.fail(f"Dynamic module {aiexec_module} missing expected attribute {attr}")
+                            pytest.fail(f"Dynamic module {primeagent_module} missing expected attribute {attr}")
 
                 successful_imports += 1
 
             except Exception as e:
-                pytest.fail(f"Failed to import dynamic re-export module {aiexec_module}: {e!s}")
+                pytest.fail(f"Failed to import dynamic re-export module {primeagent_module}: {e!s}")
 
     def test_all_reexport_modules_have_required_structure(self):
         """Test that re-export modules have the expected structure."""
@@ -315,9 +317,9 @@ class TestWfxReexportModules:
         for lf_mod in self.COMPLEX_REEXPORT_MODULES:
             all_modules[lf_mod] = self.COMPLEX_REEXPORT_MODULES[lf_mod]
 
-        for aiexec_module in all_modules:
+        for primeagent_module in all_modules:
             try:
-                lf_module = importlib.import_module(aiexec_module)
+                lf_module = importlib.import_module(primeagent_module)
 
                 # All modules should be importable
                 assert lf_module is not None
@@ -329,21 +331,21 @@ class TestWfxReexportModules:
                 assert hasattr(lf_module, "__file__") or hasattr(lf_module, "__path__")
 
             except Exception as e:
-                pytest.fail(f"Module structure issue with {aiexec_module}: {e!s}")
+                pytest.fail(f"Module structure issue with {primeagent_module}: {e!s}")
 
     def test_reexport_modules_backward_compatibility(self):
         """Test that common import patterns still work for backward compatibility."""
         # Test some key imports that should always work
         backward_compatible_imports = [
-            ("aiexec.schema", "Data"),
-            ("aiexec.inputs", "StrInput"),
-            ("aiexec.inputs", "IntInput"),
-            ("aiexec.custom", "Component"),  # Base component class
-            ("aiexec.custom", "CustomComponent"),
-            ("aiexec.field_typing", "Text"),  # Dynamic
-            ("aiexec.field_typing", "Data"),  # Dynamic
-            ("aiexec.load", "load_flow_from_json"),
-            ("aiexec.logging", "logger"),
+            ("primeagent.schema", "Data"),
+            ("primeagent.inputs", "StrInput"),
+            ("primeagent.inputs", "IntInput"),
+            ("primeagent.custom", "Component"),  # Base component class
+            ("primeagent.custom", "CustomComponent"),
+            ("primeagent.field_typing", "Text"),  # Dynamic
+            ("primeagent.field_typing", "Data"),  # Dynamic
+            ("primeagent.load", "load_flow_from_json"),
+            ("primeagent.logging", "logger"),
         ]
 
         for module_name, symbol_name in backward_compatible_imports:
@@ -363,12 +365,12 @@ class TestWfxReexportModules:
         """Test that there are no circular import issues in re-export modules."""
         # Test importing modules in different orders to catch circular imports
         import_orders = [
-            ["aiexec.schema", "aiexec.inputs", "aiexec.base"],
-            ["aiexec.base", "aiexec.schema", "aiexec.inputs"],
-            ["aiexec.inputs", "aiexec.base", "aiexec.schema"],
-            ["aiexec.custom", "aiexec.field_typing", "aiexec.template"],
-            ["aiexec.template", "aiexec.custom", "aiexec.field_typing"],
-            ["aiexec.field_typing", "aiexec.template", "aiexec.custom"],
+            ["primeagent.schema", "primeagent.inputs", "primeagent.base"],
+            ["primeagent.base", "primeagent.schema", "primeagent.inputs"],
+            ["primeagent.inputs", "primeagent.base", "primeagent.schema"],
+            ["primeagent.custom", "primeagent.field_typing", "primeagent.template"],
+            ["primeagent.template", "primeagent.custom", "primeagent.field_typing"],
+            ["primeagent.field_typing", "primeagent.template", "primeagent.custom"],
         ]
 
         for order in import_orders:
@@ -392,11 +394,11 @@ class TestWfxReexportModules:
         """Test that re-export modules import efficiently."""
         # Test that basic imports are fast
         performance_critical_modules = [
-            "aiexec.schema",
-            "aiexec.inputs",
-            "aiexec.field_typing",
-            "aiexec.load",
-            "aiexec.logging",
+            "primeagent.schema",
+            "primeagent.inputs",
+            "primeagent.field_typing",
+            "primeagent.load",
+            "primeagent.logging",
         ]
 
         slow_imports = []
@@ -435,12 +437,12 @@ class TestWfxReexportModules:
 
     # Dynamic test methods using the discovery functions
     def test_dynamic_module_discovery(self):
-        """Test that we can dynamically discover aiexec modules."""
-        modules = self._discover_aiexec_modules()
-        assert len(modules) > 0, "Should discover at least some aiexec modules"
+        """Test that we can dynamically discover primeagent modules."""
+        modules = self._discover_primeagent_modules()
+        assert len(modules) > 0, "Should discover at least some primeagent modules"
 
         # Check that known modules are found
-        expected_modules = ["aiexec.schema", "aiexec.inputs", "aiexec.custom"]
+        expected_modules = ["primeagent.schema", "primeagent.inputs", "primeagent.custom"]
         found_modules = [mod for mod in expected_modules if mod in modules]
         assert len(found_modules) > 0, f"Expected to find some of {expected_modules}, but found: {found_modules}"
 
@@ -465,13 +467,13 @@ class TestWfxReexportModules:
     def test_generate_backward_compatibility_imports(self):
         """Test generating backward compatibility imports dynamically."""
         # Test with a known module that has wfx imports
-        test_cases = [("aiexec.schema", "wfx.schema"), ("aiexec.custom", "wfx.custom")]
+        test_cases = [("primeagent.schema", "wfx.schema"), ("primeagent.custom", "wfx.custom")]
 
         for lf_module, expected_wfx_source in test_cases:
             symbols = self._get_expected_symbols(expected_wfx_source)
             assert len(symbols) > 0, f"Should find some symbols in {expected_wfx_source}"
 
-            # Test that at least some symbols are accessible in the aiexec module
+            # Test that at least some symbols are accessible in the primeagent module
             module = importlib.import_module(lf_module)
             available_symbols = [sym for sym in symbols[:3] if hasattr(module, sym)]  # Test first 3
             assert len(available_symbols) > 0, f"Module {lf_module} should have some symbols from {expected_wfx_source}"

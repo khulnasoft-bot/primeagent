@@ -1,7 +1,7 @@
 import json
 from unittest.mock import MagicMock, patch
 
-from aiexec.io import Output
+from primeagent.io import Output
 from wfx.components.data import FileComponent
 
 

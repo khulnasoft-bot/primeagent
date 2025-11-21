@@ -11,12 +11,12 @@ from pydantic import ValidationError
 from wfx.field_typing.constants import CUSTOM_COMPONENT_SUPPORTED_TYPES, DEFAULT_IMPORT_STRING
 from wfx.log.logger import logger
 
-_AIEXEC_IS_INSTALLED = False
+_PRIMEAGENT_IS_INSTALLED = False
 
 with contextlib.suppress(ImportError):
-    import aiexec  # noqa: F401
+    import primeagent  # noqa: F401
 
-    _AIEXEC_IS_INSTALLED = True
+    _PRIMEAGENT_IS_INSTALLED = True
 
 
 def add_type_ignores() -> None:
@@ -56,13 +56,13 @@ def validate_code(code):
                 except ModuleNotFoundError as e:
                     errors["imports"]["errors"].append(str(e))
 
-    # Evaluate the function definition with aiexec context
+    # Evaluate the function definition with primeagent context
     for node in tree.body:
         if isinstance(node, ast.FunctionDef):
             code_obj = compile(ast.Module(body=[node], type_ignores=[]), "<string>", "exec")
             try:
-                # Create execution context with common aiexec imports
-                exec_globals = _create_aiexec_execution_context()
+                # Create execution context with common primeagent imports
+                exec_globals = _create_primeagent_execution_context()
                 exec(code_obj, exec_globals)
             except Exception as e:  # noqa: BLE001
                 logger.debug("Error executing function code", exc_info=True)
@@ -72,11 +72,11 @@ def validate_code(code):
     return errors
 
 
-def _create_aiexec_execution_context():
-    """Create execution context with common aiexec imports."""
+def _create_primeagent_execution_context():
+    """Create execution context with common primeagent imports."""
     context = {}
 
-    # Import common aiexec types that are used in templates
+    # Import common primeagent types that are used in templates
     try:
         from wfx.schema.dataframe import DataFrame
 
@@ -254,10 +254,10 @@ def create_class(code, class_name):
     if not hasattr(ast, "TypeIgnore"):
         ast.TypeIgnore = create_type_ignore_class()
 
-    code = code.replace("from aiexec import CustomComponent", "from aiexec.custom import CustomComponent")
+    code = code.replace("from primeagent import CustomComponent", "from primeagent.custom import CustomComponent")
     code = code.replace(
-        "from aiexec.interface.custom.custom_component import CustomComponent",
-        "from aiexec.custom import CustomComponent",
+        "from primeagent.interface.custom.custom_component import CustomComponent",
+        "from primeagent.custom import CustomComponent",
     )
 
     code = DEFAULT_IMPORT_STRING + "\n" + code
@@ -364,9 +364,9 @@ def prepare_global_scope(module):
     for node in import_froms:
         module_names_to_try = [node.module]
 
-        # If original module starts with aiexec, also try wfx equivalent
-        if node.module and node.module.startswith("aiexec."):
-            wfx_module_name = node.module.replace("aiexec.", "wfx.", 1)
+        # If original module starts with primeagent, also try wfx equivalent
+        if node.module and node.module.startswith("primeagent."):
+            wfx_module_name = node.module.replace("primeagent.", "wfx.", 1)
             module_names_to_try.append(wfx_module_name)
 
         success = False
@@ -462,10 +462,10 @@ def get_default_imports(code_string):
         "Dict": dict,
         "Union": Union,
     }
-    aiexec_imports = list(CUSTOM_COMPONENT_SUPPORTED_TYPES.keys())
-    necessary_imports = find_names_in_code(code_string, aiexec_imports)
-    aiexec_module = importlib.import_module("wfx.field_typing")
-    default_imports.update({name: getattr(aiexec_module, name) for name in necessary_imports})
+    primeagent_imports = list(CUSTOM_COMPONENT_SUPPORTED_TYPES.keys())
+    necessary_imports = find_names_in_code(code_string, primeagent_imports)
+    primeagent_module = importlib.import_module("wfx.field_typing")
+    default_imports.update({name: getattr(primeagent_module, name) for name in necessary_imports})
 
     return default_imports
 

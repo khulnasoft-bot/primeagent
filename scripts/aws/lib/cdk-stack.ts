@@ -13,7 +13,7 @@ const errorMessageForBooleanContext = (key: string) => {
 };
 
 
-export class AiexecAppStack extends cdk.Stack {
+export class PrimeagentAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
     // Kendra Enable

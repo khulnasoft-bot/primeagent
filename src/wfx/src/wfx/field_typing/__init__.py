@@ -53,7 +53,7 @@ def __getattr__(name: str) -> Any:
     if name == "RangeSpec":
         return RangeSpec
     # The other names should work as if they were imported from constants
-    # Import the constants module aiexec.field_typing.constants
+    # Import the constants module primeagent.field_typing.constants
     from . import constants
 
     return getattr(constants, name)

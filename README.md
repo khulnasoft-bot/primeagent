@@ -1,7 +1,7 @@
-# 🚀 **Explore Aiexec**
+# 🚀 **Explore Primeagent**
 ### *A Developer Platform for Building AI Agents, Workflows & Systems — Visually or in Code*
 
-[![GitHub Repo](https://img.shields.io/badge/GitHub-khulnasoft/aiexec-181717?logo=github)](https://github.com/khulnasoft/aiexec)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-khulnasoft/primeagent-181717?logo=github)](https://github.com/khulnasoft/primeagent)
 [![Discord](https://img.shields.io/discord/1116803230643527710?color=5865F2&logo=discord&label=Community)](https://discord.gg/EqksyE2EX9)
 [![Website](https://img.shields.io/badge/Website-khulnasoft.com-00B4D8?logo=google-chrome&logoColor=white)](https://khulnasoft.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -10,11 +10,11 @@
 
 ---
 
-## 🌍 **What Is Aiexec?**
+## 🌍 **What Is Primeagent?**
 
-**Aiexec** is an open-source, next-generation platform for building, deploying, and orchestrating **AI agents and workflows** — powered by code, or visually through an elegant interface.
+**Primeagent** is an open-source, next-generation platform for building, deploying, and orchestrating **AI agents and workflows** — powered by code, or visually through an elegant interface.
 
-> 💡 *Aiexec bridges the gap between no-code prototyping and enterprise-grade AI engineering.*
+> 💡 *Primeagent bridges the gap between no-code prototyping and enterprise-grade AI engineering.*
 
 ---
 
@@ -39,7 +39,7 @@
 <td width="50%" valign="top">
 
 #### ⚙️ **Developer-First Framework**
-> *If you can write Python, you can extend Aiexec.*
+> *If you can write Python, you can extend Primeagent.*
 - Modular Python components  
 - Hot-reload development  
 - CLI & SDK for automation  
@@ -78,15 +78,15 @@
 
 | 🧰 Step | Action | Description |
 |:--:|:--|:--|
-| 1️⃣ | **Install** | ```bash<br>uv pip install aiexec -U<br>``` |
-| 2️⃣ | **Run** | ```bash<br>uv run aiexec run<br>``` |
+| 1️⃣ | **Install** | ```bash<br>uv pip install primeagent -U<br>``` |
+| 2️⃣ | **Run** | ```bash<br>uv run primeagent run<br>``` |
 | 3️⃣ | **Explore** | Visit [http://127.0.0.1:7860](http://127.0.0.1:7860) and start creating |
 
 </div>
 
 <div align="center">
 
-> 🐳 Prefer Docker? → `docker run -p 7860:7860 aiexec/aiexec`  
+> 🐳 Prefer Docker? → `docker run -p 7860:7860 primeagent/primeagent`  
 > 💻 Want the Desktop App? → [Download Here](https://docs.khulnasoft.com)  
 > ☁️ Deploy to Cloud? → [Read the Deployment Guide](https://docs.khulnasoft.com/deployment-cloud)
 
@@ -130,9 +130,9 @@
 
 | ❤️ Join the Movement | |
 |:--:|:--|
-| ⭐ **Star on GitHub** | [![GitHub Stars](https://img.shields.io/github/stars/khulnasoft/aiexec?style=social)](https://github.com/khulnasoft/aiexec) |
+| ⭐ **Star on GitHub** | [![GitHub Stars](https://img.shields.io/github/stars/khulnasoft/primeagent?style=social)](https://github.com/khulnasoft/primeagent) |
 | 💬 **Join Discord** | [![Discord](https://img.shields.io/discord/1116803230643527710?logo=discord&style=social)](https://discord.gg/EqksyE2EX9) |
-| 🐦 **Follow on X** | [![Twitter Follow](https://img.shields.io/twitter/follow/aiexec_ai?style=social)](https://twitter.com/aiexec_ai) |
+| 🐦 **Follow on X** | [![Twitter Follow](https://img.shields.io/twitter/follow/primeagent_ai?style=social)](https://twitter.com/primeagent_ai) |
 
 </div>
 
@@ -141,7 +141,7 @@
 ## 🤝 **Contributing**
 
 We welcome developers of all backgrounds.  
-Help us make Aiexec the best open-source platform for AI orchestration.
+Help us make Primeagent the best open-source platform for AI orchestration.
 
 <div align="center">
 
@@ -157,12 +157,12 @@ Help us make Aiexec the best open-source platform for AI orchestration.
 
 <div align="center">
 
-[![Star History Chart](https://api.star-history.com/svg?repos=khulnasoft/aiexec&type=Timeline)](https://star-history.com/#khulnasoft/aiexec&Date)  
-[![Contributors](https://contrib.rocks/image?repo=khulnasoft/aiexec)](https://github.com/khulnasoft/aiexec/graphs/contributors)
+[![Star History Chart](https://api.star-history.com/svg?repos=khulnasoft/primeagent&type=Timeline)](https://star-history.com/#khulnasoft/primeagent&Date)  
+[![Contributors](https://contrib.rocks/image?repo=khulnasoft/primeagent)](https://github.com/khulnasoft/primeagent/graphs/contributors)
 
 ---
 
-### *Built with ❤️ by the Aiexec Community*  
+### *Built with ❤️ by the Primeagent Community*  
 **Empowering developers to build the future of AI.**
 
 </div>

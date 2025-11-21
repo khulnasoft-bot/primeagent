@@ -28,8 +28,8 @@ export class EcrRepository extends Construct {
     }
 
     // Backend ECR リポジトリ作成
-    this.ecrBackEndRepository = new ecr.Repository(scope, 'AiexecBackEndRepository', {
-      repositoryName: 'aiexec-backend-repository',
+    this.ecrBackEndRepository = new ecr.Repository(scope, 'PrimeagentBackEndRepository', {
+      repositoryName: 'primeagent-backend-repository',
       removalPolicy: RemovalPolicy.RETAIN,
       imageScanOnPush: true,
     })

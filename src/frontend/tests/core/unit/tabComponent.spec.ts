@@ -132,7 +132,7 @@ function updateComponentCode(
     const newImports = updates.imports.join(", ");
     updatedCode = updatedCode.replace(
       importPattern,
-      `from aiexec.io import ${newImports}`,
+      `from primeagent.io import ${newImports}`,
     );
   }
 

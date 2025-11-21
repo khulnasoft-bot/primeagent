@@ -37,17 +37,17 @@ def main():
     wfx_tag = sys.argv[4]
 
     # First handle base package updates
-    update_pyproject_name("src/backend/base/pyproject.toml", "aiexec-base-nightly")
-    update_name_uv_dep("pyproject.toml", "aiexec-base-nightly")
+    update_pyproject_name("src/backend/base/pyproject.toml", "primeagent-base-nightly")
+    update_name_uv_dep("pyproject.toml", "primeagent-base-nightly")
     update_pyproject_version("src/backend/base/pyproject.toml", base_tag)
 
-    # Update WFX dependency in aiexec-base
+    # Update WFX dependency in primeagent-base
     wfx_version = wfx_tag.lstrip("v")
     update_wfx_dep_in_base("src/backend/base/pyproject.toml", wfx_version)
 
     # Then handle main package updates
-    update_pyproject_name("pyproject.toml", "aiexec-nightly")
-    update_name_uv_dep("pyproject.toml", "aiexec-nightly")
+    update_pyproject_name("pyproject.toml", "primeagent-nightly")
+    update_name_uv_dep("pyproject.toml", "primeagent-nightly")
     update_pyproject_version("pyproject.toml", main_tag)
     # Update dependency version (strip 'v' prefix if present)
     base_version = base_tag.lstrip("v")

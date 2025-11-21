@@ -11,17 +11,17 @@ ARGUMENT_NUMBER = 3
 
 
 def update_base_dep(pyproject_path: str, new_version: str) -> None:
-    """Update the aiexec-base dependency in pyproject.toml."""
+    """Update the primeagent-base dependency in pyproject.toml."""
     filepath = BASE_DIR / pyproject_path
     content = filepath.read_text(encoding="utf-8")
 
     # Updated pattern to handle PEP 440 version suffixes and both ~= and == version specifiers
-    pattern = re.compile(r'("aiexec-base(?:~=|==)[\d.]+(?:\.(?:post|dev|a|b|rc)\d+)*")')
-    replacement = f'"aiexec-base-nightly=={new_version}"'
+    pattern = re.compile(r'("primeagent-base(?:~=|==)[\d.]+(?:\.(?:post|dev|a|b|rc)\d+)*")')
+    replacement = f'"primeagent-base-nightly=={new_version}"'
 
     # Check if the pattern is found
     if not pattern.search(content):
-        msg = f'aiexec-base dependency not found in "{filepath}"'
+        msg = f'primeagent-base dependency not found in "{filepath}"'
         raise ValueError(msg)
 
     # Replace the matched pattern with the new one
@@ -30,7 +30,7 @@ def update_base_dep(pyproject_path: str, new_version: str) -> None:
 
 
 def update_wfx_dep_in_base(pyproject_path: str, wfx_version: str) -> None:
-    """Update the WFX dependency in aiexec-base pyproject.toml to use nightly version."""
+    """Update the WFX dependency in primeagent-base pyproject.toml to use nightly version."""
     filepath = BASE_DIR / pyproject_path
     content = filepath.read_text(encoding="utf-8")
 
@@ -70,10 +70,10 @@ def main() -> None:
     verify_pep440(base_version)
     verify_pep440(wfx_version)
 
-    # Update aiexec-base dependency in main project
+    # Update primeagent-base dependency in main project
     update_base_dep("pyproject.toml", base_version)
 
-    # Update WFX dependency in aiexec-base
+    # Update WFX dependency in primeagent-base
     update_wfx_dep_in_base("src/backend/base/pyproject.toml", wfx_version)
 
 

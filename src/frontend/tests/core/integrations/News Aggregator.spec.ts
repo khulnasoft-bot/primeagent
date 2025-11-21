@@ -55,7 +55,7 @@ withEventDeliveryModes(
       timeout: 3000,
     });
 
-    await page.getByTestId("input-chat-playground").fill("what is aiexec?");
+    await page.getByTestId("input-chat-playground").fill("what is primeagent?");
 
     await page.getByTestId("button-send").click();
 
@@ -72,7 +72,7 @@ withEventDeliveryModes(
 
     expect(concatAllText.length).toBeGreaterThan(100);
 
-    expect(concatAllText).toContain("Aiexec");
+    expect(concatAllText).toContain("Primeagent");
     expect(concatAllText).toContain("open-source");
     expect(concatAllText).toContain("framework");
   },

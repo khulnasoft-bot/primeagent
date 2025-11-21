@@ -2,9 +2,9 @@ import asyncio
 from uuid import uuid4
 
 import pytest
-from aiexec.initial_setup.setup import get_or_create_default_folder, session_scope
-from aiexec.services.database.models.folder.constants import DEFAULT_FOLDER_NAME
-from aiexec.services.database.models.folder.model import FolderRead
+from primeagent.initial_setup.setup import get_or_create_default_folder, session_scope
+from primeagent.services.database.models.folder.constants import DEFAULT_FOLDER_NAME
+from primeagent.services.database.models.folder.model import FolderRead
 
 
 @pytest.mark.usefixtures("client")

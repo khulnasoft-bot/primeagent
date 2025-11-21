@@ -1,11 +1,11 @@
 # Cross-Platform Install Tests
 
-Unified workflow for testing aiexec installation across multiple platforms, supporting both manual and programmatic execution.
+Unified workflow for testing primeagent installation across multiple platforms, supporting both manual and programmatic execution.
 
 ## Manual Testing
 
 ### 1. Test from PyPI
-Tests published aiexec packages from PyPI across all platforms.
+Tests published primeagent packages from PyPI across all platforms.
 
 **Via GitHub UI:**
 1. Go to **Actions** → **Cross-Platform Installation Test**
@@ -21,11 +21,11 @@ gh workflow run cross-platform-test.yml -f test-from-pypi=true
 # Test specific version
 gh workflow run cross-platform-test.yml \
   -f test-from-pypi=true \
-  -f aiexec-version="1.0.18"
+  -f primeagent-version="1.0.18"
 ```
 
 ### 2. Test from Source
-Builds and tests aiexec from current branch source code using release-like dependency resolution (transforms workspace dependencies to published packages for testing parity).
+Builds and tests primeagent from current branch source code using release-like dependency resolution (transforms workspace dependencies to published packages for testing parity).
 
 **Via GitHub UI:**
 1. Go to **Actions** → **Cross-Platform Installation Test**
@@ -64,11 +64,11 @@ jobs:
 
 ## What Gets Tested
 
-1. **Package Installation**: `uv pip install aiexec` (PyPI) or local wheel installation
+1. **Package Installation**: `uv pip install primeagent` (PyPI) or local wheel installation
 2. **Dependencies**: Additional packages like `openai` for full functionality
-3. **CLI Help**: `aiexec --help`
-4. **Server Startup**: `aiexec run --backend-only` with `/health_check` endpoint validation
-5. **Python Import**: `import aiexec`
+3. **CLI Help**: `primeagent --help`
+4. **Server Startup**: `primeagent run --backend-only` with `/health_check` endpoint validation
+5. **Python Import**: `import primeagent`
 
 ## Common Options
 
@@ -80,7 +80,7 @@ gh workflow run cross-platform-test.yml \
 # Test specific PyPI version
 gh workflow run cross-platform-test.yml \
   -f test-from-pypi=true \
-  -f aiexec-version="1.0.18"
+  -f primeagent-version="1.0.18"
 ```
 
 ## Use Cases
@@ -176,13 +176,13 @@ error: command '/usr/bin/clang++' failed with exit code 1
 
 | Build Type | Package Source | Dependencies | chromadb | Result |
 |------------|----------------|--------------|----------|---------|
-| **Manual/Source** | Workspace (`aiexec-base = { workspace = true }`) | 162 packages | ❌ Not included | ✅ Success |
-| **Nightly/Release** | Published (`aiexec-base-nightly==0.5.0.dev21`) | 420 packages | ✅ Included | ❌ Compilation fails |
+| **Manual/Source** | Workspace (`primeagent-base = { workspace = true }`) | 162 packages | ❌ Not included | ✅ Success |
+| **Nightly/Release** | Published (`primeagent-base-nightly==0.5.0.dev21`) | 420 packages | ✅ Included | ❌ Compilation fails |
 
 **Technical Details**:
 1. **Workspace builds** use local `src/backend/base/pyproject.toml` which excludes `chromadb`
 2. **Nightly builds** modify dependencies via `scripts/ci/update_uv_dependency.py`:
-   - Changes: `aiexec-base~=0.5.0` → `aiexec-base-nightly==0.5.0.dev21`
+   - Changes: `primeagent-base~=0.5.0` → `primeagent-base-nightly==0.5.0.dev21`
    - Uses published PyPI package with full dependency tree including `chromadb==0.5.23`
 3. **macOS clang** doesn't support `-march=native` flag used by `chroma-hnswlib` compilation
 

@@ -1,5 +1,5 @@
 ---
-description: "Guidelines for developing and maintaining Aiexec documentation using Docusaurus, including content structure, style, and deployment processes."
+description: "Guidelines for developing and maintaining Primeagent documentation using Docusaurus, including content structure, style, and deployment processes."
 globs:
   - "docs/**/*.{md,mdx}"
   - "docs/**/*.{js,jsx,ts,tsx}"
@@ -14,7 +14,7 @@ alwaysApply: false
 # Documentation Development Guidelines
 
 ## Purpose
-Guidelines for developing and maintaining Aiexec documentation using Docusaurus, including content structure, style, and deployment processes.
+Guidelines for developing and maintaining Primeagent documentation using Docusaurus, including content structure, style, and deployment processes.
 
 ---
 
@@ -45,11 +45,11 @@ docs/
 ├── docs/                    # Main documentation content
 │   ├── agents/              # Agent and MCP guides
 │   ├── get-started/         # Getting started guides
-│   ├── tutorials/           # Aiexec tutorials
+│   ├── tutorials/           # Primeagent tutorials
 │   ├── components/          # Component documentation
 │   ├── flows/               # Guides to build, run, and test flows
-│   ├── deployment/          # Guides for deploying and hosting a Aiexec server
-│   ├── develop/             # Guides for developing apps with Aiexec
+│   ├── deployment/          # Guides for deploying and hosting a Primeagent server
+│   ├── develop/             # Guides for developing apps with Primeagent
 │   ├── support/             # Help and release notes
 │   ├── contributing/        # Contribution guidelines
 │   └── api-reference/       # API documentation
@@ -64,7 +64,7 @@ docs/
 - **Guides:** Step-by-step tutorials (`docs/getting-started/`)
 - **Reference:** API and component reference (`docs/api-reference/`)
 - **How-to:** Problem-solving articles (`docs/components/`)
-- **Concepts:** Explanatory articles about Aiexec concepts
+- **Concepts:** Explanatory articles about Primeagent concepts
 - **Blog:** Release notes, announcements (`blog/`)
 
 ---
@@ -107,7 +107,7 @@ Use danger for critical warnings.
 ### Code Blocks
 ````markdown
 ```python title="component_example.py"
-from aiexec.components.base import Component
+from primeagent.components.base import Component
 
 class MyComponent(Component):
     display_name = "My Component"
@@ -124,7 +124,7 @@ class MyComponent(Component):
 ![Component Overview](/img/components/overview.png)
 
 <!-- Use descriptive alt text -->
-![Aiexec interface showing the flow editor with nodes and connections](/img/flow-editor.png)
+![Primeagent interface showing the flow editor with nodes and connections](/img/flow-editor.png)
 ```
 
 ---
@@ -252,14 +252,14 @@ curl -X POST http://localhost:7860/api/v1/endpoint \
 ### Blog Post Template
 ```markdown
 ---
-title: "Release: Aiexec v1.1.0"
-description: "New features and improvements in Aiexec v1.1.0"
+title: "Release: Primeagent v1.1.0"
+description: "New features and improvements in Primeagent v1.1.0"
 authors: [author-name]
 date: 2024-01-15
 tags: [release, features]
 ---
 
-# Release: Aiexec v1.1.0
+# Release: Primeagent v1.1.0
 
 Brief introduction to the release.
 
@@ -292,7 +292,7 @@ Steps to migrate from previous versions.
 ```markdown
 ---
 title: "Announcement: New Integration"
-description: "Aiexec now supports integration with XYZ service"
+description: "Primeagent now supports integration with XYZ service"
 authors: [author-name]
 date: 2024-01-15
 tags: [announcement, integration]
@@ -336,16 +336,16 @@ module.exports = {
 ### Site Configuration (`docusaurus.config.js`)
 ```javascript
 module.exports = {
-  title: 'Aiexec Documentation',
+  title: 'Primeagent Documentation',
   tagline: 'Build AI flows visually',
-  url: 'https://aiexec-docs.khulnasoft.com',
+  url: 'https://primeagent-docs.khulnasoft.com',
   baseUrl: '/',
 
   themeConfig: {
     navbar: {
-      title: 'Aiexec',
+      title: 'Primeagent',
       logo: {
-        alt: 'Aiexec Logo',
+        alt: 'Primeagent Logo',
         src: 'img/logo.svg',
       },
       items: [
@@ -407,9 +407,9 @@ yarn serve
 - **Lists:** Use parallel structure
 
 ### Terminology
-- **Aiexec:** Always capitalize
-- **Component:** Capitalize when referring to Aiexec components
-- **Flow:** Capitalize when referring to Aiexec flows
+- **Primeagent:** Always capitalize
+- **Component:** Capitalize when referring to Primeagent components
+- **Flow:** Capitalize when referring to Primeagent flows
 - **API:** Always uppercase
 - **JSON:** Always uppercase
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any
 
-from aiexec.components._importing import import_mod
+from primeagent.components._importing import import_mod
 
 if TYPE_CHECKING:
     from .vlmrun_transcription import VLMRunTranscription

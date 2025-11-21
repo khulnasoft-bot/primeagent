@@ -1,27 +1,27 @@
 ---
-title: Use Aiexec as an MCP client
+title: Use Primeagent as an MCP client
 slug: /mcp-client
 ---
 
 import Icon from "@site/src/components/icon";
 import McpIcon from '@site/static/logos/mcp-icon.svg';
 
-Aiexec integrates with the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) as both an MCP server and an MCP client.
+Primeagent integrates with the [Model Context Protocol (MCP)](https://modelcontextprotocol.io/introduction) as both an MCP server and an MCP client.
 
-This page describes how to use Aiexec as an MCP client with the [**MCP Tools** component](#use-the-mcp-tools-component) and connected [MCP servers](#manage-connected-mcp-servers).
+This page describes how to use Primeagent as an MCP client with the [**MCP Tools** component](#use-the-mcp-tools-component) and connected [MCP servers](#manage-connected-mcp-servers).
 
-For information about using Aiexec as an MCP server, see [Use Aiexec as an MCP server](/mcp-server).
+For information about using Primeagent as an MCP server, see [Use Primeagent as an MCP server](/mcp-server).
 
 ## Use the MCP tools component
 
-The **MCP Tools** component connects to an MCP server so that a [Aiexec agent](/agents) can use the server's tools when responding to user queries.
+The **MCP Tools** component connects to an MCP server so that a [Primeagent agent](/agents) can use the server's tools when responding to user queries.
 
 This component has two modes, depending on the type of server you want to access:
 
-* [Connect to a non-Aiexec MCP server](#mcp-stdio-mode) with a JSON configuration file, server start command, or SSE URL to access tools provided by external, non-Aiexec MCP servers.
-* [Connect to a Aiexec MCP server](#mcp-sse-mode) to use flows from your [Aiexec projects](/concepts-flows#projects) as MCP tools.
+* [Connect to a non-Primeagent MCP server](#mcp-stdio-mode) with a JSON configuration file, server start command, or SSE URL to access tools provided by external, non-Primeagent MCP servers.
+* [Connect to a Primeagent MCP server](#mcp-sse-mode) to use flows from your [Primeagent projects](/concepts-flows#projects) as MCP tools.
 
-### Connect to a non-Aiexec MCP server {#mcp-stdio-mode}
+### Connect to a non-Primeagent MCP server {#mcp-stdio-mode}
 
 1. Add an **MCP Tools** component to your flow.
 
@@ -32,20 +32,20 @@ This component has two modes, depending on the type of server you want to access
     * **JSON**: Paste the MCP server's JSON configuration object into the field, including required and optional parameters that you want to use, and then click **Add Server**.
     * **STDIO**: Enter the MCP server's **Name**, **Command**, and any **Arguments** and **Environment Variables** the server uses, and then click **Add Server**.
     For example, to start a [Fetch](https://github.com/modelcontextprotocol/servers/tree/main/src/fetch) server, the **Command** is `uvx mcp-server-fetch`.
-    * **SSE**: Enter your Aiexec MCP server's **Name**, **SSE URL**, and any **Headers** and **Environment Variables** the server uses, and then click **Add Server**.
+    * **SSE**: Enter your Primeagent MCP server's **Name**, **SSE URL**, and any **Headers** and **Environment Variables** the server uses, and then click **Add Server**.
     The default **SSE URL** is `http://localhost:7860/api/v1/mcp/sse`. For more information, see [Use SSE mode](#mcp-sse-mode).
 
     :::tip
-    `uvx` is included with `uv` in the Aiexec package.
+    `uvx` is included with `uv` in the Primeagent package.
     To use `npx` server commands, you must first install an LTS release of [Node.js](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm).
-    For an example of an `npx` MCP server in Aiexec, see [Connect an Astra DB MCP server to Aiexec](/mcp-component-astra).
+    For an example of an `npx` MCP server in Primeagent, see [Connect an Astra DB MCP server to Primeagent](/mcp-component-astra).
     :::
 
 3. To use environment variables in your server command, enter each variable in the **Env** fields as key-value pairs.
 
     :::tip
-    Aiexec passes environment variables from the `.env` file to MCP, but it doesn't pass global variables declared in your Aiexec **Settings**.
-    To define an MCP server environment variable as a global variable, add it to Aiexec's `.env` file at startup.
+    Primeagent passes environment variables from the `.env` file to MCP, but it doesn't pass global variables declared in your Primeagent **Settings**.
+    To define an MCP server environment variable as a global variable, add it to Primeagent's `.env` file at startup.
     For more information, see [global variables](/configuration-global-variables).
     :::
 
@@ -69,15 +69,15 @@ This component has two modes, depending on the type of server you want to access
 
 8. If you want the agent to be able to use more tools, repeat these steps to add more tools components with different servers or tools.
 
-### Connect a Aiexec MCP server {#mcp-sse-mode}
+### Connect a Primeagent MCP server {#mcp-sse-mode}
 
-Every Aiexec project runs a separate MCP server that exposes the project's flows as MCP tools.
-For more information about your projects' MCP servers, including exposing flows as MCP tools, see [Use Aiexec as an MCP server](/mcp-server).
+Every Primeagent project runs a separate MCP server that exposes the project's flows as MCP tools.
+For more information about your projects' MCP servers, including exposing flows as MCP tools, see [Use Primeagent as an MCP server](/mcp-server).
 
 To leverage flows-as-tools, use the **MCP Tools** component in **Server-Sent Events (SSE)** mode to connect to a project's `/api/v1/mcp/sse` endpoint:
 
 1. Add an **MCP Tools** component to your flow, click <Icon name="Plus" aria-hidden="true"/> **Add MCP Server**, and then select **SSE** mode.
-2. In the **MCP SSE URL** field, modify the default address to point at your Aiexec server's SSE endpoint. The default value for other Aiexec installations is `http://localhost:7860/api/v1/mcp/sse`.
+2. In the **MCP SSE URL** field, modify the default address to point at your Primeagent server's SSE endpoint. The default value for other Primeagent installations is `http://localhost:7860/api/v1/mcp/sse`.
 In SSE mode, all flows available from the targeted server are treated as tools.
 3. In the [component's header menu](/concepts-components#component-menus), enable **Tool Mode** so you can use the component with an agent.
 4. Connect the **MCP Tools** component's **Toolset** port to an **Agent** component's **Tools** port.
@@ -94,12 +94,12 @@ In SSE mode, all flows available from the targeted server are treated as tools.
 | Name | Type | Description |
 |------|------|-------------|
 | command | String | Input parameter. Stdio mode only. The MCP server startup command. Default: `uvx mcp-sse-shim@latest`. |
-| sse_url | String | Input parameter. SSE mode only. The SSE URL for a Aiexec project's MCP server. Default for Aiexec Desktop: `http://localhost:7868/`. Default for other installations: `http://localhost:7860/api/v1/mcp/sse` |
+| sse_url | String | Input parameter. SSE mode only. The SSE URL for a Primeagent project's MCP server. Default for Primeagent Desktop: `http://localhost:7868/`. Default for other installations: `http://localhost:7860/api/v1/mcp/sse` |
 | tools | List[Tool] | Output parameter. [`Tool`](/data-types#tool) object containing a list of tools exposed by the MCP server. |
 
 ## Manage connected MCP servers
 
-To manage all MCP server connections for your Aiexec client, click <McpIcon /> **MCP servers** in the visual editor, or click your profile icon, select **Settings**, and then click **MCP Servers**.
+To manage all MCP server connections for your Primeagent client, click <McpIcon /> **MCP servers** in the visual editor, or click your profile icon, select **Settings**, and then click **MCP Servers**.
 
 To add a new MCP server, click **Add MCP Server**, and then follow the steps in [Use the MCP Tools component](#use-the-mcp-tools-component) to configure the connection and use the server in a flow.
 
@@ -107,5 +107,5 @@ Click <Icon name="Ellipsis" aria-hidden="true"/> **More** to edit or delete an M
 
 ## See also
 
-- [Use Aiexec as an MCP server](/mcp-server)
+- [Use Primeagent as an MCP server](/mcp-server)
 - [Use a DataStax Astra DB MCP server with the MCP Tools component](/mcp-component-astra)

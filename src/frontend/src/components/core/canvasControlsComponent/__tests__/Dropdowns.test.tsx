@@ -41,12 +41,12 @@ jest.mock("@/components/common/genericIconComponent", () => ({
 jest.mock("@/constants/constants", () => ({
   __esModule: true,
   DATASTAX_DOCS_URL: "https://docs.datastax.com",
-  DOCS_URL: "https://aiexec-docs.khulnasoft.com",
-  DESKTOP_URL: "https://desktop.aiexec.org",
+  DOCS_URL: "https://primeagent-docs.khulnasoft.com",
+  DESKTOP_URL: "https://desktop.primeagent.org",
 }));
 
 jest.mock("@/customization/feature-flags", () => ({
-  ENABLE_DATASTAX_AIEXEC: false,
+  ENABLE_DATASTAX_PRIMEAGENT: false,
 }));
 
 jest.mock("@/utils/utils", () => ({
@@ -100,7 +100,7 @@ describe("HelpDropdown", () => {
 
     fireEvent.click(screen.getByTestId("canvas_controls_dropdown_docs"));
     expect(window.open).toHaveBeenCalledWith(
-      "https://aiexec-docs.khulnasoft.com",
+      "https://primeagent-docs.khulnasoft.com",
       "_blank",
     );
 
@@ -108,10 +108,10 @@ describe("HelpDropdown", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/settings/shortcuts");
 
     fireEvent.click(
-      screen.getByTestId("canvas_controls_dropdown_get_aiexec_desktop"),
+      screen.getByTestId("canvas_controls_dropdown_get_primeagent_desktop"),
     );
     expect(window.open).toHaveBeenCalledWith(
-      "https://desktop.aiexec.org",
+      "https://desktop.primeagent.org",
       "_blank",
     );
   });

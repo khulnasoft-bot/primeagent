@@ -13,9 +13,9 @@ if TYPE_CHECKING:
 
 CACHE: dict[str, Any] = {}
 
-CACHE_DIR = user_cache_dir("aiexec", "aiexec")
+CACHE_DIR = user_cache_dir("primeagent", "primeagent")
 
-PREFIX = "aiexec_cache"
+PREFIX = "primeagent_cache"
 
 
 class CacheMiss:

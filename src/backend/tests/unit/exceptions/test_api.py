@@ -1,7 +1,7 @@
 from unittest.mock import Mock, patch
 
-from aiexec.exceptions.api import APIException, ExceptionBody
-from aiexec.services.database.models.flow.model import Flow
+from primeagent.exceptions.api import APIException, ExceptionBody
+from primeagent.services.database.models.flow.model import Flow
 
 
 def test_api_exception():
@@ -17,12 +17,12 @@ def test_api_exception():
 
     with (
         patch(
-            "aiexec.services.database.models.flow.utils.get_outdated_components",
+            "primeagent.services.database.models.flow.utils.get_outdated_components",
             return_value=mock_outdated_components,
         ),
-        patch("aiexec.api.utils.get_suggestion_message", return_value=mock_suggestion_message),
+        patch("primeagent.api.utils.get_suggestion_message", return_value=mock_suggestion_message),
         patch(
-            "aiexec.services.database.models.flow.utils.get_components_versions",
+            "primeagent.services.database.models.flow.utils.get_components_versions",
             return_value=mock_component_versions,
         ),
     ):

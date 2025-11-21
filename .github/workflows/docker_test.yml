@@ -57,13 +57,13 @@ jobs:
 
       - name: Build image
         run: |
-          ${{ env.CONTAINER_RUNTIME }} build -t khulnasoft/aiexec:latest-dev \
+          ${{ env.CONTAINER_RUNTIME }} build -t khulnasoft/primeagent:latest-dev \
             -f docker/build_and_push.Dockerfile \
             .
       - name: Test image
         run: |
           expected_version=$(cat pyproject.toml | grep version | head -n 1 | cut -d '"' -f 2)
-          version=$(${{ env.CONTAINER_RUNTIME }} run --rm --entrypoint bash khulnasoft/aiexec:latest-dev -c "python -c 'from aiexec.utils.version import get_version_info; print(get_version_info()[\"version\"])'")
+          version=$(${{ env.CONTAINER_RUNTIME }} run --rm --entrypoint bash khulnasoft/primeagent:latest-dev -c "python -c 'from primeagent.utils.version import get_version_info; print(get_version_info()[\"version\"])'")
           if [ "$expected_version" != "$version" ]; then
               echo "Expected version: $expected_version"
               echo "Actual version: $version"
@@ -72,14 +72,14 @@ jobs:
 
       - name: Build backend image
         run: |
-          ${{ env.CONTAINER_RUNTIME }} build -t khulnasoft/aiexec-backend:latest-dev \
-            --build-arg AIEXEC_IMAGE=khulnasoft/aiexec:latest-dev \
+          ${{ env.CONTAINER_RUNTIME }} build -t khulnasoft/primeagent-backend:latest-dev \
+            --build-arg PRIMEAGENT_IMAGE=khulnasoft/primeagent:latest-dev \
             -f docker/build_and_push_backend.Dockerfile \
             .
       - name: Test backend image
         run: |
           expected_version=$(cat pyproject.toml | grep version | head -n 1 | cut -d '"' -f 2)
-          version=$(${{ env.CONTAINER_RUNTIME }} run --rm --entrypoint bash khulnasoft/aiexec-backend:latest-dev -c "python -c 'from aiexec.utils.version import get_version_info; print(get_version_info()[\"version\"])'")
+          version=$(${{ env.CONTAINER_RUNTIME }} run --rm --entrypoint bash khulnasoft/primeagent-backend:latest-dev -c "python -c 'from primeagent.utils.version import get_version_info; print(get_version_info()[\"version\"])'")
           if [ "$expected_version" != "$version" ]; then
               echo "Expected version: $expected_version"
               echo "Actual version: $version"
@@ -87,6 +87,6 @@ jobs:
           fi
       - name: Build frontend image
         run: |
-          ${{ env.CONTAINER_RUNTIME }} build -t khulnasoft/aiexec-frontend:latest-dev \
+          ${{ env.CONTAINER_RUNTIME }} build -t khulnasoft/primeagent-frontend:latest-dev \
             -f docker/frontend/build_and_push_frontend.Dockerfile \
             .

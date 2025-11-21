@@ -1,4 +1,4 @@
-"""Lightweight Data class for wfx package - contains only methods with no aiexec dependencies."""
+"""Lightweight Data class for wfx package - contains only methods with no primeagent dependencies."""
 
 from __future__ import annotations
 
@@ -47,7 +47,7 @@ class Data(CrossModuleModel):
         if not isinstance(values["data"], dict):
             msg = (
                 f"Invalid data format: expected dictionary but got {type(values).__name__}."
-                " This will raise an error in version aiexec==1.3.0."
+                " This will raise an error in version primeagent==1.3.0."
             )
             logger.warning(msg)
         # Any other keyword should be added to the data dictionary
@@ -232,7 +232,7 @@ class Data(CrossModuleModel):
         return super().__dir__() + list(self.data.keys())
 
     def __str__(self) -> str:
-        # return a JSON string representation of the Data atributes
+        # return a JSON string representation of the Data attributes
         try:
             data = {k: v.to_json() if hasattr(v, "to_json") else v for k, v in self.data.items()}
             return serialize_data(data)  # use the custom serializer

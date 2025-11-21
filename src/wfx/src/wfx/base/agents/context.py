@@ -32,12 +32,14 @@ class AgentContext(BaseModel):
             "iteration": self.iteration,
             "max_iterations": self.max_iterations,
             "thought": self.thought,
-            "last_action": self.last_action.to_json()
-            if hasattr(self.last_action, "to_json")
-            else str(self.last_action),
-            "action_result": self.last_action_result.to_json()
-            if hasattr(self.last_action_result, "to_json")
-            else str(self.last_action_result),
+            "last_action": (
+                self.last_action.to_json() if hasattr(self.last_action, "to_json") else str(self.last_action)
+            ),
+            "action_result": (
+                self.last_action_result.to_json()
+                if hasattr(self.last_action_result, "to_json")
+                else str(self.last_action_result)
+            ),
             "final_answer": self.final_answer,
             "context_history": self.context_history,
         }

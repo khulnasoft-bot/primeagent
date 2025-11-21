@@ -1,8 +1,8 @@
 from unittest.mock import patch
 
 import pytest
-from aiexec.components.logic.listen import ListenComponent
-from aiexec.schema.data import Data
+from primeagent.components.logic.listen import ListenComponent
+from primeagent.schema.data import Data
 
 from tests.base import ComponentTestBaseWithoutClient
 
@@ -188,7 +188,7 @@ class TestListenComponent(ComponentTestBaseWithoutClient):
     async def test_component_inheritance(self, component_class, default_kwargs):
         """Test that component properly inherits from Component base class."""
         component = await self.component_setup(component_class, default_kwargs)
-        from aiexec.custom import Component
+        from primeagent.custom import Component
 
         assert isinstance(component, Component)
 

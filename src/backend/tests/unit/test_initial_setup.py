@@ -7,21 +7,21 @@ from datetime import datetime
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from aiexec.initial_setup.constants import STARTER_FOLDER_NAME
-from aiexec.initial_setup.setup import (
+from anyio import Path
+from httpx import AsyncClient
+from primeagent.initial_setup.constants import STARTER_FOLDER_NAME
+from primeagent.initial_setup.setup import (
     detect_github_url,
     get_project_data,
     load_bundles_from_urls,
     load_starter_projects,
     update_projects_components_with_latest_component_versions,
 )
-from aiexec.interface.components import get_and_cache_all_types_dict
-from aiexec.services.auth.utils import create_super_user
-from aiexec.services.database.models import Flow
-from aiexec.services.database.models.folder.model import Folder
-from aiexec.services.deps import get_settings_service, session_scope
-from anyio import Path
-from httpx import AsyncClient
+from primeagent.interface.components import get_and_cache_all_types_dict
+from primeagent.services.auth.utils import create_super_user
+from primeagent.services.database.models import Flow
+from primeagent.services.database.models.folder.model import Folder
+from primeagent.services.deps import get_settings_service, session_scope
 from sqlalchemy.orm import selectinload
 from sqlmodel import select
 
@@ -168,50 +168,50 @@ async def test_refresh_starter_projects():
     ("url", "expected"),
     [
         (
-            "https://github.com/khulnasoft/aiexec-bundles",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/heads/main.zip",
+            "https://github.com/khulnasoft/primeagent-bundles",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/heads/main.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles/",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/heads/main.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/heads/main.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles.git",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/heads/main.zip",
+            "https://github.com/khulnasoft/primeagent-bundles.git",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/heads/main.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles/tree/some.branch-0_1",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/heads/some.branch-0_1.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/tree/some.branch-0_1",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/heads/some.branch-0_1.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles/tree/some/branch",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/heads/some/branch.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/tree/some/branch",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/heads/some/branch.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles/tree/some/branch/",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/heads/some/branch.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/tree/some/branch/",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/heads/some/branch.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles/releases/tag/v1.0.0-0_1",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/tags/v1.0.0-0_1.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/releases/tag/v1.0.0-0_1",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/tags/v1.0.0-0_1.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles/releases/tag/foo/v1.0.0",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/tags/foo/v1.0.0.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/releases/tag/foo/v1.0.0",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/tags/foo/v1.0.0.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles/releases/tag/foo/v1.0.0/",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/refs/tags/foo/v1.0.0.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/releases/tag/foo/v1.0.0/",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/refs/tags/foo/v1.0.0.zip",
         ),
         (
             # pragma: allowlist secret
-            "https://github.com/khulnasoft/aiexec-bundles/commit/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9",
+            "https://github.com/khulnasoft/primeagent-bundles/commit/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9",
             # pragma: allowlist secret
-            "https://github.com/khulnasoft/aiexec-bundles/archive/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9.zip",
         ),
         (
-            "https://github.com/khulnasoft/aiexec-bundles/commit/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9/",
-            "https://github.com/khulnasoft/aiexec-bundles/archive/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9.zip",
+            "https://github.com/khulnasoft/primeagent-bundles/commit/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9/",
+            "https://github.com/khulnasoft/primeagent-bundles/archive/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9.zip",
         ),
         ("https://example.com/myzip.zip", "https://example.com/myzip.zip"),
     ],
@@ -237,7 +237,7 @@ async def test_detect_github_url(url, expected):
 async def test_load_bundles_from_urls():
     settings_service = get_settings_service()
     settings_service.settings.bundle_urls = [
-        "https://github.com/khulnasoft/aiexec-bundles/commit/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9"
+        "https://github.com/khulnasoft/primeagent-bundles/commit/68428ce16729a385fe1bcc0f1ec91fd5f5f420b9"
     ]
     settings_service.auth_settings.AUTO_LOGIN = True
 
@@ -257,7 +257,7 @@ async def test_load_bundles_from_urls():
 
     try:
         assert len(components_paths) == 1
-        assert "aiexec-bundles-68428ce16729a385fe1bcc0f1ec91fd5f5f420b9/components" in components_paths[0]
+        assert "primeagent-bundles-68428ce16729a385fe1bcc0f1ec91fd5f5f420b9/components" in components_paths[0]
 
         content = await (Path(components_paths[0]) / "embeddings" / "openai2.py").read_text(encoding="utf-8")
         assert "OpenAIEmbeddings2Component" in content
@@ -275,9 +275,9 @@ async def test_load_bundles_from_urls():
 
 @pytest.fixture
 def set_fs_flows_polling_interval():
-    os.environ["AIEXEC_FS_FLOWS_POLLING_INTERVAL"] = "100"
+    os.environ["PRIMEAGENT_FS_FLOWS_POLLING_INTERVAL"] = "100"
     yield
-    os.unsetenv("AIEXEC_FS_FLOWS_POLLING_INTERVAL")
+    os.unsetenv("PRIMEAGENT_FS_FLOWS_POLLING_INTERVAL")
 
 
 @pytest.mark.usefixtures("set_fs_flows_polling_interval")

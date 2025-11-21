@@ -3,10 +3,10 @@ from unittest.mock import patch
 from uuid import uuid4
 
 import pytest
-from aiexec.services.database.models.variable.model import VariableUpdate
-from aiexec.services.deps import get_settings_service
-from aiexec.services.variable.constants import CREDENTIAL_TYPE
-from aiexec.services.variable.service import DatabaseVariableService
+from primeagent.services.database.models.variable.model import VariableUpdate
+from primeagent.services.deps import get_settings_service
+from primeagent.services.variable.constants import CREDENTIAL_TYPE
+from primeagent.services.variable.service import DatabaseVariableService
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlmodel import SQLModel
 from sqlmodel.ext.asyncio.session import AsyncSession
@@ -51,7 +51,7 @@ async def test_initialize_user_variables__create_and_update(service, session: As
 
 
 async def test_initialize_user_variables__not_found_variable(service, session: AsyncSession):
-    with patch("aiexec.services.variable.service.DatabaseVariableService.create_variable") as m:
+    with patch("primeagent.services.variable.service.DatabaseVariableService.create_variable") as m:
         m.side_effect = Exception()
         await service.initialize_user_variables(uuid4(), session=session)
     assert True

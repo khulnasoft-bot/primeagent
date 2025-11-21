@@ -101,8 +101,8 @@ jobs:
           TODAY=$(date -u +"%Y-%m-%d")
           echo "Today's date: $TODAY"
 
-          # Query PyPI API for the aiexec package
-          HTTP_STATUS=$(curl -s -o response.json -w "%{http_code}" https://pypi.org/pypi/aiexec-nightly/json)
+          # Query PyPI API for the primeagent package
+          HTTP_STATUS=$(curl -s -o response.json -w "%{http_code}" https://pypi.org/pypi/primeagent-nightly/json)
 
           # Check HTTP status code first
           if [ "$HTTP_STATUS" -ne 200 ]; then

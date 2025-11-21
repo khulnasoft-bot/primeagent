@@ -4,7 +4,7 @@ import time
 import uuid
 
 import pytest
-from aiexec.events.event_manager import EventManager
+from primeagent.events.event_manager import EventManager
 from wfx.schema.log import LoggableType
 
 

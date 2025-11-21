@@ -2,8 +2,8 @@ import { expect } from "../fixtures";
 
 export async function getAuthToken(request: any) {
   const formData = new URLSearchParams();
-  formData.append("username", "aiexec");
-  formData.append("password", "aiexec");
+  formData.append("username", "primeagent");
+  formData.append("password", "primeagent");
 
   const loginResponse = await request.post("/api/v1/login", {
     headers: {

@@ -1,13 +1,13 @@
-# Aiexec Load Testing
+# Primeagent Load Testing
 
-This directory contains comprehensive load testing tools for both Aiexec and WFX APIs using Locust.
+This directory contains comprehensive load testing tools for both Primeagent and WFX APIs using Locust.
 
 ## 🔧 **Two Testing Systems**
 
-### **Aiexec API Testing** (Enhanced System)
+### **Primeagent API Testing** (Enhanced System)
 
-- Files: `aiexec_*.py`
-- Tests the main Aiexec application API
+- Files: `primeagent_*.py`
+- Tests the main Primeagent application API
 - Includes automatic setup, real starter projects, and comprehensive error logging
 
 ### **WFX API Testing** (Complex Serve)
@@ -23,8 +23,8 @@ This directory contains comprehensive load testing tools for both Aiexec and WFX
 - **Multiple User Types**: Different user behaviors to simulate realistic load patterns
 - **Load Test Shapes**: Predefined load patterns for different testing scenarios
 - **Comprehensive Metrics**: Performance grading and detailed reporting
-- **Enhanced Error Logging**: Detailed connection error analysis and Aiexec log capture
-- **Easy Setup**: One-command execution with automatic Aiexec startup
+- **Enhanced Error Logging**: Detailed connection error analysis and Primeagent log capture
+- **Easy Setup**: One-command execution with automatic Primeagent startup
 
 ## Quick Start
 
@@ -47,7 +47,7 @@ The easiest way to use the load testing system:
 make load_test_setup
 
 # 2. Run a quick test
-make load_test_aiexec_quick
+make load_test_primeagent_quick
 
 # 3. Run a full load test
 make load_test_run
@@ -61,18 +61,18 @@ make load_test_help
 
 ## 🌐 **Remote Instance Testing**
 
-For testing against a remote Aiexec instance:
+For testing against a remote Primeagent instance:
 
 ### Setup for Remote Testing
 
 ```bash
 # Using Makefile (recommended)
-make load_test_remote_setup AIEXEC_HOST="https://your-remote-instance.com"
-make load_test_remote_run AIEXEC_HOST="https://your-remote-instance.com"
+make load_test_remote_setup PRIMEAGENT_HOST="https://your-remote-instance.com"
+make load_test_remote_run PRIMEAGENT_HOST="https://your-remote-instance.com"
 
 # Or using Python scripts directly
-python aiexec_setup_test.py --host https://your-remote-instance.com --interactive
-python aiexec_run_load_test.py --host https://your-remote-instance.com --no-start-aiexec --headless --users 10 --duration 120
+python primeagent_setup_test.py --host https://your-remote-instance.com --interactive
+python primeagent_run_load_test.py --host https://your-remote-instance.com --no-start-primeagent --headless --users 10 --duration 120
 
 # Test remote instance before setup (optional)
 python diagnose_remote.py --host https://your-remote-instance.com --load-test 5
@@ -80,7 +80,7 @@ python diagnose_remote.py --host https://your-remote-instance.com --load-test 5
 
 ### Important Notes for Remote Testing
 
-- **Always use `--no-start-aiexec`** when testing remote instances
+- **Always use `--no-start-primeagent`** when testing remote instances
 - **Use HTTPS** for production remote instances
 - **Consider network latency** in your performance expectations
 - **Monitor both client and server resources** during testing
@@ -93,22 +93,22 @@ python diagnose_remote.py --host https://your-remote-instance.com --load-test 5
 
 #### Step 1: Setup (Run Once)
 
-Choose and set up a real Aiexec starter project for testing:
+Choose and set up a real Primeagent starter project for testing:
 
 ```bash
 # Interactive flow selection
-python aiexec_setup_test.py --interactive
+python primeagent_setup_test.py --interactive
 
 # Use specific flow
-python aiexec_setup_test.py --flow "Memory Chatbot"
+python primeagent_setup_test.py --flow "Memory Chatbot"
 
 # List available flows
-python aiexec_setup_test.py --list-flows
+python primeagent_setup_test.py --list-flows
 ```
 
 This will:
 
-- Use default Aiexec credentials (aiexec/aiexec)
+- Use default Primeagent credentials (primeagent/primeagent)
 - Generate API keys
 - Upload a real starter project flow
 - Provide credentials for load testing
@@ -117,40 +117,40 @@ This will:
 
 ```bash
 # Interactive mode with web UI
-python aiexec_run_load_test.py
+python primeagent_run_load_test.py
 
 # Headless mode with 20 users for 2 minutes
-python aiexec_run_load_test.py --headless --users 20 --duration 120
+python primeagent_run_load_test.py --headless --users 20 --duration 120
 
 # Use predefined load shape
-python aiexec_run_load_test.py --shape ramp100 --headless --users 100 --duration 180
+python primeagent_run_load_test.py --shape ramp100 --headless --users 100 --duration 180
 ```
 
 ### Advanced Usage
 
 ```bash
 # Setup with custom host (e.g., remote instance)
-python aiexec_setup_test.py --host https://your-remote-instance.com --interactive
+python primeagent_setup_test.py --host https://your-remote-instance.com --interactive
 
 # Save credentials to file
-python aiexec_setup_test.py --interactive --save-credentials my_test_creds.json
+python primeagent_setup_test.py --interactive --save-credentials my_test_creds.json
 
-# Test against existing remote Aiexec instance
-python aiexec_run_load_test.py --host https://your-remote-instance.com --no-start-aiexec
+# Test against existing remote Primeagent instance
+python primeagent_run_load_test.py --host https://your-remote-instance.com --no-start-primeagent
 
 # Save results to CSV and HTML
-python aiexec_run_load_test.py --headless --csv results --html report.html --users 50 --duration 300
+python primeagent_run_load_test.py --headless --csv results --html report.html --users 50 --duration 300
 
 # Direct Locust usage (after setup)
 export API_KEY="your-api-key-from-setup"
 export FLOW_ID="your-flow-id-from-setup"
-locust -f aiexec_locustfile.py --host http://localhost:7860
+locust -f primeagent_locustfile.py --host http://localhost:7860
 
 # Distributed testing (master)
-locust -f aiexec_locustfile.py --host http://localhost:7860 --master
+locust -f primeagent_locustfile.py --host http://localhost:7860 --master
 
 # Distributed testing (worker)
-locust -f aiexec_locustfile.py --host http://localhost:7860 --worker --master-host=localhost
+locust -f primeagent_locustfile.py --host http://localhost:7860 --worker --master-host=localhost
 ```
 
 ## User Types
@@ -175,24 +175,24 @@ Use with: `--shape ramp100` or `--shape stepramp`
 
 ## Environment Variables
 
-- `AIEXEC_HOST`: Base URL for Aiexec server (default: http://localhost:7860)
+- `PRIMEAGENT_HOST`: Base URL for Primeagent server (default: http://localhost:7860)
 - `SHAPE`: Load test shape (ramp100, stepramp)
 - `REQUEST_TIMEOUT`: Request timeout in seconds (default: 30.0)
 
 ## Architecture
 
-### Setup Process (`aiexec_setup_test.py`)
+### Setup Process (`primeagent_setup_test.py`)
 
-1. **Health Check**: Verify Aiexec is running
+1. **Health Check**: Verify Primeagent is running
 2. **Flow Selection**: Choose from 40+ real starter project flows
-3. **Authentication**: Login with default credentials (aiexec/aiexec)
+3. **Authentication**: Login with default credentials (primeagent/primeagent)
 4. **API Key Generation**: Create API key for load testing
 5. **Flow Upload**: Upload the selected starter project flow
 6. **Credential Export**: Provide environment variables for testing
 
 ### Real Starter Project Flows
 
-Instead of simple test flows, the system uses real Aiexec starter projects:
+Instead of simple test flows, the system uses real Primeagent starter projects:
 
 - **Basic Prompting**: Simple LLM interaction
 - **Memory Chatbot**: Conversational AI with memory
@@ -239,8 +239,8 @@ The test tracks:
 
 ### Common Issues
 
-1. **Setup Failed**: Ensure Aiexec is accessible and not in read-only mode
-2. **Authentication Errors**: Verify default credentials (aiexec/aiexec) are enabled
+1. **Setup Failed**: Ensure Primeagent is accessible and not in read-only mode
+2. **Authentication Errors**: Verify default credentials (primeagent/primeagent) are enabled
 3. **Flow Creation Failed**: Verify the user has permission to create flows
 4. **Connection Errors**: Check network connectivity and firewall settings
 5. **Status Code 0 Errors**: Usually indicates connection overload - reduce user count or spawn rate
@@ -249,8 +249,8 @@ The test tracks:
 
 For debugging, you can:
 
-1. Run Aiexec manually with `--log-level debug`
-2. Check the Aiexec logs for detailed error information
+1. Run Primeagent manually with `--log-level debug`
+2. Check the Primeagent logs for detailed error information
 3. Use the web UI to verify the test flow was created correctly
 4. Test API endpoints manually with curl or httpx
 5. Use the diagnostic tool for remote instances: `python diagnose_remote.py --host <url> --load-test 10`
@@ -259,7 +259,7 @@ For debugging, you can:
 
 If automatic setup fails, you can set up manually:
 
-1. Start Aiexec: `python -m aiexec run --auto-login`
+1. Start Primeagent: `python -m primeagent run --auto-login`
 2. Create a user account through the UI
 3. Create an API key in the settings
 4. Create a simple flow and note its ID
@@ -268,14 +268,14 @@ If automatic setup fails, you can set up manually:
 ```bash
 export API_KEY="your-api-key"
 export FLOW_ID="your-flow-id"
-locust -f aiexec_locustfile.py --host http://localhost:7860
+locust -f primeagent_locustfile.py --host http://localhost:7860
 ```
 
 ## Contributing
 
 When adding new user types or test scenarios:
 
-1. Inherit from `BaseAiexecUser`
+1. Inherit from `BasePrimeagentUser`
 2. Implement task methods with `@task` decorator
 3. Use `self.make_request()` for consistent error handling
 4. Add appropriate weight and wait_time settings
@@ -286,25 +286,25 @@ When adding new user types or test scenarios:
 ### Basic Load Test
 
 ```bash
-python aiexec_run_load_test.py --headless --users 10 --duration 60
+python primeagent_run_load_test.py --headless --users 10 --duration 60
 ```
 
 ### Stress Test
 
 ```bash
-python aiexec_run_load_test.py --shape ramp100 --headless --users 100 --duration 300
+python primeagent_run_load_test.py --shape ramp100 --headless --users 100 --duration 300
 ```
 
 ### Performance Profiling
 
 ```bash
-python aiexec_run_load_test.py --shape stepramp --headless --csv profile_results
+python primeagent_run_load_test.py --shape stepramp --headless --csv profile_results
 ```
 
 ### Production Readiness Test
 
 ```bash
-python aiexec_run_load_test.py --users 50 --duration 600 --csv production_test --html production_report.html
+python primeagent_run_load_test.py --users 50 --duration 600 --csv production_test --html production_report.html
 ```
 
 ## 📊 HTML Reports
@@ -321,12 +321,12 @@ The system generates beautiful HTML reports with:
 
 ```bash
 # Generate comprehensive HTML report
-python aiexec_run_load_test.py --headless --users 25 --duration 120 --html detailed_report.html
+python primeagent_run_load_test.py --headless --users 25 --duration 120 --html detailed_report.html
 
 # Combined CSV + HTML reporting
-python aiexec_run_load_test.py --headless --users 100 --duration 300 --csv data --html analysis.html --shape ramp100
+python primeagent_run_load_test.py --headless --users 100 --duration 300 --csv data --html analysis.html --shape ramp100
 
 # Quick test with report
-python aiexec_setup_test.py --flow "Memory Chatbot"
-python aiexec_run_load_test.py --headless --users 10 --duration 60 --html quick_test.html
+python primeagent_setup_test.py --flow "Memory Chatbot"
+python primeagent_run_load_test.py --headless --users 10 --duration 60 --html quick_test.html
 ```

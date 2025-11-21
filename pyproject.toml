@@ -1,6 +1,6 @@
 [project]
-name = "aiexec"
-version = "1.6.4"
+name = "primeagent"
+version = "1.0.0"
 description = "A Python package with a built-in web application"
 requires-python = ">=3.10,<3.14"
 license = "MIT"
@@ -11,7 +11,7 @@ maintainers = [
 ]
 # Define your main dependencies here
 dependencies = [
-    "aiexec-base~=0.6.4",
+    "primeagent-base~=0.6.4",
     "beautifulsoup4==4.12.3",
     "google-search-results>=2.4.1,<3.0.0",
     "google-api-python-client==2.154.0",
@@ -184,8 +184,8 @@ dev = [
 ]
 
 [tool.uv.sources]
-aiexec-base = { workspace = true }
-aiexec = { workspace = true }
+primeagent-base = { workspace = true }
+primeagent = { workspace = true }
 wfx = { workspace = true }
 
 [tool.uv.workspace]
@@ -196,11 +196,11 @@ members = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/backend/aiexec"]
+packages = ["src/backend/primeagent"]
 
 [project.urls]
-Repository = "https://github.com/khulnasoft/aiexec"
-Documentation = "https://aiexec-docs.khulnasoft.com"
+Repository = "https://github.com/khulnasoft/primeagent"
+Documentation = "https://primeagent-docs.khulnasoft.com"
 
 [project.optional-dependencies]
 docling = [
@@ -251,9 +251,9 @@ override-dependencies = [
 ]
 
 [project.scripts]
-aiexec = "aiexec.aiexec_launcher:main"
+primeagent = "primeagent.primeagent_launcher:main"
 
-[tool.codespell]
+[tool.codetypo]
 skip = '.git,*.pdf,*.svg,*.pdf,*.yaml,*.ipynb,poetry.lock,*.min.js,*.css,package-lock.json,*.trig.,**/node_modules/**,./stuff/*,*.csv'
 # Ignore latin etc
 ignore-regex = '.*(Stati Uniti|Tense=Pres).*'
@@ -288,7 +288,7 @@ command_line = """
     --cov --cov-report=term --cov-report=html
     --instafail -ra -n auto -m "not api_key_required"
 """
-source = ["src/backend/base/aiexec/"]
+source = ["src/backend/base/primeagent/"]
 omit = ["*/alembic/*", "tests/*", "*/__init__.py"]
 
 
@@ -304,7 +304,7 @@ directory = "coverage"
 
 
 [tool.ruff]
-exclude = ["src/backend/base/aiexec/alembic/*", "src/frontend/tests/assets/*", "src/wfx/src/wfx/_assets/component_index.json"]
+exclude = ["src/backend/base/primeagent/alembic/*", "src/frontend/tests/assets/*", "src/wfx/src/wfx/_assets/component_index.json"]
 line-length = 120
 
 [tool.ruff.lint]
@@ -335,7 +335,7 @@ external = ["RUF027"]
 
 [tool.ruff.lint.per-file-ignores]
 "scripts/*" = ["D1", "INP", "T201"]
-"src/backend/base/aiexec/alembic/versions/*" = ["INP001", "D415", "PGH003"]
+"src/backend/base/primeagent/alembic/versions/*" = ["INP001", "D415", "PGH003"]
 "src/backend/tests/*" = [
     "D1",
     "PLR2004",
@@ -348,7 +348,7 @@ external = ["RUF027"]
     "T201",    # Print statements (needed for CLI output)
     "S603",    # Subprocess calls (needed for running commands)
     "S607",    # Starting process with partial executable path
-    "S104",    # Binding to all interfaces (needed for Aiexec server)
+    "S104",    # Binding to all interfaces (needed for Primeagent server)
     "S105",    # Hardcoded passwords (test credentials)
     "FBT001",  # Boolean-typed positional arguments (common in CLI)
     "FBT002",  # Boolean default arguments (common in CLI tools)
@@ -380,7 +380,7 @@ plugins = ["pydantic.mypy"]
 follow_imports = "skip"
 disable_error_code = ["type-var"]
 namespace_packages = true
-mypy_path = "aiexec"
+mypy_path = "primeagent"
 ignore_missing_imports = true
 
 [build-system]

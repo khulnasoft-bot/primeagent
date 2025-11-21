@@ -1,4 +1,4 @@
-import { ENABLE_DATASTAX_AIEXEC } from "@/customization/feature-flags";
+import { ENABLE_DATASTAX_PRIMEAGENT } from "@/customization/feature-flags";
 import { customGetHostProtocol } from "@/customization/utils/custom-get-host-protocol";
 import { GetCodeType } from "@/types/tweaks";
 import {
@@ -41,7 +41,7 @@ export function getCurlWebhookCode({
   -H 'Content-Type: application/json' \\${
     webhookAuthEnable ? `\n  -H 'x-api-key: <your api key>' \\` : ""
   }${
-    ENABLE_DATASTAX_AIEXEC
+    ENABLE_DATASTAX_PRIMEAGENT
       ? `\n  -H 'Authorization: Bearer <YOUR_APPLICATION_TOKEN>' \\`
       : ""
   }

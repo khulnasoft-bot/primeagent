@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 
-from aiexec.schema.dotdict import dotdict
-from aiexec.utils.component_utils import (
+from primeagent.schema.dotdict import dotdict
+from primeagent.utils.component_utils import (
     DEFAULT_FIELDS,
     add_fields,
     delete_fields,

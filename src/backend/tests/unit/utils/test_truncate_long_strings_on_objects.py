@@ -1,5 +1,5 @@
 import pytest
-from aiexec.serialization.constants import MAX_TEXT_LENGTH
+from primeagent.serialization.constants import MAX_TEXT_LENGTH
 from wfx.utils.util_strings import truncate_long_strings
 
 

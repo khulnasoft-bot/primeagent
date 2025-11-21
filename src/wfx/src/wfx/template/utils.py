@@ -20,7 +20,7 @@ def get_file_path_value(file_path):
         return ""
 
     # Normalize and check for safety
-    cache_dir = Path(user_cache_dir("aiexec", "aiexec")).resolve()
+    cache_dir = Path(user_cache_dir("primeagent", "primeagent")).resolve()
     try:
         resolved_path = path.resolve()
     except (OSError, RuntimeError):
@@ -31,6 +31,7 @@ def get_file_path_value(file_path):
     if not resolved_path.exists():
         return ""
     return str(resolved_path)
+
 
 def update_template_field(new_template, key, previous_value_dict) -> None:
     """Updates a specific field in the frontend template."""

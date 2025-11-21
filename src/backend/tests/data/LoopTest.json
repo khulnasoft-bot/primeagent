@@ -213,7 +213,7 @@
             "custom_fields": {},
             "description": "Use as a template to create your own component.",
             "display_name": "C MyZipper",
-            "documentation": "https://aiexec-docs.khulnasoft.com/components-custom-components",
+            "documentation": "https://primeagent-docs.khulnasoft.com/components-custom-components",
             "edited": true,
             "field_order": [
               "list1",
@@ -262,7 +262,7 @@
                 "show": true,
                 "title_case": false,
                 "type": "code",
-                "value": "# from wfx.field_typing import Data\nimport json\nfrom wfx.custom import Component\nfrom wfx.io import MessageTextInput, Output\nfrom wfx.schema import Message\nfrom fastapi.encoders import jsonable_encoder\n\nclass CustomComponent(Component):\n    display_name = \"C MyZipper\"\n    description = \"Use as a template to create your own component.\"\n    documentation: str = \"https://aiexec-docs.khulnasoft.com/components-custom-components\"\n    icon = \"code\"\n    name = \"MyZipper\"\n\n    inputs = [\n        DataInput(\n            name=\"list1\",\n            display_name=\"List One\",\n            is_list=True,\n            required=True,\n        ),\n        DataInput(\n            name=\"list2\",\n            display_name=\"List Two\",\n            is_list=True,\n            required=True,\n        ),\n    ]\n\n    outputs = [\n        Output(display_name=\"Output\", name=\"output\", method=\"build_output\"),\n    ]\n\n    def build_output(self) -> Message:\n        list1 = self.list1\n        list2 = self.list2\n        lists = list(zip(list1, list2))\n        self.status = lists\n        msg = Message(text=json.dumps(jsonable_encoder(lists)))\n        return msg\n"
+                "value": "# from wfx.field_typing import Data\nimport json\nfrom wfx.custom import Component\nfrom wfx.io import MessageTextInput, Output\nfrom wfx.schema import Message\nfrom fastapi.encoders import jsonable_encoder\n\nclass CustomComponent(Component):\n    display_name = \"C MyZipper\"\n    description = \"Use as a template to create your own component.\"\n    documentation: str = \"https://primeagent-docs.khulnasoft.com/components-custom-components\"\n    icon = \"code\"\n    name = \"MyZipper\"\n\n    inputs = [\n        DataInput(\n            name=\"list1\",\n            display_name=\"List One\",\n            is_list=True,\n            required=True,\n        ),\n        DataInput(\n            name=\"list2\",\n            display_name=\"List Two\",\n            is_list=True,\n            required=True,\n        ),\n    ]\n\n    outputs = [\n        Output(display_name=\"Output\", name=\"output\", method=\"build_output\"),\n    ]\n\n    def build_output(self) -> Message:\n        list1 = self.list1\n        list2 = self.list2\n        lists = list(zip(list1, list2))\n        self.status = lists\n        msg = Message(text=json.dumps(jsonable_encoder(lists)))\n        return msg\n"
               },
               "list1": {
                 "_input_type": "DataInput",
@@ -338,7 +338,7 @@
             "custom_fields": {},
             "description": "Use as a template to create your own component.",
             "display_name": "C SequenceMaker",
-            "documentation": "https://aiexec-docs.khulnasoft.com/components-custom-components",
+            "documentation": "https://primeagent-docs.khulnasoft.com/components-custom-components",
             "edited": true,
             "field_order": [],
             "frozen": false,
@@ -384,7 +384,7 @@
                 "show": true,
                 "title_case": false,
                 "type": "code",
-                "value": "# from wfx.field_typing import Data\nfrom wfx.custom import Component\nfrom wfx.io import MessageTextInput, Output\nfrom wfx.schema import Data\n\n\nclass CustomComponent(Component):\n    display_name = \"C SequenceMaker\"\n    description = \"Use as a template to create your own component.\"\n    documentation: str = \"https://aiexec-docs.khulnasoft.com/components-custom-components\"\n    icon = \"code\"\n    name = \"CustomComponent\"\n\n    outputs = [\n        Output(display_name=\"Output\", name=\"output\", method=\"build_output\"),\n    ]\n\n    def build_output(self) -> Data:\n        return [Data(q=i) for i in range(10)]\n"
+                "value": "# from wfx.field_typing import Data\nfrom wfx.custom import Component\nfrom wfx.io import MessageTextInput, Output\nfrom wfx.schema import Data\n\n\nclass CustomComponent(Component):\n    display_name = \"C SequenceMaker\"\n    description = \"Use as a template to create your own component.\"\n    documentation: str = \"https://primeagent-docs.khulnasoft.com/components-custom-components\"\n    icon = \"code\"\n    name = \"CustomComponent\"\n\n    outputs = [\n        Output(display_name=\"Output\", name=\"output\", method=\"build_output\"),\n    ]\n\n    def build_output(self) -> Data:\n        return [Data(q=i) for i in range(10)]\n"
               }
             },
             "tool_mode": false
@@ -584,7 +584,7 @@
                 "show": true,
                 "title_case": false,
                 "type": "code",
-                "value": "from wfx.log.logger import logger\n\nfrom aiexec.custom import Component\nfrom aiexec.io import MessageInput, Output\nfrom wfx.schema import Data\nfrom wfx.schema.message import Message\n\n\nclass MessageToDataComponent(Component):\n    display_name = \"Message to Data\"\n    description = \"Convert a Message object to a Data object\"\n    icon = \"message-square-share\"\n    beta = True\n    name = \"MessagetoData\"\n\n    inputs = [\n        MessageInput(\n            name=\"message\",\n            display_name=\"Message\",\n            info=\"The Message object to convert to a Data object\",\n        ),\n    ]\n\n    outputs = [\n        Output(display_name=\"Data\", name=\"data\", method=\"convert_message_to_data\"),\n    ]\n\n    def convert_message_to_data(self) -> Data:\n        if isinstance(self.message, Message):\n            # Convert Message to Data\n            return Data(data=self.message.data)\n\n        msg = \"Error converting Message to Data: Input must be a Message object\"\n        logger.debug(msg, exc_info=True)\n        self.status = msg\n        return Data(data={\"error\": msg})\n"
+                "value": "from wfx.log.logger import logger\n\nfrom primeagent.custom import Component\nfrom primeagent.io import MessageInput, Output\nfrom wfx.schema import Data\nfrom wfx.schema.message import Message\n\n\nclass MessageToDataComponent(Component):\n    display_name = \"Message to Data\"\n    description = \"Convert a Message object to a Data object\"\n    icon = \"message-square-share\"\n    beta = True\n    name = \"MessagetoData\"\n\n    inputs = [\n        MessageInput(\n            name=\"message\",\n            display_name=\"Message\",\n            info=\"The Message object to convert to a Data object\",\n        ),\n    ]\n\n    outputs = [\n        Output(display_name=\"Data\", name=\"data\", method=\"convert_message_to_data\"),\n    ]\n\n    def convert_message_to_data(self) -> Data:\n        if isinstance(self.message, Message):\n            # Convert Message to Data\n            return Data(data=self.message.data)\n\n        msg = \"Error converting Message to Data: Input must be a Message object\"\n        logger.debug(msg, exc_info=True)\n        self.status = msg\n        return Data(data={\"error\": msg})\n"
               },
               "message": {
                 "_input_type": "MessageInput",

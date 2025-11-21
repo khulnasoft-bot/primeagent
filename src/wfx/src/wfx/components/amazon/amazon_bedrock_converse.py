@@ -1,6 +1,6 @@
-from aiexec.field_typing import LanguageModel
-from aiexec.inputs.inputs import BoolInput, FloatInput, IntInput, MessageTextInput, SecretStrInput
-from aiexec.io import DictInput, DropdownInput
+from primeagent.field_typing import LanguageModel
+from primeagent.inputs.inputs import BoolInput, FloatInput, IntInput, MessageTextInput, SecretStrInput
+from primeagent.io import DictInput, DropdownInput
 
 from wfx.base.models.aws_constants import AWS_REGIONS, AWS_MODEL_IDs
 from wfx.base.models.model import LCModelComponent

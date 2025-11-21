@@ -6,14 +6,14 @@ from pathlib import Path
 # we need to import tmpdir
 import anyio
 import pytest
-from aiexec.api.v2.mcp import get_mcp_file
-from aiexec.main import create_app
-from aiexec.services.auth.utils import get_password_hash
-from aiexec.services.database.models.api_key.model import ApiKey
-from aiexec.services.database.models.user.model import User, UserRead
-from aiexec.services.deps import get_db_service
 from asgi_lifespan import LifespanManager
 from httpx import ASGITransport, AsyncClient
+from primeagent.api.v2.mcp import get_mcp_file
+from primeagent.main import create_app
+from primeagent.services.auth.utils import get_password_hash
+from primeagent.services.database.models.api_key.model import ApiKey
+from primeagent.services.database.models.user.model import User, UserRead
+from primeagent.services.deps import get_db_service
 from sqlalchemy.orm import selectinload
 from sqlmodel import select
 from wfx.services.deps import session_scope
@@ -75,14 +75,14 @@ async def files_active_user(files_client):  # noqa: ARG001
 
 @pytest.fixture
 def max_file_size_upload_fixture(monkeypatch):
-    monkeypatch.setenv("AIEXEC_MAX_FILE_SIZE_UPLOAD", "1")
+    monkeypatch.setenv("PRIMEAGENT_MAX_FILE_SIZE_UPLOAD", "1")
     yield
     monkeypatch.undo()
 
 
 @pytest.fixture
 def max_file_size_upload_10mb_fixture(monkeypatch):
-    monkeypatch.setenv("AIEXEC_MAX_FILE_SIZE_UPLOAD", "10")
+    monkeypatch.setenv("PRIMEAGENT_MAX_FILE_SIZE_UPLOAD", "10")
     yield
     monkeypatch.undo()
 
@@ -100,8 +100,8 @@ async def files_client_fixture(
         def init_app():
             db_dir = tempfile.mkdtemp()
             db_path = Path(db_dir) / "test.db"
-            monkeypatch.setenv("AIEXEC_DATABASE_URL", f"sqlite:///{db_path}")
-            monkeypatch.setenv("AIEXEC_AUTO_LOGIN", "false")
+            monkeypatch.setenv("PRIMEAGENT_DATABASE_URL", f"sqlite:///{db_path}")
+            monkeypatch.setenv("PRIMEAGENT_AUTO_LOGIN", "false")
             from wfx.services.manager import get_service_manager
 
             get_service_manager().factories.clear()

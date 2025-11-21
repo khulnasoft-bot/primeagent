@@ -154,9 +154,11 @@ class ComposioAPIComponent(LCToolComponent):
             current_tool_name = (
                 field_value
                 if isinstance(field_value, str)
-                else field_value.get("validate")
-                if isinstance(field_value, dict) and "validate" in field_value
-                else getattr(self, "tool_name", None)
+                else (
+                    field_value.get("validate")
+                    if isinstance(field_value, dict) and "validate" in field_value
+                    else getattr(self, "tool_name", None)
+                )
             )
 
             if not current_tool_name:

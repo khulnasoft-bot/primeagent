@@ -10,7 +10,7 @@ from wfx.schema.message import Message
 class CurrentDateComponent(Component):
     display_name = "Current Date"
     description = "Returns the current date and time in the selected timezone."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-helpers#current-date"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-helpers#current-date"
     icon = "clock"
     name = "CurrentDate"
 

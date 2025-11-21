@@ -256,7 +256,7 @@ def test_update_source_handle():
     assert updated_edge["data"]["sourceHandle"]["id"] == "last_node"
 
 
-# TODO: Move to Aiexec tests
+# TODO: Move to Primeagent tests
 @pytest.mark.skip(reason="Temporarily disabled")
 async def test_serialize_graph():
     pass

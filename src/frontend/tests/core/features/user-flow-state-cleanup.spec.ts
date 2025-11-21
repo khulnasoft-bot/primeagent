@@ -20,8 +20,8 @@ test(
       window.process = window.process || {};
       const newEnv = {
         ...window.process.env,
-        AIEXEC_AUTO_LOGIN: "false",
-        AIEXEC_NEW_USER_IS_ACTIVE: "true",
+        PRIMEAGENT_AUTO_LOGIN: "false",
+        PRIMEAGENT_NEW_USER_IS_ACTIVE: "true",
       };
       Object.defineProperty(window.process, "env", {
         value: newEnv,
@@ -38,9 +38,11 @@ test(
 
     // Log in as admin and create test user
     await page.goto("/");
-    await page.waitForSelector("text=sign in to aiexec", { timeout: 30000 });
-    await page.getByPlaceholder("Username").fill("aiexec");
-    await page.getByPlaceholder("Password").fill("aiexec");
+    await page.waitForSelector("text=sign in to primeagent", {
+      timeout: 30000,
+    });
+    await page.getByPlaceholder("Username").fill("primeagent");
+    await page.getByPlaceholder("Password").fill("primeagent");
     await page.evaluate(() => {
       sessionStorage.removeItem("testMockAutoLogin");
     });
@@ -76,7 +78,9 @@ test(
     // ---- USER A SESSION ----
 
     // Log in as User A
-    await page.waitForSelector("text=sign in to aiexec", { timeout: 30000 });
+    await page.waitForSelector("text=sign in to primeagent", {
+      timeout: 30000,
+    });
     await page.getByPlaceholder("Username").fill(userAName);
     await page.getByPlaceholder("Password").fill(userAPassword);
     await page.evaluate(() => {
@@ -89,7 +93,7 @@ test(
     // Check that User A starts with an empty flows list
     expect(
       (
-        await page.waitForSelector("text=Welcome to AiExec", {
+        await page.waitForSelector("text=Welcome to PrimeAgent", {
           timeout: 30000,
         })
       ).isVisible(),
@@ -135,9 +139,11 @@ test(
     // ---- ADMIN SESSION AGAIN ----
 
     // Log in as admin again
-    await page.waitForSelector("text=sign in to aiexec", { timeout: 30000 });
-    await page.getByPlaceholder("Username").fill("aiexec");
-    await page.getByPlaceholder("Password").fill("aiexec");
+    await page.waitForSelector("text=sign in to primeagent", {
+      timeout: 30000,
+    });
+    await page.getByPlaceholder("Username").fill("primeagent");
+    await page.getByPlaceholder("Password").fill("primeagent");
     await page.evaluate(() => {
       sessionStorage.removeItem("testMockAutoLogin");
     });

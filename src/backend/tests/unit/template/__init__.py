@@ -1,1 +1,1 @@
-"""Template testing module for Aiexec."""
+"""Template testing module for Primeagent."""

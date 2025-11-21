@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class BatchRunComponent(Component):
     display_name = "Batch Run"
     description = "Runs an LLM on each row of a DataFrame column. If no column is specified, all columns are used."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-processing#batch-run"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-processing#batch-run"
     icon = "List"
 
     inputs = [
@@ -152,9 +152,11 @@ class BatchRunComponent(Component):
 
             # Prepare the batch of conversations
             conversations = [
-                [{"role": "system", "content": system_msg}, {"role": "user", "content": text}]
-                if system_msg
-                else [{"role": "user", "content": text}]
+                (
+                    [{"role": "system", "content": system_msg}, {"role": "user", "content": text}]
+                    if system_msg
+                    else [{"role": "user", "content": text}]
+                )
                 for text in user_texts
             ]
 

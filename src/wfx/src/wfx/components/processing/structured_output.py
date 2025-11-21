@@ -19,7 +19,7 @@ from wfx.schema.table import EditMode
 class StructuredOutputComponent(Component):
     display_name = "Structured Output"
     description = "Uses an LLM to generate structured data. Ideal for extraction and consistency."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-processing#structured-output"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-processing#structured-output"
     name = "StructuredOutput"
     icon = "braces"
 
@@ -65,7 +65,7 @@ class StructuredOutputComponent(Component):
             display_name="Output Schema",
             info="Define the structure and data types for the model's output.",
             required=True,
-            # TODO: remove deault value
+            # TODO: remove default value
             table_schema=[
                 {
                     "name": "name",

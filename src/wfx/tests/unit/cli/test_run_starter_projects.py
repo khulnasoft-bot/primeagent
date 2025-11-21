@@ -1,7 +1,7 @@
 """Test run command with all starter project templates.
 
 Tests that all starter project JSON files can be loaded by wfx run command
-without import errors for aiexec modules. We expect execution errors
+without import errors for primeagent modules. We expect execution errors
 (missing API keys, etc.) but no import/module errors.
 """
 
@@ -21,18 +21,18 @@ def get_starter_projects_path() -> Path:
     # Use absolute path to find the starter projects
     test_file_path = Path(__file__).resolve()
 
-    # Navigate up to find the aiexec project root
+    # Navigate up to find the primeagent project root
     current = test_file_path.parent
     while current != current.parent:
-        if (current / "src" / "backend" / "base" / "aiexec" / "initial_setup" / "starter_projects").exists():
-            return current / "src" / "backend" / "base" / "aiexec" / "initial_setup" / "starter_projects"
+        if (current / "src" / "backend" / "base" / "primeagent" / "initial_setup" / "starter_projects").exists():
+            return current / "src" / "backend" / "base" / "primeagent" / "initial_setup" / "starter_projects"
         current = current.parent
 
     # Fallback to a relative path from the test file
     # test_file is in: src/wfx/tests/unit/cli
-    # starter projects are in: src/backend/base/aiexec/initial_setup/starter_projects
+    # starter projects are in: src/backend/base/primeagent/initial_setup/starter_projects
     project_root = test_file_path.parent.parent.parent.parent.parent
-    return project_root / "backend" / "base" / "aiexec" / "initial_setup" / "starter_projects"
+    return project_root / "backend" / "base" / "primeagent" / "initial_setup" / "starter_projects"
 
 
 def get_starter_project_files():
@@ -56,10 +56,10 @@ class TestRunStarterProjects:
 
     @pytest.mark.parametrize("template_file", get_starter_project_files(), ids=lambda x: x.name)
     def test_run_starter_project_no_import_errors(self, template_file):
-        """Test that starter project can be loaded without aiexec or wfx import errors.
+        """Test that starter project can be loaded without primeagent or wfx import errors.
 
         We expect execution errors (missing API keys, missing inputs, etc.)
-        but there should be NO errors about importing aiexec or wfx modules.
+        but there should be NO errors about importing primeagent or wfx modules.
         """
         # Run the command with --no-check-variables to skip variable validation
         # Use verbose mode to get detailed error messages in stderr
@@ -74,17 +74,17 @@ class TestRunStarterProjects:
         # Use the combined output provided by Click/Typer
         all_output = result.output
 
-        # Check for import errors related to aiexec or wfx
+        # Check for import errors related to primeagent or wfx
         if "ModuleNotFoundError" in all_output or "ImportError" in all_output or "Module" in all_output:
-            # Check for aiexec import errors
-            if "No module named 'aiexec'" in all_output or "Module aiexec" in all_output:
+            # Check for primeagent import errors
+            if "No module named 'primeagent'" in all_output or "Module primeagent" in all_output:
                 # Extract the specific error for better debugging
                 error_line = ""
                 for line in all_output.split("\n"):
-                    if "aiexec" in line and ("No module named" in line or "Module" in line):
+                    if "primeagent" in line and ("No module named" in line or "Module" in line):
                         error_line = line.strip()
                         break
-                pytest.fail(f"Aiexec import error found in {template_file.name}.\nError: {error_line}")
+                pytest.fail(f"Primeagent import error found in {template_file.name}.\nError: {error_line}")
 
             # Check for wfx import errors (these indicate structural issues)
             if "No module named 'wfx." in all_output or "Module wfx." in all_output:
@@ -123,7 +123,7 @@ class TestRunStarterProjects:
                 )
 
             # Check for other critical import errors
-            if "cannot import name" in all_output and ("aiexec" in all_output or "wfx" in all_output):
+            if "cannot import name" in all_output and ("primeagent" in all_output or "wfx" in all_output):
                 # Extract the specific import error
                 error_line = ""
                 for line in all_output.split("\n"):
@@ -187,13 +187,13 @@ class TestRunStarterProjects:
             all_output = result.output
 
             # More specific checks for these basic templates
-            assert "No module named 'aiexec'" not in all_output, f"Aiexec import error in {template_name}"
+            assert "No module named 'primeagent'" not in all_output, f"Primeagent import error in {template_name}"
 
-            # Check for module not found errors specifically related to aiexec
+            # Check for module not found errors specifically related to primeagent
             # (Settings service errors are runtime errors, not import errors)
-            if "ModuleNotFoundError" in all_output and "aiexec" in all_output and "wfx.services" not in all_output:
-                # This is an actual aiexec import error, not an internal wfx error
-                pytest.fail(f"Module not found error for aiexec in {template_name}")
+            if "ModuleNotFoundError" in all_output and "primeagent" in all_output and "wfx.services" not in all_output:
+                # This is an actual primeagent import error, not an internal wfx error
+                pytest.fail(f"Module not found error for primeagent in {template_name}")
 
     @pytest.mark.parametrize("template_file", get_starter_project_files()[:5], ids=lambda x: x.name)
     def test_run_starter_project_with_stdin(self, template_file):
@@ -212,7 +212,7 @@ class TestRunStarterProjects:
 
         # Verify no import errors
         all_output = result.output
-        assert "No module named 'aiexec'" not in all_output
+        assert "No module named 'primeagent'" not in all_output
 
     @pytest.mark.parametrize("template_file", get_starter_project_files()[:5], ids=lambda x: x.name)
     def test_run_starter_project_inline_json(self, template_file):
@@ -230,4 +230,4 @@ class TestRunStarterProjects:
 
         # Verify no import errors
         all_output = result.output
-        assert "No module named 'aiexec'" not in all_output
+        assert "No module named 'primeagent'" not in all_output

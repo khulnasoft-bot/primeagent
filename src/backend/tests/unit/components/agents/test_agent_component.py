@@ -3,7 +3,7 @@ from typing import Any
 from uuid import uuid4
 
 import pytest
-from aiexec.custom import Component
+from primeagent.custom import Component
 from wfx.base.models.anthropic_constants import ANTHROPIC_MODELS
 from wfx.base.models.model_input_constants import (
     MODEL_PROVIDERS,
@@ -234,7 +234,7 @@ class TestAgentComponent(ComponentTestBaseWithoutClient):
 
         result = await component.json_response()
 
-        from aiexec.schema.data import Data
+        from primeagent.schema.data import Data
 
         assert isinstance(result, Data)
         assert result.data == {"name": "John", "age": 25}

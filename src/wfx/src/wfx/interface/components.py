@@ -142,10 +142,10 @@ def _read_component_index(custom_path: str | None = None) -> dict | None:
             )
             return None
 
-        # Version check: ensure index matches installed aiexec version
+        # Version check: ensure index matches installed primeagent version
         from importlib.metadata import version
 
-        installed_version = version("aiexec")
+        installed_version = version("primeagent")
         if blob.get("version") != installed_version:
             logger.debug(
                 f"Component index version mismatch: index={blob.get('version')}, installed={installed_version}"
@@ -161,7 +161,7 @@ def _get_cache_path() -> Path:
     """Get the path for the cached component index in the user's cache directory."""
     from platformdirs import user_cache_dir
 
-    cache_dir = Path(user_cache_dir("wfx", "aiexec"))
+    cache_dir = Path(user_cache_dir("wfx", "primeagent"))
     cache_dir.mkdir(parents=True, exist_ok=True)
     return cache_dir / "component_index.json"
 
@@ -185,11 +185,11 @@ def _save_generated_index(modules_dict: dict) -> None:
         # Get version
         from importlib.metadata import version
 
-        aiexec_version = version("aiexec")
+        primeagent_version = version("primeagent")
 
         # Build index structure
         index = {
-            "version": aiexec_version,
+            "version": primeagent_version,
             "metadata": {
                 "num_modules": num_modules,
                 "num_components": num_components,
@@ -239,7 +239,7 @@ async def _send_telemetry(
         filtered_modules = ",".join(target_modules) if target_modules else None
 
         # Import the payload class dynamically to avoid circular imports
-        from aiexec.services.telemetry.schema import ComponentIndexPayload
+        from primeagent.services.telemetry.schema import ComponentIndexPayload
 
         payload = ComponentIndexPayload(
             index_source=index_source,
@@ -256,10 +256,10 @@ async def _send_telemetry(
         await logger.adebug(f"Failed to send component index telemetry: {e}")
 
 
-async def import_aiexec_components(
+async def import_primeagent_components(
     settings_service: Optional["SettingsService"] = None, telemetry_service: Any | None = None
 ):
-    """Asynchronously discovers and loads all built-in Aiexec components with module-level parallelization.
+    """Asynchronously discovers and loads all built-in Primeagent components with module-level parallelization.
 
     In production mode (non-dev), attempts to load components from a prebuilt static index for instant startup.
     Falls back to dynamic module scanning if index is unavailable or invalid. When dynamic loading is used,
@@ -341,7 +341,7 @@ async def import_aiexec_components(
     try:
         import wfx.components as components_pkg
     except ImportError as e:
-        await logger.aerror(f"Failed to import aiexec.components package: {e}", exc_info=True)
+        await logger.aerror(f"Failed to import primeagent.components package: {e}", exc_info=True)
         return {"components": modules_dict}
 
     # Collect all module names to process
@@ -508,7 +508,7 @@ async def get_and_cache_all_types_dict(
 ):
     """Retrieves and caches the complete dictionary of component types and templates.
 
-    Supports both full and partial (lazy) loading. If the cache is empty, loads built-in Aiexec
+    Supports both full and partial (lazy) loading. If the cache is empty, loads built-in Primeagent
     components and either fully loads all components or loads only their metadata, depending on the
     lazy loading setting. Merges built-in and custom components into the cache and returns the
     resulting dictionary.
@@ -520,7 +520,7 @@ async def get_and_cache_all_types_dict(
     if component_cache.all_types_dict is None:
         await logger.adebug("Building components cache")
 
-        aiexec_components = await import_aiexec_components(settings_service, telemetry_service)
+        primeagent_components = await import_primeagent_components(settings_service, telemetry_service)
         custom_components_dict = await _determine_loading_strategy(settings_service)
 
         # Flatten custom dict if it has a "components" wrapper
@@ -528,7 +528,7 @@ async def get_and_cache_all_types_dict(
 
         # Merge built-in and custom components (no wrapper at cache level)
         component_cache.all_types_dict = {
-            **aiexec_components["components"],
+            **primeagent_components["components"],
             **custom_flat,
         }
         component_count = sum(len(comps) for comps in component_cache.all_types_dict.values())
@@ -758,7 +758,7 @@ async def get_type_dict(component_type: str, settings_service: Optional["Setting
     """Get a specific component type dictionary, loading if needed."""
     if settings_service is None:
         # Import here to avoid circular imports
-        from aiexec.services.deps import get_settings_service
+        from primeagent.services.deps import get_settings_service
 
         settings_service = get_settings_service()
 

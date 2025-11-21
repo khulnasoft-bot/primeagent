@@ -2,7 +2,7 @@
 
 import pytest
 
-from wfx.utils.aiexec_utils import has_aiexec_memory
+from wfx.utils.primeagent_utils import has_primeagent_memory
 
 # Globals
 
@@ -21,11 +21,11 @@ def is_helper_module(module, module_name):
 class TestDynamicImport:
     """Test dynamic imports of the wfx implementation."""
 
-    def test_aiexec_available(self):
-        """Test whether the aiexec implementation is available."""
-        # Aiexec implementation should not be available
-        if has_aiexec_memory():
-            pytest.fail("Aiexec implementation is available")
+    def test_primeagent_available(self):
+        """Test whether the primeagent implementation is available."""
+        # Primeagent implementation should not be available
+        if has_primeagent_memory():
+            pytest.fail("Primeagent implementation is available")
 
     def test_helpers_import_build_schema_from_inputs(self):
         """Test the wfx.helpers.build_schema_from_inputs import."""

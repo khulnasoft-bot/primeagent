@@ -16,7 +16,7 @@ from wfx.base.mcp.util import (
 from wfx.custom.custom_component.component_with_cache import ComponentWithCache
 from wfx.inputs.inputs import InputTypes  # noqa: TC001
 from wfx.io import BoolInput, DropdownInput, McpInput, MessageTextInput, Output
-from wfx.io.schema import flatten_schema, schema_to_aiexec_inputs
+from wfx.io.schema import flatten_schema, schema_to_primeagent_inputs
 from wfx.log.logger import logger
 from wfx.schema.dataframe import DataFrame
 from wfx.schema.message import Message
@@ -65,7 +65,7 @@ class MCPToolsComponent(ComponentWithCache):
 
     display_name = "MCP Tools"
     description = "Connect to an MCP server to use its tools."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/mcp-client"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/mcp-client"
     icon = "Mcp"
     name = "MCPTools"
 
@@ -123,7 +123,7 @@ class MCPToolsComponent(ComponentWithCache):
                 msg = f"Empty input schema for tool '{tool_obj.name}'"
                 raise ValueError(msg)
 
-            schema_inputs = schema_to_aiexec_inputs(input_schema)
+            schema_inputs = schema_to_primeagent_inputs(input_schema)
             if not schema_inputs:
                 msg = f"No input parameters defined for tool '{tool_obj.name}'"
                 await logger.awarning(msg)
@@ -179,12 +179,12 @@ class MCPToolsComponent(ComponentWithCache):
 
         try:
             try:
-                from aiexec.api.v2.mcp import get_server
-                from aiexec.services.database.models.user.crud import get_user_by_id
+                from primeagent.api.v2.mcp import get_server
+                from primeagent.services.database.models.user.crud import get_user_by_id
             except ImportError as e:
                 msg = (
-                    "Aiexec MCP server functionality is not available. "
-                    "This feature requires the full Aiexec installation."
+                    "Primeagent MCP server functionality is not available. "
+                    "This feature requires the full Primeagent installation."
                 )
                 raise ImportError(msg) from e
             async with session_scope() as db:
@@ -401,8 +401,8 @@ class MCPToolsComponent(ComponentWithCache):
             try:
                 flat_schema = flatten_schema(tool.args_schema.schema())
                 input_schema = create_input_schema_from_json_schema(flat_schema)
-                aiexec_inputs = schema_to_aiexec_inputs(input_schema)
-                inputs[tool.name] = aiexec_inputs
+                primeagent_inputs = schema_to_primeagent_inputs(input_schema)
+                inputs[tool.name] = primeagent_inputs
             except (AttributeError, ValueError, TypeError, KeyError) as e:
                 msg = f"Error getting inputs for tool {getattr(tool, 'name', 'unknown')}: {e!s}"
                 logger.exception(msg)
@@ -499,7 +499,7 @@ class MCPToolsComponent(ComponentWithCache):
         try:
             self.tools, _ = await self.update_tool_list()
             if self.tool != "":
-                # Set session context for persistent MCP sessions using Aiexec session ID
+                # Set session context for persistent MCP sessions using Primeagent session ID
                 session_context = self._get_session_context()
                 if session_context:
                     self.stdio_client.set_session_context(session_context)
@@ -532,7 +532,7 @@ class MCPToolsComponent(ComponentWithCache):
             raise ValueError(msg) from e
 
     def _get_session_context(self) -> str | None:
-        """Get the Aiexec session ID for MCP session caching."""
+        """Get the Primeagent session ID for MCP session caching."""
         # Try to get session ID from the component's execution context
         if hasattr(self, "graph") and hasattr(self.graph, "session_id"):
             session_id = self.graph.session_id

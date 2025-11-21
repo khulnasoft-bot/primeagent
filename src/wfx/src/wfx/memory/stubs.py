@@ -1,7 +1,7 @@
 """Memory management functions for wfx package.
 
 This module provides message storage and retrieval functionality adapted for wfx's
-service-based architecture. It mirrors the aiexec.memory API but works with
+service-based architecture. It mirrors the primeagent.memory API but works with
 wfx's Message model and service interfaces.
 """
 
@@ -52,7 +52,7 @@ async def astore_message(
     # Real implementation would require a database service
     async with session_scope() as session:
         # Since we're using NoopSession by default, this doesn't actually persist
-        # but maintains the same interface as aiexec.memory
+        # but maintains the same interface as primeagent.memory
         try:
             # Generate an ID if not present
             if not hasattr(message, "id") or not message.id:

@@ -1,11 +1,11 @@
-"""A simple agent flow example for Aiexec.
+"""A simple agent flow example for Primeagent.
 
-This script demonstrates how to set up a conversational agent using Aiexec's
+This script demonstrates how to set up a conversational agent using Primeagent's
 Agent component with web search capabilities.
 
 Features:
 - Uses the new flattened component access (cp.AgentComponent instead of deep imports)
-- Configures logging to 'aiexec.log' at INFO level
+- Configures logging to 'primeagent.log' at INFO level
 - Creates an agent with OpenAI GPT model
 - Provides web search tools via URLComponent
 - Connects ChatInput → Agent → ChatOutput
@@ -26,7 +26,7 @@ from wfx import components as cp
 
 log_config = LogConfig(
     log_level="INFO",
-    log_file=Path("aiexec.log"),
+    log_file=Path("primeagent.log"),
 )
 
 # Showcase the new flattened component access - no need for deep imports!

@@ -1,11 +1,11 @@
 """Unit tests for cross-module isinstance functionality.
 
 These tests verify that isinstance checks work correctly when classes are
-re-exported from different modules (e.g., wfx.schema.Message vs aiexec.schema.Message).
+re-exported from different modules (e.g., wfx.schema.Message vs primeagent.schema.Message).
 """
 
-from aiexec.schema import Data as AiexecData
-from aiexec.schema import Message as AiexecMessage
+from primeagent.schema import Data as PrimeagentData
+from primeagent.schema import Message as PrimeagentMessage
 from wfx.schema.data import Data as WfxData
 from wfx.schema.message import Message as WfxMessage
 
@@ -13,26 +13,26 @@ from wfx.schema.message import Message as WfxMessage
 class TestDuckTypingData:
     """Tests for duck-typing Data class across module boundaries."""
 
-    def test_wfx_data_isinstance_aiexec_data(self):
-        """Test that wfx.Data instance is recognized as aiexec.Data."""
+    def test_wfx_data_isinstance_primeagent_data(self):
+        """Test that wfx.Data instance is recognized as primeagent.Data."""
         wfx_data = WfxData(data={"key": "value"})
-        assert isinstance(wfx_data, AiexecData)
+        assert isinstance(wfx_data, PrimeagentData)
 
-    def test_aiexec_data_isinstance_wfx_data(self):
-        """Test that aiexec.Data instance is recognized as wfx.Data."""
-        aiexec_data = AiexecData(data={"key": "value"})
-        assert isinstance(aiexec_data, WfxData)
+    def test_primeagent_data_isinstance_wfx_data(self):
+        """Test that primeagent.Data instance is recognized as wfx.Data."""
+        primeagent_data = PrimeagentData(data={"key": "value"})
+        assert isinstance(primeagent_data, WfxData)
 
     def test_data_equality_across_modules(self):
         """Test that Data objects from different modules are equal."""
         wfx_data = WfxData(data={"key": "value"})
-        aiexec_data = AiexecData(data={"key": "value"})
-        assert wfx_data == aiexec_data
+        primeagent_data = PrimeagentData(data={"key": "value"})
+        assert wfx_data == primeagent_data
 
     def test_data_interchangeable_in_functions(self):
         """Test that Data from different modules work interchangeably."""
 
-        def process_data(data: AiexecData) -> str:
+        def process_data(data: PrimeagentData) -> str:
             return data.get_text()
 
         wfx_data = WfxData(data={"text": "hello"})
@@ -43,35 +43,35 @@ class TestDuckTypingData:
     def test_data_model_dump_compatible(self):
         """Test that model_dump works across module boundaries."""
         wfx_data = WfxData(data={"key": "value"})
-        aiexec_data = AiexecData(**wfx_data.model_dump())
-        assert aiexec_data.data == {"key": "value"}
+        primeagent_data = PrimeagentData(**wfx_data.model_dump())
+        assert primeagent_data.data == {"key": "value"}
 
 
 class TestDuckTypingMessage:
     """Tests for duck-typing Message class across module boundaries."""
 
-    def test_wfx_message_isinstance_aiexec_message(self):
-        """Test that wfx.Message instance is recognized as aiexec.Message."""
+    def test_wfx_message_isinstance_primeagent_message(self):
+        """Test that wfx.Message instance is recognized as primeagent.Message."""
         wfx_message = WfxMessage(text="hello")
-        assert isinstance(wfx_message, AiexecMessage)
+        assert isinstance(wfx_message, PrimeagentMessage)
 
-    def test_aiexec_message_isinstance_wfx_message(self):
-        """Test that aiexec.Message instance is recognized as wfx.Message."""
-        aiexec_message = AiexecMessage(text="hello")
-        assert isinstance(aiexec_message, WfxMessage)
+    def test_primeagent_message_isinstance_wfx_message(self):
+        """Test that primeagent.Message instance is recognized as wfx.Message."""
+        primeagent_message = PrimeagentMessage(text="hello")
+        assert isinstance(primeagent_message, WfxMessage)
 
     def test_message_equality_across_modules(self):
         """Test that Message objects from different modules are equal."""
         wfx_message = WfxMessage(text="hello", sender="user")
-        aiexec_message = AiexecMessage(text="hello", sender="user")
+        primeagent_message = PrimeagentMessage(text="hello", sender="user")
         # Note: Direct equality might not work due to timestamps
-        assert wfx_message.text == aiexec_message.text
-        assert wfx_message.sender == aiexec_message.sender
+        assert wfx_message.text == primeagent_message.text
+        assert wfx_message.sender == primeagent_message.sender
 
     def test_message_interchangeable_in_functions(self):
         """Test that Message from different modules work interchangeably."""
 
-        def process_message(msg: AiexecMessage) -> str:
+        def process_message(msg: PrimeagentMessage) -> str:
             return f"Processed: {msg.text}"
 
         wfx_message = WfxMessage(text="hello")
@@ -83,15 +83,15 @@ class TestDuckTypingMessage:
         """Test that model_dump works across module boundaries."""
         wfx_message = WfxMessage(text="hello", sender="user")
         dump = wfx_message.model_dump()
-        aiexec_message = AiexecMessage(**dump)
-        assert aiexec_message.text == "hello"
-        assert aiexec_message.sender == "user"
+        primeagent_message = PrimeagentMessage(**dump)
+        assert primeagent_message.text == "hello"
+        assert primeagent_message.sender == "user"
 
     def test_message_inherits_data_duck_typing(self):
         """Test that Message inherits duck-typing from Data."""
         wfx_message = WfxMessage(text="hello")
         # Should work as Data too
-        assert isinstance(wfx_message, AiexecData)
+        assert isinstance(wfx_message, PrimeagentData)
         assert isinstance(wfx_message, WfxData)
 
 
@@ -104,14 +104,14 @@ class TestDuckTypingWithInputs:
 
         wfx_message = WfxMessage(text="hello")
         msg_input = MessageInput(name="test", value=wfx_message)
-        assert isinstance(msg_input.value, (WfxMessage, AiexecMessage))
+        assert isinstance(msg_input.value, (WfxMessage, PrimeagentMessage))
 
     def test_message_input_converts_cross_module(self):
         """Test that MessageInput handles cross-module Messages."""
         from wfx.inputs.inputs import MessageInput
 
-        aiexec_message = AiexecMessage(text="hello")
-        msg_input = MessageInput(name="test", value=aiexec_message)
+        primeagent_message = PrimeagentMessage(text="hello")
+        msg_input = MessageInput(name="test", value=primeagent_message)
         # Should recognize it as a Message
         assert msg_input.value.text == "hello"
 
@@ -137,7 +137,7 @@ class TestDuckTypingEdgeCases:
         custom = CustomModel(value="test")
         # Should not be considered a Data
         assert not isinstance(custom, WfxData)
-        assert not isinstance(custom, AiexecData)
+        assert not isinstance(custom, PrimeagentData)
 
     def test_non_pydantic_model_not_cross_module(self):
         """Test that non-Pydantic objects are not recognized as cross-module compatible."""
@@ -148,7 +148,7 @@ class TestDuckTypingEdgeCases:
 
         fake = FakeData()
         assert not isinstance(fake, WfxData)
-        assert not isinstance(fake, AiexecData)
+        assert not isinstance(fake, PrimeagentData)
 
     def test_missing_fields_not_cross_module(self):
         """Test that objects missing required fields are not recognized as cross-module compatible."""
@@ -160,7 +160,7 @@ class TestDuckTypingEdgeCases:
         partial = PartialData(text_key="text")
         # Should not be considered a full Data (missing data field)
         assert not isinstance(partial, WfxData)
-        assert not isinstance(partial, AiexecData)
+        assert not isinstance(partial, PrimeagentData)
 
 
 class TestDuckTypingInputMixin:
@@ -197,9 +197,9 @@ class TestDuckTypingInputMixin:
         wfx_msg = WfxMessage(text="hello")
         input1 = MessageInput(name="test1", value=wfx_msg)
 
-        # Create with aiexec Message
-        aiexec_msg = AiexecMessage(text="world")
-        input2 = MessageInput(name="test2", value=aiexec_msg)
+        # Create with primeagent Message
+        primeagent_msg = PrimeagentMessage(text="world")
+        input2 = MessageInput(name="test2", value=primeagent_msg)
 
         # Both should work
         assert input1.value.text == "hello"

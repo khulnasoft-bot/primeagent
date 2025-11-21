@@ -89,14 +89,14 @@ component_management:
     - component_id: backend_components
       name: "Backend Components"
       paths:
-        - src/backend/base/aiexec/components/**
+        - src/backend/base/primeagent/components/**
     # Note: Many components excluded by .coveragerc (bundled + legacy)
     # This tracks coverage of remaining "core" components only
 
 # Files/directories to exclude from coverage calculations
 ignore:
   # Database migrations - infrastructure code, not business logic
-  - "src/backend/base/aiexec/alembic/**"
+  - "src/backend/base/primeagent/alembic/**"
   # Test files themselves don't need coverage
   - "src/backend/tests/**"
   - "src/frontend/tests/**"

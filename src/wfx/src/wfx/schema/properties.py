@@ -1,4 +1,4 @@
-"""Properties and Source schema classes copied from aiexec for wfx package."""
+"""Properties and Source schema classes copied from primeagent for wfx package."""
 
 from typing import Literal
 

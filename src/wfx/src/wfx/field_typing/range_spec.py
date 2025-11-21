@@ -1,4 +1,4 @@
-"""Range specification for field types copied from aiexec for wfx package."""
+"""Range specification for field types copied from primeagent for wfx package."""
 
 from typing import Literal
 

@@ -3,7 +3,7 @@ from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
-from aiexec.services.cache.utils import CACHE_DIR
+from primeagent.services.cache.utils import CACHE_DIR
 from wfx.components.vectorstores.local_db import LocalDBComponent
 from wfx.schema.data import Data
 

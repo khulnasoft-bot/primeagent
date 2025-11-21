@@ -247,9 +247,9 @@ class DataFrameToToolsetComponent(LCToolComponent):
         for tool in tools:
             tool_data = {
                 "tool_name": tool.name,
-                "display_name": tool.metadata.get("display_name", tool.name)
-                if hasattr(tool, "metadata")
-                else tool.name,
+                "display_name": (
+                    tool.metadata.get("display_name", tool.name) if hasattr(tool, "metadata") else tool.name
+                ),
                 "description": tool.description,
                 "original_name": tool.metadata.get("original_name", "") if hasattr(tool, "metadata") else "",
                 "content_preview": tool.metadata.get("content_preview", "") if hasattr(tool, "metadata") else "",

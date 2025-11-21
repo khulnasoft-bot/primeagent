@@ -1,5 +1,5 @@
-name: Aiexec Release
-run-name: Aiexec Release by @${{ github.actor }}
+name: Primeagent Release
+run-name: Primeagent Release by @${{ github.actor }}
 
 on:
   workflow_dispatch:
@@ -9,12 +9,12 @@ on:
         required: true
         type: string
       release_package_base:
-        description: "Release Aiexec Base"
+        description: "Release Primeagent Base"
         required: true
         type: boolean
         default: false
       release_package_main:
-        description: "Release Aiexec"
+        description: "Release Primeagent"
         required: true
         type: boolean
         default: false
@@ -24,12 +24,12 @@ on:
         type: boolean
         default: false
       build_docker_base:
-        description: "Build Docker Image for Aiexec Base"
+        description: "Build Docker Image for Primeagent Base"
         required: true
         type: boolean
         default: false
       build_docker_main:
-        description: "Build Docker Image for Aiexec"
+        description: "Build Docker Image for Primeagent"
         required: true
         type: boolean
         default: false
@@ -103,7 +103,7 @@ jobs:
       - name: Validate that build-base is enabled if build-main is enabled
         run: |
           if [ "${{ inputs.release_package_main }}" = "true" ] && [ "${{ inputs.release_package_base }}" = "false" ]; then
-            echo "Error: Cannot release Aiexec Main without releasing Aiexec Base."
+            echo "Error: Cannot release Primeagent Main without releasing Primeagent Base."
             echo "Please enable 'release_package_base' or disable 'release_package_main'."
             exit 1
           fi
@@ -131,7 +131,7 @@ jobs:
 
 
   build-base:
-    name: Build Aiexec Base
+    name: Build Primeagent Base
     needs: [ci]
     if: ${{ inputs.release_package_base }}
     runs-on: ubuntu-latest
@@ -157,8 +157,8 @@ jobs:
       - name: Check Version
         id: check-version
         run: |
-          version=$(uv tree | grep 'aiexec-base' | awk '{print $3}' | sed 's/^v//' | head -n 2 | xargs)
-          last_released_version=$(curl -s "https://pypi.org/pypi/aiexec-base/json" | jq -r '.releases | keys | .[]' | sort -V | tail -n 1)
+          version=$(uv tree | grep 'primeagent-base' | awk '{print $3}' | sed 's/^v//' | head -n 2 | xargs)
+          last_released_version=$(curl -s "https://pypi.org/pypi/primeagent-base/json" | jq -r '.releases | keys | .[]' | sort -V | tail -n 1)
           if [ "$version" = "$last_released_version" ]; then
             echo "Version $version is already released. Skipping release."
             echo skipped=true >> $GITHUB_OUTPUT
@@ -177,7 +177,7 @@ jobs:
           mkdir src/backend/base/dist
           mv dist/*.whl src/backend/base/dist
           uv pip install src/backend/base/dist/*.whl
-          uv run python -m aiexec run --host localhost --port 7860 --backend-only &
+          uv run python -m primeagent run --host localhost --port 7860 --backend-only &
           SERVER_PID=$!
           # Wait for the server to start
           timeout 120 bash -c 'until curl -f http://localhost:7860/api/v1/auto_login; do sleep 2; done' || (echo "Server did not start in time" && kill $SERVER_PID && exit 1)
@@ -202,7 +202,7 @@ jobs:
           path: src/backend/base/dist
 
   build-main:
-    name: Build Aiexec Main
+    name: Build Primeagent Main
     if: ${{ inputs.release_package_main }}
     needs: [build-base]
     runs-on: ubuntu-latest
@@ -230,7 +230,7 @@ jobs:
       - name: Check if pre-release
         if: inputs.pre_release
         run: |
-          version=$(uv tree | grep 'aiexec' | grep -v 'aiexec-base' | awk '{print $2}' | sed 's/^v//')
+          version=$(uv tree | grep 'primeagent' | grep -v 'primeagent-base' | awk '{print $2}' | sed 's/^v//')
           if [[ "${version}" =~ ^([0-9]+\.)?([0-9]+\.)?[0-9]+((a|b|rc|dev|post)([0-9]+))$ ]]; then
             echo "Pre-release version detected. Continuing with the release."
           else
@@ -240,8 +240,8 @@ jobs:
       - name: Check Version
         id: check-version
         run: |
-          version=$(uv tree | grep 'aiexec' | grep -v 'aiexec-base' | awk '{print $2}' | sed 's/^v//')
-          last_released_version=$(curl -s "https://pypi.org/pypi/aiexec/json" | jq -r '.releases | keys | .[]' | sort -V | tail -n 1)
+          version=$(uv tree | grep 'primeagent' | grep -v 'primeagent-base' | awk '{print $2}' | sed 's/^v//')
+          last_released_version=$(curl -s "https://pypi.org/pypi/primeagent/json" | jq -r '.releases | keys | .[]' | sort -V | tail -n 1)
           if [ "$version" = "$last_released_version" ]; then
             echo "Version $version is already released. Skipping release."
             echo skipped=true >> $GITHUB_OUTPUT
@@ -258,7 +258,7 @@ jobs:
       - name: Test CLI
         run: |
           uv pip install dist/*.whl
-          uv run python -m aiexec run --host localhost --port 7860 --backend-only &
+          uv run python -m primeagent run --host localhost --port 7860 --backend-only &
           SERVER_PID=$!
           # Wait for the server to start
           timeout 120 bash -c 'until curl -f http://localhost:7860/health_check; do sleep 2; done' || (echo "Server did not start in time" && kill $SERVER_PID && exit 1)
@@ -296,7 +296,7 @@ jobs:
 
 
   publish-base:
-    name: Publish Aiexec Base to PyPI
+    name: Publish Primeagent Base to PyPI
     if: ${{ inputs.release_package_base }}
     needs: [build-base, test-cross-platform]
     runs-on: ubuntu-latest
@@ -319,7 +319,7 @@ jobs:
           cd src/backend/base && uv publish dist/*.whl
 
   publish-main:
-    name: Publish Aiexec Main to PyPI
+    name: Publish Primeagent Main to PyPI
     if: ${{ inputs.release_package_main }}
     needs: [build-main, test-cross-platform, publish-base]
     runs-on: ubuntu-latest
@@ -439,7 +439,7 @@ jobs:
           cd src/wfx && uv publish dist/*.whl
 
   call_docker_build_base:
-    name: Call Docker Build Workflow for Aiexec Base
+    name: Call Docker Build Workflow for Primeagent Base
     if: ${{ inputs.build_docker_base }}
     needs: [ci]
     uses: ./.github/workflows/docker-build-v2.yml
@@ -451,7 +451,7 @@ jobs:
     secrets: inherit
 
   call_docker_build_main:
-    name: Call Docker Build Workflow for Aiexec
+    name: Call Docker Build Workflow for Primeagent
     if: ${{ inputs.build_docker_main }}
     needs: [ci]
     uses: ./.github/workflows/docker-build-v2.yml
@@ -463,7 +463,7 @@ jobs:
     secrets: inherit
 
   call_docker_build_main_ep:
-    name: Call Docker Build Workflow for Aiexec with Entrypoint
+    name: Call Docker Build Workflow for Primeagent with Entrypoint
     if: ${{ inputs.build_docker_main }}
     needs: [ci]
     uses: ./.github/workflows/docker-build-v2.yml
@@ -475,7 +475,7 @@ jobs:
     secrets: inherit
 
   call_docker_build_main_all:
-    name: Call Docker Build Workflow for aiexec-all
+    name: Call Docker Build Workflow for primeagent-all
     if: ${{ inputs.build_docker_main }}
     needs: [ci]
     uses: ./.github/workflows/docker-build-v2.yml

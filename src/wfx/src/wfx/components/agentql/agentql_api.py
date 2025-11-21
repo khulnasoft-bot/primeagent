@@ -98,7 +98,7 @@ class AgentQL(Component):
         headers = {
             "X-API-Key": self.api_key,
             "Content-Type": "application/json",
-            "X-TF-Request-Origin": "aiexec",
+            "X-TF-Request-Origin": "primeagent",
         }
 
         payload = {

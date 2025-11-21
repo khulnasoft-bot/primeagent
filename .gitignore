@@ -250,7 +250,7 @@ dmypy.json
 
 # Poetry
 .testenv/*
-aiexec.db
+primeagent.db
 
 
 .githooks/prepare-commit-msg
@@ -260,8 +260,8 @@ aiexec.db
 .docusaurus/
 
 /tmp/*
-src/backend/aiexec/frontend/
-src/backend/base/aiexec/frontend/
+src/backend/primeagent/frontend/
+src/backend/base/primeagent/frontend/
 .docker
 scratchpad*
 chroma*/*

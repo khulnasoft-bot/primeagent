@@ -155,7 +155,7 @@ class LCAgentComponent(Component):
                 and self.chat_history.__class__.__name__ == "Data"
             ):
                 input_dict["chat_history"] = data_to_messages(self.chat_history)
-            # Handle both wfx.schema.message.Message and aiexec.schema.message.Message types
+            # Handle both wfx.schema.message.Message and primeagent.schema.message.Message types
             if all(hasattr(m, "to_data") and callable(m.to_data) and "text" in m.data for m in self.chat_history):
                 input_dict["chat_history"] = data_to_messages(self.chat_history)
             if all(isinstance(m, Message) for m in self.chat_history):

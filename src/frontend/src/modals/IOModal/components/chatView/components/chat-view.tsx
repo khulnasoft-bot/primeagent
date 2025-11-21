@@ -1,6 +1,6 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { StickToBottom } from "use-stick-to-bottom";
-import AiexecLogo from "@/assets/AiexecLogo.svg?react";
+import PrimeagentLogo from "@/assets/PrimeagentLogo.svg?react";
 import { TextEffectPerChar } from "@/components/ui/textAnimation";
 import CustomChatInput from "@/customization/components/custom-chat-input";
 import { ENABLE_IMAGE_ON_PLAYGROUND } from "@/customization/feature-flags";
@@ -194,8 +194,8 @@ export default function ChatView({
             ) : (
               <div className="flex flex-grow w-full flex-col items-center justify-center">
                 <div className="flex flex-col items-center justify-center gap-4 p-8">
-                  <AiexecLogo
-                    title="Aiexec logo"
+                  <PrimeagentLogo
+                    title="Primeagent logo"
                     className="h-10 w-10 scale-[1.5]"
                   />
                   <div className="flex flex-col items-center justify-center">

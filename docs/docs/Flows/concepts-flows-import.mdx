@@ -5,7 +5,7 @@ slug: /concepts-flows-import
 
 import Icon from "@site/src/components/icon";
 
-You can export flows to transfer them between Aiexec instances, share them with others, or create backups.
+You can export flows to transfer them between Primeagent instances, share them with others, or create backups.
 
 ## Export a flow
 
@@ -15,12 +15,12 @@ There are three ways to export flows:
 
 * **Export by sharing**: When editing a flow, click **Share**, and then click **Export**.
 
-* **Export with the Aiexec API**: To export one flow, use the [`/flows/download`](/api-flows#export-flows) endpoint.
+* **Export with the Primeagent API**: To export one flow, use the [`/flows/download`](/api-flows#export-flows) endpoint.
 To export all flows in a project, use the [`/projects/download`](/api-projects#export-a-project) endpoint.
 
 Exported flows are downloaded to your local machine as JSON files named `FLOW_NAME.json`.
 If you export an entire project, the JSON files are packaged in a zip archive.
-For more information, see [Aiexec JSON file contents](#aiexec-json-file-contents).
+For more information, see [Primeagent JSON file contents](#primeagent-json-file-contents).
 
 ### Save with my API keys
 
@@ -30,37 +30,37 @@ Non-API key variables are included in the export regardless of the **Save with m
 :::warning
 If you enter the literal key into a component's API key field, then **Save with my API keys** exports the literal key value.
 
-If your key is stored in a Aiexec global variable, **Save with my API keys** exports only the variable name.
+If your key is stored in a Primeagent global variable, **Save with my API keys** exports only the variable name.
 :::
 
-When you or another user import the flow to another Aiexec instance, that instance must have Aiexec global variables with the same names and valid values in order to run the flow successfully.
+When you or another user import the flow to another Primeagent instance, that instance must have Primeagent global variables with the same names and valid values in order to run the flow successfully.
 If any variables are missing or invalid, those variables must be created or edited after importing the flow.
 
 ## Import a flow
 
-You can import Aiexec JSON files from your local machine in the following ways:
+You can import Primeagent JSON files from your local machine in the following ways:
 
-* **Import to projects**: On the **Projects** page, click <Icon name="Upload" aria-hidden="true"/> **Upload a flow**, and then select the Aiexec JSON file to import.
-* **Import anywhere**: Drag and drop Aiexec JSON files from your file explorer into your Aiexec window to import a flow from any Aiexec page.
-* **Import with the Aiexec API**: To import one Aiexec JSON file, use the [`/flows/upload/`](/api-flows#import-flows) endpoint.
-To import a zip archive of Aiexec JSON files, use the [`/projects/upload`](/api-projects#import-a-project) endpoint.
+* **Import to projects**: On the **Projects** page, click <Icon name="Upload" aria-hidden="true"/> **Upload a flow**, and then select the Primeagent JSON file to import.
+* **Import anywhere**: Drag and drop Primeagent JSON files from your file explorer into your Primeagent window to import a flow from any Primeagent page.
+* **Import with the Primeagent API**: To import one Primeagent JSON file, use the [`/flows/upload/`](/api-flows#import-flows) endpoint.
+To import a zip archive of Primeagent JSON files, use the [`/projects/upload`](/api-projects#import-a-project) endpoint.
 
 ### Run an imported flow
 
 Once imported, your flow is ready to use.
-If the flow contains any global variables, make sure your Aiexec instance has global variables with the same names and valid values.
+If the flow contains any global variables, make sure your Primeagent instance has global variables with the same names and valid values.
 For more information, see [Save with my API keys](/concepts-flows-import#save-with-my-api-keys).
 
-## Aiexec JSON file contents
+## Primeagent JSON file contents
 
 An exported flow is downloaded to your local machine as a JSON file named `FLOW_NAME.json`.
 
-Aiexec JSON files contain the following:
+Primeagent JSON files contain the following:
 
 * [Nodes](#nodes) and [edges](#edges) that describe components and connections in the flow.
 * [Additional metadata](#additional-metadata-and-project-information) that describes the flow and the project it belongs to.
 
-For example Aiexec JSON files, you can examine any of the https://github.com/khulnasoft/aiexec/tree/main/src/backend/base/aiexec/initial_setup/starter_projects[templates in the Aiexec repository], or you can create a flow from a template in Aiexec, export it, and then open the exported JSON file in a text editor.
+For example Primeagent JSON files, you can examine any of the https://github.com/khulnasoft/primeagent/tree/main/src/backend/base/primeagent/initial_setup/starter_projects[templates in the Primeagent repository], or you can create a flow from a template in Primeagent, export it, and then open the exported JSON file in a text editor.
 
 ### Nodes
 

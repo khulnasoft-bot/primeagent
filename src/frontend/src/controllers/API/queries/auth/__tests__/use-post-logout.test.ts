@@ -76,7 +76,7 @@ jest.mock("react-cookie", () => ({
 jest.mock("@/constants/constants", () => ({
   ...jest.requireActual("@/constants/constants"),
   IS_AUTO_LOGIN: false, // Override to disable auto login for testing
-  AIEXEC_AUTO_LOGIN_OPTION: "auto_login_lf",
+  PRIMEAGENT_AUTO_LOGIN_OPTION: "auto_login_lf",
 }));
 
 jest.mock("@/controllers/API/helpers/constants", () => ({

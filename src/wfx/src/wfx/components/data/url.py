@@ -26,12 +26,12 @@ URL_REGEX = re.compile(
 )
 
 USER_AGENT = None
-# Check if aiexec is installed using importlib.util.find_spec(name))
-if importlib.util.find_spec("aiexec"):
-    aiexec_installed = True
+# Check if primeagent is installed using importlib.util.find_spec(name))
+if importlib.util.find_spec("primeagent"):
+    primeagent_installed = True
     USER_AGENT = get_user_agent()
 else:
-    aiexec_installed = False
+    primeagent_installed = False
     USER_AGENT = "wfx"
 
 
@@ -48,7 +48,7 @@ class URLComponent(Component):
 
     display_name = "URL"
     description = "Fetch content from one or more web pages, following links recursively."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-data#url"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-data#url"
     icon = "layout-template"
     name = "URLComponent"
 

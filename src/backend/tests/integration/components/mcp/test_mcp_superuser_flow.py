@@ -1,7 +1,7 @@
 import pytest
-from aiexec.services.auth.utils import create_user_longterm_token
-from aiexec.services.deps import get_db_service, get_settings_service
-from aiexec.services.utils import initialize_services
+from primeagent.services.auth.utils import create_user_longterm_token
+from primeagent.services.deps import get_db_service, get_settings_service
+from primeagent.services.utils import initialize_services
 
 
 @pytest.mark.skip(reason="MCP Projects can only create long-term tokens if AUTO_LOGIN is enabled")

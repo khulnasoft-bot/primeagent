@@ -28,7 +28,7 @@ export default function CrashErrorComponent({
                 <p>
                   Please report errors with detailed tracebacks on the{" "}
                   <a
-                    href="https://github.com/aiexec-ai/aiexec/issues"
+                    href="https://github.com/primeagent-ai/primeagent/issues"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="font-medium hover:underline"
@@ -44,10 +44,10 @@ export default function CrashErrorComponent({
 
             <CardFooter>
               <div className="m-auto mt-4 flex justify-center">
-                <Button onClick={resetErrorBoundary}>Restart Aiexec</Button>
+                <Button onClick={resetErrorBoundary}>Restart Primeagent</Button>
 
                 <a
-                  href="https://github.com/aiexec-ai/aiexec/issues/new"
+                  href="https://github.com/primeagent-ai/primeagent/issues/new"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

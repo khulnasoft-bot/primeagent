@@ -53,7 +53,7 @@ def test_serve_command_missing_api_key():
 
             assert result.exit_code == 1
             # Check both output and exception since typer may output to different streams
-            assert "AIEXEC_API_KEY" in str(result.output or result.exception or "")
+            assert "PRIMEAGENT_API_KEY" in str(result.output or result.exception or "")
     finally:
         Path(temp_path).unlink()
 
@@ -64,7 +64,7 @@ def test_serve_command_with_flow_json():
 
     flow_json = '{"data": {"nodes": [], "edges": []}}'
 
-    with patch.dict(os.environ, {"AIEXEC_API_KEY": "test-key"}), patch("uvicorn.run") as mock_uvicorn:
+    with patch.dict(os.environ, {"PRIMEAGENT_API_KEY": "test-key"}), patch("uvicorn.run") as mock_uvicorn:
         runner = CliRunner()
         result = runner.invoke(app, ["serve", "--flow-json", flow_json])
 
@@ -78,7 +78,7 @@ def test_serve_command_invalid_json():
 
     invalid_json = '{"invalid": json}'
 
-    with patch.dict(os.environ, {"AIEXEC_API_KEY": "test-key"}):
+    with patch.dict(os.environ, {"PRIMEAGENT_API_KEY": "test-key"}):
         runner = CliRunner()
         result = runner.invoke(app, ["serve", "--flow-json", invalid_json], catch_exceptions=False)
 
@@ -89,7 +89,7 @@ def test_serve_command_nonexistent_file():
     """Test serve command with non-existent file."""
     from wfx.__main__ import app
 
-    with patch.dict(os.environ, {"AIEXEC_API_KEY": "test-key"}):
+    with patch.dict(os.environ, {"PRIMEAGENT_API_KEY": "test-key"}):
         runner = CliRunner()
         result = runner.invoke(app, ["serve", "/path/to/nonexistent/file.json"], catch_exceptions=False)
 

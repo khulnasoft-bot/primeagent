@@ -26,16 +26,16 @@ test(
     await page.getByTestId("code-button-modal").click();
 
     const customCodeWithError = `
-# from aiexec.field_typing import Data
-from aiexec.custom import Component
-from aiexec.io import MessageTextInput, Output
-from aiexec.schema import Data
+# from primeagent.field_typing import Data
+from primeagent.custom import Component
+from primeagent.io import MessageTextInput, Output
+from primeagent.schema import Data
 import pytorch
 
 class CustomComponent(Component):
     display_name = "Custom Component"
     description = "Use as a template to create your own component."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-custom-components"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-custom-components"
     icon = "custom_components"
     name = "CustomComponent"
 

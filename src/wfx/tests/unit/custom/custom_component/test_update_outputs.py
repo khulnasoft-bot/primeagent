@@ -30,9 +30,7 @@ class TestComponentOutputs:
                 "hidden": None,
             }
         ]
-        frontend_node = {
-            "outputs": original_outputs.copy()  # Make a copy to preserve original
-        }
+        frontend_node = {"outputs": original_outputs.copy()}  # Make a copy to preserve original
 
         # Test enabling tool mode
         updated_node = await component.run_and_validate_update_outputs(

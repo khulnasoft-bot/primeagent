@@ -4,8 +4,8 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
-from aiexec.base.knowledge_bases.knowledge_base_utils import get_knowledge_bases
-from aiexec.components.knowledge_bases.retrieval import KnowledgeRetrievalComponent
+from primeagent.base.knowledge_bases.knowledge_base_utils import get_knowledge_bases
+from primeagent.components.knowledge_bases.retrieval import KnowledgeRetrievalComponent
 from pydantic import SecretStr
 
 from tests.base import ComponentTestBaseWithClient
@@ -20,7 +20,7 @@ class TestKnowledgeRetrievalComponent(ComponentTestBaseWithClient):
     @pytest.fixture(autouse=True)
     def mock_knowledge_base_path(self, tmp_path):
         """Mock the knowledge base root path directly."""
-        with patch("aiexec.components.knowledge_bases.retrieval.KNOWLEDGE_BASES_ROOT_PATH", tmp_path):
+        with patch("primeagent.components.knowledge_bases.retrieval.KNOWLEDGE_BASES_ROOT_PATH", tmp_path):
             yield
 
     @pytest.fixture
@@ -103,7 +103,7 @@ class TestKnowledgeRetrievalComponent(ComponentTestBaseWithClient):
         component = component_class(**default_kwargs)
         kb_path = Path(default_kwargs["kb_root_path"]) / active_user.username / default_kwargs["knowledge_base"]
 
-        with patch("aiexec.components.knowledge_bases.retrieval.decrypt_api_key") as mock_decrypt:
+        with patch("primeagent.components.knowledge_bases.retrieval.decrypt_api_key") as mock_decrypt:
             mock_decrypt.return_value = "decrypted_key"
 
             metadata = component._get_kb_metadata(kb_path)
@@ -150,7 +150,7 @@ class TestKnowledgeRetrievalComponent(ComponentTestBaseWithClient):
         }
         (kb_path / "embedding_metadata.json").write_text(json.dumps(metadata))
 
-        with patch("aiexec.components.knowledge_bases.retrieval.decrypt_api_key") as mock_decrypt:
+        with patch("primeagent.components.knowledge_bases.retrieval.decrypt_api_key") as mock_decrypt:
             mock_decrypt.side_effect = ValueError("Decryption failed")
 
             result = component._get_kb_metadata(kb_path)

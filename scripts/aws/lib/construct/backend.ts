@@ -52,15 +52,15 @@ export class BackEndCluster extends Construct {
     );
     backendTaskDefinition.addContainer('backendContainer', {
       image: ecs.ContainerImage.fromEcrRepository(props.ecrBackEndRepository, "latest"),
-      containerName:'aiexec-back-container',
+      containerName:'primeagent-back-container',
       logging: ecs.LogDriver.awsLogs({
         streamPrefix: 'my-stream',
         logGroup: props.backendLogGroup,
       }),
       environment:{
-        "AIEXEC_AUTO_LOGIN" : process.env.AIEXEC_AUTO_LOGIN ?? 'false',
-        "AIEXEC_SUPERUSER" : process.env.AIEXEC_SUPERUSER ?? "admin",
-        "AIEXEC_SUPERUSER_PASSWORD" : process.env.AIEXEC_SUPERUSER_PASSWORD ?? "123456"
+        "PRIMEAGENT_AUTO_LOGIN" : process.env.PRIMEAGENT_AUTO_LOGIN ?? 'false',
+        "PRIMEAGENT_SUPERUSER" : process.env.PRIMEAGENT_SUPERUSER ?? "admin",
+        "PRIMEAGENT_SUPERUSER_PASSWORD" : process.env.PRIMEAGENT_SUPERUSER_PASSWORD ?? "123456"
       },
       portMappings: [
           {

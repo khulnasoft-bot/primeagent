@@ -204,7 +204,7 @@ class GitLoaderComponent(Component):
         """Context manager for handling temporary clone directory."""
         temp_dir = None
         try:
-            temp_dir = tempfile.mkdtemp(prefix="aiexec_clone_")
+            temp_dir = tempfile.mkdtemp(prefix="primeagent_clone_")
             yield temp_dir
         finally:
             if temp_dir:

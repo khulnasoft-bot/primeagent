@@ -2,7 +2,7 @@ from datetime import datetime, timezone
 from uuid import UUID, uuid4
 
 import pytest
-from aiexec.memory import (
+from primeagent.memory import (
     aadd_messages,
     aadd_messagetables,
     add_messages,
@@ -13,16 +13,16 @@ from aiexec.memory import (
     delete_messages,
     get_messages,
 )
-from aiexec.schema.content_block import ContentBlock
-from aiexec.schema.content_types import TextContent, ToolContent
-from aiexec.schema.message import Message
-from aiexec.schema.properties import Properties, Source
+from primeagent.schema.content_block import ContentBlock
+from primeagent.schema.content_types import TextContent, ToolContent
+from primeagent.schema.message import Message
+from primeagent.schema.properties import Properties, Source
 
 # Assuming you have these imports available
-from aiexec.services.database.models.message import MessageCreate, MessageRead
-from aiexec.services.database.models.message.model import MessageTable
-from aiexec.services.deps import session_scope
-from aiexec.services.tracing.utils import convert_to_langchain_type
+from primeagent.services.database.models.message import MessageCreate, MessageRead
+from primeagent.services.database.models.message.model import MessageTable
+from primeagent.services.deps import session_scope
+from primeagent.services.tracing.utils import convert_to_langchain_type
 
 
 @pytest.fixture

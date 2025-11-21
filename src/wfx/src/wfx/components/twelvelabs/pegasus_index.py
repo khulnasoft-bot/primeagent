@@ -35,7 +35,7 @@ class PegasusIndexVideo(Component):
     description = "Index videos using TwelveLabs and add the video_id to metadata."
     icon = "TwelveLabs"
     name = "TwelveLabsPegasusIndexVideo"
-    documentation = "https://github.com/twelvelabs-io/twelvelabs-developer-experience/blob/main/integrations/Aiexec/TWELVE_LABS_COMPONENTS_README.md"
+    documentation = "https://github.com/twelvelabs-io/twelvelabs-developer-experience/blob/main/integrations/Primeagent/TWELVE_LABS_COMPONENTS_README.md"
 
     inputs = [
         DataInput(
