@@ -25,23 +25,23 @@ export class Network extends Construct {
 
     // VPC等リソースの作成
     this.vpc = new ec2.Vpc(scope, 'VPC', {
-      vpcName: 'aiexec-vpc',
+      vpcName: 'primeagent-vpc',
       ipAddresses: ec2.IpAddresses.cidr('10.0.0.0/16'),
       maxAzs: 3,
       subnetConfiguration: [
         {
           cidrMask: 24,
-          name: 'aiexec-Isolated',
+          name: 'primeagent-Isolated',
           subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
         },
         {
           cidrMask: 24,
-          name: 'aiexec-Public',
+          name: 'primeagent-Public',
           subnetType: ec2.SubnetType.PUBLIC,
         },
         {
           cidrMask: 24,
-          name: 'aiexec-Private',
+          name: 'primeagent-Private',
           subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS
         },
       ],
@@ -55,9 +55,9 @@ export class Network extends Construct {
       vpc: this.vpc,
     })
 
-    this.alb = new elb.ApplicationLoadBalancer(this,'aiexec-alb',{
+    this.alb = new elb.ApplicationLoadBalancer(this,'primeagent-alb',{
       internetFacing: true, //インターネットからのアクセスを許可するかどうか指定
-      loadBalancerName: 'aiexec-alb',
+      loadBalancerName: 'primeagent-alb',
       securityGroup: this.albSG, //作成したセキュリティグループを割り当てる
       vpc:this.vpc,
     })
@@ -80,15 +80,15 @@ export class Network extends Construct {
 
     // Cluster
     this.cluster = new ecs.Cluster(this, 'EcsCluster', {
-      clusterName: 'aiexec-cluster',
+      clusterName: 'primeagent-cluster',
       vpc: this.vpc,
       enableFargateCapacityProviders: true,
     });
 
     // ECS BackEndに設定するセキュリティグループ
     this.ecsBackSG = new ec2.SecurityGroup(scope, 'ECSBackEndSecurityGroup', {
-      securityGroupName: 'aiexec-ecs-back-sg',
-      description: 'for aiexec-back-ecs',
+      securityGroupName: 'primeagent-ecs-back-sg',
+      description: 'for primeagent-back-ecs',
       vpc: this.vpc,
     })
     this.ecsBackSG.addIngressRule(this.albSG,ec2.Port.tcp(back_service_port))
@@ -96,16 +96,16 @@ export class Network extends Construct {
     // RDSに設定するセキュリティグループ
     this.dbSG = new ec2.SecurityGroup(scope, 'DBSecurityGroup', {
       allowAllOutbound: true,
-      securityGroupName: 'aiexec-db',
-      description: 'for aiexec-db',
+      securityGroupName: 'primeagent-db',
+      description: 'for primeagent-db',
       vpc: this.vpc,
     })
-    // aiexec-ecs-back-sg からのポート3306:mysql(5432:postgres)のインバウンドを許可
+    // primeagent-ecs-back-sg からのポート3306:mysql(5432:postgres)のインバウンドを許可
     this.dbSG.addIngressRule(this.ecsBackSG, ec2.Port.tcp(3306))
 
     // Create CloudWatch Log Group
     this.backendLogGroup = new logs.LogGroup(this, 'backendLogGroup', {
-      logGroupName: 'aiexec-backend-logs',
+      logGroupName: 'primeagent-backend-logs',
       removalPolicy: RemovalPolicy.DESTROY,
     });
 

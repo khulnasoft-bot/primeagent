@@ -1,0 +1,27 @@
+{{- if and .Values.primeagent.backend.sqlite.enabled (not .Values.primeagent.backend.sqlite.volume.existingStorageClassName) }}
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: "{{ template "primeagent.fullname" . }}-sqlite"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: {{ template "primeagent.name" . }}
+    chart: {{ template "primeagent.chart" . }}
+    release: {{ .Release.Name }}
+allowVolumeExpansion: true
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer
+{{- if .Values.primeagent.backend.sqlite.volume.storageClass }}
+provisioner: {{ .Values.primeagent.backend.sqlite.volume.storageClass.provisioner }}
+parameters:
+  {{- if .Values.primeagent.backend.sqlite.volume.storageClass.type }}
+  type: {{ .Values.primeagent.backend.sqlite.volume.storageClass.type }}
+  {{- end }}
+  {{- if .Values.primeagent.backend.sqlite.volume.storageClass.fsType }}
+  fsType: {{ .Values.primeagent.backend.sqlite.volume.storageClass.fsType }}
+  {{- end }}
+  {{- if .Values.primeagent.backend.sqlite.volume.storageClass.extraParams }}
+{{ toYaml .Values.primeagent.backend.sqlite.volume.storageClass.extraParams | indent 2 }}
+  {{- end }}
+{{- end }}
+{{- end }}

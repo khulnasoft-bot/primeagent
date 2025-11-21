@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 import pytest
-from aiexec.services.flow.flow_runner import AiexecRunnerExperimental
+from primeagent.services.flow.flow_runner import PrimeagentRunnerExperimental
 
 
 @pytest.fixture
@@ -18,7 +18,7 @@ def sample_flow_dict():
 
 @pytest.fixture
 def flow_runner():
-    return AiexecRunnerExperimental()
+    return PrimeagentRunnerExperimental()
 
 
 @pytest.mark.asyncio

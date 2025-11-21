@@ -7,7 +7,7 @@ and that all components listed in __all__ can be accessed.
 import importlib
 
 import pytest
-from aiexec import components
+from primeagent import components
 
 
 class TestAllModulesImportable:
@@ -108,11 +108,11 @@ class TestAllModulesImportable:
         """Test that traditional import patterns still work."""
         # Test some key imports that should always work
         traditional_imports = [
-            ("aiexec.components.openai", "OpenAIModelComponent"),
-            ("aiexec.components.anthropic", "AnthropicModelComponent"),
-            ("aiexec.components.data", "APIRequestComponent"),
-            ("aiexec.components.agents", "AgentComponent"),
-            ("aiexec.components.helpers", "CalculatorComponent"),
+            ("primeagent.components.openai", "OpenAIModelComponent"),
+            ("primeagent.components.anthropic", "AnthropicModelComponent"),
+            ("primeagent.components.data", "APIRequestComponent"),
+            ("primeagent.components.agents", "AgentComponent"),
+            ("primeagent.components.helpers", "CalculatorComponent"),
         ]
 
         failed_imports = []

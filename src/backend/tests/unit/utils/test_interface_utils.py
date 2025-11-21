@@ -1,5 +1,5 @@
 import pytest
-from aiexec.interface.utils import extract_input_variables_from_prompt
+from primeagent.interface.utils import extract_input_variables_from_prompt
 
 
 @pytest.mark.parametrize(

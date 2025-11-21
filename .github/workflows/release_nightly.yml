@@ -1,21 +1,21 @@
-name: Aiexec Nightly Build
-run-name: Aiexec Nightly Release by @${{ github.actor }}
+name: Primeagent Nightly Build
+run-name: Primeagent Nightly Release by @${{ github.actor }}
 
 on:
   workflow_call:
     inputs:
       build_docker_base:
-        description: "Build Docker Image for Aiexec Nightly Base"
+        description: "Build Docker Image for Primeagent Nightly Base"
         required: true
         type: boolean
         default: false
       build_docker_main:
-        description: "Build Docker Image for Aiexec Nightly"
+        description: "Build Docker Image for Primeagent Nightly"
         required: true
         type: boolean
         default: false
       build_docker_ep:
-        description: "Build Docker Image for Aiexec Nightly with Entrypoint"
+        description: "Build Docker Image for Primeagent Nightly with Entrypoint"
         required: false
         type: boolean
         default: false
@@ -112,7 +112,7 @@ jobs:
           path: src/wfx/dist
 
   build-nightly-base:
-    name: Build Aiexec Nightly Base
+    name: Build Primeagent Nightly Base
     needs: [build-nightly-wfx]
     if: ${{ always() && (needs.build-nightly-wfx.result == 'success' || inputs.build_wfx == false) }}
     runs-on: ubuntu-latest
@@ -145,10 +145,10 @@ jobs:
       - name: Verify Nightly Name and Version
         id: verify
         run: |
-          name=$(uv tree | grep 'aiexec-base' | awk '{print $2}' | head -n 1)
-          version=$(uv tree | grep 'aiexec-base' | awk '{print $3}' | head -n 1)
-          if [ "$name" != "aiexec-base-nightly" ]; then
-            echo "Name $name does not match aiexec-base-nightly. Exiting the workflow."
+          name=$(uv tree | grep 'primeagent-base' | awk '{print $2}' | head -n 1)
+          version=$(uv tree | grep 'primeagent-base' | awk '{print $3}' | head -n 1)
+          if [ "$name" != "primeagent-base-nightly" ]; then
+            echo "Name $name does not match primeagent-base-nightly. Exiting the workflow."
             exit 1
           fi
           if [ "$version" != "${{ inputs.nightly_tag_base }}" ]; then
@@ -159,19 +159,19 @@ jobs:
           version=$(echo $version | sed 's/^v//')
           echo "version=$version" >> $GITHUB_OUTPUT
 
-      - name: Build Aiexec Base for distribution
+      - name: Build Primeagent Base for distribution
         run: |
           rm -rf src/backend/base/dist
           rm -rf dist
           make build base=true args="--wheel"
 
-      - name: Test Aiexec Base CLI
+      - name: Test Primeagent Base CLI
         run: |
           # TODO: Unsure why the whl is not built in src/backend/base/dist
           mkdir src/backend/base/dist
           mv dist/*.whl src/backend/base/dist/
           uv pip install src/backend/base/dist/*.whl
-          uv run python -m aiexec run --host localhost --port 7860 --backend-only &
+          uv run python -m primeagent run --host localhost --port 7860 --backend-only &
           SERVER_PID=$!
           # Wait for the server to start
           timeout 120 bash -c 'until curl -f http://localhost:7860/api/v1/auto_login; do sleep 2; done' || (echo "Server did not start in time" && kill $SERVER_PID && exit 1)
@@ -195,7 +195,7 @@ jobs:
           path: src/backend/base/dist
 
   build-nightly-main:
-    name: Build Aiexec Nightly Main
+    name: Build Primeagent Nightly Main
     needs: [build-nightly-base]
     runs-on: ubuntu-latest
     outputs:
@@ -222,10 +222,10 @@ jobs:
       - name: Verify Nightly Name and Version
         id: verify
         run: |
-          name=$(uv tree | grep 'aiexec' | grep -v 'aiexec-base' | awk '{print $1}')
-          version=$(uv tree | grep 'aiexec' | grep -v 'aiexec-base' | awk '{print $2}')
-          if [ "$name" != "aiexec-nightly" ]; then
-            echo "Name $name does not match aiexec-nightly. Exiting the workflow."
+          name=$(uv tree | grep 'primeagent' | grep -v 'primeagent-base' | awk '{print $1}')
+          version=$(uv tree | grep 'primeagent' | grep -v 'primeagent-base' | awk '{print $2}')
+          if [ "$name" != "primeagent-nightly" ]; then
+            echo "Name $name does not match primeagent-nightly. Exiting the workflow."
             exit 1
           fi
           if [ "$version" != "${{ inputs.nightly_tag_main }}" ]; then
@@ -239,12 +239,12 @@ jobs:
         if: needs.build-nightly-base.outputs.skipped == 'false'
         run: sleep 300 # wait for 5 minutes to ensure PyPI propagation of base
 
-      - name: Build Aiexec Main for distribution
+      - name: Build Primeagent Main for distribution
         run: make build main=true args="--no-sources --wheel"
-      - name: Test Aiexec Main CLI
+      - name: Test Primeagent Main CLI
         run: |
           uv pip install dist/*.whl
-          uv run python -m aiexec run --host localhost --port 7860 --backend-only &
+          uv run python -m primeagent run --host localhost --port 7860 --backend-only &
           SERVER_PID=$!
           # Wait for the server to start
           timeout 120 bash -c 'until curl -f http://localhost:7860/health_check; do sleep 2; done' || (echo "Server did not start in time" && kill $SERVER_PID && exit 1)
@@ -305,7 +305,7 @@ jobs:
           make wfx_publish
 
   publish-nightly-base:
-    name: Publish Aiexec Base Nightly to PyPI
+    name: Publish Primeagent Base Nightly to PyPI
     needs: [build-nightly-base, test-cross-platform, publish-nightly-wfx]
     if: ${{ always() && needs.build-nightly-base.result == 'success' && needs.test-cross-platform.result == 'success' && (needs.publish-nightly-wfx.result == 'success' || inputs.build_wfx == false) }}
     runs-on: ubuntu-latest
@@ -334,7 +334,7 @@ jobs:
           make publish base=true
 
   publish-nightly-main:
-    name: Publish Aiexec Main Nightly to PyPI
+    name: Publish Primeagent Main Nightly to PyPI
     needs: [build-nightly-main, test-cross-platform, publish-nightly-base]
     runs-on: ubuntu-latest
     steps:
@@ -361,7 +361,7 @@ jobs:
           make publish main=true
 
   call_docker_build_base:
-    name: Call Docker Build Workflow for Aiexec Base
+    name: Call Docker Build Workflow for Primeagent Base
     if: ${{ always() && inputs.build_docker_base }}
     needs: [build-nightly-base, build-nightly-main]
     uses: ./.github/workflows/docker-nightly-build.yml
@@ -372,7 +372,7 @@ jobs:
     secrets: inherit
 
   call_docker_build_main:
-    name: Call Docker Build Workflow for Aiexec
+    name: Call Docker Build Workflow for Primeagent
     if: ${{ always() && inputs.build_docker_main }}
     needs: [build-nightly-main, call_docker_build_base]
     uses: ./.github/workflows/docker-nightly-build.yml
@@ -384,7 +384,7 @@ jobs:
 
   # TODO: Uncomment this when our runner can fit the builds that contain pytorch (and other large dependencies)
   # call_docker_build_main_all:
-  #   name: Call Docker Build Workflow for aiexec-all
+  #   name: Call Docker Build Workflow for primeagent-all
   #   if: always() && ${{ inputs.build_docker_main == 'true' }}
   #   needs: [build-nightly-main]
   #   uses: ./.github/workflows/docker-nightly-build.yml
@@ -395,7 +395,7 @@ jobs:
   #   secrets: inherit
 
   call_docker_build_main_ep:
-    name: Call Docker Build Workflow for Aiexec with Entrypoint
+    name: Call Docker Build Workflow for Primeagent with Entrypoint
     if: ${{ always() && inputs.build_docker_ep }}
     needs: [build-nightly-main, call_docker_build_main]
     uses: ./.github/workflows/docker-build-v2.yml

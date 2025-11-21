@@ -18,7 +18,7 @@ from wfx.template.field.base import Output
 class SaveToFileComponent(Component):
     display_name = "Write File"
     description = "Save data to local file, AWS S3, or Google Drive in the selected format."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-processing#save-file"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-processing#save-file"
     icon = "file-text"
     name = "SaveToFile"
 
@@ -276,8 +276,8 @@ class SaveToFileComponent(Component):
 
     async def _upload_file(self, file_path: Path) -> None:
         """Upload the saved file using the upload_user_file service."""
-        from aiexec.api.v2.files import upload_user_file
-        from aiexec.services.database.models.user.crud import get_user_by_id
+        from primeagent.api.v2.files import upload_user_file
+        from primeagent.services.database.models.user.crud import get_user_by_id
 
         # Ensure the file exists
         if not file_path.exists():

@@ -1,11 +1,11 @@
-"""Unit tests for the aiexec.helpers.flow module."""
+"""Unit tests for the primeagent.helpers.flow module."""
 
 import pytest
-from wfx.utils.aiexec_utils import has_aiexec_memory
+from wfx.utils.primeagent_utils import has_primeagent_memory
 
 # Globals
 
-_AIEXEC_HELPER_MODULE_FLOW = "aiexec.helpers.flow"
+_PRIMEAGENT_HELPER_MODULE_FLOW = "primeagent.helpers.flow"
 
 # Helper Functions
 
@@ -18,13 +18,13 @@ def is_helper_module(module, module_name):
 
 
 class TestDynamicImport:
-    """Test dynamic imports of the aiexec implementation."""
+    """Test dynamic imports of the primeagent implementation."""
 
-    def test_aiexec_available(self):
-        """Test whether the aiexec implementation is available."""
-        # Aiexec implementation should be available
-        if not has_aiexec_memory():
-            pytest.fail("Aiexec implementation is not available")
+    def test_primeagent_available(self):
+        """Test whether the primeagent implementation is available."""
+        # Primeagent implementation should be available
+        if not has_primeagent_memory():
+            pytest.fail("Primeagent implementation is not available")
 
     def test_helpers_import_build_schema_from_inputs(self):
         """Test the wfx.helpers.build_schema_from_inputs import."""
@@ -33,8 +33,8 @@ class TestDynamicImport:
         except (ImportError, ModuleNotFoundError) as e:
             pytest.fail(f"Failed to dynamically import wfx.helpers.build_schema_from_inputs: {e}")
 
-        # Helper module should be the aiexec implementation
-        assert is_helper_module(build_schema_from_inputs, _AIEXEC_HELPER_MODULE_FLOW)
+        # Helper module should be the primeagent implementation
+        assert is_helper_module(build_schema_from_inputs, _PRIMEAGENT_HELPER_MODULE_FLOW)
 
     def test_helpers_import_get_arg_names(self):
         """Test the wfx.helpers.get_arg_names import."""
@@ -43,8 +43,8 @@ class TestDynamicImport:
         except (ImportError, ModuleNotFoundError) as e:
             pytest.fail(f"Failed to dynamically import wfx.helpers.get_arg_names: {e}")
 
-        # Helper module should be the aiexec implementation
-        assert is_helper_module(get_arg_names, _AIEXEC_HELPER_MODULE_FLOW)
+        # Helper module should be the primeagent implementation
+        assert is_helper_module(get_arg_names, _PRIMEAGENT_HELPER_MODULE_FLOW)
 
     def test_helpers_import_get_flow_inputs(self):
         """Test the wfx.helpers.get_flow_inputs import."""
@@ -53,8 +53,8 @@ class TestDynamicImport:
         except (ImportError, ModuleNotFoundError) as e:
             pytest.fail(f"Failed to dynamically import wfx.helpers.get_flow_inputs: {e}")
 
-        # Helper module should be the aiexec implementation
-        assert is_helper_module(get_flow_inputs, _AIEXEC_HELPER_MODULE_FLOW)
+        # Helper module should be the primeagent implementation
+        assert is_helper_module(get_flow_inputs, _PRIMEAGENT_HELPER_MODULE_FLOW)
 
     def test_helpers_import_list_flows(self):
         """Test the wfx.helpers.list_flows import."""
@@ -63,8 +63,8 @@ class TestDynamicImport:
         except (ImportError, ModuleNotFoundError) as e:
             pytest.fail(f"Failed to dynamically import wfx.helpers.list_flows: {e}")
 
-        # Helper module should be the aiexec implementation
-        assert is_helper_module(list_flows, _AIEXEC_HELPER_MODULE_FLOW)
+        # Helper module should be the primeagent implementation
+        assert is_helper_module(list_flows, _PRIMEAGENT_HELPER_MODULE_FLOW)
 
     def test_helpers_import_load_flow(self):
         """Test the wfx.helpers.load_flow import."""
@@ -73,8 +73,8 @@ class TestDynamicImport:
         except (ImportError, ModuleNotFoundError) as e:
             pytest.fail(f"Failed to dynamically import wfx.helpers.load_flow: {e}")
 
-        # Helper module should be the aiexec implementation
-        assert is_helper_module(load_flow, _AIEXEC_HELPER_MODULE_FLOW)
+        # Helper module should be the primeagent implementation
+        assert is_helper_module(load_flow, _PRIMEAGENT_HELPER_MODULE_FLOW)
 
     def test_helpers_import_run_flow(self):
         """Test the wfx.helpers.run_flow import."""
@@ -83,5 +83,5 @@ class TestDynamicImport:
         except (ImportError, ModuleNotFoundError) as e:
             pytest.fail(f"Failed to dynamically import wfx.helpers.run_flow: {e}")
 
-        # Helper module should be the aiexec implementation
-        assert is_helper_module(run_flow, _AIEXEC_HELPER_MODULE_FLOW)
+        # Helper module should be the primeagent implementation
+        assert is_helper_module(run_flow, _PRIMEAGENT_HELPER_MODULE_FLOW)

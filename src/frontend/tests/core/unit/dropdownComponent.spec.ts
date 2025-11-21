@@ -137,12 +137,12 @@ test(
     await page.locator("textarea").press("Control+a");
     const emptyOptionsCode = `from langchain_community.chat_models.bedrock import BedrockChat
 
-from aiexec.base.constants import STREAM_INFO_TEXT
-from aiexec.base.models.model import LCModelComponent
-from aiexec.field_typing import BaseLanguageModel, Text
-from aiexec.io import BoolInput, DictInput, DropdownInput, StrInput
-from aiexec.io import MessageInput
-from aiexec.io import Output
+from primeagent.base.constants import STREAM_INFO_TEXT
+from primeagent.base.models.model import LCModelComponent
+from primeagent.field_typing import BaseLanguageModel, Text
+from primeagent.io import BoolInput, DictInput, DropdownInput, StrInput
+from primeagent.io import MessageInput
+from primeagent.io import Output
 
 
 class AmazonBedrockComponent(LCModelComponent):

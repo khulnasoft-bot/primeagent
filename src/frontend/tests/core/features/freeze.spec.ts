@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { addFlowToTestOnEmptyAiexec } from "../../utils/add-flow-to-test-on-empty-aiexec";
+import { addFlowToTestOnEmptyPrimeagent } from "../../utils/add-flow-to-test-on-empty-primeagent";
 import { addLegacyComponents } from "../../utils/add-legacy-components";
 import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 
@@ -10,12 +10,12 @@ test(
   async ({ page }) => {
     await awaitBootstrapTest(page);
 
-    const firstRunAiexec = await page
+    const firstRunPrimeagent = await page
       .getByTestId("empty-project-description")
       .count();
 
-    if (firstRunAiexec > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+    if (firstRunPrimeagent > 0) {
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
 
     await page.getByTestId("blank-flow").click();

@@ -13,18 +13,18 @@ from wfx.utils.constants import MESSAGE_SENDER_AI, MESSAGE_SENDER_USER
 
 
 @pytest.fixture
-def aiexec_cache_dir(tmp_path):
-    """Create a temporary aiexec cache directory."""
-    cache_dir = tmp_path / "aiexec"
+def primeagent_cache_dir(tmp_path):
+    """Create a temporary primeagent cache directory."""
+    cache_dir = tmp_path / "primeagent"
     cache_dir.mkdir(parents=True)
     return cache_dir
 
 
 @pytest.fixture
-def sample_image(aiexec_cache_dir):
+def sample_image(primeagent_cache_dir):
     """Create a sample image file for testing."""
     # Create the test_flow directory in the cache
-    flow_dir = aiexec_cache_dir / "test_flow"
+    flow_dir = primeagent_cache_dir / "test_flow"
     flow_dir.mkdir(parents=True, exist_ok=True)
 
     # Create the image in the flow directory
@@ -36,7 +36,7 @@ def sample_image(aiexec_cache_dir):
     image_path.write_bytes(image_content)
 
     # Use platformdirs to get the cache directory
-    real_cache_dir = Path(user_cache_dir("aiexec"))
+    real_cache_dir = Path(user_cache_dir("primeagent"))
     real_cache_dir.mkdir(parents=True, exist_ok=True)
     real_flow_dir = real_cache_dir / "test_flow"
     real_flow_dir.mkdir(parents=True, exist_ok=True)
@@ -50,8 +50,8 @@ def sample_image(aiexec_cache_dir):
 
 def test_message_prompt_serialization():
     template = "Hello, {name}!"
-    message = Message.from_template(template, name="Aiexec")
-    assert message.text == "Hello, Aiexec!"
+    message = Message.from_template(template, name="Primeagent")
+    assert message.text == "Hello, Primeagent!"
 
     # The base Message class in wfx doesn't support prompt serialization
     # This functionality is only available in the enhanced message class
@@ -101,15 +101,15 @@ def test_message_with_single_image(sample_image):
     assert message.files == [file_path]
 
 
-def test_message_with_multiple_images(sample_image, aiexec_cache_dir):
+def test_message_with_multiple_images(sample_image, primeagent_cache_dir):
     """Test creating a message with multiple images."""
     # Create a second image in the cache directory
-    flow_dir = aiexec_cache_dir / "test_flow"
+    flow_dir = primeagent_cache_dir / "test_flow"
     second_image = flow_dir / "second_image.png"
     shutil.copy2(str(sample_image), str(second_image))
 
     # Use platformdirs for the real cache location
-    real_cache_dir = Path(user_cache_dir("aiexec")) / "test_flow"
+    real_cache_dir = Path(user_cache_dir("primeagent")) / "test_flow"
     real_cache_dir.mkdir(parents=True, exist_ok=True)
     real_second_image = real_cache_dir / "second_image.png"
     shutil.copy2(str(sample_image), str(real_second_image))
@@ -204,7 +204,7 @@ def test_timestamp_serialization():
 def cleanup():
     yield
     # Clean up the real cache directory after tests
-    cache_dir = Path(user_cache_dir("aiexec"))
+    cache_dir = Path(user_cache_dir("primeagent"))
     if cache_dir.exists():
         try:
             shutil.rmtree(str(cache_dir))

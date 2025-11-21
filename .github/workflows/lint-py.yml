@@ -40,7 +40,7 @@ jobs:
         run: uv sync
       - name: Run Mypy
         run: |
-          uv run mypy --namespace-packages -p "aiexec"
+          uv run mypy --namespace-packages -p "primeagent"
         env:
           GITHUB_TOKEN: ${{ secrets.github_token }}
 

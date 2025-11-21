@@ -4,13 +4,13 @@ from uuid import UUID, uuid4
 
 import orjson
 import pytest
-from aiexec.api.v1.schemas import FlowListCreate, ResultDataResponse
-from aiexec.initial_setup.setup import load_starter_projects
-from aiexec.services.database.models.base import orjson_dumps
-from aiexec.services.database.models.flow import Flow, FlowCreate, FlowUpdate
-from aiexec.services.database.models.folder.model import FolderCreate
-from aiexec.services.database.utils import session_getter
-from aiexec.services.deps import get_db_service
+from primeagent.api.v1.schemas import FlowListCreate, ResultDataResponse
+from primeagent.initial_setup.setup import load_starter_projects
+from primeagent.services.database.models.base import orjson_dumps
+from primeagent.services.database.models.flow import Flow, FlowCreate, FlowUpdate
+from primeagent.services.database.models.folder.model import FolderCreate
+from primeagent.services.database.utils import session_getter
+from primeagent.services.deps import get_db_service
 from httpx import AsyncClient
 from sqlalchemy import text
 from wfx.graph.utils import log_transaction, log_vertex_build

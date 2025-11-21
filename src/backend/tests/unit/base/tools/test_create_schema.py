@@ -1,4 +1,4 @@
-from aiexec.io.schema import create_input_schema_from_dict
+from primeagent.io.schema import create_input_schema_from_dict
 from wfx.schema.dotdict import dotdict
 
 

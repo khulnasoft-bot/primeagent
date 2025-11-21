@@ -36,7 +36,7 @@ if TYPE_CHECKING:
 
     from wfx.graph import Graph
 
-# Security - use the same pattern as Aiexec main API
+# Security - use the same pattern as Primeagent main API
 API_KEY_NAME = "x-api-key"
 api_key_query = APIKeyQuery(name=API_KEY_NAME, scheme_name="API key query", auto_error=False)
 api_key_header = APIKeyHeader(name=API_KEY_NAME, scheme_name="API key header", auto_error=False)

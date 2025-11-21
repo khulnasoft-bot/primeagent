@@ -1,8 +1,8 @@
 from unittest.mock import patch
 
 import pytest
-from aiexec.components.logic.data_conditional_router import DataConditionalRouterComponent
-from aiexec.schema.data import Data
+from primeagent.components.logic.data_conditional_router import DataConditionalRouterComponent
+from primeagent.schema.data import Data
 
 from tests.base import ComponentTestBaseWithoutClient
 

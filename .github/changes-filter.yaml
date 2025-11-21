@@ -9,9 +9,9 @@ python:
   - "**/python_test.yml"
   - ".github/workflows/ci.yml"
 components-changes:
-  - "src/backend/base/aiexec/components/**"
+  - "src/backend/base/primeagent/components/**"
 starter-projects-changes:
-  - "src/backend/base/aiexec/initial_setup/**"
+  - "src/backend/base/primeagent/initial_setup/**"
 frontend-tests:
   - "src/frontend/tests/**"
 frontend:
@@ -32,16 +32,16 @@ docker:
 
 # Test categories and their associated paths
 starter-projects:
-  - "src/backend/base/aiexec/initial_setup/**"
-  - "src/backend/base/aiexec/components/**"
-  - "src/backend/base/aiexec/services/**"
-  - "src/backend/base/aiexec/custom/**"
-  - "src/backend/base/aiexec/api/v1/chat.py"
+  - "src/backend/base/primeagent/initial_setup/**"
+  - "src/backend/base/primeagent/components/**"
+  - "src/backend/base/primeagent/services/**"
+  - "src/backend/base/primeagent/custom/**"
+  - "src/backend/base/primeagent/api/v1/chat.py"
   - "src/frontend/src/pages/MainPage/**"
   - "src/frontend/src/utils/reactflowUtils.ts"
   - "src/frontend/tests/extended/features/**"
-  - "src/backend/base/aiexec/custom/**"
-  - "src/backend/base/aiexec/graph/**"
+  - "src/backend/base/primeagent/custom/**"
+  - "src/backend/base/primeagent/graph/**"
 
 components:
   - "src/frontend/src/components/**"
@@ -58,17 +58,17 @@ components:
   - "src/frontend/tests/extended/integrations/**"
   - "src/frontend/tests/extended/features/**"
   - "src/frontend/tests/extended/regression/**"
-  - "src/backend/base/aiexec/custom/**"
-  - "src/backend/base/aiexec/schema/**"
-  - "src/backend/base/aiexec/graph/**"
-  - "src/backend/base/aiexec/utils/**"
-  - "src/backend/base/aiexec/custom/**"
-  - "src/backend/base/aiexec/components/**"
-  - "src/backend/base/aiexec/initial_setup/**"
-  - "src/backend/base/aiexec/serialization/**"
+  - "src/backend/base/primeagent/custom/**"
+  - "src/backend/base/primeagent/schema/**"
+  - "src/backend/base/primeagent/graph/**"
+  - "src/backend/base/primeagent/utils/**"
+  - "src/backend/base/primeagent/custom/**"
+  - "src/backend/base/primeagent/components/**"
+  - "src/backend/base/primeagent/initial_setup/**"
+  - "src/backend/base/primeagent/serialization/**"
 
 workspace:
-  - "src/backend/base/aiexec/inputs/**"
+  - "src/backend/base/primeagent/inputs/**"
   - "src/frontend/src/components/core/parameterRenderComponent/**"
   - "src/frontend/src/CustomNodes/**"
   - "src/frontend/src/modals/**"
@@ -82,15 +82,15 @@ workspace:
   - "src/frontend/tests/core/regression/**"
 
 api:
-  - "src/backend/base/aiexec/api/**"
+  - "src/backend/base/primeagent/api/**"
   - "src/frontend/src/controllers/**"
   - "src/frontend/tests/core/features/**"
   - "src/frontend/tests/extended/features/**"
   - "src/frontend/tests/extended/regression/**"
 
 database:
-  - "src/backend/base/aiexec/services/database/**"
-  - "src/backend/base/aiexec/alembic/**"
+  - "src/backend/base/primeagent/services/database/**"
+  - "src/backend/base/primeagent/alembic/**"
   - "src/frontend/src/controllers/**"
   - "src/frontend/tests/core/features/**"
   - "src/frontend/tests/extended/features/**"

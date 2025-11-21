@@ -1,3 +1,3 @@
-FROM khulnasoft/aiexec:latest
+FROM khulnasoft/primeagent:latest
 
-ENTRYPOINT ["python", "-m", "aiexec", "run"]
+ENTRYPOINT ["python", "-m", "primeagent", "run"]

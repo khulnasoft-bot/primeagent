@@ -1,0 +1,29 @@
+postgresql:
+  enabled: true
+  fullnameOverride: "primeagent-ide-postgresql-service"
+  auth:
+    username: "primeagent"
+    password: "primeagent-postgres"
+    database: "primeagent-db"
+
+primeagent:
+  backend:
+    externalDatabase:
+      enabled: true
+      driver:
+        value: "postgresql"
+      host:
+        value: "primeagent-ide-postgresql-service"
+      port:
+        value: "5432"
+      database:
+        value: "primeagent-db"
+      user:
+        value: "primeagent"
+      password:
+        valueFrom:
+          secretKeyRef:
+            key: "password"
+            name: "primeagent-ide-postgresql-service"
+    sqlite:
+      enabled: false

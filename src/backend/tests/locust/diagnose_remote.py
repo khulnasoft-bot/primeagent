@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Diagnostic tool for remote Aiexec instances.
+"""Diagnostic tool for remote Primeagent instances.
 
 Helps debug connection issues and performance problems.
 """
@@ -172,8 +172,8 @@ def run_load_simulation(host: str, api_key: str, flow_id: str, num_requests: int
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Diagnose remote Aiexec instance")
-    parser.add_argument("--host", required=True, help="Aiexec host URL")
+    parser = argparse.ArgumentParser(description="Diagnose remote Primeagent instance")
+    parser.add_argument("--host", required=True, help="Primeagent host URL")
     parser.add_argument("--api-key", help="API key for flow execution")
     parser.add_argument("--flow-id", help="Flow ID for testing")
     parser.add_argument("--load-test", type=int, default=0, help="Number of requests for mini load test")
@@ -181,7 +181,7 @@ def main():
 
     args = parser.parse_args()
 
-    print(f"🔍 Diagnosing Aiexec instance: {args.host}")
+    print(f"🔍 Diagnosing Primeagent instance: {args.host}")
     print("=" * 60)
 
     # Test basic connectivity
@@ -229,7 +229,7 @@ def main():
     if not connectivity_results["reachable"]:
         print("❌ Cannot reach the host - check URL and network connectivity")
     elif not connectivity_results["health_check"]:
-        print("❌ Health check failed - Aiexec may not be running properly")
+        print("❌ Health check failed - Primeagent may not be running properly")
     elif flow_results and not flow_results["success"]:
         print("❌ Flow execution failed - check API key, flow ID, and flow configuration")
     elif load_results and load_results["connection_errors"] > 0:

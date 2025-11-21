@@ -3,8 +3,8 @@ from textwrap import dedent
 from wfx.custom.validate import create_class
 
 
-def test_importing_aiexec_module_in_wfx():
-    code = dedent("""from aiexec.custom import   Component
+def test_importing_primeagent_module_in_wfx():
+    code = dedent("""from primeagent.custom import   Component
 class TestComponent(Component):
     def some_method(self):
         pass
@@ -13,11 +13,11 @@ class TestComponent(Component):
     assert result.__name__ == "TestComponent"
 
 
-def test_importing_aiexec_logging_in_wfx():
-    """Test that aiexec.logging can be imported in wfx context without errors."""
+def test_importing_primeagent_logging_in_wfx():
+    """Test that primeagent.logging can be imported in wfx context without errors."""
     code = dedent("""
-from aiexec.logging import logger, configure
-from aiexec.custom import Component
+from primeagent.logging import logger, configure
+from primeagent.custom import Component
 
 class TestLoggingComponent(Component):
     def some_method(self):

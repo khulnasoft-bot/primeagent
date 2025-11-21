@@ -15,7 +15,7 @@ from wfx.memory import (
 
 # Import the appropriate Message class based on what's available
 try:
-    from aiexec.schema.message import Message
+    from primeagent.schema.message import Message
 except (ImportError, ModuleNotFoundError):
     from wfx.schema.message import Message
 

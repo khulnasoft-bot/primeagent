@@ -14,8 +14,8 @@ from pathlib import Path
 
 import pytest
 
-# Import aiexec validation utilities
-from aiexec.utils.template_validation import (
+# Import primeagent validation utilities
+from primeagent.utils.template_validation import (
     validate_flow_can_build,
     validate_flow_execution,
     validate_template_structure,
@@ -24,7 +24,7 @@ from aiexec.utils.template_validation import (
 
 def get_starter_projects_path() -> Path:
     """Get path to starter projects directory."""
-    return Path("src/backend/base/aiexec/initial_setup/starter_projects")
+    return Path("src/backend/base/primeagent/initial_setup/starter_projects")
 
 
 def get_template_files():
@@ -42,7 +42,7 @@ def get_basic_template_files():
 @pytest.fixture(autouse=True)
 def disable_tracing(monkeypatch):
     """Disable tracing for all template tests."""
-    monkeypatch.setenv("AIEXEC_DEACTIVATE_TRACING", "true")
+    monkeypatch.setenv("PRIMEAGENT_DEACTIVATE_TRACING", "true")
 
 
 class TestStarterProjects:

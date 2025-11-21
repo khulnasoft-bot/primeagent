@@ -3,7 +3,7 @@
 Notes:
 -----
 - ALL Docling parsing/export runs in a separate OS process to prevent memory
-  growth and native library state from impacting the main Aiexec process.
+  growth and native library state from impacting the main Primeagent process.
 - Standard text/structured parsing continues to use existing BaseFileComponent
   utilities (and optional threading via `parallel_load_data`).
 """
@@ -31,7 +31,7 @@ class FileComponent(BaseFileComponent):
 
     display_name = "Read File"
     description = "Loads content from one or more files."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-data#file"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-data#file"
     icon = "file-text"
     name = "File"
 

@@ -12,10 +12,10 @@ Flows consist of _components_ that represent individual steps in your applicatio
 
 ![Basic Prompting flow in the workspace](/img/workspace-basic-prompting.png)
 
-Aiexec flows are fully serializable and can be saved and loaded from the file system where Aiexec is installed.
+Primeagent flows are fully serializable and can be saved and loaded from the file system where Primeagent is installed.
 
 :::tip
-To try building and running a flow in a few minutes, see the [Aiexec quickstart](/get-started-quickstart).
+To try building and running a flow in a few minutes, see the [Primeagent quickstart](/get-started-quickstart).
 :::
 
 ## Create a flow
@@ -35,7 +35,7 @@ From the [**Projects** page](#projects), there are four ways to create a flow:
     For example, the **Basic Prompting** template demonstrates a small flow that passes both chat input and pre-defined instructions (as a prompt) to an LLM.
     In contrast, the **Vector Store RAG** template consists of two sub-flows that demonstrate how to create a Retrieval Augmented Generation (RAG) chatbot. One sub-flow populates the vector store with contextually relevant data and embeddings, and the other sub-flow queries the vector store for similar data to answer user questions.
 
-    You can also [contribute templates](/contributing-templates) to the Aiexec codebase.
+    You can also [contribute templates](/contributing-templates) to the Primeagent codebase.
 
     </details>
 
@@ -43,7 +43,7 @@ From the [**Projects** page](#projects), there are four ways to create a flow:
 
 * **Import a flow**: See [Import and export flows](/concepts-flows-import).
 
-You can also create a flow with the [Aiexec API](/api-flows), but the Aiexec team recommends using the [visual editor](/concepts-overview) until you are familiar with flow creation.
+You can also create a flow with the [Primeagent API](/api-flows), but the Primeagent team recommends using the [visual editor](/concepts-overview) until you are familiar with flow creation.
 
 ### Add components
 
@@ -65,13 +65,13 @@ For more information about component configuration, including port types and und
 ### Run a flow
 
 After you build a prototype flow, you can test it in the [**Playground**](/concepts-playground).
-When you're ready to use Aiexec for application development, learn how to [trigger flows with the Aiexec API](/concepts-publish), explore more advanced configuration options like [custom dependencies](/install-custom-dependencies), and, eventually, [containerize your Aiexec application](/develop-application).
+When you're ready to use Primeagent for application development, learn how to [trigger flows with the Primeagent API](/concepts-publish), explore more advanced configuration options like [custom dependencies](/install-custom-dependencies), and, eventually, [containerize your Primeagent application](/develop-application).
 
-When you're ready to go to production or deploy a Aiexec MCP server for access over the public internet, see [Aiexec deployment overview](/deployment-overview).
+When you're ready to go to production or deploy a Primeagent MCP server for access over the public internet, see [Primeagent deployment overview](/deployment-overview).
 
 #### Flow graphs
 
-When a flow runs, Aiexec builds a Directed Acyclic Graph (DAG) object from the nodes (components) and edges (connections), and the nodes are sorted to determine the order of execution.
+When a flow runs, Primeagent builds a Directed Acyclic Graph (DAG) object from the nodes (components) and edges (connections), and the nodes are sorted to determine the order of execution.
 
 The graph build calls each component's `def_build` function to validate and prepare the nodes.
 This graph is then processed in dependency order.
@@ -79,17 +79,17 @@ Each node is built and executed sequentially, with results from each built node 
 
 ## Manage flows in projects {#projects}
 
-The **Projects** page is where you arrive when you launch Aiexec.
+The **Projects** page is where you arrive when you launch Primeagent.
 From here, you can manage flows and your projects' [MCP servers](/mcp-server).
 
-Aiexec projects are like folders that you can use to organize related flows.
+Primeagent projects are like folders that you can use to organize related flows.
 The default project is **Starter Project**, and your flows are stored here unless you create another project.
 To create a project, click <Icon name="Plus" aria-hidden="true"/> **Create new project**.
 
 ![Projects page with multiple flows in a project](/img/my-projects.png)
 
 :::tip
-To get back to the **Projects** page after editing a flow, click the project name or Aiexec icon in the Aiexec header.
+To get back to the **Projects** page after editing a flow, click the project name or Primeagent icon in the Primeagent header.
 :::
 
 ### Edit flow details
@@ -125,11 +125,11 @@ To move a flow from one project to another, do the following:
 
 ## Flow storage and logs
 
-By default, flows and flow execution data are stored in the Aiexec database, and flow logs are stored with other Aiexec logs in the Aiexec config directory.
+By default, flows and flow execution data are stored in the Primeagent database, and flow logs are stored with other Primeagent logs in the Primeagent config directory.
 For more information, see [Memory management options](/memory) and [Logging](/logging).
 
 ## See also
 
 * [Share and embed flows](/concepts-publish)
 * [Import and export flows](/concepts-flows-import)
-* [Aiexec environment variables](/environment-variables)
+* [Primeagent environment variables](/environment-variables)

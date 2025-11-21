@@ -1,5 +1,5 @@
 import pytest
-from aiexec.services.database.models.api_key import ApiKeyCreate
+from primeagent.services.database.models.api_key import ApiKeyCreate
 from httpx import AsyncClient
 
 

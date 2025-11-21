@@ -1,13 +1,13 @@
 """Test code hash and module metadata functionality."""
 
 import pytest
-from aiexec.interface.components import import_aiexec_components
+from primeagent.interface.components import import_primeagent_components
 
 
 @pytest.mark.asyncio
 async def test_component_metadata_has_code_hash():
     """Test that built-in components have valid module and code_hash metadata."""
-    result = await import_aiexec_components()
+    result = await import_primeagent_components()
     assert result is not None
     assert "components" in result
     assert len(result["components"]) > 0
@@ -41,7 +41,7 @@ async def test_component_metadata_has_code_hash():
 @pytest.mark.skip(reason="Skipping while metadata is not added")
 async def test_code_hash_uniqueness():
     """Test that different built-in components have different code hashes."""
-    result = await import_aiexec_components()
+    result = await import_primeagent_components()
     all_hashes = []
     for components in result["components"].values():
         for comp in components.values():

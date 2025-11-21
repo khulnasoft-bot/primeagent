@@ -58,26 +58,26 @@ class CustomSource(EnvSettingsSource):
 
 
 class Settings(BaseSettings):
-    # Define the default AIEXEC_DIR
+    # Define the default PRIMEAGENT_DIR
     config_dir: str | None = None
-    # Define if aiexec db should be saved in config dir or
-    # in the aiexec directory
+    # Define if primeagent db should be saved in config dir or
+    # in the primeagent directory
     save_db_in_config_dir: bool = False
-    """Define if aiexec database should be saved in AIEXEC_CONFIG_DIR or in the aiexec directory
+    """Define if primeagent database should be saved in PRIMEAGENT_CONFIG_DIR or in the primeagent directory
     (i.e. in the package directory)."""
 
-    knowledge_bases_dir: str | None = "~/.aiexec/knowledge_bases"
+    knowledge_bases_dir: str | None = "~/.primeagent/knowledge_bases"
     """The directory to store knowledge bases."""
 
     dev: bool = False
-    """If True, Aiexec will run in development mode."""
+    """If True, Primeagent will run in development mode."""
     database_url: str | None = None
-    """Database URL for Aiexec. If not provided, Aiexec will use a SQLite database.
+    """Database URL for Primeagent. If not provided, Primeagent will use a SQLite database.
     The driver shall be an async one like `sqlite+aiosqlite` (`sqlite` and `postgresql`
     will be automatically converted to the async drivers `sqlite+aiosqlite` and
     `postgresql+psycopg` respectively)."""
     database_connection_retry: bool = False
-    """If True, Aiexec will retry to connect to the database if it fails."""
+    """If True, Primeagent will retry to connect to the database if it fails."""
     pool_size: int = 20
     """The number of connections to keep open in the connection pool.
     For high load scenarios, this should be increased based on expected concurrent users."""
@@ -140,7 +140,7 @@ class Settings(BaseSettings):
 
     use_noop_database: bool = False
     """If True, disables all database operations and uses a no-op session.
-    Controlled by AIEXEC_USE_NOOP_DATABASE env variable."""
+    Controlled by PRIMEAGENT_USE_NOOP_DATABASE env variable."""
 
     # cache configuration
     cache_type: Literal["async", "redis", "memory", "disk"] = "async"
@@ -151,9 +151,9 @@ class Settings(BaseSettings):
     """The store can be 'db' or 'kubernetes'."""
 
     prometheus_enabled: bool = False
-    """If set to True, Aiexec will expose Prometheus metrics."""
+    """If set to True, Primeagent will expose Prometheus metrics."""
     prometheus_port: int = 9090
-    """The port on which Aiexec will expose Prometheus metrics. 9090 is the default port."""
+    """The port on which Primeagent will expose Prometheus metrics. 9090 is the default port."""
 
     disable_track_apikey_usage: bool = False
     remove_api_keys: bool = False
@@ -182,9 +182,9 @@ class Settings(BaseSettings):
     sentry_profiles_sample_rate: float | None = 1.0
 
     store: bool | None = True
-    store_url: str | None = "https://api.aiexec.store"
-    download_webhook_url: str | None = "https://api.aiexec.store/flows/trigger/ec611a61-8460-4438-b187-a4f65e5559d4"
-    like_webhook_url: str | None = "https://api.aiexec.store/flows/trigger/64275852-ec00-45c1-984e-3bff814732da"
+    store_url: str | None = "https://api.primeagent.store"
+    download_webhook_url: str | None = "https://api.primeagent.store/flows/trigger/ec611a61-8460-4438-b187-a4f65e5559d4"
+    like_webhook_url: str | None = "https://api.primeagent.store/flows/trigger/64275852-ec00-45c1-984e-3bff814732da"
 
     storage_type: str = "local"
 
@@ -192,7 +192,7 @@ class Settings(BaseSettings):
 
     fallback_to_env_var: bool = True
     """If set to True, Global Variables set in the UI will fallback to a environment variable
-    with the same name in case Aiexec fails to retrieve the variable value."""
+    with the same name in case Primeagent fails to retrieve the variable value."""
 
     store_environment_variables: bool = True
     """Whether to store environment variables as Global Variables in the database."""
@@ -202,10 +202,10 @@ class Settings(BaseSettings):
     """Timeout for the API calls in seconds."""
     frontend_timeout: int = 0
     """Timeout for the frontend API calls in seconds."""
-    user_agent: str = "aiexec"
+    user_agent: str = "primeagent"
     """User agent for the API calls."""
     backend_only: bool = False
-    """If set to True, Aiexec will not serve the frontend."""
+    """If set to True, Primeagent will not serve the frontend."""
 
     # CORS Settings
     cors_origins: list[str] | str = "*"
@@ -221,18 +221,18 @@ class Settings(BaseSettings):
 
     # Telemetry
     do_not_track: bool = False
-    """If set to True, Aiexec will not track telemetry."""
-    telemetry_base_url: str = "https://aiexec.gateway.scarf.sh"
+    """If set to True, Primeagent will not track telemetry."""
+    telemetry_base_url: str = "https://primeagent.gateway.scarf.sh"
     transactions_storage_enabled: bool = True
-    """If set to True, Aiexec will track transactions between flows."""
+    """If set to True, Primeagent will track transactions between flows."""
     vertex_builds_storage_enabled: bool = True
-    """If set to True, Aiexec will keep track of each vertex builds (outputs) in the UI for any flow."""
+    """If set to True, Primeagent will keep track of each vertex builds (outputs) in the UI for any flow."""
 
     # Config
     host: str = "localhost"
-    """The host on which Aiexec will run."""
+    """The host on which Primeagent will run."""
     port: int = 7860
-    """The port on which Aiexec will run."""
+    """The port on which Primeagent will run."""
     runtime_port: int | None = Field(default=None, exclude=True)
     """TEMPORARY: The port detected at runtime after checking for conflicts.
     This field is system-managed only and will be removed in future versions
@@ -240,19 +240,19 @@ class Settings(BaseSettings):
     workers: int = 1
     """The number of workers to run."""
     log_level: str = "critical"
-    """The log level for Aiexec."""
-    log_file: str | None = "logs/aiexec.log"
-    """The path to log file for Aiexec."""
+    """The log level for Primeagent."""
+    log_file: str | None = "logs/primeagent.log"
+    """The path to log file for Primeagent."""
     alembic_log_file: str = "alembic/alembic.log"
     """The path to log file for Alembic for SQLAlchemy."""
     frontend_path: str | None = None
     """The path to the frontend directory containing build files. This is for development purposes only.."""
     open_browser: bool = False
-    """If set to True, Aiexec will open the browser on startup."""
+    """If set to True, Primeagent will open the browser on startup."""
     auto_saving: bool = True
-    """If set to True, Aiexec will auto save flows."""
+    """If set to True, Primeagent will auto save flows."""
     auto_saving_interval: int = 1000
-    """The interval in ms at which Aiexec will auto save flows."""
+    """The interval in ms at which Primeagent will auto save flows."""
     health_check_max_retries: int = 5
     """The maximum number of retries for the health check."""
     max_file_size_upload: int = 1024
@@ -282,16 +282,16 @@ class Settings(BaseSettings):
 
     # MCP Server
     mcp_server_enabled: bool = True
-    """If set to False, Aiexec will not enable the MCP server."""
+    """If set to False, Primeagent will not enable the MCP server."""
     mcp_server_enable_progress_notifications: bool = False
-    """If set to False, Aiexec will not send progress notifications in the MCP server."""
+    """If set to False, Primeagent will not send progress notifications in the MCP server."""
 
     # Add projects to MCP servers automatically on creation
     add_projects_to_mcp_servers: bool = True
     """If set to True, newly created projects will be added to the user's MCP servers config automatically."""
     # MCP Composer
     mcp_composer_enabled: bool = True
-    """If set to False, Aiexec will not start the MCP Composer service."""
+    """If set to False, Primeagent will not start the MCP Composer service."""
     mcp_composer_version: str = "~=0.1.0.7"
     """Version constraint for mcp-composer when using uvx. Uses PEP 440 syntax.
     ~=0.1.0.7 allows patch updates (0.1.0.x) but prevents minor/major version changes."""
@@ -306,16 +306,16 @@ class Settings(BaseSettings):
     event_delivery: Literal["polling", "streaming", "direct"] = "streaming"
     """How to deliver build events to the frontend. Can be 'polling', 'streaming' or 'direct'."""
     lazy_load_components: bool = False
-    """If set to True, Aiexec will only partially load components at startup and fully load them on demand.
+    """If set to True, Primeagent will only partially load components at startup and fully load them on demand.
     This significantly reduces startup time but may cause a slight delay when a component is first used."""
 
     # Starter Projects
     create_starter_projects: bool = True
-    """If set to True, Aiexec will create starter projects. If False, skips all starter project setup.
+    """If set to True, Primeagent will create starter projects. If False, skips all starter project setup.
     Note that this doesn't check if the starter projects are already loaded in the db;
     this is intended to be used to skip all startup project logic."""
     update_starter_projects: bool = True
-    """If set to True, Aiexec will update starter projects."""
+    """If set to True, Primeagent will update starter projects."""
 
     @field_validator("cors_origins", mode="before")
     @classmethod
@@ -351,7 +351,7 @@ class Settings(BaseSettings):
     @classmethod
     def set_user_agent(cls, value):
         if not value:
-            value = "Aiexec"
+            value = "Primeagent"
         import os
 
         os.environ["USER_AGENT"] = value
@@ -402,18 +402,18 @@ class Settings(BaseSettings):
 
     @field_validator("config_dir", mode="before")
     @classmethod
-    def set_aiexec_dir(cls, value):
+    def set_primeagent_dir(cls, value):
         if not value:
             from platformdirs import user_cache_dir
 
             # Define the app name and author
-            app_name = "aiexec"
-            app_author = "aiexec"
+            app_name = "primeagent"
+            app_author = "primeagent"
 
             # Get the cache directory for the application
             cache_dir = user_cache_dir(app_name, app_author)
 
-            # Create a .aiexec directory inside the cache directory
+            # Create a .primeagent directory inside the cache directory
             value = Path(cache_dir)
             value.mkdir(parents=True, exist_ok=True)
 
@@ -433,13 +433,13 @@ class Settings(BaseSettings):
             msg = f"Invalid database_url provided: '{value}'"
             raise ValueError(msg)
 
-        logger.debug("No database_url provided, trying AIEXEC_DATABASE_URL env variable")
-        if aiexec_database_url := os.getenv("AIEXEC_DATABASE_URL"):
-            value = aiexec_database_url
-            logger.debug("Using AIEXEC_DATABASE_URL env variable.")
+        logger.debug("No database_url provided, trying PRIMEAGENT_DATABASE_URL env variable")
+        if primeagent_database_url := os.getenv("PRIMEAGENT_DATABASE_URL"):
+            value = primeagent_database_url
+            logger.debug("Using PRIMEAGENT_DATABASE_URL env variable.")
         else:
             logger.debug("No database_url env variable, using sqlite database")
-            # Originally, we used sqlite:///./aiexec.db
+            # Originally, we used sqlite:///./primeagent.db
             # so we need to migrate to the new format
             # if there is a database in that location
             if not info.data["config_dir"]:
@@ -447,20 +447,20 @@ class Settings(BaseSettings):
                 raise ValueError(msg)
 
             from wfx.utils.version import get_version_info
-            from wfx.utils.version import is_pre_release as aiexec_is_pre_release
+            from wfx.utils.version import is_pre_release as primeagent_is_pre_release
 
             version = get_version_info()["version"]
-            is_pre_release = aiexec_is_pre_release(version)
+            is_pre_release = primeagent_is_pre_release(version)
 
             if info.data["save_db_in_config_dir"]:
                 database_dir = info.data["config_dir"]
                 logger.debug(f"Saving database to config_dir: {database_dir}")
             else:
                 database_dir = Path(__file__).parent.parent.parent.resolve()
-                logger.debug(f"Saving database to aiexec directory: {database_dir}")
+                logger.debug(f"Saving database to primeagent directory: {database_dir}")
 
-            pre_db_file_name = "aiexec-pre.db"
-            db_file_name = "aiexec.db"
+            pre_db_file_name = "primeagent-pre.db"
+            db_file_name = "primeagent.db"
             new_pre_path = f"{database_dir}/{pre_db_file_name}"
             new_path = f"{database_dir}/{db_file_name}"
             final_path = None
@@ -505,22 +505,22 @@ class Settings(BaseSettings):
     def set_components_path(cls, value):
         """Processes and updates the components path list, incorporating environment variable overrides.
 
-        If the `AIEXEC_COMPONENTS_PATH` environment variable is set and points to an existing path, it is
+        If the `PRIMEAGENT_COMPONENTS_PATH` environment variable is set and points to an existing path, it is
         appended to the provided list if not already present. If the input list is empty or missing, it is
         set to an empty list.
         """
-        if os.getenv("AIEXEC_COMPONENTS_PATH"):
-            logger.debug("Adding AIEXEC_COMPONENTS_PATH to components_path")
-            aiexec_component_path = os.getenv("AIEXEC_COMPONENTS_PATH")
-            if Path(aiexec_component_path).exists() and aiexec_component_path not in value:
-                if isinstance(aiexec_component_path, list):
-                    for path in aiexec_component_path:
+        if os.getenv("PRIMEAGENT_COMPONENTS_PATH"):
+            logger.debug("Adding PRIMEAGENT_COMPONENTS_PATH to components_path")
+            primeagent_component_path = os.getenv("PRIMEAGENT_COMPONENTS_PATH")
+            if Path(primeagent_component_path).exists() and primeagent_component_path not in value:
+                if isinstance(primeagent_component_path, list):
+                    for path in primeagent_component_path:
                         if path not in value:
                             value.append(path)
-                    logger.debug(f"Extending {aiexec_component_path} to components_path")
-                elif aiexec_component_path not in value:
-                    value.append(aiexec_component_path)
-                    logger.debug(f"Appending {aiexec_component_path} to components_path")
+                    logger.debug(f"Extending {primeagent_component_path} to components_path")
+                elif primeagent_component_path not in value:
+                    value.append(primeagent_component_path)
+                    logger.debug(f"Appending {primeagent_component_path} to components_path")
 
         if not value:
             value = [BASE_COMPONENTS_PATH]
@@ -535,7 +535,7 @@ class Settings(BaseSettings):
         logger.debug(f"Components path: {value}")
         return value
 
-    model_config = SettingsConfigDict(validate_assignment=True, extra="ignore", env_prefix="AIEXEC_")
+    model_config = SettingsConfigDict(validate_assignment=True, extra="ignore", env_prefix="PRIMEAGENT_")
 
     async def update_from_yaml(self, file_path: str, *, dev: bool = False) -> None:
         new_settings = await load_settings_from_yaml(file_path)

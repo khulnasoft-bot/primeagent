@@ -57,7 +57,7 @@ WORKDIR /tmp/src/frontend
 RUN --mount=type=cache,target=/root/.npm \
     npm ci \
     && ESBUILD_BINARY_PATH="" NODE_OPTIONS="--max-old-space-size=12288" JOBS=1 npm run build \
-    && cp -r build /app/src/backend/aiexec/frontend \
+    && cp -r build /app/src/backend/primeagent/frontend \
     && rm -rf /tmp/src/frontend
 
 WORKDIR /app
@@ -86,17 +86,17 @@ COPY --from=builder --chown=1000 /app/.venv /app/.venv
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
 
-LABEL org.opencontainers.image.title=aiexec
-LABEL org.opencontainers.image.authors=['Aiexec']
+LABEL org.opencontainers.image.title=primeagent
+LABEL org.opencontainers.image.authors=['Primeagent']
 LABEL org.opencontainers.image.licenses=MIT
-LABEL org.opencontainers.image.url=https://github.com/khulnasoft/aiexec
-LABEL org.opencontainers.image.source=https://github.com/khulnasoft/aiexec
+LABEL org.opencontainers.image.url=https://github.com/khulnasoft/primeagent
+LABEL org.opencontainers.image.source=https://github.com/khulnasoft/primeagent
 
 USER user
 WORKDIR /app
 
-ENV AIEXEC_HOST=0.0.0.0
-ENV AIEXEC_PORT=7860
+ENV PRIMEAGENT_HOST=0.0.0.0
+ENV PRIMEAGENT_PORT=7860
 
-CMD ["aiexec", "run"]
+CMD ["primeagent", "run"]
 

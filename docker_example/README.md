@@ -1,6 +1,6 @@
-# Running AiExec with Docker
+# Running PrimeAgent with Docker
 
-This guide will help you get AiExec up and running using Docker and Docker Compose.
+This guide will help you get PrimeAgent up and running using Docker and Docker Compose.
 
 ## Prerequisites
 
@@ -9,16 +9,16 @@ This guide will help you get AiExec up and running using Docker and Docker Compo
 
 ## Steps
 
-1. Clone the AiExec repository:
+1. Clone the PrimeAgent repository:
 
    ```sh
-   git clone https://github.com/khulnasoft/aiexec.git
+   git clone https://github.com/khulnasoft/primeagent.git
    ```
 
 2. Navigate to the `docker_example` directory:
 
    ```sh
-   cd aiexec/docker_example
+   cd primeagent/docker_example
    ```
 
 3. Run the Docker Compose file:
@@ -27,24 +27,24 @@ This guide will help you get AiExec up and running using Docker and Docker Compo
    docker compose up
    ```
 
-AiExec will now be accessible at [http://localhost:7860/](http://localhost:7860/).
+PrimeAgent will now be accessible at [http://localhost:7860/](http://localhost:7860/).
 
 ## Docker Compose Configuration
 
-The Docker Compose configuration spins up two services: `aiexec` and `postgres`.
+The Docker Compose configuration spins up two services: `primeagent` and `postgres`.
 
-### AiExec Service
+### PrimeAgent Service
 
-The `aiexec` service uses the `khulnasoft/aiexec:latest` Docker image and exposes port 7860. It depends on the `postgres` service.
+The `primeagent` service uses the `khulnasoft/primeagent:latest` Docker image and exposes port 7860. It depends on the `postgres` service.
 
 Environment variables:
 
-- `AIEXEC_DATABASE_URL`: The connection string for the PostgreSQL database.
-- `AIEXEC_CONFIG_DIR`: The directory where AiExec stores logs, file storage, monitor data, and secret keys.
+- `PRIMEAGENT_DATABASE_URL`: The connection string for the PostgreSQL database.
+- `PRIMEAGENT_CONFIG_DIR`: The directory where PrimeAgent stores logs, file storage, monitor data, and secret keys.
 
 Volumes:
 
-- `aiexec-data`: This volume is mapped to `/app/aiexec` in the container.
+- `primeagent-data`: This volume is mapped to `/app/primeagent` in the container.
 
 ### PostgreSQL Service
 
@@ -58,8 +58,8 @@ Environment variables:
 
 Volumes:
 
-- `aiexec-postgres`: This volume is mapped to `/var/lib/postgresql/data` in the container.
+- `primeagent-postgres`: This volume is mapped to `/var/lib/postgresql/data` in the container.
 
-## Switching to a Specific AiExec Version
+## Switching to a Specific PrimeAgent Version
 
-If you want to use a specific version of AiExec, you can modify the `image` field under the `aiexec` service in the Docker Compose file. For example, to use version 1.0-alpha, change `khulnasoft/aiexec:latest` to `khulnasoft/aiexec:1.0-alpha`.
+If you want to use a specific version of PrimeAgent, you can modify the `image` field under the `primeagent` service in the Docker Compose file. For example, to use version 1.0-alpha, change `khulnasoft/primeagent:latest` to `khulnasoft/primeagent:1.0-alpha`.

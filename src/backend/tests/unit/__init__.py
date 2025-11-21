@@ -1,1 +1,1 @@
-"""Unit tests for aiexec."""
+"""Unit tests for primeagent."""

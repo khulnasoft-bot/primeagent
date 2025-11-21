@@ -96,7 +96,7 @@ class OpenSearchVectorStoreComponent(LCVectorStoreComponent):
         StrInput(
             name="index_name",
             display_name="Index Name",
-            value="aiexec",
+            value="primeagent",
             info=(
                 "The OpenSearch index name where documents will be stored and searched. "
                 "Will be created automatically if it doesn't exist."
@@ -727,7 +727,7 @@ class OpenSearchVectorStoreComponent(LCVectorStoreComponent):
         """Search documents and return results as Data objects.
 
         This is the main interface method that performs the search using the
-        configured search_query and returns results in Aiexec's Data format.
+        configured search_query and returns results in Primeagent's Data format.
 
         Returns:
             List of Data objects containing search results with text and metadata

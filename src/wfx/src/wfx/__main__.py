@@ -7,7 +7,7 @@ from wfx.cli.run import run
 
 app = typer.Typer(
     name="wfx",
-    help="wfx - Aiexec Executor",
+    help="wfx - Primeagent Executor",
     add_completion=False,
 )
 

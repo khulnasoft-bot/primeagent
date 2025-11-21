@@ -1,9 +1,9 @@
 from datetime import datetime, timezone
 
-from aiexec.api.v1.schemas import ResultDataResponse, VertexBuildResponse
-from aiexec.schema.schema import OutputValue
-from aiexec.serialization import serialize
-from aiexec.services.tracing.schema import Log
+from primeagent.api.v1.schemas import ResultDataResponse, VertexBuildResponse
+from primeagent.schema.schema import OutputValue
+from primeagent.serialization import serialize
+from primeagent.services.tracing.schema import Log
 from hypothesis import HealthCheck, example, given, settings
 from hypothesis import strategies as st
 from pydantic import BaseModel

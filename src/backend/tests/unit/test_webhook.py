@@ -13,7 +13,7 @@ async def test_webhook_endpoint_requires_api_key_when_auto_login_false(client, a
     # Mock the settings service to enable webhook authentication
     from unittest.mock import patch
 
-    with patch("aiexec.services.auth.utils.get_settings_service") as mock_settings:
+    with patch("primeagent.services.auth.utils.get_settings_service") as mock_settings:
         mock_auth_settings = type("AuthSettings", (), {"WEBHOOK_AUTH_ENABLE": True})()
         mock_settings_service = type("SettingsService", (), {"auth_settings": mock_auth_settings})()
         mock_settings.return_value = mock_settings_service
@@ -53,7 +53,7 @@ async def test_webhook_endpoint_unauthorized_user_flow(client, added_webhook_tes
     # Mock the settings service to enable webhook authentication
     from unittest.mock import patch
 
-    with patch("aiexec.services.auth.utils.get_settings_service") as mock_settings:
+    with patch("primeagent.services.auth.utils.get_settings_service") as mock_settings:
         mock_auth_settings = type("AuthSettings", (), {"WEBHOOK_AUTH_ENABLE": True})()
         mock_settings_service = type("SettingsService", (), {"auth_settings": mock_auth_settings})()
         mock_settings.return_value = mock_settings_service
@@ -88,7 +88,7 @@ async def test_webhook_with_auto_login_enabled(client, added_webhook_test):
     # Mock the settings service to disable webhook authentication (default behavior)
     from unittest.mock import patch
 
-    with patch("aiexec.services.auth.utils.get_settings_service") as mock_settings:
+    with patch("primeagent.services.auth.utils.get_settings_service") as mock_settings:
         mock_auth_settings = type("AuthSettings", (), {"WEBHOOK_AUTH_ENABLE": False})()
         mock_settings_service = type("SettingsService", (), {"auth_settings": mock_auth_settings})()
         mock_settings.return_value = mock_settings_service
@@ -108,7 +108,7 @@ async def test_webhook_with_random_payload_requires_auth(client, added_webhook_t
     # Mock the settings service to enable webhook authentication
     from unittest.mock import patch
 
-    with patch("aiexec.services.auth.utils.get_settings_service") as mock_settings:
+    with patch("primeagent.services.auth.utils.get_settings_service") as mock_settings:
         mock_auth_settings = type("AuthSettings", (), {"WEBHOOK_AUTH_ENABLE": True})()
         mock_settings_service = type("SettingsService", (), {"auth_settings": mock_auth_settings})()
         mock_settings.return_value = mock_settings_service

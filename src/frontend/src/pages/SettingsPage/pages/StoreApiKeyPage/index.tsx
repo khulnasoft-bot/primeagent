@@ -65,14 +65,14 @@ const StoreApiKeyPage = () => {
             className="flex items-center text-lg font-semibold tracking-tight"
             data-testid="settings_menu_header"
           >
-            Aiexec Store
+            Primeagent Store
             <ForwardedIconComponent
               name="Store"
               className="ml-2 h-5 w-5 text-primary"
             />
           </h2>
           <p className="text-sm text-muted-foreground">
-            Manage access to the Aiexec Store.
+            Manage access to the Primeagent Store.
           </p>
         </div>
       </div>

@@ -14,7 +14,7 @@ class DataFrame(pandas_DataFrame):
     """A pandas DataFrame subclass specialized for handling collections of Data objects.
 
     This class extends pandas.DataFrame to provide seamless integration between
-    Aiexec's Data objects and pandas' powerful data manipulation capabilities.
+    Primeagent's Data objects and pandas' powerful data manipulation capabilities.
 
     Args:
         data: Input data in various formats:

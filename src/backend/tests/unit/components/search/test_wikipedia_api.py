@@ -1,7 +1,7 @@
 from unittest.mock import MagicMock
 
 import pytest
-from aiexec.custom import Component
+from primeagent.custom import Component
 from wfx.components.wikipedia import WikipediaComponent
 from wfx.custom.utils import build_custom_component_template
 

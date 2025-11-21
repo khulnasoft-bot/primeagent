@@ -177,7 +177,7 @@ class TestKeyedWorkerLockManager:
 
             manager = KeyedWorkerLockManager()
 
-            mock_cache_dir.assert_called_once_with("aiexec")
+            mock_cache_dir.assert_called_once_with("primeagent")
             assert manager.locks_dir == mock_path_instance.__truediv__.return_value
 
     def test_validate_key_valid_keys(self):

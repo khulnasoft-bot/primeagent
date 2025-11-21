@@ -61,11 +61,11 @@ COPY --from=builder --chown=1000 /app/.venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
 
 LABEL org.opencontainers.image.title=wfx
-LABEL org.opencontainers.image.authors=['Aiexec']
+LABEL org.opencontainers.image.authors=['Primeagent']
 LABEL org.opencontainers.image.licenses=MIT
-LABEL org.opencontainers.image.url=https://github.com/khulnasoft/aiexec
-LABEL org.opencontainers.image.source=https://github.com/khulnasoft/aiexec
-LABEL org.opencontainers.image.description="WFX - Aiexec Executor CLI Tool"
+LABEL org.opencontainers.image.url=https://github.com/khulnasoft/primeagent
+LABEL org.opencontainers.image.source=https://github.com/khulnasoft/primeagent
+LABEL org.opencontainers.image.description="WFX - Primeagent Executor CLI Tool"
 
 USER wfx
 WORKDIR /app/data

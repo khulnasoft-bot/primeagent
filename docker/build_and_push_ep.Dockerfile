@@ -57,7 +57,7 @@ WORKDIR /tmp/src/frontend
 RUN --mount=type=cache,target=/root/.npm \
     npm ci \
     && ESBUILD_BINARY_PATH="" NODE_OPTIONS="--max-old-space-size=12288" JOBS=1 npm run build \
-    && cp -r build /app/src/backend/aiexec/frontend \
+    && cp -r build /app/src/backend/primeagent/frontend \
     && rm -rf /tmp/src/frontend
 
 WORKDIR /app
@@ -89,23 +89,23 @@ RUN apt-get update \
 
 COPY --from=builder --chown=1000 /app/.venv /app/.venv
 
-# curl is required for aiexec health checks
+# curl is required for primeagent health checks
 RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 
 # Place executables in the environment at the front of the path
 ENV PATH="/app/.venv/bin:$PATH"
 
-LABEL org.opencontainers.image.title=aiexec
-LABEL org.opencontainers.image.authors=['Aiexec']
+LABEL org.opencontainers.image.title=primeagent
+LABEL org.opencontainers.image.authors=['Primeagent']
 LABEL org.opencontainers.image.licenses=MIT
-LABEL org.opencontainers.image.url=https://github.com/khulnasoft/aiexec
-LABEL org.opencontainers.image.source=https://github.com/khulnasoft/aiexec
+LABEL org.opencontainers.image.url=https://github.com/khulnasoft/primeagent
+LABEL org.opencontainers.image.source=https://github.com/khulnasoft/primeagent
 
 WORKDIR /app
 
-ENV AIEXEC_HOST=0.0.0.0
-ENV AIEXEC_PORT=7860
-ENV AIEXEC_EVENT_DELIVERY=polling
+ENV PRIMEAGENT_HOST=0.0.0.0
+ENV PRIMEAGENT_PORT=7860
+ENV PRIMEAGENT_EVENT_DELIVERY=polling
 
 USER 1000
-CMD ["python", "-m", "aiexec", "run", "--host", "0.0.0.0", "--backend-only"]
+CMD ["python", "-m", "primeagent", "run", "--host", "0.0.0.0", "--backend-only"]

@@ -47,7 +47,7 @@ except ModuleNotFoundError:
 MAX_PORT_NUMBER = 65535
 
 # Fixed namespace constant for deterministic UUID5 generation across runs
-_AIEXEC_NAMESPACE_UUID = uuid.UUID("3c091057-e799-4e32-8ebc-27bc31e1108c")
+_PRIMEAGENT_NAMESPACE_UUID = uuid.UUID("3c091057-e799-4e32-8ebc-27bc31e1108c")
 
 # Environment variable for GitHub token
 _GITHUB_TOKEN_ENV = "GITHUB_TOKEN"
@@ -107,9 +107,9 @@ def get_best_access_host(host: str) -> str:
 
 def get_api_key() -> str:
     """Get the API key from environment variable."""
-    api_key = os.getenv("AIEXEC_API_KEY")
+    api_key = os.getenv("PRIMEAGENT_API_KEY")
     if not api_key:
-        msg = "AIEXEC_API_KEY environment variable is not set"
+        msg = "PRIMEAGENT_API_KEY environment variable is not set"
         raise ValueError(msg)
     return api_key
 
@@ -517,7 +517,7 @@ def flow_id_from_path(file_path: Path, root_dir: Path) -> str:
         Canonical UUID string (36 chars, including hyphens).
     """
     relative = file_path.relative_to(root_dir).as_posix()
-    return str(uuid.uuid5(_AIEXEC_NAMESPACE_UUID, relative))
+    return str(uuid.uuid5(_PRIMEAGENT_NAMESPACE_UUID, relative))
 
 
 # ---------------------------------------------------------------------------

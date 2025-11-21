@@ -3,8 +3,8 @@ from uuid import UUID
 
 import orjson
 import pytest
-from aiexec.memory import aget_messages
-from aiexec.services.database.models.flow import FlowCreate
+from primeagent.memory import aget_messages
+from primeagent.services.database.models.flow import FlowCreate
 from httpx import AsyncClient
 from wfx.components.data.url import URLComponent
 from wfx.components.input_output import ChatOutput
@@ -134,7 +134,7 @@ def loop_flow():
     """Complete loop flow that processes multiple URLs through a loop."""
     # Create URL component to fetch content from multiple sources
     url_component = URLComponent()
-    url_component.set(urls=["https://aiexec-docs.khulnasoft.com/"])
+    url_component.set(urls=["https://primeagent-docs.khulnasoft.com/"])
 
     # Create SplitText component to chunk the content
     split_text_component = SplitTextComponent()

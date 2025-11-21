@@ -30,7 +30,7 @@ withEventDeliveryModes(
     await page
       .getByTestId("input-chat-playground")
       .last()
-      .fill("Hello, tell me about Aiexec.");
+      .fill("Hello, tell me about Primeagent.");
 
     await page.getByTestId("button-send").last().click();
 

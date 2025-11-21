@@ -1,4 +1,4 @@
-from aiexec.memory import aget_messages
+from primeagent.memory import aget_messages
 from wfx.components.input_output import ChatOutput
 from wfx.schema.message import Message
 

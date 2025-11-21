@@ -3,7 +3,7 @@
 from typing import Any
 
 import pytest
-from aiexec.helpers.base_model import build_model_from_schema
+from primeagent.helpers.base_model import build_model_from_schema
 from pydantic import BaseModel
 from pydantic_core import PydanticUndefined
 

@@ -2,7 +2,7 @@ from unittest.mock import MagicMock, patch
 
 import httpx
 import pytest
-from aiexec.custom import Component
+from primeagent.custom import Component
 from langchain_core.tools import ToolException
 from wfx.components.wikipedia import WikidataComponent
 from wfx.custom.utils import build_custom_component_template

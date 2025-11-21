@@ -1,5 +1,5 @@
 import pytest
-from aiexec.utils.lazy_load import LazyLoadDictBase
+from primeagent.utils.lazy_load import LazyLoadDictBase
 
 
 class TestLazyLoadDictBase:

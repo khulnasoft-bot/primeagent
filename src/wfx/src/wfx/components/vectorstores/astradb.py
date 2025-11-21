@@ -31,7 +31,7 @@ from wfx.utils.version import get_version_info
 class AstraDBVectorStoreComponent(LCVectorStoreComponent):
     display_name: str = "Astra DB"
     description: str = "Ingest and search documents in Astra DB"
-    documentation: str = "https://docs.datastax.com/en/aiexec/astra-components.html"
+    documentation: str = "https://docs.datastax.com/en/primeagent/astra-components.html"
     name = "AstraDB"
     icon: str = "AstraDB"
 
@@ -1110,11 +1110,11 @@ class AstraDBVectorStoreComponent(LCVectorStoreComponent):
         # Get the additional parameters
         additional_params = self.astradb_vectorstore_kwargs or {}
 
-        # Get Aiexec version and platform information
+        # Get Primeagent version and platform information
         __version__ = get_version_info()["version"]
-        aiexec_prefix = ""
+        primeagent_prefix = ""
         # if os.getenv("AWS_EXECUTION_ENV") == "AWS_ECS_FARGATE":  # TODO: More precise way of detecting
-        #     aiexec_prefix = "ds-"
+        #     primeagent_prefix = "ds-"
 
         # Get the database object
         database = self.get_database_object()
@@ -1151,7 +1151,7 @@ class AstraDBVectorStoreComponent(LCVectorStoreComponent):
                 # Hybrid Search Parameters
                 hybrid_search=hybrid_search_mode,
                 # Astra DB Usage Tracking Parameters
-                ext_callers=[(f"{aiexec_prefix}aiexec", __version__)],
+                ext_callers=[(f"{primeagent_prefix}primeagent", __version__)],
                 # Astra DB Vector Store Parameters
                 **autodetect_params,
                 **embedding_params,

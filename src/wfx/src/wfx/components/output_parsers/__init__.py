@@ -1,3 +1,3 @@
-"""AiExec output parsers components."""
+"""PrimeAgent output parsers components."""
 
 __all__: list[str] = []

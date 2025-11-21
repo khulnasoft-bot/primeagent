@@ -2,8 +2,8 @@ from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import uuid4
 
 import pytest
-from aiexec.services.auth.utils import get_password_hash
-from aiexec.services.database.models.user import User
+from primeagent.services.auth.utils import get_password_hash
+from primeagent.services.database.models.user import User
 from fastapi import status
 from httpx import AsyncClient
 
@@ -20,7 +20,7 @@ def mock_user():
 
 @pytest.fixture
 def mock_mcp_server():
-    with patch("aiexec.api.v1.mcp.server") as mock:
+    with patch("primeagent.api.v1.mcp.server") as mock:
         # Basic mocking for server attributes potentially accessed during endpoint calls
         mock.request_context = MagicMock()
         mock.request_context.meta = MagicMock()
@@ -33,7 +33,7 @@ def mock_mcp_server():
 
 @pytest.fixture
 def mock_sse_transport():
-    with patch("aiexec.api.v1.mcp.sse") as mock:
+    with patch("primeagent.api.v1.mcp.sse") as mock:
         mock.connect_sse = AsyncMock()
         mock.handle_post_message = AsyncMock()
         yield mock
@@ -42,7 +42,7 @@ def mock_sse_transport():
 # Fixture to mock the current user context variable needed for auth in /sse GET
 @pytest.fixture(autouse=True)
 def mock_current_user_ctx(mock_user):
-    with patch("aiexec.api.v1.mcp.current_user_ctx") as mock:
+    with patch("primeagent.api.v1.mcp.current_user_ctx") as mock:
         mock.get.return_value = mock_user
         mock.set = MagicMock(return_value="dummy_token")  # Return a dummy token for reset
         mock.reset = MagicMock()

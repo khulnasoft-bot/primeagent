@@ -1,5 +1,5 @@
 ---
-title: Troubleshoot Aiexec
+title: Troubleshoot Primeagent
 slug: /troubleshoot
 ---
 
@@ -7,21 +7,21 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import Icon from "@site/src/components/icon";
 
-This page provides troubleshooting advice for issues you might encounter when using Aiexec or contributing to Aiexec.
+This page provides troubleshooting advice for issues you might encounter when using Primeagent or contributing to Primeagent.
 
 ## Missing components
 
-As Aiexec development continues, components are often recategorized or deprecated for better alignment or to prepare for new components.
+As Primeagent development continues, components are often recategorized or deprecated for better alignment or to prepare for new components.
 
 If a component appears to be missing from the <Icon name="Component" aria-hidden="true" /> **Core components** and  menus, try the following:
 
 * <Icon name="Search" aria-hidden="true" /> **Search** for the component.
 * Check other component categories and <Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components).
 * Check [legacy components](/concepts-components#legacy-components), which are hidden by default.
-* Check the [Changelog](https://github.com/khulnasoft/aiexec/releases/latest) for component changes in recent releases.
+* Check the [Changelog](https://github.com/khulnasoft/primeagent/releases/latest) for component changes in recent releases.
 * Make sure the component isn't already present in your flow if it is a single-use component.
 
-If you still cannot locate the component, see [Aiexec GitHub Issues and Discussions](/contributing-github-issues).
+If you still cannot locate the component, see [Primeagent GitHub Issues and Discussions](/contributing-github-issues).
 
 ## No input in the Playground
 
@@ -36,26 +36,26 @@ For more information, see [Test flows in the Playground](/concepts-playground).
 If you get an API key error when running a flow, try the following:
 
 * For all components that require credentials, make sure those components have a valid credential in the component's settings, such as the **API Key** field.
-* If you store your credentials in [Aiexec global variables](/configuration-global-variables), make sure you selected the correct global variable and that the variable contains a valid credential.
+* If you store your credentials in [Primeagent global variables](/configuration-global-variables), make sure you selected the correct global variable and that the variable contains a valid credential.
 * Make sure the provided credentials are active, have the required permissions, and, if applicable, have sufficient funds in the account to execute the required action. For example, model providers require credits to use their LLMs.
 
-## Aiexec installation issues
+## Primeagent installation issues
 
-The following issues can occur when installing Aiexec.
+The following issues can occur when installing Primeagent.
 
-### Aiexec installation freezes at pip dependency resolution
+### Primeagent installation freezes at pip dependency resolution
 
-Installing Aiexec OSS with `pip install aiexec` slowly fails with this error message:
+Installing Primeagent OSS with `pip install primeagent` slowly fails with this error message:
 
 ```text
 pip is looking at multiple versions of <<library>> to determine which version is compatible with other requirements. This could take a while.
 ```
 
-To work around this issue, install Aiexec with `uv` instead of `pip`, as explained in [Install and run the Aiexec OSS Python package](/get-started-installation#install-and-run-the-aiexec-oss-python-package).
+To work around this issue, install Primeagent with `uv` instead of `pip`, as explained in [Install and run the Primeagent OSS Python package](/get-started-installation#install-and-run-the-primeagent-oss-python-package).
 
 ### Linux installation fails to build required package
 
-When you try to install Aiexec OSS on Linux, installation fails because of outdated or missing packages:
+When you try to install Primeagent OSS on Linux, installation fails because of outdated or missing packages:
 
 ```bash
 Resolved 455 packages in 18.92s
@@ -64,14 +64,14 @@ Resolved 455 packages in 18.92s
   ╰─▶ Call to `setuptools.build_meta:__legacy__.build_wheel` failed (exit status: 1)
 ```
 
-To resolve this error, install the required build dependencies, and then retry the Aiexec installation:
+To resolve this error, install the required build dependencies, and then retry the Primeagent installation:
 
 ```bash
 sudo apt-get update
 sudo apt-get install build-essential python3-dev
 ```
 
-If upgrading your packages doesn't fix the issue, install `gcc` separately, and then retry the Aiexec installation:
+If upgrading your packages doesn't fix the issue, install `gcc` separately, and then retry the Primeagent installation:
 
 ```bash
 sudo apt-get install gcc
@@ -79,89 +79,89 @@ sudo apt-get install gcc
 
 ### Installation failure from `webrtcvad` package
 
-If you experience an error from the `webrtcvad` package, run `uv pip install webrtcvad-wheels` in your virtual environment, and then retry the Aiexec installation.
+If you experience an error from the `webrtcvad` package, run `uv pip install webrtcvad-wheels` in your virtual environment, and then retry the Primeagent installation.
 
-### C++ build tools required for Aiexec Desktop on Windows
+### C++ build tools required for Primeagent Desktop on Windows
 
-Microsoft Windows installations of Aiexec Desktop require a C++ compiler that may not be present on your system. If you receive a `C++ Build Tools Required!` error, follow the on-screen prompt to install Microsoft C++ Build Tools, or [install Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/).
+Microsoft Windows installations of Primeagent Desktop require a C++ compiler that may not be present on your system. If you receive a `C++ Build Tools Required!` error, follow the on-screen prompt to install Microsoft C++ Build Tools, or [install Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/).
 
-## Aiexec startup issues
+## Primeagent startup issues
 
-The following issues can occur when attempting to start Aiexec.
+The following issues can occur when attempting to start Primeagent.
 
-### No `aiexec.__main__` module
+### No `primeagent.__main__` module
 
-When you try to run Aiexec with the command `aiexec run`, you encounter the following error:
+When you try to run Primeagent with the command `primeagent run`, you encounter the following error:
 
 ```bash
-> No module named 'aiexec.__main__'
+> No module named 'primeagent.__main__'
 ```
 
 To resolve this issue, try the following:
 
-1. Run `uv run aiexec run` instead of `aiexec run`.
-2. If that doesn't work, reinstall the latest Aiexec version with `uv pip install aiexec -U`.
-3. If that doesn't work, reinstall Aiexec and its dependencies with `uv pip install aiexec --pre -U --force-reinstall`.
+1. Run `uv run primeagent run` instead of `primeagent run`.
+2. If that doesn't work, reinstall the latest Primeagent version with `uv pip install primeagent -U`.
+3. If that doesn't work, reinstall Primeagent and its dependencies with `uv pip install primeagent --pre -U --force-reinstall`.
 
-### Aiexec runTraceback
+### Primeagent runTraceback
 
-When you try to run Aiexec using the command `aiexec run`, you encounter the following error:
+When you try to run Primeagent using the command `primeagent run`, you encounter the following error:
 
 ```bash
-> aiexec runTraceback (most recent call last): File ".../aiexec", line 5, in <module>  from aiexec.__main__ import mainModuleNotFoundError: No module named 'aiexec.__main__'
+> primeagent runTraceback (most recent call last): File ".../primeagent", line 5, in <module>  from primeagent.__main__ import mainModuleNotFoundError: No module named 'primeagent.__main__'
 ```
 
 There are two possible reasons for this error:
 
-* **Multiple Aiexec installations**: You installed Aiexec using `pip install aiexec` but you already had a previous version of Aiexec installed in your system. In this case, you might be running the wrong executable.
+* **Multiple Primeagent installations**: You installed Primeagent using `pip install primeagent` but you already had a previous version of Primeagent installed in your system. In this case, you might be running the wrong executable.
 
-    To solve this issue, run the correct executable by running `python -m aiexec run` instead of `aiexec run`.
+    To solve this issue, run the correct executable by running `python -m primeagent run` instead of `primeagent run`.
 
-    If that doesn't work, try uninstalling and reinstalling Aiexec with `uv pip install aiexec --pre -U`.
+    If that doesn't work, try uninstalling and reinstalling Primeagent with `uv pip install primeagent --pre -U`.
 
-* **Version conflict during installation**: Some version conflicts might have occurred during the installation process. To resolve this issue, reinstall Aiexec and its dependencies by running `python -m pip install aiexec --pre -U --force-reinstall`.
+* **Version conflict during installation**: Some version conflicts might have occurred during the installation process. To resolve this issue, reinstall Primeagent and its dependencies by running `python -m pip install primeagent --pre -U --force-reinstall`.
 
 ### Environment variables not available from terminal
 
-Environment variables set in your terminal aren't automatically available to GUI-based applications like Aiexec Desktop when launched through the Finder or the Start Menu.
-To set environment variables for Aiexec Desktop, see [Set environment variables for Aiexec Desktop](/environment-variables#set-environment-variables-for-aiexec-desktop).
+Environment variables set in your terminal aren't automatically available to GUI-based applications like Primeagent Desktop when launched through the Finder or the Start Menu.
+To set environment variables for Primeagent Desktop, see [Set environment variables for Primeagent Desktop](/environment-variables#set-environment-variables-for-primeagent-desktop).
 
-### Access Aiexec Desktop startup logs
+### Access Primeagent Desktop startup logs
 
-If you encounter issues with Aiexec Desktop, you might need to [access Aiexec Desktop startup logs](/logging#desktop-logs) for debugging.
+If you encounter issues with Primeagent Desktop, you might need to [access Primeagent Desktop startup logs](/logging#desktop-logs) for debugging.
 
 ### User not found or inactive when running multiple flows
 
-When running multiple local Aiexec OSS instances on different ports, such as `localhost:7860` and `localhost:7861`, you might see authentication errors in the logs.
+When running multiple local Primeagent OSS instances on different ports, such as `localhost:7860` and `localhost:7861`, you might see authentication errors in the logs.
 For example:
 
 ```text
 [07/22/25 10:57:07] INFO     2025-07-22 10:57:07 - INFO     - utils - User not found or inactive.
 ```
 
-To resolve this error, use separate browser instances or browser profiles to access each Aiexec instance.
+To resolve this error, use separate browser instances or browser profiles to access each Primeagent instance.
 
 ### Package is not installed
 
-In Aiexec OSS, you can follow the error message's instructions to install the missing dependency.
+In Primeagent OSS, you can follow the error message's instructions to install the missing dependency.
 
-To manage dependencies in Aiexec Desktop, see [Install custom dependencies in Aiexec Desktop](/install-custom-dependencies#aiexec-desktop).
+To manage dependencies in Primeagent Desktop, see [Install custom dependencies in Primeagent Desktop](/install-custom-dependencies#primeagent-desktop).
 
-## Aiexec upgrade issues
+## Primeagent upgrade issues
 
-The following issues can occur when upgrading your Aiexec version.
+The following issues can occur when upgrading your Primeagent version.
 
-For information about managing Aiexec versions, see [Install Aiexec](/get-started-installation).
+For information about managing Primeagent versions, see [Install Primeagent](/get-started-installation).
 
 ### Something went wrong running migrations
 
-The following error can occur during Aiexec upgrades when the new version can't override `aiexec-pre.db` in the Aiexec cache folder:
+The following error can occur during Primeagent upgrades when the new version can't override `primeagent-pre.db` in the Primeagent cache folder:
 
 ```bash
-> Something went wrong running migrations. Please, run 'aiexec migration --fix'
+> Something went wrong running migrations. Please, run 'primeagent migration --fix'
 ```
 
-To resolve this error, clear the cache by deleting the contents of your Aiexec cache folder.
+To resolve this error, clear the cache by deleting the contents of your Primeagent cache folder.
 The filepath depends on your operating system, installation type, and configuration options.
 For more information and default filepaths, see [Memory management options](/memory).
 
@@ -170,14 +170,14 @@ Clearing the cache erases your settings.
 If you want to retain your settings files, create a backup of those files before clearing the cache folder.
 :::
 
-### Aiexec Desktop says it is running the latest version, but it is actually behind
+### Primeagent Desktop says it is running the latest version, but it is actually behind
 
-If you are running Aiexec Desktop version 1.4.2 or earlier, the UI might incorrectly report that you are on the latest version when a newer version is available.
+If you are running Primeagent Desktop version 1.4.2 or earlier, the UI might incorrectly report that you are on the latest version when a newer version is available.
 
 This happens because the automatic update feature in the UI was introduced in version 1.4.2.
 Earlier versions can't automatically detect or apply updates.
 
-To resolve this issue, uninstall Aiexec Desktop, and then [download and install the latest version of Aiexec Desktop](https://aiexec.khulnasoft.com/desktop).
+To resolve this issue, uninstall Primeagent Desktop, and then [download and install the latest version of Primeagent Desktop](https://primeagent.khulnasoft.com/desktop).
 
 ### 422 error when freezing components after upgrading Pydantic/FastAPI dependencies
 
@@ -185,31 +185,31 @@ If you locally upgrade your Pydantic and FastAPI dependencies, you may encounter
 
 This error occurs due to changes in how request bodies are handled in newer versions of these dependencies.
 
-If you're experiencing this issue, update your Aiexec installation to version 1.6.5 or later, which includes a fix for this issue.
+If you're experiencing this issue, update your Primeagent installation to version 1.6.5 or later, which includes a fix for this issue.
 
 ```bash
-uv pip install aiexec -U
+uv pip install primeagent -U
 ```
 
-## Aiexec uninstall issues
+## Primeagent uninstall issues
 
-The following issues can occur when uninstalling Aiexec.
+The following issues can occur when uninstalling Primeagent.
 
-### Dot directory isn't deleted when uninstalling Aiexec Desktop on macOS
+### Dot directory isn't deleted when uninstalling Primeagent Desktop on macOS
 
-On macOS, uninstalling Aiexec Desktop deletes the `.app` file but doesn't delete files in `~/.aiexec`, which includes files generated during usage like cache and settings.
+On macOS, uninstalling Primeagent Desktop deletes the `.app` file but doesn't delete files in `~/.primeagent`, which includes files generated during usage like cache and settings.
 
-If you reinstall Aiexec Desktop, it starts with the existing data from the previous installation.
+If you reinstall Primeagent Desktop, it starts with the existing data from the previous installation.
 
-To fully remove a Aiexec Desktop macOS installation, you must also delete `~/.aiexec`:
+To fully remove a Primeagent Desktop macOS installation, you must also delete `~/.primeagent`:
 
     ```bash
-    rm -rf .aiexec
+    rm -rf .primeagent
     ```
 
-## Aiexec MCP issues {#mcp}
+## Primeagent MCP issues {#mcp}
 
-The following issues can occur when using Aiexec as an MCP server or client.
+The following issues can occur when using Primeagent as an MCP server or client.
 
 ### Claude for Desktop doesn't use MCP server tools correctly
 
@@ -219,7 +219,7 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
 
     To find your `npx` path, run `which npx`.
 
-2. In your `claude_desktop_config.json` file, add the path to your Aiexec MCP server configuration, as shown in the following examples.
+2. In your `claude_desktop_config.json` file, add the path to your Primeagent MCP server configuration, as shown in the following examples.
 
     <Tabs>
     <TabItem value="uvx" label="uvx" default>
@@ -231,7 +231,7 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
           "command": "PATH_TO_UVX",
           "args": [
             "mcp-proxy",
-            "http://AIEXEC_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/sse"
+            "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/sse"
           ]
         }
       }
@@ -250,7 +250,7 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
             "-y",
             "supergateway",
             "--sse",
-            "http://AIEXEC_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/sse"
+            "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/sse"
           ]
         }
       }
@@ -267,18 +267,18 @@ This is a known issue when using MCP Tools with browser navigation actions, such
 This issue occurs because the MCP server runs from a Python process, which prevents it from opening browser windows in WSL or Windows.
 
 To work around this issue, use the standalone MCP server approach documented in the [Playwright MCP repository](https://github.com/microsoft/playwright-mcp?tab=readme-ov-file#standalone-mcp-server).
-After the server is up and running, you can add it as an SSE server in Aiexec.
+After the server is up and running, you can add it as an SSE server in Primeagent.
 For other browser navigation tools, see the provider's documentation for specific troubleshooting guidance.
 
 ### "No tools or prompts connected" on MCP servers in mixed Windows/WSL environments
 
-If you encounter "No tools or prompts connected" errors or connection failures when using Aiexec Desktop as an MCP server with clients running in different environments, such as Aiexec on a Windows host and an MCP client in WSL, this is due to network isolation between Windows and WSL environments.
+If you encounter "No tools or prompts connected" errors or connection failures when using Primeagent Desktop as an MCP server with clients running in different environments, such as Primeagent on a Windows host and an MCP client in WSL, this is due to network isolation between Windows and WSL environments.
 
-WSL cannot directly access Windows localhost services, and Aiexec running on a Windows host is not accessible from WSL clients at `localhost:7860`.
+WSL cannot directly access Windows localhost services, and Primeagent running on a Windows host is not accessible from WSL clients at `localhost:7860`.
 
 To work around this issue, run the server and host in the same operating environment.
 
-Alternatively, configure Aiexec Desktop to accept connections from WSL at the default Windows IP address of `10.255.255.254:7860` instead of `localhost`.
+Alternatively, configure Primeagent Desktop to accept connections from WSL at the default Windows IP address of `10.255.255.254:7860` instead of `localhost`.
 
 ## Token length limit errors in Embedding Model components
 
@@ -287,17 +287,17 @@ For more information, see [Tokenization errors due to chunk size](/components-pr
 
 ## Custom components and integrations issues
 
-For troubleshooting advice for a third-party integration, see the information about that integration in the Aiexec documentation and the provider's documentation.
+For troubleshooting advice for a third-party integration, see the information about that integration in the Primeagent documentation and the provider's documentation.
 
 If you are building a custom component, see [Error handling and logging for custom Python components](/components-custom-components#error-handling-and-logging).
 
 ### Custom components not appearing in the visual editor
 
-If your custom components are not appearing in the Aiexec visual editor, try the following troubleshooting steps:
+If your custom components are not appearing in the Primeagent visual editor, try the following troubleshooting steps:
 
-1. Ensure your components follow the [required directory structure](https://aiexec-docs.khulnasoft.com/components-custom-components#directory-structure-requirements).
+1. Ensure your components follow the [required directory structure](https://primeagent-docs.khulnasoft.com/components-custom-components#directory-structure-requirements).
     ```
-    /your/custom/components/path/       # Base directory set by AIEXEC_COMPONENTS_PATH
+    /your/custom/components/path/       # Base directory set by PRIMEAGENT_COMPONENTS_PATH
         └── category_name/              # Required category subfolder that determines menu name
             ├── __init__.py             # Required
             └── custom_component.py     # Component file
@@ -306,16 +306,16 @@ If your custom components are not appearing in the Aiexec visual editor, try the
 2. Verify each category directory includes an `__init__.py` file.
 This is required for Python to recognize the directory as a module.
 
-3. Use the command line argument instead of the environment variable for `AIEXEC_COMPONENTS_PATH`.
-If you're using the `AIEXEC_COMPONENTS_PATH` environment variable and components aren't loading, try the `--components-path` command line argument instead:
+3. Use the command line argument instead of the environment variable for `PRIMEAGENT_COMPONENTS_PATH`.
+If you're using the `PRIMEAGENT_COMPONENTS_PATH` environment variable and components aren't loading, try the `--components-path` command line argument instead:
 
     ```bash
-    uv run aiexec run --components-path /path/to/your/custom/components
+    uv run primeagent run --components-path /path/to/your/custom/components
     ```
 
-If you continue to experience issues, please [report them on GitHub](https://github.com/khulnasoft/aiexec/issues) with details about your directory structure and component setup.
+If you continue to experience issues, please [report them on GitHub](https://github.com/khulnasoft/primeagent/issues) with details about your directory structure and component setup.
 
 ## See also
 
-- [Aiexec GitHub Issues and Discussions](/contributing-github-issues)
-- [Aiexec telemetry](/contributing-telemetry)
+- [Primeagent GitHub Issues and Discussions](/contributing-github-issues)
+- [Primeagent telemetry](/contributing-telemetry)

@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import MCPAiexec from "@/assets/MCPAiexec.png";
+import MCPPrimeagent from "@/assets/MCPPrimeagent.png";
 import ForwardedIconComponent from "@/components/common/genericIconComponent";
 import { Button } from "@/components/ui/button";
 import { useCustomNavigate } from "@/customization/hooks/use-custom-navigate";
@@ -22,7 +22,7 @@ export const MCPServerNotice: FC<{
           <div className="font-mono text-sm text-muted-foreground">New</div>
           <div className="">Projects as MCP Servers</div>
         </div>
-        <img src={MCPAiexec} alt="MCP Notice Modal" className="rounded-xl" />
+        <img src={MCPPrimeagent} alt="MCP Notice Modal" className="rounded-xl" />
         <p className="text-sm text-secondary-foreground">
           Expose flows as tools from clients like Cursor or Claude.
         </p>

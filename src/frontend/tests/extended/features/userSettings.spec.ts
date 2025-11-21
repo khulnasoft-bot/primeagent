@@ -183,8 +183,8 @@ test(
     });
     await page.getByTestId("user-profile-settings").click();
     await page.getByText("Settings").click();
-    await page.getByText("Aiexec API").first().click();
-    await page.getByText("Aiexec API", { exact: true }).nth(1).isVisible();
+    await page.getByText("Primeagent API").first().click();
+    await page.getByText("Primeagent API", { exact: true }).nth(1).isVisible();
     await page.getByText("Add New").click();
     await page.getByPlaceholder("My API Key").isVisible();
 

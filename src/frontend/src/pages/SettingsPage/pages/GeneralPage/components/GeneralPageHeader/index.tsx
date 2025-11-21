@@ -16,7 +16,7 @@ const GeneralPageHeaderComponent = () => {
             />
           </h2>
           <p className="text-sm text-muted-foreground">
-            Manage settings related to Aiexec and your account.
+            Manage settings related to Primeagent and your account.
           </p>
         </div>
       </div>

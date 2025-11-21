@@ -8,7 +8,7 @@ export const CustomStoreSidebar = (
 
   if (hasApiKey) {
     items.push({
-      title: "Aiexec API Keys",
+      title: "Primeagent API Keys",
       href: "/settings/api-keys",
       icon: (
         <ForwardedIconComponent
@@ -21,7 +21,7 @@ export const CustomStoreSidebar = (
 
   if (hasStore) {
     items.push({
-      title: "Aiexec Store",
+      title: "Primeagent Store",
       href: "/settings/store",
       icon: (
         <ForwardedIconComponent

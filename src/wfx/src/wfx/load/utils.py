@@ -8,11 +8,11 @@ class UploadError(Exception):
 
 
 def upload(file_path: str, host: str, flow_id: str):
-    """Upload a file to Aiexec and return the file path.
+    """Upload a file to Primeagent and return the file path.
 
     Args:
         file_path (str): The path to the file to be uploaded.
-        host (str): The host URL of Aiexec.
+        host (str): The host URL of Primeagent.
         flow_id (UUID): The ID of the flow to which the file belongs.
 
     Returns:
@@ -36,12 +36,12 @@ def upload(file_path: str, host: str, flow_id: str):
 
 
 def upload_file(file_path: str, host: str, flow_id: str, components: list[str], tweaks: dict | None = None):
-    """Upload a file to Aiexec and return the file path.
+    """Upload a file to Primeagent and return the file path.
 
     Args:
         file_path (str): The path to the file to be uploaded.
-        host (str): The host URL of Aiexec.
-        port (int): The port number of Aiexec.
+        host (str): The host URL of Primeagent.
+        port (int): The port number of Primeagent.
         flow_id (UUID): The ID of the flow to which the file belongs.
         components (str): List of component IDs or names that need the file.
         tweaks (dict): A dictionary of tweaks to be applied to the file.

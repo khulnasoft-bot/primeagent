@@ -1,4 +1,4 @@
-"""Tests for dynamic import refactor in aiexec components.
+"""Tests for dynamic import refactor in primeagent components.
 
 This module tests the new langchain-style dynamic import system to ensure:
 1. Lazy loading works correctly
@@ -145,7 +145,7 @@ class TestComponentDynamicImports:
 
     def test_backward_compatibility(self):
         """Test that existing import patterns work correctly."""
-        # These imports should work since aiexec is installed with dependencies
+        # These imports should work since primeagent is installed with dependencies
         # Test that the import mechanism correctly handles the components
 
         from wfx.components.agents import AgentComponent

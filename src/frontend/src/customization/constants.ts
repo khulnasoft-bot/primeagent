@@ -1,4 +1,4 @@
-//Aiexec Desktop Base URL
+//Primeagent Desktop Base URL
 export const baseURL = "";
 
 export const customDefaultShortcuts = [

@@ -1,1 +1,1 @@
-"""Tests package for aiexec."""
+"""Tests package for primeagent."""

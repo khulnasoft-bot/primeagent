@@ -10,7 +10,7 @@ class LoopComponent(Component):
     description = (
         "Iterates over a list of Data objects, outputting one item at a time and aggregating results from loop inputs."
     )
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-logic#loop"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-logic#loop"
     icon = "infinity"
 
     inputs = [

@@ -2,7 +2,7 @@ import asyncio
 import inspect
 from typing import Any
 
-from aiexec.api.v1.schemas import CustomComponentRequest, UpdateCustomComponentRequest
+from primeagent.api.v1.schemas import CustomComponentRequest, UpdateCustomComponentRequest
 from anyio import Path
 from fastapi import status
 from httpx import AsyncClient

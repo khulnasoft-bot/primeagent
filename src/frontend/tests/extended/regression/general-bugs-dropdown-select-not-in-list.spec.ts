@@ -31,7 +31,7 @@ test(
     await page.getByTestId("dropdown_search_input").click();
     await page
       .getByTestId("dropdown_search_input")
-      .fill("this is a test aiexec");
+      .fill("this is a test primeagent");
     await page.keyboard.press("Enter");
 
     await page.waitForTimeout(500);
@@ -53,7 +53,7 @@ test(
     await page.getByTestId("dropdown_search_input").click();
     await page
       .getByTestId("dropdown_search_input")
-      .fill("this is a test aiexec");
+      .fill("this is a test primeagent");
     await page.keyboard.press("Enter");
 
     await page.waitForTimeout(500);

@@ -1,15 +1,15 @@
 ---
-title: Deploy the Aiexec production environment on Kubernetes
+title: Deploy the Primeagent production environment on Kubernetes
 slug: /deployment-kubernetes-prod
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The [Aiexec runtime Helm chart](https://github.com/khulnasoft/aiexec/blob/main/charts/aiexec-runtime) is tailored for deploying applications in a production environment. It is focused on stability, performance, isolation, and security to ensure that applications run reliably and efficiently.
+The [Primeagent runtime Helm chart](https://github.com/khulnasoft/primeagent/blob/main/charts/primeagent-runtime) is tailored for deploying applications in a production environment. It is focused on stability, performance, isolation, and security to ensure that applications run reliably and efficiently.
 
 :::warning
-For security reasons, the default Aiexec runtime Helm chart sets [`readOnlyRootFilesystem: true`](https://github.com/khulnasoft/aiexec/blob/main/charts/aiexec-runtime/values.yaml#L46). This setting prevents modifications to the container's root filesystem at runtime, which is a recommended security measure in production environments.
+For security reasons, the default Primeagent runtime Helm chart sets [`readOnlyRootFilesystem: true`](https://github.com/khulnasoft/primeagent/blob/main/charts/primeagent-runtime/values.yaml#L46). This setting prevents modifications to the container's root filesystem at runtime, which is a recommended security measure in production environments.
 
 If `readOnlyRootFilesystem` is disabled (`false`), it degrades your deployment's security posture. Only disable this setting if you understand the security implications and you have implemented other security measures.
 
@@ -22,24 +22,24 @@ For more information, see the [Kubernetes documentation](https://kubernetes.io/d
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [Helm](https://helm.sh/docs/intro/install/)
 
-## Install the Aiexec runtime Helm chart
+## Install the Primeagent runtime Helm chart
 
 1. Add the repository to Helm:
 
     ```shell
-    helm repo add aiexec https://khulnasoft.github.io/aiexec
+    helm repo add primeagent https://khulnasoft.github.io/primeagent
     helm repo update
     ```
 
-2. Install the Aiexec app with the default options in the `aiexec` namespace.
+2. Install the Primeagent app with the default options in the `primeagent` namespace.
 
     <Tabs groupId="">
     <TabItem value="Install chart with custom image" label="Install chart with custom image" default>
 
-    If you have a [custom image with packaged flows](/deployment-docker#package-your-flow-as-a-docker-image), you can deploy Aiexec by overriding the default [`values.yaml`](https://github.com/khulnasoft/aiexec/blob/main/charts/aiexec-runtime/values.yaml) with the `--set` flag:
+    If you have a [custom image with packaged flows](/deployment-docker#package-your-flow-as-a-docker-image), you can deploy Primeagent by overriding the default [`values.yaml`](https://github.com/khulnasoft/primeagent/blob/main/charts/primeagent-runtime/values.yaml) with the `--set` flag:
 
     ```shell
-    helm install my-aiexec-app aiexec/aiexec-runtime -n aiexec --create-namespace --set image.repository=myuser/aiexec-hello-world --set image.tag=1.0.0
+    helm install my-primeagent-app primeagent/primeagent-runtime -n primeagent --create-namespace --set image.repository=myuser/primeagent-hello-world --set image.tag=1.0.0
     ```
 
     </TabItem>
@@ -48,14 +48,14 @@ For more information, see the [Kubernetes documentation](https://kubernetes.io/d
     Install the chart and download flows from a URL with the `--set` flag:
 
     ```shell
-    helm install my-aiexec-app-with-flow aiexec/aiexec-runtime \
-      -n aiexec \
+    helm install my-primeagent-app-with-flow primeagent/primeagent-runtime \
+      -n primeagent \
       --create-namespace \
-      --set 'downloadFlows.flows[0].url=https://raw.githubusercontent.com/khulnasoft/aiexec/dev/tests/data/basic_example.json'
+      --set 'downloadFlows.flows[0].url=https://raw.githubusercontent.com/khulnasoft/primeagent/dev/tests/data/basic_example.json'
     ```
 
     If your shell requires escaping square brackets, modify the `--set` path as needed.
-    For example, `--set 'downloadFlows.flows\[0\].url=https://raw.githubusercontent.com/khulnasoft/aiexec/dev/tests/data/basic_example.json'`.
+    For example, `--set 'downloadFlows.flows\[0\].url=https://raw.githubusercontent.com/khulnasoft/primeagent/dev/tests/data/basic_example.json'`.
 
     </TabItem>
     </Tabs>
@@ -63,23 +63,23 @@ For more information, see the [Kubernetes documentation](https://kubernetes.io/d
 3. Check the status of the pods:
 
     ```shell
-    kubectl get pods -n aiexec
+    kubectl get pods -n primeagent
     ```
 
-## Access the Aiexec runtime
+## Access the Primeagent runtime
 
 1. Get your service name:
 
     ```shell
-    kubectl get svc -n aiexec
+    kubectl get svc -n primeagent
     ```
 
-    The service name is your release name suffixed by `-aiexec-runtime`. For example, if you used `helm install my-aiexec-app-with-flow`, then the service name is `my-aiexec-app-with-flow-aiexec-runtime`.
+    The service name is your release name suffixed by `-primeagent-runtime`. For example, if you used `helm install my-primeagent-app-with-flow`, then the service name is `my-primeagent-app-with-flow-primeagent-runtime`.
 
-2. Enable port forwarding to access Aiexec from your local machine:
+2. Enable port forwarding to access Primeagent from your local machine:
 
     ```shell
-    kubectl port-forward -n aiexec svc/my-aiexec-app-with-flow-aiexec-runtime 7860:7860
+    kubectl port-forward -n primeagent svc/my-primeagent-app-with-flow-primeagent-runtime 7860:7860
     ```
 
 3. Confirm you can access the API by calling `http://localhost:7860/api/v1/flows/`:
@@ -110,12 +110,12 @@ The following example gets the first flow ID from the flows list, and then runs 
 
 ## Configure secrets and environment variables
 
-Use the `.env` section of the Aiexec runtime Helm chart's [`values.yaml`](https://github.com/khulnasoft/aiexec/blob/main/charts/aiexec-runtime/values.yaml) file to define environment variables for your Aiexec deployment.
-This includes built-in [Aiexec environment variables](/environment-variables), as well as [global variables](/configuration-global-variables) used by your flows.
+Use the `.env` section of the Primeagent runtime Helm chart's [`values.yaml`](https://github.com/khulnasoft/primeagent/blob/main/charts/primeagent-runtime/values.yaml) file to define environment variables for your Primeagent deployment.
+This includes built-in [Primeagent environment variables](/environment-variables), as well as [global variables](/configuration-global-variables) used by your flows.
 
-Aiexec can source global variables from your runtime environment, such as Kubernetes secrets referenced in `values.yaml`.
-For example, the Aiexec runtime Helm chart's [example flow JSON](https://raw.githubusercontent.com/khulnasoft/aiexec/refs/heads/main/examples/flows/basic-prompting-hello-world.json) uses a global variable that is a secret.
-If you want to run this flow in your Aiexec deployment on Kubernetes, you need to include the secret in your runtime configuration.
+Primeagent can source global variables from your runtime environment, such as Kubernetes secrets referenced in `values.yaml`.
+For example, the Primeagent runtime Helm chart's [example flow JSON](https://raw.githubusercontent.com/khulnasoft/primeagent/refs/heads/main/examples/flows/basic-prompting-hello-world.json) uses a global variable that is a secret.
+If you want to run this flow in your Primeagent deployment on Kubernetes, you need to include the secret in your runtime configuration.
 
 :::tip
 When you export flows as JSON files, it's recommended to omit secrets.
@@ -147,14 +147,14 @@ You can use `kubectl` and `helm` commands to create and set secrets:
 
     ```shell
     kubectl create secret generic openai-credentials \
-      --namespace aiexec \
+      --namespace primeagent \
       --from-literal=OPENAI_API_KEY=sk...
     ```
 
 2. Verify the secret exists:
 
     ```shell
-    kubectl get secrets -n aiexec openai-credentials
+    kubectl get secrets -n primeagent openai-credentials
     ```
 
     The result is encrypted.
@@ -162,7 +162,7 @@ You can use `kubectl` and `helm` commands to create and set secrets:
 3. Upgrade the Helm release to use the secret:
 
     ```shell
-    helm upgrade my-aiexec-app-image aiexec/aiexec-runtime -n aiexec \
+    helm upgrade my-primeagent-app-image primeagent/primeagent-runtime -n primeagent \
       --reuse-values \
       --set "extraEnv[0].name=OPENAI_API_KEY" \
       --set "extraEnv[0].valueFrom.secretKeyRef.name=openai-credentials" \
@@ -175,19 +175,19 @@ You can use `kubectl` and `helm` commands to create and set secrets:
 
 ### Set the log level and other configuration variables
 
-For non-sensitive variables, such as `AIEXEC_LOG_LEVEL`, you can set the value directly in `values.yaml`:
+For non-sensitive variables, such as `PRIMEAGENT_LOG_LEVEL`, you can set the value directly in `values.yaml`:
 
 ```yaml
 env:
-  - name: AIEXEC_LOG_LEVEL
+  - name: PRIMEAGENT_LOG_LEVEL
     value: "INFO"
 ```
 
 ## Configure scaling
 
-Use `replicaCount` and `resources` in the Aiexec runtime Helm chart's [`values.yaml`](https://github.com/khulnasoft/aiexec/blob/main/charts/aiexec-runtime/values.yaml) file to configure scaling:
+Use `replicaCount` and `resources` in the Primeagent runtime Helm chart's [`values.yaml`](https://github.com/khulnasoft/primeagent/blob/main/charts/primeagent-runtime/values.yaml) file to configure scaling:
 
-* **Horizontal scaling**: Use `replicaCount` to set the number of replicas for your Aiexec deployment.
+* **Horizontal scaling**: Use `replicaCount` to set the number of replicas for your Primeagent deployment.
 
     ```yaml
     replicaCount: 3
@@ -204,5 +204,5 @@ Use `replicaCount` and `resources` in the Aiexec runtime Helm chart's [`values.y
 
 ## See also
 
-* [Best practices for Aiexec on Kubernetes](/deployment-prod-best-practices)
-* [Aiexec Helm Charts repository](https://github.com/khulnasoft/aiexec)
+* [Best practices for Primeagent on Kubernetes](/deployment-prod-best-practices)
+* [Primeagent Helm Charts repository](https://github.com/khulnasoft/primeagent)

@@ -48,6 +48,6 @@ test.skip(
 
     expect(await page.locator(".markdown").count()).toBeGreaterThan(0);
 
-    expect(await page.getByText("Aiexec").count()).toBeGreaterThan(2);
+    expect(await page.getByText("Primeagent").count()).toBeGreaterThan(2);
   },
 );

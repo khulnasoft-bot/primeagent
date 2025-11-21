@@ -12,17 +12,17 @@ from uuid import UUID, uuid4
 import anyio
 import orjson
 import pytest
-from aiexec.initial_setup.constants import STARTER_FOLDER_NAME
-from aiexec.main import create_app
-from aiexec.services.auth.utils import get_password_hash
-from aiexec.services.database.models.api_key.model import ApiKey
-from aiexec.services.database.models.flow.model import Flow, FlowCreate
-from aiexec.services.database.models.folder.model import Folder
-from aiexec.services.database.models.transactions.model import TransactionTable
-from aiexec.services.database.models.user.model import User, UserCreate, UserRead
-from aiexec.services.database.models.vertex_builds.crud import delete_vertex_builds_by_flow_id
-from aiexec.services.database.utils import session_getter
-from aiexec.services.deps import get_db_service, session_scope
+from primeagent.initial_setup.constants import STARTER_FOLDER_NAME
+from primeagent.main import create_app
+from primeagent.services.auth.utils import get_password_hash
+from primeagent.services.database.models.api_key.model import ApiKey
+from primeagent.services.database.models.flow.model import Flow, FlowCreate
+from primeagent.services.database.models.folder.model import Folder
+from primeagent.services.database.models.transactions.model import TransactionTable
+from primeagent.services.database.models.user.model import User, UserCreate, UserRead
+from primeagent.services.database.models.vertex_builds.crud import delete_vertex_builds_by_flow_id
+from primeagent.services.database.utils import session_getter
+from primeagent.services.deps import get_db_service, session_scope
 from asgi_lifespan import LifespanManager
 from blockbuster import blockbuster_ctx
 from dotenv import load_dotenv
@@ -70,7 +70,7 @@ def blockbuster(request):
             (
                 bb.functions["os.stat"]
                 # TODO: make set_class_code async
-                .can_block_in("aiexec/custom/custom_component/component.py", "set_class_code")
+                .can_block_in("primeagent/custom/custom_component/component.py", "set_class_code")
                 # TODO: follow discussion in https://github.com/encode/httpx/discussions/3456
                 .can_block_in("httpx/_client.py", "_init_transport")
                 .can_block_in("rich/traceback.py", "_render_stack")
@@ -246,12 +246,12 @@ def load_flows_dir():
 
 @pytest.fixture(name="distributed_env")
 def _setup_env(monkeypatch):
-    monkeypatch.setenv("AIEXEC_CACHE_TYPE", "redis")
-    monkeypatch.setenv("AIEXEC_REDIS_HOST", "result_backend")
-    monkeypatch.setenv("AIEXEC_REDIS_PORT", "6379")
-    monkeypatch.setenv("AIEXEC_REDIS_DB", "0")
-    monkeypatch.setenv("AIEXEC_REDIS_EXPIRE", "3600")
-    monkeypatch.setenv("AIEXEC_REDIS_PASSWORD", "")
+    monkeypatch.setenv("PRIMEAGENT_CACHE_TYPE", "redis")
+    monkeypatch.setenv("PRIMEAGENT_REDIS_HOST", "result_backend")
+    monkeypatch.setenv("PRIMEAGENT_REDIS_PORT", "6379")
+    monkeypatch.setenv("PRIMEAGENT_REDIS_DB", "0")
+    monkeypatch.setenv("PRIMEAGENT_REDIS_EXPIRE", "3600")
+    monkeypatch.setenv("PRIMEAGENT_REDIS_PASSWORD", "")
     monkeypatch.setenv("FLOWER_UNAUTHENTICATED_API", "True")
     monkeypatch.setenv("BROKER_URL", "redis://result_backend:6379/0")
     monkeypatch.setenv("RESULT_BACKEND", "redis://result_backend:6379/0")
@@ -265,16 +265,16 @@ def distributed_client_fixture(
     distributed_env,  # noqa: ARG001
 ):
     # Here we load the .env from ../deploy/.env
-    from aiexec.core import celery_app
+    from primeagent.core import celery_app
 
     db_dir = tempfile.mkdtemp()
     try:
         db_path = Path(db_dir) / "test.db"
-        monkeypatch.setenv("AIEXEC_DATABASE_URL", f"sqlite:///{db_path}")
-        monkeypatch.setenv("AIEXEC_AUTO_LOGIN", "false")
-        # monkeypatch aiexec.services.task.manager.USE_CELERY to True
+        monkeypatch.setenv("PRIMEAGENT_DATABASE_URL", f"sqlite:///{db_path}")
+        monkeypatch.setenv("PRIMEAGENT_AUTO_LOGIN", "false")
+        # monkeypatch primeagent.services.task.manager.USE_CELERY to True
         # monkeypatch.setattr(manager, "USE_CELERY", True)
-        monkeypatch.setattr(celery_app, "celery_app", celery_app.make_celery("aiexec", Config))
+        monkeypatch.setattr(celery_app, "celery_app", celery_app.make_celery("primeagent", Config))
 
         # def get_session_override():
         #     return session
@@ -382,14 +382,14 @@ def json_loop_test():
 
 @pytest.fixture(autouse=True)
 def deactivate_tracing(monkeypatch):
-    monkeypatch.setenv("AIEXEC_DEACTIVATE_TRACING", "true")
+    monkeypatch.setenv("PRIMEAGENT_DEACTIVATE_TRACING", "true")
     yield
     monkeypatch.undo()
 
 
 @pytest.fixture
 def use_noop_session(monkeypatch):
-    monkeypatch.setenv("AIEXEC_USE_NOOP_DATABASE", "1")
+    monkeypatch.setenv("PRIMEAGENT_USE_NOOP_DATABASE", "1")
     # Optionally patch the Settings object if needed
     # from wfx.services.settings.base import Settings
     # monkeypatch.setattr(Settings, "use_noop_database", True)
@@ -412,14 +412,14 @@ async def client_fixture(
         def init_app():
             db_dir = tempfile.mkdtemp()
             db_path = Path(db_dir) / "test.db"
-            monkeypatch.setenv("AIEXEC_DATABASE_URL", f"sqlite:///{db_path}")
-            monkeypatch.setenv("AIEXEC_AUTO_LOGIN", "false")
+            monkeypatch.setenv("PRIMEAGENT_DATABASE_URL", f"sqlite:///{db_path}")
+            monkeypatch.setenv("PRIMEAGENT_AUTO_LOGIN", "false")
             if "load_flows" in request.keywords:
                 shutil.copyfile(
                     pytest.BASIC_EXAMPLE_PATH, Path(load_flows_dir) / "c54f9130-f2fa-4a3e-b22a-3856d946351b.json"
                 )
-                monkeypatch.setenv("AIEXEC_LOAD_FLOWS_PATH", load_flows_dir)
-                monkeypatch.setenv("AIEXEC_AUTO_LOGIN", "true")
+                monkeypatch.setenv("PRIMEAGENT_LOAD_FLOWS_PATH", load_flows_dir)
+                monkeypatch.setenv("PRIMEAGENT_AUTO_LOGIN", "true")
             # Clear the services cache
             from wfx.services.manager import get_service_manager
 
@@ -447,7 +447,7 @@ async def client_fixture(
 
 @pytest.fixture
 def runner(tmp_path):
-    env = {"AIEXEC_DATABASE_URL": f"sqlite:///{tmp_path}/test.db"}
+    env = {"PRIMEAGENT_DATABASE_URL": f"sqlite:///{tmp_path}/test.db"}
     return CliRunner(env=env)
 
 

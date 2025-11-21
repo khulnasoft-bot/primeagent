@@ -4,7 +4,7 @@ from uuid import UUID, uuid4
 
 import orjson
 import pytest
-from aiexec.services.database.models.flow.model import FlowCreate
+from primeagent.services.database.models.flow.model import FlowCreate
 from fastapi import status
 from httpx import AsyncClient
 from wfx.custom.directory_reader.directory_reader import DirectoryReader

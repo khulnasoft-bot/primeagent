@@ -198,7 +198,7 @@ async function pollBuildEvents(
       const errorData = await response.json().catch(() => ({}));
       throw new Error(
         errorData.detail ||
-          "Aiexec was not able to connect to the server. Please make sure your connection is working properly.",
+          "Primeagent was not able to connect to the server. Please make sure your connection is working properly.",
       );
     }
 
@@ -465,7 +465,7 @@ export async function buildFlowVertices({
     }
     onBuildError!("Error Building Flow", [
       (error as Error).message ||
-        "Aiexec was not able to connect to the server. Please make sure your connection is working properly.",
+        "Primeagent was not able to connect to the server. Please make sure your connection is working properly.",
     ]);
     throw error;
   }

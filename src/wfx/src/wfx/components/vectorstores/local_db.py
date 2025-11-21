@@ -36,7 +36,7 @@ class LocalDBComponent(LCVectorStoreComponent):
         MessageTextInput(
             name="collection_name",
             display_name="Collection Name",
-            value="aiexec",
+            value="primeagent",
             required=True,
         ),
         MessageTextInput(

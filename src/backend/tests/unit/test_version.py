@@ -1,4 +1,4 @@
-from aiexec.utils.version import _compute_non_prerelease_version, get_version_info
+from primeagent.utils.version import _compute_non_prerelease_version, get_version_info
 
 
 def test_version():

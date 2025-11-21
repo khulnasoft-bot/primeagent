@@ -6,13 +6,13 @@ module.exports = {
       items: [
         {
           type: "doc",
-          id: "Get-Started/about-aiexec",
-          label: "About Aiexec"
+          id: "Get-Started/about-primeagent",
+          label: "About Primeagent"
         },
         {
           type: "doc",
           id: "Get-Started/get-started-installation",
-          label: "Install Aiexec"
+          label: "Install Primeagent"
         },
         {
           type: "doc",
@@ -52,7 +52,7 @@ module.exports = {
             {
               type: "doc",
               id: "Flows/concepts-publish",
-              label: "Trigger flows with the Aiexec API"
+              label: "Trigger flows with the Primeagent API"
             },
             {
               type: "doc",
@@ -148,7 +148,7 @@ module.exports = {
         {
           type: "doc",
           id: "Develop/data-types",
-          label: "Use Aiexec data types"
+          label: "Use Primeagent data types"
         },
         {
           type: "doc",
@@ -158,7 +158,7 @@ module.exports = {
         {
           type: "doc",
           id: "Develop/configuration-cli",
-          label: "Use the Aiexec CLI"
+          label: "Use the Primeagent CLI"
         },
       ],
     },
@@ -169,17 +169,17 @@ module.exports = {
         {
           type:"doc",
           id: "Deployment/deployment-overview",
-          label: "Aiexec deployment overview"
+          label: "Primeagent deployment overview"
         },
         {
           type: "doc",
           id: "Deployment/deployment-public-server",
-          label: "Deploy a public Aiexec server"
+          label: "Deploy a public Primeagent server"
         },
         {
           type: "doc",
           id: "Deployment/deployment-nginx-ssl",
-          label: "Deploy Aiexec with Nginx and SSL"
+          label: "Deploy Primeagent with Nginx and SSL"
         },
         {
           type: "category",
@@ -189,12 +189,12 @@ module.exports = {
             {
               type: "doc",
               id: "Deployment/deployment-docker",
-              label: "Aiexec Docker images"
+              label: "Primeagent Docker images"
             },
             {
               type: "doc",
               id: "Deployment/deployment-caddyfile",
-              label: "Deploy Aiexec on a remote server"
+              label: "Deploy Primeagent on a remote server"
             },
             {
               type: "category",
@@ -359,7 +359,7 @@ module.exports = {
         {
           type: "doc",
           id: "API-Reference/api-reference-api-examples",
-          label: "Get started with the Aiexec API",
+          label: "Get started with the Primeagent API",
         },
         {
           type: "doc",
@@ -413,7 +413,7 @@ module.exports = {
         },
         {
           type: "link",
-          label: "Aiexec API specification",
+          label: "Primeagent API specification",
           href: "/api",
         },
       ],
@@ -457,8 +457,8 @@ module.exports = {
         },
         {
           type: "doc",
-          id: "Support/luna-for-aiexec",
-          label: "IBM Elite Support for Aiexec",
+          id: "Support/luna-for-primeagent",
+          label: "IBM Elite Support for Primeagent",
         },
       ],
     },
@@ -466,7 +466,7 @@ module.exports = {
       type: "html",
       className: "sidebar-ad",
       value: `
-        <a href="https://www.aiexec.khulnasoft.com/desktop" target="_blank" class="menu__link">
+        <a href="https://www.primeagent.khulnasoft.com/desktop" target="_blank" class="menu__link">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clip-path="url(#clip0_1645_37)">
               <path d="M12 17H20C21.1046 17 22 16.1046 22 15V13M12 17H4C2.89543 17 2 16.1046 2 15V5C2 3.89543 2.89543 3 4 3H10M12 17V21M8 21H12M12 21H16M11.75 10.2917H13.2083L16.125 7.375H17.5833L20.5 4.45833H21.9583M16.125 11.75H17.5833L20.5 8.83333H21.9583M11.75 5.91667H13.2083L16.125 3H17.5833" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -479,7 +479,7 @@ module.exports = {
           </svg>
           <div class="sidebar-ad-text-container">
             <span class="sidebar-ad-text">Get started in minutes</span>
-            <span class="sidebar-ad-text sidebar-ad-text-gradient">Download Aiexec Desktop</span>
+            <span class="sidebar-ad-text sidebar-ad-text-gradient">Download Primeagent Desktop</span>
           </div>
         </a>
       `,

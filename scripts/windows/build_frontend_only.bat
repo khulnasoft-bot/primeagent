@@ -1,5 +1,5 @@
 @echo off
-echo Starting Aiexec frontend build process...
+echo Starting Primeagent frontend build process...
 
 REM Get the script directory and resolve project root
 for %%I in ("%~dp0..\..") do set "PROJECT_ROOT=%%~fI"
@@ -47,21 +47,21 @@ if not exist "src\frontend\build" (
     set BUILD_DIR=src\frontend\build
 )
 
-echo Copying from %BUILD_DIR% to src\backend\base\aiexec\frontend\
+echo Copying from %BUILD_DIR% to src\backend\base\primeagent\frontend\
 REM Create target directory if it doesn't exist
-if not exist "src\backend\base\aiexec\frontend" (
-    mkdir "src\backend\base\aiexec\frontend"
+if not exist "src\backend\base\primeagent\frontend" (
+    mkdir "src\backend\base\primeagent\frontend"
 )
 
 REM Remove existing files in target directory (FORCES CLEAN REPLACEMENT)
 echo Removing existing files from target directory...
-if exist "src\backend\base\aiexec\frontend\*" (
-    del /q /s "src\backend\base\aiexec\frontend\*"
-    for /d %%d in ("src\backend\base\aiexec\frontend\*") do rmdir /s /q "%%d"
+if exist "src\backend\base\primeagent\frontend\*" (
+    del /q /s "src\backend\base\primeagent\frontend\*"
+    for /d %%d in ("src\backend\base\primeagent\frontend\*") do rmdir /s /q "%%d"
 )
 
 REM Copy all files from build directory
-xcopy "%BUILD_DIR%\*" "src\backend\base\aiexec\frontend\" /e /i /y
+xcopy "%BUILD_DIR%\*" "src\backend\base\primeagent\frontend\" /e /i /y
 if errorlevel 1 (
     echo Error: Failed to copy build files
     pause
@@ -72,5 +72,5 @@ echo Build files copied successfully!
 
 echo.
 echo Frontend build process completed!
-echo You can now run the backend with: uv run aiexec run
+echo You can now run the backend with: uv run primeagent run
 pause

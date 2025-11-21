@@ -103,7 +103,7 @@ def test_graph_functional_start_end():
     assert results[-1] == Finish()
 
 
-# TODO: Move to Aiexec tests
+# TODO: Move to Primeagent tests
 @pytest.mark.skip(reason="Temporarily disabled")
 def test_graph_set_with_valid_component():
     from wfx.components.langchain_utilities.tool_calling import ToolCallingAgentComponent

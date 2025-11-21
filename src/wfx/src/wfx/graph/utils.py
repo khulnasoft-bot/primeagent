@@ -132,7 +132,7 @@ async def log_transaction(
             else:
                 return
 
-        # Log basic transaction info - concrete implementation should be in aiexec
+        # Log basic transaction info - concrete implementation should be in primeagent
         logger.debug(f"Transaction logged: vertex={source.id}, flow={flow_id}, status={status}")
     except Exception as exc:  # noqa: BLE001
         logger.debug(f"Error logging transaction: {exc!s}")
@@ -168,7 +168,7 @@ async def log_vertex_build(
             logger.debug(f"Invalid flow_id passed to log_vertex_build: {flow_id!r}")
             return
 
-        # Log basic vertex build info - concrete implementation should be in aiexec
+        # Log basic vertex build info - concrete implementation should be in primeagent
         logger.debug(f"Vertex build logged: vertex={vertex_id}, flow={flow_id}, valid={valid}")
     except Exception:  # noqa: BLE001
         logger.debug("Error logging vertex build")

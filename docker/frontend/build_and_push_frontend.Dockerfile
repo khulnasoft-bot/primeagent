@@ -16,11 +16,11 @@ RUN cd /frontend && npm install && npm run build
 ################################
 FROM nginxinc/nginx-unprivileged:stable-bookworm-perl AS runtime
 
-LABEL org.opencontainers.image.title=aiexec-frontend
-LABEL org.opencontainers.image.authors=['Aiexec']
+LABEL org.opencontainers.image.title=primeagent-frontend
+LABEL org.opencontainers.image.authors=['Primeagent']
 LABEL org.opencontainers.image.licenses=MIT
-LABEL org.opencontainers.image.url=https://github.com/khulnasoft/aiexec
-LABEL org.opencontainers.image.source=https://github.com/khulnasoft/aiexec
+LABEL org.opencontainers.image.url=https://github.com/khulnasoft/primeagent
+LABEL org.opencontainers.image.source=https://github.com/khulnasoft/primeagent
 
 COPY --from=builder-base --chown=nginx /frontend/build /usr/share/nginx/html
 COPY --chown=nginx ./docker/frontend/start-nginx.sh /start-nginx.sh

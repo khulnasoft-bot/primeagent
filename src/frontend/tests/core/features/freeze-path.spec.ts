@@ -2,7 +2,7 @@ import { type Page } from "@playwright/test";
 import * as dotenv from "dotenv";
 import path from "path";
 import { expect, test } from "../../fixtures";
-import { addFlowToTestOnEmptyAiexec } from "../../utils/add-flow-to-test-on-empty-aiexec";
+import { addFlowToTestOnEmptyPrimeagent } from "../../utils/add-flow-to-test-on-empty-primeagent";
 import { adjustScreenView } from "../../utils/adjust-screen-view";
 import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 import { initialGPTsetup } from "../../utils/initialGPTsetup";
@@ -23,12 +23,12 @@ test(
 
     await awaitBootstrapTest(page);
 
-    const firstRunAiexec = await page
+    const firstRunPrimeagent = await page
       .getByTestId("empty-project-description")
       .count();
 
-    if (firstRunAiexec > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+    if (firstRunPrimeagent > 0) {
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
 
     await page.getByTestId("side_nav_options_all-templates").click();

@@ -1,7 +1,7 @@
 import pytest
-from aiexec.services.auth.utils import get_password_hash
-from aiexec.services.database.models.user import User
-from aiexec.services.deps import session_scope
+from primeagent.services.auth.utils import get_password_hash
+from primeagent.services.database.models.user import User
+from primeagent.services.deps import session_scope
 from sqlalchemy.exc import IntegrityError
 
 

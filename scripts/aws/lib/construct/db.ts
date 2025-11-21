@@ -22,7 +22,7 @@ export class Rds extends Construct {
 
     // RDSのパスワードを自動生成してSecrets Managerに格納
     const rdsCredentials = rds.Credentials.fromGeneratedSecret("db_user", {
-      secretName: "aiexec-DbSecret",
+      secretName: "primeagent-DbSecret",
     });
 
     // DB クラスターのパラメータグループ作成
@@ -36,7 +36,7 @@ export class Rds extends Construct {
             "8.0",
           ),
         }),
-        description: "for-aiexec",
+        description: "for-primeagent",
       },
     );
     clusterParameterGroup.bindToCluster({});
@@ -52,12 +52,12 @@ export class Rds extends Construct {
             "8.0",
           ),
         }),
-        description: "for-aiexec",
+        description: "for-primeagent",
       },
     );
     instanceParameterGroup.bindToInstance({});
 
-    this.rdsCluster = new rds.DatabaseCluster(scope, "AiexecDbCluster", {
+    this.rdsCluster = new rds.DatabaseCluster(scope, "PrimeagentDbCluster", {
       engine: rds.DatabaseClusterEngine.auroraMysql({
         version: rds.AuroraMysqlEngineVersion.of(
           "8.0.mysql_aurora.3.05.2",
@@ -66,10 +66,10 @@ export class Rds extends Construct {
       }),
       storageEncrypted: true,
       credentials: rdsCredentials,
-      instanceIdentifierBase: "aiexec-instance",
+      instanceIdentifierBase: "primeagent-instance",
       vpc: vpc,
       vpcSubnets: vpc.selectSubnets({
-        subnetGroupName: "aiexec-Isolated",
+        subnetGroupName: "primeagent-Isolated",
       }),
       securityGroups: [dbSG],
       writer: rds.ClusterInstance.provisioned("WriterInstance", {
@@ -79,7 +79,7 @@ export class Rds extends Construct {
       }),
       // 2台目以降はreaders:で設定
       parameterGroup: clusterParameterGroup,
-      defaultDatabaseName: "aiexec",
+      defaultDatabaseName: "primeagent",
     });
   }
 }

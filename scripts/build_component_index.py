@@ -13,11 +13,11 @@ from pathlib import Path
 import orjson
 
 
-def _get_aiexec_version():
-    """Get the installed aiexec version."""
+def _get_primeagent_version():
+    """Get the installed primeagent version."""
     from importlib.metadata import version
 
-    return version("aiexec")
+    return version("primeagent")
 
 
 def _normalize_for_determinism(obj):
@@ -45,14 +45,14 @@ def build_component_index():
     """
     print("Building component index...")
 
-    # Use the existing import_aiexec_components function
+    # Use the existing import_primeagent_components function
     try:
         import asyncio
 
-        from wfx.interface.components import import_aiexec_components
+        from wfx.interface.components import import_primeagent_components
 
         # Run the async function
-        components_result = asyncio.run(import_aiexec_components())
+        components_result = asyncio.run(import_primeagent_components())
         modules_dict = components_result.get("components", {})
         components_count = sum(len(v) for v in modules_dict.values())
         print(f"Discovered {components_count} components across {len(modules_dict)} categories")
@@ -72,7 +72,7 @@ def build_component_index():
 
     # Build the index structure
     index = {
-        "version": _get_aiexec_version(),
+        "version": _get_primeagent_version(),
         "metadata": {
             "num_modules": len(modules_dict),
             "num_components": components_count,

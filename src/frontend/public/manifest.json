@@ -1,7 +1,7 @@
 {
-  "name": "Aiexec",
-  "short_name": "Aiexec",
-  "description": "Aiexec is a low-code builder that makes it easier to build powerful AIs that can use any API, model, or database.",
+  "name": "Primeagent",
+  "short_name": "Primeagent",
+  "description": "Primeagent is a low-code builder that makes it easier to build powerful AIs that can use any API, model, or database.",
   "icons": [
     {
       "src": "icons/32x32.png",

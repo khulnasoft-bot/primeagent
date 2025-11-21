@@ -80,7 +80,7 @@ def mock_metas():
 def multi_serve_app(mock_graphs, mock_metas, monkeypatch):
     """Create a multi-serve app for testing."""
     # Set required environment variable
-    monkeypatch.setenv("AIEXEC_API_KEY", "test-api-key")
+    monkeypatch.setenv("PRIMEAGENT_API_KEY", "test-api-key")
 
     with patch("wfx.cli.serve_app.execute_graph_with_capture") as mock_execute:
         # Mock successful execution
@@ -113,7 +113,7 @@ def multi_serve_app(mock_graphs, mock_metas, monkeypatch):
 def mock_api_key(monkeypatch):
     """Mock API key for authentication."""
     # Set the required environment variable
-    monkeypatch.setenv("AIEXEC_API_KEY", "test-api-key")
+    monkeypatch.setenv("PRIMEAGENT_API_KEY", "test-api-key")
 
     with patch("wfx.cli.serve_app.verify_api_key") as mock_verify:
         mock_verify.return_value = True

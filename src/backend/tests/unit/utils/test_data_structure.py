@@ -1,7 +1,7 @@
 from unittest.mock import Mock
 
-from aiexec.schema.data import Data
-from aiexec.utils.data_structure import (
+from primeagent.schema.data import Data
+from primeagent.utils.data_structure import (
     analyze_value,
     get_data_structure,
     get_sample_values,

@@ -1,5 +1,5 @@
 import pytest
-from aiexec.helpers.data import data_to_text_list
+from primeagent.helpers.data import data_to_text_list
 from wfx.schema import Data
 
 

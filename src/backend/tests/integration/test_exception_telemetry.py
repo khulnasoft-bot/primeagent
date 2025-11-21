@@ -4,7 +4,7 @@ import asyncio
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
-from aiexec.services.telemetry.schema import (
+from primeagent.services.telemetry.schema import (
     ComponentPayload,
     ExceptionPayload,
     PlaygroundPayload,
@@ -12,7 +12,7 @@ from aiexec.services.telemetry.schema import (
     ShutdownPayload,
     VersionPayload,
 )
-from aiexec.services.telemetry.service import TelemetryService
+from primeagent.services.telemetry.service import TelemetryService
 
 
 class TestExceptionTelemetryIntegration:
@@ -27,7 +27,7 @@ class TestExceptionTelemetryIntegration:
         telemetry_service.do_not_track = False
         telemetry_service.client_type = "oss"
         telemetry_service.common_telemetry_fields = {
-            "aiexec_version": "1.0.0",
+            "primeagent_version": "1.0.0",
             "platform": "python_package",
             "os": "darwin",
         }
@@ -84,7 +84,7 @@ class TestExceptionTelemetryIntegration:
         telemetry_service.do_not_track = False
         telemetry_service.client_type = "oss"
         telemetry_service.common_telemetry_fields = {
-            "aiexec_version": "1.0.0",
+            "primeagent_version": "1.0.0",
             "platform": "python_package",
             "os": "darwin",
         }
@@ -258,7 +258,7 @@ class TestTelemetryPayloadValidation:
     def test_version_payload_creation_and_serialization(self):
         """Test VersionPayload creation and serialization."""
         payload = VersionPayload(
-            package="aiexec",
+            package="primeagent",
             version="1.5.0",
             platform="macOS-14.0-arm64",
             python="3.11",
@@ -269,7 +269,7 @@ class TestTelemetryPayloadValidation:
             client_type="oss",
         )
 
-        assert payload.package == "aiexec"
+        assert payload.package == "primeagent"
         assert payload.version == "1.5.0"
         assert payload.platform == "macOS-14.0-arm64"
         assert payload.python == "3.11"
@@ -280,7 +280,7 @@ class TestTelemetryPayloadValidation:
 
         serialized = payload.model_dump(by_alias=True)
         expected = {
-            "package": "aiexec",
+            "package": "primeagent",
             "version": "1.5.0",
             "platform": "macOS-14.0-arm64",
             "python": "3.11",

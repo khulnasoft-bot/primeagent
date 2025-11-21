@@ -1,6 +1,6 @@
 import pytest
-from aiexec.api.v1.schemas import VertexBuildResponse
-from aiexec.serialization.constants import MAX_ITEMS_LENGTH
+from primeagent.api.v1.schemas import VertexBuildResponse
+from primeagent.serialization.constants import MAX_ITEMS_LENGTH
 
 expected_keys_vertex_build_response = {
     "id",

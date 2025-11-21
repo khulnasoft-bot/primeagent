@@ -210,13 +210,13 @@ jobs:
 
       - name: Check Version
         id: check-version
-        # We need to print $3 because aiexec-base is a dependency of aiexec
+        # We need to print $3 because primeagent-base is a dependency of primeagent
         # For langlow we'd use print $2
         run: |
-          version=$(uv tree | grep 'aiexec-base' | awk '{print $3}' | sed 's/^v//' | head -n 1)
-          url="https://pypi.org/pypi/aiexec-base/json"
+          version=$(uv tree | grep 'primeagent-base' | awk '{print $3}' | sed 's/^v//' | head -n 1)
+          url="https://pypi.org/pypi/primeagent-base/json"
           if [ ${{ inputs.nightly }} == true ]; then
-            url="https://pypi.org/pypi/aiexec-base-nightly/json"
+            url="https://pypi.org/pypi/primeagent-base-nightly/json"
           fi
 
           last_released_version=$(curl -s $url | jq -r '.releases | keys | .[]' | sort -V | tail -n 1)
@@ -242,7 +242,7 @@ jobs:
         if: steps.check-version.outputs.skipped == 'false'
         run: |
           source new-venv/bin/activate
-          python -m aiexec run --host localhost --port 7860 --backend-only &
+          python -m primeagent run --host localhost --port 7860 --backend-only &
           SERVER_PID=$!
           # Wait for the server to start
           timeout 120 bash -c 'until curl -f http://localhost:7860/api/v1/auto_login; do sleep 5; done' || (echo "Server did not start in time" && kill $SERVER_PID && exit 1)

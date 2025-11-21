@@ -4,8 +4,8 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-from aiexec.serialization.constants import MAX_ITEMS_LENGTH, MAX_TEXT_LENGTH
-from aiexec.serialization.serialization import serialize, serialize_or_str
+from primeagent.serialization.constants import MAX_ITEMS_LENGTH, MAX_TEXT_LENGTH
+from primeagent.serialization.serialization import serialize, serialize_or_str
 from hypothesis import given, settings
 from hypothesis import strategies as st
 from langchain_core.documents import Document

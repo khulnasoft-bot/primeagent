@@ -67,7 +67,7 @@ done
 
 # Check if we're in the right directory
 if [ ! -f "src/wfx/pyproject.toml" ]; then
-    print_error "This script must be run from the root of the aiexec repository"
+    print_error "This script must be run from the root of the primeagent repository"
     exit 1
 fi
 
@@ -204,7 +204,7 @@ else
     echo "   git push origin $TAG_NAME"
     echo ""
     echo "2. Go to GitHub Actions and run the 'WFX Release' workflow:"
-    echo "   https://github.com/khulnasoft/aiexec/actions/workflows/release-wfx.yml"
+    echo "   https://github.com/khulnasoft/primeagent/actions/workflows/release-wfx.yml"
     echo ""
     echo "3. Enter version: $NEW_VERSION"
     echo ""

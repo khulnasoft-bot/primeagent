@@ -1,8 +1,8 @@
 from unittest.mock import patch
 
-from aiexec.api.utils import get_suggestion_message
-from aiexec.services.database.models.flow.utils import get_outdated_components
-from aiexec.utils.version import get_version_info
+from primeagent.api.utils import get_suggestion_message
+from primeagent.services.database.models.flow.utils import get_outdated_components
+from primeagent.utils.version import get_version_info
 
 
 def test_get_suggestion_message():
@@ -37,7 +37,7 @@ def test_get_outdated_components():
     expected_outdated_components = ["component3"]
 
     with patch(
-        "aiexec.services.database.models.flow.utils.get_components_versions", return_value=mock_component_versions
+        "primeagent.services.database.models.flow.utils.get_components_versions", return_value=mock_component_versions
     ):
         # Call the function with the mock flow
         result = get_outdated_components(flow)

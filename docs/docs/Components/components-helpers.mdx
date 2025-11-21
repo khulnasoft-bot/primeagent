@@ -25,7 +25,7 @@ For an example of using this component in a flow, see the [**Python Interpreter*
 
 ## Current Date
 
-The **Current Date** component returns the current date and time in a selected timezone. This component provides a flexible way to obtain timezone-specific date and time information within a Aiexec pipeline.
+The **Current Date** component returns the current date and time in a selected timezone. This component provides a flexible way to obtain timezone-specific date and time information within a Primeagent pipeline.
 
 ### Current Date parameters
 
@@ -37,17 +37,17 @@ The **Current Date** component returns the current date and time in a selected t
 ## Message History
 
 The **Message History** component provides combined chat history and message storage functionality.
-It can store and retrieve chat messages from either [Aiexec storage](/memory) _or_ a dedicated chat memory database like Mem0 or Redis.
+It can store and retrieve chat messages from either [Primeagent storage](/memory) _or_ a dedicated chat memory database like Mem0 or Redis.
 
 :::tip
-The **Agent** component has built-in chat memory that is enabled by default and uses Aiexec storage.
+The **Agent** component has built-in chat memory that is enabled by default and uses Primeagent storage.
 This built-in chat memory functionality is sufficient for most use cases.
 
 Use the **Message History** component for the following use cases:
 
 * You need to store and retrieve chat memory for a language model component (not an agent).
 * You need to retrieve chat memories outside the chat context, such as a sentiment analysis flow that retrieves and analyzes recently stored memories.
-* You want to store memories in a specific database that is separate from Aiexec storage.
+* You want to store memories in a specific database that is separate from Primeagent storage.
 
 For more information, see [Store chat memory](/memory#store-chat-memory).
 :::
@@ -56,15 +56,15 @@ For more information, see [Store chat memory](/memory#store-chat-memory).
 
 The **Message History** component has two modes, depending on where you want to use it in your flow:
 
-* **Retrieve mode**: The component retrieves chat messages from your Aiexec database or external memory.
-* **Store mode**: The component stores chat messages in your Aiexec database or external memory.
+* **Retrieve mode**: The component retrieves chat messages from your Primeagent database or external memory.
+* **Store mode**: The component stores chat messages in your Primeagent database or external memory.
 
 This means that you need multiple **Message History** components in your flow if you want to both store and retrieve chat messages.
 
 <Tabs>
-<TabItem value="aiexec" label="Use Aiexec storage" default>
+<TabItem value="primeagent" label="Use Primeagent storage" default>
 
-The following steps explain how to create a chat-based flow that uses **Message History** components to store and retrieve chat memory from your Aiexec installation's database:
+The following steps explain how to create a chat-based flow that uses **Message History** components to store and retrieve chat memory from your Primeagent installation's database:
 
 1. Create or edit a flow where you want to use chat memory.
 
@@ -87,7 +87,7 @@ The following steps explain how to create a chat-based flow that uses **Message 
     {memory}
     ```
 
-    Variables (`{variable}`) in the template dynamically add fields to the **Prompt Template** component so that your flow can receive definitions for those values from elsewhere, such as other components, Aiexec global variables, or runtime input.
+    Variables (`{variable}`) in the template dynamically add fields to the **Prompt Template** component so that your flow can receive definitions for those values from elsewhere, such as other components, Primeagent global variables, or runtime input.
     For more information, see [Define variables in prompts](/components-prompts#define-variables-in-prompts).
 
     In this example, the `{memory}` variable is populated by the retrieved chat memories, which are then passed to a **Language Model** or **Agent** component to provide additional context to the LLM.
@@ -143,7 +143,7 @@ Other options include the [**Mem0 Chat Memory** component](/bundles-mem0) and [*
     {memory}
     ```
 
-    Variables (`{variable}`) in the template dynamically add fields to the **Prompt Template** component so that your flow can receive definitions for those values from elsewhere, such as other components, Aiexec global variables, or runtime input.
+    Variables (`{variable}`) in the template dynamically add fields to the **Prompt Template** component so that your flow can receive definitions for those values from elsewhere, such as other components, Primeagent global variables, or runtime input.
     For more information, see [Define variables in prompts](/components-prompts#define-variables-in-prompts).
 
     In this example, the `{memory}` variable is populated by the retrieved chat memories, which are then passed to a **Language Model** or **Agent** component to provide additional context to the LLM.
@@ -189,7 +189,7 @@ The available parameters depend on whether the component is in **Retrieve** or *
 | Name | Type | Description |
 |------|------|-------------|
 | **Template** (`template`) | String | Input parameter. The template to use for formatting the data. It can contain the keys `{text}`, `{sender}` or any other key in the message data. |
-| **External Memory** (`memory`) | External Memory | Input parameter. Retrieve messages from an external memory. If empty, Aiexec storage is used. |
+| **External Memory** (`memory`) | External Memory | Input parameter. Retrieve messages from an external memory. If empty, Primeagent storage is used. |
 | **Number of Messages** (`n_messages`) | Integer | Input parameter. The number of messages to retrieve. Default: 100. |
 | **Order** (`order`) | String | Input parameter. The order of the messages. Default: `Ascending`. |
 | **Sender Type** (`sender_type`) | String | Input parameter. Filter by sender type, one of `User`, `Machine`, or `Machine and User` (default). |
@@ -202,7 +202,7 @@ The available parameters depend on whether the component is in **Retrieve** or *
 |------|------|-------------|
 | **Template** (`template`) | String | Input parameter. The template to use for formatting the data. It can contain the keys `{text}`, `{sender}` or any other key in the message data. |
 | **Message** (`message`) | String | Input parameter. The message to store, typically provided by connecting a **Chat Output** component. |
-| **External Memory** (`memory`) | External Memory | Input parameter. Store messages in external memory. If empty, Aiexec storage is used. |
+| **External Memory** (`memory`) | External Memory | Input parameter. Store messages in external memory. If empty, Primeagent storage is used. |
 | **Sender** (`sender`) | String | Input parameter. Choose which messages to store based on sender, one of `User`, `Machine`, or `Machine and User` (default). |
 | **Sender Name** (`sender_name`) | String | Input parameter. A backup `sender` label to use if a message doesn't have sender metadata. |
 | **Session ID** (`session_id`) | String | Input parameter. The [session ID](/session-id) of the chat memories to store. If omitted or empty, the current session ID for the flow run is used. Use custom session IDs if you need to segregate chat memory for different users or applications that run the same flow. |
@@ -233,7 +233,7 @@ The following Helper components are in legacy status:
 
 * **Message Store**: Replaced by the [**Message History** component](#message-history)
 * **Create List**: Replace with [Processing components](/components-processing)
-* **ID Generator**: Replace with a component that executes arbitrary code to generate an ID or embed an ID generator script your application code (external to your Aiexec flows).
+* **ID Generator**: Replace with a component that executes arbitrary code to generate an ID or embed an ID generator script your application code (external to your Primeagent flows).
 * **Output Parser**: Replace with the [**Structured Output** component](/components-processing#structured-output) and [**Parser** component](/components-processing#parser).
 The components you need depend on the data types and complexity of the parsing task.
 

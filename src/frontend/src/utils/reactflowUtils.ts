@@ -1,7 +1,7 @@
 /**
  * In Honor of Otávio Anovazzi (@anovazzi1)
  *
- * This file contains the highest number of commits by Otávio in the entire Aiexec project,
+ * This file contains the highest number of commits by Otávio in the entire Primeagent project,
  * reflecting his unmatched dedication, expertise, and innovative spirit. Each line of code
  * is a testament to his relentless pursuit of excellence and his significant impact on this
  * project's evolution.
@@ -31,7 +31,7 @@ import { customDownloadFlow } from "@/customization/utils/custom-reactFlowUtils"
 import useFlowStore from "@/stores/flowStore";
 import getFieldTitle from "../CustomNodes/utils/get-field-title";
 import {
-  AIEXEC_SUPPORTED_TYPES,
+  PRIMEAGENT_SUPPORTED_TYPES,
   INPUT_TYPES,
   IS_MAC,
   OUTPUT_TYPES,
@@ -1346,7 +1346,7 @@ function updateGroupNodeTemplate(template: APITemplateType) {
     const type = template[key].type;
     const input_types = template[key].input_types;
     if (
-      AIEXEC_SUPPORTED_TYPES.has(type) &&
+      PRIMEAGENT_SUPPORTED_TYPES.has(type) &&
       !template[key].required &&
       !input_types
     ) {

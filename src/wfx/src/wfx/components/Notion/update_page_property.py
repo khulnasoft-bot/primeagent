@@ -15,7 +15,7 @@ from wfx.schema.data import Data
 class NotionPageUpdate(LCToolComponent):
     display_name: str = "Update Page Property "
     description: str = "Update the properties of a Notion page."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/integrations/notion/page-update"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/integrations/notion/page-update"
     icon = "NotionDirectoryLoader"
 
     inputs = [

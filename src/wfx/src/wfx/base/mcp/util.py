@@ -59,7 +59,7 @@ ALLOWED_HEADERS = {
     "x-api-key",
     "x-auth-token",
     "x-custom-header",
-    "x-aiexec-session",
+    "x-primeagent-session",
     "x-mcp-client",
     "x-requested-with",
 }
@@ -318,10 +318,10 @@ def get_unique_name(base_name, max_length, existing_names):
 
 async def get_flow_snake_case(flow_name: str, user_id: str, session, *, is_action: bool | None = None):
     try:
-        from aiexec.services.database.models.flow.model import Flow
+        from primeagent.services.database.models.flow.model import Flow
         from sqlmodel import select
     except ImportError as e:
-        msg = "Aiexec Flow model is not available. This feature requires the full Aiexec installation."
+        msg = "Primeagent Flow model is not available. This feature requires the full Primeagent installation."
         raise ImportError(msg) from e
 
     uuid_user_id = UUID(user_id) if isinstance(user_id, str) else user_id

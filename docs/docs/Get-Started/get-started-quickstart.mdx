@@ -7,37 +7,37 @@ import Icon from "@site/src/components/icon";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Get started with Aiexec by loading a template flow, running it, and then serving it at the `/run` API endpoint.
+Get started with Primeagent by loading a template flow, running it, and then serving it at the `/run` API endpoint.
 
 ## Prerequisites
 
-- [Install and start Aiexec](/get-started-installation)
+- [Install and start Primeagent](/get-started-installation)
 - Create an [OpenAI API key](https://platform.openai.com/api-keys)
-- Create a [Aiexec API key](/api-keys-and-authentication)
+- Create a [Primeagent API key](/api-keys-and-authentication)
 
     <details>
-    <summary>Create a Aiexec API key</summary>
+    <summary>Create a Primeagent API key</summary>
 
-    A Aiexec API key is a user-specific token you can use with Aiexec.
+    A Primeagent API key is a user-specific token you can use with Primeagent.
 
-    To create a Aiexec API key, do the following:
+    To create a Primeagent API key, do the following:
 
-    1. In Aiexec, click your user icon, and then select **Settings**.
-    2. Click **Aiexec API Keys**, and then click <Icon name="Plus" aria-hidden="true"/> **Add New**.
+    1. In Primeagent, click your user icon, and then select **Settings**.
+    2. Click **Primeagent API Keys**, and then click <Icon name="Plus" aria-hidden="true"/> **Add New**.
     3. Name your key, and then click **Create API Key**.
     4. Copy the API key and store it securely.
-    5. To use your Aiexec API key in a request, set a `AIEXEC_API_KEY` environment variable in your terminal, and then include an `x-api-key` header or query parameter with your request.
+    5. To use your Primeagent API key in a request, set a `PRIMEAGENT_API_KEY` environment variable in your terminal, and then include an `x-api-key` header or query parameter with your request.
     For example:
 
         ```bash
         # Set variable
-        export AIEXEC_API_KEY="sk..."
+        export PRIMEAGENT_API_KEY="sk..."
 
         # Send request
         curl --request POST \
-        --url "http://AIEXEC_SERVER_ADDRESS/api/v1/run/FLOW_ID" \
+        --url "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID" \
         --header "Content-Type: application/json" \
-        --header "x-api-key: $AIEXEC_API_KEY" \
+        --header "x-api-key: $PRIMEAGENT_API_KEY" \
         --data '{
           "output_type": "chat",
           "input_type": "chat",
@@ -49,7 +49,7 @@ Get started with Aiexec by loading a template flow, running it, and then serving
 
 ## Run the Simple Agent template flow
 
-1. In Aiexec, click **New Flow**, and then select the **Simple Agent** template.
+1. In Primeagent, click **New Flow**, and then select the **Simple Agent** template.
 
 ![Simple Agent template](/img/quickstart-simple-agent-flow.png)
 
@@ -86,21 +86,21 @@ Now that you've run your first flow, try these next steps:
 
 ## Run your flows from external applications
 
-Aiexec is an IDE, but it's also a runtime you can call through the [Aiexec API](/api-reference-api-examples) with Python, JavaScript, or HTTP.
+Primeagent is an IDE, but it's also a runtime you can call through the [Primeagent API](/api-reference-api-examples) with Python, JavaScript, or HTTP.
 
-When you start Aiexec locally, you can send requests to the local Aiexec server.
-For production applications, you need to [deploy a stable Aiexec instance](/deployment-overview) to handle API calls.
+When you start Primeagent locally, you can send requests to the local Primeagent server.
+For production applications, you need to [deploy a stable Primeagent instance](/deployment-overview) to handle API calls.
 
 For example, you can use the `/run` endpoint to run a flow and get the result.
 
-Aiexec provides code snippets to help you get started with the Aiexec API.
+Primeagent provides code snippets to help you get started with the Primeagent API.
 
 1. When editing a flow, click **Share**, and then click **API access**.
 
-    The default code in the API access pane constructs a request with the Aiexec server `url`, `headers`, and a `payload` of request data.
-    The code snippets automatically include the `AIEXEC_SERVER_ADDRESS` and `FLOW_ID` values for the flow, and a script to include your `AIEXEC_API_KEY` if you've set it as an environment variable in your terminal session.
+    The default code in the API access pane constructs a request with the Primeagent server `url`, `headers`, and a `payload` of request data.
+    The code snippets automatically include the `PRIMEAGENT_SERVER_ADDRESS` and `FLOW_ID` values for the flow, and a script to include your `PRIMEAGENT_API_KEY` if you've set it as an environment variable in your terminal session.
     Replace these values if you're using the code for a different server or flow.
-    The default Aiexec server address is `http://localhost:7860`.
+    The default Primeagent server address is `http://localhost:7860`.
 
     <Tabs>
     <TabItem value="Python" label="Python" default>
@@ -108,7 +108,7 @@ Aiexec provides code snippets to help you get started with the Aiexec API.
     ```python
     import requests
 
-    url = "http://AIEXEC_SERVER_ADDRESS/api/v1/run/FLOW_ID"  # The complete API endpoint URL for this flow
+    url = "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID"  # The complete API endpoint URL for this flow
 
     # Request payload configuration
     payload = {
@@ -120,7 +120,7 @@ Aiexec provides code snippets to help you get started with the Aiexec API.
     # Request headers
     headers = {
         "Content-Type": "application/json",
-        "x-api-key": "$AIEXEC_API_KEY"
+        "x-api-key": "$PRIMEAGENT_API_KEY"
     }
 
     try:
@@ -152,12 +152,12 @@ Aiexec provides code snippets to help you get started with the Aiexec API.
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'x-api-key': 'AIEXEC_API_KEY'
+            'x-api-key': 'PRIMEAGENT_API_KEY'
         },
         body: JSON.stringify(payload)
     };
 
-    fetch('http://AIEXEC_SERVER_ADDRESS/api/v1/run/FLOW_ID', options)
+    fetch('http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID', options)
         .then(response => response.json())
         .then(response => console.log(response))
         .catch(err => console.error(err));
@@ -168,9 +168,9 @@ Aiexec provides code snippets to help you get started with the Aiexec API.
 
     ```bash
     curl --request POST \
-         --url 'http://AIEXEC_SERVER_ADDRESS/api/v1/run/FLOW_ID?stream=false' \
+         --url 'http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID?stream=false' \
          --header 'Content-Type: application/json' \
-         --header "x-api-key: AIEXEC_API_KEY" \
+         --header "x-api-key: PRIMEAGENT_API_KEY" \
          --data '{
           "output_type": "chat",
           "input_type": "chat",
@@ -359,7 +359,7 @@ The following is an example of a response from running the **Simple Agent** temp
 
 </details>
 
-In a production application, you probably want to select parts of this response to return to the user, store in logs, and so on. The next steps demonstrate how you can extract data from a Aiexec API response to use in your application.
+In a production application, you probably want to select parts of this response to return to the user, store in logs, and so on. The next steps demonstrate how you can extract data from a Primeagent API response to use in your application.
 
 ### Extract data from the response
 
@@ -375,7 +375,7 @@ This script runs a question-and-answer chat in your terminal and stores the agen
     import requests
     import json
 
-    url = "http://AIEXEC_SERVER_ADDRESS/api/v1/run/FLOW_ID"
+    url = "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID"
 
     def ask_agent(question):
         payload = {
@@ -386,7 +386,7 @@ This script runs a question-and-answer chat in your terminal and stores the agen
 
         headers = {
         "Content-Type": "application/json",
-        "x-api-key": "AIEXEC_API_KEY"
+        "x-api-key": "PRIMEAGENT_API_KEY"
         }
 
         try:
@@ -444,7 +444,7 @@ This script runs a question-and-answer chat in your terminal and stores the agen
         output: process.stdout
     });
 
-    const url = 'http://AIEXEC_SERVER_ADDRESS/api/v1/run/FLOW_ID';
+    const url = 'http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID';
 
     // Store the previous answer from askAgent response
     let previousAnswer = null;
@@ -461,7 +461,7 @@ This script runs a question-and-answer chat in your terminal and stores the agen
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'x-api-key': 'AIEXEC_API_KEY'
+                'x-api-key': 'PRIMEAGENT_API_KEY'
             },
             body: JSON.stringify(payload)
         };
@@ -526,13 +526,13 @@ Tweaks override the flow's components' settings for a single run only.
 They don't modify the underlying flow configuration or persist between runs.
 
 Tweaks are added to the `/run` endpoint's `payload`.
-To assist with formatting, you can define tweaks in Aiexec's **Input Schema** pane before copying the code snippet.
+To assist with formatting, you can define tweaks in Primeagent's **Input Schema** pane before copying the code snippet.
 
 1. To open the **Input Schema** pane, from the **API access** pane, click **Input Schema**.
 2. In the **Input Schema** pane, select the parameter you want to modify in your next request.
 Enabling parameters in the **Input Schema** pane doesn't permanently change the listed parameters. It only adds them to the sample code snippets.
 3. For example, to change the LLM provider from OpenAI to Groq, and include your Groq API key with the request, select the values **Model Providers**, **Model**, and **Groq API Key**.
-Aiexec updates the `tweaks` object in the code snippets based on your input parameters, and includes default values to guide you.
+Primeagent updates the `tweaks` object in the code snippets based on your input parameters, and includes default values to guide you.
 Use the updated code snippets in your script to run your flow with your overrides.
 
 ```json
@@ -552,7 +552,7 @@ payload = {
 
 ## Next steps
 
-* [Trigger flows with the Aiexec API](/concepts-publish)
-* [Use Aiexec as a Model Context Protocol (MCP) server](/mcp-server)
-* [Containerize a Aiexec application](/develop-application)
+* [Trigger flows with the Primeagent API](/concepts-publish)
+* [Use Primeagent as a Model Context Protocol (MCP) server](/mcp-server)
+* [Containerize a Primeagent application](/develop-application)
 * [File management](/concepts-file-management)

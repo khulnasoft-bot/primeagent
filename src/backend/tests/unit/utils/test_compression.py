@@ -3,7 +3,7 @@ import json
 from datetime import date, datetime, timezone
 from unittest.mock import patch
 
-from aiexec.utils.compression import compress_response
+from primeagent.utils.compression import compress_response
 from fastapi import Response
 
 
@@ -197,7 +197,7 @@ class TestCompressResponse:
 
         assert content_length == actual_length
 
-    @patch("aiexec.utils.compression.jsonable_encoder")
+    @patch("primeagent.utils.compression.jsonable_encoder")
     def test_compress_response_jsonable_encoder_called(self, mock_encoder):
         """Test that jsonable_encoder is called on the data."""
         data = {"test": "data"}
@@ -207,7 +207,7 @@ class TestCompressResponse:
 
         mock_encoder.assert_called_once_with(data)
 
-    @patch("aiexec.utils.compression.gzip.compress")
+    @patch("primeagent.utils.compression.gzip.compress")
     def test_compress_response_gzip_compression_level(self, mock_compress):
         """Test that gzip.compress is called with correct compression level."""
         data = {"test": "data"}

@@ -124,7 +124,7 @@ def flatten_schema(root_schema: dict[str, Any]) -> dict[str, Any]:
     return result
 
 
-def schema_to_aiexec_inputs(schema: type[BaseModel]) -> list[InputTypes]:
+def schema_to_primeagent_inputs(schema: type[BaseModel]) -> list[InputTypes]:
     inputs: list[InputTypes] = []
 
     for field_name, model_field in schema.model_fields.items():

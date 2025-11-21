@@ -25,16 +25,16 @@ def update_pyproject_name(pyproject_path: str, new_project_name: str) -> None:
 
 
 def update_uv_dep(pyproject_path: str, new_project_name: str) -> None:
-    """Update the aiexec-base dependency in pyproject.toml."""
+    """Update the primeagent-base dependency in pyproject.toml."""
     filepath = BASE_DIR / pyproject_path
     content = filepath.read_text(encoding="utf-8")
 
-    if new_project_name == "aiexec-nightly":
-        pattern = re.compile(r"aiexec = \{ workspace = true \}")
-        replacement = "aiexec-nightly = { workspace = true }"
-    elif new_project_name == "aiexec-base-nightly":
-        pattern = re.compile(r"aiexec-base = \{ workspace = true \}")
-        replacement = "aiexec-base-nightly = { workspace = true }"
+    if new_project_name == "primeagent-nightly":
+        pattern = re.compile(r"primeagent = \{ workspace = true \}")
+        replacement = "primeagent-nightly = { workspace = true }"
+    elif new_project_name == "primeagent-base-nightly":
+        pattern = re.compile(r"primeagent-base = \{ workspace = true \}")
+        replacement = "primeagent-base-nightly = { workspace = true }"
     else:
         msg = f"Invalid project name: {new_project_name}"
         raise ValueError(msg)
@@ -49,7 +49,7 @@ def update_uv_dep(pyproject_path: str, new_project_name: str) -> None:
 
 def main() -> None:
     if len(sys.argv) != ARGUMENT_NUMBER:
-        msg = "Must specify project name and build type, e.g. aiexec-nightly base"
+        msg = "Must specify project name and build type, e.g. primeagent-nightly base"
         raise ValueError(msg)
     new_project_name = sys.argv[1]
     build_type = sys.argv[2]

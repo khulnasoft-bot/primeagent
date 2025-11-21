@@ -3,7 +3,7 @@ title: Files endpoints
 slug: /api-files
 ---
 
-Use the `/files` endpoints to move files between your local machine and Aiexec.
+Use the `/files` endpoints to move files between your local machine and Primeagent.
 
 ## Differences between `/v1/files` and `/v2/files`
 
@@ -13,8 +13,8 @@ There are two versions of the `/files` endpoints.
 
 - `/v2` files are organized by `user_id` instead of `flow_id`.
   This means files are owned by users, and they aren't attached to specific flows.
-  You can upload a file to Aiexec one time, and use it with multiple flows.
-- `/v2` files are tracked in the Aiexec database.
+  You can upload a file to Primeagent one time, and use it with multiple flows.
+- `/v2` files are tracked in the Primeagent database.
 - `/v2` supports bulk upload and delete.
 - `/v2` responses contain more descriptive metadata.
 
@@ -23,7 +23,7 @@ To send image files to your flows through the API, use [Upload image files (v1)]
 
 ## Files/V1 endpoints
 
-Use the `/files` endpoints to move files between your local machine and Aiexec.
+Use the `/files` endpoints to move files between your local machine and Primeagent.
 
 ### Upload file (v1)
 
@@ -32,10 +32,10 @@ Replace **FILE_NAME** with the uploaded file name.
 
 ```bash
 curl -X POST \
-  "$AIEXEC_URL/api/v1/files/upload/$FLOW_ID" \
+  "$PRIMEAGENT_URL/api/v1/files/upload/$FLOW_ID" \
   -H "accept: application/json" \
   -H "Content-Type: multipart/form-data" \
-  -H "x-api-key: $AIEXEC_API_KEY" \
+  -H "x-api-key: $PRIMEAGENT_API_KEY" \
   -F "file=@FILE_NAME.txt"
 ```
 
@@ -56,21 +56,21 @@ Not all file types are supported.
 
 ### Upload image files (v1)
 
-Send image files to Aiexec to use them in flows.
+Send image files to Primeagent to use them in flows.
 
 The default file limit is 1024 MB.
-To change this limit, set the `AIEXEC_MAX_FILE_SIZE_UPLOAD` [environment variable](/environment-variables).
+To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment variable](/environment-variables).
 
 1. Attach the image to a `POST /v1/files/upload/$FLOW_ID` request with `--form` (`-F`) and the file path:
 
     ```bash
-    curl -X POST "$AIEXEC_URL/api/v1/files/upload/$FLOW_ID" \
+    curl -X POST "$PRIMEAGENT_URL/api/v1/files/upload/$FLOW_ID" \
       -H "Content-Type: multipart/form-data" \
-      -H "x-api-key: $AIEXEC_API_KEY" \
+      -H "x-api-key: $PRIMEAGENT_API_KEY" \
       -F "file=@PATH/TO/FILE.png"
     ```
 
-    A successful request returns the `file_path` for the image in the Aiexec file management system in the format `FLOW_ID/TIMESTAMP_FILENAME.TYPE`.
+    A successful request returns the `file_path` for the image in the Primeagent file management system in the format `FLOW_ID/TIMESTAMP_FILENAME.TYPE`.
     For example:
 
     ```json
@@ -87,9 +87,9 @@ To change this limit, set the `AIEXEC_MAX_FILE_SIZE_UPLOAD` [environment variabl
 
     ```bash
     curl -X POST \
-        "$AIEXEC_URL/api/v1/run/a430cc57-06bb-4c11-be39-d3d4de68d2c4?stream=false" \
+        "$PRIMEAGENT_URL/api/v1/run/a430cc57-06bb-4c11-be39-d3d4de68d2c4?stream=false" \
         -H "Content-Type: application/json" \
-        -H "x-api-key: $AIEXEC_API_KEY" \
+        -H "x-api-key: $PRIMEAGENT_API_KEY" \
         -d '{
         "output_type": "chat",
         "input_type": "chat",
@@ -113,9 +113,9 @@ List all files associated with a specific flow.
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/api/v1/files/list/$FLOW_ID" \
+  "$PRIMEAGENT_URL/api/v1/files/list/$FLOW_ID" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -135,9 +135,9 @@ Download a specific file from a flow.
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/api/v1/files/download/$FLOW_ID/2024-12-30_15-19-43_your_file.txt" \
+  "$PRIMEAGENT_URL/api/v1/files/download/$FLOW_ID/2024-12-30_15-19-43_your_file.txt" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY" \
+  -H "x-api-key: $PRIMEAGENT_API_KEY" \
   --output downloaded_file.txt
 ```
 
@@ -156,9 +156,9 @@ Delete a specific file from a flow.
 
 ```bash
 curl -X DELETE \
-  "$AIEXEC_URL/api/v1/files/delete/$FLOW_ID/2024-12-30_15-19-43_your_file.txt" \
+  "$PRIMEAGENT_URL/api/v1/files/delete/$FLOW_ID/2024-12-30_15-19-43_your_file.txt" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -174,10 +174,10 @@ curl -X DELETE \
 
 ## Files/V2 endpoints
 
-Use the `/files` endpoints to move files between your local machine and Aiexec.
+Use the `/files` endpoints to move files between your local machine and Primeagent.
 
 The `/v2/files` endpoints can be authenticated by an API key or JWT.
-To create a Aiexec API key and export it as an environment variable, see [Get started with the Aiexec API](/api-reference-api-examples).
+To create a Primeagent API key and export it as an environment variable, see [Get started with the Primeagent API](/api-reference-api-examples).
 
 ### Upload file (v2)
 
@@ -189,16 +189,16 @@ The file is uploaded in the format `USER_ID/FILE_ID.FILE_EXTENSION`, such as `07
 
     ```bash
     curl -X GET \
-      "$AIEXEC_URL/api/v1/users/whoami" \
+      "$PRIMEAGENT_URL/api/v1/users/whoami" \
       -H "accept: application/json" \
-      -H "x-api-key: $AIEXEC_API_KEY"
+      -H "x-api-key: $PRIMEAGENT_API_KEY"
     ```
 
     <details>
     <summary>Result</summary>
 
     ```
-    {"id":"07e5b864-e367-4f52-b647-a48035ae7e5e","username":"aiexec","profile_image":null,"store_api_key":null,"is_active":true,"is_superuser":true,"create_at":"2025-05-08T17:59:07.855965","updated_at":"2025-05-28T19:00:42.556460","last_login_at":"2025-05-28T19:00:42.554338","options":{"github_starred":false,"dialog_dismissed":true,"discord_clicked":false,"mcp_dialog_dismissed":true}}
+    {"id":"07e5b864-e367-4f52-b647-a48035ae7e5e","username":"primeagent","profile_image":null,"store_api_key":null,"is_active":true,"is_superuser":true,"create_at":"2025-05-08T17:59:07.855965","updated_at":"2025-05-28T19:00:42.556460","last_login_at":"2025-05-28T19:00:42.554338","options":{"github_starred":false,"dialog_dismissed":true,"discord_clicked":false,"mcp_dialog_dismissed":true}}
     ```
 
     </details>
@@ -208,10 +208,10 @@ You must include the ampersand (`@`) in the request to instruct curl to upload t
 
     ```bash
     curl -X POST \
-      "$AIEXEC_URL/api/v2/files" \
+      "$PRIMEAGENT_URL/api/v2/files" \
       -H "accept: application/json" \
       -H "Content-Type: multipart/form-data" \
-      -H "x-api-key: $AIEXEC_API_KEY" \
+      -H "x-api-key: $PRIMEAGENT_API_KEY" \
       -F "file=@FILE_NAME.EXTENSION"
     ```
 
@@ -234,10 +234,10 @@ The `/v2/files` endpoint can't send image files to flows.
 To send image files to your flows through the API, see [Upload image files (v1)](#upload-image-files-v1).
 :::
 
-This endpoint uploads files to your Aiexec server's file management system.
+This endpoint uploads files to your Primeagent server's file management system.
 To use an uploaded file in a flow, send the file path to a flow with a [**File** component](/components-data#file).
 
-The default file limit is 1024 MB. To configure this value, change the `AIEXEC_MAX_FILE_SIZE_UPLOAD` [environment variable](/environment-variables).
+The default file limit is 1024 MB. To configure this value, change the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment variable](/environment-variables).
 
 1. To send a file to your flow with the API, POST the file to the `/api/v2/files` endpoint.
 
@@ -246,10 +246,10 @@ The default file limit is 1024 MB. To configure this value, change the `AIEXEC_M
 
     ```bash
     curl -X POST \
-      "$AIEXEC_URL/api/v2/files" \
+      "$PRIMEAGENT_URL/api/v2/files" \
       -H "accept: application/json" \
       -H "Content-Type: multipart/form-data" \
-      -H "x-api-key: $AIEXEC_API_KEY" \
+      -H "x-api-key: $PRIMEAGENT_API_KEY" \
       -F "file=@FILE_NAME.EXTENSION"
     ```
 
@@ -266,15 +266,15 @@ The default file limit is 1024 MB. To configure this value, change the `AIEXEC_M
     ```
 
 2. To use this file in your flow, add a **File** component to your flow.
-This component loads files into flows from your local machine or Aiexec file management.
+This component loads files into flows from your local machine or Primeagent file management.
 
 3. Run the flow, passing the `path` to the `File` component in the `tweaks` object:
 
     ```text
     curl --request POST \
-      --url "$AIEXEC_URL/api/v1/run/$FLOW_ID" \
+      --url "$PRIMEAGENT_URL/api/v1/run/$FLOW_ID" \
       --header "Content-Type: application/json" \
-      --header "x-api-key: $AIEXEC_API_KEY" \
+      --header "x-api-key: $PRIMEAGENT_API_KEY" \
       --data '{
       "input_value": "what do you see?",
       "output_type": "chat",
@@ -299,9 +299,9 @@ List all files associated with your user account.
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/api/v2/files" \
+  "$PRIMEAGENT_URL/api/v2/files" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -329,9 +329,9 @@ You must specify the file type you expect in the `--output` value.
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/api/v2/files/c7b22c4c-d5e0-4ec9-af97-5d85b7657a34" \
+  "$PRIMEAGENT_URL/api/v2/files/c7b22c4c-d5e0-4ec9-af97-5d85b7657a34" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY" \
+  -H "x-api-key: $PRIMEAGENT_API_KEY" \
   --output downloaded_file.txt
 ```
 
@@ -350,9 +350,9 @@ Change a file name.
 
 ```bash
 curl -X PUT \
-  "$AIEXEC_URL/api/v2/files/$FILE_ID?name=new_file_name" \
+  "$PRIMEAGENT_URL/api/v2/files/$FILE_ID?name=new_file_name" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -376,9 +376,9 @@ Delete a specific file by its ID.
 
 ```bash
 curl -X DELETE \
-  "$AIEXEC_URL/api/v2/files/$FILE_ID" \
+  "$PRIMEAGENT_URL/api/v2/files/$FILE_ID" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -398,9 +398,9 @@ Delete all files associated with your user account.
 
 ```bash
 curl -X DELETE \
-  "$AIEXEC_URL/api/v2/files" \
+  "$PRIMEAGENT_URL/api/v2/files" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>

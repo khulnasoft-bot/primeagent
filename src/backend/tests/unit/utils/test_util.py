@@ -2,8 +2,8 @@ import inspect
 from unittest.mock import Mock, patch
 
 import pytest
-from aiexec.schema.data import Data
-from aiexec.utils.util import (
+from primeagent.schema.data import Data
+from primeagent.utils.util import (
     add_options_to_field,
     build_loader_repr_from_data,
     build_template_from_function,
@@ -419,7 +419,7 @@ class TestFormatDict:
         """Test that BaseModel types are skipped."""
         test_dict = {"field1": {"type": "SomeBaseModel"}}
 
-        with patch("aiexec.utils.util.get_type", return_value="SomeBaseModel"):
+        with patch("primeagent.utils.util.get_type", return_value="SomeBaseModel"):
             result = format_dict(test_dict)
 
             # BaseModel fields are continued/skipped, so they retain original structure

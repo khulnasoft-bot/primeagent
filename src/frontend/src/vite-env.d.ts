@@ -5,8 +5,8 @@ interface ImportMetaEnv {
   readonly BACKEND_URL: string;
   readonly ACCESS_TOKEN_EXPIRE_SECONDS: string;
   readonly CI: string;
-  readonly AIEXEC_AUTO_LOGIN: string;
-  readonly AIEXEC_MCP_COMPOSER_ENABLED: string;
+  readonly PRIMEAGENT_AUTO_LOGIN: string;
+  readonly PRIMEAGENT_MCP_COMPOSER_ENABLED: string;
 }
 
 interface ImportMeta {

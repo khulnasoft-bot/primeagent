@@ -52,7 +52,7 @@ export default function ShortcutsPage() {
       const fixedName = toCamelCase(name);
       updateUniqueShortcut(fixedName, shortcut);
     });
-    localStorage.removeItem("aiexec-shortcuts");
+    localStorage.removeItem("primeagent-shortcuts");
   }
 
   return (

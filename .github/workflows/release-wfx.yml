@@ -256,8 +256,8 @@ jobs:
             type=raw,value=latest${{ matrix.variant == 'alpine' && '-alpine' || '' }},enable=${{ github.event.inputs.pre_release == 'false' }}
           labels: |
             org.opencontainers.image.title=WFX
-            org.opencontainers.image.description=Aiexec Executor - CLI tool for running Aiexec AI workflows
-            org.opencontainers.image.vendor=Aiexec
+            org.opencontainers.image.description=Primeagent Executor - CLI tool for running Primeagent AI workflows
+            org.opencontainers.image.vendor=Primeagent
             org.opencontainers.image.version=${{ github.event.inputs.version }}
 
       - name: Build and push Docker image

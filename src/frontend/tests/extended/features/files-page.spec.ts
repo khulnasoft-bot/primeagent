@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { expect, test } from "../../fixtures";
-import { addFlowToTestOnEmptyAiexec } from "../../utils/add-flow-to-test-on-empty-aiexec";
+import { addFlowToTestOnEmptyPrimeagent } from "../../utils/add-flow-to-test-on-empty-primeagent";
 import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 import { generateRandomFilename } from "../../utils/generate-filename";
 
@@ -12,12 +12,12 @@ test(
   async ({ page }) => {
     await awaitBootstrapTest(page, { skipModal: true });
 
-    const firstRunAiexec = await page
+    const firstRunPrimeagent = await page
       .getByTestId("empty-project-description")
       .count();
 
-    if (firstRunAiexec > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+    if (firstRunPrimeagent > 0) {
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
 
     await page.waitForSelector('[data-testid="mainpage_title"]', {
@@ -57,12 +57,12 @@ test(
 
     await awaitBootstrapTest(page, { skipModal: true });
 
-    const firstRunAiexec = await page
+    const firstRunPrimeagent = await page
       .getByTestId("empty-project-description")
       .count();
 
-    if (firstRunAiexec > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+    if (firstRunPrimeagent > 0) {
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
 
     await page.waitForSelector('[data-testid="mainpage_title"]', {
@@ -100,12 +100,12 @@ test(
 
     await awaitBootstrapTest(page, { skipModal: true });
 
-    const firstRunAiexec = await page
+    const firstRunPrimeagent = await page
       .getByTestId("empty-project-description")
       .count();
 
-    if (firstRunAiexec > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+    if (firstRunPrimeagent > 0) {
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
 
     await page.waitForSelector('[data-testid="mainpage_title"]', {
@@ -168,12 +168,12 @@ test(
 
     await awaitBootstrapTest(page, { skipModal: true });
 
-    const firstRunAiexec = await page
+    const firstRunPrimeagent = await page
       .getByTestId("empty-project-description")
       .count();
 
-    if (firstRunAiexec > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+    if (firstRunPrimeagent > 0) {
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
 
     await page.waitForSelector('[data-testid="mainpage_title"]', {
@@ -240,12 +240,12 @@ test(
 
     await awaitBootstrapTest(page, { skipModal: true });
 
-    const firstRunAiexec = await page
+    const firstRunPrimeagent = await page
       .getByTestId("empty-project-description")
       .count();
 
-    if (firstRunAiexec > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+    if (firstRunPrimeagent > 0) {
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
 
     await page.waitForSelector('[data-testid="mainpage_title"]', {
@@ -339,12 +339,12 @@ test(
 
     await awaitBootstrapTest(page, { skipModal: true });
 
-    const firstRunAiexec = await page
+    const firstRunPrimeagent = await page
       .getByTestId("empty-project-description")
       .count();
 
-    if (firstRunAiexec > 0) {
-      await addFlowToTestOnEmptyAiexec(page);
+    if (firstRunPrimeagent > 0) {
+      await addFlowToTestOnEmptyPrimeagent(page);
     }
 
     await page.waitForSelector('[data-testid="mainpage_title"]', {

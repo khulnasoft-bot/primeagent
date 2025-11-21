@@ -167,8 +167,8 @@ def docling_worker(
 
     except ModuleNotFoundError:
         msg = (
-            "Docling is an optional dependency of Aiexec. "
-            "Install with `uv pip install 'aiexec[docling]'` "
+            "Docling is an optional dependency of Primeagent. "
+            "Install with `uv pip install 'primeagent[docling]'` "
             "or refer to the documentation"
         )
         queue.put({"error": msg})

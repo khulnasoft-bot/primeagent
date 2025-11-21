@@ -10,7 +10,7 @@ let isDataAttributeTrackingInitialized = false;
  *
  * Example in navbar config:
  * {
- *   href: "https://github.com/khulnasoft/aiexec",
+ *   href: "https://github.com/khulnasoft/primeagent",
  *   'data-event': 'GitHub Link Clicked',
  *   'data-source': 'navbar',
  *   'data-category': 'social'
@@ -20,7 +20,7 @@ let isDataAttributeTrackingInitialized = false;
  * window.analytics.track("GitHub Link Clicked", {
  *   source: "navbar",
  *   category: "social",
- *   url: "https://github.com/khulnasoft/aiexec",
+ *   url: "https://github.com/khulnasoft/primeagent",
  *   page: "/current-page"
  * })
  */

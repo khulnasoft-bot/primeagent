@@ -1,7 +1,7 @@
-from aiexec.custom import Component
+from primeagent.custom import Component
 
 # Import all input types
-from aiexec.io import (
+from primeagent.io import (
     BoolInput,
     DataFrameInput,
     DataInput,
@@ -26,8 +26,8 @@ from wfx.schema import Data
 
 class AllInputsComponent(Component):
     display_name = "All Inputs Component"
-    description = "A component with all input types available in Aiexec."
-    documentation: str = "http://aiexec-docs.khulnasoft.com/components/all_inputs"
+    description = "A component with all input types available in Primeagent."
+    documentation: str = "http://primeagent-docs.khulnasoft.com/components/all_inputs"
     icon = "code"
     name = "AllInputsComponent"
 

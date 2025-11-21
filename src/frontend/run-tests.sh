@@ -78,7 +78,7 @@ if ! poetry install; then
 fi
 
 # Start the backend
-AIEXEC_DATABASE_URL=sqlite:///./temp AIEXEC_AUTO_LOGIN=True poetry run aiexec run --backend-only --port 7860 --host 0.0.0.0 --no-open-browser > /dev/null 2>&1 &
+PRIMEAGENT_DATABASE_URL=sqlite:///./temp PRIMEAGENT_AUTO_LOGIN=True poetry run primeagent run --backend-only --port 7860 --host 0.0.0.0 --no-open-browser > /dev/null 2>&1 &
 backend_pid=$!  # Capture PID of the backend process
 # Adjust sleep duration as needed
 sleep 25

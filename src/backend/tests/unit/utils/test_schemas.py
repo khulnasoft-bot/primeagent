@@ -2,7 +2,7 @@ import enum
 from unittest.mock import Mock, patch
 
 import pytest
-from aiexec.utils.schemas import ChatOutputResponse, ContainsEnumMeta, DataOutputResponse, File
+from primeagent.utils.schemas import ChatOutputResponse, ContainsEnumMeta, DataOutputResponse, File
 from pydantic import ValidationError
 
 
@@ -109,8 +109,8 @@ class TestChatOutputResponse:
         files = [{"path": "/documents/report.pdf"}]
 
         with (
-            patch("aiexec.utils.schemas.TEXT_FILE_TYPES", ["pdf", "txt"]),
-            patch("aiexec.utils.schemas.IMG_FILE_TYPES", ["jpg", "png"]),
+            patch("primeagent.utils.schemas.TEXT_FILE_TYPES", ["pdf", "txt"]),
+            patch("primeagent.utils.schemas.IMG_FILE_TYPES", ["jpg", "png"]),
         ):
             response = ChatOutputResponse(message="Test", files=files, type="text")
 
@@ -138,8 +138,8 @@ class TestChatOutputResponse:
         files = [{"path": "/unknown/file.xyz"}]
 
         with (
-            patch("aiexec.utils.schemas.TEXT_FILE_TYPES", ["txt"]),
-            patch("aiexec.utils.schemas.IMG_FILE_TYPES", ["jpg"]),
+            patch("primeagent.utils.schemas.TEXT_FILE_TYPES", ["txt"]),
+            patch("primeagent.utils.schemas.IMG_FILE_TYPES", ["jpg"]),
             pytest.raises(ValidationError, match="File type is required"),
         ):
             ChatOutputResponse(message="Test", files=files, type="text")
@@ -163,8 +163,8 @@ class TestChatOutputResponse:
         files = [{"path": "/images/photo_jpg_compressed"}]
 
         with (
-            patch("aiexec.utils.schemas.TEXT_FILE_TYPES", ["txt"]),
-            patch("aiexec.utils.schemas.IMG_FILE_TYPES", ["jpg", "png"]),
+            patch("primeagent.utils.schemas.TEXT_FILE_TYPES", ["txt"]),
+            patch("primeagent.utils.schemas.IMG_FILE_TYPES", ["jpg", "png"]),
         ):
             response = ChatOutputResponse(message="Test", files=files, type="text")
 

@@ -20,7 +20,7 @@ def get_file_path_value(file_path):
         return ""
 
     # Normalize and check for safety
-    cache_dir = Path(user_cache_dir("aiexec", "aiexec")).resolve()
+    cache_dir = Path(user_cache_dir("primeagent", "primeagent")).resolve()
     try:
         resolved_path = path.resolve()
     except (OSError, RuntimeError):

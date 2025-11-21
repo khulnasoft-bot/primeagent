@@ -1,5 +1,5 @@
 import pytest
-from aiexec.base.knowledge_bases.knowledge_base_utils import compute_bm25, compute_tfidf
+from primeagent.base.knowledge_bases.knowledge_base_utils import compute_bm25, compute_tfidf
 
 
 class TestKBUtils:

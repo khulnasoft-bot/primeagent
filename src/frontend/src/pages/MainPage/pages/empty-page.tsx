@@ -15,7 +15,7 @@ import { useFolderStore } from "@/stores/foldersStore";
 import { formatNumber } from "@/utils/utils";
 import useFileDrop from "../hooks/use-on-file-drop";
 
-const EMPTY_PAGE_TITLE = "Welcome to Aiexec";
+const EMPTY_PAGE_TITLE = "Welcome to Primeagent";
 const EMPTY_PAGE_DESCRIPTION = "Your new favorite way to ship Agents";
 const EMPTY_PAGE_GITHUB_DESCRIPTION =
   "Follow development, star the repo, and shape the future.";
@@ -70,7 +70,7 @@ export const EmptyPageCommunity = ({
               <div className="z-50 dark:hidden">
                 <img
                   src={logoLightPng}
-                  alt="Aiexec Logo Light"
+                  alt="Primeagent Logo Light"
                   data-testid="empty_page_logo_light"
                   className="relative top-8 h-40 pointer-events-none select-none"
                 />
@@ -78,7 +78,7 @@ export const EmptyPageCommunity = ({
               <div className="z-50 hidden dark:block">
                 <img
                   src={logoDarkPng}
-                  alt="Aiexec Logo Dark"
+                  alt="Primeagent Logo Dark"
                   data-testid="empty_page_logo_dark"
                   className="relative top-8 h-40 pointer-events-none select-none"
                 />

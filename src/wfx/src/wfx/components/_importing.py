@@ -1,4 +1,4 @@
-"""Import utilities for AiExec components."""
+"""Import utilities for PrimeAgent components."""
 
 from __future__ import annotations
 

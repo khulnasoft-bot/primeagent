@@ -13,8 +13,8 @@ jest.mock("react-cookie", () => ({
 
 // Mock constants
 jest.mock("@/constants/constants", () => ({
-  AIEXEC_ACCESS_TOKEN: "aiexec_access_token",
-  AIEXEC_API_TOKEN: "aiexec_api_token",
+  PRIMEAGENT_ACCESS_TOKEN: "primeagent_access_token",
+  PRIMEAGENT_API_TOKEN: "primeagent_api_token",
 }));
 
 // Mock the darkStore to avoid import.meta issues
@@ -55,9 +55,9 @@ describe("useAuthStore", () => {
     // Set default cookie values
     mockCookies.get.mockImplementation((key) => {
       switch (key) {
-        case "aiexec_access_token":
+        case "primeagent_access_token":
           return null;
-        case "aiexec_api_token":
+        case "primeagent_api_token":
           return null;
         default:
           return null;

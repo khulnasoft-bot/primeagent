@@ -1,6 +1,6 @@
 """WFX Step Ramp Load Test for Finding Performance Cliffs.
 
-This file tests the WFX API (complex serve), not the Aiexec API.
+This file tests the WFX API (complex serve), not the Primeagent API.
 
 Steps every 30 seconds: 5 -> 10 -> 15 -> 20 -> 25 -> 30 -> 35 users.
 Each step holds for exactly 30 seconds to measure steady-state performance.
@@ -102,7 +102,7 @@ def on_test_stop(environment, **_kwargs):
     _env_bags.pop(environment, None)
 
 
-class BaseAiexecUser(FastHttpUser):
+class BasePrimeagentUser(FastHttpUser):
     abstract = True
     REQUEST_TIMEOUT = float(os.getenv("REQUEST_TIMEOUT", "10"))
 
@@ -153,7 +153,7 @@ class BaseAiexecUser(FastHttpUser):
             return response.failure(f"HTTP {response.status_code}")
 
 
-class StepTestUser(BaseAiexecUser):
+class StepTestUser(BasePrimeagentUser):
     """User class for step ramp testing - sends medium complexity requests."""
 
     wait_time = between(1, 2)

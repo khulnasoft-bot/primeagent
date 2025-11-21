@@ -1,4 +1,4 @@
-"""Processing components for AiExec."""
+"""Processing components for PrimeAgent."""
 
 from __future__ import annotations
 

@@ -10,7 +10,7 @@ export const customGetMCPUrl = (
     return composerUrl;
   }
 
-  // Fallback to direct Aiexec SSE endpoint
+  // Fallback to direct Primeagent SSE endpoint
   const apiHost = api.defaults.baseURL || window.location.origin;
   const apiUrl = `${apiHost}/api/v1/mcp/project/${projectId}/sse`;
   return apiUrl;

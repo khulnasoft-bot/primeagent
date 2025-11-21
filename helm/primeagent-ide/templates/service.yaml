@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "primeagent.fullname" . }}
+  labels:
+    app: {{ template "primeagent.name" . }}
+    chart: {{ template "primeagent.chart" . }}
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.primeagent.frontend.service.type }}
+  ports:
+    - port: {{ .Values.primeagent.frontend.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "primeagent.name" . }}
+    chart: {{ template "primeagent.chart" . }}
+    release: {{ .Release.Name }}
+    primeagent-scope: "frontend"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "primeagent.fullname" . }}-backend
+  labels:
+    app: {{ template "primeagent.name" . }}
+    chart: {{ template "primeagent.chart" . }}
+    release: {{ .Release.Name }}
+spec:
+  type: {{ .Values.primeagent.backend.service.type }}
+  ports:
+    - port: {{ .Values.primeagent.backend.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "primeagent.name" . }}
+    chart: {{ template "primeagent.chart" . }}
+    release: {{ .Release.Name }}
+    primeagent-scope: "backend"

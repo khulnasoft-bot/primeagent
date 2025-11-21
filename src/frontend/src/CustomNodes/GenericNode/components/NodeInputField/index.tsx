@@ -14,7 +14,7 @@ import { cn } from "@/utils/utils";
 import { default as IconComponent } from "../../../../components/common/genericIconComponent";
 import ShadTooltip from "../../../../components/common/shadTooltipComponent";
 import {
-  AIEXEC_SUPPORTED_TYPES,
+  PRIMEAGENT_SUPPORTED_TYPES,
   DEFAULT_TOOLSET_PLACEHOLDER,
   FLEX_VIEW_TYPES,
   ICON_STROKE_WIDTH,
@@ -101,7 +101,7 @@ export default function NodeInputField({
   }, [optionalHandle]);
 
   const displayHandle =
-    (!AIEXEC_SUPPORTED_TYPES.has(type ?? "") ||
+    (!PRIMEAGENT_SUPPORTED_TYPES.has(type ?? "") ||
       (optionalHandle && optionalHandle.length > 0)) &&
     !isToolMode &&
     !hasRefreshButton;

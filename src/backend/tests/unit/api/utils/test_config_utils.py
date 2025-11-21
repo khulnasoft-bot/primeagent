@@ -2,16 +2,16 @@ from unittest.mock import patch
 from uuid import uuid4
 
 import pytest
-from aiexec.api.utils.mcp.config_utils import (
+from primeagent.api.utils.mcp.config_utils import (
     MCPServerValidationResult,
     auto_configure_starter_projects_mcp,
     validate_mcp_server_for_project,
 )
-from aiexec.services.database.models.flow.model import Flow
-from aiexec.services.database.models.folder.constants import DEFAULT_FOLDER_NAME
-from aiexec.services.database.models.folder.model import Folder
-from aiexec.services.database.models.user.model import User
-from aiexec.services.deps import session_scope
+from primeagent.services.database.models.flow.model import Flow
+from primeagent.services.database.models.folder.constants import DEFAULT_FOLDER_NAME
+from primeagent.services.database.models.folder.model import Folder
+from primeagent.services.database.models.user.model import User
+from primeagent.services.deps import session_scope
 from httpx import AsyncClient
 from sqlmodel import select
 
@@ -112,7 +112,7 @@ class TestValidateMcpServerForProject:
     @pytest.mark.asyncio
     async def test_validate_server_not_exists(self, active_user, test_project, client: AsyncClient):  # noqa: ARG002
         """Test validation when server doesn't exist."""
-        from aiexec.services.deps import get_settings_service, get_storage_service
+        from primeagent.services.deps import get_settings_service, get_storage_service
 
         async with session_scope() as session:
             storage_service = get_storage_service()
@@ -145,7 +145,7 @@ class TestValidateMcpServerForProject:
         )
         assert response.status_code == 200
 
-        from aiexec.services.deps import get_settings_service, get_storage_service
+        from primeagent.services.deps import get_settings_service, get_storage_service
 
         async with session_scope() as session:
             storage_service = get_storage_service()
@@ -184,7 +184,7 @@ class TestValidateMcpServerForProject:
         )
         assert response.status_code == 200
 
-        from aiexec.services.deps import get_settings_service, get_storage_service
+        from primeagent.services.deps import get_settings_service, get_storage_service
 
         async with session_scope() as session:
             storage_service = get_storage_service()
@@ -224,7 +224,7 @@ class TestValidateMcpServerForProject:
         )
         assert response.status_code == 200
 
-        from aiexec.services.deps import get_settings_service, get_storage_service
+        from primeagent.services.deps import get_settings_service, get_storage_service
 
         async with session_scope() as session:
             storage_service = get_storage_service()
@@ -254,14 +254,14 @@ class TestValidateMcpServerForProject:
     @pytest.mark.asyncio
     async def test_validate_server_exception_handling(self, active_user, test_project, client: AsyncClient):  # noqa: ARG002
         """Test exception handling during validation."""
-        from aiexec.services.deps import get_settings_service, get_storage_service
+        from primeagent.services.deps import get_settings_service, get_storage_service
 
         async with session_scope() as session:
             storage_service = get_storage_service()
             settings_service = get_settings_service()
 
             # Mock get_server_list to raise an exception
-            with patch("aiexec.api.utils.mcp.config_utils.get_server_list") as mock_get_server_list:
+            with patch("primeagent.api.utils.mcp.config_utils.get_server_list") as mock_get_server_list:
                 mock_get_server_list.side_effect = Exception("Test error")
 
                 result = await validate_mcp_server_for_project(
@@ -338,7 +338,7 @@ class TestAutoConfigureStarterProjectsMcp:
     async def test_auto_configure_disabled(self, client: AsyncClient):  # noqa: ARG002
         """Test auto-configure when add_projects_to_mcp_servers is disabled."""
         async with session_scope() as session:
-            from aiexec.services.deps import get_settings_service
+            from primeagent.services.deps import get_settings_service
 
             settings_service = get_settings_service()
             original_setting = settings_service.settings.add_projects_to_mcp_servers
@@ -359,7 +359,7 @@ class TestAutoConfigureStarterProjectsMcp:
     async def test_auto_configure_no_users(self, client: AsyncClient):  # noqa: ARG002
         """Test auto-configure when no users exist."""
         async with session_scope() as session:
-            from aiexec.services.deps import get_settings_service
+            from primeagent.services.deps import get_settings_service
 
             settings_service = get_settings_service()
             original_setting = settings_service.settings.add_projects_to_mcp_servers
@@ -388,7 +388,7 @@ class TestAutoConfigureStarterProjectsMcp:
         _, starter_folder, flow = sample_user_with_starter_project
 
         async with session_scope() as session:
-            from aiexec.services.deps import get_settings_service
+            from primeagent.services.deps import get_settings_service
 
             settings_service = get_settings_service()
             original_setting = settings_service.settings.add_projects_to_mcp_servers
@@ -420,7 +420,7 @@ class TestAutoConfigureStarterProjectsMcp:
         user_id = uuid4()
 
         async with session_scope() as session:
-            from aiexec.services.deps import get_settings_service
+            from primeagent.services.deps import get_settings_service
 
             settings_service = get_settings_service()
             original_setting = settings_service.settings.add_projects_to_mcp_servers
@@ -566,7 +566,7 @@ class TestMCPWithDefaultFolderName:
 
         try:
             async with session_scope() as session:
-                from aiexec.services.deps import get_settings_service
+                from primeagent.services.deps import get_settings_service
 
                 settings_service = get_settings_service()
                 original_setting = settings_service.settings.add_projects_to_mcp_servers
@@ -633,7 +633,7 @@ class TestMCPWithDefaultFolderName:
 
         try:
             # Trigger migration by calling get_or_create_default_folder
-            from aiexec.initial_setup.setup import get_or_create_default_folder
+            from primeagent.initial_setup.setup import get_or_create_default_folder
 
             async with session_scope() as session:
                 migrated_folder = await get_or_create_default_folder(session, user_id)
@@ -642,7 +642,7 @@ class TestMCPWithDefaultFolderName:
 
             # Now test that MCP can find the migrated folder
             async with session_scope() as session:
-                from aiexec.services.deps import get_settings_service
+                from primeagent.services.deps import get_settings_service
 
                 settings_service = get_settings_service()
                 original_setting = settings_service.settings.add_projects_to_mcp_servers
@@ -705,7 +705,7 @@ class TestMCPWithDefaultFolderName:
 
         try:
             async with session_scope() as session:
-                from aiexec.services.deps import get_settings_service
+                from primeagent.services.deps import get_settings_service
 
                 settings_service = get_settings_service()
                 original_setting = settings_service.settings.add_projects_to_mcp_servers

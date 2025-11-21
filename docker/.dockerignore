@@ -4,6 +4,6 @@ node_modules
 **/node_modules/
 dist/
 **/build/
-src/backend/aiexec/frontend
-**/aiexec-pre.db
-**/aiexec.db
+src/backend/primeagent/frontend
+**/primeagent-pre.db
+**/primeagent.db

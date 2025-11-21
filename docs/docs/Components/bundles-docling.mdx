@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 import Icon from "@site/src/components/icon";
 import PartialDevModeWindows from '@site/docs/_partial-dev-mode-windows.mdx';
 
-Aiexec integrates with [Docling](https://docling-project.github.io/docling/) through a bundle of components for parsing documents.
+Primeagent integrates with [Docling](https://docling-project.github.io/docling/) through a bundle of components for parsing documents.
 
 ## Prerequisites
 
@@ -16,21 +16,21 @@ Aiexec integrates with [Docling](https://docling-project.github.io/docling/) thr
 <PartialDevModeWindows />
 
 * **Install Docling dependency**:
-The Docling dependency is required to use the Docling components in Aiexec.
+The Docling dependency is required to use the Docling components in Primeagent.
 
-    * **Aiexec version 1.6 and later**: The Docling dependency is included by default for all operating systems except macOS Intel (x86_64).
+    * **Primeagent version 1.6 and later**: The Docling dependency is included by default for all operating systems except macOS Intel (x86_64).
 
         For macOS Intel (x86_64), use the [Docling installation guide](https://docling-project.github.io/docling/installation/) to install the Docling dependency.
 
-    * **Earlier versions**: Aiexec versions earlier than 1.6 don't include the Docling dependency.
-    For Aiexec OSS, install the Docling extra with `uv pip install 'aiexec[docling]'`.
-    For Aiexec Desktop, add the Docling dependency to Aiexec Desktop's `requirements.txt`.
+    * **Earlier versions**: Primeagent versions earlier than 1.6 don't include the Docling dependency.
+    For Primeagent OSS, install the Docling extra with `uv pip install 'primeagent[docling]'`.
+    For Primeagent Desktop, add the Docling dependency to Primeagent Desktop's `requirements.txt`.
     For more information, see [Install custom dependencies](/install-custom-dependencies).
 
 ## Use Docling components in a flow
 
 :::tip
-To learn more about content extraction with Docling, see the video tutorial [Docling + Aiexec: Document Processing for AI Workflows](https://www.youtube.com/watch?v=5DuS6uRI5OM).
+To learn more about content extraction with Docling, see the video tutorial [Docling + Primeagent: Document Processing for AI Workflows](https://www.youtube.com/watch?v=5DuS6uRI5OM).
 :::
 
 This example demonstrates how to use Docling components to split a PDF in a flow:

@@ -3,7 +3,7 @@ from typing import Any
 from uuid import uuid4
 
 import pytest
-from aiexec.custom import Component
+from primeagent.custom import Component
 from wfx.components.agents.cuga_agent import CugaComponent
 from wfx.components.tools.calculator import CalculatorToolComponent
 
@@ -255,7 +255,7 @@ class TestCugaComponent(ComponentTestBaseWithoutClient):
 
         result = await component.json_response()
 
-        from aiexec.schema.data import Data
+        from primeagent.schema.data import Data
 
         assert isinstance(result, Data)
         assert result.data == {"name": "John", "age": 25}

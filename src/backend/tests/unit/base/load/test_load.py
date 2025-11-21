@@ -2,7 +2,7 @@ import inspect
 import os
 
 import pytest
-from aiexec.load import run_flow_from_json
+from primeagent.load import run_flow_from_json
 from dotenv import load_dotenv
 
 

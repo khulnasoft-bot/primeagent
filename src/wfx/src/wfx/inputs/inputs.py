@@ -55,7 +55,7 @@ class TableInput(BaseInputMixin, MetadataTraceMixin, TableMixin, ListableInputMi
                 "- A list of dictionaries (each dict is a row)\n"
                 "- A pandas DataFrame\n"
                 "- A single dictionary (will become a one-row table)\n"
-                "- A Data object (Aiexec's internal data structure)\n"
+                "- A Data object (Primeagent's internal data structure)\n"
             )
             raise ValueError(msg)  # noqa: TRY004
         # Ensure each item in the list is either a dict or a Data instance.
@@ -64,7 +64,7 @@ class TableInput(BaseInputMixin, MetadataTraceMixin, TableMixin, ListableInputMi
                 msg = (
                     f"Row {i + 1} in your table has an invalid format. Each row must be either:\n"
                     "- A dictionary containing column name/value pairs\n"
-                    "- A Data object (Aiexec's internal data structure for passing data between components)\n"
+                    "- A Data object (Primeagent's internal data structure for passing data between components)\n"
                     f"Instead, got a {type(item).__name__}. Please check the format of your input data."
                 )
                 raise ValueError(msg)  # noqa: TRY004
@@ -192,7 +192,7 @@ class MessageInput(StrInput, InputTraceMixin):
             return Message(**v)
         # Duck-typed Message check - works across module boundaries
         if isinstance(v, Message):
-            # If it's from a different module (e.g., aiexec.schema.Message),
+            # If it's from a different module (e.g., primeagent.schema.Message),
             # convert it to ensure we have the right type
             if type(v).__module__ != Message.__module__:
                 return Message(**v.model_dump())
@@ -204,9 +204,9 @@ class MessageInput(StrInput, InputTraceMixin):
 
 
 class MessageTextInput(StrInput, MetadataTraceMixin, InputTraceMixin, ToolModeMixin):
-    """Represents a text input component for the Aiexec system.
+    """Represents a text input component for the Primeagent system.
 
-    This component is used to handle text inputs in the Aiexec system.
+    This component is used to handle text inputs in the Primeagent system.
     It provides methods for validating and processing text values.
 
     Attributes:

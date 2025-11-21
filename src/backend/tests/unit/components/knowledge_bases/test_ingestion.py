@@ -2,10 +2,10 @@ import json
 from unittest.mock import MagicMock, patch
 
 import pytest
-from aiexec.base.knowledge_bases.knowledge_base_utils import get_knowledge_bases
-from aiexec.components.knowledge_bases.ingestion import KnowledgeIngestionComponent
-from aiexec.schema.data import Data
-from aiexec.schema.dataframe import DataFrame
+from primeagent.base.knowledge_bases.knowledge_base_utils import get_knowledge_bases
+from primeagent.components.knowledge_bases.ingestion import KnowledgeIngestionComponent
+from primeagent.schema.data import Data
+from primeagent.schema.dataframe import DataFrame
 
 from tests.base import ComponentTestBaseWithClient
 
@@ -19,7 +19,7 @@ class TestKnowledgeIngestionComponent(ComponentTestBaseWithClient):
     @pytest.fixture(autouse=True)
     def mock_knowledge_base_path(self, tmp_path):
         """Mock the knowledge base root path directly."""
-        with patch("aiexec.components.knowledge_bases.ingestion.KNOWLEDGE_BASES_ROOT_PATH", tmp_path):
+        with patch("primeagent.components.knowledge_bases.ingestion.KNOWLEDGE_BASES_ROOT_PATH", tmp_path):
             yield
 
     @pytest.fixture
@@ -174,8 +174,8 @@ class TestKnowledgeIngestionComponent(ComponentTestBaseWithClient):
         with pytest.raises(NotImplementedError, match="Custom embedding models not yet supported"):
             component._build_embeddings("custom-model", "test-key")
 
-    @patch("aiexec.components.knowledge_bases.ingestion.get_settings_service")
-    @patch("aiexec.components.knowledge_bases.ingestion.encrypt_api_key")
+    @patch("primeagent.components.knowledge_bases.ingestion.get_settings_service")
+    @patch("primeagent.components.knowledge_bases.ingestion.encrypt_api_key")
     def test_build_embedding_metadata(self, mock_encrypt, mock_get_settings, component_class, default_kwargs):
         """Test building embedding metadata."""
         component = component_class(**default_kwargs)
@@ -215,7 +215,7 @@ class TestKnowledgeIngestionComponent(ComponentTestBaseWithClient):
         config_list = default_kwargs["column_config"]
 
         # Mock Chroma to avoid actual vector store operations
-        with patch("aiexec.components.knowledge_bases.ingestion.Chroma") as mock_chroma:
+        with patch("primeagent.components.knowledge_bases.ingestion.Chroma") as mock_chroma:
             mock_chroma_instance = MagicMock()
             mock_chroma_instance.get.return_value = {"metadatas": []}
             mock_chroma.return_value = mock_chroma_instance
@@ -240,7 +240,7 @@ class TestKnowledgeIngestionComponent(ComponentTestBaseWithClient):
         config_list = default_kwargs["column_config"]
 
         # Mock Chroma with existing hash
-        with patch("aiexec.components.knowledge_bases.ingestion.Chroma") as mock_chroma:
+        with patch("primeagent.components.knowledge_bases.ingestion.Chroma") as mock_chroma:
             # Simulate existing document with same hash
             existing_hash = "some_existing_hash"
             mock_chroma_instance = MagicMock()
@@ -248,7 +248,7 @@ class TestKnowledgeIngestionComponent(ComponentTestBaseWithClient):
             mock_chroma.return_value = mock_chroma_instance
 
             # Mock hashlib to return the existing hash for first row
-            with patch("aiexec.components.knowledge_bases.ingestion.hashlib.sha256") as mock_hash:
+            with patch("primeagent.components.knowledge_bases.ingestion.hashlib.sha256") as mock_hash:
                 mock_hash_obj = MagicMock()
                 mock_hash_obj.hexdigest.side_effect = [existing_hash, "different_hash"]
                 mock_hash.return_value = mock_hash_obj
@@ -274,8 +274,8 @@ class TestKnowledgeIngestionComponent(ComponentTestBaseWithClient):
         assert component.is_valid_collection_name("invalid_") is False  # Ends with underscore
         assert component.is_valid_collection_name("invalid@name") is False  # Invalid character
 
-    @patch("aiexec.components.knowledge_bases.ingestion.json.loads")
-    @patch("aiexec.components.knowledge_bases.ingestion.decrypt_api_key")
+    @patch("primeagent.components.knowledge_bases.ingestion.json.loads")
+    @patch("primeagent.components.knowledge_bases.ingestion.decrypt_api_key")
     async def test_build_kb_info_success(self, mock_decrypt, mock_json_loads, component_class, default_kwargs):
         """Test successful KB info building."""
         component = component_class(**default_kwargs)

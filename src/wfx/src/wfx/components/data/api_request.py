@@ -44,7 +44,7 @@ DEFAULT_FIELDS = ["mode"]
 class APIRequestComponent(Component):
     display_name = "API Request"
     description = "Make HTTP requests using URL or cURL commands."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-data#api-request"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-data#api-request"
     icon = "Globe"
     name = "APIRequest"
 
@@ -130,7 +130,7 @@ class APIRequestComponent(Component):
                     "description": "Header value",
                 },
             ],
-            value=[{"key": "User-Agent", "value": "Aiexec/1.0"}],
+            value=[{"key": "User-Agent", "value": "Primeagent/1.0"}],
             advanced=True,
             input_types=["Data"],
             real_time_refresh=True,

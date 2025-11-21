@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 import pytest
-from aiexec.initial_setup.setup import load_starter_projects
+from primeagent.initial_setup.setup import load_starter_projects
 from fastapi import status
 from httpx import AsyncClient
 from wfx.graph.schema import RunOutputs

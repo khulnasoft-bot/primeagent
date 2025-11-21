@@ -7,9 +7,9 @@ import Icon from "@site/src/components/icon";
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-Custom components extend Aiexec's functionality through Python classes that inherit from `Component`. This enables integration of new features, data manipulation, external services, and specialized tools.
+Custom components extend Primeagent's functionality through Python classes that inherit from `Component`. This enables integration of new features, data manipulation, external services, and specialized tools.
 
-In Aiexec's node-based environment, each node is a "component" that performs discrete functions. Custom components are Python classes which define:
+In Primeagent's node-based environment, each node is a "component" that performs discrete functions. Custom components are Python classes which define:
 
 * **Inputs** — Data or parameters your component requires.
 * **Outputs** — Data your component provides to downstream nodes.
@@ -19,7 +19,7 @@ The benefits of creating custom components include unlimited extensibility, reus
 
 Create custom components for performing specialized tasks, calling APIs, or adding advanced logic.
 
-Custom components in Aiexec are built upon:
+Custom components in Primeagent are built upon:
 
 * The Python class that inherits from `Component`.
 * Class-level attributes that identify and describe the component.
@@ -41,20 +41,20 @@ class MyCsvReader(Component):
 
 * `display_name`: A user-friendly label shown in the visual editor.
 * `description`: A brief summary shown in tooltips and printed below the component name when added to a flow.
-* `icon`: A decorative icon from Aiexec's icon library, printed next to the name.
+* `icon`: A decorative icon from Primeagent's icon library, printed next to the name.
 
-    Aiexec uses [Lucide](https://lucide.dev/icons) for icons. To assign an icon to your component, set the icon attribute to the name of a Lucide icon as a string, such as `icon = "file-text"`. Aiexec renders icons from the Lucide library automatically.
+    Primeagent uses [Lucide](https://lucide.dev/icons) for icons. To assign an icon to your component, set the icon attribute to the name of a Lucide icon as a string, such as `icon = "file-text"`. Primeagent renders icons from the Lucide library automatically.
 
 * `name`: A unique internal identifier, typically the same name as the folder containing your component code.
 * `documentation`: An optional link to external documentation, such as API or product documentation.
 
 ### Structure of a custom component
 
-A Aiexec custom component is more than a class with inputs and outputs. It includes an internal structure with optional lifecycle steps, output generation, front-end interaction, and logic organization.
+A Primeagent custom component is more than a class with inputs and outputs. It includes an internal structure with optional lifecycle steps, output generation, front-end interaction, and logic organization.
 
 A basic component:
 
-* Inherits from `aiexec.custom.Component`.
+* Inherits from `primeagent.custom.Component`.
 * Declares metadata like `display_name`, `description`, `icon`, and more.
 * Defines `inputs` and `outputs` lists.
 * Implements methods matching output specifications.
@@ -62,8 +62,8 @@ A basic component:
 A minimal custom component skeleton contains the following:
 
 ```python
-from aiexec.custom import Component
-from aiexec.template import Output
+from primeagent.custom import Component
+from primeagent.template import Output
 
 class MyComponent(Component):
     display_name = "My Component"
@@ -79,7 +79,7 @@ class MyComponent(Component):
 ```
 ### Internal Lifecycle and Execution Flow
 
-Aiexec's engine manages:
+Primeagent's engine manages:
 
 * **Instantiation**:  A component is created and internal structures are initialized.
 * **Assigning Inputs**: Values from the visual editor or connections are assigned to component fields.
@@ -151,7 +151,7 @@ outputs = [
 
 #### Output Grouping Behavior with `group_outputs`
 
-By default, components in Aiexec that produce multiple outputs only allow one output selection in the visual editor.
+By default, components in Primeagent that produce multiple outputs only allow one output selection in the visual editor.
 The component will have only one output port where the user can select the preferred output type.
 
 This behavior is controlled by the `group_outputs` parameter:
@@ -239,15 +239,15 @@ def some_method(self):
 
 ## Directory structure requirements
 
-By default, Aiexec looks for custom components in the `/components` directory.
+By default, Primeagent looks for custom components in the `/components` directory.
 
-If you're creating custom components in a different location using the `AIEXEC_COMPONENTS_PATH` [environment variable](/environment-variables), components must be organized in a specific directory structure to be properly loaded and displayed in the visual editor:
+If you're creating custom components in a different location using the `PRIMEAGENT_COMPONENTS_PATH` [environment variable](/environment-variables), components must be organized in a specific directory structure to be properly loaded and displayed in the visual editor:
 
-Each category directory **must** contain an `__init__.py` file for Aiexec to properly recognize and load the components.
+Each category directory **must** contain an `__init__.py` file for Primeagent to properly recognize and load the components.
 This is a Python package requirement that ensures the directory is treated as a module.
 
 ```
-/your/custom/components/path/    # Base directory set by AIEXEC_COMPONENTS_PATH
+/your/custom/components/path/    # Base directory set by PRIMEAGENT_COMPONENTS_PATH
     └── category_name/          # Required category subfolder that determines menu name
         ├── __init__.py         # Required
         └── custom_component.py # Component file
@@ -255,11 +255,11 @@ This is a Python package requirement that ensures the directory is treated as a 
 
 Components must be placed inside category folders, not directly in the base directory.
 
-The category folder name determines where the component appears in the Aiexec <Icon name="Component" aria-hidden="true" /> **Core components** menu.
+The category folder name determines where the component appears in the Primeagent <Icon name="Component" aria-hidden="true" /> **Core components** menu.
 For example, to add a component to the **Helpers** category, place it in the `helpers` subfolder:
 
 ```
-/app/custom_components/          # AIEXEC_COMPONENTS_PATH
+/app/custom_components/          # PRIMEAGENT_COMPONENTS_PATH
     └── helpers/                 # Displayed within the "Helpers" category
         ├── __init__.py          # Required
         └── custom_component.py  # Your component
@@ -276,10 +276,10 @@ You can have multiple category folders to organize components into different cat
         └── tool_component.py
 ```
 
-This folder structure is required for Aiexec to properly discover and load your custom components. Components placed directly in the base directory aren't loaded.
+This folder structure is required for Primeagent to properly discover and load your custom components. Components placed directly in the base directory aren't loaded.
 
 ```
-/app/custom_components/          # AIEXEC_COMPONENTS_PATH
+/app/custom_components/          # PRIMEAGENT_COMPONENTS_PATH
     └── custom_component.py      # Won't be loaded - missing category folder!
 ```
 
@@ -289,9 +289,9 @@ Inputs and outputs define how data flows through the component, how it appears i
 
 ### Inputs
 
-Inputs are defined in a class-level `inputs` list. When Aiexec loads the component, it uses this list to render component fields and [ports](/concepts-components#component-ports) in the visual editor. Users or other components provide values or connections to fill these inputs.
+Inputs are defined in a class-level `inputs` list. When Primeagent loads the component, it uses this list to render component fields and [ports](/concepts-components#component-ports) in the visual editor. Users or other components provide values or connections to fill these inputs.
 
-An input is usually an instance of a class from `aiexec.io` (such as `StrInput`, `DataInput`, or `MessageTextInput`). The most common constructor parameters are:
+An input is usually an instance of a class from `primeagent.io` (such as `StrInput`, `DataInput`, or `MessageTextInput`). The most common constructor parameters are:
 
 * **`name`**: The internal variable name, accessed with `self.<name>`.
 * **`display_name`**: The label shown to users in the visual editor.
@@ -333,7 +333,7 @@ Here are the most commonly used input classes and their typical usage.
 This example defines three inputs: a text field (`StrInput`), a Boolean toggle (`BoolInput`), and a dropdown selection (`DropdownInput`).
 
 ```python
-from aiexec.io import StrInput, BoolInput, DropdownInput
+from primeagent.io import StrInput, BoolInput, DropdownInput
 
 inputs = [
     StrInput(name="title", display_name="Title"),
@@ -344,9 +344,9 @@ inputs = [
 
 ### Outputs
 
-Outputs are defined in a class-level `outputs` list. When Aiexec renders a component, each output becomes a connector point in the visual editor. When you connect something to an output, Aiexec automatically calls the corresponding method and passes the returned object to the next component.
+Outputs are defined in a class-level `outputs` list. When Primeagent renders a component, each output becomes a connector point in the visual editor. When you connect something to an output, Primeagent automatically calls the corresponding method and passes the returned object to the next component.
 
-An output is usually an instance of `Output` from `aiexec.io`, with common parameters:
+An output is usually an instance of `Output` from `primeagent.io`, with common parameters:
 
 * **`name`**: The internal variable name.
 * **`display_name`**: The label shown in the visual editor.
@@ -359,15 +359,15 @@ You can also set a `self.status` message inside the method to show progress or l
 **Common Return Types**:
 - **`Message`**: Structured chat messages.
 - **`Data`**: Flexible object with `.data` and optional `.text`.
-- **`DataFrame`**: Pandas-based tables (`aiexec.schema.DataFrame`).
+- **`DataFrame`**: Pandas-based tables (`primeagent.schema.DataFrame`).
 - **Primitive types**: `str`, `int`, `bool` (not recommended if you need type/color consistency).
 
-In this example, the `DataToDataFrame` component defines its output using the outputs list. The `df_out` output is linked to the `build_df` method, so when connected to another component (node), Aiexec calls this method and passes its returned `DataFrame` to the next node. This demonstrates how each output maps to a method that generates the actual output data.
+In this example, the `DataToDataFrame` component defines its output using the outputs list. The `df_out` output is linked to the `build_df` method, so when connected to another component (node), Primeagent calls this method and passes its returned `DataFrame` to the next node. This demonstrates how each output maps to a method that generates the actual output data.
 
 ```python
-from aiexec.custom import Component
-from aiexec.io import DataInput, Output
-from aiexec.schema import Data, DataFrame
+from primeagent.custom import Component
+from primeagent.io import DataInput, Output
+from primeagent.schema import Data, DataFrame
 
 class DataToDataFrame(Component):
     display_name = "Data to DataFrame"
@@ -422,7 +422,7 @@ inputs = [
 ]
 ```
 
-Aiexec currently supports the following input types for **Tool Mode**:
+Primeagent currently supports the following input types for **Tool Mode**:
 
 * `DataInput`
 * `DataFrameInput`
@@ -433,12 +433,12 @@ Aiexec currently supports the following input types for **Tool Mode**:
 
 ## Typed annotations
 
-In Aiexec, **typed annotations** allow Aiexec to visually guide users and maintain flow consistency.
+In Primeagent, **typed annotations** allow Primeagent to visually guide users and maintain flow consistency.
 
 Typed annotations provide:
 
 * **Color-coding**: Outputs like `-> Data` or `-> Message` get distinct colors.
-* **Validation**: Aiexec blocks incompatible connections automatically.
+* **Validation**: Primeagent blocks incompatible connections automatically.
 * **Readability**: Developers can quickly understand data flow.
 * **Development tools**: Better code suggestions and error checking in your code editor.
 
@@ -487,14 +487,14 @@ When using typed annotations, consider the following best practices:
 
 ## Enable dynamic fields
 
-In **Aiexec**, dynamic fields allow inputs to change or appear based on user interactions. You can make an input dynamic by setting `dynamic=True`.
+In **Primeagent**, dynamic fields allow inputs to change or appear based on user interactions. You can make an input dynamic by setting `dynamic=True`.
 Optionally, setting `real_time_refresh=True` triggers the `update_build_config` method to adjust the input's visibility or properties in real time, creating a contextual visual editor experience that only exposes relevant fields based on the user's choices.
 
 In this example, the operator field triggers updates with `real_time_refresh=True`.
 The `regex_pattern` field is initially hidden and controlled with `dynamic=True`.
 
 ```python
-from aiexec.io import DropdownInput, StrInput
+from primeagent.io import DropdownInput, StrInput
 
 class RegexRouter(Component):
     display_name = "Regex Router"
@@ -520,7 +520,7 @@ class RegexRouter(Component):
 
 ### Implement `update_build_config`
 
-When a field with `real_time_refresh=True` is modified, Aiexec calls the `update_build_config` method, passing the updated field name, value, and the component's configuration to dynamically adjust the visibility or properties of other fields based on user input.
+When a field with `real_time_refresh=True` is modified, Primeagent calls the `update_build_config` method, passing the updated field name, value, and the component's configuration to dynamically adjust the visibility or properties of other fields based on user input.
 
 This example will show or hide the `regex_pattern` field when the user selects a different operator.
 
@@ -556,11 +556,11 @@ When working with dynamic fields, consider the following best practices to ensur
 
 ## Error handling and logging
 
-In Aiexec, robust error handling ensures that your components behave predictably, even when unexpected situations occur, such as invalid inputs, external API failures, or internal logic errors.
+In Primeagent, robust error handling ensures that your components behave predictably, even when unexpected situations occur, such as invalid inputs, external API failures, or internal logic errors.
 
 ### Error handling techniques
 
-* **Raise Exceptions**: If a critical error occurs, you can raise standard Python exceptions such as `ValueError`, or specialized exceptions like `ToolException`. Aiexec will automatically catch these and display appropriate error messages in the visual editor, helping users quickly identify what went wrong.
+* **Raise Exceptions**: If a critical error occurs, you can raise standard Python exceptions such as `ValueError`, or specialized exceptions like `ToolException`. Primeagent will automatically catch these and display appropriate error messages in the visual editor, helping users quickly identify what went wrong.
 
     ```python
     def compute_result(self) -> str:
@@ -595,7 +595,7 @@ In Aiexec, robust error handling ensures that your components behave predictably
     ```python
     def some_output(self) -> Data:
     if <some condition>:
-        self.stop("some_output")  # Tells Aiexec no data flows
+        self.stop("some_output")  # Tells Primeagent no data flows
         return Data(data={"error": "Condition not met"})
     ```
 
@@ -617,6 +617,6 @@ To build more reliable components, consider the following best practices:
 * **Return structured errors**: When appropriate, return `Data(data={"error": ...})` instead of raising exceptions to allow downstream handling.
 * **Stop outputs selectively**: Only halt specific outputs with `self.stop(...)` if necessary, to preserve correct flow behavior elsewhere.
 
-## Contribute custom components to Aiexec
+## Contribute custom components to Primeagent
 
-See [How to Contribute](/contributing-components) to contribute your custom component to Aiexec.
+See [How to Contribute](/contributing-components) to contribute your custom component to Primeagent.

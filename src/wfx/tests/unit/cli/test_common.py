@@ -116,22 +116,22 @@ class TestApiKey:
 
     def test_get_api_key_success(self):
         """Test getting API key when it exists."""
-        with patch.dict(os.environ, {"AIEXEC_API_KEY": "test-api-key"}):
+        with patch.dict(os.environ, {"PRIMEAGENT_API_KEY": "test-api-key"}):
             assert get_api_key() == "test-api-key"
 
     def test_get_api_key_not_set(self):
         """Test error when API key is not set."""
         with (
             patch.dict(os.environ, {}, clear=True),
-            pytest.raises(ValueError, match="AIEXEC_API_KEY environment variable is not set"),
+            pytest.raises(ValueError, match="PRIMEAGENT_API_KEY environment variable is not set"),
         ):
             get_api_key()
 
     def test_get_api_key_empty_string(self):
         """Test error when API key is empty string."""
         with (
-            patch.dict(os.environ, {"AIEXEC_API_KEY": ""}),
-            pytest.raises(ValueError, match="AIEXEC_API_KEY environment variable is not set"),
+            patch.dict(os.environ, {"PRIMEAGENT_API_KEY": ""}),
+            pytest.raises(ValueError, match="PRIMEAGENT_API_KEY environment variable is not set"),
         ):
             get_api_key()
 

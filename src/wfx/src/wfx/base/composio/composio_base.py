@@ -23,7 +23,7 @@ from wfx.inputs.inputs import (
     TabInput,
 )
 from wfx.io import Output
-from wfx.io.schema import flatten_schema, schema_to_aiexec_inputs
+from wfx.io.schema import flatten_schema, schema_to_primeagent_inputs
 from wfx.log.logger import logger
 from wfx.schema.data import Data
 from wfx.schema.dataframe import DataFrame
@@ -637,7 +637,7 @@ class ComposioBaseComponent(Component):
             logger.debug(f"Could not populate Composio actions for {self.app_name}: {e}")
 
     def _validate_schema_inputs(self, action_key: str) -> list[InputTypes]:
-        """Convert the JSON schema for *action_key* into Aiexec input objects."""
+        """Convert the JSON schema for *action_key* into Primeagent input objects."""
         # Skip validation for default/placeholder values
         if action_key in ("disabled", "placeholder", ""):
             logger.debug(f"Skipping schema validation for placeholder value: {action_key}")
@@ -793,7 +793,7 @@ class ComposioBaseComponent(Component):
                 logger.warning(f"Input schema is None for action key: {action_key}")
                 return []
 
-            # Additional safety check before calling schema_to_aiexec_inputs
+            # Additional safety check before calling schema_to_primeagent_inputs
             if not hasattr(input_schema, "model_fields"):
                 logger.warning(f"Input schema for {action_key} does not have model_fields attribute")
                 return []
@@ -802,7 +802,7 @@ class ComposioBaseComponent(Component):
                 logger.warning(f"Input schema model_fields is None for {action_key}")
                 return []
 
-            result = schema_to_aiexec_inputs(input_schema)
+            result = schema_to_primeagent_inputs(input_schema)
 
             # Process inputs to handle attachment fields and set advanced status
             if result:

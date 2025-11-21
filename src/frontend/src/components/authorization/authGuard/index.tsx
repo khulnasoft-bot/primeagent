@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import {
-  AIEXEC_ACCESS_TOKEN_EXPIRE_SECONDS,
-  AIEXEC_ACCESS_TOKEN_EXPIRE_SECONDS_ENV,
+  PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS,
+  PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS_ENV,
   IS_AUTO_LOGIN,
 } from "@/constants/constants";
 import { useRefreshAccessToken } from "@/controllers/API/queries/auth";
@@ -21,8 +21,8 @@ export const ProtectedRoute = ({ children }) => {
     (!autoLogin || !isAutoLoginEnv);
 
   useEffect(() => {
-    const envRefreshTime = AIEXEC_ACCESS_TOKEN_EXPIRE_SECONDS_ENV;
-    const automaticRefreshTime = AIEXEC_ACCESS_TOKEN_EXPIRE_SECONDS;
+    const envRefreshTime = PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS_ENV;
+    const automaticRefreshTime = PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS;
 
     const accessTokenTimer = isNaN(envRefreshTime)
       ? automaticRefreshTime

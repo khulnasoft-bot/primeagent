@@ -3,8 +3,8 @@ name: Cross-Platform Installation Test
 on:
   workflow_dispatch:
     inputs:
-      aiexec-version:
-        description: "Aiexec version to test from PyPI (leave empty to test from source)"
+      primeagent-version:
+        description: "Primeagent version to test from PyPI (leave empty to test from source)"
         required: false
         type: string
         default: ""
@@ -27,7 +27,7 @@ jobs:
   build-if-needed:
     name: Build Packages (if no artifacts provided)
     runs-on: ubuntu-latest
-    if: inputs.aiexec-version == '' && contains(github.workflow_ref, 'cross-platform-test.yml')
+    if: inputs.primeagent-version == '' && contains(github.workflow_ref, 'cross-platform-test.yml')
     outputs:
       base-artifact-name: ${{ steps.set-names.outputs.base-artifact-name }}
       main-artifact-name: ${{ steps.set-names.outputs.main-artifact-name }}
@@ -47,14 +47,14 @@ jobs:
       - name: Build frontend
         run: make build_frontend
       - name: Build base package
-        run: make build_aiexec_base args="--wheel"
+        run: make build_primeagent_base args="--wheel"
       - name: Move base package to correct directory
         run: |
           # Base package builds to dist/ but should be in src/backend/base/dist/
           mkdir -p src/backend/base/dist
-          mv dist/aiexec_base*.whl src/backend/base/dist/
+          mv dist/primeagent_base*.whl src/backend/base/dist/
       - name: Build main package
-        run: make build_aiexec args="--wheel"
+        run: make build_primeagent args="--wheel"
       - name: Upload base artifact
         uses: actions/upload-artifact@v4
         with:
@@ -122,7 +122,7 @@ jobs:
         id: install-method
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            if [ -n "${{ inputs.aiexec-version }}" ]; then
+            if [ -n "${{ inputs.primeagent-version }}" ]; then
               echo "method=pypi" >> $GITHUB_OUTPUT
             else
               echo "method=wheel" >> $GITHUB_OUTPUT
@@ -258,23 +258,23 @@ jobs:
         shell: bash
 
       # PyPI installation steps
-      - name: Install aiexec from PyPI (Windows)
+      - name: Install primeagent from PyPI (Windows)
         if: steps.install-method.outputs.method == 'pypi' && matrix.os == 'windows'
         run: |
-          if [ -n "${{ inputs.aiexec-version }}" ]; then
-            uv pip install --python ./test-env/Scripts/python.exe aiexec==${{ inputs.aiexec-version }}
+          if [ -n "${{ inputs.primeagent-version }}" ]; then
+            uv pip install --python ./test-env/Scripts/python.exe primeagent==${{ inputs.primeagent-version }}
           else
-            uv pip install --python ./test-env/Scripts/python.exe aiexec
+            uv pip install --python ./test-env/Scripts/python.exe primeagent
           fi
         shell: bash
 
-      - name: Install aiexec from PyPI (Unix)
+      - name: Install primeagent from PyPI (Unix)
         if: steps.install-method.outputs.method == 'pypi' && matrix.os != 'windows'
         run: |
-          if [ -n "${{ inputs.aiexec-version }}" ]; then
-            uv pip install --python ./test-env/bin/python aiexec==${{ inputs.aiexec-version }}
+          if [ -n "${{ inputs.primeagent-version }}" ]; then
+            uv pip install --python ./test-env/bin/python primeagent==${{ inputs.primeagent-version }}
           else
-            uv pip install --python ./test-env/bin/python aiexec
+            uv pip install --python ./test-env/bin/python primeagent
           fi
         shell: bash
 
@@ -296,13 +296,13 @@ jobs:
         if: matrix.os == 'windows'
         run: |
           call test-env\Scripts\activate.bat
-          python -m aiexec --help
+          python -m primeagent --help
         shell: cmd
 
       - name: Test CLI help command (Unix)
         if: matrix.os != 'windows'
         run: |
-          ./test-env/bin/python -m aiexec --help
+          ./test-env/bin/python -m primeagent --help
         shell: bash
 
       - name: Test server startup (Windows)
@@ -310,7 +310,7 @@ jobs:
         timeout-minutes: 5
         run: |
           # Start server in background
-          $serverProcess = Start-Process -FilePath ".\test-env\Scripts\python.exe" -ArgumentList "-m", "aiexec", "run", "--host", "localhost", "--port", "7860", "--backend-only" -PassThru -WindowStyle Hidden
+          $serverProcess = Start-Process -FilePath ".\test-env\Scripts\python.exe" -ArgumentList "-m", "primeagent", "run", "--host", "localhost", "--port", "7860", "--backend-only" -PassThru -WindowStyle Hidden
 
           # Wait for server to be ready (GitHub Actions will timeout after 5 minutes)
           do {
@@ -334,7 +334,7 @@ jobs:
         timeout-minutes: 5
         run: |
           # Start server in background
-          ./test-env/bin/python -m aiexec run --host localhost --port 7860 --backend-only &
+          ./test-env/bin/python -m primeagent run --host localhost --port 7860 --backend-only &
           SERVER_PID=$!
 
           # Wait for server to be ready (GitHub Actions will timeout after 5 minutes)
@@ -356,10 +356,10 @@ jobs:
         run: |
           test-env\Scripts\python.exe -c "
           try:
-              import aiexec
-              print('✅ aiexec import successful on ${{ matrix.os }}-${{ matrix.arch }}')
+              import primeagent
+              print('✅ primeagent import successful on ${{ matrix.os }}-${{ matrix.arch }}')
           except Exception as e:
-              print(f'❌ aiexec import failed on ${{ matrix.os }}-${{ matrix.arch }}: {e}')
+              print(f'❌ primeagent import failed on ${{ matrix.os }}-${{ matrix.arch }}: {e}')
               exit(1)
           "
         shell: cmd
@@ -369,10 +369,10 @@ jobs:
         run: |
           ./test-env/bin/python -c "
           try:
-              import aiexec
-              print('✅ aiexec import successful on ${{ matrix.os }}-${{ matrix.arch }}')
+              import primeagent
+              print('✅ primeagent import successful on ${{ matrix.os }}-${{ matrix.arch }}')
           except Exception as e:
-              print(f'❌ aiexec import failed on ${{ matrix.os }}-${{ matrix.arch }}: {e}')
+              print(f'❌ primeagent import failed on ${{ matrix.os }}-${{ matrix.arch }}: {e}')
               exit(1)
           "
         shell: bash
@@ -410,7 +410,7 @@ jobs:
         id: install-method
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            if [ -n "${{ inputs.aiexec-version }}" ]; then
+            if [ -n "${{ inputs.primeagent-version }}" ]; then
               echo "method=pypi" >> $GITHUB_OUTPUT
             else
               echo "method=wheel" >> $GITHUB_OUTPUT
@@ -546,23 +546,23 @@ jobs:
         shell: bash
 
       # PyPI installation steps
-      - name: Install aiexec from PyPI (Windows)
+      - name: Install primeagent from PyPI (Windows)
         if: steps.install-method.outputs.method == 'pypi' && matrix.os == 'windows'
         run: |
-          if [ -n "${{ inputs.aiexec-version }}" ]; then
-            uv pip install --python ./test-env/Scripts/python.exe aiexec==${{ inputs.aiexec-version }}
+          if [ -n "${{ inputs.primeagent-version }}" ]; then
+            uv pip install --python ./test-env/Scripts/python.exe primeagent==${{ inputs.primeagent-version }}
           else
-            uv pip install --python ./test-env/Scripts/python.exe aiexec
+            uv pip install --python ./test-env/Scripts/python.exe primeagent
           fi
         shell: bash
 
-      - name: Install aiexec from PyPI (Unix)
+      - name: Install primeagent from PyPI (Unix)
         if: steps.install-method.outputs.method == 'pypi' && matrix.os != 'windows'
         run: |
-          if [ -n "${{ inputs.aiexec-version }}" ]; then
-            uv pip install --python ./test-env/bin/python aiexec==${{ inputs.aiexec-version }}
+          if [ -n "${{ inputs.primeagent-version }}" ]; then
+            uv pip install --python ./test-env/bin/python primeagent==${{ inputs.primeagent-version }}
           else
-            uv pip install --python ./test-env/bin/python aiexec
+            uv pip install --python ./test-env/bin/python primeagent
           fi
         shell: bash
 
@@ -584,13 +584,13 @@ jobs:
         if: matrix.os == 'windows'
         run: |
           call test-env\Scripts\activate.bat
-          python -m aiexec --help
+          python -m primeagent --help
         shell: cmd
 
       - name: Test CLI help command (Unix)
         if: matrix.os != 'windows'
         run: |
-          ./test-env/bin/python -m aiexec --help
+          ./test-env/bin/python -m primeagent --help
         shell: bash
 
       - name: Test server startup (Windows)
@@ -598,7 +598,7 @@ jobs:
         timeout-minutes: 5
         run: |
           # Start server in background
-          $serverProcess = Start-Process -FilePath ".\test-env\Scripts\python.exe" -ArgumentList "-m", "aiexec", "run", "--host", "localhost", "--port", "7860", "--backend-only" -PassThru -WindowStyle Hidden
+          $serverProcess = Start-Process -FilePath ".\test-env\Scripts\python.exe" -ArgumentList "-m", "primeagent", "run", "--host", "localhost", "--port", "7860", "--backend-only" -PassThru -WindowStyle Hidden
 
           # Wait for server to be ready (GitHub Actions will timeout after 5 minutes)
           do {
@@ -622,7 +622,7 @@ jobs:
         timeout-minutes: 5
         run: |
           # Start server in background
-          ./test-env/bin/python -m aiexec run --host localhost --port 7860 --backend-only &
+          ./test-env/bin/python -m primeagent run --host localhost --port 7860 --backend-only &
           SERVER_PID=$!
 
           # Wait for server to be ready (GitHub Actions will timeout after 5 minutes)
@@ -644,10 +644,10 @@ jobs:
         run: |
           test-env\Scripts\python.exe -c "
           try:
-              import aiexec
-              print('✅ aiexec import successful on ${{ matrix.os }}-${{ matrix.arch }}')
+              import primeagent
+              print('✅ primeagent import successful on ${{ matrix.os }}-${{ matrix.arch }}')
           except Exception as e:
-              print(f'❌ aiexec import failed on ${{ matrix.os }}-${{ matrix.arch }}: {e}')
+              print(f'❌ primeagent import failed on ${{ matrix.os }}-${{ matrix.arch }}: {e}')
               exit(1)
           "
         shell: cmd
@@ -657,10 +657,10 @@ jobs:
         run: |
           ./test-env/bin/python -c "
           try:
-              import aiexec
-              print('✅ aiexec import successful on ${{ matrix.os }}-${{ matrix.arch }}')
+              import primeagent
+              print('✅ primeagent import successful on ${{ matrix.os }}-${{ matrix.arch }}')
           except Exception as e:
-              print(f'❌ aiexec import failed on ${{ matrix.os }}-${{ matrix.arch }}: {e}')
+              print(f'❌ primeagent import failed on ${{ matrix.os }}-${{ matrix.arch }}: {e}')
               exit(1)
           "
         shell: bash
@@ -683,7 +683,7 @@ jobs:
           if [ "$stable_result" = "success" ]; then
             if [ "$experimental_result" = "success" ]; then
               if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-                if [ -n "${{ inputs.aiexec-version }}" ]; then
+                if [ -n "${{ inputs.primeagent-version }}" ]; then
                   echo "✅ All PyPI installation tests passed (including Python 3.13)"
                 else
                   echo "✅ All source build and installation tests passed (including Python 3.13)"
@@ -693,7 +693,7 @@ jobs:
               fi
             else
               if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-                if [ -n "${{ inputs.aiexec-version }}" ]; then
+                if [ -n "${{ inputs.primeagent-version }}" ]; then
                   echo "✅ PyPI installation tests passed (Python 3.13 experimental failures are acceptable)"
                 else
                   echo "✅ Source build and installation tests passed (Python 3.13 experimental failures are acceptable)"

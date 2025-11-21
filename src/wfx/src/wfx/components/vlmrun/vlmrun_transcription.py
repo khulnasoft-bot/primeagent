@@ -1,8 +1,8 @@
 from pathlib import Path
 from urllib.parse import urlparse
 
-from aiexec.custom.custom_component.component import Component
-from aiexec.io import (
+from primeagent.custom.custom_component.component import Component
+from primeagent.io import (
     DropdownInput,
     FileInput,
     IntInput,
@@ -10,7 +10,7 @@ from aiexec.io import (
     Output,
     SecretStrInput,
 )
-from aiexec.schema.data import Data
+from primeagent.schema.data import Data
 from loguru import logger
 
 

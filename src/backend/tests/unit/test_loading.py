@@ -1,5 +1,5 @@
-from aiexec.initial_setup.setup import load_starter_projects
-from aiexec.load import aload_flow_from_json
+from primeagent.initial_setup.setup import load_starter_projects
+from primeagent.load import aload_flow_from_json
 from wfx.graph import Graph
 
 # TODO: UPDATE BASIC EXAMPLE

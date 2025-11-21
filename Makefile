@@ -1,4 +1,4 @@
-.PHONY: all init format_backend format lint build run_backend dev help tests coverage clean_python_cache clean_npm_cache clean_frontend_build clean_all run_clic load_test_setup load_test_setup_basic load_test_list_flows load_test_run load_test_aiexec_quick load_test_stress load_test_example load_test_clean load_test_remote_setup load_test_remote_run load_test_help
+.PHONY: all init format_backend format lint build run_backend dev help tests coverage clean_python_cache clean_npm_cache clean_frontend_build clean_all run_clic load_test_setup load_test_setup_basic load_test_list_flows load_test_run load_test_primeagent_quick load_test_stress load_test_example load_test_clean load_test_remote_setup load_test_remote_run load_test_help
 
 # Configurations
 VERSION=$(shell grep "^version" pyproject.toml | sed 's/.*\"\(.*\)\"$$/\1/')
@@ -18,7 +18,7 @@ host ?= 0.0.0.0
 port ?= 7860
 env ?= .env
 open_browser ?= true
-path = src/backend/base/aiexec/frontend
+path = src/backend/base/primeagent/frontend
 workers ?= 1
 async ?= true
 lf ?= false
@@ -44,12 +44,12 @@ check_tools:
 help: ## show basic help message with common commands
 	@echo ''
 	@echo "$(GREEN)═══════════════════════════════════════════════════════════════════$(NC)"
-	@echo "$(GREEN)                    AIEXEC MAKEFILE COMMANDS                     $(NC)"
+	@echo "$(GREEN)                    PRIMEAGENT MAKEFILE COMMANDS                     $(NC)"
 	@echo "$(GREEN)═══════════════════════════════════════════════════════════════════$(NC)"
 	@echo ''
 	@echo "$(GREEN)Basic Commands:$(NC)"
 	@echo "  $(GREEN)make init$(NC)                - Initialize project (install all dependencies)"
-	@echo "  $(GREEN)make run_cli$(NC)             - Run Aiexec CLI"
+	@echo "  $(GREEN)make run_cli$(NC)             - Run Primeagent CLI"
 	@echo "  $(GREEN)make run_clic$(NC)            - Run CLI with fresh frontend build"
 	@echo "  $(GREEN)make format$(NC)              - Format all code (backend + frontend)"
 	@echo "  $(GREEN)make tests$(NC)               - Run all tests"
@@ -102,7 +102,7 @@ clean_python_cache:
 clean_npm_cache:
 	@echo "Cleaning npm cache..."
 	cd src/frontend && npm cache clean --force
-	$(call CLEAR_DIRS,src/frontend/node_modules src/frontend/build src/backend/base/aiexec/frontend)
+	$(call CLEAR_DIRS,src/frontend/node_modules src/frontend/build src/backend/base/primeagent/frontend)
 	rm -f src/frontend/package-lock.json
 	@echo "$(GREEN)NPM cache and frontend directories cleaned.$(NC)"
 
@@ -111,7 +111,7 @@ clean_frontend_build: ## clean frontend build artifacts to ensure fresh build
 	@echo "  - Removing src/frontend/build directory"
 	$(call CLEAR_DIRS,src/frontend/build)
 	@echo "  - Removing built frontend files from backend"
-	$(call CLEAR_DIRS,src/backend/base/aiexec/frontend)
+	$(call CLEAR_DIRS,src/backend/base/primeagent/frontend)
 	@echo "$(GREEN)Frontend build artifacts cleaned - fresh build guaranteed.$(NC)"
 
 clean_all: clean_python_cache clean_npm_cache # clean all caches and temporary directories
@@ -228,13 +228,13 @@ unsafe_fix:
 	@uv run ruff check . --fix --unsafe-fixes
 
 lint: install_backend ## run linters
-	@uv run mypy --namespace-packages -p "aiexec"
+	@uv run mypy --namespace-packages -p "primeagent"
 
 
 
 run_clic: clean_frontend_build install_frontend install_backend build_frontend ## run the CLI with fresh frontend build
 	@echo 'Running the CLI with fresh frontend build'
-	@uv run aiexec run \
+	@uv run primeagent run \
 		--frontend-path $(path) \
 		--log-level $(log_level) \
 		--host $(host) \
@@ -244,7 +244,7 @@ run_clic: clean_frontend_build install_frontend install_backend build_frontend #
 
 run_cli: install_frontend install_backend build_frontend ## run the CLI quickly (without cleaning build cache)
 	@echo 'Running the CLI quickly (reusing existing build cache if available)'
-	@uv run aiexec run \
+	@uv run primeagent run \
 		--frontend-path $(path) \
 		--log-level $(log_level) \
 		--host $(host) \
@@ -270,7 +270,7 @@ setup_devcontainer: ## set up the development container
 	make install_backend
 	make install_frontend
 	make build_frontend
-	uv run aiexec --frontend-path src/frontend/build
+	uv run primeagent --frontend-path src/frontend/build
 
 setup_env: ## set up the environment
 	@sh ./scripts/setup/setup_env.sh
@@ -282,8 +282,8 @@ backend: setup_env install_backend ## run the backend in development mode
 	@-kill -9 $$(lsof -t -i:7860) || true
 ifdef login
 	@echo "Running backend autologin is $(login)";
-	AIEXEC_AUTO_LOGIN=$(login) uv run uvicorn \
-		--factory aiexec.main:create_app \
+	PRIMEAGENT_AUTO_LOGIN=$(login) uv run uvicorn \
+		--factory primeagent.main:create_app \
 		--host 0.0.0.0 \
 		--port $(port) \
 		$(if $(filter-out 1,$(workers)),, --reload) \
@@ -293,7 +293,7 @@ ifdef login
 else
 	@echo "Running backend respecting the $(env) file";
 	uv run uvicorn \
-		--factory aiexec.main:create_app \
+		--factory primeagent.main:create_app \
 		--host 0.0.0.0 \
 		--port $(port) \
 		$(if $(filter-out 1,$(workers)),, --reload) \
@@ -306,7 +306,7 @@ build_and_run: setup_env ## build the project and run it
 	$(call CLEAR_DIRS,dist src/backend/base/dist)
 	make build
 	uv run pip install dist/*.tar.gz
-	uv run aiexec run
+	uv run primeagent run
 
 build_and_install: ## build the project and install it
 	@echo 'Removing dist folder'
@@ -317,23 +317,23 @@ build: setup_env ## build the frontend static files and package the project
 ifdef base
 	make install_frontendci
 	make build_frontend
-	make build_aiexec_base args="$(args)"
+	make build_primeagent_base args="$(args)"
 endif
 
 ifdef main
 	make install_frontendci
 	make build_frontend
-	make build_aiexec_base args="$(args)"
-	make build_aiexec args="$(args)"
+	make build_primeagent_base args="$(args)"
+	make build_primeagent args="$(args)"
 endif
 
-build_aiexec_base:
+build_primeagent_base:
 	cd src/backend/base && uv build $(args)
 
-build_aiexec_backup:
+build_primeagent_backup:
 	uv lock && uv build
 
-build_aiexec:
+build_primeagent:
 	uv lock --no-upgrade
 	uv build $(args)
 ifdef restore
@@ -353,23 +353,23 @@ dockerfile_build:
 	@command -v $(DOCKER) >/dev/null 2>&1 || { echo "Error: $(DOCKER) is not installed. Please install $(DOCKER), or run 'make docker_build DOCKER=podman' (or DOCKER=docker) if you have an alternative installed."; exit 1; }
 	@$(DOCKER) build --rm \
 		-f ${DOCKERFILE} \
-		-t aiexec:${VERSION} .
+		-t primeagent:${VERSION} .
 
 dockerfile_build_be: dockerfile_build
 	@echo 'BUILDING DOCKER IMAGE BACKEND: ${DOCKERFILE_BACKEND}'
 	@command -v $(DOCKER) >/dev/null 2>&1 || { echo "Error: $(DOCKER) is not installed. Please install $(DOCKER), or run 'make docker_build_backend DOCKER=podman' (or DOCKER=docker) if you have an alternative installed."; exit 1; }
 	@$(DOCKER) build --rm \
-		--build-arg AIEXEC_IMAGE=aiexec:${VERSION} \
+		--build-arg PRIMEAGENT_IMAGE=primeagent:${VERSION} \
 		-f ${DOCKERFILE_BACKEND} \
-		-t aiexec_backend:${VERSION} .
+		-t primeagent_backend:${VERSION} .
 
 dockerfile_build_fe: dockerfile_build
 	@echo 'BUILDING DOCKER IMAGE FRONTEND: ${DOCKERFILE_FRONTEND}'
 	@command -v $(DOCKER) >/dev/null 2>&1 || { echo "Error: $(DOCKER) is not installed. Please install $(DOCKER), or run 'make docker_build_frontend DOCKER=podman' (or DOCKER=docker) if you have an alternative installed."; exit 1; }
 	@$(DOCKER) build --rm \
-		--build-arg AIEXEC_IMAGE=aiexec:${VERSION} \
+		--build-arg PRIMEAGENT_IMAGE=primeagent:${VERSION} \
 		-f ${DOCKERFILE_FRONTEND} \
-		-t aiexec_frontend:${VERSION} .
+		-t primeagent_frontend:${VERSION} .
 
 clear_dockerimage:
 	@echo 'Clearing the docker build'
@@ -393,7 +393,7 @@ dcdev_up:
 lock_base:
 	cd src/backend/base && uv lock
 
-lock_aiexec:
+lock_primeagent:
 	uv lock
 
 lock: ## lock dependencies
@@ -409,14 +409,14 @@ update: ## update dependencies
 publish_base:
 	cd src/backend/base && uv publish
 
-publish_aiexec:
+publish_primeagent:
 	uv publish
 
 publish_base_testpypi:
 	# TODO: update this to use the test-pypi repository
 	cd src/backend/base && uv publish -r test-pypi
 
-publish_aiexec_testpypi:
+publish_primeagent_testpypi:
 	# TODO: update this to use the test-pypi repository
 	uv publish -r test-pypi
 
@@ -427,7 +427,7 @@ ifdef base
 endif
 
 ifdef main
-	make publish_aiexec
+	make publish_primeagent
 endif
 
 publish_testpypi: ## build the frontend static files and package the project and publish it to PyPI
@@ -484,32 +484,32 @@ wfx_docker_test: ## run WFX tests in Docker
 # example make alembic-revision message="Add user table"
 alembic-revision: ## generate a new migration
 	@echo 'Generating a new Alembic revision'
-	cd src/backend/base/aiexec/ && uv run alembic revision --autogenerate -m "$(message)"
+	cd src/backend/base/primeagent/ && uv run alembic revision --autogenerate -m "$(message)"
 
 
 alembic-upgrade: ## upgrade database to the latest version
 	@echo 'Upgrading database to the latest version'
-	cd src/backend/base/aiexec/ && uv run alembic upgrade head
+	cd src/backend/base/primeagent/ && uv run alembic upgrade head
 
 alembic-downgrade: ## downgrade database by one version
 	@echo 'Downgrading database by one version'
-	cd src/backend/base/aiexec/ && uv run alembic downgrade -1
+	cd src/backend/base/primeagent/ && uv run alembic downgrade -1
 
 alembic-current: ## show current revision
 	@echo 'Showing current Alembic revision'
-	cd src/backend/base/aiexec/ && uv run alembic current
+	cd src/backend/base/primeagent/ && uv run alembic current
 
 alembic-history: ## show migration history
 	@echo 'Showing Alembic migration history'
-	cd src/backend/base/aiexec/ && uv run alembic history --verbose
+	cd src/backend/base/primeagent/ && uv run alembic history --verbose
 
 alembic-check: ## check migration status
 	@echo 'Running alembic check'
-	cd src/backend/base/aiexec/ && uv run alembic check
+	cd src/backend/base/primeagent/ && uv run alembic check
 
 alembic-stamp: ## stamp the database with a specific revision
 	@echo 'Stamping the database with revision $(revision)'
-	cd src/backend/base/aiexec/ && uv run alembic stamp $(revision)
+	cd src/backend/base/primeagent/ && uv run alembic stamp $(revision)
 
 ######################
 # VERSION MANAGEMENT
@@ -523,26 +523,26 @@ patch: ## Update version across all projects. Usage: make patch v=1.5.0
 	fi; \
 	echo "$(GREEN)Updating version to $(v)$(NC)"; \
 	\
-	AIEXEC_VERSION="$(v)"; \
-	AIEXEC_BASE_VERSION=$$(echo "$$AIEXEC_VERSION" | sed -E 's/^[0-9]+\.(.*)$$/0.\1/'); \
+	PRIMEAGENT_VERSION="$(v)"; \
+	PRIMEAGENT_BASE_VERSION=$$(echo "$$PRIMEAGENT_VERSION" | sed -E 's/^[0-9]+\.(.*)$$/0.\1/'); \
 	\
-	echo "$(GREEN)Aiexec version: $$AIEXEC_VERSION$(NC)"; \
-	echo "$(GREEN)Aiexec-base version: $$AIEXEC_BASE_VERSION$(NC)"; \
+	echo "$(GREEN)Primeagent version: $$PRIMEAGENT_VERSION$(NC)"; \
+	echo "$(GREEN)Primeagent-base version: $$PRIMEAGENT_BASE_VERSION$(NC)"; \
 	\
 	echo "$(GREEN)Updating main pyproject.toml...$(NC)"; \
-	python -c "import re; fname='pyproject.toml'; txt=open(fname).read(); txt=re.sub(r'^version = \".*\"', 'version = \"$$AIEXEC_VERSION\"', txt, flags=re.MULTILINE); txt=re.sub(r'\"aiexec-base==.*\"', '\"aiexec-base==$$AIEXEC_BASE_VERSION\"', txt); open(fname, 'w').write(txt)"; \
+	python -c "import re; fname='pyproject.toml'; txt=open(fname).read(); txt=re.sub(r'^version = \".*\"', 'version = \"$$PRIMEAGENT_VERSION\"', txt, flags=re.MULTILINE); txt=re.sub(r'\"primeagent-base==.*\"', '\"primeagent-base==$$PRIMEAGENT_BASE_VERSION\"', txt); open(fname, 'w').write(txt)"; \
 	\
-	echo "$(GREEN)Updating aiexec-base pyproject.toml...$(NC)"; \
-	python -c "import re; fname='src/backend/base/pyproject.toml'; txt=open(fname).read(); txt=re.sub(r'^version = \".*\"', 'version = \"$$AIEXEC_BASE_VERSION\"', txt, flags=re.MULTILINE); open(fname, 'w').write(txt)"; \
+	echo "$(GREEN)Updating primeagent-base pyproject.toml...$(NC)"; \
+	python -c "import re; fname='src/backend/base/pyproject.toml'; txt=open(fname).read(); txt=re.sub(r'^version = \".*\"', 'version = \"$$PRIMEAGENT_BASE_VERSION\"', txt, flags=re.MULTILINE); open(fname, 'w').write(txt)"; \
 	\
 	echo "$(GREEN)Updating frontend package.json...$(NC)"; \
-	python -c "import re; fname='src/frontend/package.json'; txt=open(fname).read(); txt=re.sub(r'\"version\": \".*\"', '\"version\": \"$$AIEXEC_VERSION\"', txt); open(fname, 'w').write(txt)"; \
+	python -c "import re; fname='src/frontend/package.json'; txt=open(fname).read(); txt=re.sub(r'\"version\": \".*\"', '\"version\": \"$$PRIMEAGENT_VERSION\"', txt); open(fname, 'w').write(txt)"; \
 	\
 	echo "$(GREEN)Validating version changes...$(NC)"; \
-	if ! grep -q "^version = \"$$AIEXEC_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml version validation failed$(NC)"; exit 1; fi; \
-	if ! grep -q "\"aiexec-base==$$AIEXEC_BASE_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml aiexec-base dependency validation failed$(NC)"; exit 1; fi; \
-	if ! grep -q "^version = \"$$AIEXEC_BASE_VERSION\"" src/backend/base/pyproject.toml; then echo "$(RED)✗ Aiexec-base pyproject.toml version validation failed$(NC)"; exit 1; fi; \
-	if ! grep -q "\"version\": \"$$AIEXEC_VERSION\"" src/frontend/package.json; then echo "$(RED)✗ Frontend package.json version validation failed$(NC)"; exit 1; fi; \
+	if ! grep -q "^version = \"$$PRIMEAGENT_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml version validation failed$(NC)"; exit 1; fi; \
+	if ! grep -q "\"primeagent-base==$$PRIMEAGENT_BASE_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml primeagent-base dependency validation failed$(NC)"; exit 1; fi; \
+	if ! grep -q "^version = \"$$PRIMEAGENT_BASE_VERSION\"" src/backend/base/pyproject.toml; then echo "$(RED)✗ Primeagent-base pyproject.toml version validation failed$(NC)"; exit 1; fi; \
+	if ! grep -q "\"version\": \"$$PRIMEAGENT_VERSION\"" src/frontend/package.json; then echo "$(RED)✗ Frontend package.json version validation failed$(NC)"; exit 1; fi; \
 	echo "$(GREEN)✓ All versions updated successfully$(NC)"; \
 	\
 	echo "$(GREEN)Syncing dependencies in parallel...$(NC)"; \
@@ -569,9 +569,9 @@ patch: ## Update version across all projects. Usage: make patch v=1.5.0
 	\
 	echo "$(GREEN)Version update complete!$(NC)"; \
 	echo "$(GREEN)Updated files:$(NC)"; \
-	echo "  - pyproject.toml: $$AIEXEC_VERSION"; \
-	echo "  - src/backend/base/pyproject.toml: $$AIEXEC_BASE_VERSION"; \
-	echo "  - src/frontend/package.json: $$AIEXEC_VERSION"; \
+	echo "  - pyproject.toml: $$PRIMEAGENT_VERSION"; \
+	echo "  - src/backend/base/pyproject.toml: $$PRIMEAGENT_BASE_VERSION"; \
+	echo "  - src/frontend/package.json: $$PRIMEAGENT_VERSION"; \
 	echo "  - uv.lock: dependency lock updated"; \
 	echo "  - src/frontend/package-lock.json: dependency lock updated"; \
 	echo "$(GREEN)Dependencies synced successfully!$(NC)"
@@ -603,7 +603,7 @@ locust: ## run locust load tests (options: locust_users=10 locust_spawn_rate=1 l
 	@echo "Using locustfile: $(locust_file)"
 	@export API_KEY=$(locust_api_key) && \
 	export FLOW_ID=$(locust_flow_id) && \
-	export AIEXEC_HOST=$(locust_host) && \
+	export PRIMEAGENT_HOST=$(locust_host) && \
 	export MIN_WAIT=$(locust_min_wait) && \
 	export MAX_WAIT=$(locust_max_wait) && \
 	export REQUEST_TIMEOUT=$(locust_request_timeout) && \
@@ -675,16 +675,16 @@ load_test_wfx_quick: ## Quick WFX load test (30 users, 60s). Options: html=true,
 
 # Enhanced load testing system with API-based flow loading
 load_test_setup: ## Set up load test environment with starter project flows
-	@echo "$(YELLOW)Setting up Aiexec load test environment$(NC)"
-	@cd src/backend/tests/locust && uv run python aiexec_setup_test.py --interactive
+	@echo "$(YELLOW)Setting up Primeagent load test environment$(NC)"
+	@cd src/backend/tests/locust && uv run python primeagent_setup_test.py --interactive
 
 load_test_setup_basic: ## Set up load test environment with Basic Prompting flow
 	@echo "$(YELLOW)Setting up load test environment with Basic Prompting flow$(NC)"
-	@cd src/backend/tests/locust && uv run python aiexec_setup_test.py --flow "Basic Prompting" --save-credentials load_test_creds.json
+	@cd src/backend/tests/locust && uv run python primeagent_setup_test.py --flow "Basic Prompting" --save-credentials load_test_creds.json
 
 load_test_list_flows: ## List available starter project flows
 	@echo "$(YELLOW)Listing available starter project flows$(NC)"
-	@cd src/backend/tests/locust && uv run python aiexec_setup_test.py --list-flows
+	@cd src/backend/tests/locust && uv run python primeagent_setup_test.py --list-flows
 
 load_test_run: ## Run load test (automatically sets up if needed). Use FLOW_NAME="Flow Name" to specify flow
 	@echo "$(YELLOW)Running load test with enhanced error logging$(NC)"
@@ -692,37 +692,37 @@ load_test_run: ## Run load test (automatically sets up if needed). Use FLOW_NAME
 		echo "$(BLUE)No credentials found. Running automatic setup...$(NC)"; \
 		if [ -z "$(FLOW_NAME)" ]; then \
 			echo "$(CYAN)Available flows:$(NC)"; \
-			cd src/backend/tests/locust && uv run python aiexec_setup_test.py --list-flows; \
+			cd src/backend/tests/locust && uv run python primeagent_setup_test.py --list-flows; \
 			echo "$(RED)Please specify a flow: make load_test_run FLOW_NAME=\"Basic Prompting\"$(NC)"; \
 			exit 1; \
 		else \
 			echo "$(BLUE)Setting up with flow: $(FLOW_NAME)$(NC)"; \
-			cd src/backend/tests/locust && uv run python aiexec_setup_test.py --flow "$(FLOW_NAME)" --save-credentials load_test_creds.json; \
+			cd src/backend/tests/locust && uv run python primeagent_setup_test.py --flow "$(FLOW_NAME)" --save-credentials load_test_creds.json; \
 		fi \
 	fi
 	@cd src/backend/tests/locust && \
 	export API_KEY=$$(python -c "import json; print(json.load(open('load_test_creds.json'))['api_key'])") && \
 	export FLOW_ID=$$(python -c "import json; print(json.load(open('load_test_creds.json'))['flow_id'])") && \
-	uv run python aiexec_run_load_test.py --headless --users 20 --duration 120 --no-start-aiexec --html load_test_report.html --csv load_test_results
+	uv run python primeagent_run_load_test.py --headless --users 20 --duration 120 --no-start-primeagent --html load_test_report.html --csv load_test_results
 
-load_test_aiexec_quick: ## Quick Aiexec load test (10 users, 30s) with HTML report (automatically sets up if needed). Use FLOW_NAME="Flow Name" to specify flow
-	@echo "$(YELLOW)Running quick Aiexec load test with HTML report$(NC)"
+load_test_primeagent_quick: ## Quick Primeagent load test (10 users, 30s) with HTML report (automatically sets up if needed). Use FLOW_NAME="Flow Name" to specify flow
+	@echo "$(YELLOW)Running quick Primeagent load test with HTML report$(NC)"
 	@if [ ! -f "src/backend/tests/locust/load_test_creds.json" ]; then \
 		echo "$(BLUE)No credentials found. Running automatic setup...$(NC)"; \
 		if [ -z "$(FLOW_NAME)" ]; then \
 			echo "$(CYAN)Available flows:$(NC)"; \
-			cd src/backend/tests/locust && uv run python aiexec_setup_test.py --list-flows; \
-			echo "$(RED)Please specify a flow: make load_test_aiexec_quick FLOW_NAME=\"Basic Prompting\"$(NC)"; \
+			cd src/backend/tests/locust && uv run python primeagent_setup_test.py --list-flows; \
+			echo "$(RED)Please specify a flow: make load_test_primeagent_quick FLOW_NAME=\"Basic Prompting\"$(NC)"; \
 			exit 1; \
 		else \
 			echo "$(BLUE)Setting up with flow: $(FLOW_NAME)$(NC)"; \
-			cd src/backend/tests/locust && uv run python aiexec_setup_test.py --flow "$(FLOW_NAME)" --save-credentials load_test_creds.json; \
+			cd src/backend/tests/locust && uv run python primeagent_setup_test.py --flow "$(FLOW_NAME)" --save-credentials load_test_creds.json; \
 		fi \
 	fi
 	@cd src/backend/tests/locust && \
 	export API_KEY=$$(python -c "import json; print(json.load(open('load_test_creds.json'))['api_key'])") && \
 	export FLOW_ID=$$(python -c "import json; print(json.load(open('load_test_creds.json'))['flow_id'])") && \
-	uv run python aiexec_run_load_test.py --headless --users 10 --duration 30 --no-start-aiexec --html quick_test_report.html
+	uv run python primeagent_run_load_test.py --headless --users 10 --duration 30 --no-start-primeagent --html quick_test_report.html
 
 load_test_stress: ## Stress test (100 users, 5 minutes) with comprehensive reporting (automatically sets up if needed). Use FLOW_NAME="Flow Name" to specify flow
 	@echo "$(YELLOW)Running stress test with comprehensive reporting$(NC)"
@@ -730,62 +730,62 @@ load_test_stress: ## Stress test (100 users, 5 minutes) with comprehensive repor
 		echo "$(BLUE)No credentials found. Running automatic setup...$(NC)"; \
 		if [ -z "$(FLOW_NAME)" ]; then \
 			echo "$(CYAN)Available flows:$(NC)"; \
-			cd src/backend/tests/locust && uv run python aiexec_setup_test.py --list-flows; \
+			cd src/backend/tests/locust && uv run python primeagent_setup_test.py --list-flows; \
 			echo "$(RED)Please specify a flow: make load_test_stress FLOW_NAME=\"Basic Prompting\"$(NC)"; \
 			exit 1; \
 		else \
 			echo "$(BLUE)Setting up with flow: $(FLOW_NAME)$(NC)"; \
-			cd src/backend/tests/locust && uv run python aiexec_setup_test.py --flow "$(FLOW_NAME)" --save-credentials load_test_creds.json; \
+			cd src/backend/tests/locust && uv run python primeagent_setup_test.py --flow "$(FLOW_NAME)" --save-credentials load_test_creds.json; \
 		fi \
 	fi
 	@cd src/backend/tests/locust && \
 	export API_KEY=$$(python -c "import json; print(json.load(open('load_test_creds.json'))['api_key'])") && \
 	export FLOW_ID=$$(python -c "import json; print(json.load(open('load_test_creds.json'))['flow_id'])") && \
-	uv run python aiexec_run_load_test.py --headless --users 100 --spawn-rate 5 --duration 300 --no-start-aiexec --html stress_test_report.html --csv stress_test_results --shape ramp100
+	uv run python primeagent_run_load_test.py --headless --users 100 --spawn-rate 5 --duration 300 --no-start-primeagent --html stress_test_report.html --csv stress_test_results --shape ramp100
 
 load_test_example: ## Run complete example workflow (setup + test + reports)
 	@echo "$(YELLOW)Running complete load test example workflow$(NC)"
-	@cd src/backend/tests/locust && uv run python aiexec_example_workflow.py --auto
+	@cd src/backend/tests/locust && uv run python primeagent_example_workflow.py --auto
 
 load_test_clean: ## Clean up load test files and credentials
 	@echo "$(YELLOW)Cleaning up load test files$(NC)"
 	@cd src/backend/tests/locust && rm -f *.json *.html *.csv *.log
 	@echo "$(GREEN)Load test files cleaned$(NC)"
 
-load_test_remote_setup: ## Set up load test for remote instance (requires AIEXEC_HOST)
-	@if [ -z "$(AIEXEC_HOST)" ]; then \
-		echo "$(RED)Error: AIEXEC_HOST environment variable required$(NC)"; \
-		echo "$(YELLOW)Example: export AIEXEC_HOST=https://your-remote-instance.com$(NC)"; \
+load_test_remote_setup: ## Set up load test for remote instance (requires PRIMEAGENT_HOST)
+	@if [ -z "$(PRIMEAGENT_HOST)" ]; then \
+		echo "$(RED)Error: PRIMEAGENT_HOST environment variable required$(NC)"; \
+		echo "$(YELLOW)Example: export PRIMEAGENT_HOST=https://your-remote-instance.com$(NC)"; \
 		exit 1; \
 	fi
-	@echo "$(YELLOW)Setting up load test for remote instance: $(AIEXEC_HOST)$(NC)"
-	@cd src/backend/tests/locust && uv run python aiexec_setup_test.py --host $(AIEXEC_HOST) --flow "Basic Prompting" --save-credentials remote_test_creds.json
+	@echo "$(YELLOW)Setting up load test for remote instance: $(PRIMEAGENT_HOST)$(NC)"
+	@cd src/backend/tests/locust && uv run python primeagent_setup_test.py --host $(PRIMEAGENT_HOST) --flow "Basic Prompting" --save-credentials remote_test_creds.json
 
 load_test_remote_run: ## Run load test against remote instance (requires prior setup)
-	@if [ -z "$(AIEXEC_HOST)" ]; then \
-		echo "$(RED)Error: AIEXEC_HOST environment variable required$(NC)"; \
+	@if [ -z "$(PRIMEAGENT_HOST)" ]; then \
+		echo "$(RED)Error: PRIMEAGENT_HOST environment variable required$(NC)"; \
 		exit 1; \
 	fi
 	@if [ ! -f "src/backend/tests/locust/remote_test_creds.json" ]; then \
 		echo "$(RED)Error: No remote credentials found. Run 'make load_test_remote_setup' first$(NC)"; \
 		exit 1; \
 	fi
-	@echo "$(YELLOW)Running load test against remote instance: $(AIEXEC_HOST)$(NC)"
+	@echo "$(YELLOW)Running load test against remote instance: $(PRIMEAGENT_HOST)$(NC)"
 	@cd src/backend/tests/locust && \
 	export API_KEY=$$(python -c "import json; print(json.load(open('remote_test_creds.json'))['api_key'])") && \
 	export FLOW_ID=$$(python -c "import json; print(json.load(open('remote_test_creds.json'))['flow_id'])") && \
-	uv run python aiexec_run_load_test.py --host $(AIEXEC_HOST) --no-start-aiexec --headless --users 10 --spawn-rate 1 --duration 120 --html remote_test_report.html
+	uv run python primeagent_run_load_test.py --host $(PRIMEAGENT_HOST) --no-start-primeagent --headless --users 10 --spawn-rate 1 --duration 120 --html remote_test_report.html
 
 load_test_help: ## Show detailed load testing help
-	@echo "$(GREEN)Aiexec Enhanced Load Testing System$(NC)"
+	@echo "$(GREEN)Primeagent Enhanced Load Testing System$(NC)"
 	@echo ""
 	@echo "$(YELLOW)Quick Start (Local):$(NC)"
 	@echo "  1. make load_test_setup_basic    # Set up with Basic Prompting flow"
-	@echo "  2. make load_test_aiexec_quick # Run quick Aiexec test"
+	@echo "  2. make load_test_primeagent_quick # Run quick Primeagent test"
 	@echo "  3. Open quick_test_report.html  # View results"
 	@echo ""
 	@echo "$(YELLOW)Remote Testing:$(NC)"
-	@echo "  1. export AIEXEC_HOST=https://your-instance.com"
+	@echo "  1. export PRIMEAGENT_HOST=https://your-instance.com"
 	@echo "  2. make load_test_remote_setup   # Set up for remote testing"
 	@echo "  3. make load_test_remote_run     # Run test against remote instance"
 	@echo ""
@@ -794,7 +794,7 @@ load_test_help: ## Show detailed load testing help
 	@echo "  load_test_setup_basic  - Quick setup with Basic Prompting"
 	@echo "  load_test_list_flows   - List available starter flows"
 	@echo "  load_test_run          - Standard load test (25 users, 2 min)"
-	@echo "  load_test_aiexec_quick - Quick Aiexec test (10 users, 30s)"
+	@echo "  load_test_primeagent_quick - Quick Primeagent test (10 users, 30s)"
 	@echo "  load_test_quick        - Quick complex serve test (30 users, 60s)"
 	@echo "  load_test_stress       - Stress test (100 users, 5 min)"
 	@echo "  load_test_example      - Complete example workflow"
@@ -824,7 +824,7 @@ help_backend: ## show backend-specific commands
 	@echo ''
 	@echo "$(GREEN)Development:$(NC)"
 	@echo "  $(GREEN)make backend$(NC)             - Run backend in development mode"
-	@echo "  $(GREEN)make run_cli$(NC)             - Run Aiexec CLI"
+	@echo "  $(GREEN)make run_cli$(NC)             - Run Primeagent CLI"
 	@echo "  $(GREEN)make run_clic$(NC)            - Run CLI with fresh frontend build"
 	@echo "  $(GREEN)make run_cli_debug$(NC)       - Run CLI in debug mode"
 	@echo "  $(GREEN)make setup_devcontainer$(NC)  - Set up development container"
@@ -851,8 +851,8 @@ help_backend: ## show backend-specific commands
 	@echo "  $(GREEN)make build$(NC)               - Build the project"
 	@echo "  $(GREEN)make build_and_run$(NC)       - Build and run the project"
 	@echo "  $(GREEN)make build_and_install$(NC)   - Build and install the project"
-	@echo "  $(GREEN)make build_aiexec_base$(NC) - Build aiexec-base package"
-	@echo "  $(GREEN)make build_aiexec$(NC)      - Build aiexec package"
+	@echo "  $(GREEN)make build_primeagent_base$(NC) - Build primeagent-base package"
+	@echo "  $(GREEN)make build_primeagent$(NC)      - Build primeagent package"
 	@echo "  $(GREEN)make lock$(NC)                - Lock dependencies"
 	@echo "  $(GREEN)make update$(NC)              - Update dependencies"
 	@echo "  $(GREEN)make publish$(NC)             - Publish to PyPI"
@@ -961,20 +961,20 @@ help_advanced: ## show advanced and miscellaneous commands
 	@echo "$(GREEN)Version Management:$(NC)"
 	@echo "  $(GREEN)make patch v=X.Y.Z$(NC)       - Update version across all projects"
 	@echo "    Example: make patch v=1.5.0"
-	@echo "    This updates: pyproject.toml, aiexec-base, frontend package.json"
+	@echo "    This updates: pyproject.toml, primeagent-base, frontend package.json"
 	@echo ''
 	@echo "$(GREEN)Publishing:$(NC)"
 	@echo "  $(GREEN)make publish$(NC)             - Publish to PyPI (use: make publish base=1 or main=1)"
 	@echo "  $(GREEN)make publish_testpypi$(NC)    - Publish to test PyPI"
-	@echo "  $(GREEN)make publish_base$(NC)        - Publish aiexec-base to PyPI"
-	@echo "  $(GREEN)make publish_aiexec$(NC)    - Publish aiexec to PyPI"
+	@echo "  $(GREEN)make publish_base$(NC)        - Publish primeagent-base to PyPI"
+	@echo "  $(GREEN)make publish_primeagent$(NC)    - Publish primeagent to PyPI"
 	@echo "  $(GREEN)make wfx_publish$(NC)         - Publish WFX package to PyPI"
 	@echo "  $(GREEN)make wfx_publish_testpypi$(NC) - Publish WFX to test PyPI"
 	@echo ''
 	@echo "$(GREEN)Lock Files:$(NC)"
 	@echo "  $(GREEN)make lock$(NC)                - Lock all dependencies"
-	@echo "  $(GREEN)make lock_base$(NC)           - Lock aiexec-base dependencies"
-	@echo "  $(GREEN)make lock_aiexec$(NC)       - Lock aiexec dependencies"
+	@echo "  $(GREEN)make lock_base$(NC)           - Lock primeagent-base dependencies"
+	@echo "  $(GREEN)make lock_primeagent$(NC)       - Lock primeagent dependencies"
 	@echo ''
 	@echo "$(GREEN)Utilities:$(NC)"
 	@echo "  $(GREEN)make check_tools$(NC)         - Verify required tools are installed"

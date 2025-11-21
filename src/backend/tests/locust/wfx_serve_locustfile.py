@@ -3,7 +3,7 @@
 Based on the weakness-focused stress test scripts with additional user behaviors.
 Includes production-ready fixes for timing, error handling, and reporting.
 
-This file tests the WFX API (complex serve), not the Aiexec API.
+This file tests the WFX API (complex serve), not the Primeagent API.
 
 Usage:
     # Run with web UI (recommended)

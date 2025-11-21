@@ -1,61 +1,61 @@
 ---
-title: Aiexec architecture on Kubernetes
+title: Primeagent architecture on Kubernetes
 slug: /deployment-architecture
 ---
 
-There are two broad types of Aiexec deployments:
+There are two broad types of Primeagent deployments:
 
-* **Aiexec IDE (development)**: Deploy both the Aiexec visual editor (frontend) and API (backend). Typically, this is used for development environments where developers use the visual editor to create and manage flows before packaging and serving them through a production runtime deployment.
+* **Primeagent IDE (development)**: Deploy both the Primeagent visual editor (frontend) and API (backend). Typically, this is used for development environments where developers use the visual editor to create and manage flows before packaging and serving them through a production runtime deployment.
 
-    The Aiexec repository's example [`docker-compose.yml`](https://github.com/khulnasoft/aiexec/blob/main/docker_example/docker-compose.yml) file builds a Aiexec IDE image.
+    The Primeagent repository's example [`docker-compose.yml`](https://github.com/khulnasoft/primeagent/blob/main/docker_example/docker-compose.yml) file builds a Primeagent IDE image.
 
-    For information about IDE deployments on Kubernetes, see [Deploy the Aiexec development environment on Kubernetes](/deployment-kubernetes-dev).
+    For information about IDE deployments on Kubernetes, see [Deploy the Primeagent development environment on Kubernetes](/deployment-kubernetes-dev).
 
 
-* **Aiexec runtime (production)**: Deploy the Aiexec runtime for production flows, which is headless (backend only) service focused on serving the Aiexec API. This is used for production environments where flows are executed programmatically without the need for the visual editor. The server exposes your flows as endpoints, and then runs only the processes necessary to serve each flow.
+* **Primeagent runtime (production)**: Deploy the Primeagent runtime for production flows, which is headless (backend only) service focused on serving the Primeagent API. This is used for production environments where flows are executed programmatically without the need for the visual editor. The server exposes your flows as endpoints, and then runs only the processes necessary to serve each flow.
 
     An external PostgreSQL database is strongly recommended with this deployment type to improve scalability and reliability as compared to the default SQLite database.
 
-    For information about runtime deployments on Kubernetes, see [Deploy the Aiexec production environment on Kubernetes](/deployment-kubernetes-prod).
+    For information about runtime deployments on Kubernetes, see [Deploy the Primeagent production environment on Kubernetes](/deployment-kubernetes-prod).
 
     :::tip
-    You can start Aiexec in headless mode with the `AIEXEC_BACKEND_ONLY` [environment variable](/environment-variables).
+    You can start Primeagent in headless mode with the `PRIMEAGENT_BACKEND_ONLY` [environment variable](/environment-variables).
     :::
 
-You can also [deploy the Aiexec IDE and runtime on Docker](/deployment-docker).
+You can also [deploy the Primeagent IDE and runtime on Docker](/deployment-docker).
 
-## Benefits of deploying Aiexec on Kubernetes
+## Benefits of deploying Primeagent on Kubernetes
 
 Deploying on Kubernetes offers the following advantages:
 
-* **Scalability**: Kubernetes allows you to scale the Aiexec service to meet the demands of your workload.
-* **Availability and resilience**: Kubernetes provides built-in resilience features, such as automatic failover and self-healing, to ensure that the Aiexec service is always available.
-* **Security**: Kubernetes provides security features, such as role-based access control and network isolation, to protect the Aiexec service and its data.
-* **Portability**: Kubernetes is a portable platform, which means that you can deploy the Aiexec service to any Kubernetes cluster, on-premises or in the cloud.
+* **Scalability**: Kubernetes allows you to scale the Primeagent service to meet the demands of your workload.
+* **Availability and resilience**: Kubernetes provides built-in resilience features, such as automatic failover and self-healing, to ensure that the Primeagent service is always available.
+* **Security**: Kubernetes provides security features, such as role-based access control and network isolation, to protect the Primeagent service and its data.
+* **Portability**: Kubernetes is a portable platform, which means that you can deploy the Primeagent service to any Kubernetes cluster, on-premises or in the cloud.
 
-    Aiexec can be deployed on cloud platforms like AWS EKS, Google GKE, or Azure ASK. For more information, see the [Aiexec Helm charts repository](https://github.com/khulnasoft/aiexec).
+    Primeagent can be deployed on cloud platforms like AWS EKS, Google GKE, or Azure ASK. For more information, see the [Primeagent Helm charts repository](https://github.com/khulnasoft/primeagent).
 
-## Aiexec deployment
+## Primeagent deployment
 
-A typical Aiexec deployment includes:
+A typical Primeagent deployment includes:
 
-* **Aiexec services**: The Aiexec API and, for IDE deployments, the visual editor.
-* **Kubernetes cluster**: The Kubernetes cluster provides a platform for deploying and managing Aiexec and its supporting services.
-* **Persistent storage**: Persistent storage is used to store the Aiexec service's data, such as models and training data.
-* **Ingress controller**: The ingress controller provides a single entry point for traffic to the Aiexec service.
-* **Load balancer**: Balances traffic across multiple Aiexec replicas.
-* **Vector database**: If you are using Aiexec for RAG, you can integrate with the vector database in Astra Serverless.
+* **Primeagent services**: The Primeagent API and, for IDE deployments, the visual editor.
+* **Kubernetes cluster**: The Kubernetes cluster provides a platform for deploying and managing Primeagent and its supporting services.
+* **Persistent storage**: Persistent storage is used to store the Primeagent service's data, such as models and training data.
+* **Ingress controller**: The ingress controller provides a single entry point for traffic to the Primeagent service.
+* **Load balancer**: Balances traffic across multiple Primeagent replicas.
+* **Vector database**: If you are using Primeagent for RAG, you can integrate with the vector database in Astra Serverless.
 
-![Aiexec reference architecture on Kubernetes](/img/aiexec-reference-architecture.png)
+![Primeagent reference architecture on Kubernetes](/img/primeagent-reference-architecture.png)
 
 ## Environment isolation
 
-It is recommended to deploy and run separate development and production environments for Aiexec:
+It is recommended to deploy and run separate development and production environments for Primeagent:
 
 * Deploy the IDE in your development environment where your developers prototype and test new flows.
 * Deploy the runtime in your production environment to serve flows as standalone services.
 
-![Aiexec environments](/img/aiexec-env.png)
+![Primeagent environments](/img/primeagent-env.png)
 
 This separation is designed to enhance security, support an organized software development pipeline, and optimize infrastructure resource allocation:
 
@@ -67,6 +67,6 @@ This separation is designed to enhance security, support an organized software d
 
 ## Next steps
 
-* [Best practices for Aiexec on Kubernetes](/deployment-prod-best-practices)
-* [Deploy the Aiexec development environment on Kubernetes](/deployment-kubernetes-dev)
-* [Deploy the Aiexec production environment on Kubernetes](/deployment-kubernetes-prod)
+* [Best practices for Primeagent on Kubernetes](/deployment-prod-best-practices)
+* [Deploy the Primeagent development environment on Kubernetes](/deployment-kubernetes-dev)
+* [Deploy the Primeagent production environment on Kubernetes](/deployment-kubernetes-prod)

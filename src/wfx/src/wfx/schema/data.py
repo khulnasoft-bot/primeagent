@@ -1,4 +1,4 @@
-"""Lightweight Data class for wfx package - contains only methods with no aiexec dependencies."""
+"""Lightweight Data class for wfx package - contains only methods with no primeagent dependencies."""
 
 from __future__ import annotations
 
@@ -47,7 +47,7 @@ class Data(CrossModuleModel):
         if not isinstance(values["data"], dict):
             msg = (
                 f"Invalid data format: expected dictionary but got {type(values).__name__}."
-                " This will raise an error in version aiexec==1.3.0."
+                " This will raise an error in version primeagent==1.3.0."
             )
             logger.warning(msg)
         # Any other keyword should be added to the data dictionary

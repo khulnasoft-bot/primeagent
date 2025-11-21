@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 import pytest
-from aiexec.components.tools.python_code_structured_tool import PythonCodeStructuredTool
+from primeagent.components.tools.python_code_structured_tool import PythonCodeStructuredTool
 
 from tests.base import ComponentTestBaseWithoutClient
 

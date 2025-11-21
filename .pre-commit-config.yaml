@@ -31,7 +31,7 @@ repos:
       - id: detect-secrets
         args: ["--baseline", ".secrets.baseline"]
         # Exclude docs, SECURITY.md, component index, starter project templates, and test files
-        exclude: '(^docs/|^SECURITY\.md$|src/wfx/src/wfx/_assets/component_index\.json$|src/backend/base/aiexec/initial_setup/starter_projects/|^src/backend/tests/)'
+        exclude: '(^docs/|^SECURITY\.md$|src/wfx/src/wfx/_assets/component_index\.json$|src/backend/base/primeagent/initial_setup/starter_projects/|^src/backend/tests/)'
   - repo: local
     hooks:
       - id: local-biome-check
@@ -46,6 +46,6 @@ repos:
         name: Validate Starter Project Templates
         entry: uv run python src/backend/tests/unit/template/test_starter_projects.py
         language: system
-        files: ^src/backend/base/aiexec/initial_setup/starter_projects/.*\.json$
+        files: ^src/backend/base/primeagent/initial_setup/starter_projects/.*\.json$
         pass_filenames: false
         args: [--security-check]

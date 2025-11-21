@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 from uuid import UUID
 
 import pytest
-from aiexec.services.variable.kubernetes_secrets import KubernetesSecretManager, encode_user_id
+from primeagent.services.variable.kubernetes_secrets import KubernetesSecretManager, encode_user_id
 from kubernetes.client import V1ObjectMeta, V1Secret
 
 

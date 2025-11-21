@@ -152,7 +152,7 @@ class DoclingInlineComponent(BaseFileComponent):
             from docling.document_converter import DocumentConverter  # noqa: F401
         except ImportError as e:
             msg = (
-                "Docling is an optional dependency. Install with `uv pip install 'aiexec[docling]'` or refer to the "
+                "Docling is an optional dependency. Install with `uv pip install 'primeagent[docling]'` or refer to the "
                 "documentation on how to install optional dependencies."
             )
             raise ImportError(msg) from e

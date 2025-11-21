@@ -10,7 +10,7 @@ from wfx.schema.dataframe import DataFrame
 class DataFrameOperationsComponent(Component):
     display_name = "DataFrame Operations"
     description = "Perform various operations on a DataFrame."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-processing#dataframe-operations"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-processing#dataframe-operations"
     icon = "table"
     name = "DataFrameOperations"
 

@@ -1,6 +1,6 @@
 from unittest.mock import MagicMock
 
-from aiexec.utils.payload import extract_input_variables, get_root_vertex
+from primeagent.utils.payload import extract_input_variables, get_root_vertex
 
 
 class TestExtractInputVariables:

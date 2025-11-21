@@ -1,7 +1,7 @@
 """Test run command with starter project templates from 1.6.0 for backwards compatibility.
 
 Tests that all starter project JSON files from tag 1.6.0 can be loaded by wfx run command
-without import errors for aiexec modules. We expect execution errors
+without import errors for primeagent modules. We expect execution errors
 (missing API keys, etc.) but no import/module errors.
 
 This ensures backwards compatibility with existing starter projects.
@@ -53,17 +53,17 @@ class TestRunStarterProjectsBackwardCompatibility:
 
     @pytest.mark.parametrize("template_file", get_starter_project_files(), ids=lambda x: x.name)
     def test_run_1_6_0_starter_project_no_import_errors(self, template_file):
-        """Test that 1.6.0 starter project can be loaded without aiexec or wfx import errors.
+        """Test that 1.6.0 starter project can be loaded without primeagent or wfx import errors.
 
         We expect execution errors (missing API keys, missing inputs, etc.)
-        but there should be NO errors about importing aiexec or wfx modules.
+        but there should be NO errors about importing primeagent or wfx modules.
 
         Note: Some 1.6.0 starter projects contain components with import bugs that were
         fixed in later versions. These are marked as expected failures.
         """
         # Known failing starter projects due to component-level import bugs in 1.6.0
         known_failing_projects = {
-            "News Aggregator.json": "Contains SaveToFile component with aiexec.api import bug (fixed in later versions)"
+            "News Aggregator.json": "Contains SaveToFile component with primeagent.api import bug (fixed in later versions)"
         }
 
         if template_file.name in known_failing_projects:
@@ -81,17 +81,17 @@ class TestRunStarterProjectsBackwardCompatibility:
         # Use the combined output provided by Click/Typer
         all_output = result.output
 
-        # Check for import errors related to aiexec or wfx
+        # Check for import errors related to primeagent or wfx
         if "ModuleNotFoundError" in all_output or "ImportError" in all_output or "Module" in all_output:
-            # Check for aiexec import errors
-            if "No module named 'aiexec'" in all_output or "Module aiexec" in all_output:
+            # Check for primeagent import errors
+            if "No module named 'primeagent'" in all_output or "Module primeagent" in all_output:
                 # Extract the specific error for better debugging
                 error_line = ""
                 for line in all_output.split("\n"):
-                    if "aiexec" in line and ("No module named" in line or "Module" in line):
+                    if "primeagent" in line and ("No module named" in line or "Module" in line):
                         error_line = line.strip()
                         break
-                pytest.fail(f"Aiexec import error found in 1.6.0 template {template_file.name}.\nError: {error_line}")
+                pytest.fail(f"Primeagent import error found in 1.6.0 template {template_file.name}.\nError: {error_line}")
 
             # Check for wfx import errors (these indicate structural issues)
             if "No module named 'wfx." in all_output or "Module wfx." in all_output:
@@ -130,7 +130,7 @@ class TestRunStarterProjectsBackwardCompatibility:
                 )
 
             # Check for other critical import errors
-            if "cannot import name" in all_output and ("aiexec" in all_output or "wfx" in all_output):
+            if "cannot import name" in all_output and ("primeagent" in all_output or "wfx" in all_output):
                 # Extract the specific import error
                 error_line = ""
                 for line in all_output.split("\n"):
@@ -219,7 +219,7 @@ class TestRunStarterProjectsBackwardCompatibility:
             )
 
     @pytest.mark.xfail(
-        reason="1.6.0 basic templates have aiexec import issues - components expect aiexec package to be available"
+        reason="1.6.0 basic templates have primeagent import issues - components expect primeagent package to be available"
     )
     def test_run_basic_1_6_0_starter_projects_detailed(self):
         """Test basic 1.6.0 starter projects that should have minimal dependencies."""
@@ -245,14 +245,14 @@ class TestRunStarterProjectsBackwardCompatibility:
             all_output = result.output
 
             # More specific checks for these basic templates
-            if "No module named 'aiexec'" in all_output:
-                pytest.fail(f"Aiexec import error in 1.6.0 template {template_name}")
+            if "No module named 'primeagent'" in all_output:
+                pytest.fail(f"Primeagent import error in 1.6.0 template {template_name}")
 
-            # Check for module not found errors specifically related to aiexec
+            # Check for module not found errors specifically related to primeagent
             # (Settings service errors are runtime errors, not import errors)
-            if "ModuleNotFoundError" in all_output and "aiexec" in all_output and "wfx.services" not in all_output:
-                # This is an actual aiexec import error, not an internal wfx error
-                pytest.fail(f"Module not found error for aiexec in 1.6.0 template {template_name}")
+            if "ModuleNotFoundError" in all_output and "primeagent" in all_output and "wfx.services" not in all_output:
+                # This is an actual primeagent import error, not an internal wfx error
+                pytest.fail(f"Module not found error for primeagent in 1.6.0 template {template_name}")
 
     @pytest.mark.parametrize("template_file", get_starter_project_files(), ids=lambda x: x.name)
     def test_run_1_6_0_starter_project_with_stdin(self, template_file):
@@ -272,8 +272,8 @@ class TestRunStarterProjectsBackwardCompatibility:
 
         # Verify no import errors
         all_output = result.output
-        if "No module named 'aiexec'" in all_output:
-            pytest.fail("Aiexec import error in 1.6.0 stdin test")
+        if "No module named 'primeagent'" in all_output:
+            pytest.fail("Primeagent import error in 1.6.0 stdin test")
 
     @pytest.mark.parametrize("template_file", get_starter_project_files(), ids=lambda x: x.name)
     def test_run_1_6_0_starter_project_inline_json(self, template_file):
@@ -292,5 +292,5 @@ class TestRunStarterProjectsBackwardCompatibility:
 
         # Verify no import errors
         all_output = result.output
-        if "No module named 'aiexec'" in all_output:
-            pytest.fail("Aiexec import error in 1.6.0 inline JSON test")
+        if "No module named 'primeagent'" in all_output:
+            pytest.fail("Primeagent import error in 1.6.0 inline JSON test")

@@ -3,17 +3,17 @@ title: Projects endpoints
 slug: /api-projects
 ---
 
-Use the `/projects` endpoint to create, read, update, and delete [Aiexec projects](/concepts-flows#projects).
+Use the `/projects` endpoint to create, read, update, and delete [Primeagent projects](/concepts-flows#projects).
 
 ## Read projects
 
-Get a list of Aiexec projects, including project IDs, names, and descriptions.
+Get a list of Primeagent projects, including project IDs, names, and descriptions.
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/api/v1/projects/" \
+  "$PRIMEAGENT_URL/api/v1/projects/" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -38,9 +38,9 @@ Create a new project.
 
 ```bash
 curl -X POST \
-  "$AIEXEC_URL/api/v1/projects/" \
+  "$PRIMEAGENT_URL/api/v1/projects/" \
   -H "Content-Type: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY" \
+  -H "x-api-key: $PRIMEAGENT_API_KEY" \
   -d '{
   "name": "new_project_name",
   "description": "string",
@@ -69,10 +69,10 @@ Adding a flow to a project moves the flow from its previous location. The flow i
 
 ```bash
 curl -X POST \
-  "$AIEXEC_URL/api/v1/projects/" \
+  "$PRIMEAGENT_URL/api/v1/projects/" \
   -H "accept: application/json" \
   -H "Content-Type: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY" \
+  -H "x-api-key: $PRIMEAGENT_API_KEY" \
   -d '{
   "name": "new_project_name",
   "description": "string",
@@ -93,9 +93,9 @@ To find the UUID of your project, call the [read projects](#read-projects) endpo
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/api/v1/projects/$PROJECT_ID" \
+  "$PRIMEAGENT_URL/api/v1/projects/$PROJECT_ID" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -124,9 +124,9 @@ If you send the same values multiple times, the update is still processed, even 
 
 ```bash
 curl -X PATCH \
-  "$AIEXEC_URL/api/v1/projects/b408ddb9-6266-4431-9be8-e04a62758331" \
+  "$PRIMEAGENT_URL/api/v1/projects/b408ddb9-6266-4431-9be8-e04a62758331" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY" \
+  -H "x-api-key: $PRIMEAGENT_API_KEY" \
   -d '{
   "name": "string",
   "description": "string",
@@ -160,9 +160,9 @@ Delete a specific project.
 
 ```bash
 curl -X DELETE \
-  "$AIEXEC_URL/api/v1/projects/$PROJECT_ID" \
+  "$PRIMEAGENT_URL/api/v1/projects/$PROJECT_ID" \
   -H "accept: */*" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -182,21 +182,21 @@ The `--output` flag is optional.
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/api/v1/projects/download/$PROJECT_ID" \
+  "$PRIMEAGENT_URL/api/v1/projects/download/$PROJECT_ID" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY" \
-  --output aiexec-project.zip
+  -H "x-api-key: $PRIMEAGENT_API_KEY" \
+  --output primeagent-project.zip
 ```
 
 ## Import a project
 
-Import a project and its flows by uploading a Aiexec project zip file:
+Import a project and its flows by uploading a Primeagent project zip file:
 
 ```bash
 curl -X POST \
-  "$AIEXEC_URL/api/v1/projects/upload/" \
+  "$PRIMEAGENT_URL/api/v1/projects/upload/" \
   -H "accept: application/json" \
   -H "Content-Type: multipart/form-data" \
-  -H "x-api-key: $AIEXEC_API_KEY" \
-  -F "file=@20241230_135006_aiexec_flows.zip;type=application/zip"
+  -H "x-api-key: $PRIMEAGENT_API_KEY" \
+  -F "file=@20241230_135006_primeagent_flows.zip;type=application/zip"
 ```

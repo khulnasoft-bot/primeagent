@@ -1474,7 +1474,7 @@ class Component(CustomComponent):
     def get_project_name(self):
         if hasattr(self, "_tracing_service") and self.tracing_service:
             return self.tracing_service.project_name
-        return "Aiexec"
+        return "Primeagent"
 
     def log(self, message: LoggableType | list[LoggableType], name: str | None = None) -> None:
         """Logs a message.

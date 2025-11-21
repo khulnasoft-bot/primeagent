@@ -61,7 +61,7 @@ on:
 
 env:
   PYTHON_VERSION: "3.13"
-  TEST_TAG: "khulnasoft/aiexec:test"
+  TEST_TAG: "khulnasoft/primeagent:test"
 
 jobs:
   get-version:
@@ -140,7 +140,7 @@ jobs:
         if: ${{ inputs.base_version == '' && (inputs.release_type == 'base' || inputs.release_type == 'nightly-base') }}
         id: get-version-base
         run: |
-          version=$(uv tree | grep 'aiexec-base' | awk '{print $3}' | sed 's/^v//' | head -n 1)
+          version=$(uv tree | grep 'primeagent-base' | awk '{print $3}' | sed 's/^v//' | head -n 1)
           if [ -z "$version" ]; then
             echo "Failed to extract version from uv tree output"
             exit 1
@@ -151,7 +151,7 @@ jobs:
         if: ${{ inputs.main_version == '' && (inputs.release_type == 'main' || inputs.release_type == 'main-ep' || inputs.release_type == 'nightly-main' || inputs.release_type == 'main-all' || inputs.release_type == 'nightly-main-all') }}
         id: get-version-main
         run: |
-          version=$(uv tree | grep 'aiexec' | grep -v 'aiexec-base' | awk '{print $2}' | sed 's/^v//')
+          version=$(uv tree | grep 'primeagent' | grep -v 'primeagent-base' | awk '{print $2}' | sed 's/^v//')
           echo version=$version
           echo version=$version >> $GITHUB_OUTPUT
   setup:
@@ -171,30 +171,30 @@ jobs:
           fi
 
           if [[ "${{ inputs.release_type }}" == "base" || "${{ inputs.release_type }}" == "nightly-base" ]]; then
-            # AIEXEC-BASE RELEASE
-            echo "docker_tags=khulnasoft/aiexec${nightly_suffix}:base-${{ needs.get-version.outputs.version }},khulnasoft/aiexec${nightly_suffix}:base-latest" >> $GITHUB_OUTPUT
-            echo "ghcr_tags=ghcr.io/khulnasoft/aiexec${nightly_suffix}:base-${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/aiexec${nightly_suffix}:base-latest" >> $GITHUB_OUTPUT
+            # PRIMEAGENT-BASE RELEASE
+            echo "docker_tags=khulnasoft/primeagent${nightly_suffix}:base-${{ needs.get-version.outputs.version }},khulnasoft/primeagent${nightly_suffix}:base-latest" >> $GITHUB_OUTPUT
+            echo "ghcr_tags=ghcr.io/khulnasoft/primeagent${nightly_suffix}:base-${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/primeagent${nightly_suffix}:base-latest" >> $GITHUB_OUTPUT
             echo "file=./docker/build_and_push_base.Dockerfile" >> $GITHUB_OUTPUT
           else
             if [[ "${{ inputs.pre_release }}" == "true" ]]; then
-              # AIEXEC-MAIN PRE-RELEASE
-              echo "docker_tags=khulnasoft/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }}" >> $GITHUB_OUTPUT
-              echo "ghcr_tags=ghcr.io/khulnasoft/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }}" >> $GITHUB_OUTPUT
+              # PRIMEAGENT-MAIN PRE-RELEASE
+              echo "docker_tags=khulnasoft/primeagent${nightly_suffix}:${{ needs.get-version.outputs.version }}" >> $GITHUB_OUTPUT
+              echo "ghcr_tags=ghcr.io/khulnasoft/primeagent${nightly_suffix}:${{ needs.get-version.outputs.version }}" >> $GITHUB_OUTPUT
               echo "file=./docker/build_and_push.Dockerfile" >> $GITHUB_OUTPUT
             elif [[ "${{ inputs.release_type }}" == "main-ep" ]]; then
-              # AIEXEC-MAIN (ENTRYPOINT) RELEASE
-              echo "docker_tags=khulnasoft/aiexec-ep${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/aiexec-ep${nightly_suffix}:latest" >> $GITHUB_OUTPUT
-              echo "ghcr_tags=ghcr.io/khulnasoft/aiexec-ep${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/aiexec-ep${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              # PRIMEAGENT-MAIN (ENTRYPOINT) RELEASE
+              echo "docker_tags=khulnasoft/primeagent-ep${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/primeagent-ep${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              echo "ghcr_tags=ghcr.io/khulnasoft/primeagent-ep${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/primeagent-ep${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "file=./docker/build_and_push_ep.Dockerfile" >> $GITHUB_OUTPUT
             elif [[ "${{ inputs.release_type }}" == "main" || "${{ inputs.release_type }}" == "nightly-main" ]]; then
-              # AIEXEC-MAIN RELEASE
-              echo "docker_tags=khulnasoft/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/aiexec${nightly_suffix}:latest" >> $GITHUB_OUTPUT
-              echo "ghcr_tags=ghcr.io/khulnasoft/aiexec${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/aiexec${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              # PRIMEAGENT-MAIN RELEASE
+              echo "docker_tags=khulnasoft/primeagent${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/primeagent${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              echo "ghcr_tags=ghcr.io/khulnasoft/primeagent${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/primeagent${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "file=./docker/build_and_push.Dockerfile" >> $GITHUB_OUTPUT
             elif [[ "${{ inputs.release_type }}" == "main-all" || "${{ inputs.release_type }}" == "nightly-main-all" ]]; then
-              # AIEXEC-MAIN (ALL OPTIONAL DEPS) RELEASE
-              echo "docker_tags=khulnasoft/aiexec-all${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/aiexec-all${nightly_suffix}:latest" >> $GITHUB_OUTPUT
-              echo "ghcr_tags=ghcr.io/khulnasoft/aiexec-all${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/aiexec-all${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              # PRIMEAGENT-MAIN (ALL OPTIONAL DEPS) RELEASE
+              echo "docker_tags=khulnasoft/primeagent-all${nightly_suffix}:${{ needs.get-version.outputs.version }},khulnasoft/primeagent-all${nightly_suffix}:latest" >> $GITHUB_OUTPUT
+              echo "ghcr_tags=ghcr.io/khulnasoft/primeagent-all${nightly_suffix}:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/primeagent-all${nightly_suffix}:latest" >> $GITHUB_OUTPUT
               echo "file=./docker/build_and_push_with_extras.Dockerfile" >> $GITHUB_OUTPUT
             else
               echo "Invalid release type. Exiting the workflow."
@@ -299,20 +299,20 @@ jobs:
         include:
           - component: docker-backend
             dockerfile: ./docker/build_and_push_backend.Dockerfile
-            tags: khulnasoft/aiexec-backend:${{ needs.get-version.outputs.version }},khulnasoft/aiexec-backend:latest
-            aiexec_image: khulnasoft/aiexec:${{ needs.get-version.outputs.version }}
+            tags: khulnasoft/primeagent-backend:${{ needs.get-version.outputs.version }},khulnasoft/primeagent-backend:latest
+            primeagent_image: khulnasoft/primeagent:${{ needs.get-version.outputs.version }}
           - component: docker-frontend
             dockerfile: ./docker/frontend/build_and_push_frontend.Dockerfile
-            tags: khulnasoft/aiexec-frontend:${{ needs.get-version.outputs.version }},khulnasoft/aiexec-frontend:latest
-            aiexec_image: khulnasoft/aiexec:${{ needs.get-version.outputs.version }}
+            tags: khulnasoft/primeagent-frontend:${{ needs.get-version.outputs.version }},khulnasoft/primeagent-frontend:latest
+            primeagent_image: khulnasoft/primeagent:${{ needs.get-version.outputs.version }}
           - component: ghcr-backend
             dockerfile: ./docker/build_and_push_backend.Dockerfile
-            tags: ghcr.io/khulnasoft/aiexec-backend:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/aiexec-backend:latest
-            aiexec_image: ghcr.io/khulnasoft/aiexec:${{ needs.get-version.outputs.version }}
+            tags: ghcr.io/khulnasoft/primeagent-backend:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/primeagent-backend:latest
+            primeagent_image: ghcr.io/khulnasoft/primeagent:${{ needs.get-version.outputs.version }}
           - component: ghcr-frontend
             dockerfile: ./docker/frontend/build_and_push_frontend.Dockerfile
-            tags: ghcr.io/khulnasoft/aiexec-frontend:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/aiexec-frontend:latest
-            aiexec_image: ghcr.io/khulnasoft/aiexec:${{ needs.get-version.outputs.version }}
+            tags: ghcr.io/khulnasoft/primeagent-frontend:${{ needs.get-version.outputs.version }},ghcr.io/khulnasoft/primeagent-frontend:latest
+            primeagent_image: ghcr.io/khulnasoft/primeagent:${{ needs.get-version.outputs.version }}
     steps:
       - name: Check out the code at a specific ref
         uses: actions/checkout@v5
@@ -369,7 +369,7 @@ jobs:
             context: .
             push: true
             build-args: |
-              AIEXEC_IMAGE=${{ matrix.aiexec_image }}
+              PRIMEAGENT_IMAGE=${{ matrix.primeagent_image }}
             file: ${{ matrix.dockerfile }}
             tags: ${{ matrix.tags }}
             # provenance: false will result in a single manifest for all platforms which makes the image pullable from arm64 machines via the emulation (e.g. Apple Silicon machines)
@@ -399,7 +399,7 @@ jobs:
 
       - name: Restart HuggingFace Spaces Build
         run: |
-          uv run ./scripts/factory_restart_space.py --space "Aiexec/Aiexec" --token ${{ secrets.HUGGINGFACE_API_TOKEN }}
+          uv run ./scripts/factory_restart_space.py --space "Primeagent/Primeagent" --token ${{ secrets.HUGGINGFACE_API_TOKEN }}
 
 
 

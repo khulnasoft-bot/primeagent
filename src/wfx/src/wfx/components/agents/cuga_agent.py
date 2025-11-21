@@ -7,14 +7,14 @@ import uuid
 from collections.abc import AsyncIterator
 from typing import TYPE_CHECKING, Any, cast
 
-from aiexec.field_typing import Tool
-from aiexec.io import BoolInput, DropdownInput, IntInput, MultilineInput, Output, TableInput
+from primeagent.field_typing import Tool
+from primeagent.io import BoolInput, DropdownInput, IntInput, MultilineInput, Output, TableInput
 
-# from aiexec.logging import logger
-from aiexec.schema.data import Data
-from aiexec.schema.dotdict import dotdict
-from aiexec.schema.message import Message
-from aiexec.schema.table import EditMode
+# from primeagent.logging import logger
+from primeagent.schema.data import Data
+from primeagent.schema.dotdict import dotdict
+from primeagent.schema.message import Message
+from primeagent.schema.table import EditMode
 from langchain_core.agents import AgentFinish
 from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.tools import StructuredTool
@@ -39,7 +39,7 @@ from wfx.helpers.base_model import build_model_from_schema
 from wfx.log.logger import logger
 
 if TYPE_CHECKING:
-    from aiexec.schema.log import SendMessageFunctionType
+    from primeagent.schema.log import SendMessageFunctionType
 
 
 def set_advanced_true(component_input):
@@ -76,7 +76,7 @@ class CugaComponent(ToolCallingAgentComponent):
 
     display_name: str = "Cuga"
     description: str = "Define the Cuga agent's policies, then assign it a task."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/agents"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/agents"
     icon = "bot"
     beta = True
     name = "Cuga"

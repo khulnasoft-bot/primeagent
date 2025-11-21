@@ -3,31 +3,31 @@ title: Install custom dependencies
 slug: /install-custom-dependencies
 ---
 
-Aiexec provides optional dependency groups and support for custom dependencies to extend Aiexec functionality. This guide covers how to add dependencies for different Aiexec installations, including Aiexec Desktop and Aiexec OSS.
+Primeagent provides optional dependency groups and support for custom dependencies to extend Primeagent functionality. This guide covers how to add dependencies for different Primeagent installations, including Primeagent Desktop and Primeagent OSS.
 
-The Aiexec codebase uses two `pyproject.toml` files to manage dependencies, with one for `base` and one for `main`:
+The Primeagent codebase uses two `pyproject.toml` files to manage dependencies, with one for `base` and one for `main`:
 
 * The `main` package is managed by the root level `pyproject.toml`, and it includes end-user features and main application code, such as Langchain and OpenAI.
 * The `base` package is managed at `src/backend/base/pyproject.toml`, and it includes core infrastructure, such as the FastAPI web framework.
 
-## Install custom dependencies in Aiexec Desktop {#aiexec-desktop}
+## Install custom dependencies in Primeagent Desktop {#primeagent-desktop}
 
-To add dependencies to Aiexec Desktop, add an entry for the package to the application's `requirements.txt` file:
+To add dependencies to Primeagent Desktop, add an entry for the package to the application's `requirements.txt` file:
 
-    * On macOS, the file is located at `/Users/USER/.aiexec/data/requirements.txt`.
-    * On Windows, the file is located at `C:\Users\USER\AppData\Roaming\com.Aiexec\data\requirements.txt`.
+    * On macOS, the file is located at `/Users/USER/.primeagent/data/requirements.txt`.
+    * On Windows, the file is located at `C:\Users\USER\AppData\Roaming\com.Primeagent\data\requirements.txt`.
 
 Add each dependency to `requirements.txt` on its own line in the format `DEPENDENCY==VERSION`, such as `matplotlib==3.10.0`.
 
-Restart Aiexec Desktop to install the dependencies.
+Restart Primeagent Desktop to install the dependencies.
 
-If you need to change or uninstall custom dependencies, edit the `requirements.txt` file, and then restart Aiexec Desktop.
+If you need to change or uninstall custom dependencies, edit the `requirements.txt` file, and then restart Primeagent Desktop.
 
-## Install custom dependencies in Aiexec OSS
+## Install custom dependencies in Primeagent OSS
 
-To install your own custom dependencies in your Aiexec environment, add them with your package manager.
+To install your own custom dependencies in your Primeagent environment, add them with your package manager.
 
-If you're working within a cloned Aiexec repository, add dependencies with `uv add` because there is already a `pyproject.toml` file for uv to reference:
+If you're working within a cloned Primeagent repository, add dependencies with `uv add` because there is already a `pyproject.toml` file for uv to reference:
 
 ```bash
 uv add DEPENDENCY
@@ -35,38 +35,38 @@ uv add DEPENDENCY
 
 ### Install optional dependency groups
 
-Aiexec OSS provides optional dependency groups that extend its functionality.
+Primeagent OSS provides optional dependency groups that extend its functionality.
 
-These dependencies are listed in the [pyproject.toml](https://github.com/khulnasoft/aiexec/blob/main/pyproject.toml#L194) file under `[project.optional-dependencies]`.
+These dependencies are listed in the [pyproject.toml](https://github.com/khulnasoft/primeagent/blob/main/pyproject.toml#L194) file under `[project.optional-dependencies]`.
 
-Install dependency groups using pip's `[extras]` syntax. For example, to install Aiexec with the `postgresql` dependency group, enter the following command:
+Install dependency groups using pip's `[extras]` syntax. For example, to install Primeagent with the `postgresql` dependency group, enter the following command:
 
 ```bash
-uv pip install "aiexec[postgresql]"
+uv pip install "primeagent[postgresql]"
 ```
 
 To install multiple extras, use commas to separate each dependency group:
 
 ```bash
-uv pip install "aiexec[local,postgresql]"
+uv pip install "primeagent[local,postgresql]"
 ```
 
 ### Use a virtual environment to test custom dependencies
 
 When testing locally, use a virtual environment to isolate your dependencies and prevent conflicts with other Python projects.
 
-For example, if you want to experiment with `matplotlib` with Aiexec:
+For example, if you want to experiment with `matplotlib` with Primeagent:
 
 ```bash
 # Create and activate a virtual environment
-uv venv YOUR_AIEXEC_VENV
-source YOUR_AIEXEC_VENV/bin/activate
+uv venv YOUR_PRIMEAGENT_VENV
+source YOUR_PRIMEAGENT_VENV/bin/activate
 
-# Install aiexec and your additional dependency
-uv pip install aiexec matplotlib
+# Install primeagent and your additional dependency
+uv pip install primeagent matplotlib
 ```
 
-If you're working within a cloned Aiexec repository, add dependencies with `uv add` to reference the existing `pyproject.toml` files:
+If you're working within a cloned Primeagent repository, add dependencies with `uv add` to reference the existing `pyproject.toml` files:
 
 ```bash
 uv add matplotlib
@@ -74,11 +74,11 @@ uv add matplotlib
 
 The `uv add` commands automatically update the `uv.lock` file in the appropriate location.
 
-## Add dependencies to the Aiexec codebase
+## Add dependencies to the Primeagent codebase
 
-When contributing to the Aiexec codebase, you might need to add dependencies to Aiexec.
+When contributing to the Primeagent codebase, you might need to add dependencies to Primeagent.
 
-Aiexec uses a workspace with two packages, each with different types of dependencies.
+Primeagent uses a workspace with two packages, each with different types of dependencies.
 
 To add a dependency to the `main` package, run `uv add DEPENDENCY` from the project root.
 For example:
@@ -143,5 +143,5 @@ dev = [
 
 ## See also
 
-* [Containerize a Aiexec application](/develop-application)
+* [Containerize a Primeagent application](/develop-application)
 * [Create custom Python components](/components-custom-components)

@@ -7,14 +7,14 @@ import pytest
 # Set up test data paths
 def pytest_configure(config):  # noqa: ARG001
     """Configure pytest with data paths and check prerequisites."""
-    # Check if aiexec is installed first - fail fast
+    # Check if primeagent is installed first - fail fast
     try:
-        import aiexec  # noqa: F401
+        import primeagent  # noqa: F401
 
         pytest.exit(
             "\n"
             "=" * 80 + "\n"
-            "ERROR: aiexec is installed. These tests require aiexec to NOT be installed.\n"
+            "ERROR: primeagent is installed. These tests require primeagent to NOT be installed.\n"
             "\n"
             "To fix this, run these commands:\n"
             "\n"
@@ -22,13 +22,13 @@ def pytest_configure(config):  # noqa: ARG001
             "    uv sync\n"
             "    uv run pytest ...\n"
             "\n"
-            "The wfx tests are designed to run in isolation from aiexec to ensure proper\n"
+            "The wfx tests are designed to run in isolation from primeagent to ensure proper\n"
             "packaging and dependency management.\n"
             "=" * 80 + "\n",
             returncode=1,
         )
     except ImportError:
-        # Good, aiexec is not installed
+        # Good, primeagent is not installed
         pass
 
     # Set up test data paths
@@ -153,11 +153,11 @@ def json_loop_test():
     return pytest.LOOP_TEST.read_text(encoding="utf-8")
 
 
-# Simple client fixture for basic HTTP testing (without full aiexec app dependencies)
+# Simple client fixture for basic HTTP testing (without full primeagent app dependencies)
 @pytest.fixture(name="client")
 async def simple_client_fixture():
     """Simple HTTP client for basic testing."""
-    # For wfx-specific tests, we might not need the full aiexec app
+    # For wfx-specific tests, we might not need the full primeagent app
     # This is a placeholder that can be expanded as needed
     from httpx import AsyncClient
 

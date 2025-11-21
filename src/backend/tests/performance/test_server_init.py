@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from aiexec.services.deps import get_settings_service
+from primeagent.services.deps import get_settings_service
 
 
 @pytest.fixture(autouse=True)
@@ -9,23 +9,23 @@ def setup_database_url(tmp_path, monkeypatch):
     """Setup a temporary database URL for testing."""
     settings_service = get_settings_service()
     db_path = tmp_path / "test_performance.db"
-    original_value = os.getenv("AIEXEC_DATABASE_URL")
-    monkeypatch.delenv("AIEXEC_DATABASE_URL", raising=False)
+    original_value = os.getenv("PRIMEAGENT_DATABASE_URL")
+    monkeypatch.delenv("PRIMEAGENT_DATABASE_URL", raising=False)
     test_db_url = f"sqlite:///{db_path}"
-    monkeypatch.setenv("AIEXEC_DATABASE_URL", test_db_url)
+    monkeypatch.setenv("PRIMEAGENT_DATABASE_URL", test_db_url)
     settings_service.set("database_url", test_db_url)
     yield
     # Restore original value if it existed
     if original_value is not None:
-        monkeypatch.setenv("AIEXEC_DATABASE_URL", original_value)
+        monkeypatch.setenv("PRIMEAGENT_DATABASE_URL", original_value)
         settings_service.set("database_url", original_value)
     else:
-        monkeypatch.delenv("AIEXEC_DATABASE_URL", raising=False)
+        monkeypatch.delenv("PRIMEAGENT_DATABASE_URL", raising=False)
 
 
 async def test_initialize_services():
     """Benchmark the initialization of services."""
-    from aiexec.services.utils import initialize_services
+    from primeagent.services.utils import initialize_services
 
     await initialize_services(fix_migration=False)
     settings_service = get_settings_service()
@@ -34,7 +34,7 @@ async def test_initialize_services():
 
 def test_setup_llm_caching():
     """Benchmark LLM caching setup."""
-    from aiexec.interface.utils import setup_llm_caching
+    from primeagent.interface.utils import setup_llm_caching
 
     setup_llm_caching()
     settings_service = get_settings_service()
@@ -43,8 +43,8 @@ def test_setup_llm_caching():
 
 async def test_initialize_super_user():
     """Benchmark super user initialization."""
-    from aiexec.initial_setup.setup import initialize_auto_login_default_superuser
-    from aiexec.services.utils import initialize_services
+    from primeagent.initial_setup.setup import initialize_auto_login_default_superuser
+    from primeagent.services.utils import initialize_services
 
     await initialize_services(fix_migration=False)
     await initialize_auto_login_default_superuser()
@@ -64,8 +64,8 @@ async def test_get_and_cache_all_types_dict():
 
 async def test_create_starter_projects():
     """Benchmark creation of starter projects."""
-    from aiexec.initial_setup.setup import create_or_update_starter_projects
-    from aiexec.services.utils import initialize_services
+    from primeagent.initial_setup.setup import create_or_update_starter_projects
+    from primeagent.services.utils import initialize_services
     from wfx.interface.components import get_and_cache_all_types_dict
 
     await initialize_services(fix_migration=False)
@@ -77,7 +77,7 @@ async def test_create_starter_projects():
 
 async def test_load_flows():
     """Benchmark loading flows from directory."""
-    from aiexec.initial_setup.setup import load_flows_from_directory
+    from primeagent.initial_setup.setup import load_flows_from_directory
 
     await load_flows_from_directory()
     settings_service = get_settings_service()

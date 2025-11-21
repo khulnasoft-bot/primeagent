@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-Write-Host "Starting Aiexec frontend build process..." -ForegroundColor Green
+Write-Host "Starting Primeagent frontend build process..." -ForegroundColor Green
 
 # Get script directory and project root
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
@@ -49,7 +49,7 @@ try {
         throw "Neither build nor dist directory found in src\frontend"
     }
 
-    $targetDir = "src\backend\base\aiexec\frontend"
+    $targetDir = "src\backend\base\primeagent\frontend"
     Write-Host "Copying from $buildDir to $targetDir"
 
     # Create target directory if it doesn't exist
@@ -74,5 +74,5 @@ try {
 }
 
 Write-Host "`nFrontend build process completed!" -ForegroundColor Green
-Write-Host "You can now run the backend with: uv run aiexec run" -ForegroundColor Cyan
+Write-Host "You can now run the backend with: uv run primeagent run" -ForegroundColor Cyan
 Read-Host "Press Enter to exit"

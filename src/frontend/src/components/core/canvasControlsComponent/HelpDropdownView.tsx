@@ -75,8 +75,8 @@ export const HelpDropdownView = ({
         <Separator />
         <DropdownControlButton
           iconName="download"
-          testId="canvas_controls_dropdown_get_aiexec_desktop"
-          label="Get Aiexec Desktop"
+          testId="canvas_controls_dropdown_get_primeagent_desktop"
+          label="Get Primeagent Desktop"
           externalLink
           onClick={() => openLink(urls.desktop)}
         />

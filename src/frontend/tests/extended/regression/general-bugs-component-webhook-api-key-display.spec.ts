@@ -2,7 +2,7 @@ import { expect, test } from "../../fixtures";
 import { adjustScreenView } from "../../utils/adjust-screen-view";
 import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 import { extractAndCleanCode } from "../../utils/extract-and-clean-code";
-import { loginAiexec } from "../../utils/login-aiexec";
+import { loginPrimeagent } from "../../utils/login-primeagent";
 
 test(
   "user must be able to see api key in webhook component when auto login is disabled",
@@ -32,7 +32,7 @@ test(
       });
     });
 
-    await loginAiexec(page);
+    await loginPrimeagent(page);
 
     await awaitBootstrapTest(page, { skipGoto: true });
 

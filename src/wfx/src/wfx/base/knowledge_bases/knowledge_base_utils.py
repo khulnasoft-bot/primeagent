@@ -3,8 +3,8 @@ from collections import Counter
 from pathlib import Path
 from uuid import UUID
 
-from aiexec.services.database.models.user.crud import get_user_by_id
-from aiexec.services.deps import session_scope
+from primeagent.services.database.models.user.crud import get_user_by_id
+from primeagent.services.deps import session_scope
 
 
 def compute_tfidf(documents: list[str], query_terms: list[str]) -> list[float]:

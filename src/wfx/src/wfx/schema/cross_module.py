@@ -3,7 +3,7 @@
 This module provides a metaclass and base model that enable isinstance checks
 to work across module boundaries for Pydantic models. This is particularly useful
 when the same class is re-exported from different modules (e.g., wfx.Message vs
-aiexec.schema.Message) but Python's isinstance() checks fail due to different
+primeagent.schema.Message) but Python's isinstance() checks fail due to different
 module paths.
 """
 
@@ -74,7 +74,7 @@ class CrossModuleModel(BaseModel, metaclass=CrossModuleMeta):
         ...
         >>> # Even if Message is imported from different paths:
         >>> from wfx.schema.message import Message as WfxMessage
-        >>> from aiexec.schema import Message as AiexecMessage
+        >>> from primeagent.schema import Message as PrimeagentMessage
         >>> msg = WfxMessage(text="hello")
-        >>> isinstance(msg, AiexecMessage)  # True (with cross-module support)
+        >>> isinstance(msg, PrimeagentMessage)  # True (with cross-module support)
     """

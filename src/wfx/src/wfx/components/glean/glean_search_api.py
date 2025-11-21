@@ -26,7 +26,7 @@ class GleanAPIWrapper(BaseModel):
 
     glean_api_url: str
     glean_access_token: str
-    act_as: str = "aiexec-component@datastax.com"  # TODO: Detect this
+    act_as: str = "primeagent-component@datastax.com"  # TODO: Detect this
 
     def _prepare_request(
         self,
@@ -101,7 +101,7 @@ class GleanAPIWrapper(BaseModel):
 class GleanSearchAPIComponent(LCToolComponent):
     display_name: str = "Glean Search API"
     description: str = "Search using Glean's API."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/Components/components-tools#glean-search-api"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/Components/components-tools#glean-search-api"
     icon: str = "Glean"
 
     outputs = [

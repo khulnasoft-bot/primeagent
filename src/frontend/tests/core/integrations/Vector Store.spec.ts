@@ -89,11 +89,11 @@ withEventDeliveryModes(
 
     await page.waitForTimeout(2000);
 
-    let aiexecCount = await page
-      .locator('[data-testid="aiexec-0-option"]')
+    let primeagentCount = await page
+      .locator('[data-testid="primeagent-0-option"]')
       .count();
 
-    while (aiexecCount === 0) {
+    while (primeagentCount === 0) {
       await page.waitForTimeout(1000);
       await page.getByTestId("icon-RefreshCcw").click();
 
@@ -101,17 +101,17 @@ withEventDeliveryModes(
 
       await page.waitForTimeout(1000);
 
-      aiexecCount = await page
-        .locator('[data-testid="aiexec-0-option"]')
+      primeagentCount = await page
+        .locator('[data-testid="primeagent-0-option"]')
         .count();
     }
 
-    await page.locator('[data-testid="aiexec-0-option"]').nth(0).waitFor({
+    await page.locator('[data-testid="primeagent-0-option"]').nth(0).waitFor({
       timeout: 15000,
       state: "visible",
     });
 
-    await page.getByTestId("aiexec-0-option").nth(0).click();
+    await page.getByTestId("primeagent-0-option").nth(0).click();
 
     await page
       .locator('[data-testid="dropdown_str_collection_name"]')
@@ -176,9 +176,9 @@ withEventDeliveryModes(
 
     await page.waitForTimeout(2000);
 
-    aiexecCount = await page.locator('[data-testid="aiexec-0-option"]').count();
+    primeagentCount = await page.locator('[data-testid="primeagent-0-option"]').count();
 
-    while (aiexecCount === 0) {
+    while (primeagentCount === 0) {
       await page.waitForTimeout(1000);
       await page.getByTestId("icon-RefreshCcw").click();
 
@@ -193,12 +193,12 @@ withEventDeliveryModes(
 
       await page.waitForTimeout(1000);
 
-      aiexecCount = await page
-        .locator('[data-testid="aiexec-0-option"]')
+      primeagentCount = await page
+        .locator('[data-testid="primeagent-0-option"]')
         .count();
     }
 
-    await page.getByTestId("aiexec-0-option").nth(0).click();
+    await page.getByTestId("primeagent-0-option").nth(0).click();
 
     await page.waitForTimeout(2000);
 

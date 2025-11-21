@@ -3,7 +3,7 @@ import { useStoreStore } from "../storeStore";
 
 // Mock the feature flag
 jest.mock("@/customization/feature-flags", () => ({
-  ENABLE_AIEXEC_STORE: true,
+  ENABLE_PRIMEAGENT_STORE: true,
 }));
 
 // Mock the API controllers - simplified without complex async operations

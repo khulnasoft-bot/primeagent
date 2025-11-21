@@ -3,18 +3,18 @@ title: Logs endpoints
 slug: /api-logs
 ---
 
-Retrieve logs for your Aiexec flows and server.
+Retrieve logs for your Primeagent flows and server.
 
 ## Enable log retrieval
 
-The `/logs` endpoint requires log retrieval to be enabled in your Aiexec instance.
+The `/logs` endpoint requires log retrieval to be enabled in your Primeagent instance.
 
-To enable log retrieval, include set the following [environment variables](/environment-variables) in your Aiexec `.env` file, and then start Aiexec with `uv run aiexec run --env-file .env`:
+To enable log retrieval, include set the following [environment variables](/environment-variables) in your Primeagent `.env` file, and then start Primeagent with `uv run primeagent run --env-file .env`:
 
 ```text
-AIEXEC_ENABLE_LOG_RETRIEVAL=True
-AIEXEC_LOG_RETRIEVER_BUFFER_SIZE=10000. // Must be greater than 0
-AIEXEC_LOG_LEVEL=DEBUG. // Can be DEBUG, ERROR, INFO, WARNING, or CRITICAL
+PRIMEAGENT_ENABLE_LOG_RETRIEVAL=True
+PRIMEAGENT_LOG_RETRIEVER_BUFFER_SIZE=10000. // Must be greater than 0
+PRIMEAGENT_LOG_LEVEL=DEBUG. // Can be DEBUG, ERROR, INFO, WARNING, or CRITICAL
 ```
 
 ## Stream logs
@@ -23,9 +23,9 @@ Stream logs in real-time using Server Sent Events (SSE):
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/logs-stream" \
+  "$PRIMEAGENT_URL/logs-stream" \
   -H "accept: text/event-stream" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -66,9 +66,9 @@ With default values, the endpoint returns the last 10 lines of logs.
 
 ```bash
 curl -X GET \
-  "$AIEXEC_URL/logs?lines_before=0&lines_after=0&timestamp=0" \
+  "$PRIMEAGENT_URL/logs?lines_before=0&lines_after=0&timestamp=0" \
   -H "accept: application/json" \
-  -H "x-api-key: $AIEXEC_API_KEY"
+  -H "x-api-key: $PRIMEAGENT_API_KEY"
 ```
 
 <details>
@@ -85,7 +85,7 @@ curl -X GET \
   "1736354770588": "2025-01-08T11:46:10.588105-0500 DEBUG Create service ServiceType.CHAT_SERVICE\n",
   "1736354771021": "2025-01-08T11:46:11.021817-0500 DEBUG Telemetry data sent successfully.\n",
   "1736354775619": "2025-01-08T11:46:15.619545-0500 DEBUG Create service ServiceType.STORE_SERVICE\n",
-  "1736354775699": "2025-01-08T11:46:15.699661-0500 DEBUG File 046-rocket.svg retrieved successfully from flow /Users/USER/Library/Caches/aiexec/profile_pictures/Space.\n"
+  "1736354775699": "2025-01-08T11:46:15.699661-0500 DEBUG File 046-rocket.svg retrieved successfully from flow /Users/USER/Library/Caches/primeagent/profile_pictures/Space.\n"
 }
 ```
 

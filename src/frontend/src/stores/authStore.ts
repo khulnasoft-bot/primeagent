@@ -2,17 +2,17 @@
 
 import { Cookies } from "react-cookie";
 import { create } from "zustand";
-import { AIEXEC_ACCESS_TOKEN, AIEXEC_API_TOKEN } from "@/constants/constants";
+import { PRIMEAGENT_ACCESS_TOKEN, PRIMEAGENT_API_TOKEN } from "@/constants/constants";
 import type { AuthStoreType } from "@/types/zustand/auth";
 
 const cookies = new Cookies();
 const useAuthStore = create<AuthStoreType>((set, get) => ({
   isAdmin: false,
-  isAuthenticated: !!cookies.get(AIEXEC_ACCESS_TOKEN),
-  accessToken: cookies.get(AIEXEC_ACCESS_TOKEN) ?? null,
+  isAuthenticated: !!cookies.get(PRIMEAGENT_ACCESS_TOKEN),
+  accessToken: cookies.get(PRIMEAGENT_ACCESS_TOKEN) ?? null,
   userData: null,
   autoLogin: null,
-  apiKey: cookies.get(AIEXEC_API_TOKEN),
+  apiKey: cookies.get(PRIMEAGENT_API_TOKEN),
   authenticationErrorCount: 0,
 
   setIsAdmin: (isAdmin) => set({ isAdmin }),

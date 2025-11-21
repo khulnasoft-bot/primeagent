@@ -1,4 +1,4 @@
-"""Type extraction utilities copied from aiexec for wfx package."""
+"""Type extraction utilities copied from primeagent for wfx package."""
 
 import re
 from collections.abc import Sequence as SequenceABC

@@ -1,29 +1,29 @@
 services:
-  aiexec:
-    image: khulnasoft/aiexec:latest # or another version tag on https://hub.docker.com/r/khulnasoft/aiexec
+  primeagent:
+    image: khulnasoft/primeagent:latest # or another version tag on https://hub.docker.com/r/khulnasoft/primeagent
     pull_policy: always               # set to 'always' when using 'latest' image
     ports:
       - "7860:7860"
     depends_on:
       - postgres
     environment:
-      - AIEXEC_DATABASE_URL=postgresql://aiexec:aiexec@postgres:5432/aiexec
+      - PRIMEAGENT_DATABASE_URL=postgresql://primeagent:primeagent@postgres:5432/primeagent
       # This variable defines where the logs, file storage, monitor data and secret keys are stored.
-      - AIEXEC_CONFIG_DIR=/app/aiexec
+      - PRIMEAGENT_CONFIG_DIR=/app/primeagent
     volumes:
-      - aiexec-data:/app/aiexec
+      - primeagent-data:/app/primeagent
 
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_USER: aiexec
-      POSTGRES_PASSWORD: aiexec
-      POSTGRES_DB: aiexec
+      POSTGRES_USER: primeagent
+      POSTGRES_PASSWORD: primeagent
+      POSTGRES_DB: primeagent
     ports:
       - "5432:5432"
     volumes:
-      - aiexec-postgres:/var/lib/postgresql/data
+      - primeagent-postgres:/var/lib/postgresql/data
 
 volumes:
-  aiexec-postgres:
-  aiexec-data:
+  primeagent-postgres:
+  primeagent-data:

@@ -25,7 +25,7 @@ jest.mock("@/constants/constants", () => ({
 }));
 
 jest.mock("@/customization/feature-flags", () => ({
-  ENABLE_DATASTAX_AIEXEC: false,
+  ENABLE_DATASTAX_PRIMEAGENT: false,
 }));
 
 jest.mock("@/customization/utils/analytics", () => ({

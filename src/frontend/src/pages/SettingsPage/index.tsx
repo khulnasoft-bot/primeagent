@@ -3,8 +3,8 @@ import SideBarButtonsComponent from "@/components/core/sidebarComponent";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { CustomStoreSidebar } from "@/customization/components/custom-store-sidebar";
 import {
-  ENABLE_AIEXEC_STORE,
-  ENABLE_DATASTAX_AIEXEC,
+  ENABLE_PRIMEAGENT_STORE,
+  ENABLE_DATASTAX_PRIMEAGENT,
   ENABLE_PROFILE_ICONS,
 } from "@/customization/feature-flags";
 import useAuthStore from "@/stores/authStore";
@@ -82,16 +82,16 @@ export default function SettingsPage(): JSX.Element {
   );
 
   // TODO: Remove this on cleanup
-  if (!ENABLE_DATASTAX_AIEXEC) {
-    const aiexecItems = CustomStoreSidebar(true, ENABLE_AIEXEC_STORE);
-    sidebarNavItems.splice(2, 0, ...aiexecItems);
+  if (!ENABLE_DATASTAX_PRIMEAGENT) {
+    const primeagentItems = CustomStoreSidebar(true, ENABLE_PRIMEAGENT_STORE);
+    sidebarNavItems.splice(2, 0, ...primeagentItems);
   }
 
   return (
     <PageLayout
       backTo={-1 as To}
       title="Settings"
-      description="Manage the general settings for Aiexec."
+      description="Manage the general settings for Primeagent."
     >
       <SidebarProvider width="15rem" defaultOpen={false}>
         <SideBarButtonsComponent items={sidebarNavItems} />

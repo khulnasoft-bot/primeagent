@@ -9,16 +9,16 @@ ARGUMENT_NUMBER = 2
 
 
 def update_uv_dep(base_version: str) -> None:
-    """Update the aiexec-base dependency in pyproject.toml."""
+    """Update the primeagent-base dependency in pyproject.toml."""
     pyproject_path = BASE_DIR / "pyproject.toml"
 
     # Read the pyproject.toml file content
     content = pyproject_path.read_text(encoding="utf-8")
 
-    # For the main project, update the aiexec-base dependency in the UV section
+    # For the main project, update the primeagent-base dependency in the UV section
     # Updated pattern to handle PEP 440 version suffixes and both ~= and == version specifiers
-    pattern = re.compile(r'(dependencies\s*=\s*\[\s*\n\s*)("aiexec-base(?:~=|==)[\d.]+(?:\.(?:post|dev|a|b|rc)\d+)*")')
-    replacement = rf'\1"aiexec-base-nightly=={base_version}"'
+    pattern = re.compile(r'(dependencies\s*=\s*\[\s*\n\s*)("primeagent-base(?:~=|==)[\d.]+(?:\.(?:post|dev|a|b|rc)\d+)*")')
+    replacement = rf'\1"primeagent-base-nightly=={base_version}"'
 
     # Check if the pattern is found
     if not pattern.search(content):

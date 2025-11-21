@@ -11,7 +11,7 @@ from wfx.schema.data import Data
 class CalculatorComponent(Component):
     display_name = "Calculator"
     description = "Perform basic arithmetic operations on a given expression."
-    documentation: str = "https://aiexec-docs.khulnasoft.com/components-helpers#calculator"
+    documentation: str = "https://primeagent-docs.khulnasoft.com/components-helpers#calculator"
     icon = "calculator"
 
     # Cache operators dictionary as a class variable

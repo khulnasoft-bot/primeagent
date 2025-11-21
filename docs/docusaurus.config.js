@@ -9,17 +9,17 @@ const isProduction = process.env.NODE_ENV === "production";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Aiexec Documentation",
+  title: "Primeagent Documentation",
   tagline:
-    "Aiexec is a low-code app builder for RAG and multi-agent AI applications.",
+    "Primeagent is a low-code app builder for RAG and multi-agent AI applications.",
   favicon: "img/favicon.ico",
-  url: "https://aiexec-docs.khulnasoft.com",
+  url: "https://primeagent-docs.khulnasoft.com",
   baseUrl: process.env.BASE_URL ? process.env.BASE_URL : "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   onBrokenAnchors: "warn",
   organizationName: "khulnasoft",
-  projectName: "aiexec",
+  projectName: "primeagent",
   trailingSlash: false,
   staticDirectories: ["static"],
   i18n: {
@@ -40,7 +40,7 @@ const config = {
           {
             tagName: "script",
             attributes: {},
-            innerHTML: `!function(){window.semaphore=window.semaphore||[],window.ketch=function(){window.semaphore.push(arguments)};var e=document.createElement("script");e.type="text/javascript",e.src="https://global.ketchcdn.com/web/v3/config/datastax/aiexec_org_web/boot.js",e.defer=e.async=!0,document.getElementsByTagName("head")[0].appendChild(e)}();`,
+            innerHTML: `!function(){window.semaphore=window.semaphore||[],window.ketch=function(){window.semaphore.push(arguments)};var e=document.createElement("script");e.type="text/javascript",e.src="https://global.ketchcdn.com/web/v3/config/datastax/primeagent_org_web/boot.js",e.defer=e.async=!0,document.getElementsByTagName("head")[0].appendChild(e)}();`,
           },
           // Ketch jurisdiction dynamic link and GA4 consent tracking
           {
@@ -152,14 +152,14 @@ const config = {
       selectors: [
         {
           selector: 'h1, h2, h3, h4, h5, h6',
-          eventName: 'aiexec-docs.khulnasoft.com - Heading Viewed',
+          eventName: 'primeagent-docs.khulnasoft.com - Heading Viewed',
           properties: {
             element_type: 'heading'
           }
         },
         {
           selector: '.ch-codeblock',
-          eventName: 'aiexec-docs.khulnasoft.com - Codeblock Viewed',
+          eventName: 'primeagent-docs.khulnasoft.com - Codeblock Viewed',
           properties: {
             element_type: 'code',
             language: 'helper:codeLanguage'
@@ -174,11 +174,11 @@ const config = {
           {
             to: "/",
             from: [
-              "/whats-new-a-new-chapter-aiexec",
-              "/👋 Welcome-to-Aiexec",
-              "/getting-started-welcome-to-aiexec",
+              "/whats-new-a-new-chapter-primeagent",
+              "/👋 Welcome-to-Primeagent",
+              "/getting-started-welcome-to-primeagent",
               "/guides-new-to-llms",
-              "/about-aiexec",
+              "/about-primeagent",
             ],
           },
           {
@@ -313,13 +313,13 @@ const config = {
           {
             to: "/bundles-google",
             from: [
-              "/integrations-setup-google-oauth-aiexec",
+              "/integrations-setup-google-oauth-primeagent",
               "/integrations-google-big-query",
             ],
           },
           {
             to: "/bundles-vertexai",
-            from: "/integrations-setup-google-cloud-vertex-ai-aiexec",
+            from: "/integrations-setup-google-cloud-vertex-ai-primeagent",
           },
           {
             to: "/develop-application",
@@ -397,7 +397,7 @@ const config = {
       navbar: {
         hideOnScroll: true,
         logo: {
-          alt: "Aiexec",
+          alt: "Primeagent",
           src: "img/lf-docs-light.svg",
           srcDark: "img/lf-docs-dark.svg",
         },
@@ -405,20 +405,20 @@ const config = {
           // right
           {
             position: "right",
-            href: "https://github.com/khulnasoft/aiexec",
+            href: "https://github.com/khulnasoft/primeagent",
             className: "header-github-link",
             target: "_blank",
             rel: null,
-            'data-event': 'aiexec-docs.khulnasoft.com - Social Clicked',
+            'data-event': 'primeagent-docs.khulnasoft.com - Social Clicked',
             'data-platform': 'github'
           },
           {
             position: "right",
-            href: "https://twitter.com/aiexec_ai",
+            href: "https://twitter.com/primeagent_ai",
             className: "header-twitter-link",
             target: "_blank",
             rel: null,
-            'data-event': 'aiexec-docs.khulnasoft.com - Social Clicked',
+            'data-event': 'primeagent-docs.khulnasoft.com - Social Clicked',
             'data-platform': 'x'
           },
           {
@@ -427,7 +427,7 @@ const config = {
             className: "header-discord-link",
             target: "_blank",
             rel: null,
-            'data-event': 'aiexec-docs.khulnasoft.com - Social Clicked',
+            'data-event': 'primeagent-docs.khulnasoft.com - Social Clicked',
             'data-platform': 'discord'
           },
         ],
@@ -463,8 +463,8 @@ const config = {
             items: [
               {
                 html: `<div class="footer-links">
-                  <span>© ${new Date().getFullYear()} Aiexec</span>
-                  <span id="preferenceCenterContainer"> ·&nbsp; <a href="https://aiexec.khulnasoft.com/preferences">Manage Privacy Choices</a></span>
+                  <span>© ${new Date().getFullYear()} Primeagent</span>
+                  <span id="preferenceCenterContainer"> ·&nbsp; <a href="https://primeagent.khulnasoft.com/preferences">Manage Privacy Choices</a></span>
                   </div>`,
               },
             ],
@@ -475,7 +475,7 @@ const config = {
         appId: "UZK6BDPCVY",
         // public key, safe to commit
         apiKey: "adbd7686dceb1cd510d5ce20d04bf74c",
-        indexName: "aiexec",
+        indexName: "primeagent",
         contextualSearch: true,
         searchParameters: {},
         searchPagePath: "search",

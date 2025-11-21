@@ -1,7 +1,7 @@
 from pydantic import SecretStr
 
-DEFAULT_SUPERUSER = "aiexec"
-DEFAULT_SUPERUSER_PASSWORD = SecretStr("aiexec")
+DEFAULT_SUPERUSER = "primeagent"
+DEFAULT_SUPERUSER_PASSWORD = SecretStr("primeagent")
 
 VARIABLES_TO_GET_FROM_ENVIRONMENT = [
     "COMPOSIO_API_KEY",

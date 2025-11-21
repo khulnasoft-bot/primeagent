@@ -1,5 +1,5 @@
 import pytest
-from aiexec.custom.custom_component.custom_component import CustomComponent
+from primeagent.custom.custom_component.custom_component import CustomComponent
 from wfx.field_typing.constants import Data
 
 

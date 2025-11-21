@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 
 import pytest
 from wfx.custom.validate import (
-    _create_aiexec_execution_context,
+    _create_primeagent_execution_context,
     add_type_ignores,
     build_class_constructor,
     compile_class_code,
@@ -149,14 +149,14 @@ def test_func():
         mock_logger.debug.assert_called_with("Error parsing code", exc_info=True)
 
 
-class TestCreateAiexecExecutionContext:
-    """Test cases for _create_aiexec_execution_context function."""
+class TestCreatePrimeagentExecutionContext:
+    """Test cases for _create_primeagent_execution_context function."""
 
-    def test_creates_context_with_aiexec_imports(self):
-        """Test that context includes aiexec imports."""
+    def test_creates_context_with_primeagent_imports(self):
+        """Test that context includes primeagent imports."""
         # The function imports modules inside try/except blocks
         # We don't need to patch anything, just test it works
-        context = _create_aiexec_execution_context()
+        context = _create_primeagent_execution_context()
 
         # Check that the context contains the expected keys
         # The actual imports may succeed or fail, but the function should handle both cases
@@ -171,7 +171,7 @@ class TestCreateAiexecExecutionContext:
         # Test that the function handles import failures gracefully
         # by checking the actual implementation behavior
         with patch("builtins.__import__", side_effect=ImportError("Module not found")):
-            context = _create_aiexec_execution_context()
+            context = _create_primeagent_execution_context()
 
             # Even with import failures, the context should still be created
             assert isinstance(context, dict)
@@ -181,7 +181,7 @@ class TestCreateAiexecExecutionContext:
 
     def test_includes_typing_imports(self):
         """Test that typing imports are included."""
-        context = _create_aiexec_execution_context()
+        context = _create_primeagent_execution_context()
 
         assert "Any" in context
         assert "Dict" in context
@@ -190,8 +190,8 @@ class TestCreateAiexecExecutionContext:
         assert "Union" in context
 
     def test_does_not_include_pandas(self):
-        """Test that pandas is not included in the aiexec execution context."""
-        context = _create_aiexec_execution_context()
+        """Test that pandas is not included in the primeagent execution context."""
+        context = _create_primeagent_execution_context()
         assert "pd" not in context
 
 
@@ -381,7 +381,7 @@ class JsonHandler:
     def test_replaces_legacy_imports(self):
         """Test that legacy import statements are replaced."""
         code = """
-from aiexec import CustomComponent
+from primeagent import CustomComponent
 
 class MyComponent(CustomComponent):
     def build(self):
@@ -637,8 +637,8 @@ class TestGetDefaultImports:
             assert "Dict" in imports
             assert "Union" in imports
 
-    def test_includes_aiexec_imports(self):
-        """Test that aiexec imports are included when found in code."""
+    def test_includes_primeagent_imports(self):
+        """Test that primeagent imports are included when found in code."""
         # Use an actual type from CUSTOM_COMPONENT_SUPPORTED_TYPES
         code = "Chain is used here"
 

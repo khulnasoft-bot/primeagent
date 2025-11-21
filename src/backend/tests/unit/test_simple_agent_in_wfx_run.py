@@ -4,7 +4,7 @@ This module tests the agent workflow by:
 1. Creating and validating the agent script
 2. Testing component instantiation and configuration
 3. Testing direct graph execution without CLI
-4. Verifying the workflow works with aiexec's dependencies
+4. Verifying the workflow works with primeagent's dependencies
 """
 
 import os
@@ -22,14 +22,14 @@ class TestAgentInWfxRun:
     @pytest.fixture
     def simple_agent_script_content(self):
         """The simple_agent.py script content for testing wfx run."""
-        return '''"""A simple agent flow example for Aiexec.
+        return '''"""A simple agent flow example for Primeagent.
 
-This script demonstrates how to set up a conversational agent using Aiexec's
+This script demonstrates how to set up a conversational agent using Primeagent's
 Agent component with web search capabilities.
 
 Features:
 - Uses the new flattened component access (cp.AgentComponent instead of deep imports)
-- Configures logging to 'aiexec.log' at INFO level
+- Configures logging to 'primeagent.log' at INFO level
 - Creates an agent with OpenAI GPT model
 - Provides web search tools via URLComponent
 - Connects ChatInput → Agent → ChatOutput
@@ -48,7 +48,7 @@ from wfx.log.logger import LogConfig
 
 log_config = LogConfig(
     log_level="INFO",
-    log_file=Path("aiexec.log"),
+    log_file=Path("primeagent.log"),
 )
 
 # Showcase the new flattened component access - no need for deep imports!
@@ -79,7 +79,7 @@ graph = Graph(chat_input, chat_output, log_config=log_config)
         yield script_path
 
         # Cleanup any log file that might be created
-        log_file = Path("aiexec.log")
+        log_file = Path("primeagent.log")
         if log_file.exists():
             log_file.unlink(missing_ok=True)
 
@@ -106,7 +106,7 @@ graph = Graph(chat_input, chat_output, log_config=log_config)
 
     def test_agent_script_file_validation(self, simple_agent_script_file):
         """Test that the agent script file exists and has valid content."""
-        # Since we don't have direct CLI access in aiexec tests,
+        # Since we don't have direct CLI access in primeagent tests,
         # verify the script file exists and has correct content
         assert simple_agent_script_file.exists(), "Script file should exist in tests/data"
 
@@ -156,7 +156,7 @@ graph = Graph(chat_input, chat_output, log_config=log_config)
         # Create the agent workflow
         log_config = LogConfig(
             log_level="INFO",
-            log_file=Path("aiexec.log"),
+            log_file=Path("primeagent.log"),
         )
 
         chat_input = cp.ChatInput()
@@ -187,7 +187,7 @@ graph = Graph(chat_input, chat_output, log_config=log_config)
         assert str(graph), "Graph should have string representation"
 
         # Cleanup log file
-        log_file = Path("aiexec.log")
+        log_file = Path("primeagent.log")
         if log_file.exists():
             log_file.unlink(missing_ok=True)
 
@@ -287,19 +287,19 @@ graph = Graph(chat_input, chat_output, log_config=log_config)
         # Test LogConfig creation for the workflow
         log_config = LogConfig(
             log_level="INFO",
-            log_file=Path("aiexec.log"),
+            log_file=Path("primeagent.log"),
         )
 
         assert log_config is not None
         # LogConfig may be a dict or object, verify it contains the expected data
         if isinstance(log_config, dict):
             assert log_config.get("log_level") == "INFO"
-            assert log_config.get("log_file") == Path("aiexec.log")
+            assert log_config.get("log_file") == Path("primeagent.log")
         else:
             assert hasattr(log_config, "log_level") or hasattr(log_config, "__dict__")
 
         # Cleanup
-        log_file = Path("aiexec.log")
+        log_file = Path("primeagent.log")
         if log_file.exists():
             log_file.unlink(missing_ok=True)
 
@@ -328,7 +328,7 @@ graph = Graph(chat_input, chat_output, log_config=log_config)
         # Set up the complete workflow
         log_config = LogConfig(
             log_level="INFO",
-            log_file=Path("aiexec.log"),
+            log_file=Path("primeagent.log"),
         )
 
         chat_input = cp.ChatInput()
@@ -358,6 +358,6 @@ graph = Graph(chat_input, chat_output, log_config=log_config)
         # For now, just verify the setup completed without errors
 
         # Cleanup
-        log_file = Path("aiexec.log")
+        log_file = Path("primeagent.log")
         if log_file.exists():
             log_file.unlink(missing_ok=True)
