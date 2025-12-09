@@ -128,7 +128,17 @@ export default function NodeDescription({
     }
   };
 
-  const handleDoubleClickFn = () => {
+  const handleDoubleClickFn = (e?: React.MouseEvent | React.KeyboardEvent) => {
+    if (e) {
+      e.stopPropagation();
+      if (
+        e.type === "keydown" &&
+        (e as React.KeyboardEvent).key !== "Enter" &&
+        (e as React.KeyboardEvent).key !== " "
+      ) {
+        return;
+      }
+    }
     if (stickyNote) {
       setEditNameDescription?.(true);
       takeSnapshot();
@@ -186,12 +196,20 @@ export default function NodeDescription({
         <div
           data-testid="generic-node-desc"
           ref={overflowRef}
+          role="button"
+          tabIndex={0}
           className={cn(
             "nodoubleclick generic-node-desc-text h-full cursor-grab text-muted-foreground word-break-break-word",
             description === "" || !description ? "font-light italic" : "",
             placeholderClassName,
           )}
           onDoubleClick={handleDoubleClickFn}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleDoubleClickFn(e as any);
+            }
+          }}
         >
           {renderedDescription}
         </div>

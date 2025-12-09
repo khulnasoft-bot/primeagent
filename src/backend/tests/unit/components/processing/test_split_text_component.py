@@ -3,7 +3,7 @@ from wfx.components.data import URLComponent
 from wfx.components.processing import SplitTextComponent
 from wfx.schema import Data, DataFrame
 
-from tests.base import ComponentTestBaseWithoutClient
+from tests.base import ComponentTestBaseWithoutClient, DID_NOT_EXIST
 
 
 class TestSplitTextComponent(ComponentTestBaseWithoutClient):
@@ -32,7 +32,7 @@ class TestSplitTextComponent(ComponentTestBaseWithoutClient):
             # It was in helpers in version 1.0.19
             {"version": "1.0.19", "module": "helpers", "file_name": "SplitText"},
             {"version": "1.1.0", "module": "processing", "file_name": "split_text"},
-            {"version": "1.1.1", "module": "processing", "file_name": "split_text"},
+            {"version": "1.1.1", "module": "processing", "file_name": DID_NOT_EXIST},
         ]
 
     def test_split_text_basic(self):

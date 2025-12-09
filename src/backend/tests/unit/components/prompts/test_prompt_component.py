@@ -1,7 +1,7 @@
 import pytest
 from wfx.components.processing import PromptComponent
 
-from tests.base import ComponentTestBaseWithClient
+from tests.base import ComponentTestBaseWithClient, DID_NOT_EXIST
 
 
 @pytest.mark.usefixtures("client")
@@ -19,7 +19,7 @@ class TestPromptComponent(ComponentTestBaseWithClient):
         return [
             {"version": "1.0.19", "module": "prompts", "file_name": "Prompt"},
             {"version": "1.1.0", "module": "prompts", "file_name": "prompt"},
-            {"version": "1.1.1", "module": "prompts", "file_name": "prompt"},
+            {"version": "1.1.1", "module": "prompts", "file_name": DID_NOT_EXIST},
         ]
 
     def test_post_code_processing(self, component_class, default_kwargs):

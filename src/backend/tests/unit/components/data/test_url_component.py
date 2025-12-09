@@ -4,7 +4,7 @@ import pytest
 from wfx.components.data import URLComponent
 from wfx.schema import DataFrame
 
-from tests.base import ComponentTestBaseWithoutClient
+from tests.base import ComponentTestBaseWithoutClient, DID_NOT_EXIST
 
 
 class TestURLComponent(ComponentTestBaseWithoutClient):
@@ -30,7 +30,7 @@ class TestURLComponent(ComponentTestBaseWithoutClient):
         return [
             {"version": "1.0.19", "module": "data", "file_name": "URL"},
             {"version": "1.1.0", "module": "data", "file_name": "url"},
-            {"version": "1.1.1", "module": "data", "file_name": "url"},
+            {"version": "1.1.1", "module": "data", "file_name": DID_NOT_EXIST},
             {"version": "1.2.0", "module": "data", "file_name": "url"},
         ]
 

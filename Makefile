@@ -1,4 +1,5 @@
-.PHONY: all init format_backend format lint build run_backend dev help tests coverage clean_python_cache clean_npm_cache clean_frontend_build clean_all run_clic load_test_setup load_test_setup_basic load_test_list_flows load_test_run load_test_primeagent_quick load_test_stress load_test_example load_test_clean load_test_remote_setup load_test_remote_run load_test_help
+.PHONY: all init format_backend format lint build run_backend backend dev help tests coverage clean_python_cache clean_npm_cache clean_frontend_build clean_all run_clic run_cli run_cli_debug \
+	load_test_setup load_test_setup_basic load_test_list_flows load_test_run load_test_primeagent_quick load_test_wfx_quick load_test_quick load_test_stress load_test_example load_test_clean load_test_remote_setup load_test_remote_run load_test_help
 
 # Configurations
 VERSION=$(shell grep "^version" pyproject.toml | sed 's/.*\"\(.*\)\"$$/\1/')
@@ -12,6 +13,8 @@ RED=\033[0;31m
 NC=\033[0m # No Color
 GREEN=\033[0;32m
 YELLOW=\033[1;33m
+BLUE=\033[0;34m
+CYAN=\033[0;36m
 
 log_level ?= debug
 host ?= 0.0.0.0
@@ -118,7 +121,7 @@ clean_all: clean_python_cache clean_npm_cache # clean all caches and temporary d
 	@echo "$(GREEN)All caches and temporary directories cleaned.$(NC)"
 
 setup_uv: ## install uv using pipx
-	pipx install uv
+	pipx install uv --force
 
 add:
 	@echo 'Adding dependencies'
@@ -252,18 +255,15 @@ run_cli: install_frontend install_backend build_frontend ## run the CLI quickly 
 		$(if $(env),--env-file $(env),) \
 		$(if $(filter false,$(open_browser)),--no-open-browser)
 
-run_cli_debug:
-	@echo 'Running the CLI in debug mode'
-	@make install_frontend > /dev/null
-	@echo 'Building the frontend'
-	@make build_frontend > /dev/null
-	@echo 'Install backend dependencies'
-	@make install_backend > /dev/null
-ifdef env
-	@make start env=$(env) host=$(host) port=$(port) log_level=debug
-else
-	@make start host=$(host) port=$(port) log_level=debug
-endif
+run_cli_debug: install_frontend install_backend build_frontend ## run the CLI in debug mode (log_level=debug)
+	@echo 'Running the CLI in debug mode (log_level=debug)'
+	@uv run primeagent run \
+		--frontend-path $(path) \
+		--log-level debug \
+		--host $(host) \
+		--port $(port) \
+		$(if $(env),--env-file $(env),) \
+		$(if $(filter false,$(open_browser)),--no-open-browser)
 
 
 setup_devcontainer: ## set up the development container
@@ -277,6 +277,13 @@ setup_env: ## set up the environment
 
 
 
+
+# Convenience aliases
+run_backend: backend ## alias for backend target
+	@:
+
+dev: backend ## alias for backend target
+	@:
 
 backend: setup_env install_backend ## run the backend in development mode
 	@-kill -9 $$(lsof -t -i:7860) || true
@@ -668,6 +675,9 @@ load_test_wfx_quick: ## Quick WFX load test (30 users, 60s). Options: html=true,
 	else \
 		uv run locust -f wfx_serve_locustfile.py --host $(load_test_host) --headless -u 30 -r 5 -t 60s; \
 	fi
+
+load_test_quick: load_test_wfx_quick ## alias for quick complex-serve load test
+	@:
 
 ######################
 # ENHANCED LOAD TESTING

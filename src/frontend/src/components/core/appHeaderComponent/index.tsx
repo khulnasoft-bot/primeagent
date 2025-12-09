@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import AlertDropdown from "@/alerts/alertDropDown";
-import PrimeagentLogo from "@/assets/PrimeagentLogo.svg?react";
 import DataStaxLogo from "@/assets/DataStaxLogo.svg?react";
+import PrimeagentLogo from "@/assets/PrimeagentLogo.svg?react";
 import ForwardedIconComponent from "@/components/common/genericIconComponent";
 import ShadTooltip from "@/components/common/shadTooltipComponent";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import CustomAccountMenu from "@/customization/components/custom-AccountMenu";
-import CustomPrimeagentCounts from "@/customization/components/custom-primeagent-counts";
 import { CustomOrgSelector } from "@/customization/components/custom-org-selector";
+import CustomPrimeagentCounts from "@/customization/components/custom-primeagent-counts";
 import { CustomProductSelector } from "@/customization/components/custom-product-selector";
 import { ENABLE_DATASTAX_PRIMEAGENT } from "@/customization/feature-flags";
 import { useCustomNavigate } from "@/customization/hooks/use-custom-navigate";

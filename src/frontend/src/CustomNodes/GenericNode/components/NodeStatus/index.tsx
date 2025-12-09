@@ -287,7 +287,17 @@ export default function NodeStatus({
 
   const stopBuilding = useFlowStore((state) => state.stopBuilding);
 
-  const handleClickRun = () => {
+  const handleClickRun = (e?: React.MouseEvent | React.KeyboardEvent) => {
+    if (e) {
+      e.stopPropagation();
+      if (
+        e.type === "keydown" &&
+        (e as React.KeyboardEvent).key !== "Enter" &&
+        (e as React.KeyboardEvent).key !== " "
+      ) {
+        return;
+      }
+    }
     setFlowPool({});
 
     if (BuildStatus.BUILDING === buildStatus && isHovered) {
@@ -490,10 +500,19 @@ export default function NodeStatus({
       {showNode && (
         <ShadTooltip content={getTooltipContent()}>
           <div
+            role="button"
+            tabIndex={0}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onClick={handleClickRun}
-            className="-m-0.5"
+            onKeyDown={(e: React.KeyboardEvent) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleClickRun(e);
+              }
+            }}
+            className="-m-0.5 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 rounded-sm"
+            aria-label={`Run ${display_name}`}
           >
             <Button unstyled className="nodrag button-run-bg group">
               <div data-testid={`button_run_` + display_name.toLowerCase()}>

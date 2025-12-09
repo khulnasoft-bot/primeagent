@@ -5,7 +5,7 @@ from wfx.schema.dataframe import DataFrame
 from wfx.schema.message import Message
 from wfx.utils.constants import MESSAGE_SENDER_AI, MESSAGE_SENDER_NAME_AI
 
-from tests.base import ComponentTestBaseWithClient
+from tests.base import ComponentTestBaseWithClient, DID_NOT_EXIST
 
 
 @pytest.mark.usefixtures("client")
@@ -34,7 +34,7 @@ class TestChatOutput(ComponentTestBaseWithClient):
         return [
             {"version": "1.0.19", "module": "outputs", "file_name": "ChatOutput"},
             {"version": "1.1.0", "module": "outputs", "file_name": "chat"},
-            {"version": "1.1.1", "module": "outputs", "file_name": "chat"},
+            {"version": "1.1.1", "module": "outputs", "file_name": DID_NOT_EXIST},
         ]
 
     async def test_process_string_input(self, component_class, default_kwargs):

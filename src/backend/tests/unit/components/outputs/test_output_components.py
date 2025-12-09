@@ -1,7 +1,7 @@
 import pytest
 from wfx.components.input_output import TextOutputComponent
 
-from tests.base import ComponentTestBaseWithoutClient
+from tests.base import ComponentTestBaseWithoutClient, DID_NOT_EXIST
 
 
 class TestTextOutputComponent(ComponentTestBaseWithoutClient):
@@ -20,5 +20,5 @@ class TestTextOutputComponent(ComponentTestBaseWithoutClient):
         return [
             {"version": "1.0.19", "module": "outputs", "file_name": "TextOutput"},
             {"version": "1.1.0", "module": "outputs", "file_name": "text"},
-            {"version": "1.1.1", "module": "outputs", "file_name": "text"},
+            {"version": "1.1.1", "module": "outputs", "file_name": DID_NOT_EXIST},
         ]

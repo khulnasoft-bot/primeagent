@@ -6,7 +6,7 @@ import pytest
 from wfx.components.data import DirectoryComponent
 from wfx.schema import Data, DataFrame
 
-from tests.base import ComponentTestBaseWithoutClient
+from tests.base import ComponentTestBaseWithoutClient, DID_NOT_EXIST
 
 
 class TestDirectoryComponent(ComponentTestBaseWithoutClient):
@@ -32,7 +32,7 @@ class TestDirectoryComponent(ComponentTestBaseWithoutClient):
         return [
             {"version": "1.0.19", "module": "data", "file_name": "Directory"},
             {"version": "1.1.0", "module": "data", "file_name": "directory"},
-            {"version": "1.1.1", "module": "data", "file_name": "directory"},
+            {"version": "1.1.1", "module": "data", "file_name": DID_NOT_EXIST},
         ]
 
     @patch("wfx.components.data.directory.parallel_load_data")

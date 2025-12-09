@@ -183,10 +183,15 @@ dev = [
     "pyleak>=0.1.14",
 ]
 
-[tool.uv.sources]
-primeagent-base = { workspace = true }
-primeagent = { workspace = true }
-wfx = { workspace = true }
+[tool.uv]
+required-environments = [
+    "sys_platform == 'darwin' and platform_machine == 'x86_64'"
+]
+override-dependencies = [
+    # temporary force a newer python-pptx
+    "python-pptx>=1.0.2",
+    "onnxruntime==1.15.0"
+]
 
 [tool.uv.workspace]
 members = [
@@ -194,6 +199,11 @@ members = [
     ".",
     "src/wfx",
 ]
+
+[tool.uv.sources]
+primeagent = { workspace = true }
+wfx = { workspace = true }
+"primeagent-base" = { workspace = true }
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/backend/primeagent"]
@@ -242,12 +252,6 @@ nv-ingest = [
 postgresql = [
     "sqlalchemy[postgresql_psycopg2binary]>=2.0.38,<3.0.0",
     "sqlalchemy[postgresql_psycopg]>=2.0.38,<3.0.0",
-]
-
-[tool.uv]
-override-dependencies = [
-    # temporary force a newer python-pptx
-    "python-pptx>=1.0.2",
 ]
 
 [project.scripts]

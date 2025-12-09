@@ -9,16 +9,14 @@ import {
   getCustomParameterTitle,
 } from "@/customization/components/custom-parameter";
 import { useIsAutoLogin } from "@/hooks/use-is-auto-login";
-import useAuthStore from "@/stores/authStore";
-import { cn } from "@/utils/utils";
 import { default as IconComponent } from "../../../../components/common/genericIconComponent";
 import ShadTooltip from "../../../../components/common/shadTooltipComponent";
 import {
-  PRIMEAGENT_SUPPORTED_TYPES,
   DEFAULT_TOOLSET_PLACEHOLDER,
   FLEX_VIEW_TYPES,
   ICON_STROKE_WIDTH,
   IS_AUTO_LOGIN,
+  PRIMEAGENT_SUPPORTED_TYPES,
 } from "../../../../constants/constants";
 import useFlowStore from "../../../../stores/flowStore";
 import { useTypesStore } from "../../../../stores/typesStore";

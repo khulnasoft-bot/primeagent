@@ -112,12 +112,48 @@ def download_flow_from_github(name: str, version: str) -> JSONFlow:
 
 
 def download_component_from_github(module: str, file_name: str, version: str) -> Component:
+    """Download a component implementation from GitHub for a given version.
+
+    For historical, tagged versions (e.g. "1.0.19", "1.1.0") we fetch from the
+    corresponding git tag ("v1.0.19", "v1.1.0").
+
+    For the most recent supported version, tests may run before a tag has been
+    pushed. In that case we fall back to the "main" branch so local tests do not
+    fail with a 404 while the release is being prepared.
+    """
+
+    from requests.exceptions import HTTPError
+
+    # By default, use the semantic version tag (e.g. v1.1.0) or "main" when
+    # explicitly requested.
     version_string = f"v{version}" if version != "main" else version
-    response = requests.get(
-        f"https://raw.githubusercontent.com/khulnasoft/primeagent/{version_string}/src/backend/base/primeagent/components/{module}/{file_name}.py",
-        timeout=10,
+    url = (
+        "https://raw.githubusercontent.com/khulnasoft/primeagent/"
+        f"{version_string}/src/backend/base/primeagent/components/{module}/{file_name}.py"
     )
-    response.raise_for_status()
+
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+    except HTTPError:
+        # If we are testing the latest supported version and the corresponding
+        # tag does not exist yet (404), retry against the main branch.
+        from tests.constants import SUPPORTED_VERSIONS
+
+        is_latest_version = version == SUPPORTED_VERSIONS[-1]
+        if is_latest_version and version != "main":
+            fallback_url = (
+                "https://raw.githubusercontent.com/khulnasoft/primeagent/"
+                f"main/src/backend/base/primeagent/components/{module}/{file_name}.py"
+            )
+            fallback_response = requests.get(fallback_url, timeout=10)
+            fallback_response.raise_for_status()
+            return Component(_code=fallback_response.text)
+
+        # Re-raise for all other cases so tests still fail loudly when an
+        # expected historical tag or branch is missing.
+        raise
+
     return Component(_code=response.text)
 
 

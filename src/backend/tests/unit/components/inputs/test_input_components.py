@@ -4,7 +4,7 @@ from wfx.components.input_output import ChatInput, TextInputComponent
 from wfx.schema.message import Message
 from wfx.utils.constants import MESSAGE_SENDER_AI, MESSAGE_SENDER_NAME_USER, MESSAGE_SENDER_USER
 
-from tests.base import ComponentTestBaseWithClient, ComponentTestBaseWithoutClient
+from tests.base import ComponentTestBaseWithClient, ComponentTestBaseWithoutClient, DID_NOT_EXIST
 
 
 @pytest.mark.usefixtures("client")
@@ -29,7 +29,7 @@ class TestChatInput(ComponentTestBaseWithClient):
         return [
             {"version": "1.0.19", "module": "inputs", "file_name": "ChatInput"},
             {"version": "1.1.0", "module": "inputs", "file_name": "chat"},
-            {"version": "1.1.1", "module": "inputs", "file_name": "chat"},
+            {"version": "1.1.1", "module": "inputs", "file_name": DID_NOT_EXIST},
         ]
 
     async def test_message_response(self, component_class, default_kwargs):
@@ -138,5 +138,5 @@ class TestTextInputComponent(ComponentTestBaseWithoutClient):
         return [
             {"version": "1.0.19", "module": "inputs", "file_name": "TextInput"},
             {"version": "1.1.0", "module": "inputs", "file_name": "text"},
-            {"version": "1.1.1", "module": "inputs", "file_name": "text"},
+            {"version": "1.1.1", "module": "inputs", "file_name": DID_NOT_EXIST},
         ]

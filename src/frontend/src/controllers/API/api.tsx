@@ -107,9 +107,9 @@ function ApiInterceptor() {
 
     const isAuthorizedURL = (url) => {
       const authorizedDomains = [
-        "https://raw.githubusercontent.com/primeagent-ai/primeagent_examples/main/examples",
-        "https://api.github.com/repos/primeagent-ai/primeagent_examples/contents/examples",
-        "https://api.github.com/repos/primeagent-ai/primeagent",
+        "https://raw.githubusercontent.com/khulbasoft-bot/primeagent_examples/main/examples",
+        "https://api.github.com/repos/khulbasoft-bot/primeagent_examples/contents/examples",
+        "https://api.github.com/repos/khulbasoft-bot/primeagent",
         "auto_login",
       ];
 

@@ -272,7 +272,7 @@ const NodeToolbarComponent = memo(
         });
       }
     }, [flowComponent]);
-    
+
     useShortcuts({
       showOverrideModal,
       showModalAdvanced,

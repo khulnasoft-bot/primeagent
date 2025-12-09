@@ -8,7 +8,7 @@ from pymongo.collection import Collection
 from wfx.components.mongodb import MongoVectorStoreComponent
 from wfx.schema.data import Data
 
-from tests.base import ComponentTestBaseWithoutClient, VersionComponentMapping
+from tests.base import ComponentTestBaseWithoutClient, VersionComponentMapping, DID_NOT_EXIST
 
 
 @pytest.mark.skipif(
@@ -45,7 +45,7 @@ class TestMongoVectorStoreComponent(ComponentTestBaseWithoutClient):
         return [
             {"version": "1.0.19", "module": "vectorstores", "file_name": "MongoDBAtlasVector"},
             {"version": "1.1.0", "module": "vectorstores", "file_name": "mongodb_atlas"},
-            {"version": "1.1.1", "module": "vectorstores", "file_name": "mongodb_atlas"},
+            {"version": "1.1.1", "module": "vectorstores", "file_name": DID_NOT_EXIST},
         ]
 
     def __create_search_index(
