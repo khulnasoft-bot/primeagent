@@ -452,7 +452,7 @@ class ErrorMessage(Message):
         if trace_name:
             match = re.search(r"\((.*?)\)", trace_name)
             if match:
-                match.group(1)
+                sender_id = match.group(1)
 
         super().__init__(
             session_id=session_id,
