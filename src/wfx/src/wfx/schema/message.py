@@ -449,6 +449,7 @@ class ErrorMessage(Message):
         plain_reason = self._format_plain_reason(exception)
         markdown_reason = self._format_markdown_reason(exception)
         # Get the sender ID
+        sender_id = None
         if trace_name:
             match = re.search(r"\((.*?)\)", trace_name)
             if match:
