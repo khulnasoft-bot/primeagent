@@ -458,8 +458,8 @@ class ErrorMessage(Message):
         super().__init__(
             session_id=session_id,
             context_id=context_id,
-            sender=source.display_name if source else None,
-            sender_name=source.display_name if source else None,
+            sender=source.display_name if source else sender_id,
+            sender_name=source.display_name if source else sender_id,
             text=plain_reason,
             properties=Properties(
                 text_color="red",
