@@ -46,7 +46,8 @@ COPY ./src/backend/base/pyproject.toml /app/src/backend/base/pyproject.toml
 COPY ./src/wfx/README.md /app/src/wfx/README.md
 COPY ./src/wfx/pyproject.toml /app/src/wfx/pyproject.toml
 
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN sed -i '/nvidia-/d' uv.lock && \
+    --mount=type=cache,target=/root/.cache/uv \
     RUSTFLAGS='--cfg reqwest_unstable' \
     uv sync --frozen --no-install-project --no-editable --extra postgresql \
     --ignore-install nvidia-nccl-cu12 \
@@ -68,7 +69,8 @@ RUN --mount=type=cache,target=/root/.npm \
 
 WORKDIR /app
 
-RUN --mount=type=cache,target=/root/.cache/uv \
+RUN sed -i '/nvidia-/d' uv.lock && \
+    --mount=type=cache,target=/root/.cache/uv \
     RUSTFLAGS='--cfg reqwest_unstable' \
     uv sync --frozen --no-editable --extra postgresql \
     --ignore-install nvidia-nccl-cu12 \
