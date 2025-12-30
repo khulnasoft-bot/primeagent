@@ -91,18 +91,19 @@
     "zustand": "^4.5.2"
   },
   "scripts": {
-    "dev": "vite",
     "dev:docker": "vite --host 0.0.0.0",
+    "start": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "format": "npx @biomejs/biome format --write",
-    "lint": "npx @biomejs/biome check",
-    "type-check": "tsc --noEmit --pretty --project tsconfig.json",
     "test": "jest",
-    "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "clean": "rimraf dist node_modules",
-    "start": "npm run dev"
+    "test:watch": "jest --watch",
+    "serve": "vite preview",
+    "format": "npx @biomejs/biome format --write",
+    "lint": "npx @biomejs/biome lint",
+    "lint:types": "npx @biomejs/biome lint --diagnostic-level=error",
+    "lint:types:staged": "npx @biomejs/biome lint --staged --diagnostic-level=error",
+    "check-format": "npx @biomejs/biome check",
+    "type-check": "tsc --noEmit --pretty --project tsconfig.json && vite"
   },
   "browserslist": {
     "production": [
