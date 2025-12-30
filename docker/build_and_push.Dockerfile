@@ -47,15 +47,8 @@ COPY ./src/wfx/README.md /app/src/wfx/README.md
 COPY ./src/wfx/pyproject.toml /app/src/wfx/pyproject.toml
 
 RUN --mount=type=cache,target=/root/.cache/uv \
-    sed -i '/nvidia-/d' uv.lock && \
     RUSTFLAGS='--cfg reqwest_unstable' \
-    uv sync --frozen --no-install-project --no-editable --extra postgresql \
-    --ignore-install nvidia-nccl-cu12 \
-    --ignore-install nvidia-cusolver-cu12 \
-    --ignore-install nvidia-cusparse-cu12 \
-    --ignore-install nvidia-cublas-cu12 \
-    --ignore-install nvidia-cudnn-cu12 \
-    --ignore-install nvidia-cusparselt-cu12
+    uv sync --frozen --no-install-project --no-editable --extra postgresql
 
 COPY ./src /app/src
 
@@ -70,15 +63,8 @@ RUN --mount=type=cache,target=/root/.npm \
 WORKDIR /app
 
 RUN --mount=type=cache,target=/root/.cache/uv \
-    sed -i '/nvidia-/d' uv.lock && \
     RUSTFLAGS='--cfg reqwest_unstable' \
-    uv sync --frozen --no-editable --extra postgresql \
-    --ignore-install nvidia-nccl-cu12 \
-    --ignore-install nvidia-cusolver-cu12 \
-    --ignore-install nvidia-cusparse-cu12 \
-    --ignore-install nvidia-cublas-cu12 \
-    --ignore-install nvidia-cudnn-cu12 \
-    --ignore-install nvidia-cusparselt-cu12
+    uv sync --frozen --no-editable --extra postgresql
 
 ################################
 # RUNTIME
@@ -113,4 +99,3 @@ ENV PRIMEAGENT_HOST=0.0.0.0
 ENV PRIMEAGENT_PORT=7860
 
 CMD ["primeagent", "run"]
-
