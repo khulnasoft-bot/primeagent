@@ -10,7 +10,10 @@ from __future__ import annotations
 import logging
 import re
 import time
-from collections.abc import Iterable, Sequence
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable, Sequence
 
 import sqlalchemy as sa
 from alembic import op
@@ -62,6 +65,7 @@ def _like_for_suffixes(base: str, ext: str) -> str:
 
 def _next_available_name(conn, user_id: str, base_name: str) -> str:
     """Compute the next available non-conflicting name for a given user.
+
     Handles names with or without extensions and existing _N suffixes.
     """
     base, ext = _split_base_ext(base_name)
@@ -104,8 +108,10 @@ def _next_available_name(conn, user_id: str, base_name: str) -> str:
 
 
 def _handle_duplicates_before_upgrade(conn) -> None:
-    """Ensure (user_id, name) is unique by renaming older duplicates before adding the composite unique constraint.
-    Keeps the most recently updated/created/id-highest record; renames the rest with _N suffix.
+    """Ensure (user_id, name) is unique by renaming older duplicates.
+
+    Keeps the most recently updated/created/id-highest record; renames the
+    rest with _N suffix before adding the composite unique constraint.
     """
     logger.info("Scanning for duplicate file names per user...")
     duplicates = conn.execute(
@@ -126,17 +132,19 @@ def _handle_duplicates_before_upgrade(conn) -> None:
     logger.info("Found %d duplicate sets. Resolving...", len(duplicates))
 
     # Add progress indicator for large datasets
-    if len(duplicates) > 100:
+    large_dataset_threshold = 100
+    if len(duplicates) > large_dataset_threshold:
         logger.info("Large number of duplicates detected. This may take several minutes...")
 
     # Wrap in a nested transaction so we fail cleanly on any error
     with conn.begin_nested():
         # Process duplicates in batches for better performance on large datasets
-        for batch_start in range(0, len(duplicates), BATCH_SIZE):
-            batch_end = min(batch_start + BATCH_SIZE, len(duplicates))
+        batch_size = 1000  # Process 1000 duplicates at a time
+        for batch_start in range(0, len(duplicates), batch_size):
+            batch_end = min(batch_start + batch_size, len(duplicates))
             batch = duplicates[batch_start:batch_end]
 
-            if len(duplicates) > BATCH_SIZE:
+            if len(duplicates) > batch_size:
                 logger.info(
                     "Processing batch %d-%d of %d duplicate sets...", batch_start + 1, batch_end, len(duplicates)
                 )
@@ -252,12 +260,15 @@ def downgrade() -> None:
         logger.info("Validation completed in %.2f seconds", validation_duration)
 
     if dup_names:
-        examples = [row[0] for row in dup_names[:10]]
-        raise RuntimeError(
+        max_examples = 10
+        examples = [row[0] for row in dup_names[:max_examples]]
+        has_more = len(dup_names) > max_examples
+        error_msg = (
             "Downgrade aborted: duplicate names exist across users. "
-            f"Examples: {examples}{'...' if len(dup_names) > 10 else ''}. "
+            f"Examples: {examples}{'...' if has_more else ''}. "
             "Rename conflicting files before downgrading."
         )
+        raise RuntimeError(error_msg)
 
     # 2) Detect constraints
     inspector = inspect(conn)  # refresh

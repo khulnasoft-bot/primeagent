@@ -7,10 +7,14 @@ Create Date: 2025-08-21 20:11:26.504681
 """
 
 import json
+import logging
 from collections.abc import Sequence
 
 import sqlalchemy as sa
 from alembic import op
+
+# Set up logger
+logger = logging.getLogger(__name__)
 
 # revision identifiers, used by Alembic.
 revision: str = "0882f9657f22"
@@ -26,7 +30,6 @@ def upgrade() -> None:
     # Import encryption utilities
     try:
         from primeagent.services.auth.mcp_encryption import encrypt_auth_settings
-        from primeagent.services.deps import get_settings_service
 
         # Check if the folder table exists
         inspector = sa.inspect(conn)
@@ -44,10 +47,7 @@ def upgrade() -> None:
             if auth_settings:
                 try:
                     # Parse JSON if it's a string
-                    if isinstance(auth_settings, str):
-                        auth_settings_dict = json.loads(auth_settings)
-                    else:
-                        auth_settings_dict = auth_settings
+                    auth_settings_dict = json.loads(auth_settings) if isinstance(auth_settings, str) else auth_settings
 
                     # Encrypt sensitive fields
                     encrypted_settings = encrypt_auth_settings(auth_settings_dict)
@@ -58,13 +58,20 @@ def upgrade() -> None:
                             sa.text("UPDATE folder SET auth_settings = :auth_settings WHERE id = :id"),
                             {"auth_settings": json.dumps(encrypted_settings), "id": folder_id},
                         )
-                except Exception as e:
+                except (ValueError, json.JSONDecodeError, KeyError) as e:
                     # Log the error but continue with other records
-                    print(f"Warning: Failed to encrypt auth_settings for folder {folder_id}: {e}")
+                    logger.warning(
+                        "Failed to encrypt auth_settings for folder %s: %s",
+                        folder_id,
+                        str(e),
+                    )
 
     except ImportError as e:
         # If encryption utilities are not available, skip the migration
-        print(f"Warning: Encryption utilities not available, skipping encryption migration: {e}")
+        logger.warning(
+            "Encryption utilities not available, skipping encryption migration: %s",
+            str(e),
+        )
 
 
 def downgrade() -> None:
@@ -74,7 +81,6 @@ def downgrade() -> None:
     # Import decryption utilities
     try:
         from primeagent.services.auth.mcp_encryption import decrypt_auth_settings
-        from primeagent.services.deps import get_settings_service
 
         # Check if the folder table exists
         inspector = sa.inspect(conn)
@@ -92,10 +98,7 @@ def downgrade() -> None:
             if auth_settings:
                 try:
                     # Parse JSON if it's a string
-                    if isinstance(auth_settings, str):
-                        auth_settings_dict = json.loads(auth_settings)
-                    else:
-                        auth_settings_dict = auth_settings
+                    auth_settings_dict = json.loads(auth_settings) if isinstance(auth_settings, str) else auth_settings
 
                     # Decrypt sensitive fields
                     decrypted_settings = decrypt_auth_settings(auth_settings_dict)
@@ -106,10 +109,17 @@ def downgrade() -> None:
                             sa.text("UPDATE folder SET auth_settings = :auth_settings WHERE id = :id"),
                             {"auth_settings": json.dumps(decrypted_settings), "id": folder_id},
                         )
-                except Exception as e:
+                except (ValueError, json.JSONDecodeError, KeyError) as e:
                     # Log the error but continue with other records
-                    print(f"Warning: Failed to decrypt auth_settings for folder {folder_id}: {e}")
+                    logger.warning(
+                        "Failed to decrypt auth_settings for folder %s: %s",
+                        folder_id,
+                        str(e),
+                    )
 
     except ImportError as e:
         # If decryption utilities are not available, skip the migration
-        print(f"Warning: Decryption utilities not available, skipping decryption migration: {e}")
+        logger.warning(
+            "Decryption utilities not available, skipping decryption migration: %s",
+            str(e),
+        )
