@@ -371,10 +371,14 @@ dockerfile_build_fe: dockerfile_build
 		-f ${DOCKERFILE_FRONTEND} \
 		-t primeagent_frontend:${VERSION} .
 
-clear_dockerimage:
+clear_dockerimage: ## clear dangling images or specific images (image_name=primeagent)
 	@echo 'Clearing the docker build'
 	@if $(DOCKER) images -f "dangling=true" -q | grep -q '.*'; then \
 		$(DOCKER) rmi $$($(DOCKER) images -f "dangling=true" -q); \
+	fi
+	@if [ ! -z "$(image_name)" ]; then \
+		echo "Removing images related to $(image_name)..."; \
+		$(DOCKER) rmi $$($(DOCKER) images -q "$(image_name)") || true; \
 	fi
 
 docker_compose_up: docker_build docker_compose_down
@@ -980,7 +984,7 @@ help_advanced: ## show advanced and miscellaneous commands
 	@echo ''
 	@echo "$(GREEN)Utilities:$(NC)"
 	@echo "  $(GREEN)make check_tools$(NC)         - Verify required tools are installed"
-	@echo "  $(GREEN)make clear_dockerimage$(NC)   - Clear dangling Docker images"
+	@echo "  $(GREEN)make clear_dockerimage$(NC)   - Clear dangling Docker images or specific images (options: image_name=primeagent)"
 	@echo ''
 	@echo "$(GREEN)Backend Configuration:$(NC)"
 	@echo "  Backend commands support these variables:"
