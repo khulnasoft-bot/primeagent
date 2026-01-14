@@ -4,6 +4,7 @@
 // React 19 compatibility - JSX namespace is now exported from React
 import type { JSX } from "react";
 declare global {
+  // biome-ignore lint/suspicious/noRedeclare: React 19 compatibility
   namespace JSX {
     interface Element extends React.JSX.Element {}
     interface ElementClass extends React.JSX.ElementClass {}

@@ -119,22 +119,27 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.inputs.ref || github.ref }}
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "22"
-          cache: "npm"
-          cache-dependency-path: src/frontend/package-lock.json
+          cache: "pnpm"
+          cache-dependency-path: src/frontend/pnpm-lock.yaml
 
       - name: Install frontend dependencies
         run: |
           cd src/frontend
-          npm ci
+          pnpm install --frozen-lockfile
 
       - name: Run frontend smoke tests (unit tests only)
         run: |
           cd src/frontend
-          CI=true npx jest --ci --watchAll=false --passWithNoTests
+          CI=true pnpm exec jest --ci --watchAll=false --passWithNoTests
         env:
           NODE_ENV: test
 

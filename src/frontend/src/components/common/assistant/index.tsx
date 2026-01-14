@@ -27,7 +27,7 @@ export const AssistantButton: React.FC<AssistantButtonProps> = ({
   const flowId = useGetFlowId();
   const { folderId } = useParams();
   const myCollectionId = useFolderStore((state) => state.myCollectionId);
-  const projectId = folderId ?? myCollectionId ?? "";
+  const _projectId = folderId ?? myCollectionId ?? "";
 
   // timer
   const [elapsedTime, setElapsedTime] = useState(0);

@@ -1,5 +1,5 @@
-import { expect } from "../fixtures";
 import { APIRequestContext } from "@playwright/test";
+import { expect } from "../fixtures";
 
 export async function getAuthToken(request: APIRequestContext) {
   const formData = new URLSearchParams();

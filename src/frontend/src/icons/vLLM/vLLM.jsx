@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
 const SvgVLLM = ({ isDark = false, ...props }) => {
-  const color = isDark ? "#fff" : "#000";
-  const bgColor = isDark ? "#1a1a1a" : "#f5f5f5";
+  const _color = isDark ? "#fff" : "#000";
+  const _bgColor = isDark ? "#1a1a1a" : "#f5f5f5";
 
   return (
     <svg

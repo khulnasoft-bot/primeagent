@@ -35,8 +35,8 @@ import getFieldTitle from "../CustomNodes/utils/get-field-title";
 import {
   INPUT_TYPES,
   IS_MAC,
-  PRIMEAGENT_SUPPORTED_TYPES,
   OUTPUT_TYPES,
+  PRIMEAGENT_SUPPORTED_TYPES,
   SUCCESS_BUILD,
   specialCharsRegex,
 } from "../constants/constants";

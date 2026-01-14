@@ -1,8 +1,8 @@
 import type { Page } from "@playwright/test";
+import { addOpenAiInputKey } from "./add-open-ai-input-key";
 import { adjustScreenView } from "./adjust-screen-view";
 import { selectGptModel } from "./select-gpt-model";
 import { updateOldComponents } from "./update-old-components";
-import { addOpenAiInputKey } from "./add-open-ai-input-key";
 
 export async function initialGPTsetup(
   page: Page,

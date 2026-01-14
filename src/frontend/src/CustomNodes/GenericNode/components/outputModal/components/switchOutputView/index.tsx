@@ -87,7 +87,8 @@ const SwitchOutputView: React.FC<SwitchOutputViewProps> = ({
   }, [resultMessage]);
 
   // Custom component for Tool output display
-  const ToolOutputDisplay = ({ tools }) => {
+  // Custom component for Tool output display
+  const ToolOutputDisplay = ({ tools }: { tools: unknown[] }) => {
     if (!Array.isArray(tools) || tools.length === 0) {
       return <div>No tools available</div>;
     }
@@ -165,14 +166,15 @@ const SwitchOutputView: React.FC<SwitchOutputViewProps> = ({
         <DataOutputComponent
           rows={
             Array.isArray(resultMessageMemoized)
-              ? (resultMessageMemoized as Array<any>).every(
+              ? (resultMessageMemoized as Array<Record<string, unknown>>).every(
                   (item) => item?.data,
                 )
-                ? (resultMessageMemoized as Array<any>).map(
+                ? (resultMessageMemoized as Array<Record<string, unknown>>).map(
                     (item) => item?.data,
                   )
                 : resultMessageMemoized
-              : Object.keys(resultMessageMemoized)?.length > 0
+              : Object.keys(resultMessageMemoized as Record<string, unknown>)
+                    ?.length > 0
                 ? [resultMessageMemoized]
                 : []
           }
@@ -209,10 +211,14 @@ const SwitchOutputView: React.FC<SwitchOutputViewProps> = ({
     <DataOutputComponent
       rows={
         Array.isArray(results)
-          ? (results as Array<any>).every((item) => item?.data)
-            ? (results as Array<any>).map((item) => item?.data)
+          ? (results as Array<Record<string, unknown>>).every(
+              (item) => item?.data,
+            )
+            ? (results as Array<Record<string, unknown>>).map(
+                (item) => item?.data,
+              )
             : results
-          : Object.keys(results)?.length > 0
+          : Object.keys(results as Record<string, unknown>)?.length > 0
             ? [results]
             : []
       }

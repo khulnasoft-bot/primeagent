@@ -1,3 +1,4 @@
+import cn from "classnames"; // Assuming you have classnames installed
 import React, { useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { getSpecificClassFromBuildStatus } from "@/CustomNodes/helpers/get-class-from-build-status";
@@ -8,6 +9,7 @@ import useValidationStatusString from "@/CustomNodes/hooks/use-validation-status
 import ShadTooltip from "@/components/common/shadTooltipComponent";
 import { Button } from "@/components/ui/button";
 import { ICON_STROKE_WIDTH } from "@/constants/constants";
+import type { EventDeliveryType } from "@/constants/enums";
 import { BuildStatus } from "@/constants/enums";
 import { usePostTemplateValue } from "@/controllers/API/queries/nodes/use-post-template-value";
 import { track } from "@/customization/utils/analytics";
@@ -17,12 +19,16 @@ import { useDarkStore } from "@/stores/darkStore";
 import useFlowStore from "@/stores/flowStore";
 import { useShortcutsStore } from "@/stores/shortcuts";
 import { useUtilityStore } from "@/stores/utilityStore";
-import type { InputFieldType, VertexBuildTypeAPI } from "@/types/api";
-import cn from "classnames"; // Assuming you have classnames installed
+import type {
+  APIClassType,
+  InputFieldType,
+  VertexBuildTypeAPI,
+} from "@/types/api";
+import type { AllNodeType, NodeDataType } from "@/types/flow";
 
 interface NodeStatusProps {
   nodeId: string;
-  data: any; // Replace 'any' with your data type
+  data: NodeDataType;
   nodeAuth?: { name?: string; auth_tooltip?: string };
   showNodeStatus?: boolean;
   showNode?: boolean;
@@ -35,7 +41,7 @@ interface NodeStatusProps {
   isAuthenticated: boolean;
   connectionLink: string;
   apiKeyValue?: string;
-  eventDeliveryConfig?: any;
+  eventDeliveryConfig?: EventDeliveryType;
   isOutdated?: boolean;
   isUserEdited?: boolean;
   dismissAll?: boolean;
@@ -43,9 +49,16 @@ interface NodeStatusProps {
   frozen?: boolean;
   lastRunTime?: string | null;
   selected?: boolean;
-  setNode: (nodeId: string, updater: any, flag?: boolean) => void;
+  setNode: (
+    nodeId: string,
+    updater: AllNodeType | ((old: AllNodeType) => AllNodeType),
+    flag?: boolean,
+  ) => void;
   normalizeTimeString: (duration: number) => string;
-  buildFlow: (opts: { stopNodeId: string; eventDelivery?: any }) => void;
+  buildFlow: (opts: {
+    stopNodeId: string;
+    eventDelivery?: EventDeliveryType;
+  }) => void;
   getValidationStatus: () => void;
   IconComponent: React.ElementType;
   pollingIntervalMs?: number;
@@ -94,7 +107,7 @@ export default function NodeStatus({
   const [validationStatusLocal, setValidationStatus] =
     useState<VertexBuildTypeAPI | null>(validationStatus);
   const [isHovered, setIsHovered] = useState(false);
-  const [borderColor, setBorderColor] = useState<string>("");
+  const [_borderColor, setBorderColor] = useState<string>("");
 
   const postTemplateValue = usePostTemplateValue();
 
@@ -125,10 +138,10 @@ export default function NodeStatus({
             { validate: data.node?.template?.auth?.value || "" },
             data.id,
             data.node,
-            (newNode: any) => {
-              setNode(nodeId, (old: any) => ({
+            (newNode: APIClassType) => {
+              setNode(nodeId, (old: AllNodeType) => ({
                 ...old,
-                data: { ...old.data, node: newNode },
+                data: { ...old.data, node: newNode } as NodeDataType,
               }));
             },
             postTemplateValue,
@@ -168,10 +181,10 @@ export default function NodeStatus({
       "disconnect",
       data.id,
       data.node,
-      (newNode: any) => {
-        setNode(nodeId, (old: any) => ({
+      (newNode: APIClassType) => {
+        setNode(nodeId, (old: AllNodeType) => ({
           ...old,
-          data: { ...old.data, node: newNode },
+          data: { ...old.data, node: newNode } as NodeDataType,
         }));
       },
       postTemplateValue,
@@ -254,15 +267,15 @@ export default function NodeStatus({
     if (buildStatus === BuildStatus.BUILT && !isBuilding) {
       setNode(
         nodeId,
-        (old: any) => ({
+        (old: AllNodeType) => ({
           ...old,
           data: {
             ...old.data,
             node: {
-              ...old.data.node,
+              ...(old.data as NodeDataType).node,
               lf_version: version,
             },
-          },
+          } as NodeDataType,
         }),
         false,
       );

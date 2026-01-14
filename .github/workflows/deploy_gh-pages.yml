@@ -15,16 +15,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: yarn
-          cache-dependency-path: ./docs/yarn.lock
+          cache: pnpm
+          cache-dependency-path: ./docs/pnpm-lock.yaml
 
       - name: Install dependencies
-        run: cd docs && yarn install
+        run: cd docs && pnpm install
       - name: Build website
-        run: cd docs && yarn build
+        run: cd docs && pnpm build
         env:
           SEGMENT_PUBLIC_WRITE_KEY: ${{ vars.DOCS_PROD_IBM_SEGMENT_PUBLIC_WRITE_KEY }}
 

@@ -1,6 +1,6 @@
+import { OutputFieldType } from "@/types/api";
 import type { NodeDataType } from "@/types/flow";
 import { OutputParameter } from ".";
-import { OutputFieldType } from "@/types/api";
 
 export default function NodeOutputs({
   outputs,

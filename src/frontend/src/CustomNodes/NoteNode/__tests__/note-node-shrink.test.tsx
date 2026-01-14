@@ -21,7 +21,7 @@ const mockCurrentFlow = {
 
 jest.mock("@/stores/flowStore", () => ({
   __esModule: true,
-  default: (selector: (state: any) => any) =>
+  default: (selector: (state: unknown) => unknown) =>
     selector({
       currentFlow: mockCurrentFlow,
       setNode: mockSetNode,
@@ -37,7 +37,10 @@ jest.mock("@xyflow/react", () => ({
   }: {
     minWidth: number;
     minHeight: number;
-    onResize: (event: any, params: { width: number; height: number }) => void;
+    onResize: (
+      event: unknown,
+      params: { width: number; height: number },
+    ) => void;
     isVisible?: boolean;
   }) => (
     <div
@@ -64,7 +67,7 @@ jest.mock("../../GenericNode/components/NodeDescription", () => ({
 }));
 
 jest.mock("@/utils/utils", () => ({
-  cn: (...classes: any[]) => classes.filter(Boolean).join(" "),
+  cn: (...classes: unknown[]) => classes.filter(Boolean).join(" "),
 }));
 
 // Import component after mocks are set up

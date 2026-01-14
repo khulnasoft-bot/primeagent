@@ -95,7 +95,10 @@ export default function ModelInputComponent({
     for (const option of options) {
       if (option.metadata?.is_disabled_provider) continue;
       const provider = option.provider || "Unknown";
-      (grouped[provider] ??= []).push(option);
+      if (!grouped[provider]) {
+        grouped[provider] = [];
+      }
+      grouped[provider].push(option);
     }
     return grouped;
   }, [options]);
@@ -266,7 +269,7 @@ export default function ModelInputComponent({
                   ? inputTypes.join("\n")
                   : templateField.type) || "";
 
-              const myId = scapedJSONStringfy({
+              const _myId = scapedJSONStringfy({
                 inputTypes: effectiveInputTypes,
                 type: templateField.type,
                 id: nodeId,
