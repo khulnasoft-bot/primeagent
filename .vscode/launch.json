@@ -1,6 +1,7 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "Debug Backend",
       "type": "debugpy",
@@ -10,7 +11,7 @@
 
       "args": [
         "--factory",
-        "aiexec.main:create_app",
+        "primeagent.main:create_app",
         "--port",
         "7860",
         "--reload",
@@ -28,8 +29,8 @@
       "jinja": true,
       "justMyCode": false,
       "env": {
-        "AIEXEC_LOG_LEVEL": "debug",
-        "AIEXEC_PROMETHEUS_PORT": "9090"
+        "PRIMEAGENT_LOG_LEVEL": "debug",
+        "PRIMEAGENT_PROMETHEUS_PORT": "9090"
       },
       "envFile": "${workspaceFolder}/.env"
     },
@@ -37,11 +38,11 @@
       "name": "Debug CLI",
       "type": "debugpy",
       "request": "launch",
-      "module": "aiexec",
+      "module": "primeagent",
       "args": [
         "run",
         "--frontend-path",
-        "${workspaceFolder}/src/backend/base/aiexec/frontend",
+        "${workspaceFolder}/src/backend/base/primeagent/frontend",
         "--env-file",
         "${workspaceFolder}/.env"
       ],
@@ -79,6 +80,13 @@
       "purpose": ["debug-test"],
       "console": "integratedTerminal",
       "justMyCode": false
-    }
+    },
+    {
+    "name": "Python Debugger: Python File",
+    "type": "python",
+    "request": "launch",
+    "program": "${file}",
+    "console": "integratedTerminal"
+}
   ]
 }
