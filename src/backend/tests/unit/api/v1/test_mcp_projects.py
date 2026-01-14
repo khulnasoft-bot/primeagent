@@ -8,6 +8,7 @@ from uuid import uuid4
 import pytest
 from fastapi import HTTPException, status
 from httpx import AsyncClient
+from mcp.server.sse import SseServerTransport
 from primeagent.api.v1.mcp_projects import (
     ProjectMCPServer,
     _args_reference_urls,
@@ -22,9 +23,8 @@ from primeagent.services.database.models.flow import Flow
 from primeagent.services.database.models.folder import Folder
 from primeagent.services.database.models.user.model import User
 from primeagent.services.deps import get_settings_service
-from wfx.services.deps import session_scope
-from mcp.server.sse import SseServerTransport
 from sqlmodel import select
+from wfx.services.deps import session_scope
 
 from tests.unit.utils.mcp import project_session_manager_lifespan
 

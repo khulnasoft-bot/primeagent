@@ -4,9 +4,6 @@ from pathlib import Path
 from typing import Any, Literal
 from uuid import UUID
 
-from wfx.graph.schema import RunOutputs
-from wfx.services.settings.base import Settings
-from wfx.services.settings.feature_flags import FEATURE_FLAGS, FeatureFlags
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -16,6 +13,9 @@ from pydantic import (
     field_validator,
     model_serializer,
 )
+from wfx.graph.schema import RunOutputs
+from wfx.services.settings.base import Settings
+from wfx.services.settings.feature_flags import FEATURE_FLAGS, FeatureFlags
 
 from primeagent.schema.dotdict import dotdict
 from primeagent.schema.graph import Tweaks

@@ -213,16 +213,21 @@ jobs:
           echo "test_grep=$TEST_GREP" >> $GITHUB_OUTPUT
           echo "suites=$SUITES" >> $GITHUB_OUTPUT
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Setup Node ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         id: setup-node
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-          cache-dependency-path: ./src/frontend/package-lock.json
+          cache: "pnpm"
+          cache-dependency-path: ./src/frontend/pnpm-lock.yaml
 
       - name: Install Frontend Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         working-directory: ./src/frontend
 
       - name: Calculate Test Shards Distribution
@@ -232,9 +237,9 @@ jobs:
 
           # Get the test count using playwright's built-in grep
           if [ -n "${{ steps.set-matrix.outputs.test_grep }}" ]; then
-            TEST_COUNT=$(npx playwright test ${{ inputs.tests_folder }} ${{ steps.set-matrix.outputs.test_grep }} --list | wc -l)
+            TEST_COUNT=$(pnpm exec playwright test ${{ inputs.tests_folder }} ${{ steps.set-matrix.outputs.test_grep }} --list | wc -l)
           else
-            TEST_COUNT=$(npx playwright test ${{ inputs.tests_folder }} --list | wc -l)
+            TEST_COUNT=$(pnpm exec playwright test ${{ inputs.tests_folder }} --list | wc -l)
           fi
 
           echo "Total tests to run: $TEST_COUNT"
@@ -283,15 +288,20 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.ref }}
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         id: setup-node
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-          cache-dependency-path: ./src/frontend/package-lock.json
+          cache: "pnpm"
+          cache-dependency-path: ./src/frontend/pnpm-lock.yaml
       - name: Install Frontend Dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
         working-directory: ./src/frontend
 
       # Cache Playwright browsers using a composite key
@@ -308,13 +318,13 @@ jobs:
         if: steps.cache-playwright.outputs.cache-hit != 'true' && inputs.runs-on != 'self-hosted'
         run: |
           cd ./src/frontend
-          npx playwright install --with-deps chromium
+          pnpm exec playwright install --with-deps chromium
 
       - name: Install Playwright Browsers (Self-Hosted)
         if: steps.cache-playwright.outputs.cache-hit != 'true' && inputs.runs-on == 'self-hosted'
         run: |
           cd ./src/frontend
-          npx playwright install chromium
+          pnpm exec playwright install chromium
 
       - name: "Setup Environment"
         uses: astral-sh/setup-uv@v6
@@ -340,11 +350,11 @@ jobs:
           command: |
             cd src/frontend
             echo 'Running tests with pattern: ${{ needs.determine-test-suite.outputs.test_grep }}'
-            npx playwright test ${{ inputs.tests_folder }} ${{ needs.determine-test-suite.outputs.test_grep }} --shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --list --retries=3
+            pnpm exec playwright test ${{ inputs.tests_folder }} ${{ needs.determine-test-suite.outputs.test_grep }} --shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --list --retries=3
             # echo command before running
-            echo "npx playwright test ${{ inputs.tests_folder }} ${{ needs.determine-test-suite.outputs.test_grep }} --trace on --shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers 2 --retries=3"
+            echo "pnpm exec playwright test ${{ inputs.tests_folder }} ${{ needs.determine-test-suite.outputs.test_grep }} --trace on --shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers 2 --retries=3"
 
-            npx playwright test ${{ inputs.tests_folder }} ${{ needs.determine-test-suite.outputs.test_grep }} --trace on --shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers 2 --retries=3
+            pnpm exec playwright test ${{ inputs.tests_folder }} ${{ needs.determine-test-suite.outputs.test_grep }} --trace on --shard ${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --workers 2 --retries=3
 
       - name: Upload Test Results
         if: always()
@@ -402,7 +412,7 @@ jobs:
 
         if: ${{ steps.should_merge_reports.outputs.should_merge_reports == 'true' }}
         run: |
-          npx playwright merge-reports --reporter html ./all-blob-reports
+          pnpm dlx playwright merge-reports --reporter html ./all-blob-reports
 
       - name: Upload HTML report
 

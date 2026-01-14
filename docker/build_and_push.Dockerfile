@@ -29,10 +29,12 @@ RUN apt-get update \
     # deps for building python deps
     build-essential \
     git \
-    # npm
+    # node & pnpm
+    nodejs \
     npm \
     # gcc
     gcc \
+    && npm install -g pnpm \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -54,9 +56,9 @@ COPY ./src /app/src
 
 COPY src/frontend /tmp/src/frontend
 WORKDIR /tmp/src/frontend
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci \
-    && ESBUILD_BINARY_PATH="" NODE_OPTIONS="--max-old-space-size=12288" JOBS=1 npm run build \
+RUN --mount=type=cache,target=/root/.pnpm-store \
+    pnpm install --frozen-lockfile \
+    && ESBUILD_BINARY_PATH="" NODE_OPTIONS="--max-old-space-size=12288" JOBS=1 pnpm run build \
     && cp -r build /app/src/backend/primeagent/frontend \
     && rm -rf /tmp/src/frontend
 

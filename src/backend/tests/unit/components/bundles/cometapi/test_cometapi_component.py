@@ -3,8 +3,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 from langchain_openai import ChatOpenAI
-from wfx.components.cometapi.cometapi import CometAPIComponent
 from pydantic.v1 import SecretStr
+from wfx.components.cometapi.cometapi import CometAPIComponent
 
 from tests.base import ComponentTestBaseWithoutClient
 

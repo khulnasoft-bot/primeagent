@@ -14,8 +14,6 @@ import anyio
 import sqlalchemy as sa
 from alembic import command, util
 from alembic.config import Config
-from wfx.log.logger import logger
-from wfx.services.deps import session_scope
 from sqlalchemy import event, inspect
 from sqlalchemy.dialects import sqlite as dialect_sqlite
 from sqlalchemy.engine import Engine
@@ -24,6 +22,8 @@ from sqlalchemy.ext.asyncio import AsyncEngine, async_sessionmaker, create_async
 from sqlmodel import SQLModel, select, text
 from sqlmodel.ext.asyncio.session import AsyncSession as SQLModelAsyncSession
 from tenacity import retry, stop_after_attempt, wait_fixed
+from wfx.log.logger import logger
+from wfx.services.deps import session_scope
 
 from primeagent.initial_setup.constants import STARTER_FOLDER_NAME
 from primeagent.services.base import Service

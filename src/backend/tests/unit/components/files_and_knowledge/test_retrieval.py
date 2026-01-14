@@ -5,8 +5,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 from primeagent.base.knowledge_bases.knowledge_base_utils import get_knowledge_bases
-from wfx.components.knowledge_bases.retrieval import KnowledgeRetrievalComponent
 from pydantic import SecretStr
+from wfx.components.knowledge_bases.retrieval import KnowledgeRetrievalComponent
 
 from tests.base import ComponentTestBaseWithClient
 

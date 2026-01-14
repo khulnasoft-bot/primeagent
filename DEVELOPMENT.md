@@ -41,8 +41,8 @@ Install Pre-Requisites:
 - **`git`**: The project uses the ubiquitous `git` tool for change control.
 - **`make`**: The project uses `make` to coordinate packaging.
 - **`uv`**: This project uses `uv` (`>=0.4`), a Python package and project manager from Astral. Install instructions at https://docs.astral.sh/uv/getting-started/installation/.
-- **`npm`**: The frontend files are built with Node.js (`v22.12 LTS`) and `npm` (`v10.9`). Install instructions at https://nodejs.org/en/download/package-manager.
-  - Windows (WSL) users: ensure `npm` is installed within WSL environment; `which npm` should resolve to a Linux location, not a Windows location.
+- **`pnpm`**: The frontend files are built with Node.js (`v22.12 LTS`) and `pnpm` (`v9.x`). Install instructions at https://pnpm.io/installation.
+  - Windows (WSL) users: ensure `pnpm` is installed within WSL environment; `which pnpm` should resolve to a Linux location, not a Windows location.
 
 ### Option 2: Use a Dev Container (Recommended for Windows)
 
@@ -273,6 +273,6 @@ You may observe some quirky things:
 There are some files that change without you having made changes:
 
 - Files in `src/backend/base/primeagent/initial_setup/starter_projects` modify after `primeagent run`; these are formatting changes. Feel free to commit (or ignore) them.
-- `uv.lock` and `src/frontend/package-lock.json` files can be modified by `make` targets; changes should not be committed by individual contributors.
-  - You can exclude these from consideration in git: `git update-index --assume-unchanged uv.lock src/frontend/package-lock.json`
-  - You can re-include these from consideration in git: `git update-index --no-assume-unchanged uv.lock src/frontend/package-lock.json`
+- `uv.lock` and `src/frontend/pnpm-lock.yaml` files can be modified by `make` targets; changes should not be committed by individual contributors.
+  - You can exclude these from consideration in git: `git update-index --assume-unchanged uv.lock src/frontend/pnpm-lock.yaml`
+  - You can re-include these from consideration in git: `git update-index --no-assume-unchanged uv.lock src/frontend/pnpm-lock.yaml`

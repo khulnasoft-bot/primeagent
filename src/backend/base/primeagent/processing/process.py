@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, cast
 
+from pydantic import BaseModel
 from wfx.graph.vertex.base import Vertex
 from wfx.log.logger import logger
 from wfx.processing.utils import validate_and_repair_json
-from pydantic import BaseModel
 
 from primeagent.schema.graph import InputValue, Tweaks
 from primeagent.schema.schema import INPUT_FIELD_NAME

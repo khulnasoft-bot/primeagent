@@ -1,9 +1,9 @@
 from pathlib import Path
 
 import pytest
+from pydantic import SecretStr, ValidationError
 from wfx.services.settings.auth import AuthSettings
 from wfx.services.settings.constants import DEFAULT_SUPERUSER
-from pydantic import SecretStr, ValidationError
 
 
 @pytest.mark.parametrize("auto_login", [True, False])

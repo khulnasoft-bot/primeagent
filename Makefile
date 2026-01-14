@@ -38,7 +38,7 @@ CLEAR_DIRS = $(foreach dir,$1,$(shell mkdir -p $(dir) && find $(dir) -mindepth 1
 # check for required tools
 check_tools:
 	@command -v uv >/dev/null 2>&1 || { echo >&2 "$(RED)uv is not installed. Aborting.$(NC)"; exit 1; }
-	@command -v npm >/dev/null 2>&1 || { echo >&2 "$(RED)NPM is not installed. Aborting.$(NC)"; exit 1; }
+	@command -v pnpm >/dev/null 2>&1 || { echo >&2 "$(RED)pnpm is not installed. Aborting.$(NC)"; exit 1; }
 	@echo "$(GREEN)All required tools are installed.$(NC)"
 
 help: ## show basic help message with common commands
@@ -101,11 +101,11 @@ clean_python_cache:
 	@echo "$(GREEN)Python cache cleaned.$(NC)"
 
 clean_npm_cache:
-	@echo "Cleaning npm cache..."
-	cd src/frontend && npm cache clean --force
+	@echo "Cleaning pnpm cache..."
+	cd src/frontend && pnpm store prune
 	$(call CLEAR_DIRS,src/frontend/node_modules src/frontend/build src/backend/base/primeagent/frontend)
-	rm -f src/frontend/package-lock.json
-	@echo "$(GREEN)NPM cache and frontend directories cleaned.$(NC)"
+	rm -f src/frontend/pnpm-lock.yaml
+	@echo "$(GREEN)pnpm cache and frontend directories cleaned.$(NC)"
 
 clean_frontend_build: ## clean frontend build artifacts to ensure fresh build
 	@echo "Cleaning frontend build artifacts..."
@@ -223,7 +223,7 @@ format: format_backend format_frontend ## run code formatters
 
 format_frontend_check: ## run biome check without formatting
 	@echo 'Running Biome check on frontend...'
-	@cd src/frontend && npx @biomejs/biome check
+	@cd src/frontend && pnpm exec biome check
 
 unsafe_fix:
 	@uv run ruff check . --fix --unsafe-fixes
@@ -542,33 +542,33 @@ patch: ## Update version across all projects. Usage: make patch v=1.5.0
 	python -c "import re; fname='src/frontend/package.json'; txt=open(fname).read(); txt=re.sub(r'\"version\": \".*\"', '\"version\": \"$$PRIMEAGENT_VERSION\"', txt); open(fname, 'w').write(txt)"; \
 	\
 	echo "$(GREEN)Validating version changes...$(NC)"; \
-	if ! grep -q "^version = \"$$PRIMEAGENT_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml version validation failed$(NC)"; exit 1; fi; \
-	if ! grep -q "\"primeagent-base==$$PRIMEAGENT_BASE_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml primeagent-base dependency validation failed$(NC)"; exit 1; fi; \
-	if ! grep -q "^version = \"$$PRIMEAGENT_BASE_VERSION\"" src/backend/base/pyproject.toml; then echo "$(RED)✗ Primeagent-base pyproject.toml version validation failed$(NC)"; exit 1; fi; \
-	if ! grep -q "\"version\": \"$$PRIMEAGENT_VERSION\"" src/frontend/package.json; then echo "$(RED)✗ Frontend package.json version validation failed$(NC)"; exit 1; fi; \
-	echo "$(GREEN)✓ All versions updated successfully$(NC)"; \
+	if ! grep -q "^version = \"$$PRIMEAGENT_VERSION\"" pyproject.toml; then echo "$(RED)? Main pyproject.toml version validation failed$(NC)"; exit 1; fi; \
+	if ! grep -q "\"primeagent-base==$$PRIMEAGENT_BASE_VERSION\"" pyproject.toml; then echo "$(RED)? Main pyproject.toml primeagent-base dependency validation failed$(NC)"; exit 1; fi; \
+	if ! grep -q "^version = \"$$PRIMEAGENT_BASE_VERSION\"" src/backend/base/pyproject.toml; then echo "$(RED)? Primeagent-base pyproject.toml version validation failed$(NC)"; exit 1; fi; \
+	if ! grep -q "\"version\": \"$$PRIMEAGENT_VERSION\"" src/frontend/package.json; then echo "$(RED)? Frontend package.json version validation failed$(NC)"; exit 1; fi; \
+	echo "$(GREEN)? All versions updated successfully$(NC)"; \
 	\
 	echo "$(GREEN)Syncing dependencies in parallel...$(NC)"; \
 	uv sync --quiet & \
-	(cd src/frontend && npm install --silent) & \
+	(cd src/frontend && pnpm install --silent) & \
 	wait; \
 	\
 	echo "$(GREEN)Validating final state...$(NC)"; \
 	CHANGED_FILES=$$(git status --porcelain | wc -l | tr -d ' '); \
 	if [ "$$CHANGED_FILES" -lt 5 ]; then \
-		echo "$(RED)✗ Expected at least 5 changed files, but found $$CHANGED_FILES$(NC)"; \
+		echo "$(RED)? Expected at least 5 changed files, but found $$CHANGED_FILES$(NC)"; \
 		echo "$(RED)Changed files:$(NC)"; \
 		git status --porcelain; \
 		exit 1; \
 	fi; \
-	EXPECTED_FILES="pyproject.toml uv.lock src/backend/base/pyproject.toml src/frontend/package.json src/frontend/package-lock.json"; \
+	EXPECTED_FILES="pyproject.toml uv.lock src/backend/base/pyproject.toml src/frontend/package.json src/frontend/pnpm-lock.yaml"; \
 	for file in $$EXPECTED_FILES; do \
 		if ! git status --porcelain | grep -q "$$file"; then \
-			echo "$(RED)✗ Expected file $$file was not modified$(NC)"; \
+			echo "$(RED)? Expected file $$file was not modified$(NC)"; \
 			exit 1; \
 		fi; \
 	done; \
-	echo "$(GREEN)✓ All required files were modified.$(NC)"; \
+	echo "$(GREEN)? All required files were modified.$(NC)"; \
 	\
 	echo "$(GREEN)Version update complete!$(NC)"; \
 	echo "$(GREEN)Updated files:$(NC)"; \
@@ -576,7 +576,7 @@ patch: ## Update version across all projects. Usage: make patch v=1.5.0
 	echo "  - src/backend/base/pyproject.toml: $$PRIMEAGENT_BASE_VERSION"; \
 	echo "  - src/frontend/package.json: $$PRIMEAGENT_VERSION"; \
 	echo "  - uv.lock: dependency lock updated"; \
-	echo "  - src/frontend/package-lock.json: dependency lock updated"; \
+	echo "  - src/frontend/pnpm-lock.yaml: dependency lock updated"; \
 	echo "$(GREEN)Dependencies synced successfully!$(NC)"
 
 ######################

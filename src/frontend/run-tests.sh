@@ -7,7 +7,7 @@ ui=false
 PROJECT_ROOT="../../"
 
 # Check if necessary commands are available
-for cmd in npx poetry fuser; do
+for cmd in pnpm poetry fuser; do
     if ! command -v $cmd &> /dev/null; then
         echo "Error: Required command '$cmd' is not installed. Aborting."
         exit 1
@@ -60,7 +60,7 @@ if ! cd "$PROJECT_ROOT"; then
 fi
 
 # Install playwright if not installed yet
-if ! npx playwright install; then
+if ! pnpm exec playwright install; then
     echo "Error: Failed to install Playwright. Aborting."
     exit 1
 fi
@@ -99,9 +99,9 @@ fi
 
 # Run Playwright tests
 if [ "$ui" = true ]; then
-    TEST_COMMAND="npx playwright test tests/core --ui --project=chromium"
+    TEST_COMMAND="pnpm exec playwright test tests/core --ui --project=chromium"
 else
-    TEST_COMMAND="npx playwright test tests/core --project=chromium"
+    TEST_COMMAND="pnpm exec playwright test tests/core --project=chromium"
 fi
 
 if ! PLAYWRIGHT_HTML_REPORT=playwright-report/e2e $TEST_COMMAND; then
@@ -111,7 +111,7 @@ fi
 
 if [ "$ui" = true ]; then
     echo "Opening Playwright report..."
-    npx playwright show-report
+    pnpm exec playwright show-report
 fi
 
 

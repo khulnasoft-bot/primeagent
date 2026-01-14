@@ -4,8 +4,8 @@ import logging
 from uuid import UUID
 
 from fastapi import APIRouter, HTTPException
-from wfx.base.models.unified_models import get_model_provider_variable_mapping, validate_model_provider_key
 from sqlalchemy.exc import NoResultFound
+from wfx.base.models.unified_models import get_model_provider_variable_mapping, validate_model_provider_key
 
 from primeagent.api.utils import CurrentActiveUser, DbSession
 from primeagent.api.v1.models import (

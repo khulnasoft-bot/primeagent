@@ -1,7 +1,7 @@
 from langchain_core.tools import BaseTool
+from pydantic import BaseModel, Field
 from wfx.base.agents.altk_tool_wrappers import PreToolValidationWrapper
 from wfx.log.logger import logger
-from pydantic import BaseModel, Field
 
 
 class CustomSchemaExceptionError(Exception):

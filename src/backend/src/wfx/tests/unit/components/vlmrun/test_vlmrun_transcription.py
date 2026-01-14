@@ -2,8 +2,8 @@ from unittest.mock import Mock, patch
 
 import pytest
 from primeagent.schema.data import Data
-from wfx.components.vlmrun import VLMRunTranscription
 from tests.base import ComponentTestBaseWithoutClient
+from wfx.components.vlmrun import VLMRunTranscription
 
 
 class TestVLMRunTranscription(ComponentTestBaseWithoutClient):

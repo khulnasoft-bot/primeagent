@@ -5,10 +5,10 @@ from pathlib import Path
 
 import pytest
 from langchain_core.messages import AIMessage, HumanMessage
+from platformdirs import user_cache_dir
 from wfx.log.logger import logger
 from wfx.schema.message import Message
 from wfx.utils.constants import MESSAGE_SENDER_AI, MESSAGE_SENDER_USER
-from platformdirs import user_cache_dir
 
 
 @pytest.fixture

@@ -69,7 +69,9 @@ class TestComponentLoading:
         # Add warnings for slow performance before failing
 
         if primeagent_duration > 10.0:
-            warnings.warn(f"import_primeagent_components is slow: {primeagent_duration:.2f}s", UserWarning, stacklevel=2)
+            warnings.warn(
+                f"import_primeagent_components is slow: {primeagent_duration:.2f}s", UserWarning, stacklevel=2
+            )
         if all_types_duration > 20.0:
             warnings.warn(f"aget_all_types_dict is slow: {all_types_duration:.2f}s", UserWarning, stacklevel=2)
 
@@ -300,7 +302,8 @@ class TestComponentLoading:
 
         print(f"\nRepeated Loading Performance ({num_iterations} iterations):")
         print(
-            f"import_primeagent_components - avg: {primeagent_avg:.4f}s, min: {primeagent_min:.4f}s, max: {primeagent_max:.4f}s"
+            f"import_primeagent_components - avg: {primeagent_avg:.4f}s, "
+            f"min: {primeagent_min:.4f}s, max: {primeagent_max:.4f}s"
         )
         print(f"aget_all_types_dict - avg: {all_types_avg:.4f}s, min: {all_types_min:.4f}s, max: {all_types_max:.4f}s")
 
@@ -463,7 +466,9 @@ class TestComponentLoading:
                 print(f"Note: Component counts vary ({min_count}-{max_count}) - may be due to OS file limits")
             else:
                 print(f"Component counts consistent: {min_count}")
-        assert all(isinstance(result, dict) for _, result in primeagent_results), "All primeagent results should be dicts"
+        assert all(isinstance(result, dict) for _, result in primeagent_results), (
+            "All primeagent results should be dicts"
+        )
         assert all(isinstance(result, dict) for _, result in all_types_results), "All all_types results should be dicts"
 
         # Log steady-state performance instead of asserting

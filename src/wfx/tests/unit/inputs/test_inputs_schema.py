@@ -3,13 +3,13 @@ from types import NoneType
 from typing import Union
 
 import pytest
+from pydantic import BaseModel, Field, ValidationError
 from wfx.inputs.inputs import BoolInput, DictInput, FloatInput, InputTypes, IntInput, MessageTextInput
 from wfx.io.schema import schema_to_primeagent_inputs
 from wfx.schema.data import Data
 from wfx.template import Input, Output
 from wfx.template.field.base import UNDEFINED
 from wfx.type_extraction.type_extraction import post_process_type
-from pydantic import BaseModel, Field, ValidationError
 
 
 class TestInput:

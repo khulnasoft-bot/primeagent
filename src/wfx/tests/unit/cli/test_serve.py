@@ -191,8 +191,8 @@ def test_serve_command_json_file():
             patch.dict(os.environ, {"PRIMEAGENT_API_KEY": "test-key"}),  # pragma: allowlist secret
         ):
             import typer
-            from wfx.cli.commands import serve_command
             from typer.testing import CliRunner
+            from wfx.cli.commands import serve_command
 
             # Create a mock graph
             mock_graph = MagicMock()
@@ -249,8 +249,8 @@ def test_serve_command_inline_json():
         patch.dict(os.environ, {"PRIMEAGENT_API_KEY": "test-key"}),  # pragma: allowlist secret
     ):
         import typer
-        from wfx.cli.commands import serve_command
         from typer.testing import CliRunner
+        from wfx.cli.commands import serve_command
 
         # Create a mock graph
         mock_graph = MagicMock()

@@ -5,11 +5,11 @@ import pytest
 from primeagent.services.auth.utils import create_super_user
 from primeagent.services.database.models.user.model import User
 from primeagent.services.utils import teardown_superuser
+from sqlalchemy.exc import IntegrityError
 from wfx.services.settings.constants import (
     DEFAULT_SUPERUSER,
     DEFAULT_SUPERUSER_PASSWORD,
 )
-from sqlalchemy.exc import IntegrityError
 
 # @patch("primeagent.services.deps.get_session")
 # @patch("primeagent.services.utils.create_super_user")

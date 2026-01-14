@@ -27,15 +27,15 @@ from primeagent.services.database.models.transactions.model import TransactionTa
 from primeagent.services.database.models.user.model import User, UserCreate, UserRead
 from primeagent.services.database.models.vertex_builds.crud import delete_vertex_builds_by_flow_id
 from primeagent.services.deps import get_db_service, session_scope
-from wfx.components.input_output import ChatInput
-from wfx.graph import Graph
-from wfx.log.logger import logger
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import selectinload
 from sqlmodel import Session, SQLModel, create_engine, select
 from sqlmodel.ext.asyncio.session import AsyncSession
 from sqlmodel.pool import StaticPool
 from typer.testing import CliRunner
+from wfx.components.input_output import ChatInput
+from wfx.graph import Graph
+from wfx.log.logger import logger
 
 from tests.api_keys import get_openai_api_key
 

@@ -4,8 +4,8 @@ import asyncio
 import os
 from typing import TYPE_CHECKING
 
-from wfx.log.logger import logger
 from typing_extensions import override
+from wfx.log.logger import logger
 
 from primeagent.services.auth import utils as auth_utils
 from primeagent.services.base import Service
@@ -17,9 +17,9 @@ from primeagent.services.variable.kubernetes_secrets import KubernetesSecretMana
 if TYPE_CHECKING:
     from uuid import UUID
 
-    from wfx.services.settings.service import SettingsService
     from sqlmodel import Session
     from sqlmodel.ext.asyncio.session import AsyncSession
+    from wfx.services.settings.service import SettingsService
 
 
 class KubernetesSecretService(VariableService, Service):

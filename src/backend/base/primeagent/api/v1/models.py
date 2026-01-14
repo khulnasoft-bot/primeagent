@@ -5,12 +5,12 @@ import logging
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query
+from pydantic import BaseModel, field_validator
 from wfx.base.models.unified_models import (
     get_model_provider_variable_mapping,
     get_model_providers,
     get_unified_models_detailed,
 )
-from pydantic import BaseModel, field_validator
 
 from primeagent.api.utils import CurrentActiveUser, DbSession
 from primeagent.services.auth.utils import get_current_active_user

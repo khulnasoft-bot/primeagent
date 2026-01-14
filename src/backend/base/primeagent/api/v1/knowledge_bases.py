@@ -6,8 +6,8 @@ from pathlib import Path
 import pandas as pd
 from fastapi import APIRouter, HTTPException
 from langchain_chroma import Chroma
-from wfx.log import logger
 from pydantic import BaseModel
+from wfx.log import logger
 
 from primeagent.api.utils import CurrentActiveUser
 from primeagent.services.deps import get_settings_service

@@ -462,7 +462,10 @@ class TestAPIRequestSSRFProtection:
         with (
             patch.dict(
                 os.environ,
-                {"PRIMEAGENT_SSRF_PROTECTION_ENABLED": "true", "PRIMEAGENT_SSRF_ALLOWED_HOSTS": "internal.company.local"},
+                {
+                    "PRIMEAGENT_SSRF_PROTECTION_ENABLED": "true",
+                    "PRIMEAGENT_SSRF_ALLOWED_HOSTS": "internal.company.local",
+                },
             ),
             respx.mock,
         ):

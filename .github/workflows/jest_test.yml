@@ -34,13 +34,18 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.ref }}
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
       - name: Setup Node.js Environment
         uses: actions/setup-node@v4
         id: setup-node
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-          cache-dependency-path: ./src/frontend/package-lock.json
+          cache: "pnpm"
+          cache-dependency-path: ./src/frontend/pnpm-lock.yaml
 
       - name: Run Frontend Unit Tests
         run: make test_frontend_ci

@@ -4,11 +4,11 @@ import os
 from typing import TYPE_CHECKING, Any, cast
 
 import nanoid
-from wfx.log.logger import logger
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 from typing_extensions import override
+from wfx.log.logger import logger
 
 from primeagent.schema.data import Data
 from primeagent.services.tracing.base import BaseTracer
