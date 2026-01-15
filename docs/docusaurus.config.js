@@ -144,10 +144,6 @@ const config = {
     [
       "redocusaurus",
       {
-        openapi: {
-          path: "openapi",
-          routeBasePath: "/api",
-        },
         specs: [
           {
             id: "api",
@@ -157,7 +153,7 @@ const config = {
         ],
         theme: {
           primaryColor: "#7528FC",
-          primaryColorDark: "#7528FC", // Force dark mode for Redoc
+          // primaryColorDark: "#7528FC", // Force dark mode for Redoc
         },
       },
     ],
