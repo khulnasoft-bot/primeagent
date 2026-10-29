@@ -15,6 +15,7 @@ import tempfile
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 from wfx.services.settings.base import (
     BASE_COMPONENTS_PATH,
     CustomSource,
@@ -26,7 +27,6 @@ from wfx.services.settings.base import (
 from wfx.services.settings.constants import AGENTIC_VARIABLES
 from wfx.services.settings.groups.runtime import RuntimeSettings
 from wfx.services.telemetry.constants import DEFAULT_SEGMENT_WRITE_KEY
-from pydantic import ValidationError
 
 
 def test_voice_mode_requires_openai_sdk(monkeypatch: pytest.MonkeyPatch) -> None:
