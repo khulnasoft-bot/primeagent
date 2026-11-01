@@ -32,7 +32,10 @@ const ROUTE_TITLES = [
   { path: "/assets/files", title: "Files | Primeagent" },
   { path: "/assets/knowledge-bases", title: "Knowledge | Primeagent" },
   { path: "/settings/general", title: "General | Primeagent" },
-  { path: "/settings/global-variables", title: "Global Variables | Primeagent" },
+  {
+    path: "/settings/global-variables",
+    title: "Global Variables | Primeagent",
+  },
   { path: "/settings/api-keys", title: "Primeagent API Keys" },
   { path: "/settings/mcp-servers", title: "MCP Servers | Primeagent" },
   { path: "/settings/shortcuts", title: "Shortcuts | Primeagent" },
