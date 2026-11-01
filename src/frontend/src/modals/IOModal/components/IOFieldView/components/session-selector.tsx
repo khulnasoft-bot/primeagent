@@ -60,6 +60,14 @@ export default function SessionSelector({
     setEditedSession(sessionLabel);
   }, [sessionLabel]);
 
+  useEffect(() => {
+    if (!isEditing) return;
+    const id = window.setTimeout(() => {
+      inputRef.current?.focus();
+    }, 0);
+    return () => window.clearTimeout(id);
+  }, [isEditing]);
+
   const handleEditClick = (e?: React.MouseEvent<HTMLDivElement>) => {
     e?.stopPropagation();
     setIsEditing(true);
@@ -170,7 +178,6 @@ export default function SessionSelector({
                 onKeyDown={onKeyDown}
                 onChange={handleInputChange}
                 onBlur={handleOnBlur}
-                autoFocus
                 aria-label={t("chat.renameSessionLabel")}
                 className="h-6 flex-grow px-1 py-0"
               />
