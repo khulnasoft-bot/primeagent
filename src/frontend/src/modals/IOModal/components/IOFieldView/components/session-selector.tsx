@@ -219,8 +219,8 @@ export default function SessionSelector({
         <Select
           value={""}
           onValueChange={handleSelectChange}
-          open={menuOpen}
-          onOpenChange={onMenuOpenChange}
+          open={isEditing ? false : menuOpen}
+          onOpenChange={isEditing ? undefined : onMenuOpenChange}
         >
           <ShadTooltip
             styleClasses="z-50"
@@ -232,15 +232,16 @@ export default function SessionSelector({
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              onFocusCapture={() => {
+              onFocusCapture={(e) => {
                 inputRef.current?.focus();
+                e.stopPropagation();
               }}
               data-confirm="true"
               aria-label={t("chat.options")}
               className={cn(
-                "h-8 w-fit border-none bg-transparent p-2 focus:ring-0",
-                isVisible
-                  ? "opacity-100"
+                "flex items-center justify-between h-8 w-fit border-none bg-transparent p-2 focus:ring-0",
+                isEditing
+                  ? "pointer-events-auto opacity-100"
                   : "pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:pointer-events-auto group-focus-within:opacity-100",
               )}
             >

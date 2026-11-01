@@ -117,7 +117,10 @@ describe("SessionSelector accessibility", () => {
     const user = userEvent.setup();
     renderSessionSelector();
 
-    await user.click(screen.getByRole("combobox", { name: "Options" }));
+    const row = screen.getByTestId("session-selector");
+    await user.hover(screen.getByTestId("session-selector"));
+    const combobox = screen.getByRole("combobox", { name: "Options" });
+    await user.click(combobox);
     await user.click(screen.getByRole("option", { name: /rename/i }));
 
     const cancelButton = screen.getByRole("button", {
@@ -134,6 +137,8 @@ describe("SessionSelector accessibility", () => {
     const user = userEvent.setup();
     const { container } = renderSessionSelector();
 
+    const row = screen.getByTestId("session-selector");
+    await user.hover(row);
     await user.click(screen.getByRole("combobox", { name: "Options" }));
     await user.click(screen.getByRole("option", { name: /rename/i }));
 
@@ -146,6 +151,8 @@ describe("SessionSelector accessibility", () => {
     const user = userEvent.setup();
     renderSessionSelector();
 
+    const row = screen.getByTestId("session-selector");
+    await user.hover(row);
     await user.click(screen.getByRole("combobox", { name: "Options" }));
     await user.click(screen.getByRole("option", { name: /rename/i }));
     await user.type(screen.getByRole("textbox"), "renamed");
@@ -161,6 +168,8 @@ describe("SessionSelector accessibility", () => {
     const user = userEvent.setup();
     renderSessionSelector();
 
+    const row = screen.getByTestId("session-selector");
+    await user.hover(row);
     await user.click(screen.getByRole("combobox", { name: "Options" }));
     await user.click(screen.getByRole("option", { name: /rename/i }));
 
