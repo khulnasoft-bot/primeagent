@@ -180,7 +180,7 @@
     "https://pypi.org/simple"
   ],
   "profile": "enterprise-hardened",
-  "profile_digest": "sha256:a5568d72b77fce01",
+  "profile_digest": "sha256:dbb6e94119575713",
   "providers": [
     "wfx-amazon",
     "wfx-anthropic",
