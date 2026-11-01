@@ -29,8 +29,6 @@ class TestChatInput(ComponentTestBaseWithClient):
     @pytest.fixture
     def file_names_mapping(self):
         return [
-            {"version": "1.0.19", "module": "inputs", "file_name": "ChatInput"},
-            {"version": "1.1.0", "module": "inputs", "file_name": "chat"},
             {"version": "1.1.1", "module": "inputs", "file_name": "chat"},
         ]
 

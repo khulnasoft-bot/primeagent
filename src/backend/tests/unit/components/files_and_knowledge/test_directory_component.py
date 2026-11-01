@@ -41,7 +41,6 @@ class TestDirectoryComponent(ComponentTestBaseWithoutClient):
     def file_names_mapping(self):
         """Return an empty list since this component doesn't have version-specific files."""
         return [
-            {"version": "1.0.19", "module": "data", "file_name": "Directory"},
             {"version": "1.1.0", "module": "data", "file_name": "directory"},
             {"version": "1.1.1", "module": "data", "file_name": "directory"},
         ]

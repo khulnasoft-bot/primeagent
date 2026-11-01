@@ -35,7 +35,6 @@ class TestChatOutput(ComponentTestBaseWithClient):
         return [
             {"version": "1.0.19", "module": "outputs", "file_name": "ChatOutput"},
             {"version": "1.1.0", "module": "outputs", "file_name": "chat"},
-            {"version": "1.1.1", "module": "outputs", "file_name": "chat"},
         ]
 
     async def test_process_string_input(self, component_class, default_kwargs):

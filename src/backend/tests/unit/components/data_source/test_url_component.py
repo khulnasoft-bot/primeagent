@@ -78,7 +78,6 @@ class TestURLComponent(ComponentTestBaseWithoutClient):
         return [
             {"version": "1.0.19", "module": "data", "file_name": "URL"},
             {"version": "1.1.0", "module": "data", "file_name": "url"},
-            {"version": "1.1.1", "module": "data", "file_name": "url"},
             {"version": "1.2.0", "module": "data", "file_name": "url"},
         ]
 

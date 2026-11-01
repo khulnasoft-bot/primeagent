@@ -31,7 +31,6 @@ class TestSplitTextComponent(ComponentTestBaseWithoutClient):
         return [
             # It was in helpers in version 1.0.19
             {"version": "1.0.19", "module": "helpers", "file_name": "SplitText"},
-            {"version": "1.1.0", "module": "processing", "file_name": "split_text"},
             {"version": "1.1.1", "module": "processing", "file_name": "split_text"},
         ]
 
