@@ -66,6 +66,20 @@ jobs:
         run: |
           curl --fail --show-error --retry 3 --location -o wss-unified-agent.jar https://unified-agent.s3.amazonaws.com/wss-unified-agent.jar
 
+      - name: Validate Mend secrets
+        #prevent forks from running mend scans
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          missing=()
+          for var in WS_APIKEY WS_WSS_URL WS_USERKEY WS_PRODUCTNAME WS_PROJECTNAME; do
+            if [ -z "${!var}" ]; then missing+=("$var"); fi
+          done
+          if [ ${#missing[@]} -gt 0 ]; then
+            echo "::error::Mend scan skipped: required GitHub Secrets are not set: ${missing[*]}"
+            echo "Configure them in Settings > Secrets and variables > Actions (WS_APIKEY, WS_WSS_URL, WS_USERKEY, WS_PRODUCTNAME, WS_PROJECTNAME)."
+            exit 1
+          fi
+
       - name: Run Mend Scan
         #prevent forks from running mend scans
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
