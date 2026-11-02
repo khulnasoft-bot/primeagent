@@ -16,9 +16,9 @@ isolation capabilities it supports.
 
 ## Built-in backends
 
-| Name | Where the code runs |
-|---|---|
-| `none` | In the Primeagent process. No isolation. |
+| Name           | Where the code runs                                                     |
+| -------------- | ----------------------------------------------------------------------- |
+| `none`         | In the Primeagent process. No isolation.                                |
 | `exec-sandbox` | A QEMU microVM on the Primeagent host. Needs a hypervisor (KVM or HVF). |
 
 `none` is the default. Under `exec-sandbox`, a sandbox that is configured but
@@ -35,12 +35,12 @@ from your settings.
 
 Primeagent refuses the run when a setting asks for more than the backend declares:
 
-* The backend does not report a hardware-virtualized boundary.
-* `PRIMEAGENT_SANDBOX_ALLOW_NETWORK` is false, but the backend cannot block all
+- The backend does not report a hardware-virtualized boundary.
+- `PRIMEAGENT_SANDBOX_ALLOW_NETWORK` is false, but the backend cannot block all
   egress.
-* `PRIMEAGENT_SANDBOX_ALLOWED_DOMAINS` is set, but the backend cannot restrict
+- `PRIMEAGENT_SANDBOX_ALLOWED_DOMAINS` is set, but the backend cannot restrict
   egress by domain.
-* `PRIMEAGENT_SANDBOX_TIMEOUT_SECONDS` is higher than the longest execution the
+- `PRIMEAGENT_SANDBOX_TIMEOUT_SECONDS` is higher than the longest execution the
   backend accepts. The 1-300 second range is the range Primeagent accepts. A
   backend can declare a lower cap, and a value inside the Primeagent range is
   still refused when it exceeds that cap.
@@ -83,6 +83,6 @@ meant. Primeagent logs both distribution names. Uninstall one of them.
 
 ## Related
 
-* [Environment variables](../Develop/environment-variables.mdx) — every
+- [Environment variables](../Develop/environment-variables.mdx) — every
   `PRIMEAGENT_SANDBOX_*` variable
-* [Security](./security.mdx)
+- [Security](./security.mdx)

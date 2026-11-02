@@ -13,22 +13,23 @@ Instead of manually exporting, sharing, and importing flow JSON files from the P
 - Create a [Primeagent API key](/api-keys-and-authentication)
 - Install the Primeagent `wfx` package
 
-   To install the `wfx` package from PyPI, do the following:
+  To install the `wfx` package from PyPI, do the following:
 
-   1. Create a virtual environment:
+  1.  Create a virtual environment:
+
       ```bash
       uv venv VENV_NAME
       ```
 
-   2. Activate the virtual environment.
+  2.  Activate the virtual environment.
       ```bash
       source VENV_NAME/bin/activate
       ```
-   3. Install the Primeagent WFX package in the virtual environment:
+  3.  Install the Primeagent WFX package in the virtual environment:
       ```bash
       uv pip install wfx
       ```
-   4. Run Flow DevOps Toolkit commands in the virtual environment that has WFX installed.
+  4.  Run Flow DevOps Toolkit commands in the virtual environment that has WFX installed.
 
       Alternatively, you can run `uvx wfx` commands, or run WFX from the `src/wfx` directory in a cloned Primeagent repo.
       For more information, see the [Primeagent WFX README](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/README.md).
@@ -38,93 +39,95 @@ Instead of manually exporting, sharing, and importing flow JSON files from the P
 1. Create a flow in the Primeagent UI, such as the Simple Agent starter flow in the [Quickstart](/get-started-quickstart).
 2. Open a terminal session within the virtual environment that has `wfx` installed.
 3. To initialize a project, run:
-    ```bash
-    wfx init PROJECT_NAME
-    ```
 
-    Replace `PROJECT_NAME` with a name for your project folder.
-    `wfx init` creates a scaffold for your project.
-    The output is similar to the following:
+   ```bash
+   wfx init PROJECT_NAME
+   ```
 
-    ```text
-    demo-project/
-    ├── .github/
-    │   └── workflows/
-    │       ├── primeagent-push.yml       # CI workflow
-    │       ├── primeagent-test.yml       # CI workflow
-    │       └── primeagent-validate.yml   # CI workflow
-    ├── .gitignore                      # ignores legacy credentials file
-    ├── .wfx/
-    │   └── environments.yaml           # edit with your instance URLs + API key env var names (safe to commit)
-    ├── ci/
-    │   ├── ci-push.sh                  # generic CI script
-    │   ├── ci-test.sh                  # generic CI script
-    │   └── ci-validate.sh              # generic CI script
-    ├── flows/
-    │   └── .gitkeep                    # versioned empty directory
-    └── tests/
-        ├── __init__.py
-        └── test_flows.py               # flow_runner example tests
+   Replace `PROJECT_NAME` with a name for your project folder.
+   `wfx init` creates a scaffold for your project.
+   The output is similar to the following:
 
-    ✔ Project scaffolded. Next steps:
-      1. Edit `.wfx/environments.yaml` with your instance URL
-      2. export PRIMEAGENT_LOCAL_API_KEY=<key>   (Settings -> API Keys)
-      3. wfx pull --env local --output-dir flows/
-    ```
+   ```text
+   demo-project/
+   ├── .github/
+   │   └── workflows/
+   │       ├── primeagent-push.yml       # CI workflow
+   │       ├── primeagent-test.yml       # CI workflow
+   │       └── primeagent-validate.yml   # CI workflow
+   ├── .gitignore                      # ignores legacy credentials file
+   ├── .wfx/
+   │   └── environments.yaml           # edit with your instance URLs + API key env var names (safe to commit)
+   ├── ci/
+   │   ├── ci-push.sh                  # generic CI script
+   │   ├── ci-test.sh                  # generic CI script
+   │   └── ci-validate.sh              # generic CI script
+   ├── flows/
+   │   └── .gitkeep                    # versioned empty directory
+   └── tests/
+       ├── __init__.py
+       └── test_flows.py               # flow_runner example tests
 
-    The project scaffold includes the following tools for building flows:
+   ✔ Project scaffolded. Next steps:
+     1. Edit `.wfx/environments.yaml` with your instance URL
+     2. export PRIMEAGENT_LOCAL_API_KEY=<key>   (Settings -> API Keys)
+     3. wfx pull --env local --output-dir flows/
+   ```
 
-    * `.github/workflows`: GitHub CI tooling.
-    * `.wfx/environments.yaml`: Control your project's URL and API keys as environment variables for local, staging, and production environments.
-    * `ci/` Shell scripts for pushing, testing, and validating flows.
-    * `flows/`: An empty directory to store flows that includes a `.gitkeep` file for flow versioning.
-    * `tests/test_flows.py`: Example tests that you can modify to test flows.
+   The project scaffold includes the following tools for building flows:
+
+   - `.github/workflows`: GitHub CI tooling.
+   - `.wfx/environments.yaml`: Control your project's URL and API keys as environment variables for local, staging, and production environments.
+   - `ci/` Shell scripts for pushing, testing, and validating flows.
+   - `flows/`: An empty directory to store flows that includes a `.gitkeep` file for flow versioning.
+   - `tests/test_flows.py`: Example tests that you can modify to test flows.
 
 4. Add your Primeagent API key to your `.env` file, or export it within the terminal session.
-    The Flow DevOps SDK includes `url` and `api_key_env` environment variables for `local`, `staging`, and `production` environments.
-    The variable name for the API key differs between environments, so ensure you're adding the correct variable.
-    For example, to add a Primeagent API key to a local Primeagent server, set:
+   The Flow DevOps SDK includes `url` and `api_key_env` environment variables for `local`, `staging`, and `production` environments.
+   The variable name for the API key differs between environments, so ensure you're adding the correct variable.
+   For example, to add a Primeagent API key to a local Primeagent server, set:
 
-    ```text
-    export PRIMEAGENT_LOCAL_API_KEY=PRIMEAGENT_API_KEY
-    ```
+   ```text
+   export PRIMEAGENT_LOCAL_API_KEY=PRIMEAGENT_API_KEY
+   ```
 
 5. To test server authentication with your API key, run:
 
-    ```bash
-    wfx login
-    ```
+   ```bash
+   wfx login
+   ```
 
-    The Flow DevOps SDK tests your key against the URL and confirms the connection is working.
-    If the test reports `Authentication failed`, create and export a new key and try again.
+   The Flow DevOps SDK tests your key against the URL and confirms the connection is working.
+   If the test reports `Authentication failed`, create and export a new key and try again.
 
 6. To check the connected server for existing flows, run:
 
-    ```bash
-    wfx pull
-    ```
+   ```bash
+   wfx pull
+   ```
 
-    The Flow DevOps SDK lists your server's flows. Output is similar to the following (from a project directory such as `demo-project/`):
+   The Flow DevOps SDK lists your server's flows. Output is similar to the following (from a project directory such as `demo-project/`):
 
-    ```text
-    Pulling all flows from http://localhost:7860
-    Pulled 'Simple Agent' -> flows/Simple_Agent.json
+   ```text
+   Pulling all flows from http://localhost:7860
+   Pulled 'Simple Agent' -> flows/Simple_Agent.json
 
-    ┌────────────────┬──────────────────────────────────────┬───────────────────────────┬──────────┐
-    │ Name           │ ID                                   │ File                      │ Status   │
-    ├────────────────┼──────────────────────────────────────┼───────────────────────────┼──────────┤
-    │ Simple Agent   │ c2f91b01-9a73-4c62-b7f0-e15bc3bd6802 │ flows/Simple_Agent.json   │ CREATED  │
-    └────────────────┴──────────────────────────────────────┴───────────────────────────┴──────────┘
+   ┌────────────────┬──────────────────────────────────────┬───────────────────────────┬──────────┐
+   │ Name           │ ID                                   │ File                      │ Status   │
+   ├────────────────┼──────────────────────────────────────┼───────────────────────────┼──────────┤
+   │ Simple Agent   │ c2f91b01-9a73-4c62-b7f0-e15bc3bd6802 │ flows/Simple_Agent.json   │ CREATED  │
+   └────────────────┴──────────────────────────────────────┴───────────────────────────┴──────────┘
 
-    1 updated.
-    ```
+   1 updated.
+   ```
 
-    `wfx pull` pulls flow changes on the server to JSON files under `flows/` in your project (for example `demo-project/flows`).
-    If you run `wfx pull` again, the Flow DevOps SDK reports a Status of `Unchanged`.
-    You will pull changes in the next steps.
+   `wfx pull` pulls flow changes on the server to JSON files under `flows/` in your project (for example `demo-project/flows`).
+   If you run `wfx pull` again, the Flow DevOps SDK reports a Status of `Unchanged`.
+   You will pull changes in the next steps.
+
 7. In the Primeagent UI, open the Simple Agent flow and change the flow.
-    For example, change the **Chat Input** to a different input string.
-    Save the flow.
+   For example, change the **Chat Input** to a different input string.
+   Save the flow.
 8. Return to your terminal, and run `wfx status`.
    The Flow DevOps SDK reports the flow's Status as `UPDATED`, because the hash of the flow JSON has changed with your update.
 9. To pull the reported changes from the Primeagent server to your local project folder, run `wfx pull`.
@@ -135,9 +138,9 @@ Instead of manually exporting, sharing, and importing flow JSON files from the P
 The Flow DevOps SDK can validate that local flows are correctly formed before pushing to the Primeagent with `wfx validate`.
 
 1. To test the Simple Agent starter flow, pass the flow JSON path to the `wfx validate` command:
-    ```bash
-    wfx validate flows/Simple_Agent.json
-    ```
+   ```bash
+   wfx validate flows/Simple_Agent.json
+   ```
 2. Once validated, push flow changes to the server with `wfx push`.
 
 ## Generate requirements.txt for flows
@@ -164,26 +167,31 @@ Generate a `requirements.txt` file to capture the minimal Python dependencies, s
    To serve the flow without the Primeagent UI, do the following:
 
    1. Create a virtual environment:
+
    ```bash
    uv venv VENV_NAME
    ```
 
    2. Activate the virtual environment.
+
    ```bash
    source VENV_NAME/bin/activate
    ```
 
    3. Install the dependencies from `requirements.txt` in the virtual environment:
+
    ```bash
    uv pip install -r requirements.txt
    ```
 
    4. To set a Primeagent API key, run:
+
    ```bash
    export PRIMEAGENT_API_KEY=PRIMEAGENT_API_KEY
    ```
 
    5. To serve the flow without the Primeagent UI, pass the flow JSON path to the `wfx serve` command:
+
    ```bash
    wfx serve flows/Simple_Agent.json
    ```

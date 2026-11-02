@@ -9,7 +9,9 @@
     "build": "docusaurus build",
     "deploy": "docusaurus deploy",
     "serve": "docusaurus serve",
-    "docs:version": "docusaurus docs:version"
+    "docs:version": "docusaurus docs:version",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@docusaurus/core": "3.10.2",
@@ -36,6 +38,7 @@
     "@docusaurus/module-type-aliases": "^3.10.2",
     "@tsconfig/docusaurus": "^2.0.3",
     "accessibility-checker": "^4.0.26",
+    "prettier": "^3.3.3",
     "typescript": "^5.2.2"
   },
   "browserslist": {

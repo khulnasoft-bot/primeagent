@@ -1,16 +1,16 @@
 const url = `http://${process.env.PRIMEAGENT_SERVER_URL ?? ""}/api/v1/responses`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
     "Content-Type": `application/json`,
   },
   body: JSON.stringify({
-  "model": "ced2ec91-f325-4bf0-8754-f3198c2b1563",
-  "input": "What's my name?",
-  "previous_response_id": "c45f4ac8-772b-4675-8551-c560b1afd590"
-}),
+    model: "ced2ec91-f325-4bf0-8754-f3198c2b1563",
+    input: "What's my name?",
+    previous_response_id: "c45f4ac8-772b-4675-8551-c560b1afd590",
+  }),
 };
 
 fetch(url, options)

@@ -17,12 +17,12 @@ The failing CI job is `test-installation-experimental` on `macos-latest-large` (
 
 ### 1. PyTorch macOS x86_64 Deprecation Timeline
 
-| Event | Date | Reference |
-|-------|------|-----------|
-| RFC opened to deprecate macOS x86_64 builds | Nov 2023 | [pytorch/pytorch#114602](https://github.com/pytorch/pytorch/issues/114602) |
-| PyTorch 2.2.2 released (last x86_64 macOS wheels) | March 2024 | Last version with `cp310`, `cp311`, `cp312` macOS x86_64 wheels |
-| PyTorch 2.3.0 released (no macOS x86_64 wheels) | April 2024 | Milestone for x86_64 deprecation |
-| Python 3.13 released | Oct 2024 | After PyTorch dropped macOS x86_64 |
+| Event                                             | Date       | Reference                                                                  |
+| ------------------------------------------------- | ---------- | -------------------------------------------------------------------------- |
+| RFC opened to deprecate macOS x86_64 builds       | Nov 2023   | [pytorch/pytorch#114602](https://github.com/pytorch/pytorch/issues/114602) |
+| PyTorch 2.2.2 released (last x86_64 macOS wheels) | March 2024 | Last version with `cp310`, `cp311`, `cp312` macOS x86_64 wheels            |
+| PyTorch 2.3.0 released (no macOS x86_64 wheels)   | April 2024 | Milestone for x86_64 deprecation                                           |
+| Python 3.13 released                              | Oct 2024   | After PyTorch dropped macOS x86_64                                         |
 
 **Key fact:** PyTorch 2.2.2 has macOS x86_64 wheels for Python 3.10, 3.11, 3.12 — but **not 3.13**. And PyTorch 2.3+ does not publish macOS x86_64 wheels at all.
 
@@ -45,14 +45,14 @@ The main `primeagent` package depends on `primeagent-base[complete]`, which incl
 
 #### Dependency Chains to Torch
 
-| Extra | Chain | macOS x86_64 Excluded? |
-|-------|-------|----------------------|
-| `altk` | `agent-lifecycle-toolkit` → torch (direct dep) | **No** |
-| `altk` | `agent-lifecycle-toolkit` → `sentence-transformers` → torch | **No** |
-| `altk` | `agent-lifecycle-toolkit` → `trl` → `accelerate` → torch | **No** |
-| `docling` | `docling` → `docling-ibm-models` → torch | Partially (docling binary excluded, but `docling-core` is not) |
-| `easyocr` | `easyocr` → torch | **Yes** (fully excluded on macOS x86_64) |
-| `langchain-huggingface` | `langchain-huggingface` → `sentence-transformers` → torch | **No** |
+| Extra                   | Chain                                                       | macOS x86_64 Excluded?                                         |
+| ----------------------- | ----------------------------------------------------------- | -------------------------------------------------------------- |
+| `altk`                  | `agent-lifecycle-toolkit` → torch (direct dep)              | **No**                                                         |
+| `altk`                  | `agent-lifecycle-toolkit` → `sentence-transformers` → torch | **No**                                                         |
+| `altk`                  | `agent-lifecycle-toolkit` → `trl` → `accelerate` → torch    | **No**                                                         |
+| `docling`               | `docling` → `docling-ibm-models` → torch                    | Partially (docling binary excluded, but `docling-core` is not) |
+| `easyocr`               | `easyocr` → torch                                           | **Yes** (fully excluded on macOS x86_64)                       |
+| `langchain-huggingface` | `langchain-huggingface` → `sentence-transformers` → torch   | **No**                                                         |
 
 **The ALTK extra is the primary unguarded path** that forces torch installation on macOS x86_64. The issue was initially noticed with ALTK but the root cause is PyTorch's platform support.
 
@@ -74,6 +74,7 @@ However, **ALTK** and **langchain-huggingface** (which depends on sentence-trans
 ### 5. CI Configuration
 
 The experimental job in `.github/workflows/cross-platform-test.yml`:
+
 - Tests Python 3.13 on all platforms including macOS AMD64
 - Uses `continue-on-error: true` so failures don't block releases
 - The test-summary job considers experimental failures "acceptable"
@@ -93,11 +94,13 @@ langchain-huggingface = ["langchain-huggingface==0.3.1; sys_platform != 'darwin'
 ```
 
 **Pros:**
+
 - CI will pass on all experimental platforms
 - macOS x86_64 users on Python 3.13 can still use Primeagent (just without ALTK/HuggingFace features)
 - Consistent with existing pattern for docling/easyocr
 
 **Cons:**
+
 - Reduces feature availability on macOS x86_64
 - All Python versions on macOS x86_64 lose these features (not just 3.13)
 
@@ -110,10 +113,12 @@ altk = ["agent-lifecycle-toolkit~=0.4.4; (sys_platform != 'darwin' or platform_m
 ```
 
 **Pros:**
+
 - Preserves functionality on macOS x86_64 + Python 3.10-3.12
 - Only excludes the broken combination
 
 **Cons:**
+
 - More complex markers
 - PEP 508 marker evaluation of compound OR conditions can be tricky across tools
 
@@ -130,11 +135,13 @@ Since macOS x86_64 is a dying platform (Apple stopped selling Intel Macs in 2022
 ```
 
 **Pros:**
+
 - Simplest fix (one line change)
 - Saves CI runner costs (macos-latest-large is expensive)
 - Reflects reality that macOS Intel is EOL
 
 **Cons:**
+
 - Loses visibility into macOS x86_64 regressions
 - Some users may still be on Intel Macs
 
@@ -143,10 +150,12 @@ Since macOS x86_64 is a dying platform (Apple stopped selling Intel Macs in 2022
 The experimental job already uses `continue-on-error: true` and the test-summary job reports it as acceptable. This failure is a known, documented limitation.
 
 **Pros:**
+
 - No code changes needed
 - Maintains CI visibility
 
 **Cons:**
+
 - Persistent red CI job creates alert fatigue
 - Could mask other real failures in the experimental matrix
 
@@ -161,6 +170,7 @@ The experimental job already uses `continue-on-error: true` and the test-summary
 2. **Optionally remove macOS AMD64 from the Python 3.13 experimental matrix** (Option C) to reduce CI costs and noise, since the platform is EOL from both Apple and PyTorch.
 
 The combination ensures both end-user experience and CI health. The feature loss on macOS Intel is acceptable because:
+
 - Apple stopped producing Intel Macs in June 2022
 - PyTorch dropped Intel Mac support in March 2024
 - The HuggingFace/ML ecosystem is rapidly moving to ARM-only on macOS
@@ -171,18 +181,18 @@ The combination ensures both end-user experience and CI health. The feature loss
 
 ### torch versions resolved by platform
 
-| Version | Platform | Python | Has Wheels? |
-|---------|----------|--------|-------------|
-| `2.2.2` | macOS x86_64 | < 3.13 | Yes (cp310, cp311, cp312) |
-| `2.2.2+cpu` | macOS x86_64 | >= 3.13 | **No** |
-| `2.10.0` | macOS arm64 | all | Yes (cp310-cp313) |
-| `2.10.0+cpu` | Linux/Windows | all | Yes (cp310-cp313) |
+| Version      | Platform      | Python  | Has Wheels?               |
+| ------------ | ------------- | ------- | ------------------------- |
+| `2.2.2`      | macOS x86_64  | < 3.13  | Yes (cp310, cp311, cp312) |
+| `2.2.2+cpu`  | macOS x86_64  | >= 3.13 | **No**                    |
+| `2.10.0`     | macOS arm64   | all     | Yes (cp310-cp313)         |
+| `2.10.0+cpu` | Linux/Windows | all     | Yes (cp310-cp313)         |
 
 ### torchvision versions resolved by platform
 
-| Version | Platform | Python | Has Wheels? |
-|---------|----------|--------|-------------|
-| `0.17.2` | macOS x86_64 | < 3.13 | Yes (cp310, cp311, cp312) |
-| `0.17.2+cpu` | macOS x86_64 | >= 3.13 | **No** |
-| `0.25.0` | macOS arm64 | all | Yes |
-| `0.25.0+cpu` | Linux/Windows | all | Yes |
+| Version      | Platform      | Python  | Has Wheels?               |
+| ------------ | ------------- | ------- | ------------------------- |
+| `0.17.2`     | macOS x86_64  | < 3.13  | Yes (cp310, cp311, cp312) |
+| `0.17.2+cpu` | macOS x86_64  | >= 3.13 | **No**                    |
+| `0.25.0`     | macOS arm64   | all     | Yes                       |
+| `0.25.0+cpu` | Linux/Windows | all     | Yes                       |

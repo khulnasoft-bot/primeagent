@@ -1,9 +1,9 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/files/delete/${process.env.FLOW_ID ?? ""}/2024-12-30_15-19-43_your_file.txt`;
 
 const options = {
-  method: 'DELETE',
+  method: "DELETE",
   headers: {
-    "accept": `application/json`,
+    accept: `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
 };

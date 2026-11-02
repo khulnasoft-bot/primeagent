@@ -10,12 +10,12 @@ Primeagent supports both Apple Silicon (ARM64) and Intel (x86_64) Macs, but with
 
 ## Quick Reference
 
-| Feature Category | Apple Silicon (M1/M2/M3) | Intel (x86_64) |
-|-----------------|--------------------------|----------------|
-| **Core Primeagent** | ✅ Full support | ✅ Full support |
-| **ML/AI Components** | ✅ Full support | ❌ Limited/Unavailable |
-| **GPU Acceleration** | ✅ Metal support | ❌ Not available |
-| **Native OCR** | ✅ Full support | ✅ Full support |
+| Feature Category     | Apple Silicon (M1/M2/M3) | Intel (x86_64)         |
+| -------------------- | ------------------------ | ---------------------- |
+| **Core Primeagent**  | ✅ Full support          | ✅ Full support        |
+| **ML/AI Components** | ✅ Full support          | ❌ Limited/Unavailable |
+| **GPU Acceleration** | ✅ Metal support         | ❌ Not available       |
+| **Native OCR**       | ✅ Full support          | ✅ Full support        |
 
 ## Detailed Feature Support
 
@@ -59,6 +59,7 @@ Since many ML components depend on PyTorch, they are automatically excluded on I
 ### Hardware Limitations
 
 Intel Macs lack the specialized hardware that makes ML workloads performant:
+
 - No Neural Engine
 - No Metal 3 GPU acceleration
 - Limited memory bandwidth compared to Apple Silicon's unified memory architecture
@@ -91,13 +92,13 @@ pip install primeagent
 
 ## Python Version Support
 
-| Python Version | Apple Silicon | Intel Mac |
-|---------------|---------------|-----------|
-| 3.10 | ✅ Supported | ✅ Supported |
-| 3.11 | ✅ Supported | ✅ Supported |
-| 3.12 | ✅ Supported | ✅ Supported |
-| 3.13 | ✅ Supported | ⚠️ Limited (no PyTorch) |
-| 3.14 | ✅ Supported | ⚠️ Limited (no PyTorch) |
+| Python Version | Apple Silicon | Intel Mac               |
+| -------------- | ------------- | ----------------------- |
+| 3.10           | ✅ Supported  | ✅ Supported            |
+| 3.11           | ✅ Supported  | ✅ Supported            |
+| 3.12           | ✅ Supported  | ✅ Supported            |
+| 3.13           | ✅ Supported  | ⚠️ Limited (no PyTorch) |
+| 3.14           | ✅ Supported  | ⚠️ Limited (no PyTorch) |
 
 :::note
 Python 3.13+ on Intel Macs cannot use PyTorch-dependent features due to the lack of PyTorch wheels for macOS x86_64. This affects ML components like ALTK, HuggingFace, EasyOCR, and Docling.
@@ -110,6 +111,7 @@ If you need ML features on an Intel Mac, consider these alternatives:
 ### 1. Use API-Based Providers
 
 Instead of local models, use API-based services:
+
 - OpenAI API for embeddings and completions
 - Cohere API for embeddings
 - Anthropic API for Claude models
@@ -118,6 +120,7 @@ Instead of local models, use API-based services:
 ### 2. Remote Inference
 
 Run ML workloads on a remote server:
+
 - Deploy Primeagent on a cloud instance with GPU support
 - Use the Primeagent API to connect from your Intel Mac
 - Keep the UI/development on your Mac, inference in the cloud
@@ -147,6 +150,7 @@ Primeagent will continue to support core functionality on Intel Macs as long as 
 ### Recommended Migration Path
 
 If you rely on ML features, consider upgrading to Apple Silicon hardware:
+
 - M1/M2/M3 MacBook Air (cost-effective)
 - M1/M2/M3 MacBook Pro (for intensive workloads)
 - Mac Mini with M2/M3 (desktop option)
@@ -185,4 +189,4 @@ If you have questions about macOS support:
 
 - [GitHub Discussions](https://github.com/khulnasoft-bot/primeagent/discussions)
 - [Discord Community](https://discord.gg/EqksyE2EX9)
-- [Documentation](https://docs.prime.khulnasoft.com)
+- [Documentation](https://prime.khulnasoft.com/docs)

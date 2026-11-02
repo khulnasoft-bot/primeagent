@@ -36,13 +36,13 @@ This guide demonstrates how to integrate the Instana observability platform with
    Set the necessary values for each environment variable:
 
    - **`TRACELOOP_API_KEY`**: A Traceloop API key to authenticate your application with Traceloop's monitoring service.
-   You can get this from your Traceloop account dashboard.
+     You can get this from your Traceloop account dashboard.
 
-      This integration uses the Traceloop SDK for instrumentation, which requires a Traceloop API key to initialize properly.
-      If you don't have a Traceloop API key, you can proceed with the placeholder API key in the preceding example.
+     This integration uses the Traceloop SDK for instrumentation, which requires a Traceloop API key to initialize properly.
+     If you don't have a Traceloop API key, you can proceed with the placeholder API key in the preceding example.
 
    - **`TRACELOOP_BASE_URL`**: The Instana endpoint URL for telemetry data collection, which is your Instana backend endpoint, such as `https://otlp-magenta-saas.instana.rocks:4318`.
-   You can get this from your Instana configuration or by contacting your Instana administrator.
+     You can get this from your Instana configuration or by contacting your Instana administrator.
 
    - **`TRACELOOP_HEADERS`**: Authentication headers for Instana data collection. Set this to `"x-instana-key=INSTANA_KEY"`, replacing `INSTANA_KEY` with the Instana key from your Instana setup.
 
@@ -55,19 +55,19 @@ This guide demonstrates how to integrate the Instana observability platform with
    - **`OTEL_METRIC_EXPORT_INTERVAL`**: Interval in milliseconds for metrics export. Set to `10000` for 10-second export intervals, or adjust based on your monitoring requirements.
 
 3. Make sure the OpenTelemetry Data Collector (OTel DC) is running and correctly configured.
-Open your Collector's `config.yaml` file, enter the following configuration, and then replace the placeholder values with the values from your data collector setup or requirements:
+   Open your Collector's `config.yaml` file, enter the following configuration, and then replace the placeholder values with the values from your data collector setup or requirements:
 
    ```yaml
    llm.application: "LLM_DC"
    instances:
-      -  otel.agentless.mode: true
-         # Example endpoint: https://otlp-magenta-saas.instana.rocks:4318
-         otel.backend.url: "INSTANA_ENDPOINT"
-         otel.backend.using.http: false
-         callback.interval: 10
-         otel.service.name: "DC1"
-         otel.service.port: 8000
-         currency: "USD"
+     - otel.agentless.mode: true
+       # Example endpoint: https://otlp-magenta-saas.instana.rocks:4318
+       otel.backend.url: "INSTANA_ENDPOINT"
+       otel.backend.using.http: false
+       callback.interval: 10
+       otel.service.name: "DC1"
+       otel.service.port: 8000
+       currency: "USD"
    ```
 
    This configuration enables the OTel Collector to operate in agentless mode and route telemetry data to your Instana backend with proper service identification and collection intervals for effective monitoring integration.
@@ -101,6 +101,6 @@ To verify that observability is working correctly:
 
 ## See also
 
-* [Traceloop documentation](https://www.traceloop.com/docs/introduction)
-* [Instana setup documentation](https://www.ibm.com/docs/en/instana-observability/1.0.300?topic=started-instana-setup)
-* [Otel DC setup documentation](https://www.ibm.com/docs/en/instana-observability/1.0.300?topic=started-install-otel-data-collector-llm-odcl)
+- [Traceloop documentation](https://www.traceloop.com/docs/introduction)
+- [Instana setup documentation](https://www.ibm.com/docs/en/instana-observability/1.0.300?topic=started-instana-setup)
+- [Otel DC setup documentation](https://www.ibm.com/docs/en/instana-observability/1.0.300?topic=started-install-otel-data-collector-llm-odcl)

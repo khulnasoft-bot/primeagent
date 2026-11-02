@@ -4,8 +4,8 @@ slug: /components-bundle-components
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Bundles contain custom components that support specific third-party integrations with Primeagent.
 You add them to your flows and configure them in the same way as Primeagent's core components.
@@ -32,7 +32,7 @@ For information about provider-specific features or APIs, see the provider's doc
 
 ## Component parameters
 
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
 
 <PartialParams />
 
@@ -64,7 +64,6 @@ If you install `wfx` directly or need to add bundles to an existing environment,
 
 The default `uv pip install primeagent` and full `uv pip install "primeagent[bundles]"` installations do not install dependencies for components that require PyTorch.
 
-
 To install PyTorch and the components that require it, run the following in your Primeagent virtual environment:
 
 ```bash
@@ -75,7 +74,7 @@ uv pip install "wfx-bundles[all]"
 
 <span id="vector-stores-bundle" />
 
-import PartialLegacy from '@site/docs/_partial-legacy.mdx';
+import PartialLegacy from "@site/docs/_partial-legacy.mdx";
 
 <PartialLegacy />
 
@@ -106,19 +105,19 @@ For more information, see the [CrewAI agents documentation](https://docs.crewai.
 
 This component accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| role | Role | Input parameter. The role of the agent. |
-| goal | Goal | Input parameter. The objective of the agent. |
-| backstory | Backstory | Input parameter. The backstory of the agent. |
-| tools | Tools | Input parameter. The tools at the agent's disposal. |
-| llm | Language Model | Input parameter. The language model that runs the agent. |
-| memory | Memory | Input parameter. This determines whether the agent should have memory or not. |
-| verbose | Verbose | Input parameter. This enables verbose output. |
-| allow_delegation | Allow Delegation | Input parameter. This determines whether the agent is allowed to delegate tasks to other agents. |
-| allow_code_execution | Allow Code Execution | Input parameter. This determines whether the agent is allowed to execute code. |
-| kwargs | kwargs | Input parameter. Additional keyword arguments for the agent. |
-| output | Agent | Output parameter. The constructed CrewAI Agent object. |
+| Name                 | Display Name         | Info                                                                                             |
+| -------------------- | -------------------- | ------------------------------------------------------------------------------------------------ |
+| role                 | Role                 | Input parameter. The role of the agent.                                                          |
+| goal                 | Goal                 | Input parameter. The objective of the agent.                                                     |
+| backstory            | Backstory            | Input parameter. The backstory of the agent.                                                     |
+| tools                | Tools                | Input parameter. The tools at the agent's disposal.                                              |
+| llm                  | Language Model       | Input parameter. The language model that runs the agent.                                         |
+| memory               | Memory               | Input parameter. This determines whether the agent should have memory or not.                    |
+| verbose              | Verbose              | Input parameter. This enables verbose output.                                                    |
+| allow_delegation     | Allow Delegation     | Input parameter. This determines whether the agent is allowed to delegate tasks to other agents. |
+| allow_code_execution | Allow Code Execution | Input parameter. This determines whether the agent is allowed to execute code.                   |
+| kwargs               | kwargs               | Input parameter. Additional keyword arguments for the agent.                                     |
+| output               | Agent                | Output parameter. The constructed CrewAI Agent object.                                           |
 
 </details>
 
@@ -130,19 +129,19 @@ For more information, see the [CrewAI hierarchical crew documentation](https://d
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| agents | Agents | Input parameter. The list of Agent objects representing the crew members. |
-| tasks | Tasks | Input parameter. The list of HierarchicalTask objects representing the tasks to be executed. |
-| manager_llm | Manager LLM | Input parameter. The language model for the manager agent. |
-| manager_agent | Manager Agent | Input parameter. The specific agent to act as the manager. |
-| verbose | Verbose | Input parameter. This enables verbose output for detailed logging. |
-| memory | Memory | Input parameter. The memory configuration for the crew. |
-| use_cache | Use Cache | Input parameter. This enables caching of results. |
-| max_rpm | Max RPM | Input parameter. This sets the maximum requests per minute. |
-| share_crew | Share Crew | Input parameter. This determines if the crew information is shared among agents. |
-| function_calling_llm | Function Calling LLM | Input parameter. The language model for function calling. |
-| crew | Crew | Output parameter. The constructed Crew object with hierarchical task execution. |
+| Name                 | Display Name         | Info                                                                                         |
+| -------------------- | -------------------- | -------------------------------------------------------------------------------------------- |
+| agents               | Agents               | Input parameter. The list of Agent objects representing the crew members.                    |
+| tasks                | Tasks                | Input parameter. The list of HierarchicalTask objects representing the tasks to be executed. |
+| manager_llm          | Manager LLM          | Input parameter. The language model for the manager agent.                                   |
+| manager_agent        | Manager Agent        | Input parameter. The specific agent to act as the manager.                                   |
+| verbose              | Verbose              | Input parameter. This enables verbose output for detailed logging.                           |
+| memory               | Memory               | Input parameter. The memory configuration for the crew.                                      |
+| use_cache            | Use Cache            | Input parameter. This enables caching of results.                                            |
+| max_rpm              | Max RPM              | Input parameter. This sets the maximum requests per minute.                                  |
+| share_crew           | Share Crew           | Input parameter. This determines if the crew information is shared among agents.             |
+| function_calling_llm | Function Calling LLM | Input parameter. The language model for function calling.                                    |
+| crew                 | Crew                 | Output parameter. The constructed Crew object with hierarchical task execution.              |
 
 </details>
 
@@ -154,16 +153,16 @@ For more information, see the [CrewAI sequential crew documentation](https://doc
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| tasks | Tasks | Input parameter. The list of SequentialTask objects representing the tasks to be executed. |
-| verbose | Verbose | Input parameter. This enables verbose output for detailed logging. |
-| memory | Memory | Input parameter. The memory configuration for the crew. |
-| use_cache | Use Cache | Input parameter. This enables caching of results. |
-| max_rpm | Max RPM | Input parameter. This sets the maximum requests per minute. |
-| share_crew | Share Crew | Input parameter. This determines if the crew information is shared among agents. |
-| function_calling_llm | Function Calling LLM | Input parameter. The language model for function calling. |
-| crew | Crew | Output parameter. The constructed Crew object with sequential task execution. |
+| Name                 | Display Name         | Info                                                                                       |
+| -------------------- | -------------------- | ------------------------------------------------------------------------------------------ |
+| tasks                | Tasks                | Input parameter. The list of SequentialTask objects representing the tasks to be executed. |
+| verbose              | Verbose              | Input parameter. This enables verbose output for detailed logging.                         |
+| memory               | Memory               | Input parameter. The memory configuration for the crew.                                    |
+| use_cache            | Use Cache            | Input parameter. This enables caching of results.                                          |
+| max_rpm              | Max RPM              | Input parameter. This sets the maximum requests per minute.                                |
+| share_crew           | Share Crew           | Input parameter. This determines if the crew information is shared among agents.           |
+| function_calling_llm | Function Calling LLM | Input parameter. The language model for function calling.                                  |
+| crew                 | Crew                 | Output parameter. The constructed Crew object with sequential task execution.              |
 
 </details>
 
@@ -175,30 +174,30 @@ For more information, see the [CrewAI sequential agents documentation](https://d
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| role | Role | Input parameter. The role of the agent. |
-| goal | Goal | Input parameter. The objective of the agent. |
-| backstory | Backstory | Input parameter. The backstory of the agent. |
-| tools | Tools | Input parameter. The tools at the agent's disposal. |
-| llm | Language Model | Input parameter. The language model that runs the agent. |
-| memory | Memory | Input parameter. This determines whether the agent should have memory or not. |
-| verbose | Verbose | Input parameter. This enables verbose output. |
-| allow_delegation | Allow Delegation | Input parameter. This determines whether the agent is allowed to delegate tasks to other agents. |
-| allow_code_execution | Allow Code Execution | Input parameter. This determines whether the agent is allowed to execute code. |
-| agent_kwargs | Agent kwargs | Input parameter. The additional kwargs for the agent. |
-| task_description | Task Description | Input parameter. The descriptive text detailing the task's purpose and execution. |
-| expected_output | Expected Task Output | Input parameter. The clear definition of the expected task outcome. |
-| async_execution | Async Execution | Input parameter. Boolean flag indicating asynchronous task execution. |
-| previous_task | Previous Task | Input parameter. The previous task in the sequence for chaining. |
-| task_output | Sequential Task | Output parameter. The list of SequentialTask objects representing the created tasks. |
+| Name                 | Display Name         | Info                                                                                             |
+| -------------------- | -------------------- | ------------------------------------------------------------------------------------------------ |
+| role                 | Role                 | Input parameter. The role of the agent.                                                          |
+| goal                 | Goal                 | Input parameter. The objective of the agent.                                                     |
+| backstory            | Backstory            | Input parameter. The backstory of the agent.                                                     |
+| tools                | Tools                | Input parameter. The tools at the agent's disposal.                                              |
+| llm                  | Language Model       | Input parameter. The language model that runs the agent.                                         |
+| memory               | Memory               | Input parameter. This determines whether the agent should have memory or not.                    |
+| verbose              | Verbose              | Input parameter. This enables verbose output.                                                    |
+| allow_delegation     | Allow Delegation     | Input parameter. This determines whether the agent is allowed to delegate tasks to other agents. |
+| allow_code_execution | Allow Code Execution | Input parameter. This determines whether the agent is allowed to execute code.                   |
+| agent_kwargs         | Agent kwargs         | Input parameter. The additional kwargs for the agent.                                            |
+| task_description     | Task Description     | Input parameter. The descriptive text detailing the task's purpose and execution.                |
+| expected_output      | Expected Task Output | Input parameter. The clear definition of the expected task outcome.                              |
+| async_execution      | Async Execution      | Input parameter. Boolean flag indicating asynchronous task execution.                            |
+| previous_task        | Previous Task        | Input parameter. The previous task in the sequence for chaining.                                 |
+| task_output          | Sequential Task      | Output parameter. The list of SequentialTask objects representing the created tasks.             |
 
 </details>
 
 ### Embeddings bundle
 
-* **Embedding Similarity**: Replaced by built-in similarity search functionality in vector store components.
-* **Text Embedder**: Replaced by the embedding model components.
+- **Embedding Similarity**: Replaced by built-in similarity search functionality in vector store components.
+- **Text Embedder**: Replaced by the embedding model components.
 
 ### Zep bundle
 
@@ -212,16 +211,15 @@ This component creates a `ZepChatMessageHistory` instance, enabling storage and 
 
 It accepts the following parameters:
 
-| Name          | Type          | Description                                               |
-|---------------|---------------|-----------------------------------------------------------|
-| url           | MessageText   | Input parameter. The URL of the Zep instance. Required. |
-| api_key       | SecretString  | Input parameter. The API Key for authentication with the Zep instance. |
-| api_base_path | Dropdown      | Input parameter. The API version to use. Options include api/v1 or api/v2. |
-| session_id    | MessageText   | Input parameter. The unique identifier for the chat session. Optional. |
-| message_history | BaseChatMessageHistory  | Output parameter. An instance of ZepChatMessageHistory for the session. |
+| Name            | Type                   | Description                                                                |
+| --------------- | ---------------------- | -------------------------------------------------------------------------- |
+| url             | MessageText            | Input parameter. The URL of the Zep instance. Required.                    |
+| api_key         | SecretString           | Input parameter. The API Key for authentication with the Zep instance.     |
+| api_base_path   | Dropdown               | Input parameter. The API version to use. Options include api/v1 or api/v2. |
+| session_id      | MessageText            | Input parameter. The unique identifier for the chat session. Optional.     |
+| message_history | BaseChatMessageHistory | Output parameter. An instance of ZepChatMessageHistory for the session.    |
 
 </details>
-
 
 <!-- Not documented but in Primeagent as of 1.5.11 -->
 <!--

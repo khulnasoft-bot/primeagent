@@ -1,9 +1,9 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/monitor/transactions?flow_id=${process.env.FLOW_ID ?? ""}&page=1&size=50`;
 
 const options = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    "accept": `application/json`,
+    accept: `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
 };

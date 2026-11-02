@@ -31,19 +31,19 @@ To migrate your database, do the following:
 1. Stop Primeagent.
 2. Back up the database.
 
-    If you're using SQLite, copy the `primeagent.db` file.
-    The default path depends on your install method and whether `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR` is set.
-    For more information, see [Memory management options](/memory#storage-options-and-paths).
+   If you're using SQLite, copy the `primeagent.db` file.
+   The default path depends on your install method and whether `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR` is set.
+   For more information, see [Memory management options](/memory#storage-options-and-paths).
 
-    If you're using PostgreSQL, make a logical backup with `pg_dump`, or use your database provider's snapshot.
-    For more information, see [enterprise backup guidance](/enterprise-database-guide).
+   If you're using PostgreSQL, make a logical backup with `pg_dump`, or use your database provider's snapshot.
+   For more information, see [enterprise backup guidance](/enterprise-database-guide).
 
 3. Export any flows you want to save as JSON. For more information, see [Import and export flows](/concepts-flows-import).
 4. Upgrade the Primeagent package or container image to the latest version, keeping the same [`PRIMEAGENT_DATABASE_URL`](/memory#configure-external-memory) or the same SQLite path.
 
-    ```bash
-    uv pip install primeagent -U
-    ```
+   ```bash
+   uv pip install primeagent -U
+   ```
 
 5. Start a **single** Primeagent instance, so database migrations run without concurrent database writes.
 6. Confirm that startup succeeds.
@@ -74,11 +74,11 @@ In read-only or hardened containers, that path may not be writable, and Primeage
 
 ## Migration environment variables
 
-| Variable | Purpose |
-|----------|---------|
-| `PRIMEAGENT_ALEMBIC_LOG_TO_STDOUT` | Set to `true` to send Alembic migration output to `stdout`. |
-| `PRIMEAGENT_ALEMBIC_LOG_FILE` | Absolute or relative path for the Alembic log file when not logging to `stdout`. Relative paths resolve under the Primeagent config directory. |
-| `PRIMEAGENT_MIGRATION_LOCK_TIMEOUT_S` | Seconds to wait for the PostgreSQL migration advisory lock. Default: `300`. |
+| Variable                              | Purpose                                                                                                                                                                                                                                                                                 |
+| ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_ALEMBIC_LOG_TO_STDOUT`    | Set to `true` to send Alembic migration output to `stdout`.                                                                                                                                                                                                                             |
+| `PRIMEAGENT_ALEMBIC_LOG_FILE`         | Absolute or relative path for the Alembic log file when not logging to `stdout`. Relative paths resolve under the Primeagent config directory.                                                                                                                                          |
+| `PRIMEAGENT_MIGRATION_LOCK_TIMEOUT_S` | Seconds to wait for the PostgreSQL migration advisory lock. Default: `300`.                                                                                                                                                                                                             |
 | `PRIMEAGENT_MIGRATION_LOCK_NAMESPACE` | Optional namespace for the Alembic PostgreSQL advisory lock. The default lock key coordinates instances that share a database. Set this variable to isolate different Primeagent deployments that share one PostgreSQL server. Use the same value on every instance in that deployment. |
 
 ## Troubleshooting
@@ -87,9 +87,9 @@ For troubleshooting database migrations, see [Primeagent upgrade issues](/troubl
 
 ## See also
 
-* [Configure an external PostgreSQL database](/configuration-custom-database)
-* [Primeagent database guide for enterprise DBAs](/enterprise-database-guide)
-* [Memory management options](/memory)
-* [`primeagent migration` CLI](/configuration-cli#primeagent-migration)
-* [Troubleshoot Primeagent](/troubleshoot)
-* [Deploy Primeagent on Docker](/deployment-docker)
+- [Configure an external PostgreSQL database](/configuration-custom-database)
+- [Primeagent database guide for enterprise DBAs](/enterprise-database-guide)
+- [Memory management options](/memory)
+- [`primeagent migration` CLI](/configuration-cli#primeagent-migration)
+- [Troubleshoot Primeagent](/troubleshoot)
+- [Deploy Primeagent on Docker](/deployment-docker)

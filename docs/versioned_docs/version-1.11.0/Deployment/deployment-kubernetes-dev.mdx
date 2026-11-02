@@ -3,8 +3,8 @@ title: Deploy the Primeagent development environment on Kubernetes
 slug: /deployment-kubernetes-dev
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 The [Primeagent integrated development environment (IDE) Helm chart](https://github.com/khulnasoft-bot/primeagent-helm-charts/tree/main/charts/primeagent-ide) is designed to provide a complete environment for developers to create, test, and debug their flows. It includes both the Primeagent API and visual editor.
 
@@ -20,36 +20,36 @@ This example uses [Minikube](https://minikube.sigs.k8s.io/docs/start/), but you 
 
 1. Create a Kubernetes cluster on Minikube:
 
-	```shell
-	minikube start
-	```
+   ```shell
+   minikube start
+   ```
 
 2. Set `kubectl` to use Minikube:
 
-	```shell
-	kubectl config use-context minikube
-	```
+   ```shell
+   kubectl config use-context minikube
+   ```
 
 ## Install the Primeagent IDE Helm chart
 
 1. Add the repository to Helm, and then update it:
 
-	```shell
-	helm repo add primeagent https://khulnasoft-bot.github.io/primeagent-helm-charts
-	helm repo update
-	```
+   ```shell
+   helm repo add primeagent https://khulnasoft-bot.github.io/primeagent-helm-charts
+   helm repo update
+   ```
 
 2. Install Primeagent with the default options in the `primeagent` namespace:
 
-	```shell
-	helm install primeagent-ide primeagent/primeagent-ide -n primeagent --create-namespace
-	```
+   ```shell
+   helm install primeagent-ide primeagent/primeagent-ide -n primeagent --create-namespace
+   ```
 
 3. Check the status of the pods:
 
-	```shell
-	kubectl get pods -n primeagent
-	```
+   ```shell
+   kubectl get pods -n primeagent
+   ```
 
 ## Access the Primeagent IDE
 
@@ -57,15 +57,15 @@ Enable local port forwarding to access Primeagent from your local machine:
 
 1. Make the Primeagent API accessible from your local machine at port 7860:
 
-    ```shell
-    kubectl port-forward -n primeagent svc/primeagent-service-backend 7860:7860
-    ```
+   ```shell
+   kubectl port-forward -n primeagent svc/primeagent-service-backend 7860:7860
+   ```
 
 2. Make the visual editor accessible from your local machine at port 8080:
 
-    ```shell
-    kubectl port-forward -n primeagent svc/primeagent-service 8080:8080
-    ```
+   ```shell
+   kubectl port-forward -n primeagent svc/primeagent-service 8080:8080
+   ```
 
 Now you can do the following:
 
@@ -183,6 +183,6 @@ primeagent:
 
 ## See also
 
-* [Best practices for Primeagent on Kubernetes](/deployment-prod-best-practices)
-* [Deploy the Primeagent production environment on Kubernetes](/deployment-kubernetes-prod)
-* [Primeagent Helm Charts repository](https://github.com/khulnasoft-bot/primeagent-helm-charts)
+- [Best practices for Primeagent on Kubernetes](/deployment-prod-best-practices)
+- [Deploy the Primeagent production environment on Kubernetes](/deployment-kubernetes-prod)
+- [Primeagent Helm Charts repository](https://github.com/khulnasoft-bot/primeagent-helm-charts)

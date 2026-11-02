@@ -43,7 +43,7 @@ The migration pause applies only to the source instance where you enable it.
 
 To migrate a Primeagent instance, do the following:
 
-1. Sign  in to the source instance as a superuser, and then select **Settings** > **Migration**.
+1. Sign in to the source instance as a superuser, and then select **Settings** > **Migration**.
 2. Click **Prepare** > **Check this instance**, and then do the following:
    1. In **New instance's Primeagent version**, enter the version installed on the target instance, such as `1.13.0`.
       Find the version in the target instance's image tag or installed package.
@@ -63,9 +63,11 @@ To migrate a Primeagent instance, do the following:
       ```
 
       On macOS, replace `sha256sum` with `shasum -a 256`.
+
    4. In **What the command printed**, paste the 12-character fingerprint, and then click **Verify**.
 
    Without the verified key, the target instance cannot decrypt saved credentials.
+
 5. To pause changes while data is copied, do the following:
    1. Click **Pause changes**, and then confirm you want to pause changes in the dialog.
    2. If Primeagent lists active requests, jobs, or trigger listeners, wait for or stop them, and then click **Check again**.

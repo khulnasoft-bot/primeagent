@@ -16,11 +16,11 @@ The affected bundle/component retirement suite passed 16 tests, and bundle struc
 test environment. The universal dependency export contains none of the three
 retired SDKs.
 
-| Area | Evidence | What it establishes |
-|---|---|---|
-| Managed controller | 19 passing cases in `test_upgrade_controller.py` | Real disposable supervisor and worker shutdown, metadata backup, receipt, foreground launch and readiness. Covers stale identities, backup failures, cancellation, resumption, duplicate-launch prevention, surviving-child rejection and exact IPv4 listener ownership. |
-| Pending cleanup | Passing API and service regressions in `test_pending_cleanup.py` | Superuser enforcement, original UUID and generation checks, concurrent/idempotent retry, failure retention, Memory linkage, source-backup retention and remote cancellation draining. |
-| Native failure recovery | 3 real-failure cases, included in an 87-test SQLite backend/importer run | Process kill after a committed batch and inside an open transaction, followed by reopening, integrity checks and complete replay. Native `SQLITE_FULL` preserves the previous batch and incomplete manifest, then succeeds after capacity is restored. |
+| Area                    | Evidence                                                                 | What it establishes                                                                                                                                                                                                                                                      |
+| ----------------------- | ------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Managed controller      | 19 passing cases in `test_upgrade_controller.py`                         | Real disposable supervisor and worker shutdown, metadata backup, receipt, foreground launch and readiness. Covers stale identities, backup failures, cancellation, resumption, duplicate-launch prevention, surviving-child rejection and exact IPv4 listener ownership. |
+| Pending cleanup         | Passing API and service regressions in `test_pending_cleanup.py`         | Superuser enforcement, original UUID and generation checks, concurrent/idempotent retry, failure retention, Memory linkage, source-backup retention and remote cancellation draining.                                                                                    |
+| Native failure recovery | 3 real-failure cases, included in an 87-test SQLite backend/importer run | Process kill after a committed batch and inside an open transaction, followed by reopening, integrity checks and complete replay. Native `SQLITE_FULL` preserves the previous batch and incomplete manifest, then succeeds after capacity is restored.                   |
 
 The process-death and capacity tests use disposable databases and exact child
 processes. `SQLITE_FULL` is induced with SQLite's `max_page_count`, not by filling
@@ -46,11 +46,11 @@ on this host. These are observed measurements, not an SLO, capacity limit or
 isolated performance comparison. The first query is not a cold OS-cache probe.
 Storage sizes below use decimal MB.
 
-| Rows | Dimensions | Ingest (s) | All records, median / max (ms) | 1% filter, median / max (ms) | Storage (MB) |
-|---|---:|---:|---:|---:|---:|
-| 100,000 | 384 | 30.89 | 125.46 / 197.83 | 76.70 / 142.43 | 219.37 |
-| 10,000 | 1,536 | 8.02 | 66.71 / 146.62 | 13.46 / 23.76 | 83.39 |
-| 10,000 | 3,072 | 14.22 | 105.77 / 146.98 | 14.84 / 20.38 | 129.39 |
+| Rows    | Dimensions | Ingest (s) | All records, median / max (ms) | 1% filter, median / max (ms) | Storage (MB) |
+| ------- | ---------: | ---------: | -----------------------------: | ---------------------------: | -----------: |
+| 100,000 |        384 |      30.89 |                125.46 / 197.83 |               76.70 / 142.43 |       219.37 |
+| 10,000  |      1,536 |       8.02 |                 66.71 / 146.62 |                13.46 / 23.76 |        83.39 |
+| 10,000  |      3,072 |      14.22 |                105.77 / 146.98 |                14.84 / 20.38 |       129.39 |
 
 Reproduce in the Chroma-free application environment:
 
@@ -64,10 +64,10 @@ multi-user load, every metadata-filter distribution or network filesystems.
 
 ## Remaining release gates
 
-| Gate | Required evidence before release |
-|---|---|
+| Gate                  | Required evidence before release                                                                                                                                                                  |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Application artifacts | Complete the installed application dependency inventory, cross-platform native-runtime checks and final artifact security scans. Reconcile the original scanner findings before security closure. |
-| Deployment acceptance | Rehearse the actual supervisor, volumes, backup capacity, downtime and forward-repair procedure for each supported deployment topology. |
+| Deployment acceptance | Rehearse the actual supervisor, volumes, backup capacity, downtime and forward-repair procedure for each supported deployment topology.                                                           |
 
 The release workflow enforces application artifact and inventory prerequisites.
 A separate helper build, signing approval and publication are no longer required.

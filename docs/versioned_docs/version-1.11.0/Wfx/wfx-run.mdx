@@ -3,8 +3,8 @@ title: Run flows with WFX
 slug: /wfx-run
 ---
 
-import WfxPrereqs from '@site/docs/_partial-wfx-run-serve-prereqs.mdx';
-import WfxComponentCategories from '@site/docs/_partial-wfx-component-categories.mdx';
+import WfxPrereqs from "@site/docs/_partial-wfx-run-serve-prereqs.mdx";
+import WfxComponentCategories from "@site/docs/_partial-wfx-component-categories.mdx";
 
 `wfx run` executes a flow once and streams the results to `stdout`. No API key is required.
 
@@ -115,19 +115,19 @@ For more examples, see the [Complete Agent Example on PyPI](https://pypi.org/pro
 
 ## wfx run options
 
-| Option | Description |
-|---|---|
-| `--check-variables` / `--no-check-variables` | Validate the flow's global variables. Default: check. |
-| `--flow-json` | Load inline JSON flow content as a string. |
-| `--format`, `-f` | Output format: `json`, `text`, `message`, or `result`. Default: `json`. |
-| `--input-value` | Input value to pass to the graph. Required with `--stdin` and `--flow-json`. |
-| `--session-id` | Session ID for conversation tracking. Auto-generated if not set. |
-| `--stdin` | Read JSON flow content from `stdin`. |
-| `--timing` | Include detailed timing information in output. |
-| `--upgrade-flow` | Compatibility mode: `check` reports issues and fails; `safe` applies safe upgrades in memory before running. |
-| `--verbose`, `-v` | Show basic progress and diagnostic output. |
-| `-vv` | Show detailed progress and debug information. |
-| `-vvv` | Show full debugging output including component logs. |
+| Option                                       | Description                                                                                                  |
+| -------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `--check-variables` / `--no-check-variables` | Validate the flow's global variables. Default: check.                                                        |
+| `--flow-json`                                | Load inline JSON flow content as a string.                                                                   |
+| `--format`, `-f`                             | Output format: `json`, `text`, `message`, or `result`. Default: `json`.                                      |
+| `--input-value`                              | Input value to pass to the graph. Required with `--stdin` and `--flow-json`.                                 |
+| `--session-id`                               | Session ID for conversation tracking. Auto-generated if not set.                                             |
+| `--stdin`                                    | Read JSON flow content from `stdin`.                                                                         |
+| `--timing`                                   | Include detailed timing information in output.                                                               |
+| `--upgrade-flow`                             | Compatibility mode: `check` reports issues and fails; `safe` applies safe upgrades in memory before running. |
+| `--verbose`, `-v`                            | Show basic progress and diagnostic output.                                                                   |
+| `-vv`                                        | Show detailed progress and debug information.                                                                |
+| `-vvv`                                       | Show full debugging output including component logs.                                                         |
 
 <WfxComponentCategories />
 

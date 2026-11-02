@@ -68,13 +68,13 @@ function patchRedocSemantics() {
   }
   // Decorative chevrons/arrows — Redoc ships them with no accessible name.
   for (const svg of redoc.querySelectorAll(
-    "svg:not([aria-hidden]):not([aria-label]):not([role])"
+    "svg:not([aria-hidden]):not([aria-label]):not([role])",
   )) {
     svg.setAttribute("aria-hidden", "true");
   }
   // Content-type dropdowns render as bare <select> elements.
   for (const select of redoc.querySelectorAll(
-    "select.dropdown-select:not([aria-label])"
+    "select.dropdown-select:not([aria-label])",
   )) {
     select.setAttribute("aria-label", "Content type");
   }
@@ -118,10 +118,13 @@ export function onRouteDidUpdate({ location }) {
   if (!observersStarted) {
     observersStarted = true;
     // Re-patch when the user toggles the color mode.
-    new MutationObserver(patchDarkChipColors).observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
+    new MutationObserver(patchDarkChipColors).observe(
+      document.documentElement,
+      {
+        attributes: true,
+        attributeFilter: ["data-theme"],
+      },
+    );
     // Redoc lazy-renders operations on scroll/expand — re-patch on changes.
     // Semantics patches are cheap/idempotent: run on the next frame so late
     // renders are covered immediately; the (heavier) color patch is debounced.

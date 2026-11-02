@@ -34,15 +34,17 @@ export default function prismIncludeLanguages(Prism) {
   if (Prism.languages.bash) {
     Prism.languages.insertBefore("bash", "function", {
       "bash-plain": {
-        pattern: /(^|[\s;|&])(?:install|remove|update|build|init|exec|push|pull|clone|apply|deploy)(?=$|[\s;|&])/,
+        pattern:
+          /(^|[\s;|&])(?:install|remove|update|build|init|exec|push|pull|clone|apply|deploy)(?=$|[\s;|&])/,
         lookbehind: true,
       },
       "function-modern": {
-        pattern: /(^|[\s;|&]|[<>]\()(?:uv|uvx|pip|pip3|python|python3|node|npm|npx|pnpm|bun|bunx|deno|cargo|go|rustup|brew|docker|kubectl|helm|terraform|poetry|pdm|rye|make|curl|wget|git|cp|mv|rm|mkdir|touch|cat|grep|sed|awk|jq|xargs)(?=$|[)\s;|&])/,
+        pattern:
+          /(^|[\s;|&]|[<>]\()(?:uv|uvx|pip|pip3|python|python3|node|npm|npx|pnpm|bun|bunx|deno|cargo|go|rustup|brew|docker|kubectl|helm|terraform|poetry|pdm|rye|make|curl|wget|git|cp|mv|rm|mkdir|touch|cat|grep|sed|awk|jq|xargs)(?=$|[)\s;|&])/,
         lookbehind: true,
         alias: "keyword",
       },
-      "flag": {
+      flag: {
         pattern: /(^|\s)--?[a-zA-Z][\w-]*/,
         lookbehind: true,
         alias: "keyword",

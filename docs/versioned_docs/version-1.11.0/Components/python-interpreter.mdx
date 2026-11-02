@@ -4,8 +4,8 @@ slug: /python-interpreter
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 This component allows you to execute Python code with imported packages.
 
@@ -17,16 +17,17 @@ To install custom packages, see [Install custom dependencies](/install-custom-de
 ## Use the Python Interpreter in a flow
 
 1. To use this component in a flow, in the **Global Imports** field, add the packages you want to import as a comma-separated list, such as `math,pandas`.
-At least one import is required.
+   At least one import is required.
 2. In the **Python Code** field, enter the Python code you want to execute. Use `print()` to see the output.
 3. Optional: Enable **Tool Mode**, and then connect the **Python Interpreter** component to an **Agent** component as a tool.
-For example, connect a **Python Interpreter** component and a [**Calculator** component](/calculator) as tools for an **Agent** component, and then test how it chooses different tools to solve math problems.
-![Python Interpreter and Calculator components connected to an Agent component](/img/component-python-interpreter.png)
+   For example, connect a **Python Interpreter** component and a [**Calculator** component](/calculator) as tools for an **Agent** component, and then test how it chooses different tools to solve math problems.
+   ![Python Interpreter and Calculator components connected to an Agent component](/img/component-python-interpreter.png)
 4. Ask the agent an easier math question.
-The **Calculator** tool can add, subtract, multiple, divide, or perform exponentiation.
-The agent executes the `evaluate_expression` tool to correctly answer the question.
+   The **Calculator** tool can add, subtract, multiple, divide, or perform exponentiation.
+   The agent executes the `evaluate_expression` tool to correctly answer the question.
 
 Result:
+
 ```text
 Executed evaluate_expression
 Input:
@@ -40,7 +41,7 @@ Output:
 ```
 
 5. Give the agent complete Python code.
-This example creates a Pandas DataFrame table with the imported `pandas` packages, and returns the square root of the mean squares.
+   This example creates a Pandas DataFrame table with the imported `pandas` packages, and returns the square root of the mean squares.
 
 ```python
 import pandas as pd
@@ -60,6 +61,7 @@ print(f"Square root of mean squares: {result}")
 The agent correctly chooses the `run_python_repl` tool to solve the problem.
 
 Result:
+
 ```text
 Executed run_python_repl
 
@@ -97,131 +99,132 @@ For example, to connect a [**Chat Input** component](/chat-input-and-output) and
    The following example demonstrates these modifications.
 
     <details open>
-    <summary>Python code example</summary>
+ <summary>Python code example</summary>
 
-    ```python
-    import importlib
+   ```python
+   import importlib
 
-    from langchain_experimental.utilities import PythonREPL
-    from wfx.custom.custom_component.component import Component
-    from wfx.io import MultilineInput, Output, StrInput
-    from wfx.schema.data import Data
-    from wfx.schema.message import Message  # Needed to extract text from Message objects
+   from langchain_experimental.utilities import PythonREPL
+   from wfx.custom.custom_component.component import Component
+   from wfx.io import MultilineInput, Output, StrInput
+   from wfx.schema.data import Data
+   from wfx.schema.message import Message  # Needed to extract text from Message objects
 
-    class PythonREPLComponent(Component):
-        display_name = "Python Interpreter"
-        description = "Run Python code with optional imports. Use print() to see the output."
-        documentation: str = "https://docs.prime.khulnasoft.com/python-interpreter"
-        icon = "square-terminal"
+   class PythonREPLComponent(Component):
+       display_name = "Python Interpreter"
+       description = "Run Python code with optional imports. Use print() to see the output."
+       documentation: str = "https://prime.khulnasoft.com/docs/python-interpreter"
+       icon = "square-terminal"
 
-        inputs = [
-            StrInput(
-                name="global_imports",
-                display_name="Global Imports",
-                info="A comma-separated list of modules to import globally, e.g. 'math,numpy,pandas'.",
-                value="math,pandas",
-                required=True,
-            ),
-            MultilineInput(
-                name="python_code",
-                display_name="Python Code",
-                info="The Python code to execute. Only modules specified in Global Imports can be used. Use 'url' variable if URL input is connected.",
-                value="print(f'URL: {url}')",  # Updated to make the URL variable available to the Python code execution
-                input_types=["Message"],
-                tool_mode=True,
-                required=True,
-            ),
-            # Add the URL input field to inputs list
-            StrInput(
-                name="url",
-                display_name="URL",
-                info="URL variable that can be used in Python code. Connect a Text component or enter manually.",
-                value="",
-                input_types=["Text", "Message"],
-                required=False,
-            ),
-        ]
+       inputs = [
+           StrInput(
+               name="global_imports",
+               display_name="Global Imports",
+               info="A comma-separated list of modules to import globally, e.g. 'math,numpy,pandas'.",
+               value="math,pandas",
+               required=True,
+           ),
+           MultilineInput(
+               name="python_code",
+               display_name="Python Code",
+               info="The Python code to execute. Only modules specified in Global Imports can be used. Use 'url' variable if URL input is connected.",
+               value="print(f'URL: {url}')",  # Updated to make the URL variable available to the Python code execution
+               input_types=["Message"],
+               tool_mode=True,
+               required=True,
+           ),
+           # Add the URL input field to inputs list
+           StrInput(
+               name="url",
+               display_name="URL",
+               info="URL variable that can be used in Python code. Connect a Text component or enter manually.",
+               value="",
+               input_types=["Text", "Message"],
+               required=False,
+           ),
+       ]
 
-        outputs = [
-            Output(
-                display_name="Results",
-                name="results",
-                type_=Data,
-                method="run_python_repl",
-            ),
-        ]
+       outputs = [
+           Output(
+               display_name="Results",
+               name="results",
+               type_=Data,
+               method="run_python_repl",
+           ),
+       ]
 
-        def get_globals(self, global_imports: str | list[str]) -> dict:
-            """Create a globals dictionary with only the specified allowed imports and input variables."""
-            global_dict = {}
+       def get_globals(self, global_imports: str | list[str]) -> dict:
+           """Create a globals dictionary with only the specified allowed imports and input variables."""
+           global_dict = {}
 
-            try:
-                if isinstance(global_imports, str):
-                    modules = [module.strip() for module in global_imports.split(",")]
-                elif isinstance(global_imports, list):
-                    modules = global_imports
-                else:
-                    msg = "global_imports must be either a string or a list"
-                    raise TypeError(msg)
+           try:
+               if isinstance(global_imports, str):
+                   modules = [module.strip() for module in global_imports.split(",")]
+               elif isinstance(global_imports, list):
+                   modules = global_imports
+               else:
+                   msg = "global_imports must be either a string or a list"
+                   raise TypeError(msg)
 
-                for module in modules:
-                    try:
-                        imported_module = importlib.import_module(module)
-                        global_dict[imported_module.__name__] = imported_module
-                    except ImportError as e:
-                        msg = f"Could not import module {module}: {e!s}"
-                        raise ImportError(msg) from e
+               for module in modules:
+                   try:
+                       imported_module = importlib.import_module(module)
+                       global_dict[imported_module.__name__] = imported_module
+                   except ImportError as e:
+                       msg = f"Could not import module {module}: {e!s}"
+                       raise ImportError(msg) from e
 
-                # Add the URL variable to the component's globals dictionary
-                # Extract from Message object or use the string directly
-                if hasattr(self, "url") and self.url:
-                    url_value = self.url.text if isinstance(self.url, Message) else str(self.url)
-                    if url_value:
-                        global_dict["url"] = url_value  # Makes 'url' available in Python code
-                        self.log(f"URL variable set: {url_value}")
+               # Add the URL variable to the component's globals dictionary
+               # Extract from Message object or use the string directly
+               if hasattr(self, "url") and self.url:
+                   url_value = self.url.text if isinstance(self.url, Message) else str(self.url)
+                   if url_value:
+                       global_dict["url"] = url_value  # Makes 'url' available in Python code
+                       self.log(f"URL variable set: {url_value}")
 
-            except Exception as e:
-                self.log(f"Error in global imports: {e!s}")
-                raise
-            else:
-                self.log(f"Successfully imported modules: {list(global_dict.keys())}")
-                return global_dict
+           except Exception as e:
+               self.log(f"Error in global imports: {e!s}")
+               raise
+           else:
+               self.log(f"Successfully imported modules: {list(global_dict.keys())}")
+               return global_dict
 
-        def run_python_repl(self) -> Data:
-            try:
-                # Extract Python code text if it's a Message object
-                python_code_text = self.python_code
-                if isinstance(python_code_text, Message):
-                    python_code_text = python_code_text.text if python_code_text.text else ""
-                elif not isinstance(python_code_text, str):
-                    python_code_text = str(python_code_text)
+       def run_python_repl(self) -> Data:
+           try:
+               # Extract Python code text if it's a Message object
+               python_code_text = self.python_code
+               if isinstance(python_code_text, Message):
+                   python_code_text = python_code_text.text if python_code_text.text else ""
+               elif not isinstance(python_code_text, str):
+                   python_code_text = str(python_code_text)
 
-                globals_ = self.get_globals(self.global_imports)
-                python_repl = PythonREPL(_globals=globals_)
-                result = python_repl.run(python_code_text)
-                result = result.strip() if result else ""
+               globals_ = self.get_globals(self.global_imports)
+               python_repl = PythonREPL(_globals=globals_)
+               result = python_repl.run(python_code_text)
+               result = result.strip() if result else ""
 
-                self.log("Code execution completed successfully")
-                return Data(data={"result": result})
+               self.log("Code execution completed successfully")
+               return Data(data={"result": result})
 
-            except ImportError as e:
-                error_message = f"Import Error: {e!s}"
-                self.log(error_message)
-                return Data(data={"error": error_message})
+           except ImportError as e:
+               error_message = f"Import Error: {e!s}"
+               self.log(error_message)
+               return Data(data={"error": error_message})
 
-            except SyntaxError as e:
-                error_message = f"Syntax Error: {e!s}"
-                self.log(error_message)
-                return Data(data={"error": error_message})
+           except SyntaxError as e:
+               error_message = f"Syntax Error: {e!s}"
+               self.log(error_message)
+               return Data(data={"error": error_message})
 
-            except (NameError, TypeError, ValueError) as e:
-                error_message = f"Error during execution: {e!s}"
-                self.log(error_message)
-                return Data(data={"error": error_message})
+           except (NameError, TypeError, ValueError) as e:
+               error_message = f"Error during execution: {e!s}"
+               self.log(error_message)
+               return Data(data={"error": error_message})
 
-        def build(self):
-            return self.run_python_repl
-    ```
+       def build(self):
+           return self.run_python_repl
+   ```
+
     </details>
 
 4. To save the modifications, click **Check & Save**.
@@ -232,8 +235,8 @@ The **Python Interpreter** component can now use the `url` variable in the Pytho
 
 ## Python Interpreter parameters
 
-| Name | Type | Description |
-|------|------|-------------|
+| Name           | Type   | Description                                                                                         |
+| -------------- | ------ | --------------------------------------------------------------------------------------------------- |
 | global_imports | String | Input parameter. A comma-separated list of modules to import globally, such as `math,pandas,numpy`. |
-| python_code | Code | Input parameter. The Python code to execute. Only modules specified in Global Imports can be used. |
-| results | JSON | Output parameter. The output of the executed Python code, including any printed results or errors. |
+| python_code    | Code   | Input parameter. The Python code to execute. Only modules specified in Global Imports can be used.  |
+| results        | JSON   | Output parameter. The output of the executed Python code, including any printed results or errors.  |

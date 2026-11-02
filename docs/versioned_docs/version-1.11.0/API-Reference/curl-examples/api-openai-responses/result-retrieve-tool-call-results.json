@@ -11,9 +11,7 @@
   "output": [
     {
       "id": "evaluate_expression_1",
-      "queries": [
-        "15*23"
-      ],
+      "queries": ["15*23"],
       "status": "completed",
       "tool_name": "evaluate_expression",
       "type": "tool_call",

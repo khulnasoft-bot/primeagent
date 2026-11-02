@@ -4,12 +4,14 @@ slug: /bundles-figranium
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import PartialWfxBundlesInstall from '@site/docs/_partial-bundle-wfx-bundles-install.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import PartialWfxBundlesInstall from "@site/docs/_partial-bundle-wfx-bundles-install.mdx";
 
 <PartialWfxBundlesInstall />
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with Primeagent.
 
 This page describes the components that are available in the **Figranium** bundle.
 
@@ -41,13 +43,13 @@ It outputs the execution result as [`Data`](/data-types#json).
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| Figranium URL (`base_url`) | String | Input parameter. The base URL of your Figranium instance, such as `https://figranium.example.com` or `http://localhost:11345`. |
-| API Key (`api_key`) | SecretString | Input parameter. Your Figranium API key. |
-| Task ID (`task_id`) | String | Input parameter. The ID of the saved task to run. Use the **List Figranium Tasks** component to find task IDs. |
-| Variables (`task_variables`) | String | Input parameter. Optional task variables as a JSON object, such as `{"query": "Primeagent"}`. Default: `{}`. |
-| Timeout (seconds) (`timeout`) | Integer | Input parameter. How long to wait for the task to finish. Default: `120`. |
+| Name                          | Type         | Description                                                                                                                    |
+| ----------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------ |
+| Figranium URL (`base_url`)    | String       | Input parameter. The base URL of your Figranium instance, such as `https://figranium.example.com` or `http://localhost:11345`. |
+| API Key (`api_key`)           | SecretString | Input parameter. Your Figranium API key.                                                                                       |
+| Task ID (`task_id`)           | String       | Input parameter. The ID of the saved task to run. Use the **List Figranium Tasks** component to find task IDs.                 |
+| Variables (`task_variables`)  | String       | Input parameter. Optional task variables as a JSON object, such as `{"query": "Primeagent"}`. Default: `{}`.                   |
+| Timeout (seconds) (`timeout`) | Integer      | Input parameter. How long to wait for the task to finish. Default: `120`.                                                      |
 
 ## List Figranium Tasks
 
@@ -57,10 +59,10 @@ It outputs one [`Data`](/data-types#json) object per task with the task's `id`, 
 
 ### List Figranium Tasks parameters
 
-| Name | Type | Description |
-|------|------|-------------|
-| Figranium URL (`base_url`) | String | Input parameter. The base URL of your Figranium instance. |
-| API Key (`api_key`) | SecretString | Input parameter. Your Figranium API key. |
+| Name                       | Type         | Description                                               |
+| -------------------------- | ------------ | --------------------------------------------------------- |
+| Figranium URL (`base_url`) | String       | Input parameter. The base URL of your Figranium instance. |
+| API Key (`api_key`)        | SecretString | Input parameter. Your Figranium API key.                  |
 
 ## List Figranium Executions
 
@@ -70,7 +72,7 @@ It outputs one [`Data`](/data-types#json) object per execution, including the ex
 
 ### List Figranium Executions parameters
 
-| Name | Type | Description |
-|------|------|-------------|
-| Figranium URL (`base_url`) | String | Input parameter. The base URL of your Figranium instance. |
-| API Key (`api_key`) | SecretString | Input parameter. Your Figranium API key. |
+| Name                       | Type         | Description                                               |
+| -------------------------- | ------------ | --------------------------------------------------------- |
+| Figranium URL (`base_url`) | String       | Input parameter. The base URL of your Figranium instance. |
+| API Key (`api_key`)        | SecretString | Input parameter. Your Figranium API key.                  |

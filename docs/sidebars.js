@@ -13,17 +13,17 @@ module.exports = {
         {
           type: "doc",
           id: "Get-Started/about-primeagent",
-          label: "About Primeagent"
+          label: "About Primeagent",
         },
         {
           type: "doc",
           id: "Get-Started/get-started-installation",
-          label: "Install Primeagent"
+          label: "Install Primeagent",
         },
         {
           type: "doc",
           id: "Get-Started/get-started-quickstart",
-          label: "Quickstart"
+          label: "Quickstart",
         },
         {
           type: "category",
@@ -45,17 +45,17 @@ module.exports = {
         {
           type: "doc",
           id: "Flows/concepts-overview",
-          label: "Use the visual editor"
+          label: "Use the visual editor",
         },
         {
           type: "doc",
           id: "Flows/concepts-flows",
-          label: "Build flows"
+          label: "Build flows",
         },
         {
           type: "doc",
           id: "Flows/concurrent-editing",
-          label: "Concurrent editing"
+          label: "Concurrent editing",
         },
         {
           type: "category",
@@ -64,34 +64,34 @@ module.exports = {
             {
               type: "doc",
               id: "Flows/concepts-publish",
-              label: "Trigger flows with the Primeagent API"
+              label: "Trigger flows with the Primeagent API",
             },
             {
               type: "doc",
               id: "Flows/webhook",
-              label: "Trigger flows with webhooks"
+              label: "Trigger flows with webhooks",
             },
             {
               type: "doc",
               id: "Flows/human-in-the-loop",
-              label: "Human-in-the-Loop"
+              label: "Human-in-the-Loop",
             },
           ],
         },
         {
           type: "doc",
           id: "Flows/concepts-playground",
-          label: "Test flows"
+          label: "Test flows",
         },
         {
           type: "doc",
           id: "Flows/concepts-flows-import",
-          label: "Import and export flows"
+          label: "Import and export flows",
         },
         {
           type: "doc",
           id: "Flows/primeagent-assistant",
-          label: "Build flows and components with Primeagent Assistant"
+          label: "Build flows and components with Primeagent Assistant",
         },
       ],
     },
@@ -99,11 +99,7 @@ module.exports = {
       type: "category",
       label: "Agents",
       className: "sidebar-category-with-icon sidebar-icon-bot",
-      items: [
-        "Agents/agents",
-        "Agents/agents-tools",
-        "Agents/a2a-server",
-      ],
+      items: ["Agents/agents", "Agents/agents-tools", "Agents/a2a-server"],
     },
     {
       type: "category",
@@ -151,28 +147,28 @@ module.exports = {
             {
               type: "doc",
               id: "Develop/concepts-file-management",
-              label: "Manage files"
+              label: "Manage files",
             },
             {
               type: "doc",
               id: "Develop/memory",
-              label: "Manage memory"
+              label: "Manage memory",
             },
             {
               type: "doc",
               id: "Develop/session-id",
-              label: "Use Session IDs"
+              label: "Use Session IDs",
             },
             "Develop/configuration-custom-database",
             {
               type: "doc",
               id: "Develop/database-migrations",
-              label: "Database migrations"
+              label: "Database migrations",
             },
             {
               type: "doc",
               id: "Develop/enterprise-database-guide",
-              label: "Database guide for enterprise administrators"
+              label: "Database guide for enterprise administrators",
             },
             "Develop/knowledge",
             "Develop/knowledge-storage-upgrade",
@@ -208,17 +204,17 @@ module.exports = {
         {
           type: "doc",
           id: "Develop/data-types",
-          label: "Use Primeagent data types"
+          label: "Use Primeagent data types",
         },
         {
           type: "doc",
           id: "Develop/concepts-voice-mode",
-          label: "Use speech input"
+          label: "Use speech input",
         },
         {
           type: "doc",
           id: "Develop/configuration-cli",
-          label: "Use the Primeagent CLI"
+          label: "Use the Primeagent CLI",
         },
       ],
     },
@@ -228,29 +224,29 @@ module.exports = {
       className: "sidebar-category-with-icon sidebar-icon-cloud",
       items: [
         {
-          type:"doc",
+          type: "doc",
           id: "Deployment/deployment-overview",
-          label: "Primeagent deployment overview"
+          label: "Primeagent deployment overview",
         },
         {
           type: "doc",
           id: "Deployment/instance-migration",
-          label: "Migrate to a new instance"
+          label: "Migrate to a new instance",
         },
         {
           type: "doc",
           id: "Deployment/deployment-public-server",
-          label: "Deploy a public Primeagent server"
+          label: "Deploy a public Primeagent server",
         },
         {
           type: "doc",
           id: "Deployment/deployment-nginx-ssl",
-          label: "Deploy Primeagent with Nginx and SSL"
+          label: "Deploy Primeagent with Nginx and SSL",
         },
         {
           type: "doc",
           id: "Deployment/deployment-wxo",
-          label: "Deploy flows on watsonx Orchestrate"
+          label: "Deploy flows on watsonx Orchestrate",
         },
         {
           type: "category",
@@ -260,22 +256,22 @@ module.exports = {
             {
               type: "doc",
               id: "Deployment/deployment-docker",
-              label: "Primeagent Docker images"
+              label: "Primeagent Docker images",
             },
             {
               type: "doc",
               id: "Deployment/docker-image-profiles",
-              label: "Choose a Primeagent image"
+              label: "Choose a Primeagent image",
             },
             {
               type: "doc",
               id: "Deployment/downstream-bundle-profiles",
-              label: "Downstream bundle profiles"
+              label: "Downstream bundle profiles",
             },
             {
               type: "doc",
               id: "Deployment/deployment-caddyfile",
-              label: "Deploy Primeagent on a remote server"
+              label: "Deploy Primeagent on a remote server",
             },
             {
               type: "category",
@@ -284,24 +280,24 @@ module.exports = {
                 {
                   type: "doc",
                   id: "Deployment/deployment-architecture",
-                  label: "Deployment architecture"
+                  label: "Deployment architecture",
                 },
                 {
                   type: "doc",
                   id: "Deployment/deployment-prod-best-practices",
-                  label: "Best practices"
+                  label: "Best practices",
                 },
                 {
                   type: "doc",
                   id: "Deployment/deployment-kubernetes-dev",
-                  label: "Deploy in development"
+                  label: "Deploy in development",
                 },
                 {
                   type: "doc",
                   id: "Deployment/deployment-kubernetes-prod",
-                  label: "Deploy in production"
+                  label: "Deploy in production",
                 },
-              ]
+              ],
             },
           ],
         },
@@ -312,24 +308,24 @@ module.exports = {
             {
               type: "doc",
               id: "Deployment/deployment-gcp",
-              label: "Google Cloud Platform"
+              label: "Google Cloud Platform",
             },
             {
               type: "doc",
               id: "Deployment/deployment-hugging-face-spaces",
-              label: "Hugging Face Spaces"
+              label: "Hugging Face Spaces",
             },
             {
               type: "doc",
               id: "Deployment/deployment-railway",
-              label: "Railway"
+              label: "Railway",
             },
             {
               type: "doc",
               id: "Deployment/deployment-render",
-              label: "Render"
+              label: "Render",
             },
-          ]
+          ],
         },
         {
           type: "doc",
@@ -376,47 +372,47 @@ module.exports = {
         {
           type: "doc",
           id: "Wfx/wfx-overview",
-          label: "About WFX"
+          label: "About WFX",
         },
         {
           type: "doc",
           id: "Wfx/wfx-install",
-          label: "Install WFX"
+          label: "Install WFX",
         },
         {
           type: "doc",
           id: "Wfx/wfx-run",
-          label: "Run flows with WFX"
+          label: "Run flows with WFX",
         },
         {
           type: "doc",
           id: "Wfx/wfx-serve",
-          label: "Serve flows with WFX"
+          label: "Serve flows with WFX",
         },
         {
           type: "doc",
           id: "Wfx/wfx-connections",
-          label: "Resolve connections in headless WFX"
+          label: "Resolve connections in headless WFX",
         },
         {
           type: "doc",
           id: "Wfx/wfx-prewarm",
-          label: "Pre-warm WFX"
+          label: "Pre-warm WFX",
         },
         {
           type: "doc",
           id: "Wfx/wfx-mcp",
-          label: "Build flows with the WFX MCP server"
+          label: "Build flows with the WFX MCP server",
         },
         {
           type: "doc",
           id: "Wfx/wfx-devops-sdk",
-          label: "Flow DevOps Toolkit SDK"
+          label: "Flow DevOps Toolkit SDK",
         },
         {
           type: "doc",
           id: "Wfx/wfx-compatibility",
-          label: "WFX and Primeagent version compatibility"
+          label: "WFX and Primeagent version compatibility",
         },
       ],
     },
@@ -438,10 +434,7 @@ module.exports = {
             {
               type: "category",
               label: "Input / Output",
-              items: [
-                "Components/chat-input-and-output",
-                "Components/webhook",
-              ]
+              items: ["Components/chat-input-and-output", "Components/webhook"],
             },
             {
               type: "category",
@@ -452,7 +445,7 @@ module.exports = {
                 "Components/parser",
                 "Components/split-text",
                 "Components/type-convert",
-              ]
+              ],
             },
             {
               type: "category",
@@ -462,7 +455,7 @@ module.exports = {
                 "Components/mock-data",
                 "Components/url",
                 "Components/web-search",
-              ]
+              ],
             },
             {
               type: "category",
@@ -473,7 +466,7 @@ module.exports = {
                 "Components/memory-base",
                 "Components/read-file",
                 "Components/write-file",
-              ]
+              ],
             },
             {
               type: "category",
@@ -484,7 +477,7 @@ module.exports = {
                 "Components/loop",
                 "Components/notify-and-listen",
                 "Components/run-flow",
-              ]
+              ],
             },
             {
               type: "category",
@@ -497,7 +490,7 @@ module.exports = {
                 "Components/smart-router",
                 "Components/smart-transform",
                 "Components/structured-output",
-              ]
+              ],
             },
             {
               type: "category",
@@ -510,7 +503,7 @@ module.exports = {
                 "Components/mcp-tools",
                 "Components/components-embedding-models",
                 "Components/message-history",
-              ]
+              ],
             },
             {
               type: "category",
@@ -520,7 +513,7 @@ module.exports = {
                 "Components/current-date",
                 "Components/python-interpreter",
                 "Components/sql-database",
-              ]
+              ],
             },
             "Components/legacy-core-components",
           ],
@@ -639,7 +632,7 @@ module.exports = {
         {
           type: "doc",
           id: "API-Reference/typescript-client",
-          label: "Use the TypeScript client"
+          label: "Use the TypeScript client",
         },
         {
           type: "doc",

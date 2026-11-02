@@ -10,7 +10,11 @@ const projectName = path.basename(projectPath);
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/projects/upload/`;
 
 const formData = new FormData();
-formData.append("file", new Blob([projectBuf], { type: "application/zip" }), projectName);
+formData.append(
+  "file",
+  new Blob([projectBuf], { type: "application/zip" }),
+  projectName,
+);
 
 const options = {
   method: "POST",

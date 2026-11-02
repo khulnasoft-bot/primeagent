@@ -4,10 +4,10 @@ slug: /type-convert
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import PartialCurlyBraces from '@site/docs/_partial-escape-curly-braces.mdx';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import PartialCurlyBraces from "@site/docs/_partial-escape-curly-braces.mdx";
 
 The **Type Convert** component converts data from one type to another.
 It supports `JSON`, `Table`, and `Message` data types.
@@ -90,49 +90,48 @@ The following example uses the **Type Convert** component to convert the `Table`
 
 3. In the **Prompt Template** component, replace the contents of the **Template** field with the following text:
 
-    ```text
-    Answer the user's question using the {context}
-    ```
+   ```text
+   Answer the user's question using the {context}
+   ```
 
-    The curly braces define a [prompt variable](/components-prompts#define-variables-in-prompts) that becomes an input field on the **Prompt Template** component.
-    In this example, you will use the **context** field to pass the search results into the template, as explained in the next steps.
+   The curly braces define a [prompt variable](/components-prompts#define-variables-in-prompts) that becomes an input field on the **Prompt Template** component.
+   In this example, you will use the **context** field to pass the search results into the template, as explained in the next steps.
 
-3. Add a **Type Convert** component to the flow, and then set the **Output Type** to **Message**.
+4. Add a **Type Convert** component to the flow, and then set the **Output Type** to **Message**.
 
-    Because the **Web Search** component's `Table` output is incompatible with the **context** variable's `Message` input, you must use the **Type Convert** component to change the `Table` to a `Message` in order to pass the search results to the **Prompt Template** component.
+   Because the **Web Search** component's `Table` output is incompatible with the **context** variable's `Message` input, you must use the **Type Convert** component to change the `Table` to a `Message` in order to pass the search results to the **Prompt Template** component.
 
-4. Connect the additional components to the rest of the flow:
+5. Connect the additional components to the rest of the flow:
 
-    * Connect the **Web Search** component's output to the **Type Convert** component's input.
-    * Connect the **Type Convert** component's output to the **Prompt Template** component's **context** input.
+   - Connect the **Web Search** component's output to the **Type Convert** component's input.
+   - Connect the **Type Convert** component's output to the **Prompt Template** component's **context** input.
 
-    ![Convert web search output to text input](/img/component-type-convert-and-web-search.png)
+   ![Convert web search output to text input](/img/component-type-convert-and-web-search.png)
 
-5. In the **Language Model** component, add your OpenAI API key.
+6. In the **Language Model** component, add your OpenAI API key.
 
-    If you want to use a different provider or model, edit the **Model Provider**, **Model Name**, and **API Key** fields accordingly.
+   If you want to use a different provider or model, edit the **Model Provider**, **Model Name**, and **API Key** fields accordingly.
 
-6. Click **Playground**, and then ask something relevant to your search query, such as `latest news` or `what's the latest research on the environment?`.
+7. Click **Playground**, and then ask something relevant to your search query, such as `latest news` or `what's the latest research on the environment?`.
 
-    <details>
-    <summary>Result</summary>
+   <details>
+<summary>Result</summary>
 
-    The LLM uses the search results context, your chat message, and it's built-in training data to respond to your question.
-    For example:
+   The LLM uses the search results context, your chat message, and it's built-in training data to respond to your question.
+   For example:
 
-    ```text
-    Here are some of the latest news articles related to the environment:
-    Ozone Pollution and Global Warming: A recent study highlights that ozone pollution is a significant global environmental concern, threatening human health and crop production while exacerbating global warming. Read more
-    ...
-    ```
+   ```text
+   Here are some of the latest news articles related to the environment:
+   Ozone Pollution and Global Warming: A recent study highlights that ozone pollution is a significant global environmental concern, threatening human health and crop production while exacerbating global warming. Read more
+   ...
+   ```
 
-    </details>
+   </details>
 
 ## Type Convert parameters
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| input_data | Input Data | Input parameter. The data to convert. Accepts `JSON`, `Table`, or `Message` input. |
-| output_type | Output Type | Input parameter. The desired output type, as one of **Data**, **DataFrame** or **Message**. |
-| output | Output | Output parameter. The converted data in the specified format. The output port changes depending on the selected **Output Type**. |
-
+| Name        | Display Name | Info                                                                                                                             |
+| ----------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| input_data  | Input Data   | Input parameter. The data to convert. Accepts `JSON`, `Table`, or `Message` input.                                               |
+| output_type | Output Type  | Input parameter. The desired output type, as one of **Data**, **DataFrame** or **Message**.                                      |
+| output      | Output       | Output parameter. The converted data in the specified format. The output port changes depending on the selected **Output Type**. |

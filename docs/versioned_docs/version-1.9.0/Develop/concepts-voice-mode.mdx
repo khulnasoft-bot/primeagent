@@ -16,19 +16,19 @@ You can use Primeagent's voice mode to interact with your flows verbally through
 
 Voice mode requires the following:
 
-* A flow with **Chat Input**, **Language Model**, and **Chat Output** components.
+- A flow with **Chat Input**, **Language Model**, and **Chat Output** components.
 
-    If your flow has an **Agent** component, make sure the tools in your flow have accurate names and descriptions to help the agent choose which tools to use.
+  If your flow has an **Agent** component, make sure the tools in your flow have accurate names and descriptions to help the agent choose which tools to use.
 
-    Additionally, be aware that voice mode overrides typed instructions in the **Agent** component's **Agent Instructions** field.
+  Additionally, be aware that voice mode overrides typed instructions in the **Agent** component's **Agent Instructions** field.
 
-* An [OpenAI](https://platform.openai.com/) account and an OpenAI API key because Primeagent uses the OpenAI API to process voice input and generate responses.
+- An [OpenAI](https://platform.openai.com/) account and an OpenAI API key because Primeagent uses the OpenAI API to process voice input and generate responses.
 
-* Optional: An [ElevenLabs](https://elevenlabs.io) API key to enable more voice options for the LLM's response.
+- Optional: An [ElevenLabs](https://elevenlabs.io) API key to enable more voice options for the LLM's response.
 
-* A microphone and speakers.
+- A microphone and speakers.
 
-    A high quality microphone and minimal background noise are recommended for optimal voice comprehension.
+  A high quality microphone and minimal background noise are recommended for optimal voice comprehension.
 
 ## Test voice mode in the Playground
 
@@ -47,15 +47,15 @@ The following steps use the **Simple Agent** template to demonstrate how to enab
 5. Enter your OpenAI API key, and then click **Save**. Primeagent saves the key as a [global variable](/configuration-global-variables).
 
 6. If you are prompted to grant microphone access, you must allow microphone access to use voice mode.
-If microphone access is blocked, you won't be able to provide verbal input.
+   If microphone access is blocked, you won't be able to provide verbal input.
 
 7. For **Audio Input**, select the input device to use with voice mode.
 
 8. Optional: Add an ElevenLabs API key to enable more voices for the LLM's response.
-Primeagent saves this key as a global variable.
+   Primeagent saves this key as a global variable.
 
 9. For **Preferred Language**, select the language you want to use for your conversations with the LLM.
-This option changes both the expected input language and the response language.
+   This option changes both the expected input language and the response language.
 
 10. Speak into your microphone to start the chat.
 
@@ -94,4 +94,4 @@ When you close the **Playground** or end a chat, verbal chat history is discarde
 
 ## See also
 
-* [Test flows in the Playground](/concepts-playground)
+- [Test flows in the Playground](/concepts-playground)

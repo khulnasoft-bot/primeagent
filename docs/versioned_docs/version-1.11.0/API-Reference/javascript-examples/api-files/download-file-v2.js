@@ -1,9 +1,9 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v2/files/c7b22c4c-d5e0-4ec9-af97-5d85b7657a34`;
 
 const options = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    "accept": `application/json`,
+    accept: `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
 };
@@ -14,6 +14,9 @@ fetch(url, options)
       throw new Error(`HTTP ${response.status}`);
     }
     const data = await response.arrayBuffer();
-    console.log("Received binary response for downloaded_file.txt", data.byteLength);
+    console.log(
+      "Received binary response for downloaded_file.txt",
+      data.byteLength,
+    );
   })
   .catch((error) => console.error(error));

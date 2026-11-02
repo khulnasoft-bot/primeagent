@@ -1,18 +1,18 @@
 const url = `${process.env.PRIMEAGENT_SERVER_URL ?? ""}/api/v1/run/${process.env.FLOW_ID ?? ""}`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
   body: JSON.stringify({
-  "input_value": "Tell me about something interesting!",
-  "session_id": "chat-123",
-  "input_type": "chat",
-  "output_type": "chat",
-  "output_component": ""
-}),
+    input_value: "Tell me about something interesting!",
+    session_id: "chat-123",
+    input_type: "chat",
+    output_type: "chat",
+    output_component: "",
+  }),
 };
 
 fetch(url, options)

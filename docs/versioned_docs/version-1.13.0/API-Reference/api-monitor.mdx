@@ -2,50 +2,48 @@
 title: Monitor endpoints
 slug: /api-monitor
 ---
-import CodeBlock from '@theme/CodeBlock';
-import exampleApiMonitorGetVertexBuilds from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/get-vertex-builds.sh';
-import resultApiMonitorResultGetVertexBuilds from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-get-vertex-builds.json';
-import exampleApiMonitorDeleteVertexBuilds from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/delete-vertex-builds.sh';
-import resultApiMonitorResultDeleteVertexBuilds from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-delete-vertex-builds.txt';
-import exampleApiMonitorGetMessages from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/get-messages.sh';
-import exampleApiMonitorGetMessages2 from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/get-messages-2.sh';
-import resultApiMonitorResultGetMessages2 from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-get-messages-2.json';
-import exampleApiMonitorDeleteMessages from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/delete-messages.sh';
-import resultApiMonitorResultDeleteMessages from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-delete-messages.txt';
-import exampleApiMonitorUpdateMessage from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/update-message.sh';
-import resultApiMonitorResultUpdateMessage from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-update-message.json';
-import exampleApiMonitorUpdateSessionId from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/update-session-id.sh';
-import resultApiMonitorResultUpdateSessionId from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-update-session-id.json';
-import exampleApiMonitorDeleteMessagesBySession from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/delete-messages-by-session.sh';
-import resultApiMonitorResultDeleteMessagesBySession from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-delete-messages-by-session.txt';
-import exampleApiMonitorExampleRequest from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/example-request.sh';
-import exampleApiMonitorGetTransactions from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/get-transactions.sh';
-import resultApiMonitorResultGetTransactions from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-get-transactions.json';
-import examplePythonApiMonitorExampleRequest from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/example-request.py';
-import examplePythonApiMonitorGetVertexBuilds from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/get-vertex-builds.py';
-import exampleJavascriptApiMonitorGetVertexBuilds from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/get-vertex-builds.js';
-import examplePythonApiMonitorDeleteVertexBuilds from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/delete-vertex-builds.py';
-import exampleJavascriptApiMonitorDeleteVertexBuilds from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/delete-vertex-builds.js';
-import examplePythonApiMonitorGetMessages from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/get-messages.py';
-import exampleJavascriptApiMonitorGetMessages from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/get-messages.js';
-import examplePythonApiMonitorGetMessages2 from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/get-messages-2.py';
-import exampleJavascriptApiMonitorGetMessages2 from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/get-messages-2.js';
-import examplePythonApiMonitorDeleteMessages from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/delete-messages.py';
-import exampleJavascriptApiMonitorDeleteMessages from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/delete-messages.js';
-import examplePythonApiMonitorUpdateMessage from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/update-message.py';
-import exampleJavascriptApiMonitorUpdateMessage from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/update-message.js';
-import examplePythonApiMonitorUpdateSessionId from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/update-session-id.py';
-import exampleJavascriptApiMonitorUpdateSessionId from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/update-session-id.js';
-import examplePythonApiMonitorDeleteMessagesBySession from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/delete-messages-by-session.py';
-import exampleJavascriptApiMonitorDeleteMessagesBySession from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/delete-messages-by-session.js';
-import examplePythonApiMonitorGetTransactions from '!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/get-transactions.py';
-import exampleJavascriptApiMonitorGetTransactions from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/get-transactions.js';
 
+import CodeBlock from "@theme/CodeBlock";
+import exampleApiMonitorGetVertexBuilds from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/get-vertex-builds.sh";
+import resultApiMonitorResultGetVertexBuilds from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-get-vertex-builds.json";
+import exampleApiMonitorDeleteVertexBuilds from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/delete-vertex-builds.sh";
+import resultApiMonitorResultDeleteVertexBuilds from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-delete-vertex-builds.txt";
+import exampleApiMonitorGetMessages from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/get-messages.sh";
+import exampleApiMonitorGetMessages2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/get-messages-2.sh";
+import resultApiMonitorResultGetMessages2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-get-messages-2.json";
+import exampleApiMonitorDeleteMessages from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/delete-messages.sh";
+import resultApiMonitorResultDeleteMessages from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-delete-messages.txt";
+import exampleApiMonitorUpdateMessage from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/update-message.sh";
+import resultApiMonitorResultUpdateMessage from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-update-message.json";
+import exampleApiMonitorUpdateSessionId from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/update-session-id.sh";
+import resultApiMonitorResultUpdateSessionId from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-update-session-id.json";
+import exampleApiMonitorDeleteMessagesBySession from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/delete-messages-by-session.sh";
+import resultApiMonitorResultDeleteMessagesBySession from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-delete-messages-by-session.txt";
+import exampleApiMonitorExampleRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/example-request.sh";
+import exampleApiMonitorGetTransactions from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/get-transactions.sh";
+import resultApiMonitorResultGetTransactions from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-monitor/result-get-transactions.json";
+import examplePythonApiMonitorExampleRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/example-request.py";
+import examplePythonApiMonitorGetVertexBuilds from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/get-vertex-builds.py";
+import exampleJavascriptApiMonitorGetVertexBuilds from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/get-vertex-builds.js";
+import examplePythonApiMonitorDeleteVertexBuilds from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/delete-vertex-builds.py";
+import exampleJavascriptApiMonitorDeleteVertexBuilds from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/delete-vertex-builds.js";
+import examplePythonApiMonitorGetMessages from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/get-messages.py";
+import exampleJavascriptApiMonitorGetMessages from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/get-messages.js";
+import examplePythonApiMonitorGetMessages2 from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/get-messages-2.py";
+import exampleJavascriptApiMonitorGetMessages2 from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/get-messages-2.js";
+import examplePythonApiMonitorDeleteMessages from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/delete-messages.py";
+import exampleJavascriptApiMonitorDeleteMessages from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/delete-messages.js";
+import examplePythonApiMonitorUpdateMessage from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/update-message.py";
+import exampleJavascriptApiMonitorUpdateMessage from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/update-message.js";
+import examplePythonApiMonitorUpdateSessionId from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/update-session-id.py";
+import exampleJavascriptApiMonitorUpdateSessionId from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/update-session-id.js";
+import examplePythonApiMonitorDeleteMessagesBySession from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/delete-messages-by-session.py";
+import exampleJavascriptApiMonitorDeleteMessagesBySession from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/delete-messages-by-session.js";
+import examplePythonApiMonitorGetTransactions from "!!raw-loader!@site/docs/API-Reference/python-examples/api-monitor/get-transactions.py";
+import exampleJavascriptApiMonitorGetTransactions from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-monitor/get-transactions.js";
 
-
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 The `/monitor` endpoints are for internal Primeagent functionality, primarily related to running flows in the **Playground**, storing chat history, and generating flow logs.
 
@@ -54,9 +52,9 @@ This information is primarily for those who are building custom components or co
 For typical application development with Primeagent, there are more appropriate options for monitoring, debugging, and memory management.
 For more information, see the following:
 
-* [Logs](/logging): Primeagent log storage locations, customization options, and where to view logs in the visual editor
-* [Test flows in the Playground](/concepts-playground): Run flows and inspect message history
-* [Memory management options](/memory): Primeagent storage locations and options, including the database, cache, and chat history
+- [Logs](/logging): Primeagent log storage locations, customization options, and where to view logs in the visual editor
+- [Test flows in the Playground](/concepts-playground): Run flows and inspect message history
+- [Memory management options](/memory): Primeagent storage locations and options, including the database, cache, and chat history
 
 ## Vertex builds
 
@@ -73,12 +71,16 @@ Retrieve Vertex builds for a specific flow.
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiMonitorGetVertexBuilds}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiMonitorGetVertexBuilds}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorGetVertexBuilds}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorGetVertexBuilds}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -102,12 +104,16 @@ Delete Vertex builds for a specific flow.
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiMonitorDeleteVertexBuilds}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiMonitorDeleteVertexBuilds}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorDeleteVertexBuilds}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorDeleteVertexBuilds}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -120,7 +126,9 @@ Delete Vertex builds for a specific flow.
 <details>
 <summary>Result</summary>
 
-<CodeBlock language="text">{resultApiMonitorResultDeleteVertexBuilds}</CodeBlock>
+<CodeBlock language="text">
+  {resultApiMonitorResultDeleteVertexBuilds}
+</CodeBlock>
 
 </details>
 
@@ -141,7 +149,9 @@ Retrieve a page of messages:
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorGetMessages}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorGetMessages}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -172,7 +182,9 @@ This example retrieves up to 100 messages sent by `Machine` and `AI` in a given 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorGetMessages2}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorGetMessages2}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -203,7 +215,9 @@ This example deletes the message retrieved in the previous `GET /messages` examp
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorDeleteMessages}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorDeleteMessages}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -234,7 +248,9 @@ This example updates the `text` value of message `3ab66cc6-c048-48f8-ab07-570f5a
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorUpdateMessage}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorUpdateMessage}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -260,12 +276,16 @@ This example updates the `session_ID` value `01ce083d-748b-4b8d-97b6-33adbb6a528
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiMonitorUpdateSessionId}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiMonitorUpdateSessionId}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorUpdateSessionId}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorUpdateSessionId}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -289,17 +309,23 @@ Delete all messages for a specific session.
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiMonitorDeleteMessagesBySession}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiMonitorDeleteMessagesBySession}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorDeleteMessagesBySession}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorDeleteMessagesBySession}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleApiMonitorDeleteMessagesBySession}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleApiMonitorDeleteMessagesBySession}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -307,13 +333,15 @@ Delete all messages for a specific session.
 <details>
 <summary>Result</summary>
 
-<CodeBlock language="text">{resultApiMonitorResultDeleteMessagesBySession}</CodeBlock>
+<CodeBlock language="text">
+  {resultApiMonitorResultDeleteMessagesBySession}
+</CodeBlock>
 
 </details>
 
 ## Get traces
 
- Retrieve trace metadata and span trees for a specific flow.
+Retrieve trace metadata and span trees for a specific flow.
 
 ### Example request
 
@@ -408,12 +436,16 @@ This information is also available in [flow logs](/logging).
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiMonitorGetTransactions}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiMonitorGetTransactions}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiMonitorGetTransactions}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiMonitorGetTransactions}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">

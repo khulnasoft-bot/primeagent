@@ -32,9 +32,9 @@ For more information on publishing a Primeagent flow, see [Publish a flow as an 
 1. Add an **A2A Agent** component to your flow.
 2. In the **A2A Agent** component, set **Mode** to **External**.
 3. Enter the remote agent's base URL in the **Agent URL** field.
-Alternatively, enter the agent's `/.well-known/agent-card.json` card URL in the **Agent URL** field.
-Both options resolve the same agent.
-When the URL returns a card, the component displays a read-only **Agent card** preview.
+   Alternatively, enter the agent's `/.well-known/agent-card.json` card URL in the **Agent URL** field.
+   Both options resolve the same agent.
+   When the URL returns a card, the component displays a read-only **Agent card** preview.
 4. Optional: If the remote agent requires `x-api-key` authentication, enter the API key in the **API Key** field, or use a [global variable](./configuration-global-variables).
 5. Connect a [**Chat Input** component](./chat-input-and-output#chat-input) to the **A2A Agent** component's **Message** input.
 6. Connect the **Response** output to the next component in your flow, such as a [**Chat Output** component](./chat-input-and-output#chat-output).
@@ -49,25 +49,26 @@ If the remote agent URL points at a local or private host, such as another Prime
 ```bash
 export PRIMEAGENT_SSRF_ALLOWED_HOSTS=localhost,127.0.0.1
 ```
+
 Restart Primeagent after changing the variable.
 
 For more information, see [SSRF protection](./api-keys-and-authentication#ssrf-protection).
 
 ## A2A Agent parameters
 
-| Name | Type | Description |
-|------|------|-------------|
-| mode | Tab | Input parameter. **Internal** calls another agent flow in this project. **External** calls a remote A2A agent by URL. Default: `External`. |
-| agent_name_selected | Dropdown | Input parameter. **Internal** mode only. An agent flow in this project (one with [**Chat Input** and **Chat Output** components](./chat-input-and-output)). |
-| agent_url | String | Input parameter. **External** mode only. The remote A2A agent's base URL or `/.well-known/agent-card.json` card URL. |
-| agent_card | Data display | Input parameter. **External** mode only. Read-only preview of the remote agent's advertised card. Appears when the URL returns a card. |
-| input_value | String | Input parameter. The message to send to the agent. Supports **Tool Mode**. |
-| api_key | Secret string | Input parameter. **External** mode only. Optional API key sent as `x-api-key` for agents that require it. |
-| timeout | Integer | Input parameter. **External** mode only. Maximum seconds to wait for the agent's reply. Default: `60`. |
-| response | Message | Output parameter. The agent's reply text. |
+| Name                | Type          | Description                                                                                                                                                 |
+| ------------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| mode                | Tab           | Input parameter. **Internal** calls another agent flow in this project. **External** calls a remote A2A agent by URL. Default: `External`.                  |
+| agent_name_selected | Dropdown      | Input parameter. **Internal** mode only. An agent flow in this project (one with [**Chat Input** and **Chat Output** components](./chat-input-and-output)). |
+| agent_url           | String        | Input parameter. **External** mode only. The remote A2A agent's base URL or `/.well-known/agent-card.json` card URL.                                        |
+| agent_card          | Data display  | Input parameter. **External** mode only. Read-only preview of the remote agent's advertised card. Appears when the URL returns a card.                      |
+| input_value         | String        | Input parameter. The message to send to the agent. Supports **Tool Mode**.                                                                                  |
+| api_key             | Secret string | Input parameter. **External** mode only. Optional API key sent as `x-api-key` for agents that require it.                                                   |
+| timeout             | Integer       | Input parameter. **External** mode only. Maximum seconds to wait for the agent's reply. Default: `60`.                                                      |
+| response            | Message       | Output parameter. The agent's reply text.                                                                                                                   |
 
 ## See also
 
-* [Use Primeagent as an A2A agent](./a2a-server)
-* [SSRF protection](./api-keys-and-authentication#ssrf-protection)
-* [Agent2Agent protocol](https://a2a-protocol.org/)
+- [Use Primeagent as an A2A agent](./a2a-server)
+- [SSRF protection](./api-keys-and-authentication#ssrf-protection)
+- [Agent2Agent protocol](https://a2a-protocol.org/)

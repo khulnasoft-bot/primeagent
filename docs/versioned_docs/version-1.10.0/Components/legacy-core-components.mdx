@@ -4,22 +4,22 @@ slug: /legacy-core-components
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialLegacy from '@site/docs/_partial-legacy.mdx';
+import PartialLegacy from "@site/docs/_partial-legacy.mdx";
 
 <PartialLegacy />
 
 ## Legacy Input / Output components
 
-* **Text Input**: Replaced by the [**Chat Input** component](/chat-input-and-output).
-* **Text Output**: Replaced by the [**Chat Output** component](/chat-input-and-output).
+- **Text Input**: Replaced by the [**Chat Input** component](/chat-input-and-output).
+- **Text Output**: Replaced by the [**Chat Output** component](/chat-input-and-output).
 
 ## Legacy Data components
 
 The following Data components are in legacy status:
 
-* **Directory**
-* **Load CSV**
-* **Load JSON**
+- **Directory**
+- **Load CSV**
+- **Load JSON**
 
 Replace these components with the [**Read File** component](/read-file), which supports loading CSV and JSON files, as well as many other file types.
 
@@ -27,25 +27,25 @@ Replace these components with the [**Read File** component](/read-file), which s
 
 The following Files and Knowledge components are in legacy status:
 
-* **Knowledge Base** (legacy): Replaced by the [**Knowledge Base** component](/knowledge-base) in **Retrieve** mode.
-* **Knowledge Ingestion**: Replaced by the [**Knowledge Base** component](/knowledge-base) in **Ingest** mode.
+- **Knowledge Base** (legacy): Replaced by the [**Knowledge Base** component](/knowledge-base) in **Retrieve** mode.
+- **Knowledge Ingestion**: Replaced by the [**Knowledge Base** component](/knowledge-base) in **Ingest** mode.
 
 ## Legacy Helper components
 
 The following Helper components are in legacy status:
 
-* **Message Store**: Replaced by the [**Message History** component](/message-history)
-* **Create List**: Replace with [Processing components](/concepts-components)
-* **ID Generator**: Replace with a component that executes arbitrary code to generate an ID or embed an ID generator script your application code (external to your Primeagent flows).
-* **Output Parser**: Replace with the [**Structured Output** component](/structured-output) and [**Parser** component](/parser).
-The components you need depend on the data types and complexity of the parsing task.
+- **Message Store**: Replaced by the [**Message History** component](/message-history)
+- **Create List**: Replace with [Processing components](/concepts-components)
+- **ID Generator**: Replace with a component that executes arbitrary code to generate an ID or embed an ID generator script your application code (external to your Primeagent flows).
+- **Output Parser**: Replace with the [**Structured Output** component](/structured-output) and [**Parser** component](/parser).
+  The components you need depend on the data types and complexity of the parsing task.
 
-    The **Output Parser** component transformed the output of a language model into comma-separated values (CSV) format, such as `["item1", "item2", "item3"]`, using LangChain's `CommaSeparatedListOutputParser`.
-    The **Structured Output** component is a good alternative for this component because it also formats LLM responses with support for custom schemas and more complex parsing.
+      The **Output Parser** component transformed the output of a language model into comma-separated values (CSV) format, such as `["item1", "item2", "item3"]`, using LangChain's `CommaSeparatedListOutputParser`.
+      The **Structured Output** component is a good alternative for this component because it also formats LLM responses with support for custom schemas and more complex parsing.
 
-    **Parsing** components only provide formatting instructions and parsing functionality.
-    _They don't include prompts._
-    You must connect parsers to **Prompt Template** components to create prompts that LLMs can use.
+      **Parsing** components only provide formatting instructions and parsing functionality.
+      _They don't include prompts._
+      You must connect parsers to **Prompt Template** components to create prompts that LLMs can use.
 
 ## Legacy Logic components
 
@@ -71,12 +71,12 @@ The following actions occur when processing a list of `JSON` objects:
 
 The **Condition** component accepts the following parameters:
 
-| Name          | Type     | Description                                 |
-|---------------|----------|---------------------------------------------|
-| data_input    | JSON | Input parameter. The Data object or list of Data objects to process. This input can handle both single items and lists. |
-| key_name      | String   | Input parameter. The name of the key in the Data object to check.     |
+| Name          | Type     | Description                                                                                                                                              |
+| ------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| data_input    | JSON     | Input parameter. The Data object or list of Data objects to process. This input can handle both single items and lists.                                  |
+| key_name      | String   | Input parameter. The name of the key in the Data object to check.                                                                                        |
 | operator      | Dropdown | Input parameter. The operator to apply. Options: `equals`, `not equals`, `contains`, `starts with`, `ends with`, `boolean validator`. Default: `equals`. |
-| compare_value | String   | Input parameter. The value to compare against. Not shown/used when operator is `boolean validator`. |
+| compare_value | String   | Input parameter. The value to compare against. Not shown/used when operator is `boolean validator`.                                                      |
 
 The `operator` options have the following behaviors:
 
@@ -101,11 +101,11 @@ The **Pass** component forwards the input message without modification.
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| input_message | Input Message | Input parameter. The message to forward. |
+| Name            | Display Name    | Info                                                                                    |
+| --------------- | --------------- | --------------------------------------------------------------------------------------- |
+| input_message   | Input Message   | Input parameter. The message to forward.                                                |
 | ignored_message | Ignored Message | Input parameter. A second message that is ignored. Used as a workaround for continuity. |
-| output_message | Output Message | Output parameter. The forwarded message from the input. |
+| output_message  | Output Message  | Output parameter. The forwarded message from the input.                                 |
 
 </details>
 
@@ -141,13 +141,13 @@ This component modifies metadata of input objects. It can add new metadata, upda
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| input_value | Input | Input parameter. Objects to which Metadata should be added. |
-| text_in | User Text | Input parameter. Text input; the value is contained in the 'text' attribute of the `JSON` object. Empty text entries are ignored. |
-| metadata | Metadata | Input parameter. Metadata to add to each object. |
-| remove_fields | Fields to Remove | Input parameter. Metadata fields to remove. |
-| data | JSON | Output parameter. List of Input objects, each with added metadata. |
+| Name          | Display Name     | Info                                                                                                                              |
+| ------------- | ---------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| input_value   | Input            | Input parameter. Objects to which Metadata should be added.                                                                       |
+| text_in       | User Text        | Input parameter. Text input; the value is contained in the 'text' attribute of the `JSON` object. Empty text entries are ignored. |
+| metadata      | Metadata         | Input parameter. Metadata to add to each object.                                                                                  |
+| remove_fields | Fields to Remove | Input parameter. Metadata fields to remove.                                                                                       |
+| data          | JSON             | Output parameter. List of Input objects, each with added metadata.                                                                |
 
 </details>
 
@@ -183,10 +183,10 @@ This component dynamically creates a `JSON` object with a specified number of fi
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| number_of_fields | Number of Fields | Input parameter. The number of fields to be added to the record. |
-| text_key | Text Key | Input parameter. Key that identifies the field to be used as the text content. |
+| Name               | Display Name       | Info                                                                                        |
+| ------------------ | ------------------ | ------------------------------------------------------------------------------------------- |
+| number_of_fields   | Number of Fields   | Input parameter. The number of fields to be added to the record.                            |
+| text_key           | Text Key           | Input parameter. Key that identifies the field to be used as the text content.              |
 | text_key_validator | Text Key Validator | Input parameter. If enabled, checks if the given `Text Key` is present in the given `JSON`. |
 
 </details>
@@ -230,13 +230,13 @@ The Filter values component filters a list of data items based on a specified ke
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| input_data | Input data | Input parameter. The list of data items to filter. |
-| filter_key | Filter Key | Input parameter. The key to filter on. |
-| filter_value | Filter Value | Input parameter. The value to filter by. |
-| operator | Comparison Operator | Input parameter. The operator to apply for comparing the values. |
-| filtered_data | Filtered data | Output parameter. The resulting list of filtered data items. |
+| Name          | Display Name        | Info                                                             |
+| ------------- | ------------------- | ---------------------------------------------------------------- |
+| input_data    | Input data          | Input parameter. The list of data items to filter.               |
+| filter_key    | Filter Key          | Input parameter. The key to filter on.                           |
+| filter_value  | Filter Value        | Input parameter. The value to filter by.                         |
+| operator      | Comparison Operator | Input parameter. The operator to apply for comparing the values. |
+| filtered_data | Filtered data       | Output parameter. The resulting list of filtered data items.     |
 
 </details>
 
@@ -249,13 +249,13 @@ This component cleans JSON strings to ensure they are fully compliant with the J
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| json_str | JSON String | Input parameter. The JSON string to be cleaned. This can be a raw, potentially malformed JSON string produced by language models or other sources that may not fully comply with JSON specifications. |
-| remove_control_chars | Remove Control Characters | Input parameter. If set to `True`, this option removes control characters (ASCII characters 0-31 and 127) from the JSON string. This can help eliminate invisible characters that might cause parsing issues or make the JSON invalid. |
-| normalize_unicode | Normalize Unicode | Input parameter. When enabled, this option normalizes Unicode characters in the JSON string to their canonical composition form (NFC). This ensures consistent representation of Unicode characters across different systems and prevents potential issues with character encoding. |
-| validate_json | Validate JSON | Input parameter. If set to `True`, this option attempts to parse the JSON string to ensure it is well-formed before applying the final repair operation. It raises a ValueError if the JSON is invalid, allowing for early detection of major structural issues in the JSON. |
-| output | Cleaned JSON String | Output parameter. The resulting cleaned, repaired, and validated JSON string that fully complies with the JSON specification. |
+| Name                 | Display Name              | Info                                                                                                                                                                                                                                                                                |
+| -------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| json_str             | JSON String               | Input parameter. The JSON string to be cleaned. This can be a raw, potentially malformed JSON string produced by language models or other sources that may not fully comply with JSON specifications.                                                                               |
+| remove_control_chars | Remove Control Characters | Input parameter. If set to `True`, this option removes control characters (ASCII characters 0-31 and 127) from the JSON string. This can help eliminate invisible characters that might cause parsing issues or make the JSON invalid.                                              |
+| normalize_unicode    | Normalize Unicode         | Input parameter. When enabled, this option normalizes Unicode characters in the JSON string to their canonical composition form (NFC). This ensures consistent representation of Unicode characters across different systems and prevents potential issues with character encoding. |
+| validate_json        | Validate JSON             | Input parameter. If set to `True`, this option attempts to parse the JSON string to ensure it is well-formed before applying the final repair operation. It raises a ValueError if the JSON is invalid, allowing for early detection of major structural issues in the JSON.        |
+| output               | Cleaned JSON String       | Output parameter. The resulting cleaned, repaired, and validated JSON string that fully complies with the JSON specification.                                                                                                                                                       |
 
 </details>
 
@@ -277,12 +277,12 @@ This component converts `Table` objects into plain text using templates.
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| df | Table | Input parameter. The DataFrame to convert to text rows. |
-| template | Template | Input parameter. Template for formatting (use `{column_name}` placeholders). |
-| sep | Separator | Input parameter. String to join rows in output. |
-| text | Text | Output parameter. All rows combined into single text. |
+| Name     | Display Name | Info                                                                         |
+| -------- | ------------ | ---------------------------------------------------------------------------- |
+| df       | Table        | Input parameter. The DataFrame to convert to text rows.                      |
+| template | Template     | Input parameter. Template for formatting (use `{column_name}` placeholders). |
+| sep      | Separator    | Input parameter. String to join rows in output.                              |
+| text     | Text         | Output parameter. All rows combined into single text.                        |
 
 </details>
 
@@ -313,10 +313,10 @@ This component selects a single `JSON` object from a list.
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| data_list | Data List | Input parameter. List of data to select from |
-| data_index | Data Index | Input parameter. Index of the data to select |
+| Name          | Display Name  | Info                                          |
+| ------------- | ------------- | --------------------------------------------- |
+| data_list     | Data List     | Input parameter. List of data to select from  |
+| data_index    | Data Index    | Input parameter. Index of the data to select  |
 | selected_data | Selected Data | Output parameter. The selected `JSON` object. |
 
 </details>
@@ -330,13 +330,13 @@ This component dynamically updates or appends data with specified fields.
 
 It accepts the following parameters:
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| old_data | JSON | Input parameter. The records to update. |
-| number_of_fields | Number of Fields | Input parameter. The number of fields to add. The maximum is 15. |
-| text_key | Text Key | Input parameter. The key for text content. |
-| text_key_validator | Text Key Validator | Input parameter. Validates the text key presence. |
-| data | JSON | Output parameter. The updated Data objects. |
+| Name               | Display Name       | Info                                                             |
+| ------------------ | ------------------ | ---------------------------------------------------------------- |
+| old_data           | JSON               | Input parameter. The records to update.                          |
+| number_of_fields   | Number of Fields   | Input parameter. The number of fields to add. The maximum is 15. |
+| text_key           | Text Key           | Input parameter. The key for text content.                       |
+| text_key_validator | Text Key Validator | Input parameter. Validates the text key presence.                |
+| data               | JSON               | Output parameter. The updated Data objects.                      |
 
 </details>
 
@@ -344,14 +344,13 @@ It accepts the following parameters:
 
 The following Tools components are in legacy status:
 
-* **Calculator Tool**: Replaced by the [**Calculator** component](/calculator).
-* **Python Code Structured** (`PythonCodeStructuredTool`): Removed. Use the [**Python Interpreter** component](/python-interpreter) instead.
-* **Python REPL**: Replaced by the [**Python Interpreter** component](/python-interpreter).
-* **Search API**: Replaced by the [**SearchApi** bundle](/bundles-searchapi).
-* **SearXNG Search**: No direct replacement. Use another provider's search component, create a custom component, or use a core component like the [**API Request** component](/api-request).
-* **Serp Search API**: Replace by the **SerpApi** bundle.
-* **Tavily Search API**: Replaced by the **Tavily** bundle.
-* **Wikidata API**: Replaced by the [**Wikipedia** bundle](/bundles-wikipedia).
-* **Wikipedia API**: Replaced by the [**Wikipedia** bundle](/bundles-wikipedia).
-* **Yahoo! Finance**: Replaced by the **Yahoo! Search** bundle.
-
+- **Calculator Tool**: Replaced by the [**Calculator** component](/calculator).
+- **Python Code Structured** (`PythonCodeStructuredTool`): Removed. Use the [**Python Interpreter** component](/python-interpreter) instead.
+- **Python REPL**: Replaced by the [**Python Interpreter** component](/python-interpreter).
+- **Search API**: Replaced by the [**SearchApi** bundle](/bundles-searchapi).
+- **SearXNG Search**: No direct replacement. Use another provider's search component, create a custom component, or use a core component like the [**API Request** component](/api-request).
+- **Serp Search API**: Replace by the **SerpApi** bundle.
+- **Tavily Search API**: Replaced by the **Tavily** bundle.
+- **Wikidata API**: Replaced by the [**Wikipedia** bundle](/bundles-wikipedia).
+- **Wikipedia API**: Replaced by the [**Wikipedia** bundle](/bundles-wikipedia).
+- **Yahoo! Finance**: Replaced by the **Yahoo! Search** bundle.

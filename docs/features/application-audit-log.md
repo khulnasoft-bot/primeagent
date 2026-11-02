@@ -5,7 +5,7 @@ Project: who attempted it, which resource, when, how it ended, and a bounded,
 safe description of what the operation wrote. An event describes an operation;
 it is never a copy of resource state.
 
-Contract: *IBM-Primeagent: Audit Log Data & API Contracts* (2026-09-11). The
+Contract: _IBM-Primeagent: Audit Log Data & API Contracts_ (2026-09-11). The
 Control Plane consumes Project events to build its Deployment audit feed; Flow
 events serve the Authoring Plane.
 
@@ -13,39 +13,39 @@ Off by default (`PRIMEAGENT_AUDIT_ENABLED=false`).
 
 ## Ubiquitous language
 
-| Term | Meaning |
-|---|---|
-| Event | One row in `audit_events`. Never updated; deleted only by retention. |
-| Event type | `action` (what the operation did). Authorization decisions remain in `authz_audit_log`. |
-| Result | `succeeded` or `failed`. |
-| Action | The permission checked, such as `project:write`. |
-| Operation | The mutation shape attempted: `create`, `replace`, `patch`, `delete`. |
-| Account | `user_id`: the Primeagent account the request executes under. |
-| Actor | `actor_type`/`actor_id`: the credential that authenticated the request. |
-| Acting identity | `acting_issuer`/`acting_subject`: the end user a trusted Control Plane acts for. |
-| Details | Resource-owned, versioned JSON validated before it is stored. |
+| Term            | Meaning                                                                                 |
+| --------------- | --------------------------------------------------------------------------------------- |
+| Event           | One row in `audit_events`. Never updated; deleted only by retention.                    |
+| Event type      | `action` (what the operation did). Authorization decisions remain in `authz_audit_log`. |
+| Result          | `succeeded` or `failed`.                                                                |
+| Action          | The permission checked, such as `project:write`.                                        |
+| Operation       | The mutation shape attempted: `create`, `replace`, `patch`, `delete`.                   |
+| Account         | `user_id`: the Primeagent account the request executes under.                           |
+| Actor           | `actor_type`/`actor_id`: the credential that authenticated the request.                 |
+| Acting identity | `acting_issuer`/`acting_subject`: the end user a trusted Control Plane acts for.        |
+| Details         | Resource-owned, versioned JSON validated before it is stored.                           |
 
 ## Table: `audit_events`
 
-| Column | Type | Notes |
-|---|---|---|
-| `id` | UUID PK | |
-| `resource_type` | VARCHAR(64) NOT NULL | `project` or `flow` |
-| `resource_id` | UUID NOT NULL | No foreign key; events outlive the resource |
-| `resource_name` | VARCHAR(255) NULL | Event-time name, bounded to 255 characters |
-| `user_id` | UUID NULL | No foreign key |
-| `actor_type` | VARCHAR(32) NOT NULL | `user`, `api_key`, `service`, `system`, `unknown` |
-| `actor_id` | UUID NULL | User id or API-key record id; no foreign key |
-| `acting_issuer` | VARCHAR(2048) NULL | Set together with `acting_subject` |
-| `acting_subject` | VARCHAR(512) NULL | Not assumed to be a UUID |
-| `action` | VARCHAR(128) NOT NULL | Application-validated |
-| `operation` | VARCHAR(64) NOT NULL | Application-validated |
-| `event_type` | VARCHAR(16) NOT NULL | |
-| `result` | VARCHAR(16) NOT NULL | |
-| `error_code` | VARCHAR(64) NULL | Required for `failed`, null otherwise |
-| `timestamp` | TIMESTAMPTZ NOT NULL | Database UTC when the event is staged |
-| `request_id` | UUID NOT NULL | Server-generated per HTTP request; indexed, not unique |
-| `details` | JSON NOT NULL | See [Details contract](#details-contract) |
+| Column           | Type                  | Notes                                                  |
+| ---------------- | --------------------- | ------------------------------------------------------ |
+| `id`             | UUID PK               |                                                        |
+| `resource_type`  | VARCHAR(64) NOT NULL  | `project` or `flow`                                    |
+| `resource_id`    | UUID NOT NULL         | No foreign key; events outlive the resource            |
+| `resource_name`  | VARCHAR(255) NULL     | Event-time name, bounded to 255 characters             |
+| `user_id`        | UUID NULL             | No foreign key                                         |
+| `actor_type`     | VARCHAR(32) NOT NULL  | `user`, `api_key`, `service`, `system`, `unknown`      |
+| `actor_id`       | UUID NULL             | User id or API-key record id; no foreign key           |
+| `acting_issuer`  | VARCHAR(2048) NULL    | Set together with `acting_subject`                     |
+| `acting_subject` | VARCHAR(512) NULL     | Not assumed to be a UUID                               |
+| `action`         | VARCHAR(128) NOT NULL | Application-validated                                  |
+| `operation`      | VARCHAR(64) NOT NULL  | Application-validated                                  |
+| `event_type`     | VARCHAR(16) NOT NULL  |                                                        |
+| `result`         | VARCHAR(16) NOT NULL  |                                                        |
+| `error_code`     | VARCHAR(64) NULL      | Required for `failed`, null otherwise                  |
+| `timestamp`      | TIMESTAMPTZ NOT NULL  | Database UTC when the event is staged                  |
+| `request_id`     | UUID NOT NULL         | Server-generated per HTTP request; indexed, not unique |
+| `details`        | JSON NOT NULL         | See [Details contract](#details-contract)              |
 
 Database checks cover only the closed vocabularies: the `event_type`/`result`
 pairing and the acting pair being both null or both set. Action, operation and
@@ -94,15 +94,15 @@ Error codes: `PERMISSION_DENIED`, `PROJECT_NOT_FOUND`, `PROJECT_NAME_CONFLICT`,
 
 ## Helpers (`primeagent.services.audit`)
 
-| Helper | Behavior |
-|---|---|
-| `resolve_audit_actor(user_id)` | Derives account and credential from the request's authentication context. A caller cannot supply them. |
-| `build_audit_event(draft)` | Validates a draft against the contract; raises `AuditContractError`. |
-| `stage_audit_event(session, draft)` | Writes a committed operation's event in the mutation's transaction, flushed right after the mutation's own write, so a refused event fails the request and rolls the mutation back before any response. No-op, without a flush, when disabled, when the action is excluded, or without a database. |
-| `record_audit_event_after_rollback(draft)` | Writes a failure in its own transaction, at most 4 concurrently. Waiting for a slot is bounded to 5 seconds and the write itself to another 5, so a failing request never inherits the queue's whole budget: a queue timeout is logged `outcome=not_persisted`, and a write timeout `outcome=unknown`, because the commit may already have landed. A storage failure is logged as an error and never raised into the already failing caller. No-op, without opening a connection, when disabled or when the action is excluded. |
-| `is_action_audited(action)` | False when `PRIMEAGENT_AUDIT_EXCLUDE_EVENTS` excludes the action. Both writers above check it, so no producer can bypass an exclusion. |
-| `list_audit_events(session, filters, limit, cursor, visibility)` | Filters (OR within a field, AND across), orders by `(timestamp DESC, id DESC)`, and carries an initial insertion cutoff through keyset pagination; cursor bound to its filters, no total. |
-| `purge_expired_audit_events(session, retention_days)` | Deletes by age only. |
+| Helper                                                           | Behavior                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `resolve_audit_actor(user_id)`                                   | Derives account and credential from the request's authentication context. A caller cannot supply them.                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `build_audit_event(draft)`                                       | Validates a draft against the contract; raises `AuditContractError`.                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `stage_audit_event(session, draft)`                              | Writes a committed operation's event in the mutation's transaction, flushed right after the mutation's own write, so a refused event fails the request and rolls the mutation back before any response. No-op, without a flush, when disabled, when the action is excluded, or without a database.                                                                                                                                                                                                                              |
+| `record_audit_event_after_rollback(draft)`                       | Writes a failure in its own transaction, at most 4 concurrently. Waiting for a slot is bounded to 5 seconds and the write itself to another 5, so a failing request never inherits the queue's whole budget: a queue timeout is logged `outcome=not_persisted`, and a write timeout `outcome=unknown`, because the commit may already have landed. A storage failure is logged as an error and never raised into the already failing caller. No-op, without opening a connection, when disabled or when the action is excluded. |
+| `is_action_audited(action)`                                      | False when `PRIMEAGENT_AUDIT_EXCLUDE_EVENTS` excludes the action. Both writers above check it, so no producer can bypass an exclusion.                                                                                                                                                                                                                                                                                                                                                                                          |
+| `list_audit_events(session, filters, limit, cursor, visibility)` | Filters (OR within a field, AND across), orders by `(timestamp DESC, id DESC)`, and carries an initial insertion cutoff through keyset pagination; cursor bound to its filters, no total.                                                                                                                                                                                                                                                                                                                                       |
+| `purge_expired_audit_events(session, retention_days)`            | Deletes by age only.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
 
 `AuditRequestContextMiddleware` gives every HTTP request its own
 `request_id` for reconciliation across request and authorization logs.
@@ -114,22 +114,22 @@ written where the mutation happens, right after its own write; failures are
 written by the decorator after rollback. Authorization decisions continue to
 be written only to `authz_audit_log`.
 
-| Route | resource / action / operation | Succeeded `details` |
-|---|---|---|
-| `POST /flows/` | flow / `flow:create` / `create` | `written_fields`, `project.after_id` |
-| `PATCH /flows/{id}` | flow / `flow:write` / `patch` | `written_fields`; `project` when moved |
-| `PUT /flows/{id}` existing | flow / `flow:write` / `replace` | `written_fields`; `project` when moved |
-| `PUT /flows/{id}` new id | flow / `flow:create` / `create` | as create |
-| `DELETE /flows/{id}` | flow / `flow:delete` / `delete` | `project.before_id` |
-| `POST /flows/batch/`, `POST /flows/upload/` | one flow event per Flow created or replaced | |
-| `DELETE /flows/` | one `flow:delete` per Flow | |
-| `POST /flows/{id}/versions/{v}/activate` | flow / `flow:write` / `patch` | `written_fields: ["data"]` |
-| `POST /projects/` | project / `project:create` / `create` | `description` when supplied; `flows` (added) |
-| `PATCH /projects/{id}` | project / `project:write` / `patch` | `description` only when written |
-| `PUT /projects/{id}` existing | project / `project:write` / `patch` | same as PATCH (the route has PATCH semantics) |
-| `PUT /projects/{id}` new id | project / `project:create` / `create` | as create |
-| `DELETE /projects/{id}` | project / `project:delete` / `delete` | `flows` (removed); plus one `flow:delete` per Flow removed |
-| `POST /projects/upload/` | project / `project:create` / `create` | `description`, `flows` (added); plus one `flow:create` per Flow |
+| Route                                       | resource / action / operation               | Succeeded `details`                                             |
+| ------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------- |
+| `POST /flows/`                              | flow / `flow:create` / `create`             | `written_fields`, `project.after_id`                            |
+| `PATCH /flows/{id}`                         | flow / `flow:write` / `patch`               | `written_fields`; `project` when moved                          |
+| `PUT /flows/{id}` existing                  | flow / `flow:write` / `replace`             | `written_fields`; `project` when moved                          |
+| `PUT /flows/{id}` new id                    | flow / `flow:create` / `create`             | as create                                                       |
+| `DELETE /flows/{id}`                        | flow / `flow:delete` / `delete`             | `project.before_id`                                             |
+| `POST /flows/batch/`, `POST /flows/upload/` | one flow event per Flow created or replaced |                                                                 |
+| `DELETE /flows/`                            | one `flow:delete` per Flow                  |                                                                 |
+| `POST /flows/{id}/versions/{v}/activate`    | flow / `flow:write` / `patch`               | `written_fields: ["data"]`                                      |
+| `POST /projects/`                           | project / `project:create` / `create`       | `description` when supplied; `flows` (added)                    |
+| `PATCH /projects/{id}`                      | project / `project:write` / `patch`         | `description` only when written                                 |
+| `PUT /projects/{id}` existing               | project / `project:write` / `patch`         | same as PATCH (the route has PATCH semantics)                   |
+| `PUT /projects/{id}` new id                 | project / `project:create` / `create`       | as create                                                       |
+| `DELETE /projects/{id}`                     | project / `project:delete` / `delete`       | `flows` (removed); plus one `flow:delete` per Flow removed      |
+| `POST /projects/upload/`                    | project / `project:create` / `create`       | `description`, `flows` (added); plus one `flow:create` per Flow |
 
 `replace` for Projects (atomic complete-content replacement) arrives with the
 atomic Project APIs; no existing route replaces a Project's contents.
@@ -172,13 +172,24 @@ parameter, an out-of-range limit, or a cursor used with different filters.
 {
   "items": [
     {
-      "id": "…", "timestamp": "2026-09-11T16:42:18.284123Z",
-      "project_id": "…", "project_name": "support-automation",
-      "action": "project:write", "operation": "patch",
-      "event_type": "action", "result": "succeeded", "error_code": null,
+      "id": "…",
+      "timestamp": "2026-09-11T16:42:18.284123Z",
+      "project_id": "…",
+      "project_name": "support-automation",
+      "action": "project:write",
+      "operation": "patch",
+      "event_type": "action",
+      "result": "succeeded",
+      "error_code": null,
       "request_id": "…",
-      "actor": {"type": "user", "id": "…", "user_id": "…", "acting_issuer": null, "acting_subject": null},
-      "details": {"schema_version": 1, "description": "…"}
+      "actor": {
+        "type": "user",
+        "id": "…",
+        "user_id": "…",
+        "acting_issuer": null,
+        "acting_subject": null
+      },
+      "details": { "schema_version": 1, "description": "…" }
     }
   ],
   "next_cursor": null
@@ -194,24 +205,24 @@ timestamp keeps microseconds so a client re-sorting a page agrees with the serve
 which a role can grant like any other `project:*` action. Resource ownership does
 not implicitly grant this permission when an authorization plugin is active.
 
-| Caller | Without `project_id` | With `project_id` |
-|---|---|---|
-| Plugin with cross-user fetch | global `project:audit_read` | `project:audit_read` on that Project |
-| No plugin, superuser | every Project event | that Project's events |
-| No plugin, other users | events on Projects they own, in the Project's current life, and events they made | the same, narrowed to that Project |
+| Caller                       | Without `project_id`                                                             | With `project_id`                    |
+| ---------------------------- | -------------------------------------------------------------------------------- | ------------------------------------ |
+| Plugin with cross-user fetch | global `project:audit_read`                                                      | `project:audit_read` on that Project |
+| No plugin, superuser         | every Project event                                                              | that Project's events                |
+| No plugin, other users       | events on Projects they own, in the Project's current life, and events they made | the same, narrowed to that Project   |
 
 **Ownership is of the id, and an id can be reused.** `PUT /projects/{id}` and
 `PUT /flows/{id}` create at an id the caller chooses, and deleting frees that id,
 so owning it today cannot grant everything that ever happened to it: otherwise
 re-creating a deleted resource would hand its previous owner's trail to whoever
 asked. Without a plugin, the owner floor is therefore scoped to the resource's
-**current life**, read from the events themselves, per id *and* resource type:
+**current life**, read from the events themselves, per id _and_ resource type:
 
-* the newest `create` is where the current life began, and belongs to it;
-* a newer `delete` means that create ended a life that is over — the current one
+- the newest `create` is where the current life began, and belongs to it;
+- a newer `delete` means that create ended a life that is over — the current one
   began after it with a create nobody recorded (auditing off, or `create`
-  excluded) — so the window opens *after* the delete;
-* with neither recorded, the id was never freed and the whole stored history
+  excluded) — so the window opens _after_ the delete;
+- with neither recorded, the id was never freed and the whole stored history
   belongs to the resource that is there now.
 
 That last case is ordinary rather than exotic: retention deletes by age, so a
@@ -224,18 +235,18 @@ A deleted resource's events stay readable by whoever acted on them. With a
 plugin, what survives the delete is the resource's own domain, and nothing the
 deleted row carried:
 
-* **A deleted Project.** `?project_id=X` resolves to `project:X` whether or not
+- **A deleted Project.** `?project_id=X` resolves to `project:X` whether or not
   the row still exists, and role assignments scoped to X outlive it. A grant
   scoped to the former Project therefore keeps reading its history. One scoped
   to the workspace that held it does not: the row that named the workspace is
   gone, so the check falls back to `*`.
-* **A deleted Flow.** A Flow is scoped by the Project that held it, which the
+- **A deleted Flow.** A Flow is scoped by the Project that held it, which the
   deleted row carried, so `?flow_id=X` falls back to `*`: only a global
   `flow:audit_read` reads it. And because that id can be re-created in a Project
   the caller chooses — which would make their own scoped grant apply — a read of
   one `flow_id` stays bounded to that id's current life whoever authorized it,
   plugin or not. Superusers are the exception; nothing scopes them.
-* **The unfiltered feed** names no id and so resolves to `*` either way — it
+- **The unfiltered feed** names no id and so resolves to `*` either way — it
   always needs a global `project:audit_read` or `flow:audit_read`, and it is
   where such a grant reads a previous life.
 
@@ -265,8 +276,8 @@ from `authz_audit_log`. The server merges the stores, so a client asks for one
 page and gets one page, whatever mix of stores and resource types it spans.
 
 **Query parameters**: `source`* (`resource`, `authz`), `kind`* (`action`,
-`check`), `resource_type`*, `resource_id`, `action`*, `exclude_action`*,
-`operation`*, `result`*, `actor_type`*, `user_id`, `actor_id`, `request_id`,
+`check`), `resource_type`_, `resource_id`, `action`_, `exclude_action`_,
+`operation`_, `result`_, `actor_type`_, `user_id`, `actor_id`, `request_id`,
 `since`, `until`, `q`, `cursor`, `offset` (0–1,000,000), `limit` (1–200,
 default 50), `include_total` (`true`/`false`, default `false`). Parsing is as strict as the resource views.
 
@@ -280,14 +291,14 @@ the export, and a cursor is bound to it.
 **Every filter holds in both stores.** Where a filter cannot match a store, that
 store is left out of the read rather than the filter being ignored:
 
-| Filter | `audit_events` | `authz_audit_log` |
-|---|---|---|
-| `kind=check` | `event_type = authz` | `details.event = authorization_decision` |
-| `kind=action` | `event_type = action` | any other `details.event`, including untagged history |
-| `operation` | `operation` | never matches: the store is skipped |
-| `result` | `allow`, `deny`, `succeeded`, `failed` | `allow`, `deny`, `owner_override`, `skip` |
-| `actor_type=unknown` | `actor_type = unknown` | also rows written before actor attribution (`NULL`) |
-| `request_id` | `request_id` | `details.request_id`, written from the same server-generated id |
+| Filter               | `audit_events`                         | `authz_audit_log`                                               |
+| -------------------- | -------------------------------------- | --------------------------------------------------------------- |
+| `kind=check`         | `event_type = authz`                   | `details.event = authorization_decision`                        |
+| `kind=action`        | `event_type = action`                  | any other `details.event`, including untagged history           |
+| `operation`          | `operation`                            | never matches: the store is skipped                             |
+| `result`             | `allow`, `deny`, `succeeded`, `failed` | `allow`, `deny`, `owner_override`, `skip`                       |
+| `actor_type=unknown` | `actor_type = unknown`                 | also rows written before actor attribution (`NULL`)             |
+| `request_id`         | `request_id`                           | `details.request_id`, written from the same server-generated id |
 
 **Paging.** Each store is read by `(timestamp DESC, id DESC)` from the cursor for
 `limit + 1` rows, and the server keeps the newest `limit` of the candidates. A
@@ -345,22 +356,22 @@ for this path.
 
 ## Settings
 
-| Variable | Default | Effect |
-|---|---|---|
-| `PRIMEAGENT_AUDIT_ENABLED` | `false` | Turns event production on. When on, production is always durable. |
-| `PRIMEAGENT_AUDIT_RETENTION_DAYS` | `90` | Startup sweep plus a scheduled sweep on the `AUTHZ_AUDIT_CLEANUP_INTERVAL` cadence; `0` keeps everything. |
-| `PRIMEAGENT_AUDIT_EXCLUDE_EVENTS` | empty | Comma-separated actions never recorded. See [Excluding actions](#excluding-actions). |
+| Variable                          | Default | Effect                                                                                                    |
+| --------------------------------- | ------- | --------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_AUDIT_ENABLED`        | `false` | Turns event production on. When on, production is always durable.                                         |
+| `PRIMEAGENT_AUDIT_RETENTION_DAYS` | `90`    | Startup sweep plus a scheduled sweep on the `AUTHZ_AUDIT_CLEANUP_INTERVAL` cadence; `0` keeps everything. |
+| `PRIMEAGENT_AUDIT_EXCLUDE_EVENTS` | empty   | Comma-separated actions never recorded. See [Excluding actions](#excluding-actions).                      |
 
 ### Excluding actions
 
 `PRIMEAGENT_AUDIT_EXCLUDE_EVENTS` names actions exactly as the `action` column
 stores them, so a value copied from an event works as an entry.
 
-| Entry | Excludes |
-|---|---|
-| `project:delete` | That one action |
-| `flow:*` | Every action on that resource |
-| `*:delete` | That action on every resource |
+| Entry            | Excludes                      |
+| ---------------- | ----------------------------- |
+| `project:delete` | That one action               |
+| `flow:*`         | Every action on that resource |
+| `*:delete`       | That action on every resource |
 
 ```bash
 PRIMEAGENT_AUDIT_EXCLUDE_EVENTS=flow:write,project:delete

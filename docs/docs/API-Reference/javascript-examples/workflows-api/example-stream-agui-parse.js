@@ -1,4 +1,8 @@
-const base = (process.env.PRIMEAGENT_URL ?? process.env.PRIMEAGENT_SERVER_URL ?? "").replace(/\/$/, "");
+const base = (
+  process.env.PRIMEAGENT_URL ??
+  process.env.PRIMEAGENT_SERVER_URL ??
+  ""
+).replace(/\/$/, "");
 const flowId = process.env.FLOW_ID ?? "67ccd2be-17f0-8190-81ff-3bb2cf6508e6";
 const apiKey = process.env.PRIMEAGENT_API_KEY ?? "";
 const sessionId = process.env.AGUI_SESSION_ID ?? "thread-123";
@@ -122,7 +126,8 @@ async function main() {
   console.log(`Assistant: ${reply1.trim()}`);
   console.log(`Extracted: ${quotient}`);
 
-  const prompt2 = process.env.AGUI_PROMPT2 ?? `Now multiply ${quotient} by ${multiplier}.`;
+  const prompt2 =
+    process.env.AGUI_PROMPT2 ?? `Now multiply ${quotient} by ${multiplier}.`;
   console.log(`\nUser: ${prompt2}`);
   const { text: reply2, toolResults: tools2 } = await ask(prompt2);
   const product = extractNumber(reply2, tools2);

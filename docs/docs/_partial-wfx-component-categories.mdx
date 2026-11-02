@@ -2,10 +2,10 @@
 
 WFX loads all component categories by default. Use environment variables to restrict which categories are available when loading flows.
 
-| Variable | Description |
-|---|---|
+| Variable                                  | Description                                                                                   |
+| ----------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `PRIMEAGENT_COMPONENT_CATEGORY_ALLOWLIST` | Comma-separated list of category names to **include**. If empty, all categories are included. |
-| `PRIMEAGENT_COMPONENT_CATEGORY_BLOCKLIST` | Comma-separated list of category names to **exclude**. Applied after the allowlist. |
+| `PRIMEAGENT_COMPONENT_CATEGORY_BLOCKLIST` | Comma-separated list of category names to **exclude**. Applied after the allowlist.           |
 
 Category names are case-insensitive. The virtual keyword `core` in the allowlist or blocklist expands to all core component categories.
 

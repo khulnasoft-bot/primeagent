@@ -4,20 +4,20 @@ slug: /components-custom-components
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import PartialBasicComponentStructure from '../_partial-basic-component-structure.mdx';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import PartialBasicComponentStructure from "../_partial-basic-component-structure.mdx";
 
 Create your own custom components to add any functionality you need to Primeagent, from API integrations to data processing.
 
 In Primeagent's node-based environment, each node is a "component" that performs discrete functions.
 Custom components in Primeagent are built upon:
 
-* The Python class that inherits from `Component`.
-* Class-level attributes that identify and describe the component.
-* [Input and output lists](#inputs-and-outputs) that determine data flow.
-* Methods that define the component's behavior and logic.
-* Internal variables for [Error handling and logging](#error-handling-and-logging)
+- The Python class that inherits from `Component`.
+- Class-level attributes that identify and describe the component.
+- [Input and output lists](#inputs-and-outputs) that determine data flow.
+- Methods that define the component's behavior and logic.
+- Internal variables for [Error handling and logging](#error-handling-and-logging)
 
 Use the [Custom component quickstart](#quickstart) to add an example component to Primeagent, and then use the reference guide that follows for more advanced component customization.
 
@@ -59,6 +59,7 @@ If you're creating custom components in a different location using the `PRIMEAGE
 ```
 
 You can have multiple category folders to organize components into different categories, with multiple components inside each folder:
+
 ```
 /app/custom_components/
     ├── data/
@@ -144,7 +145,7 @@ Ensure the application builds your component.
 1. To rebuild the backend and frontend, run `make install_frontend && make build_frontend && make install_backend && uv run primeagent run --port 7860`.
 
 2. Refresh the frontend application.
-Your new `DataFrameProcessor` component is available in the <Icon name="Component" aria-hidden="true" /> **Core components** menu under the **Data** category in the visual editor.
+   Your new `DataFrameProcessor` component is available in the <Icon name="Component" aria-hidden="true" /> **Core components** menu under the **Data** category in the visual editor.
 
 ### Docker deployment
 
@@ -172,55 +173,58 @@ Create the same custom components directory structure as the example in [Save th
 
 Primeagent's engine manages:
 
-1. **Instantiation**:  A component is created and internal structures are initialized.
+1. **Instantiation**: A component is created and internal structures are initialized.
 2. **Assigning Inputs**: Values from the visual editor or connections are assigned to component fields.
 3. **Validation and Setup**: Optional hooks like `_pre_run_setup`.
 4. **Outputs Generation**: `run()` or `build_results()` triggers output methods.
 
 You can customize execution by overriding these optional hooks in your custom component code.
 
-* **`_pre_run_setup()`** - Used during **Validation and Setup**.
-    Add this method inside your component class to initialize component state before execution begins:
-    ```python
-    class MyComponent(Component):
-        # ... your inputs, outputs, and other attributes ...
+- **`_pre_run_setup()`** - Used during **Validation and Setup**.
+  Add this method inside your component class to initialize component state before execution begins:
 
-        def _pre_run_setup(self):
-            if not hasattr(self, "_initialized"):
-                self._initialized = True
-                self.iteration = 0
-    ```
+  ```python
+  class MyComponent(Component):
+      # ... your inputs, outputs, and other attributes ...
 
-* **Override `run` or `_run`** - Used during **Outputs Generation**.
-    Add this method inside your component class to customize the main execution logic:
-    ```python
-    class MyComponent(Component):
+      def _pre_run_setup(self):
+          if not hasattr(self, "_initialized"):
+              self._initialized = True
+              self.iteration = 0
+  ```
 
-        async def_run(self):
-            # Custom execution logic here
-            # This runs instead of the default output method calls
-            pass
-    ```
+- **Override `run` or `_run`** - Used during **Outputs Generation**.
+  Add this method inside your component class to customize the main execution logic:
 
-* **Store data in `self.ctx`**.
-    Use `self.ctx` in any of your component methods to share data between method calls.
-    ```python
-    class MyComponent(Component):
+  ```python
+  class MyComponent(Component):
 
-        def _pre_run_setup(self):
-            # Initialize counter in setup
-            self.ctx["processed_items"] = 0
+      async def_run(self):
+          # Custom execution logic here
+          # This runs instead of the default output method calls
+          pass
+  ```
 
-        def process_data(self) -> Data:
-            # Increment counter during processing
-            self.ctx["processed_items"] += 1
-            return Data(data={"item": f"processed {self.ctx['processed_items']}"})
+- **Store data in `self.ctx`**.
+  Use `self.ctx` in any of your component methods to share data between method calls.
 
-        def get_summary(self) -> Data:
-            # Access counter in different method
-            total = self.ctx["processed_items"]
-            return Data(data={"summary": f"Processed {total} items total"})
-    ```
+  ```python
+  class MyComponent(Component):
+
+      def _pre_run_setup(self):
+          # Initialize counter in setup
+          self.ctx["processed_items"] = 0
+
+      def process_data(self) -> Data:
+          # Increment counter during processing
+          self.ctx["processed_items"] += 1
+          return Data(data={"item": f"processed {self.ctx['processed_items']}"})
+
+      def get_summary(self) -> Data:
+          # Access counter in different method
+          total = self.ctx["processed_items"]
+          return Data(data={"summary": f"Processed {total} items total"})
+  ```
 
 ## Inputs and outputs
 
@@ -293,10 +297,11 @@ The `build_df` method processes data and returns a `Table`. The `-> DataFrame` t
 For a complete list of all available parameters, see the [Output class definition](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/template/field/base.py) in the Primeagent codebase. Common parameters include:
 
 **Additional return types:**
-* **`Message`**: Structured chat messages
-* **`JSON`**: Flexible object with `.data` and optional `.text`
-* **`Table`**: Tabular data (pandas DataFrame subclass)
-* **Primitive types**: `str`, `int`, `bool`, not recommended for type consistency
+
+- **`Message`**: Structured chat messages
+- **`JSON`**: Flexible object with `.data` and optional `.text`
+- **`Table`**: Tabular data (pandas DataFrame subclass)
+- **Primitive types**: `str`, `int`, `bool`, not recommended for type consistency
 
 #### Associated methods
 
@@ -319,13 +324,13 @@ def read_file(self) -> Data:
     return Data(data={"content": content})
 ```
 
-
 #### Components with multiple outputs
 
 A component can define multiple outputs.
 Each output can have a different corresponding method.
 
 For example:
+
 ```python
 outputs = [
     Output(display_name="Processed Data", name="processed_data", method="process_data"),
@@ -340,11 +345,11 @@ This behavior is controlled by the `group_outputs` parameter:
 
 - **`group_outputs=False` (default)**: When a component has more than one output and `group_outputs` is `false` or not set, the outputs are grouped in the visual editor, and the user must select one.
 
-    Use this option when the component is expected to return only one type of output when used in a flow.
+  Use this option when the component is expected to return only one type of output when used in a flow.
 
 - **`group_outputs=True`**: All outputs are available simultaneously in the visual editor. The component has one output port for each output, and the user can connect zero or more outputs to other components.
 
-    Use this option when the component is expected to return multiple values that are used in parallel by downstream components or processes.
+  Use this option when the component is expected to return multiple values that are used in parallel by downstream components or processes.
 
 <Tabs>
 <TabItem value="false" label="False or not set" default>
@@ -464,7 +469,6 @@ def compute_sum(self) -> int:
 </TabItem>
 </Tabs>
 
-
 ## Enable dynamic fields
 
 In **Primeagent**, dynamic fields allow inputs to change or appear based on user interactions. You can make an input dynamic by setting `dynamic=True`. Optionally, setting `real_time_refresh=True` triggers the `update_build_config` method to adjust the input's visibility or properties in real time, creating a contextual visual editor experience that only exposes relevant fields based on the user's choices.
@@ -518,7 +522,8 @@ def update_build_config(self, build_config: dict, field_value: str, field_name: 
 
 You can modify additional field properties in `update_build_config` other than just `show` and `hide`.
 
-* **`required`**: Make fields required or optional dynamically
+- **`required`**: Make fields required or optional dynamically
+
   ```python
   if field_value == "regex":
       build_config["regex_pattern"]["required"] = True
@@ -526,7 +531,8 @@ You can modify additional field properties in `update_build_config` other than j
       build_config["regex_pattern"]["required"] = False
   ```
 
-* **`advanced`**: Move fields to the "Advanced" section
+- **`advanced`**: Move fields to the "Advanced" section
+
   ```python
   if field_value == "experimental":
       build_config["regex_pattern"]["advanced"] = False  # Show in main section
@@ -534,7 +540,7 @@ You can modify additional field properties in `update_build_config` other than j
       build_config["regex_pattern"]["advanced"] = True   # Hide in advanced
   ```
 
-* **`options`**: Change dropdown options based on other selections
+- **`options`**: Change dropdown options based on other selections
   ```python
   if field_value == "regex":
       build_config["operator"]["options"] = ["regex", "contains", "starts_with"]
@@ -585,7 +591,7 @@ if not self.user_input or len(self.user_input.strip()) == 0:
 
 You can log key execution details inside components using `self.log()`. These logs are stored as structured data and displayed in the "Logs" or "Events" section of the component's detail view, and can be accessed later through the **Logs** button in the visual editor or exported files.
 
-Component logs are distinct from Primeagent's main application logging system. `self.log()` creates component-specific logs that appear in the UI, while Primeagent's main logging system uses [structlog](https://www.structlog.org) for application-level logging  that outputs to `primeagent.log` files. For more information, see [Logs](/logging).
+Component logs are distinct from Primeagent's main application logging system. `self.log()` creates component-specific logs that appear in the UI, while Primeagent's main logging system uses [structlog](https://www.structlog.org) for application-level logging that outputs to `primeagent.log` files. For more information, see [Logs](/logging).
 
 This example logs a message when the component starts processing a file.
 

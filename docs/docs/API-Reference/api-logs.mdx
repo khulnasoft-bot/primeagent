@@ -2,19 +2,18 @@
 title: Logs endpoints
 slug: /api-logs
 ---
-import CodeBlock from '@theme/CodeBlock';
-import exampleApiLogsStreamLogs from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-logs/stream-logs.sh';
-import resultApiLogsResultStreamLogs from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-logs/result-stream-logs.txt';
-import exampleApiLogsRetrieveLogsWithOptionalParameters from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-logs/retrieve-logs-with-optional-parameters.sh';
-import resultApiLogsResultRetrieveLogsWithOptionalParameters from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-logs/result-retrieve-logs-with-optional-parameters.txt';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import examplePythonApiLogsStreamLogs from '!!raw-loader!@site/docs/API-Reference/python-examples/api-logs/stream-logs.py';
-import exampleJavascriptApiLogsStreamLogs from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-logs/stream-logs.js';
-import examplePythonApiLogsRetrieveLogsWithOptionalParameters from '!!raw-loader!@site/docs/API-Reference/python-examples/api-logs/retrieve-logs-with-optional-parameters.py';
-import exampleJavascriptApiLogsRetrieveLogsWithOptionalParameters from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-logs/retrieve-logs-with-optional-parameters.js';
 
-
+import CodeBlock from "@theme/CodeBlock";
+import exampleApiLogsStreamLogs from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-logs/stream-logs.sh";
+import resultApiLogsResultStreamLogs from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-logs/result-stream-logs.txt";
+import exampleApiLogsRetrieveLogsWithOptionalParameters from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-logs/retrieve-logs-with-optional-parameters.sh";
+import resultApiLogsResultRetrieveLogsWithOptionalParameters from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-logs/result-retrieve-logs-with-optional-parameters.txt";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import examplePythonApiLogsStreamLogs from "!!raw-loader!@site/docs/API-Reference/python-examples/api-logs/stream-logs.py";
+import exampleJavascriptApiLogsStreamLogs from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-logs/stream-logs.js";
+import examplePythonApiLogsRetrieveLogsWithOptionalParameters from "!!raw-loader!@site/docs/API-Reference/python-examples/api-logs/retrieve-logs-with-optional-parameters.py";
+import exampleJavascriptApiLogsRetrieveLogsWithOptionalParameters from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-logs/retrieve-logs-with-optional-parameters.js";
 
 Retrieve logs for your Primeagent flows and server.
 
@@ -44,7 +43,9 @@ Stream logs in real-time using Server Sent Events (SSE):
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiLogsStreamLogs}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiLogsStreamLogs}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -75,17 +76,23 @@ With default values, the endpoint returns the last 10 lines of logs.
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiLogsRetrieveLogsWithOptionalParameters}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiLogsRetrieveLogsWithOptionalParameters}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiLogsRetrieveLogsWithOptionalParameters}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiLogsRetrieveLogsWithOptionalParameters}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleApiLogsRetrieveLogsWithOptionalParameters}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleApiLogsRetrieveLogsWithOptionalParameters}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -93,6 +100,8 @@ With default values, the endpoint returns the last 10 lines of logs.
 <details>
 <summary>Result</summary>
 
-<CodeBlock language="text">{resultApiLogsResultRetrieveLogsWithOptionalParameters}</CodeBlock>
+<CodeBlock language="text">
+  {resultApiLogsResultRetrieveLogsWithOptionalParameters}
+</CodeBlock>
 
 </details>

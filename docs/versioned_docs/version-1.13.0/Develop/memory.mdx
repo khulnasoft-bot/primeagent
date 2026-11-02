@@ -14,26 +14,26 @@ Primeagent's default storage option is a [SQLite](https://www.sqlite.org/) datab
 The default storage path depends on your operating system and installation method:
 
 - **Primeagent Desktop**:
-    - **macOS**: `/Users/<username>/.primeagent/data/database.db`
-    - **Windows**: `C:\Users\<name>\AppData\Roaming\com.PrimeagentDesktop\data\database.db`
+  - **macOS**: `/Users/<username>/.primeagent/data/database.db`
+  - **Windows**: `C:\Users\<name>\AppData\Roaming\com.PrimeagentDesktop\data\database.db`
 - **Primeagent OSS**
-    - **macOS/Windows/Linux/WSL with `uv pip install`**: `<path_to_venv>/lib/python3.12/site-packages/primeagent/primeagent.db` (Python version can vary. Database isn't shared between virtual environments because it is tied to the venv path.)
-    - **macOS/Windows/Linux/WSL with `git clone`**: `<path_to_clone>/src/backend/base/primeagent/primeagent.db`
+  - **macOS/Windows/Linux/WSL with `uv pip install`**: `<path_to_venv>/lib/python3.12/site-packages/primeagent/primeagent.db` (Python version can vary. Database isn't shared between virtual environments because it is tied to the venv path.)
+  - **macOS/Windows/Linux/WSL with `git clone`**: `<path_to_clone>/src/backend/base/primeagent/primeagent.db`
 
 Primeagent offers a few alternatives to the default database path:
 
-* **Config directory**: Set `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=True` to store the database in your Primeagent config directory as set in [`PRIMEAGENT_CONFIG_DIR`](/logging).
+- **Config directory**: Set `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=True` to store the database in your Primeagent config directory as set in [`PRIMEAGENT_CONFIG_DIR`](/logging).
 
-* **External PostgreSQL database**: You can use an external PostgreSQL database for all of your Primeagent storage.
-For more information, see [Configure external memory](#configure-external-memory)
+- **External PostgreSQL database**: You can use an external PostgreSQL database for all of your Primeagent storage.
+  For more information, see [Configure external memory](#configure-external-memory)
 
-    External storage can be useful if you want to preserve the data after uninstalling Primeagent or to share the same database between multiple virtual environments.
+      External storage can be useful if you want to preserve the data after uninstalling Primeagent or to share the same database between multiple virtual environments.
 
-* **Separate chat memory**: You can selectively use external storage for chat memory only, separate from other Primeagent storage.
-For more information, see [Store chat memory](#store-chat-memory).
+- **Separate chat memory**: You can selectively use external storage for chat memory only, separate from other Primeagent storage.
+  For more information, see [Store chat memory](#store-chat-memory).
 
-* **No database**: To disable all database operations and run a no-op session, set `PRIMEAGENT_USE_NOOP_DATABASE=True` in your [Primeagent environment variables](/environment-variables).
-This is useful for testing when you don't want to persist any data.
+- **No database**: To disable all database operations and run a no-op session, set `PRIMEAGENT_USE_NOOP_DATABASE=True` in your [Primeagent environment variables](/environment-variables).
+  This is useful for testing when you don't want to persist any data.
 
 ## Primeagent database tables
 
@@ -111,29 +111,29 @@ PRIMEAGENT_DATABASE_URL=postgresql://user:password@localhost:5432/primeagent
 
 To fine-tune your database connection pool and timeout settings, you can set the following additional environment variables:
 
-* `PRIMEAGENT_DATABASE_CONNECTION_RETRY`: Whether to retry lost connections to your Primeagent database. If `true`, Primeagent tries to connect to the database again if the connection fails. Default: `false`.
+- `PRIMEAGENT_DATABASE_CONNECTION_RETRY`: Whether to retry lost connections to your Primeagent database. If `true`, Primeagent tries to connect to the database again if the connection fails. Default: `false`.
 
-* `PRIMEAGENT_DB_CONNECT_TIMEOUT`: The number of seconds to wait before giving up on a lock to be released or establishing a connection to the database. This may be separate from the `pool_timeout` in `PRIMEAGENT_DB_CONNECTION_SETTINGS`. Default: 30.
+- `PRIMEAGENT_DB_CONNECT_TIMEOUT`: The number of seconds to wait before giving up on a lock to be released or establishing a connection to the database. This may be separate from the `pool_timeout` in `PRIMEAGENT_DB_CONNECTION_SETTINGS`. Default: 30.
 
-* `PRIMEAGENT_DB_CONNECTION_SETTINGS`: A JSON dictionary containing the following database connection pool settings:
+- `PRIMEAGENT_DB_CONNECTION_SETTINGS`: A JSON dictionary containing the following database connection pool settings:
 
-    - `pool_size`: The base number of connections to keep open in the connection pool. Default: 20.
-    - `max_overflow`: Maximum number of connections that can be created in excess of `pool_size` if needed. Default: 30.
-    - `pool_timeout`: Number of seconds to wait for a connection from the pool before timing out. Default: 30.
-    - `pool_pre_ping`: If `true`, the pool tests connections for liveness upon each checkout. Default: `true`.
-    - `pool_recycle`: Number of seconds after which a connection is automatically recycled. Default: 1800 (30 minutes).
-    - `echo`: If `true`, SQL queries are logged for debugging purposes. Default: `false`.
+  - `pool_size`: The base number of connections to keep open in the connection pool. Default: 20.
+  - `max_overflow`: Maximum number of connections that can be created in excess of `pool_size` if needed. Default: 30.
+  - `pool_timeout`: Number of seconds to wait for a connection from the pool before timing out. Default: 30.
+  - `pool_pre_ping`: If `true`, the pool tests connections for liveness upon each checkout. Default: `true`.
+  - `pool_recycle`: Number of seconds after which a connection is automatically recycled. Default: 1800 (30 minutes).
+  - `echo`: If `true`, SQL queries are logged for debugging purposes. Default: `false`.
 
-    For example:
+  For example:
 
-    ```text
-    PRIMEAGENT_DB_CONNECTION_SETTINGS='{"pool_size": 20, "max_overflow": 30, "pool_timeout": 30, "pool_pre_ping": true, "pool_recycle": 1800, "echo": false}'
-    ```
+  ```text
+  PRIMEAGENT_DB_CONNECTION_SETTINGS='{"pool_size": 20, "max_overflow": 30, "pool_timeout": 30, "pool_pre_ping": true, "pool_recycle": 1800, "echo": false}'
+  ```
 
-    Don't use the deprecated environment variables `PRIMEAGENT_DB_POOL_SIZE` or `PRIMEAGENT_DB_MAX_OVERFLOW`.
-    Instead, use `pool_size` and `max_overflow` in `PRIMEAGENT_DB_CONNECTION_SETTINGS`.
+  Don't use the deprecated environment variables `PRIMEAGENT_DB_POOL_SIZE` or `PRIMEAGENT_DB_MAX_OVERFLOW`.
+  Instead, use `pool_size` and `max_overflow` in `PRIMEAGENT_DB_CONNECTION_SETTINGS`.
 
-* `PRIMEAGENT_MIGRATION_LOCK_NAMESPACE`: Optional namespace for PostgreSQL advisory locks used during database migrations. If unset, Alembic uses the static lock key `11223344`, which coordinates every Primeagent instance on the same PostgreSQL server. If set, Alembic hashes the namespace to derive the lock key. Set this variable to isolate different Primeagent deployments that share one PostgreSQL server, and use the same value on every instance in that deployment. This setting only applies when using PostgreSQL as your database backend.
+- `PRIMEAGENT_MIGRATION_LOCK_NAMESPACE`: Optional namespace for PostgreSQL advisory locks used during database migrations. If unset, Alembic uses the static lock key `11223344`, which coordinates every Primeagent instance on the same PostgreSQL server. If set, Alembic hashes the namespace to derive the lock key. Set this variable to isolate different Primeagent deployments that share one PostgreSQL server, and use the same value on every instance in that deployment. This setting only applies when using PostgreSQL as your database backend.
 
 ## Configure cache memory
 
@@ -148,16 +148,16 @@ Primeagent officially supports only the default asynchronous, in-memory cache, w
 Other cache options, such as Redis, are experimental and can change without notice.
 If you want to use a non-default cache setting, you can use the following environment variables:
 
-| Variable | Type | Default | Description |
-|----------|------|---------|-------------|
-| `PRIMEAGENT_CACHE_TYPE` | String | `async` | Set the cache type for Primeagent's internal caching system. Possible values: `async`, `redis`, `memory`. If you set the type to `redis`, then you must also set the `PRIMEAGENT_REDIS_*` environment variables. The `disk` backend was removed in 1.10 — switch to `async` for in-memory or `redis` for cross-worker. |
-| `PRIMEAGENT_LANGCHAIN_CACHE` | String | `InMemoryCache` | Set the cache storage type for the LangChain caching system (a Primeagent dependency), either `InMemoryCache` or `SQLiteCache`. |
-| `PRIMEAGENT_REDIS_HOST` | String | `localhost` | Redis server hostname if `PRIMEAGENT_CACHE_TYPE=redis`. |
-| `PRIMEAGENT_REDIS_PORT` | Integer | `6379` | Redis server port if `PRIMEAGENT_CACHE_TYPE=redis`. |
-| `PRIMEAGENT_REDIS_DB` | Integer | `0` | Redis database number if `PRIMEAGENT_CACHE_TYPE=redis`. |
-| `PRIMEAGENT_REDIS_CACHE_EXPIRE` | Integer | `3600` | Cache expiration time in seconds if `PRIMEAGENT_CACHE_TYPE=redis`. |
-| `PRIMEAGENT_REDIS_PASSWORD` | String | Not set | Optional password for Redis authentication if `PRIMEAGENT_CACHE_TYPE=redis`. |
-| `PRIMEAGENT_CACHE_SIGNING_KEY` | String | Not set | Shared secret used to sign Redis cache payloads. Set the **same value on every replica** that shares a Redis instance. When unset, each deployment derives a key from its own config directory, so separate replicas sign with different keys and cannot verify each other's entries — valid entries are then discarded as misses and the cache never hits across replicas. Workers of a single deployment share a config directory and agree on a key without this. |
+| Variable                        | Type    | Default         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ------------------------------- | ------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_CACHE_TYPE`         | String  | `async`         | Set the cache type for Primeagent's internal caching system. Possible values: `async`, `redis`, `memory`. If you set the type to `redis`, then you must also set the `PRIMEAGENT_REDIS_*` environment variables. The `disk` backend was removed in 1.10 — switch to `async` for in-memory or `redis` for cross-worker.                                                                                                                                               |
+| `PRIMEAGENT_LANGCHAIN_CACHE`    | String  | `InMemoryCache` | Set the cache storage type for the LangChain caching system (a Primeagent dependency), either `InMemoryCache` or `SQLiteCache`.                                                                                                                                                                                                                                                                                                                                      |
+| `PRIMEAGENT_REDIS_HOST`         | String  | `localhost`     | Redis server hostname if `PRIMEAGENT_CACHE_TYPE=redis`.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `PRIMEAGENT_REDIS_PORT`         | Integer | `6379`          | Redis server port if `PRIMEAGENT_CACHE_TYPE=redis`.                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `PRIMEAGENT_REDIS_DB`           | Integer | `0`             | Redis database number if `PRIMEAGENT_CACHE_TYPE=redis`.                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `PRIMEAGENT_REDIS_CACHE_EXPIRE` | Integer | `3600`          | Cache expiration time in seconds if `PRIMEAGENT_CACHE_TYPE=redis`.                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `PRIMEAGENT_REDIS_PASSWORD`     | String  | Not set         | Optional password for Redis authentication if `PRIMEAGENT_CACHE_TYPE=redis`.                                                                                                                                                                                                                                                                                                                                                                                         |
+| `PRIMEAGENT_CACHE_SIGNING_KEY`  | String  | Not set         | Shared secret used to sign Redis cache payloads. Set the **same value on every replica** that shares a Redis instance. When unset, each deployment derives a key from its own config directory, so separate replicas sign with different keys and cannot verify each other's entries — valid entries are then discarded as misses and the cache never hits across replicas. Workers of a single deployment share a config directory and agree on a key without this. |
 
 :::warning
 If you run more than one Primeagent replica against one Redis instance, set `PRIMEAGENT_CACHE_SIGNING_KEY` to the same value on all of them.
@@ -202,31 +202,31 @@ For example, if you use user IDs as session IDs, then each user's chat history i
 
 Where and how chat memory is stored depends on the components used in your flow:
 
-* **Agent component**: This component has built-in chat memory that is enabled by default.
-This memory allows the agent to retrieve and reference messages from previous conversations associated with the same session ID.
-All messages are stored in [Primeagent storage](#storage-options-and-paths), and the component provides minimal memory configuration options, such as the number of messages to retrieve.
+- **Agent component**: This component has built-in chat memory that is enabled by default.
+  This memory allows the agent to retrieve and reference messages from previous conversations associated with the same session ID.
+  All messages are stored in [Primeagent storage](#storage-options-and-paths), and the component provides minimal memory configuration options, such as the number of messages to retrieve.
 
-    The **Agent** component's built-in chat memory is sufficient for most use cases.
+      The **Agent** component's built-in chat memory is sufficient for most use cases.
 
-    If you want to use external chat memory storage, retrieve memories outside the context of a chat, or use chat memory with a language model component (not an agent), you must use the **Message History** component (with or without a third-party chat memory component).
+      If you want to use external chat memory storage, retrieve memories outside the context of a chat, or use chat memory with a language model component (not an agent), you must use the **Message History** component (with or without a third-party chat memory component).
 
-* **Message History component**: By default, this component stores and retrieves memories from Primeagent storage, unless you attach a third-party chat memory component. It provides a few more options for sorting and filtering memories, although most of these options are also built-in to the **Agent** component as configurable or fixed parameters.
+- **Message History component**: By default, this component stores and retrieves memories from Primeagent storage, unless you attach a third-party chat memory component. It provides a few more options for sorting and filtering memories, although most of these options are also built-in to the **Agent** component as configurable or fixed parameters.
 
-    You can use the **Message History** component with or without a language model or agent.
-    For example, if you need to retrieve data from memories outside of chat, you can use the **Message History** component to fetch that data directly from your chat memory database without feeding it into a chat.
+  You can use the **Message History** component with or without a language model or agent.
+  For example, if you need to retrieve data from memories outside of chat, you can use the **Message History** component to fetch that data directly from your chat memory database without feeding it into a chat.
 
-* **Third-party chat memory components**: Use one of these components only if you need to store or retrieve chat memories from a dedicated external chat memory database.
-Typically, this is necessary only if you have specific storage needs that aren't met by Primeagent storage.
-For example, if you want to manage chat memory data by directly working with the database, or if you want to use a different database than the default Primeagent storage.
+- **Third-party chat memory components**: Use one of these components only if you need to store or retrieve chat memories from a dedicated external chat memory database.
+  Typically, this is necessary only if you have specific storage needs that aren't met by Primeagent storage.
+  For example, if you want to manage chat memory data by directly working with the database, or if you want to use a different database than the default Primeagent storage.
 
 For more information and examples, see [**Message History** component](/message-history) and [Agent memory](/agents#agent-memory).
 
 ## See also
 
-* [Manage memory bases](/memory-bases)
-* [Configure vector database providers](/knowledge#configure-vector-database-providers)
-* [Database migrations](./database-migrations)
-* [Configure an external PostgreSQL database](/configuration-custom-database)
-* [Primeagent file management](/concepts-file-management)
-* [Primeagent logs](/logging)
-* [Primeagent environment variables](/environment-variables)
+- [Manage memory bases](/memory-bases)
+- [Configure vector database providers](/knowledge#configure-vector-database-providers)
+- [Database migrations](./database-migrations)
+- [Configure an external PostgreSQL database](/configuration-custom-database)
+- [Primeagent file management](/concepts-file-management)
+- [Primeagent logs](/logging)
+- [Primeagent environment variables](/environment-variables)

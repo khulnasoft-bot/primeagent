@@ -142,7 +142,9 @@
   min-width: 12px !important;
   min-height: 12px !important;
   opacity: 0.65;
-  transition: transform 0.2s ease, opacity 0.15s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.15s ease;
 }
 
 .menu__link--sublist-caret:hover::after,
@@ -242,7 +244,9 @@ html[data-theme="light"] .sidebar-group-label {
   gap: 0.5rem;
 }
 
-.sidebar-category-with-icon > .menu__list-item-collapsible > .menu__link::before {
+.sidebar-category-with-icon
+  > .menu__list-item-collapsible
+  > .menu__link::before {
   content: "";
   width: 18px;
   height: 18px;
@@ -258,11 +262,15 @@ html[data-theme="light"] .sidebar-group-label {
   -webkit-mask-position: center;
   mask-position: center;
   opacity: 0.45;
-  transition: background-color 0.25s ease, opacity 0.25s ease;
+  transition:
+    background-color 0.25s ease,
+    opacity 0.25s ease;
 }
 
 /* Active section: icon turns primary pink */
-.sidebar-category-with-icon > .menu__list-item-collapsible > .menu__link--active::before {
+.sidebar-category-with-icon
+  > .menu__list-item-collapsible
+  > .menu__link--active::before {
   background-color: var(--ifm-color-primary) !important;
   opacity: 0.9;
 }
@@ -339,7 +347,7 @@ html[data-theme="light"] .sidebar-group-label {
   margin-left: 0.5rem;
   margin-right: 0.75rem;
   margin-top: auto;
-  padding-top: 1rem;   /* transparent gap above the card */
+  padding-top: 1rem; /* transparent gap above the card */
   padding-left: 0;
   padding-right: 0;
   padding-bottom: 1rem;
@@ -431,7 +439,9 @@ html[data-theme="light"] .sidebar-group-label {
   color: #4b4b55;
 }
 
-[data-theme="dark"] .sidebar-ad-text-container > .sidebar-ad-text:first-of-type {
+[data-theme="dark"]
+  .sidebar-ad-text-container
+  > .sidebar-ad-text:first-of-type {
   color: #bdbdc7;
 }
 
@@ -461,7 +471,10 @@ html[data-theme="light"] .menu__link--active:not(.menu__link--sublist) {
   font-size: 0.8125rem; /* 13px - same as items */
 }
 
-[data-theme="dark"] .theme-doc-sidebar-item-category > .menu__list-item-collapsible > .menu__link {
+[data-theme="dark"]
+  .theme-doc-sidebar-item-category
+  > .menu__list-item-collapsible
+  > .menu__link {
   color: #c0c0ca; /* Category headers: clearly brighter than items */
 }
 

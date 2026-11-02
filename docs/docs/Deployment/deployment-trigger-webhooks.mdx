@@ -24,34 +24,34 @@ Use an **Inbound Webhook** trigger for a system that is not Slack, Microsoft, or
 2. Enable the trigger.
 3. Mint its address and secret. The secret is shown once. If you lose it, mint a new one. The address stays the same, and the old secret stops working immediately.
 
-    ```bash
-    curl -X POST "$PRIMEAGENT_URL/api/v1/triggers/$TRIGGER_ID/signing-secret" \
-      -H "x-api-key: $PRIMEAGENT_API_KEY"
-    ```
+   ```bash
+   curl -X POST "$PRIMEAGENT_URL/api/v1/triggers/$TRIGGER_ID/signing-secret" \
+     -H "x-api-key: $PRIMEAGENT_API_KEY"
+   ```
 
 4. Sign each request. The signature covers `v1`, the timestamp, and the raw body:
 
-    ```python
-    import hashlib, hmac, json, time, requests
+   ```python
+   import hashlib, hmac, json, time, requests
 
-    secret = "<signing_secret>"
-    ingress_url = "<ingress_url>"
+   secret = "<signing_secret>"
+   ingress_url = "<ingress_url>"
 
-    body = json.dumps({"order": 42}).encode()
-    timestamp = str(int(time.time()))
-    basestring = f"v1:{timestamp}:".encode() + body
-    signature = "v1=" + hmac.new(secret.encode(), basestring, hashlib.sha256).hexdigest()
+   body = json.dumps({"order": 42}).encode()
+   timestamp = str(int(time.time()))
+   basestring = f"v1:{timestamp}:".encode() + body
+   signature = "v1=" + hmac.new(secret.encode(), basestring, hashlib.sha256).hexdigest()
 
-    requests.post(
-        ingress_url,
-        data=body,
-        headers={
-            "Content-Type": "application/json",
-            "X-Primeagent-Signature": signature,
-            "X-Primeagent-Timestamp": timestamp,
-        },
-    )
-    ```
+   requests.post(
+       ingress_url,
+       data=body,
+       headers={
+           "Content-Type": "application/json",
+           "X-Primeagent-Signature": signature,
+           "X-Primeagent-Timestamp": timestamp,
+       },
+   )
+   ```
 
 5. Treat `202` as accepted. The flow runs after that. `404` means the delivery was not accepted.
 
@@ -102,8 +102,8 @@ Two triggers are armed on the same source. One trigger does not run twice for on
 
 ## Reference
 
-| Variable | Default | Description |
-|---|---|---|
-| `PRIMEAGENT_TRIGGER_INGRESS_ENABLED` | `true` | Set to `false` to refuse every inbound delivery. Those requests return `404`. |
-| `PRIMEAGENT_TRIGGER_INGRESS_MAX_BODY_BYTES` | `1048576` | Largest request body Primeagent accepts on these routes. |
-| `PRIMEAGENT_TRIGGER_INGRESS_SIGNATURE_TOLERANCE_S` | `300` | How old a signed timestamp may be, in seconds. |
+| Variable                                           | Default   | Description                                                                   |
+| -------------------------------------------------- | --------- | ----------------------------------------------------------------------------- |
+| `PRIMEAGENT_TRIGGER_INGRESS_ENABLED`               | `true`    | Set to `false` to refuse every inbound delivery. Those requests return `404`. |
+| `PRIMEAGENT_TRIGGER_INGRESS_MAX_BODY_BYTES`        | `1048576` | Largest request body Primeagent accepts on these routes.                      |
+| `PRIMEAGENT_TRIGGER_INGRESS_SIGNATURE_TOLERANCE_S` | `300`     | How old a signed timestamp may be, in seconds.                                |

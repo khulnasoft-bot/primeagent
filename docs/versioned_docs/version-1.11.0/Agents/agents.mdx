@@ -4,9 +4,9 @@ slug: /agents
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import PartialAgentsWork from '@site/docs/_partial-agents-work.mdx';
-import PartialGlobalModelProviders from '@site/docs/_partial-global-model-providers.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import PartialAgentsWork from "@site/docs/_partial-agents-work.mdx";
+import PartialGlobalModelProviders from "@site/docs/_partial-global-model-providers.mdx";
 
 Primeagent's [**Agent** component](/components-agents) is critical for building agent flows.
 This component provides everything you need to create an agent, including multiple Large Language Model (LLM) providers, tool calling, and custom instructions.
@@ -23,50 +23,50 @@ For a prebuilt example, use the **Simple Agent** template or the [Primeagent qui
 2. Add an **Agent** component to your flow.
 3. <PartialGlobalModelProviders />
 4. Select the model that you want to use from the **Language Model** dropdown.
-If your preferred model isn't listed, make sure it's enabled in the **Models** configuration.
-For more information, see [Agent component parameters](#agent-component-parameters).
+   If your preferred model isn't listed, make sure it's enabled in the **Models** configuration.
+   For more information, see [Agent component parameters](#agent-component-parameters).
 5. Add [**Chat Input** and **Chat Output** components](/chat-input-and-output) to your flow, and then connect them to the **Agent** component.
 
-    At this point, you have created a basic LLM-based chat flow that you can test in the <Icon name="Play" aria-hidden="true"/> **Playground**.
-    However, this flow only chats with the LLM.
-    To enhance this flow and make it truly agentic, add some tools, as explained in the next steps.
+   At this point, you have created a basic LLM-based chat flow that you can test in the <Icon name="Play" aria-hidden="true"/> **Playground**.
+   However, this flow only chats with the LLM.
+   To enhance this flow and make it truly agentic, add some tools, as explained in the next steps.
 
-    ![A basic agent chat flow with Chat Input, Agent, and Chat Output components.](/img/agent-example-add-chat.png)
+   ![A basic agent chat flow with Chat Input, Agent, and Chat Output components.](/img/agent-example-add-chat.png)
 
 6. Add **Web Search**, **URL**, and **Calculator** components to your flow.
 7. Enable **Tool Mode** in the **Web Search**, **URL**, and **Calculator** components:
 
-    1. Click the **Web Search** component to expose the [component's header menu](/concepts-components#component-menus), and then enable **Tool Mode**.
-    2. Repeat for the **URL** and **Calculator** components.
-    3. Connect the **Toolset** port for each tool component to the **Tools** port on the **Agent** component.
+   1. Click the **Web Search** component to expose the [component's header menu](/concepts-components#component-menus), and then enable **Tool Mode**.
+   2. Repeat for the **URL** and **Calculator** components.
+   3. Connect the **Toolset** port for each tool component to the **Tools** port on the **Agent** component.
 
-    **Tool Mode** makes a component into a tool by modifying the component's inputs.
-    With **Tool Mode** enabled, a component can accept requests from an **Agent** component to use the component's available actions as tools.
+   **Tool Mode** makes a component into a tool by modifying the component's inputs.
+   With **Tool Mode** enabled, a component can accept requests from an **Agent** component to use the component's available actions as tools.
 
-    When in **Tool Mode**, a component has a **Toolset** port that you must connect to an **Agent** component's **Tools** port if you want to allow the agent to use that component's actions as tools.
+   When in **Tool Mode**, a component has a **Toolset** port that you must connect to an **Agent** component's **Tools** port if you want to allow the agent to use that component's actions as tools.
 
-    For more information, see [Configure tools for agents](/agents-tools).
+   For more information, see [Configure tools for agents](/agents-tools).
 
-    ![A more complex agent chat flow where three components are connected to the Agent component as tools](/img/agent-example-add-tools.png)
+   ![A more complex agent chat flow where three components are connected to the Agent component as tools](/img/agent-example-add-tools.png)
 
 8. Open the <Icon name="Play" aria-hidden="true"/> **Playground**, and then ask the agent, `What tools are you using to answer my questions?`
 
-    The agent should respond with a list of the connected tools.
-    It may also include built-in tools.
+   The agent should respond with a list of the connected tools.
+   It may also include built-in tools.
 
-    ```text
-    I use a combination of my built-in knowledge (up to June 2024) and a set of external tools to answer your questions. Here are the main types of tools I can use:
-    Web Search & Content Fetching: I can fetch and summarize content from web pages, including crawling links recursively.
-    News Search: I can search for recent news articles using Google News via RSS feeds.
-    Calculator: I can perform arithmetic calculations and evaluate mathematical expressions.
-    Date & Time: I can provide the current date and time in various time zones.
-    These tools help me provide up-to-date information, perform calculations, and retrieve specific data from the internet when needed. If you have a specific question, let me know, and I'll use the most appropriate tool(s) to help!
-    ```
+   ```text
+   I use a combination of my built-in knowledge (up to June 2024) and a set of external tools to answer your questions. Here are the main types of tools I can use:
+   Web Search & Content Fetching: I can fetch and summarize content from web pages, including crawling links recursively.
+   News Search: I can search for recent news articles using Google News via RSS feeds.
+   Calculator: I can perform arithmetic calculations and evaluate mathematical expressions.
+   Date & Time: I can provide the current date and time in various time zones.
+   These tools help me provide up-to-date information, perform calculations, and retrieve specific data from the internet when needed. If you have a specific question, let me know, and I'll use the most appropriate tool(s) to help!
+   ```
 
 9. To test a specific tool, ask the agent a question that uses one of the tools, such as `Summarize today's tech news`.
 
-    To help you debug and test your flows, the **Playground** displays the agent's tool calls, the provided input, and the raw output the agent received before generating the summary.
-    With the given example, the agent should call the **Web Search** component with **Search Mode** set to **News**.
+   To help you debug and test your flows, the **Playground** displays the agent's tool calls, the provided input, and the raw output the agent received before generating the summary.
+   With the given example, the agent should call the **Web Search** component with **Search Mode** set to **News**.
 
 You've successfully created a basic agent flow that uses some generic tools.
 
@@ -93,8 +93,8 @@ For example, if a provider offers only embeddings models, those models aren't li
 
 To access other providers or models, you can do either of the following:
 
-* Connect any [language model component](/components-models) to the **Agent** component's **Language Model** port. This option allows you to connect a custom language model component to use models that aren't available in the global model providers list.
-* Configure additional providers in the **Models** pane, and then select the model from the **Language Model** dropdown.
+- Connect any [language model component](/components-models) to the **Agent** component's **Language Model** port. This option allows you to connect a custom language model component to use models that aren't available in the global model providers list.
+- Configure additional providers in the **Models** pane, and then select the model from the **Language Model** dropdown.
 
 If you need to generate embeddings in your flow, use an [embedding model component](/components-embedding-models).
 
@@ -141,9 +141,9 @@ For more information, see [Store chat memory](/memory#store-chat-memory) and [**
 With the **Agent** component, the available parameters can change depending on the selected provider and model, including support for additional modes, arguments, or features like chat memory and temperature.
 For example:
 
-* **Current Date** (`add_current_date_tool`): When enabled (`true`), this setting adds a tool to the agent that can retrieve the current date.
-* **Handle Parse Errors** (`handle_parsing_errors`): When enabled (`true`), this setting allows the agent to fix errors, like typos, when analyzing user input.
-* **Verbose** (`verbose`): When enabled (`true`), this setting records detailed logging output for debugging and analysis.
+- **Current Date** (`add_current_date_tool`): When enabled (`true`), this setting adds a tool to the agent that can retrieve the current date.
+- **Handle Parse Errors** (`handle_parsing_errors`): When enabled (`true`), this setting allows the agent to fix errors, like typos, when analyzing user input.
+- **Verbose** (`verbose`): When enabled (`true`), this setting records detailed logging output for debugging and analysis.
 
 <PartialParams />
 
@@ -151,23 +151,23 @@ For example:
 
 The **Agent** component has two outputs:
 
-* **Response** (`response`): The agent's reply as [`Message`](/data-types#message) data, which is typically connected to a **Chat Output** component.
-* **Structured Response** (`structured_response`): The agent's reply formatted as structured [`Data`](/data-types#data) according to the **Output Schema** you define.
+- **Response** (`response`): The agent's reply as [`Message`](/data-types#message) data, which is typically connected to a **Chat Output** component.
+- **Structured Response** (`structured_response`): The agent's reply formatted as structured [`Data`](/data-types#data) according to the **Output Schema** you define.
 
-    To configure the agent's **Structured Response** output:
+  To configure the agent's **Structured Response** output:
 
-    1. In the **Agent** component, click the output label near the component's output port and select **Structured Response**.
-    2. Select the **Agent** component to open the [component inspection panel](/concepts-components#component-inspection-panel), and then click <Icon name="Table" aria-hidden="true"/> **Open table**.
-    3. Click <Icon name="Plus" aria-hidden="true"/> **+** to add a row for each field you want to extract. For each row, enter a **Name**, **Type**, and optionally a **Description** and **As List** toggle.
-    4. Connect the **Structured Response** port to a downstream component that accepts [`JSON`](/data-types#json) input, such as a **Parser** or [**Data Operations** component](./operations).
+  1. In the **Agent** component, click the output label near the component's output port and select **Structured Response**.
+  2. Select the **Agent** component to open the [component inspection panel](/concepts-components#component-inspection-panel), and then click <Icon name="Table" aria-hidden="true"/> **Open table**.
+  3. Click <Icon name="Plus" aria-hidden="true"/> **+** to add a row for each field you want to extract. For each row, enter a **Name**, **Type**, and optionally a **Description** and **As List** toggle.
+  4. Connect the **Structured Response** port to a downstream component that accepts [`JSON`](/data-types#json) input, such as a **Parser** or [**Data Operations** component](./operations).
 
-    The **Agent** component uses the connected LLM to extract structured data, and the extraction behavior is configured in the **Output Format Instructions** field.
-    Modify the prompt in the **Output Format Instructions** field to change extraction behavior.
-    This does not modify the schema defined in **Output Schema**.
+  The **Agent** component uses the connected LLM to extract structured data, and the extraction behavior is configured in the **Output Format Instructions** field.
+  Modify the prompt in the **Output Format Instructions** field to change extraction behavior.
+  This does not modify the schema defined in **Output Schema**.
 
-    Both outputs can be connected at the same time, but each output produces a separate LLM call. If you only need structured data, connect **Structured Response** only.
+  Both outputs can be connected at the same time, but each output produces a separate LLM call. If you only need structured data, connect **Structured Response** only.
 
 ## See also
 
-* [**Agent** and **MCP Tools** components](/components-agents)
-* [Configure tools for agents](/agents-tools)
+- [**Agent** and **MCP Tools** components](/components-agents)
+- [Configure tools for agents](/agents-tools)

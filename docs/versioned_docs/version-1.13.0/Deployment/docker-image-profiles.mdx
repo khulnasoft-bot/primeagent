@@ -12,11 +12,11 @@ All three include the `postgresql` extra so they can use an external Postgres
 database without a derived image.
 Choose the smallest profile that contains every extension used by your flows.
 
-| Profile | Docker Hub image | GitHub Container Registry image | Included inventory |
-| --- | --- | --- | --- |
-| Base | `khulnasoft/primeagent:base-VERSION` | `ghcr.io/khulnasoft-bot/primeagent:base-VERSION` | `primeagent-base` plus built-in WFX components. No `wfx-*` provider packages. |
-| Default | `khulnasoft/primeagent:VERSION` | `ghcr.io/khulnasoft-bot/primeagent:VERSION` | Base plus the curated standalone `wfx-*` packages from `uv pip install primeagent` |
-| Extended | `khulnasoft/primeagent-all:VERSION` | `ghcr.io/khulnasoft-bot/primeagent-all:VERSION` | Default plus `primeagent[bundles]`: non-PyTorch providers from `wfx-bundles` and opt-in standalone packages, including Confluent |
+| Profile  | Docker Hub image                     | GitHub Container Registry image                  | Included inventory                                                                                                               |
+| -------- | ------------------------------------ | ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------- |
+| Base     | `khulnasoft/primeagent:base-VERSION` | `ghcr.io/khulnasoft-bot/primeagent:base-VERSION` | `primeagent-base` plus built-in WFX components. No `wfx-*` provider packages.                                                    |
+| Default  | `khulnasoft/primeagent:VERSION`      | `ghcr.io/khulnasoft-bot/primeagent:VERSION`      | Base plus the curated standalone `wfx-*` packages from `uv pip install primeagent`                                               |
+| Extended | `khulnasoft/primeagent-all:VERSION`  | `ghcr.io/khulnasoft-bot/primeagent-all:VERSION`  | Default plus `primeagent[bundles]`: non-PyTorch providers from `wfx-bundles` and opt-in standalone packages, including Confluent |
 
 The base and default profiles use the `primeagent` image repository. The extended
 profile uses the separate `primeagent-all` repository. All three profiles use the

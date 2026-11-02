@@ -18,52 +18,52 @@ macOS Intel (x86_64) is in its final phase of deprecation across the entire ecos
 
 ### 1.1 Apple Hardware & OS Timeline
 
-| Event | Date | Impact |
-|-------|------|--------|
-| Last Intel MacBook Pro shipped | June 2022 | No new Intel Mac hardware |
-| macOS Ventura 13 (last Intel-supported release rumoured) | Oct 2022 | Still receiving security updates as of early 2026 |
-| macOS Sequoia 15 released | Sept 2024 | Supports some Intel Macs — expected to be last |
-| macOS 26 (Tahoe) expected | June 2026 | Likely final macOS version supporting any Intel Mac |
-| macOS 27 expected | 2027 | **Expected to drop all Intel Mac support** |
+| Event                                                    | Date      | Impact                                              |
+| -------------------------------------------------------- | --------- | --------------------------------------------------- |
+| Last Intel MacBook Pro shipped                           | June 2022 | No new Intel Mac hardware                           |
+| macOS Ventura 13 (last Intel-supported release rumoured) | Oct 2022  | Still receiving security updates as of early 2026   |
+| macOS Sequoia 15 released                                | Sept 2024 | Supports some Intel Macs — expected to be last      |
+| macOS 26 (Tahoe) expected                                | June 2026 | Likely final macOS version supporting any Intel Mac |
+| macOS 27 expected                                        | 2027      | **Expected to drop all Intel Mac support**          |
 
 **Key fact:** Apple's Rosetta 2 translates x86_64 binaries on Apple Silicon, but native ARM64 builds are preferred. Rosetta support for macOS is expected to continue but individual frameworks (e.g., Metal 3) are ARM-only.
 
 ### 1.2 GitHub Actions Runner Deprecation
 
-| Runner | Architecture | Status | Deprecation |
-|--------|-------------|--------|-------------|
-| `macos-13` | Intel x86_64 | **Deprecated** | Removed Dec 2025 |
-| `macos-14` | ARM64 (M1) | Active | Current |
-| `macos-15` | ARM64 (M1/M2) | Active | Current |
-| `macos-latest` | ARM64 | Active | Points to macos-15 |
-| `macos-latest-large` | Intel x86_64 | **Active but costly** | At risk — GitHub shifting to ARM |
-| `macos-26` (Tahoe) | ARM64 | Available | Current |
+| Runner               | Architecture  | Status                | Deprecation                      |
+| -------------------- | ------------- | --------------------- | -------------------------------- |
+| `macos-13`           | Intel x86_64  | **Deprecated**        | Removed Dec 2025                 |
+| `macos-14`           | ARM64 (M1)    | Active                | Current                          |
+| `macos-15`           | ARM64 (M1/M2) | Active                | Current                          |
+| `macos-latest`       | ARM64         | Active                | Points to macos-15               |
+| `macos-latest-large` | Intel x86_64  | **Active but costly** | At risk — GitHub shifting to ARM |
+| `macos-26` (Tahoe)   | ARM64         | Available             | Current                          |
 
 **Key fact:** `macos-latest-large` is the **only** Intel x86_64 runner available. It is one of the most expensive GitHub Actions runners. GitHub has signaled the shift toward ARM-only macOS runners.
 
 ### 1.3 PyTorch macOS x86_64 Deprecation
 
-| Event | Date |
-|-------|------|
-| RFC to deprecate macOS x86_64 builds | Nov 2023 |
+| Event                                                             | Date       |
+| ----------------------------------------------------------------- | ---------- |
+| RFC to deprecate macOS x86_64 builds                              | Nov 2023   |
 | PyTorch 2.2.2 — last Intel Mac wheels (`cp310`, `cp311`, `cp312`) | March 2024 |
-| PyTorch 2.3.0 — no Intel Mac wheels at all | April 2024 |
-| Python 3.13 released (no PyTorch wheels for Intel Mac) | Oct 2024 |
+| PyTorch 2.3.0 — no Intel Mac wheels at all                        | April 2024 |
+| Python 3.13 released (no PyTorch wheels for Intel Mac)            | Oct 2024   |
 
 **Result:** No PyTorch wheel exists for macOS x86_64 + Python ≥ 3.13. PyTorch 2.2.2 is the last version with Intel Mac support, and it only covers Python 3.10–3.12.
 
 ### 1.4 Broader ML Ecosystem
 
-| Library | macOS x86_64 Support | Notes |
-|---------|---------------------|-------|
-| PyTorch | ❌ Dropped (after 2.2.2) | No wheels for Python 3.13+ on Intel |
-| MLX | ❌ Never supported | Apple Silicon only (arm64 + Python 3.12+) |
-| MLX-VLM | ❌ Never supported | Apple Silicon only |
-| Metal SDK | ❌ ARM64 only | Metal 3 requires Apple Silicon |
-| TensorFlow | ⚠️ Limited | `tensorflow-macos` deprecated, replaced by `tensorflow-metal` (ARM64) |
-| ONNX Runtime | ✅ Still supported | Cross-platform, but CoreML EP is ARM64-optimized |
-| sentence-transformers | ⚠️ Transitively broken | Depends on PyTorch — fails on Intel Mac + Python 3.13 |
-| Hugging Face Transformers | ⚠️ Transitively broken | Same PyTorch dependency chain |
+| Library                   | macOS x86_64 Support     | Notes                                                                 |
+| ------------------------- | ------------------------ | --------------------------------------------------------------------- |
+| PyTorch                   | ❌ Dropped (after 2.2.2) | No wheels for Python 3.13+ on Intel                                   |
+| MLX                       | ❌ Never supported       | Apple Silicon only (arm64 + Python 3.12+)                             |
+| MLX-VLM                   | ❌ Never supported       | Apple Silicon only                                                    |
+| Metal SDK                 | ❌ ARM64 only            | Metal 3 requires Apple Silicon                                        |
+| TensorFlow                | ⚠️ Limited               | `tensorflow-macos` deprecated, replaced by `tensorflow-metal` (ARM64) |
+| ONNX Runtime              | ✅ Still supported       | Cross-platform, but CoreML EP is ARM64-optimized                      |
+| sentence-transformers     | ⚠️ Transitively broken   | Depends on PyTorch — fails on Intel Mac + Python 3.13                 |
+| Hugging Face Transformers | ⚠️ Transitively broken   | Same PyTorch dependency chain                                         |
 
 ---
 
@@ -73,42 +73,42 @@ macOS Intel (x86_64) is in its final phase of deprecation across the entire ecos
 
 The following extras have platform markers excluding macOS x86_64 (**as of PR #12469**):
 
-| Extra | Marker | Reason |
-|-------|--------|--------|
-| `altk` | `sys_platform != 'darwin' or platform_machine != 'x86_64'` | PyTorch direct + transitive dep (PR #12469) |
-| `langchain-huggingface` | `sys_platform != 'darwin' or platform_machine != 'x86_64'` | sentence-transformers → torch (PR #12469) |
-| `docling` (binary) | `sys_platform != 'darwin' or platform_machine != 'x86_64'` | docling-ibm-models → torch (pre-existing) |
-| `easyocr` | `sys_platform != 'darwin' or platform_machine != 'x86_64'` | easyocr → torch (pre-existing) |
-| `cuga` | `sys_platform == 'darwin' and platform_machine == 'arm64'` | CUDA alternative, ARM64 only on macOS |
-| `mlx` | `sys_platform == 'darwin' and platform_machine == 'arm64' and python_version >= '3.12'` | Apple Silicon ML framework |
-| `metal` | No marker (correct — cross-platform) | `metal_sdk==2.5.1` is [getmetal.io](https://getmetal.io) cloud SDK, not Apple Metal |
+| Extra                   | Marker                                                                                  | Reason                                                                              |
+| ----------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| `altk`                  | `sys_platform != 'darwin' or platform_machine != 'x86_64'`                              | PyTorch direct + transitive dep (PR #12469)                                         |
+| `langchain-huggingface` | `sys_platform != 'darwin' or platform_machine != 'x86_64'`                              | sentence-transformers → torch (PR #12469)                                           |
+| `docling` (binary)      | `sys_platform != 'darwin' or platform_machine != 'x86_64'`                              | docling-ibm-models → torch (pre-existing)                                           |
+| `easyocr`               | `sys_platform != 'darwin' or platform_machine != 'x86_64'`                              | easyocr → torch (pre-existing)                                                      |
+| `cuga`                  | `sys_platform == 'darwin' and platform_machine == 'arm64'`                              | CUDA alternative, ARM64 only on macOS                                               |
+| `mlx`                   | `sys_platform == 'darwin' and platform_machine == 'arm64' and python_version >= '3.12'` | Apple Silicon ML framework                                                          |
+| `metal`                 | No marker (correct — cross-platform)                                                    | `metal_sdk==2.5.1` is [getmetal.io](https://getmetal.io) cloud SDK, not Apple Metal |
 
 **Extras with NO macOS exclusion that still work on Intel:**
 
-| Extra | Status | Notes |
-|-------|--------|-------|
-| `docling-core` | ✅ Works | Metadata-only, no torch dependency |
-| `ocrmac` | ✅ Works | `sys_platform == 'darwin'` — uses native Vision framework |
-| `langchain-unstructured` | ✅ Works | No torch dependency |
-| `graph-retriever` | ✅ Works | No platform-specific deps |
-| All non-ML extras | ✅ Works | Database, API, monitoring, etc. |
+| Extra                    | Status   | Notes                                                     |
+| ------------------------ | -------- | --------------------------------------------------------- |
+| `docling-core`           | ✅ Works | Metadata-only, no torch dependency                        |
+| `ocrmac`                 | ✅ Works | `sys_platform == 'darwin'` — uses native Vision framework |
+| `langchain-unstructured` | ✅ Works | No torch dependency                                       |
+| `graph-retriever`        | ✅ Works | No platform-specific deps                                 |
+| All non-ML extras        | ✅ Works | Database, API, monitoring, etc.                           |
 
 ### 2.2 macOS-Specific Runtime Workarounds
 
-| Workaround | Location | Purpose |
-|------------|----------|---------|
+| Workaround                                | Location                                              | Purpose                                                                |
+| ----------------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------- |
 | `OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES` | `__main__.py`, `primeagent_launcher.py`, CI workflows | Prevents Objective-C fork safety crashes with gunicorn multiprocessing |
-| `os.execv()` re-exec pattern | `primeagent_launcher.py` | Sets env vars before Objective-C runtime initializes |
-| `brew install protobuf` | CI workflow (AMD64 only) | protoc not available on Intel CI runners |
+| `os.execv()` re-exec pattern              | `primeagent_launcher.py`                              | Sets env vars before Objective-C runtime initializes                   |
+| `brew install protobuf`                   | CI workflow (AMD64 only)                              | protoc not available on Intel CI runners                               |
 
 ### 2.3 CI Matrix Coverage
 
-| Platform | Python 3.10 | Python 3.12 | Python 3.13 |
-|----------|-------------|-------------|-------------|
-| macOS ARM64 | ✅ Stable | ✅ Stable | ✅ Experimental |
-| macOS AMD64 (Intel) | ✅ Stable | ✅ Stable | ⚠️ Experimental (`continue-on-error`) |
-| Linux AMD64 | ✅ Stable | ✅ Stable | ✅ Experimental |
-| Windows AMD64 | ✅ Stable | ✅ Stable | ✅ Experimental |
+| Platform            | Python 3.10 | Python 3.12 | Python 3.13                           |
+| ------------------- | ----------- | ----------- | ------------------------------------- |
+| macOS ARM64         | ✅ Stable   | ✅ Stable   | ✅ Experimental                       |
+| macOS AMD64 (Intel) | ✅ Stable   | ✅ Stable   | ⚠️ Experimental (`continue-on-error`) |
+| Linux AMD64         | ✅ Stable   | ✅ Stable   | ✅ Experimental                       |
+| Windows AMD64       | ✅ Stable   | ✅ Stable   | ✅ Experimental                       |
 
 ---
 
@@ -130,13 +130,13 @@ Primeagent **core functionality** (flow builder, API, database, all non-ML compo
 
 ### 3.2 What Will Break Next
 
-| Timeline | Event | Impact on Primeagent |
-|----------|-------|--------------------|
-| **Now** | PyTorch has no Intel Mac wheels for Python 3.13+ | Already mitigated (PR #12469) |
-| **Q3 2026** | GitHub may deprecate `macos-latest-large` (Intel) | Stable CI tests for macOS Intel would need migration or removal |
-| **Q4 2026** | macOS 26 (Tahoe) release — potentially last Intel-supporting macOS | Users on Intel Macs stop receiving macOS updates |
-| **2027** | macOS 27 drops Intel Mac support | Intel Mac users stuck on macOS 26; system Python/Homebrew may stop building for x86_64 macOS |
-| **2027+** | Homebrew, Python.org may drop macOS x86_64 builds | Intel Mac users can't easily install Python 3.14+ |
+| Timeline    | Event                                                              | Impact on Primeagent                                                                         |
+| ----------- | ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- |
+| **Now**     | PyTorch has no Intel Mac wheels for Python 3.13+                   | Already mitigated (PR #12469)                                                                |
+| **Q3 2026** | GitHub may deprecate `macos-latest-large` (Intel)                  | Stable CI tests for macOS Intel would need migration or removal                              |
+| **Q4 2026** | macOS 26 (Tahoe) release — potentially last Intel-supporting macOS | Users on Intel Macs stop receiving macOS updates                                             |
+| **2027**    | macOS 27 drops Intel Mac support                                   | Intel Mac users stuck on macOS 26; system Python/Homebrew may stop building for x86_64 macOS |
+| **2027+**   | Homebrew, Python.org may drop macOS x86_64 builds                  | Intel Mac users can't easily install Python 3.14+                                            |
 
 ### 3.3 CI Cost Exposure
 
@@ -153,6 +153,7 @@ Primeagent **core functionality** (flow builder, API, database, all non-ML compo
 ### 4.1 Immediate (No Action Needed)
 
 PR #12469 has already addressed the most critical issue:
+
 - ✅ `altk` and `langchain-huggingface` excluded on macOS x86_64
 - ✅ `docling` and `easyocr` already excluded (pre-existing)
 - ✅ `mlx`, `cuga` are ARM64-only
@@ -197,6 +198,7 @@ Once GitHub deprecates `macos-latest-large` or macOS 26 ships:
 #### R5: Audit and clean up OBJC fork safety workaround
 
 The `OBJC_DISABLE_INITIALIZE_FORK_SAFETY` workaround in `__main__.py` and `primeagent_launcher.py` applies to all macOS, not just Intel. However, once Intel is dropped:
+
 - Verify if the issue persists on Apple Silicon with current gunicorn/uvicorn
 - If ARM64-only deployments don't trigger the issue, consider removing the workaround
 - If still needed, keep it but document why
@@ -224,6 +226,7 @@ altk = ["agent-lifecycle-toolkit>=0.10.1,<1.0"]
 #### R8: Evaluate ARM64-only macOS features
 
 With Intel out of the picture, lean into Apple Silicon capabilities:
+
 - MLX-based local inference as a first-class feature
 - Metal GPU acceleration for embedding generation
 - Neural Engine integration for on-device ML
@@ -233,14 +236,14 @@ With Intel out of the picture, lean into Apple Silicon capabilities:
 
 ## 5. Risk Matrix
 
-| Risk | Probability | Impact | Mitigation |
-|------|------------|--------|------------|
-| GitHub removes `macos-latest-large` runner | High (12–18 months) | CI breaks for Intel tests | R4: Drop Intel from CI proactively |
-| User complaints about missing ML features on Intel Mac | Low | User frustration | R3: Document support matrix clearly |
-| ~~`metal_sdk` fails on Intel Mac install~~ | N/A | N/A | `metal_sdk` is getmetal.io cloud SDK — cross-platform, no issue |
-| Python 3.14 drops macOS x86_64 support | Low (2027+) | Core Primeagent broken on Intel | R6: Deprecation notice well in advance |
-| OBJC fork safety workaround breaks on new macOS | Low | Server startup crash | R5: Audit and test on macOS 26 |
-| Upstream deps (numpy, scipy) drop Intel Mac wheels | Medium (2027+) | Broad installation failures | R6/R7: Official deprecation covers this |
+| Risk                                                   | Probability         | Impact                          | Mitigation                                                      |
+| ------------------------------------------------------ | ------------------- | ------------------------------- | --------------------------------------------------------------- |
+| GitHub removes `macos-latest-large` runner             | High (12–18 months) | CI breaks for Intel tests       | R4: Drop Intel from CI proactively                              |
+| User complaints about missing ML features on Intel Mac | Low                 | User frustration                | R3: Document support matrix clearly                             |
+| ~~`metal_sdk` fails on Intel Mac install~~             | N/A                 | N/A                             | `metal_sdk` is getmetal.io cloud SDK — cross-platform, no issue |
+| Python 3.14 drops macOS x86_64 support                 | Low (2027+)         | Core Primeagent broken on Intel | R6: Deprecation notice well in advance                          |
+| OBJC fork safety workaround breaks on new macOS        | Low                 | Server startup crash            | R5: Audit and test on macOS 26                                  |
+| Upstream deps (numpy, scipy) drop Intel Mac wheels     | Medium (2027+)      | Broad installation failures     | R6/R7: Official deprecation covers this                         |
 
 ---
 
@@ -248,36 +251,36 @@ With Intel out of the picture, lean into Apple Silicon capabilities:
 
 ### Current (Primeagent 1.9.x)
 
-| Feature Category | macOS ARM64 (Apple Silicon) | macOS x86_64 (Intel) |
-|-----------------|---------------------------|---------------------|
-| Core (flows, API, database) | ✅ Full support | ✅ Full support |
-| ML/AI components (ALTK, HuggingFace) | ✅ Full support | ❌ Excluded (no PyTorch wheels) |
-| Document processing (Docling, EasyOCR) | ✅ Full support | ❌ Excluded (no PyTorch wheels) |
-| Local inference (MLX, MLX-VLM) | ✅ Full support (Python 3.12+) | ❌ Not available (ARM64 only) |
-| GPU acceleration (Metal, CUGA) | ✅ Full support | ❌ Not available (ARM64 only) |
-| Native OCR (ocrmac) | ✅ Full support | ✅ Full support |
+| Feature Category                       | macOS ARM64 (Apple Silicon)    | macOS x86_64 (Intel)            |
+| -------------------------------------- | ------------------------------ | ------------------------------- |
+| Core (flows, API, database)            | ✅ Full support                | ✅ Full support                 |
+| ML/AI components (ALTK, HuggingFace)   | ✅ Full support                | ❌ Excluded (no PyTorch wheels) |
+| Document processing (Docling, EasyOCR) | ✅ Full support                | ❌ Excluded (no PyTorch wheels) |
+| Local inference (MLX, MLX-VLM)         | ✅ Full support (Python 3.12+) | ❌ Not available (ARM64 only)   |
+| GPU acceleration (Metal, CUGA)         | ✅ Full support                | ❌ Not available (ARM64 only)   |
+| Native OCR (ocrmac)                    | ✅ Full support                | ✅ Full support                 |
 
 ### Proposed (Primeagent 2.0+)
 
-| Feature Category | macOS ARM64 (Apple Silicon) | macOS x86_64 (Intel) |
-|-----------------|---------------------------|---------------------|
-| All features | ✅ Full support | ⚠️ Deprecated — untested, best-effort |
+| Feature Category | macOS ARM64 (Apple Silicon) | macOS x86_64 (Intel)                  |
+| ---------------- | --------------------------- | ------------------------------------- |
+| All features     | ✅ Full support             | ⚠️ Deprecated — untested, best-effort |
 
 ---
 
 ## 7. Summary of Action Items
 
-| # | Action | Target Release | Priority | Effort |
-|---|--------|---------------|----------|--------|
-| — | ~~Exclude `altk` and `langchain-huggingface` on macOS x86_64~~ | ~~1.9.x~~ | ~~Critical~~ | ✅ Done (PR #12469) |
-| ~~R1~~ | ~~Add ARM64 marker to `metal` extra~~ | — | — | ❌ N/A (`metal_sdk` is getmetal.io cloud SDK, not Apple Metal) |
-| R2 | Remove Python 3.10 macOS Intel from stable CI | 1.10 | Low | 4 lines YAML |
-| R3 | Document macOS support matrix for users | 1.10 | Medium | New docs page |
-| R4 | Drop macOS x86_64 from CI entirely | 2.0 | Medium | ~20 lines YAML |
-| R5 | Audit OBJC fork safety on Apple Silicon | 2.0 | Low | Investigation |
-| R6 | Official deprecation notice in release notes | 2.0 | Medium | Release docs |
-| R7 | Remove x86_64 platform markers from pyproject.toml | 2.x | Low | Cleanup |
-| R8 | Evaluate ARM64-only macOS capabilities | 2.x | Low | Feature planning |
+| #      | Action                                                         | Target Release | Priority     | Effort                                                         |
+| ------ | -------------------------------------------------------------- | -------------- | ------------ | -------------------------------------------------------------- |
+| —      | ~~Exclude `altk` and `langchain-huggingface` on macOS x86_64~~ | ~~1.9.x~~      | ~~Critical~~ | ✅ Done (PR #12469)                                            |
+| ~~R1~~ | ~~Add ARM64 marker to `metal` extra~~                          | —              | —            | ❌ N/A (`metal_sdk` is getmetal.io cloud SDK, not Apple Metal) |
+| R2     | Remove Python 3.10 macOS Intel from stable CI                  | 1.10           | Low          | 4 lines YAML                                                   |
+| R3     | Document macOS support matrix for users                        | 1.10           | Medium       | New docs page                                                  |
+| R4     | Drop macOS x86_64 from CI entirely                             | 2.0            | Medium       | ~20 lines YAML                                                 |
+| R5     | Audit OBJC fork safety on Apple Silicon                        | 2.0            | Low          | Investigation                                                  |
+| R6     | Official deprecation notice in release notes                   | 2.0            | Medium       | Release docs                                                   |
+| R7     | Remove x86_64 platform markers from pyproject.toml             | 2.x            | Low          | Cleanup                                                        |
+| R8     | Evaluate ARM64-only macOS capabilities                         | 2.x            | Low          | Feature planning                                               |
 
 ---
 
@@ -300,7 +303,7 @@ Line 345: gassist    → sys_platform == 'win32'
 
 ## Appendix B: Related Issues & PRs
 
-| Reference | Description | Status |
-|-----------|-------------|--------|
-| PR #12469 | Exclude torch-dependent extras on macOS x86_64 | Merged/Open |
-| [pytorch/pytorch#114602](https://github.com/pytorch/pytorch/issues/114602) | PyTorch RFC: Deprecate macOS x86_64 builds | Implemented |
+| Reference                                                                  | Description                                    | Status      |
+| -------------------------------------------------------------------------- | ---------------------------------------------- | ----------- |
+| PR #12469                                                                  | Exclude torch-dependent extras on macOS x86_64 | Merged/Open |
+| [pytorch/pytorch#114602](https://github.com/pytorch/pytorch/issues/114602) | PyTorch RFC: Deprecate macOS x86_64 builds     | Implemented |

@@ -4,25 +4,27 @@ slug: /bundles-files-ingestion
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialWfxBundlesInstall from '@site/docs/_partial-bundle-wfx-bundles-install.mdx';
+import PartialWfxBundlesInstall from "@site/docs/_partial-bundle-wfx-bundles-install.mdx";
 
 <PartialWfxBundlesInstall />
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with Primeagent.
 
 Primeagent integrates with [OpenDsStar](https://github.com/IBM/OpenDsStar) through a bundle of file processing components for ingesting, indexing, and retrieving content from large collections of files in agent workflows.
 
 ## Prerequisites
 
-* **OpenDsStar package (File Description Generator only)**: The **File Description Generator** component requires the `OpenDsStar` package and Python 3.11 or later.
+- **OpenDsStar package (File Description Generator only)**: The **File Description Generator** component requires the `OpenDsStar` package and Python 3.11 or later.
 
-    Install the dependency with:
+  Install the dependency with:
 
-    ```bash
-    uv pip install OpenDsStar
-    ```
+  ```bash
+  uv pip install OpenDsStar
+  ```
 
-    For more information, see [Install custom dependencies](/install-custom-dependencies).
+  For more information, see [Install custom dependencies](/install-custom-dependencies).
 
 ## Use File Processing components in a flow
 
@@ -43,11 +45,11 @@ File maps are built once and cached in memory after the first build. Set **Persi
 
 #### File Content Retriever parameters
 
-| Name | Type | Description |
-|------|------|-------------|
-| file_data | Data, Table, or Message | Input parameter. Output from a **Read File** component. |
-| persistent_dir | String | Input parameter. Optional path to a directory for persisting file maps across runs. If empty, maps are kept in memory only. |
-| file_path | String | Input parameter (Tool Mode). The full file path as a string, for example `/path/to/file.csv`. Used by agents to request a specific file's content. |
+| Name           | Type                    | Description                                                                                                                                        |
+| -------------- | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| file_data      | Data, Table, or Message | Input parameter. Output from a **Read File** component.                                                                                            |
+| persistent_dir | String                  | Input parameter. Optional path to a directory for persisting file maps across runs. If empty, maps are kept in memory only.                        |
+| file_path      | String                  | Input parameter (Tool Mode). The full file path as a string, for example `/path/to/file.csv`. Used by agents to request a specific file's content. |
 
 ### File Description Generator
 
@@ -61,14 +63,14 @@ Descriptions are cached in the **Cache Directory** to avoid regenerating them on
 
 #### File Description Generator parameters
 
-| Name | Type | Description |
-|------|------|-------------|
-| file_data | Data, Table, or Message | Input parameter. Output from a **Read File** component. |
-| llm | LanguageModel | Input parameter. The LLM used to generate file descriptions. |
-| cache_dir | String | Input parameter. Directory for caching Docling analysis and LLM-generated descriptions. Default: `./opendsstar_cache`. |
-| embedding_model | String | Input parameter. Embedding model name used for cache keying. Default: `ibm-granite/granite-embedding-english-r2`. |
-| timeout | Integer | Input parameter. Maximum time in seconds allowed for the ingestion subprocess. Default: `3600`. Increase this value for large file sets. |
-| batch_size | Integer | Input parameter. Number of files to process per LLM batch. Default: `8`. |
+| Name            | Type                    | Description                                                                                                                              |
+| --------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| file_data       | Data, Table, or Message | Input parameter. Output from a **Read File** component.                                                                                  |
+| llm             | LanguageModel           | Input parameter. The LLM used to generate file descriptions.                                                                             |
+| cache_dir       | String                  | Input parameter. Directory for caching Docling analysis and LLM-generated descriptions. Default: `./opendsstar_cache`.                   |
+| embedding_model | String                  | Input parameter. Embedding model name used for cache keying. Default: `ibm-granite/granite-embedding-english-r2`.                        |
+| timeout         | Integer                 | Input parameter. Maximum time in seconds allowed for the ingestion subprocess. Default: `3600`. Increase this value for large file sets. |
+| batch_size      | Integer                 | Input parameter. Number of files to process per LLM batch. Default: `8`.                                                                 |
 
 ### Merge Flows
 
@@ -80,12 +82,12 @@ The component outputs a [`Message`](/data-types#message) that confirms how many 
 
 #### Merge Flows parameters
 
-| Name | Type | Description |
-|------|------|-------------|
+| Name   | Type                                | Description                                                                                                                             |
+| ------ | ----------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | inputs | Data, Table, Message, Tool, or JSON | Input parameter. Connect any number of upstream component outputs here. All connected components will run when this component executes. |
 
 ## See also
 
-* [Code Agents bundle](./bundles-codeagents) — CodeAct Agent and OpenDsStar Agent for analyzing the retrieved file content
-* [OpenDsStar GitHub repository](https://github.com/IBM/OpenDsStar)
-* [Docling documentation](https://docling-project.github.io/docling/)
+- [Code Agents bundle](./bundles-codeagents) — CodeAct Agent and OpenDsStar Agent for analyzing the retrieved file content
+- [OpenDsStar GitHub repository](https://github.com/IBM/OpenDsStar)
+- [Docling documentation](https://docling-project.github.io/docling/)

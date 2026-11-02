@@ -17,6 +17,7 @@ Custom session IDs can be set as part of the payload in API calls, or as advance
 
 If you set a custom session ID in a payload, all downstream components use the upstream component's session ID value.
 Replace `PRIMEAGENT_SERVER_ADDRESS`, `FLOW_ID`, and `PRIMEAGENT_API_KEY` with the values from your Primeagent deployment.
+
 ```
 curl --request POST \
   --url "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID" \
@@ -37,6 +38,6 @@ The `my_custom_session_value` value is used in components that accept it, and th
 To retrieve messages from local Primeagent memory, add a [**Message History** component](/message-history) to your flow.
 The component accepts `sessionID` as a filter parameter, and uses the session ID value from upstream automatically to retrieve message history by session ID from storage.
 
-Messages can be retrieved by `session_id` from the Primeagent API at `GET /v1/monitor/messages`. For more information, see [Monitor endpoints](https://docs.prime.khulnasoft.com/api-monitor).
+Messages can be retrieved by `session_id` from the Primeagent API at `GET /v1/monitor/messages`. For more information, see [Monitor endpoints](https://prime.khulnasoft.com/docs/api-monitor).
 
 For an example of session ID in action, see [Use Session IDs in Primeagent](https://www.youtube.com/watch?v=nJiF_eF21MY).

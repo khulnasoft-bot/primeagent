@@ -6,10 +6,12 @@
   --ifm-code-border-radius: 4px;
   --ifm-code-padding-horizontal: 0.2em;
   --ifm-navbar-item-padding-vertical: 0;
-  --ifm-font-family-base: "Geist", Inter, -apple-system, BlinkMacSystemFont,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI emoji";
-  --ifm-font-family-monospace: "JetBrains Mono", "Geist Mono", "SFMono-Regular",
-    Consolas, "Liberation Mono", Menlo, monospace;
+  --ifm-font-family-base:
+    "Geist", Inter, -apple-system, BlinkMacSystemFont, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI emoji";
+  --ifm-font-family-monospace:
+    "JetBrains Mono", "Geist Mono", "SFMono-Regular", Consolas,
+    "Liberation Mono", Menlo, monospace;
   --ifm-heading-font-weight: 700;
   --ifm-line-height-base: 1.7;
 }

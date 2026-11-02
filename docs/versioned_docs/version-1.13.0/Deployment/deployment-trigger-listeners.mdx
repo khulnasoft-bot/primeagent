@@ -54,22 +54,27 @@ spec:
           env:
             - name: PRIMEAGENT_DATABASE_URL
               valueFrom:
-                secretKeyRef: {name: primeagent-secrets, key: database-url}
+                secretKeyRef: { name: primeagent-secrets, key: database-url }
             - name: PRIMEAGENT_SECRET_KEY
               valueFrom:
-                secretKeyRef: {name: primeagent-secrets, key: secret-key}
+                secretKeyRef: { name: primeagent-secrets, key: secret-key }
             - name: PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS
               valueFrom:
-                secretKeyRef: {name: primeagent-secrets, key: connection-oauth-registrations, optional: true}
+                secretKeyRef:
+                  {
+                    name: primeagent-secrets,
+                    key: connection-oauth-registrations,
+                    optional: true,
+                  }
             - name: PRIMEAGENT_LISTENERS_HEALTH_HOST
               value: "0.0.0.0"
           ports:
             - name: health
               containerPort: 7861
           livenessProbe:
-            httpGet: {path: /health, port: health}
+            httpGet: { path: /health, port: health }
           readinessProbe:
-            httpGet: {path: /healthz, port: health}
+            httpGet: { path: /healthz, port: health }
 ```
 
 Example manifests are in [`deploy/listeners/`](https://github.com/khulnasoft-bot/primeagent/tree/main/deploy/listeners).
@@ -103,9 +108,9 @@ services:
 
 1. Set this variable on the Primeagent container or app:
 
-    ```bash
-    PRIMEAGENT_LISTENERS_MODE=subprocess
-    ```
+   ```bash
+   PRIMEAGENT_LISTENERS_MODE=subprocess
+   ```
 
 2. Start Primeagent. It starts `primeagent listeners` as a child and stops that child on shutdown.
 3. Leave Primeagent running. On Desktop, triggers fire only while the app is open.
@@ -139,9 +144,9 @@ Check whether two triggers are armed on the same source. One trigger records a m
 
 ## Reference
 
-| Variable | Default | Description |
-|---|---|---|
-| `PRIMEAGENT_LISTENERS_MODE` | `off` | Set to `subprocess` to run the listener as a child of the API. |
-| `PRIMEAGENT_LISTENERS_HEALTH_HOST` | `127.0.0.1` | Set to `0.0.0.0` so container probes can reach the health server. |
-| `PRIMEAGENT_LISTENERS_HEALTH_PORT` | `7861` | Port for `/health` and `/healthz`. |
-| `PRIMEAGENT_TRIGGER_SLACK_SOCKET_MAX_CONNECTIONS` | `10` | Socket Mode connections one Slack app may hold. Slack's own limit is 10. |
+| Variable                                          | Default     | Description                                                              |
+| ------------------------------------------------- | ----------- | ------------------------------------------------------------------------ |
+| `PRIMEAGENT_LISTENERS_MODE`                       | `off`       | Set to `subprocess` to run the listener as a child of the API.           |
+| `PRIMEAGENT_LISTENERS_HEALTH_HOST`                | `127.0.0.1` | Set to `0.0.0.0` so container probes can reach the health server.        |
+| `PRIMEAGENT_LISTENERS_HEALTH_PORT`                | `7861`      | Port for `/health` and `/healthz`.                                       |
+| `PRIMEAGENT_TRIGGER_SLACK_SOCKET_MAX_CONNECTIONS` | `10`        | Socket Mode connections one Slack app may hold. Slack's own limit is 10. |

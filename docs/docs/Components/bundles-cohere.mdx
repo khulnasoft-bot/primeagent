@@ -4,12 +4,14 @@ slug: /bundles-cohere
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import { GraduatedBundleInstall } from '@site/docs/_partial-bundle-graduated-install.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-install.mdx";
 
 <GraduatedBundleInstall packageName="cohere" />
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with Primeagent.
 
 This page describes the components that are available in the **Cohere** bundle.
 
@@ -29,13 +31,13 @@ For more information, see [Language model components](/components-models).
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| Input | String | Input parameter. Specifies the input text for text generation. |
-| System Message | String | Input parameter. A [system message](https://docs.cohere.com/docs/system-instructions) to pass to the model. |
-| Stream | Boolean | Input parameter. Whether to stream the response. Only works in chat. Default: `false`. |
-| Cohere API Key | SecretString | Input parameter. Your Cohere API key. |
-| Temperature | Float | Input parameter. Specifies the randomness of sampling. Lower values (near 0) are more deterministic, and higher values (near 1) are more creative. Defaults to `0.75`. |
+| Name           | Type         | Description                                                                                                                                                            |
+| -------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Input          | String       | Input parameter. Specifies the input text for text generation.                                                                                                         |
+| System Message | String       | Input parameter. A [system message](https://docs.cohere.com/docs/system-instructions) to pass to the model.                                                            |
+| Stream         | Boolean      | Input parameter. Whether to stream the response. Only works in chat. Default: `false`.                                                                                 |
+| Cohere API Key | SecretString | Input parameter. Your Cohere API key.                                                                                                                                  |
+| Temperature    | Float        | Input parameter. Specifies the randomness of sampling. Lower values (near 0) are more deterministic, and higher values (near 1) are more creative. Defaults to `0.75`. |
 
 ## Cohere Embeddings
 
@@ -47,14 +49,14 @@ For more information about using embedding model components in flows, see [Embed
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| cohere_api_key | SecretString | Input parameter. The API key required to authenticate with the Cohere service. |
-| model | String | Input parameter. The language model used for embedding text documents and performing queries. Default: `embed-english-v2.0` |
-| truncate | Boolean | Input parameter. How to handle input that exceeds the model's token limit. One of `NONE`, `START`, or `END` (default). For more information, see the [Cohere `truncate` API reference](https://docs.cohere.com/reference/embed#request.body.truncate). |
-| max_retries | Integer | Input parameter. The maximum number of retry attempts for failed requests. Default: `3` |
-| user_agent | String | Input parameter. A user agent string to include in requests. Default: `langchain`|
-| request_timeout | Float | Input parameter. The timeout duration for requests in seconds. Default: None |
+| Name            | Type         | Description                                                                                                                                                                                                                                            |
+| --------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| cohere_api_key  | SecretString | Input parameter. The API key required to authenticate with the Cohere service.                                                                                                                                                                         |
+| model           | String       | Input parameter. The language model used for embedding text documents and performing queries. Default: `embed-english-v2.0`                                                                                                                            |
+| truncate        | Boolean      | Input parameter. How to handle input that exceeds the model's token limit. One of `NONE`, `START`, or `END` (default). For more information, see the [Cohere `truncate` API reference](https://docs.cohere.com/reference/embed#request.body.truncate). |
+| max_retries     | Integer      | Input parameter. The maximum number of retry attempts for failed requests. Default: `3`                                                                                                                                                                |
+| user_agent      | String       | Input parameter. A user agent string to include in requests. Default: `langchain`                                                                                                                                                                      |
+| request_timeout | Float        | Input parameter. The timeout duration for requests in seconds. Default: None                                                                                                                                                                           |
 
 ## Cohere Rerank
 
@@ -66,10 +68,10 @@ Outputs `JSON` containing the reranked documents, limited by the **Top N** param
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| **Search Query** | String | Input parameter. The search query for reranking documents. |
-| **Search Results** | JSON | Input parameter. Connect search results output from a vector store component. Use this parameter to apply reranking after running a similarity search on your vector database. |
-| **Top N** | Integer | Input parameter. The number of documents to return after reranking. Default: `3`. |
-| **Cohere API Key** | SecretString | Input parameter. Your Cohere API key. |
-| **Model** | String | Input parameter. The re-ranker model to use. Default: `rerank-english-v3.0` |
+| Name               | Type         | Description                                                                                                                                                                    |
+| ------------------ | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Search Query**   | String       | Input parameter. The search query for reranking documents.                                                                                                                     |
+| **Search Results** | JSON         | Input parameter. Connect search results output from a vector store component. Use this parameter to apply reranking after running a similarity search on your vector database. |
+| **Top N**          | Integer      | Input parameter. The number of documents to return after reranking. Default: `3`.                                                                                              |
+| **Cohere API Key** | SecretString | Input parameter. Your Cohere API key.                                                                                                                                          |
+| **Model**          | String       | Input parameter. The re-ranker model to use. Default: `rerank-english-v3.0`                                                                                                    |

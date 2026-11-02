@@ -9,12 +9,12 @@ PyTorch publishes no wheels for Intel Macs, so Primeagent skips those extras the
 
 ## Quick reference
 
-| Feature | Apple Silicon | Intel Mac |
-|---|---|---|
-| Core Primeagent | Supported | Supported |
-| PyTorch-based components | Supported | Not available |
-| Metal GPU acceleration | Supported | Not available |
-| Native OCR | Supported | Supported |
+| Feature                  | Apple Silicon | Intel Mac     |
+| ------------------------ | ------------- | ------------- |
+| Core Primeagent          | Supported     | Supported     |
+| PyTorch-based components | Supported     | Not available |
+| Metal GPU acceleration   | Supported     | Not available |
+| Native OCR               | Supported     | Supported     |
 
 ## Python versions
 
@@ -60,11 +60,11 @@ To use models from an Intel Mac:
 2. Run Primeagent on a machine where PyTorch installs, and call that instance from the Intel Mac.
 3. For some workloads, run the Apple Silicon container image under Rosetta 2:
 
-    ```bash
-    docker run --platform linux/arm64 khulnasoft/primeagent:latest
-    ```
+   ```bash
+   docker run --platform linux/arm64 khulnasoft/primeagent:latest
+   ```
 
-    This is slower than a native Apple Silicon install, and not every feature works.
+   This is slower than a native Apple Silicon install, and not every feature works.
 
 ## Installation
 

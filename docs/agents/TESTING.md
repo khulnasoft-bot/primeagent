@@ -29,11 +29,11 @@ For authenticated routes, also use the `logged_in_headers` fixture.
 
 Located in `src/backend/tests/base.py`.
 
-| Base class | Creates `client`? | Use for |
-|---|---|---|
-| `ComponentTestBase` | No | Component version testing core logic |
-| `ComponentTestBaseWithClient` | Yes | Components that hit backend services during `run()` |
-| `ComponentTestBaseWithoutClient` | No | Pure-logic components |
+| Base class                       | Creates `client`? | Use for                                             |
+| -------------------------------- | ----------------- | --------------------------------------------------- |
+| `ComponentTestBase`              | No                | Component version testing core logic                |
+| `ComponentTestBaseWithClient`    | Yes               | Components that hit backend services during `run()` |
+| `ComponentTestBaseWithoutClient` | No                | Pure-logic components                               |
 
 ### Required fixtures
 

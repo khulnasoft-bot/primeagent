@@ -33,28 +33,28 @@ WFX provides two sets of commands:
 
 **Runtime commands**, to run and serve flows locally:
 
-| Command | Description |
-|---|---|
-| [`wfx serve`](./wfx-serve) | Serve one or more flows as FastAPI endpoints at `/flows/{flow_id}/run` |
-| [`wfx run`](./wfx-run) | Execute a flow locally and stream results to `stdout` |
+| Command                        | Description                                                                  |
+| ------------------------------ | ---------------------------------------------------------------------------- |
+| [`wfx serve`](./wfx-serve)     | Serve one or more flows as FastAPI endpoints at `/flows/{flow_id}/run`       |
+| [`wfx run`](./wfx-run)         | Execute a flow locally and stream results to `stdout`                        |
 | [`wfx prewarm`](./wfx-prewarm) | Pre-warm core component imports and optional flows before a fork or snapshot |
-| [`wfx-mcp`](./wfx-mcp) | Start an MCP server that connects to a running Primeagent instance |
+| [`wfx-mcp`](./wfx-mcp)         | Start an MCP server that connects to a running Primeagent instance           |
 
 For the WFX runtime commands, see [Run flows with WFX](./wfx-run) and [Serve flows with WFX](./wfx-serve).
 
 **Flow DevOps SDK commands**, to version, test, and deploy flows:
 
-| Command | Description |
-|---|---|
-| `wfx init` | Scaffold a versioned flow project with CI templates |
-| `wfx login` | Validate credentials against a remote Primeagent instance |
-| `wfx create` | Create a new flow JSON from a built-in or custom template |
-| `wfx validate` | Validate flow JSON before pushing |
+| Command            | Description                                                      |
+| ------------------ | ---------------------------------------------------------------- |
+| `wfx init`         | Scaffold a versioned flow project with CI templates              |
+| `wfx login`        | Validate credentials against a remote Primeagent instance        |
+| `wfx create`       | Create a new flow JSON from a built-in or custom template        |
+| `wfx validate`     | Validate flow JSON before pushing                                |
 | `wfx requirements` | Generate `requirements.txt` from a flow's component dependencies |
-| `wfx status` | Compare local flow files against a remote Primeagent instance |
-| `wfx push` | Push flows to a remote instance by stable ID |
-| `wfx pull` | Pull flows from a remote instance to local files |
-| `wfx export` | Normalize flow JSON for clean git diffs |
+| `wfx status`       | Compare local flow files against a remote Primeagent instance    |
+| `wfx push`         | Push flows to a remote instance by stable ID                     |
+| `wfx pull`         | Pull flows from a remote instance to local files                 |
+| `wfx export`       | Normalize flow JSON for clean git diffs                          |
 
 For the Flow DevOps SDK commands, see [Flow DevOps Toolkit SDK](/flow-devops-sdk).
 

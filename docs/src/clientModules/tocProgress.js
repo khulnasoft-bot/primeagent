@@ -6,7 +6,9 @@ function getNavbarHeight() {
 }
 
 function syncPassed() {
-  const links = Array.from(document.querySelectorAll(".table-of-contents__link"));
+  const links = Array.from(
+    document.querySelectorAll(".table-of-contents__link"),
+  );
   if (!links.length) return;
 
   let forceLastActive = false;
@@ -19,7 +21,9 @@ function syncPassed() {
       const rect = lastHeading.getBoundingClientRect();
       const navH = getNavbarHeight();
       const headingVisible = rect.top >= navH && rect.top < window.innerHeight;
-      const atMaxScroll = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 50;
+      const atMaxScroll =
+        window.scrollY + window.innerHeight >=
+        document.documentElement.scrollHeight - 50;
 
       if (headingVisible && atMaxScroll) {
         forceLastActive = true;
@@ -44,17 +48,24 @@ function syncPassed() {
   }
 
   const activeIdx = links.findIndex((l) =>
-    l.classList.contains("table-of-contents__link--active")
+    l.classList.contains("table-of-contents__link--active"),
   );
 
   links.forEach((l, i) =>
-    l.classList.toggle("table-of-contents__link--passed", i < activeIdx && activeIdx !== -1)
+    l.classList.toggle(
+      "table-of-contents__link--passed",
+      i < activeIdx && activeIdx !== -1,
+    ),
   );
 
   // Reconnect observer
   const toc = document.querySelector(".table-of-contents");
   if (toc && mo) {
-    mo.observe(toc, { attributes: true, subtree: true, attributeFilter: ["class"] });
+    mo.observe(toc, {
+      attributes: true,
+      subtree: true,
+      attributeFilter: ["class"],
+    });
   }
 }
 
@@ -68,7 +79,11 @@ export function onRouteDidUpdate() {
   const toc = document.querySelector(".table-of-contents");
   if (toc) {
     mo = new MutationObserver(syncPassed);
-    mo.observe(toc, { attributes: true, subtree: true, attributeFilter: ["class"] });
+    mo.observe(toc, {
+      attributes: true,
+      subtree: true,
+      attributeFilter: ["class"],
+    });
   }
 
   // Scroll handler with RAF throttle

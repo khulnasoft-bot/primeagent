@@ -3,8 +3,8 @@ title: Contribute to Primeagent
 slug: /contributing-how-to-contribute
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 This guide is intended to help you start contributing to Primeagent.
 As an open-source codebase in a rapidly developing field, Primeagent welcomes contributions, whether it be in the form of a new feature, improved infrastructure, or better documentation.
@@ -16,10 +16,12 @@ To contribute code or documentation to Primeagent, follow the [pull request guid
 This overview will help you understand how to set up your development environment.
 
 Primeagent consists of two main services:
+
 - Frontend: A React/TypeScript application that provides the user interface.
 - Backend: A Python/FastAPI service that handles API requests.
 
 During development, the frontend and backend services run separately on different ports:
+
 - Frontend development server: `http://localhost:3000` (with hot reload).
 - Backend API server: `http://localhost:7860`.
 
@@ -31,22 +33,25 @@ Install Primeagent from source by forking the repository and setting up your dev
 
 ### Prerequisites
 
-* [Python](https://www.python.org/downloads/) 3.10 to 3.14
-* [uv](https://docs.astral.sh/uv/getting-started/installation/) version 0.4 or later
-* [Node.js](https://nodejs.org/en/download/package-manager)
-* [Make](https://www.gnu.org/software/make/#documentation) (Linux and macOS only)
+- [Python](https://www.python.org/downloads/) 3.10 to 3.14
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) version 0.4 or later
+- [Node.js](https://nodejs.org/en/download/package-manager)
+- [Make](https://www.gnu.org/software/make/#documentation) (Linux and macOS only)
 
 ### Clone the Primeagent repository
 
 1. Fork the [Primeagent GitHub repository](https://github.com/khulnasoft-bot/primeagent).
 
 2. Add the new remote to your local repository on your local machine:
+
 ```bash
 git remote add FORK_NAME https://github.com/GIT_USERNAME/primeagent.git
 ```
+
 Replace the following:
-* `FORK_NAME`: A name for your fork of the repository
-* `GIT_USERNAME`: Your Git username
+
+- `FORK_NAME`: A name for your fork of the repository
+- `GIT_USERNAME`: Your Git username
 
 ### Run Primeagent from source
 
@@ -67,6 +72,7 @@ This command does the following:
 - Starts the application with default settings
 
 The Primeagent frontend is served at `http://localhost:7860`.
+
 </details>
 
 <details>
@@ -76,25 +82,25 @@ To run Primeagent from source on Windows, you can use the Primeagent repository'
 
 Do one of the following:
 
-* To install and run Primeagent with the included Windows Batch file, navigate to the `scripts/windows` directory, and then run the `build_and_run.bat` file.
+- To install and run Primeagent with the included Windows Batch file, navigate to the `scripts/windows` directory, and then run the `build_and_run.bat` file.
 
-* To run Primeagent from the Windows Command Line:
+- To run Primeagent from the Windows Command Line:
 
-    1. Build the frontend static files:
+  1. Build the frontend static files:
 
-        ```
-        cd src/frontend
-        npm install
-        npm run build
-        ```
+     ```
+     cd src/frontend
+     npm install
+     npm run build
+     ```
 
-    2. Copy the contents of the built `src/frontend/build` directory to `src/backend/base/primeagent/frontend`.
+  2. Copy the contents of the built `src/frontend/build` directory to `src/backend/base/primeagent/frontend`.
 
-    3. Start Primeagent:
+  3. Start Primeagent:
 
-        ```
-        uv run primeagent run
-        ```
+     ```
+     uv run primeagent run
+     ```
 
 The Primeagent frontend is served at `http://localhost:7860`.
 
@@ -107,25 +113,25 @@ To run Primeagent from source on Windows, you can use the Primeagent repository'
 
 Do one of the following:
 
-* To install and run Primeagent with the included scripts, navigate to the `scripts/windows` directory, and then run the `build_and_run.ps1` file.
+- To install and run Primeagent with the included scripts, navigate to the `scripts/windows` directory, and then run the `build_and_run.ps1` file.
 
-* To run Primeagent from a PowerShell terminal:
+- To run Primeagent from a PowerShell terminal:
 
-    1. Build the frontend static files:
+  1. Build the frontend static files:
 
-        ```
-        cd src/frontend
-        npm install
-        npm run build
-        ```
+     ```
+     cd src/frontend
+     npm install
+     npm run build
+     ```
 
-    2. Copy the contents of the built `src/frontend/build` directory to `src/backend/base/primeagent/frontend`.
+  2. Copy the contents of the built `src/frontend/build` directory to `src/backend/base/primeagent/frontend`.
 
-    3. Start Primeagent:
+  3. Start Primeagent:
 
-        ```
-        uv run primeagent run
-        ```
+     ```
+     uv run primeagent run
+     ```
 
 The Primeagent frontend is served at `http://localhost:7860`.
 
@@ -146,45 +152,45 @@ If you just want to run Primeagent locally without making code changes, see [Run
 
 1. Set up the Primeagent development environment:
 
-    ```bash
-    make init
-    ```
+   ```bash
+   make init
+   ```
 
-    This command sets up the development environment by doing the following:
+   This command sets up the development environment by doing the following:
 
-    - Checking for uv and npm.
-    - Installing backend and frontend dependencies.
-    - Installing pre-commit hooks.
+   - Checking for uv and npm.
+   - Installing backend and frontend dependencies.
+   - Installing pre-commit hooks.
 
 2. Run the backend and frontend in separate terminals for development:
 
-    ```bash
-    # Run backend in development mode (includes hot reload)
-    make backend
-    ```
+   ```bash
+   # Run backend in development mode (includes hot reload)
+   make backend
+   ```
 
-    ```bash
-    # In another terminal, run frontend in development mode (includes hot reload)
-    make frontend
-    ```
+   ```bash
+   # In another terminal, run frontend in development mode (includes hot reload)
+   make frontend
+   ```
 
-    The `make backend` and `make frontend` commands automatically install dependencies, so you don't need to run install commands separately.
+   The `make backend` and `make frontend` commands automatically install dependencies, so you don't need to run install commands separately.
 
-    The frontend is served at `http://localhost:3000` and the backend at `http://localhost:7860`.
+   The frontend is served at `http://localhost:3000` and the backend at `http://localhost:7860`.
 
 3. Optional: Install pre-commit hooks to help keep your changes clean and well-formatted.
 
-    With pre-commit hooks installed, you must use `uv run git commit` instead of `git commit` directly.
+   With pre-commit hooks installed, you must use `uv run git commit` instead of `git commit` directly.
 
-    `make init` installs pre-commit hooks automatically, or you can run the following command to install them manually:
+   `make init` installs pre-commit hooks automatically, or you can run the following command to install them manually:
 
-    ```bash
-    uv sync
-    uv run pre-commit install
-    ```
+   ```bash
+   uv sync
+   uv run pre-commit install
+   ```
 
 4. To test your changes before pushing commits, run `make lint`, `make format`, and `make unit_tests`.
-To run all tests, including coverage, unit, and integration, tests, run `make tests`.
+   To run all tests, including coverage, unit, and integration, tests, run `make tests`.
 
 </TabItem>
 <TabItem value="Windows" label="Windows">
@@ -195,17 +201,17 @@ To set up the Primeagent development environment, run the frontend and backend i
 
 1. To run the frontend development server with hot reload, run the following commands:
 
-    ```bash
-    cd src/frontend
-    npm install
-    npm run start
-    ```
+   ```bash
+   cd src/frontend
+   npm install
+   npm run start
+   ```
 
 2. In a separate terminal, run the following command to run the backend:
 
-    ```bash
-    uv run primeagent run --backend-only
-    ```
+   ```bash
+   uv run primeagent run --backend-only
+   ```
 
 The frontend is served at `http://localhost:3000` and the backend at `http://localhost:7860`. This setup preserves hot reload for frontend development, with no need to copy build files after every edit.
 
@@ -246,60 +252,61 @@ For style guidance, see the [Google Developer Documentation Style Guide](https:/
 
 3. Add the new remote to your local repository on your local machine:
 
-    ```bash
-    git remote add FORK_NAME https://github.com/GIT_USERNAME/primeagent.git
-    ```
+   ```bash
+   git remote add FORK_NAME https://github.com/GIT_USERNAME/primeagent.git
+   ```
 
-    Replace the following:
+   Replace the following:
 
-    * `FORK_NAME`: A name for your fork of the repository
-    * `GIT_USERNAME`: Your Git username
+   - `FORK_NAME`: A name for your fork of the repository
+   - `GIT_USERNAME`: Your Git username
 
 4. From the root of your local Primeagent fork, change to the `/docs` directory:
 
-    ```bash
-    cd docs
-    ```
+   ```bash
+   cd docs
+   ```
 
-    If you're using a dev container, run the documentation build from outside the container on your host terminal, not from within the dev container workspace.
-    The documentation build may not work properly when run inside the dev container.
+   If you're using a dev container, run the documentation build from outside the container on your host terminal, not from within the dev container workspace.
+   The documentation build may not work properly when run inside the dev container.
 
 5. Install dependencies and start a local Docusaurus static site with hot reload:
 
-    ```bash
-    npm install
-    npm run start
-    ```
+   ```bash
+   npm install
+   npm run start
+   ```
 
-    The documentation is served at `http://localhost:3000`.
+   The documentation is served at `http://localhost:3000`.
 
 6. To edit and create content, work with the `.mdx` files in the `primeagent/docs/docs` directory.
 
-    Create new files in `.mdx` format.
+   Create new files in `.mdx` format.
 
-    Navigation is defined in `primeagent/docs/sidebars.js`.
+   Navigation is defined in `primeagent/docs/sidebars.js`.
 
-    Most pages use a `slug` for shorthand cross-referencing, rather than supplying the full or relative directory path.
-    For example, if a page has a `slug` of `/cool-page`, you can link to it with `[Cool page](/cool-page)` from any other `/docs` page.
+   Most pages use a `slug` for shorthand cross-referencing, rather than supplying the full or relative directory path.
+   For example, if a page has a `slug` of `/cool-page`, you can link to it with `[Cool page](/cool-page)` from any other `/docs` page.
 
 7. Recommended: After making some changes, run `npm run build` to build the site locally with more robust logging.
-This can help you find broken links before creating a PR.
+   This can help you find broken links before creating a PR.
 
 ## Open a pull request
 
 To submit a pull request, do the following:
 
 1. Open a GitHub pull request against the active `release-X.Y.Z` release candidate branch.
-Do not target `main`.
-For example, if the latest released version is `1.8.0`, your pull request should target the `release-1.9.0` branch.
-Include a clear title and description.
+   Do not target `main`.
+   For example, if the latest released version is `1.8.0`, your pull request should target the `release-1.9.0` branch.
+   Include a clear title and description.
 
 2. Ensure the PR title follows semantic commit conventions. For example, features are `feat: add new feature` and fixes are `fix: correct issue with X`.
 
 Some additional guidance on pull request titles:
-* Ensure the pull request description clearly describes the problem and solution. If the PR fixes an issue, include a link to the fixed issue in the PR description with `Fixes #1234`.
-* Pull request titles appear in Primeagent's release notes, so they should explain what the PR does as explicitly as possible.
-* Pull requests should strive to fix one thing **only**, and should contain a good description of what is being fixed.
+
+- Ensure the pull request description clearly describes the problem and solution. If the PR fixes an issue, include a link to the fixed issue in the PR description with `Fixes #1234`.
+- Pull request titles appear in Primeagent's release notes, so they should explain what the PR does as explicitly as possible.
+- Pull requests should strive to fix one thing **only**, and should contain a good description of what is being fixed.
 
 3. A Primeagent maintainer will review your pull request and may request changes, so ensure you pay attention to your PRs. Thanks for your contribution!
 

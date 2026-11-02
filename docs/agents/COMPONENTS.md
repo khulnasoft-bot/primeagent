@@ -60,7 +60,7 @@ These appear all over the codebase but rarely in old docs.
 - **`real_time_refresh=True` + `update_build_config(self, build_config, value, name)`**: dynamic form. Use for mode switches and dependent-field hide/show. Examples: `openai/openai_chat_model.py`, `vectorstores/local_db.py`.
 - **`metadata = {"keywords": [...]}`**: extra search terms for the component picker. Example: `data_source/sql_executor.py`.
 - **`minimized = True`**: render collapsed by default. Example: `input_output/chat.py`.
-- **`documentation = "https://docs.prime.khulnasoft.com/..."`**: deep-link from the node UI. Example: `input_output/chat.py`.
+- **`documentation = "https://prime.khulnasoft.com/docs/..."`**: deep-link from the node UI. Example: `input_output/chat.py`.
 
 ## Placement rules
 
@@ -100,9 +100,10 @@ For brand logos you need a frontend SVG component. The Python `icon` string and 
    import React, { forwardRef } from "react";
    import AstraSVG from "./AstraDB";
 
-   export const AstraDBIcon = forwardRef<SVGSVGElement, React.PropsWithChildren<{}>>(
-     (props, ref) => <AstraSVG ref={ref} isDark={isDark} {...props} />
-   );
+   export const AstraDBIcon = forwardRef<
+     SVGSVGElement,
+     React.PropsWithChildren<{}>
+   >((props, ref) => <AstraSVG ref={ref} isDark={isDark} {...props} />);
    ```
 4. **Lazy import** in `src/frontend/src/icons/lazyIconImports.ts`:
    ```ts

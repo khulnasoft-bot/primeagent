@@ -99,24 +99,24 @@ Enable it only when the people authoring flows on your server are trusted, such 
 
 The two settings combine as follows.
 
-| `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS` | `PRIMEAGENT_ALLOW_PUBLIC_CUSTOM_COMPONENTS` | Public flow build |
-|---|---|---|
-| `true` (default) | `false` (default) | The server's own component code runs. Components the server doesn't know are refused. |
-| `true` | `true` | The code stored in the flow runs, for every node in the flow. |
-| `false` | Either | The server's own component code runs. Components the server doesn't know are refused. |
+| `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS` | `PRIMEAGENT_ALLOW_PUBLIC_CUSTOM_COMPONENTS` | Public flow build                                                                     |
+| ------------------------------------ | ------------------------------------------- | ------------------------------------------------------------------------------------- |
+| `true` (default)                     | `false` (default)                           | The server's own component code runs. Components the server doesn't know are refused. |
+| `true`                               | `true`                                      | The code stored in the flow runs, for every node in the flow.                         |
+| `false`                              | Either                                      | The server's own component code runs. Components the server doesn't know are refused. |
 
 ## Interaction with catalog governance
 
 Catalog governance takes precedence over the custom-code settings on the custom-component create, update, and code-validation endpoints. A catalog block has no superuser bypass.
 
-| Submitted source | Catalog policy | Custom components | Admin-only mode | Result |
-|---|---|---|---|---|
-| Known server template | Blocked | Either | Either | Denied for every user |
-| Known server template | Allowed | Disabled | Either | Allowed using the trusted server source |
-| Known server template | Allowed | Enabled | Non-superuser | Allowed using the trusted server source |
-| Unknown custom source | Not blocked | Disabled | Either | Denied |
-| Unknown custom source | Not blocked | Enabled | Non-superuser | Denied |
-| Unknown custom source | Not blocked | Enabled | Superuser or admin-only disabled | Allowed |
+| Submitted source      | Catalog policy | Custom components | Admin-only mode                  | Result                                  |
+| --------------------- | -------------- | ----------------- | -------------------------------- | --------------------------------------- |
+| Known server template | Blocked        | Either            | Either                           | Denied for every user                   |
+| Known server template | Allowed        | Disabled          | Either                           | Allowed using the trusted server source |
+| Known server template | Allowed        | Enabled           | Non-superuser                    | Allowed using the trusted server source |
+| Unknown custom source | Not blocked    | Disabled          | Either                           | Denied                                  |
+| Unknown custom source | Not blocked    | Enabled           | Non-superuser                    | Denied                                  |
+| Unknown custom source | Not blocked    | Enabled           | Superuser or admin-only disabled | Allowed                                 |
 
 For `POST /api/v1/validate/code`, this policy runs before the source is parsed or imports are inspected. In a restricted custom-code mode, known templates are validated from the trusted server copy, while unknown source follows the same disabled or admin-only rule as the component editor. On custom-component create and update, known blocked template source is rejected before the component is built, and the resolved component type is checked again before request-supplied frontend updates are applied.
 
@@ -154,5 +154,5 @@ To hide or refuse named built-in components, starter templates, model providers,
 
 For more information, see:
 
-* [Environment variables](/environment-variables#visual-editor-and-playground-behavior)
-* [Security](/security)
+- [Environment variables](/environment-variables#visual-editor-and-playground-behavior)
+- [Security](/security)

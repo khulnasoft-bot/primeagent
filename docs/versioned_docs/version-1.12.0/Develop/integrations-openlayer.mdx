@@ -3,8 +3,8 @@ title: Openlayer
 slug: /integrations-openlayer
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 [Openlayer](https://www.openlayer.com/) is a testing and evaluation platform for LLM applications. It provides comprehensive observability, testing, and monitoring capabilities to help you ship high-quality AI systems with confidence.
 
@@ -28,50 +28,50 @@ If you need a flow to test the Openlayer integration, see the [Primeagent quicks
 
 3. Set your Openlayer credentials as environment variables in the same environment where you run Primeagent.
 
-    In the following examples, replace `YOUR_API_KEY` and `YOUR_PIPELINE_ID` with your actual Openlayer credentials.
+   In the following examples, replace `YOUR_API_KEY` and `YOUR_PIPELINE_ID` with your actual Openlayer credentials.
 
-    <Tabs>
-    <TabItem value="linux-macos" label="Linux or macOS" default>
+   <Tabs>
+<TabItem value="linux-macos" label="Linux or macOS" default>
 
-    These commands set the environment variables in a Linux or macOS terminal session:
+   These commands set the environment variables in a Linux or macOS terminal session:
 
-    ```bash
-    export OPENLAYER_API_KEY="YOUR_API_KEY"
-    export OPENLAYER_INFERENCE_PIPELINE_ID="YOUR_PIPELINE_ID"
-    ```
+   ```bash
+   export OPENLAYER_API_KEY="YOUR_API_KEY"
+   export OPENLAYER_INFERENCE_PIPELINE_ID="YOUR_PIPELINE_ID"
+   ```
 
-    </TabItem>
-    <TabItem value="windows" label="Windows">
+   </TabItem>
+<TabItem value="windows" label="Windows">
 
-    These commands set the environment variables in a Windows command prompt session:
+   These commands set the environment variables in a Windows command prompt session:
 
-    ```cmd
-    set OPENLAYER_API_KEY=YOUR_API_KEY
-    set OPENLAYER_INFERENCE_PIPELINE_ID=YOUR_PIPELINE_ID
-    ```
+   ```cmd
+   set OPENLAYER_API_KEY=YOUR_API_KEY
+   set OPENLAYER_INFERENCE_PIPELINE_ID=YOUR_PIPELINE_ID
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
 ## Start Primeagent and view traces in Openlayer
 
 1. Start Primeagent in the same environment where you set the Openlayer environment variables:
 
-    ```bash
-    uv run primeagent run
-    ```
+   ```bash
+   uv run primeagent run
+   ```
 
 2. Run a flow in Primeagent.
 
-    Primeagent automatically collects and sends tracing data about the flow execution to Openlayer, including:
-    - Component inputs and outputs
-    - Execution timing and latency
-    - LLM calls and nested operations
-    - User and session context
+   Primeagent automatically collects and sends tracing data about the flow execution to Openlayer, including:
+   - Component inputs and outputs
+   - Execution timing and latency
+   - LLM calls and nested operations
+   - User and session context
 
 3. View the collected data in your [Openlayer dashboard](https://app.openlayer.com/).
 
-    Each flow execution appears as a trace with a hierarchical view of all components and their nested operations.
+   Each flow execution appears as a trace with a hierarchical view of all components and their nested operations.
 
 ## Advanced configuration
 
@@ -134,6 +134,5 @@ The Openlayer integration automatically captures:
 
 ## See also
 
-* [Openlayer documentation](https://docs.openlayer.com/)
-* [Openlayer GitHub repository](https://github.com/openlayer-ai/openlayer-python)
-
+- [Openlayer documentation](https://docs.openlayer.com/)
+- [Openlayer GitHub repository](https://github.com/openlayer-ai/openlayer-python)

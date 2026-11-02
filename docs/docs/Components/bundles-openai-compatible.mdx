@@ -25,10 +25,10 @@ To find your **Base URL**, see your provider's documentation.
 2. Select the **OpenAI Compatible** model provider.
 3. Set the following fields:
 
-    | Field | Environment variable | Required | Description |
-    |-------|----------------------|----------|-------------|
-    | **Base URL** | `OPENAI_COMPATIBLE_BASE_URL` | Yes | Base URL of the OpenAI-compatible endpoint from your provider's documentation, such as `https://openrouter.ai/api/v1`. |
-    | **API Key** | `OPENAI_COMPATIBLE_API_KEY` | No | Bearer token for the endpoint. Leave empty for local servers that do not require authentication. |
+   | Field        | Environment variable         | Required | Description                                                                                                            |
+   | ------------ | ---------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- |
+   | **Base URL** | `OPENAI_COMPATIBLE_BASE_URL` | Yes      | Base URL of the OpenAI-compatible endpoint from your provider's documentation, such as `https://openrouter.ai/api/v1`. |
+   | **API Key**  | `OPENAI_COMPATIBLE_API_KEY`  | No       | Bearer token for the endpoint. Leave empty for local servers that do not require authentication.                       |
 
 4. Click **Save**.
    Primeagent validates the connection to the endpoint's `/v1/models` route and discovers available models.
@@ -53,8 +53,8 @@ For more information, see [SSRF protection](/api-keys-and-authentication#ssrf-pr
 
 ## See also
 
-* [Language Model component](/components-models)
-* [Embedding Model component](/components-embedding-models)
-* [**Agent** component](/agents)
-* [**vLLM** bundle](/bundles-vllm)
-* [OpenAI API reference](https://platform.openai.com/docs/api-reference)
+- [Language Model component](/components-models)
+- [Embedding Model component](/components-embedding-models)
+- [**Agent** component](/agents)
+- [**vLLM** bundle](/bundles-vllm)
+- [OpenAI API reference](https://platform.openai.com/docs/api-reference)

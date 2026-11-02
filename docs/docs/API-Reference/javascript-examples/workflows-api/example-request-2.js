@@ -1,14 +1,14 @@
 const url = `${process.env.PRIMEAGENT_SERVER_URL ?? ""}/api/v2/workflows/stop`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
   body: JSON.stringify({
-  "job_id": "job_id_1234567890"
-}),
+    job_id: "job_id_1234567890",
+  }),
 };
 
 fetch(url, options)

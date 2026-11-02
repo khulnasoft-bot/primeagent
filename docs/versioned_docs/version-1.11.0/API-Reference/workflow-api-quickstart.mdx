@@ -2,23 +2,24 @@
 title: Workflow API quickstart
 slug: /workflow-api-quickstart
 ---
-import CodeBlock from '@theme/CodeBlock';
-import exampleQuickstartSync from '!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-quickstart-sync.sh';
-import examplePythonQuickstartSync from '!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-quickstart-sync.py';
-import exampleJavascriptQuickstartSync from '!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-quickstart-sync.js';
-import exampleQuickstartStreamTokens from '!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-quickstart-stream-tokens.sh';
-import examplePythonQuickstartStreamTokens from '!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-quickstart-stream-tokens.py';
-import exampleJavascriptQuickstartStreamTokens from '!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-quickstart-stream-tokens.js';
-import exampleStreamAguiParse from '!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-stream-agui-parse.sh';
-import examplePythonStreamAguiParse from '!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-stream-agui-parse.py';
-import exampleJavascriptStreamAguiParse from '!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-stream-agui-parse.js';
-import exampleQuickstartBackgroundPoll from '!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-quickstart-background-poll.sh';
-import examplePythonQuickstartBackgroundPoll from '!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-quickstart-background-poll.py';
-import exampleJavascriptQuickstartBackgroundPoll from '!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-quickstart-background-poll.js';
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import PartialAPISetup from '@site/docs/_partial-api-setup.mdx';
+import CodeBlock from "@theme/CodeBlock";
+import exampleQuickstartSync from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-quickstart-sync.sh";
+import examplePythonQuickstartSync from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-quickstart-sync.py";
+import exampleJavascriptQuickstartSync from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-quickstart-sync.js";
+import exampleQuickstartStreamTokens from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-quickstart-stream-tokens.sh";
+import examplePythonQuickstartStreamTokens from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-quickstart-stream-tokens.py";
+import exampleJavascriptQuickstartStreamTokens from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-quickstart-stream-tokens.js";
+import exampleStreamAguiParse from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-stream-agui-parse.sh";
+import examplePythonStreamAguiParse from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-stream-agui-parse.py";
+import exampleJavascriptStreamAguiParse from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-stream-agui-parse.js";
+import exampleQuickstartBackgroundPoll from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-quickstart-background-poll.sh";
+import examplePythonQuickstartBackgroundPoll from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-quickstart-background-poll.py";
+import exampleJavascriptQuickstartBackgroundPoll from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-quickstart-background-poll.js";
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import PartialAPISetup from "@site/docs/_partial-api-setup.mdx";
 
 The [Workflow API](./workflow-api) executes Primeagent flows over `POST /api/v2/workflows` in three modes.
 
@@ -95,7 +96,9 @@ Each `data:` line is JSON shaped like `{"event": "<type>", "data": {...}}`. The 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptQuickstartStreamTokens}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptQuickstartStreamTokens}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -139,7 +142,9 @@ Set `"mode": "background"` to queue a job and receive a `job_id` immediately. Po
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptQuickstartBackgroundPoll}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptQuickstartBackgroundPoll}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -155,5 +160,5 @@ To connect to a background run, see [Re-attach to a background run](./workflow-a
 
 ## Next steps
 
-* [Workflow API reference](./workflow-api) — request body fields, response schemas, status polling, stop endpoint, tweaks, globals, and error codes.
-* [Flow trigger endpoints](/api-flows-run) — v1 `/run` and `/webhook` endpoints if you are migrating from or comparing with the v1 API.
+- [Workflow API reference](./workflow-api) — request body fields, response schemas, status polling, stop endpoint, tweaks, globals, and error codes.
+- [Flow trigger endpoints](/api-flows-run) — v1 `/run` and `/webhook` endpoints if you are migrating from or comparing with the v1 API.

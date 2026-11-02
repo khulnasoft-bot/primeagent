@@ -4,13 +4,15 @@ slug: /bundles-confluent
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import PartialConditionalParams from '@site/docs/_partial-conditional-params.mdx';
-import { GraduatedBundleInstall } from '@site/docs/_partial-bundle-graduated-install.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import PartialConditionalParams from "@site/docs/_partial-conditional-params.mdx";
+import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-install.mdx";
 
 <GraduatedBundleInstall packageName="confluent" />
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with Primeagent.
 
 This page describes the components that are available in the **IBM Confluent** bundle, and the zero-code ways to connect Primeagent flows to Confluent that work with the components you already have.
 
@@ -47,22 +49,22 @@ The Real-Time Context Engine is available for Confluent Cloud clusters on AWS. I
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| Cloud Region (`region`) | String | Input parameter. Confluent Cloud region of the Kafka cluster, for example `us-east-1`. Default: `us-east-1`. |
-| Organization ID (`organization_id`) | String | Input parameter. Confluent Cloud organization ID. |
-| Environment ID (`environment_id`) | String | Input parameter. Confluent Cloud environment ID, for example `env-abc123`. |
-| Kafka Cluster ID (`kafka_cluster_id`) | String | Input parameter. Kafka cluster ID, for example `lkc-abc123`. |
-| API Key (`api_key`) | SecretString | Input parameter. Confluent Cloud Global API key with read access to the cluster and Schema Registry. |
-| API Secret (`api_secret`) | SecretString | Input parameter. Secret paired with the API key. |
-| Endpoint Override (`endpoint_override`) | String | Input parameter. Full MCP endpoint URL. Leave empty to build it from the region and IDs. |
-| Cloud Provider (`cloud`) | String | Input parameter. Cloud provider segment of the endpoint host. Default: `aws`. |
-| Tool (`tool`) | Dropdown | Input parameter. Tool to run for the **Response** output. Seeded with `list_topics`, `get_metadata`, `query_data`; the refresh button re-reads the list from the server. |
-| Tool Arguments (JSON) (`tool_arguments`) | String | Input parameter. JSON object passed as the selected tool's arguments when the **Response** output is used directly. Ignored in Tool Mode. |
-| Tool Execution Timeout (seconds) (`tool_execution_timeout`) | Float | Input parameter. `0` uses the system-configured MCP timeout. |
-| Verify SSL Certificate (`verify_ssl`) | Boolean | Input parameter. Default: `true`. |
-| Toolset | [Tools](/data-types#tool) | Output. Available when Tool Mode is on. Connect to an Agent's **Tools** input. |
-| Response | [DataFrame](/data-types#table) | Output. Result of running the selected tool once. |
+| Name                                                        | Type                           | Description                                                                                                                                                              |
+| ----------------------------------------------------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Cloud Region (`region`)                                     | String                         | Input parameter. Confluent Cloud region of the Kafka cluster, for example `us-east-1`. Default: `us-east-1`.                                                             |
+| Organization ID (`organization_id`)                         | String                         | Input parameter. Confluent Cloud organization ID.                                                                                                                        |
+| Environment ID (`environment_id`)                           | String                         | Input parameter. Confluent Cloud environment ID, for example `env-abc123`.                                                                                               |
+| Kafka Cluster ID (`kafka_cluster_id`)                       | String                         | Input parameter. Kafka cluster ID, for example `lkc-abc123`.                                                                                                             |
+| API Key (`api_key`)                                         | SecretString                   | Input parameter. Confluent Cloud Global API key with read access to the cluster and Schema Registry.                                                                     |
+| API Secret (`api_secret`)                                   | SecretString                   | Input parameter. Secret paired with the API key.                                                                                                                         |
+| Endpoint Override (`endpoint_override`)                     | String                         | Input parameter. Full MCP endpoint URL. Leave empty to build it from the region and IDs.                                                                                 |
+| Cloud Provider (`cloud`)                                    | String                         | Input parameter. Cloud provider segment of the endpoint host. Default: `aws`.                                                                                            |
+| Tool (`tool`)                                               | Dropdown                       | Input parameter. Tool to run for the **Response** output. Seeded with `list_topics`, `get_metadata`, `query_data`; the refresh button re-reads the list from the server. |
+| Tool Arguments (JSON) (`tool_arguments`)                    | String                         | Input parameter. JSON object passed as the selected tool's arguments when the **Response** output is used directly. Ignored in Tool Mode.                                |
+| Tool Execution Timeout (seconds) (`tool_execution_timeout`) | Float                          | Input parameter. `0` uses the system-configured MCP timeout.                                                                                                             |
+| Verify SSL Certificate (`verify_ssl`)                       | Boolean                        | Input parameter. Default: `true`.                                                                                                                                        |
+| Toolset                                                     | [Tools](/data-types#tool)      | Output. Available when Tool Mode is on. Connect to an Agent's **Tools** input.                                                                                           |
+| Response                                                    | [DataFrame](/data-types#table) | Output. Result of running the selected tool once.                                                                                                                        |
 
 ## Confluent Kafka Producer
 
@@ -74,19 +76,19 @@ Values are serialized as UTF-8 JSON by default (`string` publishes text as-is). 
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| Bootstrap Servers (`bootstrap_servers`) | String | Input parameter. Comma-separated `host:port` list, for example `pkc-xxxxx.us-east-1.aws.confluent.cloud:9092`. |
-| API Key (`api_key`) | SecretString | Input parameter. Kafka cluster API key (SASL/PLAIN user name). Leave empty for an unauthenticated broker. |
-| API Secret (`api_secret`) | SecretString | Input parameter. Kafka cluster API secret. |
-| Topic (`topic`) | String | Input parameter. Topic to publish to. |
-| Message (`message`) | Message, Data, or DataFrame | Input parameter. What to publish. A DataFrame publishes one record per row. |
-| Message Key (`key`) | String | Input parameter. Optional record key. |
-| Value Serialization (`serialization`) | Dropdown | Input parameter. `json` (default) or `string`. |
-| Record Headers (`headers`) | Dictionary | Input parameter. Optional Kafka record headers added to every record. |
-| Flush Timeout (seconds) (`flush_timeout`) | Integer | Input parameter. Default: `10`. |
-| Extra Client Config (`client_config`) | Dictionary | Input parameter. Additional librdkafka producer settings, for example `acks: all`. |
-| Delivery Report | [Data](/data-types#json) | Output. `records_sent`, `delivered`, `failed`, and per-record `reports`. |
+| Name                                      | Type                        | Description                                                                                                    |
+| ----------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Bootstrap Servers (`bootstrap_servers`)   | String                      | Input parameter. Comma-separated `host:port` list, for example `pkc-xxxxx.us-east-1.aws.confluent.cloud:9092`. |
+| API Key (`api_key`)                       | SecretString                | Input parameter. Kafka cluster API key (SASL/PLAIN user name). Leave empty for an unauthenticated broker.      |
+| API Secret (`api_secret`)                 | SecretString                | Input parameter. Kafka cluster API secret.                                                                     |
+| Topic (`topic`)                           | String                      | Input parameter. Topic to publish to.                                                                          |
+| Message (`message`)                       | Message, Data, or DataFrame | Input parameter. What to publish. A DataFrame publishes one record per row.                                    |
+| Message Key (`key`)                       | String                      | Input parameter. Optional record key.                                                                          |
+| Value Serialization (`serialization`)     | Dropdown                    | Input parameter. `json` (default) or `string`.                                                                 |
+| Record Headers (`headers`)                | Dictionary                  | Input parameter. Optional Kafka record headers added to every record.                                          |
+| Flush Timeout (seconds) (`flush_timeout`) | Integer                     | Input parameter. Default: `10`.                                                                                |
+| Extra Client Config (`client_config`)     | Dictionary                  | Input parameter. Additional librdkafka producer settings, for example `acks: all`.                             |
+| Delivery Report                           | [Data](/data-types#json)    | Output. `records_sent`, `delivered`, `failed`, and per-record `reports`.                                       |
 
 ## Confluent Kafka Consumer
 
@@ -100,21 +102,21 @@ Record values are decoded as JSON by default (falling back to text); `string` ke
 
 <PartialConditionalParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| Bootstrap Servers (`bootstrap_servers`) | String | Input parameter. Comma-separated `host:port` list. |
-| API Key (`api_key`) | SecretString | Input parameter. Kafka cluster API key. |
-| API Secret (`api_secret`) | SecretString | Input parameter. Kafka cluster API secret. |
-| Topics (`topics`) | String | Input parameter. Comma-separated topic names. |
-| Consumer Group ID (`group_id`) | String | Input parameter. Consumer group used to track offsets. Leave empty to derive one from the flow ID. |
-| Max Messages (`max_messages`) | Integer | Input parameter. Stop after this many records. Default: `100`, capped at `10000`. |
-| Timeout (seconds) (`timeout_seconds`) | Float | Input parameter. Stop waiting after this long. Default: `5`, capped at `300`. |
-| Start From (`auto_offset_reset`) | Dropdown | Input parameter. `latest` (default) or `earliest` for a new consumer group. |
-| Commit Offsets (`commit_offsets`) | Boolean | Input parameter. Commit consumed offsets so the next run continues where this one stopped. Default: `true`. |
-| Value Format (`value_format`) | Dropdown | Input parameter. `json` (default), `string`, `avro`, or `json_schema`. |
-| Schema Registry URL / API Key / API Secret | String, SecretString | Input parameters. Shown for `avro` and `json_schema`. |
-| Extra Client Config (`client_config`) | Dictionary | Input parameter. Additional librdkafka consumer settings. |
-| Records | [DataFrame](/data-types#table) | Output. One row per record. |
+| Name                                       | Type                           | Description                                                                                                 |
+| ------------------------------------------ | ------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| Bootstrap Servers (`bootstrap_servers`)    | String                         | Input parameter. Comma-separated `host:port` list.                                                          |
+| API Key (`api_key`)                        | SecretString                   | Input parameter. Kafka cluster API key.                                                                     |
+| API Secret (`api_secret`)                  | SecretString                   | Input parameter. Kafka cluster API secret.                                                                  |
+| Topics (`topics`)                          | String                         | Input parameter. Comma-separated topic names.                                                               |
+| Consumer Group ID (`group_id`)             | String                         | Input parameter. Consumer group used to track offsets. Leave empty to derive one from the flow ID.          |
+| Max Messages (`max_messages`)              | Integer                        | Input parameter. Stop after this many records. Default: `100`, capped at `10000`.                           |
+| Timeout (seconds) (`timeout_seconds`)      | Float                          | Input parameter. Stop waiting after this long. Default: `5`, capped at `300`.                               |
+| Start From (`auto_offset_reset`)           | Dropdown                       | Input parameter. `latest` (default) or `earliest` for a new consumer group.                                 |
+| Commit Offsets (`commit_offsets`)          | Boolean                        | Input parameter. Commit consumed offsets so the next run continues where this one stopped. Default: `true`. |
+| Value Format (`value_format`)              | Dropdown                       | Input parameter. `json` (default), `string`, `avro`, or `json_schema`.                                      |
+| Schema Registry URL / API Key / API Secret | String, SecretString           | Input parameters. Shown for `avro` and `json_schema`.                                                       |
+| Extra Client Config (`client_config`)      | Dictionary                     | Input parameter. Additional librdkafka consumer settings.                                                   |
+| Records                                    | [DataFrame](/data-types#table) | Output. One row per record.                                                                                 |
 
 ## Confluent Tableflow Reader
 
@@ -130,27 +132,27 @@ To use it, enable Tableflow on the topic in Confluent Cloud, capture the REST ca
 
 <PartialConditionalParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| Cloud Region (`region`) | String | Input parameter. Confluent Cloud region. Default: `us-east-1`. |
-| Organization ID (`organization_id`) | String | Input parameter. Confluent Cloud organization ID. |
-| Environment ID (`environment_id`) | String | Input parameter. Confluent Cloud environment ID. |
-| Kafka Cluster ID (`kafka_cluster_id`) | String | Input parameter. Kafka cluster ID; used as the Iceberg warehouse and namespace. |
-| Tableflow API Key (`api_key`) | SecretString | Input parameter. Tableflow (Iceberg REST catalog) API key. |
-| Tableflow API Secret (`api_secret`) | SecretString | Input parameter. Secret paired with the key. |
-| Table (Topic) (`table_name`) | String | Input parameter. Tableflow table name — the Kafka topic name. |
-| Row Filter (`row_filter`) | String | Input parameter. Optional Iceberg row filter expression, for example `status == 'shipped' AND amount > 10`. |
-| Columns (`selected_fields`) | String | Input parameter. Optional comma-separated list of columns. Empty returns every column. |
-| Row Limit (`limit`) | Integer | Input parameter. Default: `1000`, capped at `100000`. |
-| Storage (`storage_mode`) | Dropdown | Input parameter. `confluent_managed` (default) or `byos`. `byos` shows the S3 fields. |
-| S3 Access Key ID / Secret Access Key / Region | SecretString, String | Input parameters. Shown for `byos`. |
-| Access Delegation (`access_delegation`) | Dropdown | Input parameter. Iceberg REST access-delegation mode. Default: `vended-credentials`. |
-| Namespace Override (`namespace`) | String | Input parameter. Defaults to the Kafka cluster ID. |
-| Snapshot ID (`snapshot_id`) | String | Input parameter. Optional Iceberg snapshot ID for a point-in-time read. |
-| Catalog URI Override (`catalog_uri_override`) | String | Input parameter. Full Iceberg REST catalog URI. Leave empty to build it from the region and IDs. |
-| Cloud Provider (`cloud`) | String | Input parameter. Default: `aws`. |
-| Result Table | [DataFrame](/data-types#table) | Output. Rows of the table after filter, projection, and limit. |
-| Tables | [Data](/data-types#json) | Output. The tables in the namespace. |
+| Name                                          | Type                           | Description                                                                                                 |
+| --------------------------------------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| Cloud Region (`region`)                       | String                         | Input parameter. Confluent Cloud region. Default: `us-east-1`.                                              |
+| Organization ID (`organization_id`)           | String                         | Input parameter. Confluent Cloud organization ID.                                                           |
+| Environment ID (`environment_id`)             | String                         | Input parameter. Confluent Cloud environment ID.                                                            |
+| Kafka Cluster ID (`kafka_cluster_id`)         | String                         | Input parameter. Kafka cluster ID; used as the Iceberg warehouse and namespace.                             |
+| Tableflow API Key (`api_key`)                 | SecretString                   | Input parameter. Tableflow (Iceberg REST catalog) API key.                                                  |
+| Tableflow API Secret (`api_secret`)           | SecretString                   | Input parameter. Secret paired with the key.                                                                |
+| Table (Topic) (`table_name`)                  | String                         | Input parameter. Tableflow table name — the Kafka topic name.                                               |
+| Row Filter (`row_filter`)                     | String                         | Input parameter. Optional Iceberg row filter expression, for example `status == 'shipped' AND amount > 10`. |
+| Columns (`selected_fields`)                   | String                         | Input parameter. Optional comma-separated list of columns. Empty returns every column.                      |
+| Row Limit (`limit`)                           | Integer                        | Input parameter. Default: `1000`, capped at `100000`.                                                       |
+| Storage (`storage_mode`)                      | Dropdown                       | Input parameter. `confluent_managed` (default) or `byos`. `byos` shows the S3 fields.                       |
+| S3 Access Key ID / Secret Access Key / Region | SecretString, String           | Input parameters. Shown for `byos`.                                                                         |
+| Access Delegation (`access_delegation`)       | Dropdown                       | Input parameter. Iceberg REST access-delegation mode. Default: `vended-credentials`.                        |
+| Namespace Override (`namespace`)              | String                         | Input parameter. Defaults to the Kafka cluster ID.                                                          |
+| Snapshot ID (`snapshot_id`)                   | String                         | Input parameter. Optional Iceberg snapshot ID for a point-in-time read.                                     |
+| Catalog URI Override (`catalog_uri_override`) | String                         | Input parameter. Full Iceberg REST catalog URI. Leave empty to build it from the region and IDs.            |
+| Cloud Provider (`cloud`)                      | String                         | Input parameter. Default: `aws`.                                                                            |
+| Result Table                                  | [DataFrame](/data-types#table) | Output. Rows of the table after filter, projection, and limit.                                              |
+| Tables                                        | [Data](/data-types#json)       | Output. The tables in the namespace.                                                                        |
 
 ## Connect Confluent and Primeagent without new components
 

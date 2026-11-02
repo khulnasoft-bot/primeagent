@@ -1,5 +1,9 @@
 (async () => {
-  const base = (process.env.PRIMEAGENT_URL ?? process.env.PRIMEAGENT_SERVER_URL ?? "").replace(/\/$/, "");
+  const base = (
+    process.env.PRIMEAGENT_URL ??
+    process.env.PRIMEAGENT_SERVER_URL ??
+    ""
+  ).replace(/\/$/, "");
   const flowId = process.env.FLOW_ID ?? "";
   const apiKey = process.env.PRIMEAGENT_API_KEY ?? "";
 
@@ -27,9 +31,12 @@
   console.log(`Queued job ${jobId}`);
 
   while (true) {
-    const status = await fetch(`${base}/api/v2/workflows?job_id=${encodeURIComponent(jobId)}`, {
-      headers,
-    });
+    const status = await fetch(
+      `${base}/api/v2/workflows?job_id=${encodeURIComponent(jobId)}`,
+      {
+        headers,
+      },
+    );
     if (!status.ok) {
       throw new Error(`HTTP ${status.status}: ${await status.text()}`);
     }

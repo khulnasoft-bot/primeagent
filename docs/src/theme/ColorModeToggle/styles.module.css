@@ -29,9 +29,9 @@
   display: none;
 }
 
-[data-theme-choice='system'] .systemToggleIcon,
-[data-theme-choice='light'] .lightToggleIcon,
-[data-theme-choice='dark'] .darkToggleIcon {
+[data-theme-choice="system"] .systemToggleIcon,
+[data-theme-choice="light"] .lightToggleIcon,
+[data-theme-choice="dark"] .darkToggleIcon {
   display: initial;
 }
 

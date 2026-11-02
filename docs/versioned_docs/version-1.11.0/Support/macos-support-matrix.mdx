@@ -14,25 +14,25 @@ PyTorch, a popular AI/ML library, dropped support for macOS Intel (x86_64) start
 Core Primeagent features and OCR work on both architectures.
 ML/AI components and GPU acceleration are Apple Silicon only.
 
-| Feature category | Apple Silicon (M1/M2/M3) | Intel (x86_64) |
-|-----------------|--------------------------|----------------|
-| **Core Primeagent** | Full support | Full support |
-| **ML/AI Components** | Full support | Limited/Unavailable |
-| **GPU acceleration** | Metal support | Not available |
-| **Native OCR** | Full support | Full support |
+| Feature category     | Apple Silicon (M1/M2/M3) | Intel (x86_64)      |
+| -------------------- | ------------------------ | ------------------- |
+| **Core Primeagent**  | Full support             | Full support        |
+| **ML/AI Components** | Full support             | Limited/Unavailable |
+| **GPU acceleration** | Metal support            | Not available       |
+| **Native OCR**       | Full support             | Full support        |
 
 ## Python version support
 
 All supported Python versions work on Apple Silicon.
 On Intel Macs, Python 3.13 and later lose PyTorch-dependent features like ALTK, HuggingFace, EasyOCR, and Docling.
 
-| Python version | Apple Silicon | Intel Mac |
-|---------------|---------------|-----------|
-| 3.10 | Supported | Supported |
-| 3.11 | Supported | Supported |
-| 3.12 | Supported | Supported |
-| 3.13 | Supported | Limited (no PyTorch) |
-| 3.14 | Supported | Limited (no PyTorch) |
+| Python version | Apple Silicon | Intel Mac            |
+| -------------- | ------------- | -------------------- |
+| 3.10           | Supported     | Supported            |
+| 3.11           | Supported     | Supported            |
+| 3.12           | Supported     | Supported            |
+| 3.13           | Supported     | Limited (no PyTorch) |
+| 3.14           | Supported     | Limited (no PyTorch) |
 
 ## Primeagent feature support
 
@@ -54,7 +54,6 @@ The following features work on **both Apple Silicon and Intel Macs**:
 ### ML/AI features (Apple Silicon only)
 
 The following features require **Apple Silicon (ARM64)** and are **not available on Intel Macs**:
-
 
 - **ALTK (Agent Lifecycle Toolkit)** - Requires PyTorch
 - **HuggingFace Transformers** - Requires PyTorch

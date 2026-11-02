@@ -11,11 +11,11 @@ A role assignment controls what a user can do, but requires an [authorization pl
 
 A non-superuser can administer a resource only when an installed authorization plugin implements the corresponding permission:
 
-| Permission | Allows | Does not allow |
-|---|---|---|
+| Permission    | Allows                                                | Does not allow                            |
+| ------------- | ----------------------------------------------------- | ----------------------------------------- |
 | `user:manage` | Cross-user directory reads and user lifecycle changes | Promoting or demoting platform superusers |
-| `team:manage` | Team CRUD and manual membership changes | Role CRUD or role assignments |
-| `role:manage` | Custom role CRUD and user or team role assignments | User or team CRUD |
+| `team:manage` | Team CRUD and manual membership changes               | Role CRUD or role assignments             |
+| `role:manage` | Custom role CRUD and user or team role assignments    | User or team CRUD                         |
 
 Check the caller's permissions and optional Enterprise features with `GET /api/v1/authz/capabilities`.
 
@@ -142,7 +142,6 @@ To assign a role, do the following:
    primeagent admin --profile production role-assignments grant --role user-operator --user alice
    ```
 
-
 ## Apply a saved administration file
 
 Use an administration file when you want the same users, teams, roles, and assignments on another Primeagent server, or checked into source control.
@@ -150,9 +149,9 @@ Use an administration file when you want the same users, teams, roles, and assig
 To apply a saved administration file, do the following:
 
 1. Export the current administration state from the source server.
-The file can be YAML or JSON.
-By default, `export` writes a YAML file unless the command includes `--format json`.
-This example uses `admin-state.yaml` and the `production` profile for the source server.
+   The file can be YAML or JSON.
+   By default, `export` writes a YAML file unless the command includes `--format json`.
+   This example uses `admin-state.yaml` and the `production` profile for the source server.
 
    ```bash
    primeagent admin --profile production export --file admin-state.yaml
@@ -209,12 +208,12 @@ This example uses `admin-state.yaml` and the `production` profile for the source
    `apply` checks the administration file before writing it.
    If a step fails, the command reports what was applied, skipped, or failed:
 
-   | Exit code | Meaning |
-   |---|---|
-   | `0` | Success. |
-   | `1` | Authorization, connection, server, or partial-apply failure. |
-   | `2` | CLI usage or file validation failure. |
-   | `3` | `diff` found differences. |
+   | Exit code | Meaning                                                      |
+   | --------- | ------------------------------------------------------------ |
+   | `0`       | Success.                                                     |
+   | `1`       | Authorization, connection, server, or partial-apply failure. |
+   | `2`       | CLI usage or file validation failure.                        |
+   | `3`       | `diff` found differences.                                    |
 
    Fix any failures and apply the same administration file again.
 
@@ -225,16 +224,16 @@ A script can call the same routes the CLI calls.
 To call the administration API, do the following:
 
 1. Create a [Primeagent API key](/api-keys-and-authentication#primeagent-api-keys) for the account that will call the API. A superuser can administer every resource.
-Include the created key in the request's `x-api-key` header.
+   Include the created key in the request's `x-api-key` header.
 
 2. Call the route for the action.
 
-   | Action | Route |
-   |---|---|
-   | Users | `/api/v1/users/` |
-   | Teams and members | `/api/v1/authz/teams` |
-   | Roles | `/api/v1/authz/roles` |
-   | Role assignments | `/api/v1/authz/role-assignments` |
+   | Action                          | Route                            |
+   | ------------------------------- | -------------------------------- |
+   | Users                           | `/api/v1/users/`                 |
+   | Teams and members               | `/api/v1/authz/teams`            |
+   | Roles                           | `/api/v1/authz/roles`            |
+   | Role assignments                | `/api/v1/authz/role-assignments` |
    | What this caller can administer | `GET /api/v1/authz/capabilities` |
 
    For example, to list users, run:
@@ -260,11 +259,11 @@ Include the created key in the request's `x-api-key` header.
 
 3. If the request is refused, read the status code and the `X-Primeagent-Error-Code` header.
 
-   | Response | Header | When |
-   |---|---|---|
-   | `403` | `X-Primeagent-Error-Code: administration_denied` | The caller is not allowed to administer that resource. |
-   | `409` | `X-Primeagent-Error-Code: externally_managed` | The change would edit a membership or assignment owned by the identity provider. |
-   | `409` | `X-Primeagent-Error-Code: access_ceiling` | The authorization plugin rejected the change as a privilege escalation. |
+   | Response | Header                                           | When                                                                             |
+   | -------- | ------------------------------------------------ | -------------------------------------------------------------------------------- |
+   | `403`    | `X-Primeagent-Error-Code: administration_denied` | The caller is not allowed to administer that resource.                           |
+   | `409`    | `X-Primeagent-Error-Code: externally_managed`    | The change would edit a membership or assignment owned by the identity provider. |
+   | `409`    | `X-Primeagent-Error-Code: access_ceiling`        | The authorization plugin rejected the change as a privilege escalation.          |
 
 To record user, team, role, and role-assignment changes in the [authorization audit log](./authorization#audit-log-api), set `PRIMEAGENT_AUTHZ_AUDIT_ENABLED=true` and restart Primeagent to enable audit logging.
 The log stores who made the change and which fields changed. Passwords and API keys are omitted.

@@ -31,18 +31,28 @@ function textContent(node) {
 
 function addClass(node, cls) {
   const p = node.properties || (node.properties = {});
-  const existing = Array.isArray(p.className) ? p.className : p.className ? [p.className] : [];
+  const existing = Array.isArray(p.className)
+    ? p.className
+    : p.className
+      ? [p.className]
+      : [];
   if (!existing.includes(cls)) p.className = [...existing, cls];
 }
 
 function processTable(table) {
   // Find thead > tr > th to determine which column indices to center
-  const thead = table.children.find((n) => n.type === "element" && n.tagName === "thead");
+  const thead = table.children.find(
+    (n) => n.type === "element" && n.tagName === "thead",
+  );
   if (!thead) return;
-  const headerRow = thead.children.find((n) => n.type === "element" && n.tagName === "tr");
+  const headerRow = thead.children.find(
+    (n) => n.type === "element" && n.tagName === "tr",
+  );
   if (!headerRow) return;
 
-  const ths = headerRow.children.filter((n) => n.type === "element" && n.tagName === "th");
+  const ths = headerRow.children.filter(
+    (n) => n.type === "element" && n.tagName === "th",
+  );
   const centerIndices = new Set();
   ths.forEach((th, i) => {
     if (CENTER_COLUMNS.includes(textContent(th))) centerIndices.add(i);
@@ -51,19 +61,23 @@ function processTable(table) {
   if (centerIndices.size === 0) return;
 
   // Add col-center class to matching th and td cells
-  [thead, ...table.children.filter((n) => n.type === "element" && n.tagName === "tbody")].forEach(
-    (section) => {
-      walk(section, (row) => {
-        if (row.type !== "element" || row.tagName !== "tr") return;
-        const cells = row.children.filter(
-          (n) => n.type === "element" && (n.tagName === "td" || n.tagName === "th")
-        );
-        cells.forEach((cell, i) => {
-          if (centerIndices.has(i)) addClass(cell, "col-center");
-        });
+  [
+    thead,
+    ...table.children.filter(
+      (n) => n.type === "element" && n.tagName === "tbody",
+    ),
+  ].forEach((section) => {
+    walk(section, (row) => {
+      if (row.type !== "element" || row.tagName !== "tr") return;
+      const cells = row.children.filter(
+        (n) =>
+          n.type === "element" && (n.tagName === "td" || n.tagName === "th"),
+      );
+      cells.forEach((cell, i) => {
+        if (centerIndices.has(i)) addClass(cell, "col-center");
       });
-    }
-  );
+    });
+  });
 }
 
 /** @returns {import('unified').Transformer} */

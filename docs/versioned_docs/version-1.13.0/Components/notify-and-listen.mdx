@@ -14,11 +14,11 @@ Both components are in beta.
 The **Notify** component stores input data under a context key and activates **Listen** components that use the same key.
 Strings, objects, messages, tables, and data frames are normalized to `Data`.
 
-| Input | Type | Default | Description |
-|-------|------|---------|-------------|
-| **Context Key** | String | Required | Key used to store and retrieve the data during the graph run. |
-| **Input Data** | Data, JSON, Message, DataFrame, or Table | Empty | Data to store. |
-| **Append** | Boolean | `false` | Add the value to a list under the key instead of replacing the existing value. |
+| Input           | Type                                     | Default  | Description                                                                    |
+| --------------- | ---------------------------------------- | -------- | ------------------------------------------------------------------------------ |
+| **Context Key** | String                                   | Required | Key used to store and retrieve the data during the graph run.                  |
+| **Input Data**  | Data, JSON, Message, DataFrame, or Table | Empty    | Data to store.                                                                 |
+| **Append**      | Boolean                                  | `false`  | Add the value to a list under the key instead of replacing the existing value. |
 
 The **JSON** output returns the normalized input data.
 
@@ -29,4 +29,3 @@ The key must exactly match the **Notify** component's key.
 If the key has no value, the **JSON** output returns empty data.
 
 You can pass the output to another component, such as [**If-Else**](/if-else).
-

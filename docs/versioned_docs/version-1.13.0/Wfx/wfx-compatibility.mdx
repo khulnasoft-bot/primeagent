@@ -18,14 +18,14 @@ For more information, see [Check and upgrade flows with wfx upgrade](#check-and-
 
 ## Compatibility matrix
 
-| Primeagent version | Compatible WFX version | Notes |
-|---|---|---|
-| 1.13.x | 1.13.x | Fully compatible. Same `major.minor` line. |
-| 1.12.x | 1.12.x | Fully compatible. Same `major.minor` line. |
-| 1.11.x | 1.11.x | Fully compatible. Same `major.minor` line. |
-| 1.10.x | 1.10.x | Fully compatible. Same `major.minor` line. |
-| 1.9.x or earlier | 1.10.x | Use `wfx upgrade --upgrade-flow=safe` to apply safe component schema upgrades before running. |
-| Any 1.x.x | 0.5.x | WFX 0.5.x was a standalone release before version alignment. It is no longer compatible with Primeagent 1.10+ flows. |
+| Primeagent version | Compatible WFX version | Notes                                                                                                                |
+| ------------------ | ---------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| 1.13.x             | 1.13.x                 | Fully compatible. Same `major.minor` line.                                                                           |
+| 1.12.x             | 1.12.x                 | Fully compatible. Same `major.minor` line.                                                                           |
+| 1.11.x             | 1.11.x                 | Fully compatible. Same `major.minor` line.                                                                           |
+| 1.10.x             | 1.10.x                 | Fully compatible. Same `major.minor` line.                                                                           |
+| 1.9.x or earlier   | 1.10.x                 | Use `wfx upgrade --upgrade-flow=safe` to apply safe component schema upgrades before running.                        |
+| Any 1.x.x          | 0.5.x                  | WFX 0.5.x was a standalone release before version alignment. It is no longer compatible with Primeagent 1.10+ flows. |
 
 ## Check and upgrade flows with `wfx upgrade`
 
@@ -46,12 +46,12 @@ Example output:
   [OK] Chat Output (ChatOutput) - id: def456
 ```
 
-| CLI output | What it means | Example |
-|---|---|---|
-| `[OK]` | Component matches the current registry. | No action needed. |
-| `[SAFE]` | Component code changed, but ports and fields your flow uses still line up. `wfx upgrade --write` can apply this update automatically. | An output that previously emitted only `Message` now also supports `Data`. |
-| `[BREAKING]` | A port or field your flow relies on was removed. | An input that accepted `Message` and `Data` now accepts only `Message` and your flow uses a `Data` component. |
-| `[BLOCKED]` | The component type no longer exists in this WFX build. | A bundle-only component is not installed in your environment. |
+| CLI output   | What it means                                                                                                                         | Example                                                                                                       |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `[OK]`       | Component matches the current registry.                                                                                               | No action needed.                                                                                             |
+| `[SAFE]`     | Component code changed, but ports and fields your flow uses still line up. `wfx upgrade --write` can apply this update automatically. | An output that previously emitted only `Message` now also supports `Data`.                                    |
+| `[BREAKING]` | A port or field your flow relies on was removed.                                                                                      | An input that accepted `Message` and `Data` now accepts only `Message` and your flow uses a `Data` component. |
+| `[BLOCKED]`  | The component type no longer exists in this WFX build.                                                                                | A bundle-only component is not installed in your environment.                                                 |
 
 To apply fixes or enforce stricter checks, run:
 
@@ -78,10 +78,10 @@ wfx run my-flow.json --upgrade-flow=safe "Hello world"
 wfx serve my-flow.json --upgrade-flow=safe
 ```
 
-| Mode | Behavior |
-|---|---|
-| `check` | Reports compatibility issues and exits non-zero if any component is blocked. No changes are written to disk. |
-| `safe` | Applies all safe upgrades in memory, then runs or serves the flow. Blocked components still cause a non-zero exit. |
+| Mode    | Behavior                                                                                                           |
+| ------- | ------------------------------------------------------------------------------------------------------------------ |
+| `check` | Reports compatibility issues and exits non-zero if any component is blocked. No changes are written to disk.       |
+| `safe`  | Applies all safe upgrades in memory, then runs or serves the flow. Blocked components still cause a non-zero exit. |
 
 ## Pin versions
 
@@ -98,10 +98,10 @@ WFX was realigned from its standalone `0.5.x` line onto Primeagent's `major.mino
 
 This jump can affect existing dependency pins in unexpected ways:
 
-| Pin style | Effect |
-|---|---|
-| `wfx==0.5.x` or `wfx<1.0` | Does not upgrade. The deployment stays on 0.5.x. |
-| `wfx>=0.5,<1` | Does not upgrade. The upper bound excludes 1.10.0. |
+| Pin style                   | Effect                                                                |
+| --------------------------- | --------------------------------------------------------------------- |
+| `wfx==0.5.x` or `wfx<1.0`   | Does not upgrade. The deployment stays on 0.5.x.                      |
+| `wfx>=0.5,<1`               | Does not upgrade. The upper bound excludes 1.10.0.                    |
 | `wfx>=0.5` (no upper bound) | Upgrades automatically to the latest 1.x release on the next install. |
 
 Pin with `wfx~=1.13.0` so you receive compatible patches without silently crossing minor lines.

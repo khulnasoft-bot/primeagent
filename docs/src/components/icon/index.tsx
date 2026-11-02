@@ -21,8 +21,7 @@ export default function Icon({
   ...props
 }: IconProps) {
   const LucideIcon = LucideIcons[name as keyof typeof LucideIcons] as
-    | React.FC<React.ComponentProps<LucideIcons.LucideIcon>>
-    | undefined;
+    React.FC<React.ComponentProps<LucideIcons.LucideIcon>> | undefined;
   if (!LucideIcon) return null;
 
   const hasAccessibleName =

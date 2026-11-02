@@ -3,8 +3,8 @@ title: Install Primeagent
 slug: /get-started-installation
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 import Cards from "@site/src/components/Cards";
 import Card from "@site/src/components/Card";
 import Icon from "@site/src/components/icon";
@@ -12,16 +12,32 @@ import Icon from "@site/src/components/icon";
 Primeagent can be installed in multiple ways. Choose an option below to jump to the steps.
 
 <Cards cols={2}>
-  <Card icon={<Icon name="Monitor" size={20} />} title="Primeagent Desktop (recommended)" href="#install-and-run-primeagent-desktop">
+  <Card
+    icon={<Icon name="Monitor" size={20} />}
+    title="Primeagent Desktop (recommended)"
+    href="#install-and-run-primeagent-desktop"
+  >
     Standalone app with dependency management and simple upgrades.
   </Card>
-  <Card icon={<Icon name="Container" size={20} />} title="Docker" href="#install-and-run-primeagent-docker">
+  <Card
+    icon={<Icon name="Container" size={20} />}
+    title="Docker"
+    href="#install-and-run-primeagent-docker"
+  >
     Run Primeagent in a container in isolation.
   </Card>
-  <Card icon={<Icon name="Package" size={20} />} title="Python package" href="#install-and-run-the-primeagent-oss-python-package">
+  <Card
+    icon={<Icon name="Package" size={20} />}
+    title="Python package"
+    href="#install-and-run-the-primeagent-oss-python-package"
+  >
     Full control over environment, dependencies, and versioning.
   </Card>
-  <Card icon={<Icon name="GitFork" size={20} />} title="Install from source" href="/contributing-how-to-contribute#install-primeagent-from-source">
+  <Card
+    icon={<Icon name="GitFork" size={20} />}
+    title="Install from source"
+    href="/contributing-how-to-contribute#install-primeagent-from-source"
+  >
     Contribute to Primeagent or work from a local clone.
   </Card>
 </Cards>
@@ -54,9 +70,9 @@ Primeagent Desktop requires macOS 13 or later.
 3. Open the **File Explorer**, and then navigate to **Downloads**.
 4. Double-click the downloaded `.msi` file, and then use the install wizard to install Primeagent Desktop.
 
-    :::tip
-    Windows installations of Primeagent Desktop require a C++ compiler that may not be present on your system. If you receive a `C++ Build Tools Required!` error, follow the on-screen prompt to install Microsoft C++ Build Tools, or [install Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/).
-    :::
+   :::tip
+   Windows installations of Primeagent Desktop require a C++ compiler that may not be present on your system. If you receive a `C++ Build Tools Required!` error, follow the on-screen prompt to install Microsoft C++ Build Tools, or [install Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/).
+   :::
 
 5. When the installation completes, open the Primeagent application, and then create your first flow with the [Quickstart](/get-started-quickstart).
 
@@ -76,9 +92,9 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
 
 2. Pull the latest [Primeagent Docker image](https://hub.docker.com/r/khulnasoft/primeagent) and start it:
 
-    ```bash
-    docker run -p 7860:7860 khulnasoft/primeagent:latest
-    ```
+   ```bash
+   docker run -p 7860:7860 khulnasoft/primeagent:latest
+   ```
 
 3. To access Primeagent, navigate to `http://localhost:7860/`.
 
@@ -86,22 +102,22 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
 
 ## Install and run the Primeagent OSS Python package {#install-and-run-the-primeagent-oss-python-package}
 
-1. Make sure you have the required dependencies and infrastructure:
+1.  Make sure you have the required dependencies and infrastructure:
 
     - [Python](https://www.python.org/downloads/release/python-3100/)
-       - macOS and Linux: Version 3.10 to 3.13
-       - Windows: Version 3.10 to 3.12
+      - macOS and Linux: Version 3.10 to 3.13
+      - Windows: Version 3.10 to 3.12
     - [uv](https://docs.astral.sh/uv/getting-started/installation/)
     - Sufficient infrastructure:
-       - Minimum: Dual-core CPU and 2 GB RAM
-       - Recommended: Multi-core CPU and at least 4 GB RAM
+      - Minimum: Dual-core CPU and 2 GB RAM
+      - Recommended: Multi-core CPU and at least 4 GB RAM
     - Browser:
-       - Google Chrome is recommended but not required
+      - Google Chrome is recommended but not required
 
-2. Create a virtual environment with [uv](https://docs.astral.sh/uv/pip/environments).
+2.  Create a virtual environment with [uv](https://docs.astral.sh/uv/pip/environments).
 
     <details>
-    <summary>Need help with virtual environments?</summary>
+<summary>Need help with virtual environments?</summary>
 
     Virtual environments ensure Primeagent is installed in an isolated, fresh environment.
     To create a new virtual environment, do the following.
@@ -173,13 +189,13 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
 
     </details>
 
-3. In your virtual environment, install Primeagent:
+3.  In your virtual environment, install Primeagent:
 
     ```bash
     uv pip install primeagent
     ```
 
-4. Start Primeagent:
+4.  Start Primeagent:
 
     ```bash
     uv run primeagent run
@@ -187,9 +203,9 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
 
     It can take a few minutes for Primeagent to start.
 
-5. To confirm that a local Primeagent instance is running, navigate to the default Primeagent URL `http://127.0.0.1:7860`.
+5.  To confirm that a local Primeagent instance is running, navigate to the default Primeagent URL `http://127.0.0.1:7860`.
 
-6. Create your first flow with the [Quickstart](/get-started-quickstart).
+6.  Create your first flow with the [Quickstart](/get-started-quickstart).
 
 ### Manage the Primeagent OSS version
 
@@ -203,6 +219,6 @@ To reinstall Primeagent and all of its dependencies, run `uv pip install primeag
 
 ## Next steps
 
-* [Quickstart](/get-started-quickstart): Build and run your first flow in minutes.
-* [Build flows](/concepts-flows): Learn about building flows.
-* [Troubleshoot Primeagent](/troubleshoot): Get help with common Primeagent install and startup issues.
+- [Quickstart](/get-started-quickstart): Build and run your first flow in minutes.
+- [Build flows](/concepts-flows): Learn about building flows.
+- [Troubleshoot Primeagent](/troubleshoot): Get help with common Primeagent install and startup issues.

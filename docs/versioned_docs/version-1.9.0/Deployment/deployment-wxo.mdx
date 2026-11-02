@@ -4,9 +4,9 @@ slug: /deployment-wxo
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import PartialGlobalModelProviders from '@site/docs/_partial-global-model-providers.mdx';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import PartialGlobalModelProviders from "@site/docs/_partial-global-model-providers.mdx";
 
 :::tip
 As of Primeagent 1.9.2, the IBM watsonx Orchestrate deployments feature is behind a feature flag. To enable it, set the following environment variable before starting Primeagent:
@@ -14,6 +14,7 @@ As of Primeagent 1.9.2, the IBM watsonx Orchestrate deployments feature is behin
 ```bash
 PRIMEAGENT_FEATURE_WXO_DEPLOYMENTS=true
 ```
+
 :::
 
 Create a flow and deploy it to [IBM watsonx Orchestrate](https://www.ibm.com/docs/en/watsonx/watson-orchestrate/base?topic=getting-started-watsonx-orchestrate).
@@ -34,10 +35,10 @@ Primeagent is used to build and configure the flow, while IBM watsonx Orchestrat
 1. Create a flow in the Primeagent UI, such as the Simple Agent starter flow in the [Quickstart](/get-started-quickstart).
 
 2. Click <Icon name="Rocket" aria-hidden="true"/> **Deploy**.
-The **Provider** pane opens.
+   The **Provider** pane opens.
 
 3. Enter the **Name**, **Service Instance URL**, and **API Key** from your IBM watsonx Orchestrate instance.
-These values are found in the **Settings** page of your IBM watsonx Orchestrate instance.
+   These values are found in the **Settings** page of your IBM watsonx Orchestrate instance.
 
    - **Name**: `YOUR_DEPLOYMENT_NAME`
    - **Service Instance URL**: `https://api.dl.watson-orchestrate.ibm.com/instances/80194572-4421-6735-91ab-55c0d8e4f962`
@@ -50,36 +51,37 @@ These values are found in the **Settings** page of your IBM watsonx Orchestrate 
    The **Deployment Type** pane opens.
 5. Enter a **Type**, **Agent Name**, **Model**, and **Description**.
 
-    The **Type** is always **Agent**. The deployed flow is an IBM watsonx Orchestrate agent with your flow available as a tool the agent can call.
+   The **Type** is always **Agent**. The deployed flow is an IBM watsonx Orchestrate agent with your flow available as a tool the agent can call.
 
-    The **Model** list is populated from the connected watsonx Orchestrate instance, not Primeagent.
+   The **Model** list is populated from the connected watsonx Orchestrate instance, not Primeagent.
 
 6. To open the **Attach Flows** pane, click the **Attach Flows** tab. Select a flow and flow version to deploy.
 7. To open the **Create Connections** pane, click the **Create Connections** tab. Create a new connection, or select an existing connection to bind to the flow.
 
    To create a new connection, do the following:
 
-      1. Enter a **Connection Name** and any environment variables the flow requires, such as the `OPENAI_API_KEY`. Primeagent auto-detects global variables from the flow JSON file, and you can add additional variables.
+   1. Enter a **Connection Name** and any environment variables the flow requires, such as the `OPENAI_API_KEY`. Primeagent auto-detects global variables from the flow JSON file, and you can add additional variables.
 
-      2. To add the new connection to the list of available connections, click **Create Connection**.
+   2. To add the new connection to the list of available connections, click **Create Connection**.
 
-      3. In the list of available connections, select the new connection, and then click **Attach Connection to Flow**.
+   3. In the list of available connections, select the new connection, and then click **Attach Connection to Flow**.
 
    :::tip
    To bind the connection to the flow **without** environment variable binding, click **Skip**, and then click **Next**.
    :::
 
    For more information, see [Build flows](../Flows/concepts-flows.mdx#save-and-restore-flow-versions).
+
 8. Click **Next**. The **Review & Confirm** pane opens.
 9. Confirm the deployment values are correct, and then click <Icon name="Rocket" aria-hidden="true"/> **Deploy**.
 
-    Primeagent installs any required extra dependencies on your watsonx Orchestrate tenant automatically.
+   Primeagent installs any required extra dependencies on your watsonx Orchestrate tenant automatically.
 
-    In the Primeagent UI, `Deployment successful` indicates your deployment succeeded.
+   In the Primeagent UI, `Deployment successful` indicates your deployment succeeded.
 
-    :::tip
-    If you get an error that the tool name already exists on your deployment, click <Icon name="Pencil" aria-hidden="true"/> **Edit** to change the tool name.
-    :::
+   :::tip
+   If you get an error that the tool name already exists on your deployment, click <Icon name="Pencil" aria-hidden="true"/> **Edit** to change the tool name.
+   :::
 
 10. Click **Test** to open a chat window with your agent on watsonx Orchestrate.
     Enter a question, and the agent responds using the connected flow as a tool.
@@ -89,19 +91,19 @@ These values are found in the **Settings** page of your IBM watsonx Orchestrate 
 
 From the **Projects** page, click **Deployments** to open the deployment management screen.
 
-* **Deployments**:
+- **Deployments**:
 
-   A **Deployment** is a published watsonx Orchestrate agent created from a specific Primeagent flow version. Deployment details include the agent name, type, attached flows, model, and the IBM watsonx Orchestrate environment it belongs to.
+  A **Deployment** is a published watsonx Orchestrate agent created from a specific Primeagent flow version. Deployment details include the agent name, type, attached flows, model, and the IBM watsonx Orchestrate environment it belongs to.
 
-   Use the **Deployments** tab to create, update, view, and delete flow deployments in Primeagent.
+  Use the **Deployments** tab to create, update, view, and delete flow deployments in Primeagent.
 
-* **Deployment Environments**:
+- **Deployment Environments**:
 
-   A **Deployment Environment** is a saved watsonx Orchestrate target that Primeagent can deploy to. An environment stores the connection details for a watsonx Orchestrate tenant.
+  A **Deployment Environment** is a saved watsonx Orchestrate target that Primeagent can deploy to. An environment stores the connection details for a watsonx Orchestrate tenant.
 
-   Use the **Deployment Environments** tab to connect, view, and disconnect IBM watsonx Orchestrate environments in Primeagent.
+  Use the **Deployment Environments** tab to connect, view, and disconnect IBM watsonx Orchestrate environments in Primeagent.
 
-   To manage the tenant itself, use the IBM watsonx Orchestrate dashboard.
+  To manage the tenant itself, use the IBM watsonx Orchestrate dashboard.
 
 ## Send requests to your flow
 
@@ -153,20 +155,23 @@ print(response.json())
 const payload = {
   provider_data: {
     input: "Summarize today's tickets",
-    thread_id: "thread-123"
-  }
+    thread_id: "thread-123",
+  },
 };
 
 const options = {
   method: "POST",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": "PRIMEAGENT_API_KEY"
+    "x-api-key": "PRIMEAGENT_API_KEY",
   },
-  body: JSON.stringify(payload)
+  body: JSON.stringify(payload),
 };
 
-fetch("http://PRIMEAGENT_SERVER_ADDRESS/api/v1/deployments/DEPLOYMENT_ID/runs", options)
+fetch(
+  "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/deployments/DEPLOYMENT_ID/runs",
+  options,
+)
   .then((response) => response.json())
   .then((response) => console.log(response))
   .catch((err) => console.error(err));
@@ -193,10 +198,10 @@ curl --request POST \
 
 #### Request body
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `provider_data.input` | `string` | Yes | The prompt or message content to send to the deployed agent. |
-| `provider_data.thread_id` | `string` | No | Optional thread identifier to continue an existing conversation. |
+| Field                     | Type     | Required | Description                                                      |
+| ------------------------- | -------- | -------- | ---------------------------------------------------------------- |
+| `provider_data.input`     | `string` | Yes      | The prompt or message content to send to the deployed agent.     |
+| `provider_data.thread_id` | `string` | No       | Optional thread identifier to continue an existing conversation. |
 
 #### Example response
 
@@ -258,11 +263,14 @@ const options = {
   method: "GET",
   headers: {
     "Content-Type": "application/json",
-    "x-api-key": "PRIMEAGENT_API_KEY"
-  }
+    "x-api-key": "PRIMEAGENT_API_KEY",
+  },
 };
 
-fetch("http://PRIMEAGENT_SERVER_ADDRESS/api/v1/deployments/DEPLOYMENT_ID/runs/RUN_ID", options)
+fetch(
+  "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/deployments/DEPLOYMENT_ID/runs/RUN_ID",
+  options,
+)
   .then((response) => response.json())
   .then((response) => console.log(response))
   .catch((err) => console.error(err));
@@ -283,10 +291,10 @@ curl --request GET \
 
 #### Path parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `deployment_id` | `uuid` | Yes | The Primeagent deployment ID for the deployed flow. |
-| `run_id` | `string` | Yes | The provider-owned run ID returned in `provider_data.id`. |
+| Parameter       | Type     | Required | Description                                               |
+| --------------- | -------- | -------- | --------------------------------------------------------- |
+| `deployment_id` | `uuid`   | Yes      | The Primeagent deployment ID for the deployed flow.       |
+| `run_id`        | `string` | Yes      | The provider-owned run ID returned in `provider_data.id`. |
 
 #### Example response
 

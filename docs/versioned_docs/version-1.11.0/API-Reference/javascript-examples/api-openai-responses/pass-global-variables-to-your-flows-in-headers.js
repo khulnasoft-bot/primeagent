@@ -1,7 +1,7 @@
 const url = `${process.env.PRIMEAGENT_SERVER_URL ?? ""}/api/v1/responses`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
     "Content-Type": `application/json`,
@@ -10,9 +10,9 @@ const options = {
     "X-PRIMEAGENT-GLOBAL-VAR-ENVIRONMENT": `production`,
   },
   body: JSON.stringify({
-  "model": "your-flow-id",
-  "input": "Hello"
-}),
+    model: "your-flow-id",
+    input: "Hello",
+  }),
 };
 
 fetch(url, options)

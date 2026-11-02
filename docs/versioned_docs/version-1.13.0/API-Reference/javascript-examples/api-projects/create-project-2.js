@@ -1,22 +1,18 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/projects/`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
-    "accept": `application/json`,
+    accept: `application/json`,
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
   body: JSON.stringify({
-  "name": "new_project_name",
-  "description": "string",
-  "components_list": [
-    "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-  ],
-  "flows_list": [
-    "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-  ]
-}),
+    name: "new_project_name",
+    description: "string",
+    components_list: ["3fa85f64-5717-4562-b3fc-2c963f66afa6"],
+    flows_list: ["3fa85f64-5717-4562-b3fc-2c963f66afa6"],
+  }),
 };
 
 fetch(url, options)

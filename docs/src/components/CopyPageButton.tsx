@@ -49,14 +49,10 @@ function nodeToBlockMarkdown(node: Node): string {
   }
 
   const inlineChildren = (): string =>
-    Array.from(el.childNodes)
-      .map(nodeToInlineMarkdown)
-      .join("");
+    Array.from(el.childNodes).map(nodeToInlineMarkdown).join("");
 
   const blockChildren = (): string =>
-    Array.from(el.childNodes)
-      .map(nodeToBlockMarkdown)
-      .join("");
+    Array.from(el.childNodes).map(nodeToBlockMarkdown).join("");
 
   switch (tag) {
     case "h1":
@@ -116,7 +112,8 @@ function nodeToBlockMarkdown(node: Node): string {
 }
 
 async function copyCurrentPageAsMarkdown(): Promise<boolean> {
-  if (typeof document === "undefined" || typeof window === "undefined") return false;
+  if (typeof document === "undefined" || typeof window === "undefined")
+    return false;
 
   const container =
     (document.querySelector(".theme-doc-markdown") as HTMLElement | null) ??
@@ -126,7 +123,11 @@ async function copyCurrentPageAsMarkdown(): Promise<boolean> {
   if (!container) return false;
 
   const parts = Array.from(container.childNodes).map(nodeToBlockMarkdown);
-  const markdown = parts.join("").replace(/\n{3,}/g, "\n\n").trim() + "\n";
+  const markdown =
+    parts
+      .join("")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim() + "\n";
 
   if (!navigator.clipboard?.writeText) {
     return false;
@@ -215,4 +216,3 @@ export function CopyPageButton(): JSX.Element | null {
     </div>
   );
 }
-

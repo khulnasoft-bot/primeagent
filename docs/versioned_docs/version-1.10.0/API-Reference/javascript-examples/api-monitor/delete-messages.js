@@ -1,16 +1,13 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/monitor/messages`;
 
 const options = {
-  method: 'DELETE',
+  method: "DELETE",
   headers: {
-    "accept": `*/*`,
+    accept: `*/*`,
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
-  body: JSON.stringify([
-  "MESSAGE_ID_1",
-  "MESSAGE_ID_2"
-]),
+  body: JSON.stringify(["MESSAGE_ID_1", "MESSAGE_ID_2"]),
 };
 
 fetch(url, options)

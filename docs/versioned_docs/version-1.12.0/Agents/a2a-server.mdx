@@ -4,8 +4,8 @@ slug: /a2a-server
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 :::tip
 As of Primeagent 1.11.x, A2A support is **off** by default. To enable it, set the following environment variable before starting Primeagent:
@@ -13,6 +13,7 @@ As of Primeagent 1.11.x, A2A support is **off** by default. To enable it, set th
 ```bash
 PRIMEAGENT_A2A_ENABLED=true
 ```
+
 :::
 
 Primeagent supports the [Agent2Agent (A2A) protocol](https://a2a-protocol.org/). You can publish a flow so other agents can call it, and call remote A2A agents from inside a flow.
@@ -23,8 +24,8 @@ To call remote A2A agents from inside a flow, see the [**A2A Agent** component](
 
 ## Prerequisites
 
-* `PRIMEAGENT_A2A_ENABLED` set to `true` on the Primeagent server.
-* A [Primeagent flow](/concepts-flows) that contains a [**Chat Input**](/chat-input-and-output#chat-input) (or **Human Input**) component and a [**Chat Output**](/chat-input-and-output#chat-output) component. An A2A caller sends a message and reads a reply, so a flow can be served as an agent only if it can receive and answer messages. Primeagent marks an eligible flow as "agent-type" when the flow is saved from the <Icon name="Bot" aria-hidden="true" /> **Agent** tab. A "workflow-typed" flow returns `404` from the A2A endpoints even when publishing is enabled.
+- `PRIMEAGENT_A2A_ENABLED` set to `true` on the Primeagent server.
+- A [Primeagent flow](/concepts-flows) that contains a [**Chat Input**](/chat-input-and-output#chat-input) (or **Human Input**) component and a [**Chat Output**](/chat-input-and-output#chat-output) component. An A2A caller sends a message and reads a reply, so a flow can be served as an agent only if it can receive and answer messages. Primeagent marks an eligible flow as "agent-type" when the flow is saved from the <Icon name="Bot" aria-hidden="true" /> **Agent** tab. A "workflow-typed" flow returns `404` from the A2A endpoints even when publishing is enabled.
 
 ## Publish a flow as an A2A agent
 
@@ -32,34 +33,34 @@ To call remote A2A agents from inside a flow, see the [**A2A Agent** component](
 
 2. In the visual editor's sidebar, click <Icon name="Bot" aria-hidden="true" /> **Agent**.
 
-    The <Icon name="Bot" aria-hidden="true" /> **Agent** pane appears.
+   The <Icon name="Bot" aria-hidden="true" /> **Agent** pane appears.
 
-    ![Agent pane for serving a flow as an A2A agent](/img/serve-a2a.png)
+   ![Agent pane for serving a flow as an A2A agent](/img/serve-a2a.png)
 
-    This pane configures serving the agent and displays its [agent card](#customize-the-agent-card), and includes a tester for the A2A endpoint.
+   This pane configures serving the agent and displays its [agent card](#customize-the-agent-card), and includes a tester for the A2A endpoint.
 
-    If the flow to be published is missing a chat input or a chat output, the status reads **Unavailable** and the toggle is disabled.
+   If the flow to be published is missing a chat input or a chat output, the status reads **Unavailable** and the toggle is disabled.
 
-    If `PRIMEAGENT_A2A_ENABLED` is set to `false`, the status reads **Off**.
+   If `PRIMEAGENT_A2A_ENABLED` is set to `false`, the status reads **Off**.
 
 3. Set **Serve as an A2A agent** to **On**.
 
-    The flow status changes to **Draft**.
-    The flow is not served yet.
+   The flow status changes to **Draft**.
+   The flow is not served yet.
 
 4. To publish the flow, click **Save**.
 
-    Primeagent publishes the flow. The status changes to **Live**, and Primeagent serves the flow's [agent card](#customize-the-agent-card) and JSON-RPC endpoint.
+   Primeagent publishes the flow. The status changes to **Live**, and Primeagent serves the flow's [agent card](#customize-the-agent-card) and JSON-RPC endpoint.
 
 5. To test the published agent, enter a message in the **Try it** pane, and then click **Send**.
 
-    Primeagent sends the message over the live A2A endpoint and displays the agent's reply, so you can confirm the agent answers before you share the card URL.
+   Primeagent sends the message over the live A2A endpoint and displays the agent's reply, so you can confirm the agent answers before you share the card URL.
 
-    If the [project's authentication](#authentication) is set to **API key** or **OAuth**, an **API key** field is displayed. Paste a valid Primeagent API key so the test request can authenticate. If project authentication is **None**, the field is hidden and no key is required.
+   If the [project's authentication](#authentication) is set to **API key** or **OAuth**, an **API key** field is displayed. Paste a valid Primeagent API key so the test request can authenticate. If project authentication is **None**, the field is hidden and no key is required.
 
 6. To share the flow's endpoint, under **Address**, select **URL**.
 
-    Alternatively, select **curl** to create a `message/send` request.
+   Alternatively, select **curl** to create a `message/send` request.
 
 To stop serving the flow, turn off **Serve as an A2A agent**, and then click **Save**.
 
@@ -67,10 +68,10 @@ To stop serving the flow, turn off **Serve as an A2A agent**, and then click **S
 
 When a flow is published, Primeagent serves two endpoints for the flow:
 
-| Endpoint | Description |
-| --- | --- |
-| `GET /api/v1/a2a/{flow_id}/.well-known/agent-card.json` | The [agent card](#customize-the-agent-card) used for client discovery. The A2A public card is unauthenticated per the A2A spec. |
-| `POST /api/v1/a2a/{flow_id}/jsonrpc` | The JSON-RPC endpoint. Supports `message/send`, `message/stream`, `tasks/get`, `tasks/cancel`, `tasks/resubscribe`, and the `tasks/pushNotificationConfig/*` methods. |
+| Endpoint                                                | Description                                                                                                                                                           |
+| ------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /api/v1/a2a/{flow_id}/.well-known/agent-card.json` | The [agent card](#customize-the-agent-card) used for client discovery. The A2A public card is unauthenticated per the A2A spec.                                       |
+| `POST /api/v1/a2a/{flow_id}/jsonrpc`                    | The JSON-RPC endpoint. Supports `message/send`, `message/stream`, `tasks/get`, `tasks/cancel`, `tasks/resubscribe`, and the `tasks/pushNotificationConfig/*` methods. |
 
 The card advertises `protocolVersion` `0.3.0` and `JSONRPC` as the preferred transport.
 
@@ -738,7 +739,7 @@ You can also manage configs with `tasks/pushNotificationConfig/get` and `tasks/p
 
 ### Cancel a task
 
-To cancel an active task, such as a task waiting for [human input](#human-in-the-loop-agents), call `tasks/cancel` with  the task `id` to cancel.
+To cancel an active task, such as a task waiting for [human input](#human-in-the-loop-agents), call `tasks/cancel` with the task `id` to cancel.
 
 ```bash
 curl -X POST "http://localhost:7860/api/v1/a2a/FLOW_ID/jsonrpc" \
@@ -765,13 +766,13 @@ When you publish a flow, Primeagent serves the card at `/.well-known/agent-card.
 
 By default the card uses the flow's name and description, the Primeagent version, and a single skill derived from the flow's input schema. In the <Icon name="Bot" aria-hidden="true" /> **Agent** tab, under **Customize card**, you can configure the following fields in the agent card:
 
-| Field | Description |
-| --- | --- |
-| **Name** | The agent name. Defaults to the flow name. |
-| **Version** | The advertised version. Defaults to the Primeagent version. |
-| **Description** | The agent description. Defaults to the flow description. |
-| **Tags** | Keywords that help people find the agent. Defaults to `primeagent`. |
-| **Examples** | Sample prompts shown to callers. They don't affect how the agent runs. |
+| Field           | Description                                                            |
+| --------------- | ---------------------------------------------------------------------- |
+| **Name**        | The agent name. Defaults to the flow name.                             |
+| **Version**     | The advertised version. Defaults to the Primeagent version.            |
+| **Description** | The agent description. Defaults to the flow description.               |
+| **Tags**        | Keywords that help people find the agent. Defaults to `primeagent`.    |
+| **Examples**    | Sample prompts shown to callers. They don't affect how the agent runs. |
 
 Click **Save** to apply your overrides.
 
@@ -784,9 +785,9 @@ The agent card itself is always public, so clients can always discover the agent
 Only the JSON-RPC endpoint enforces authentication.
 Whether that endpoint requires a key depends on the [authentication settings of the flow's project](./mcp-server#authentication):
 
-* **None**: The endpoint is public. The card advertises no security scheme and callers omit `x-api-key`.
-* **API key**: The card advertises an `apiKey` security scheme. `message/send` and `message/stream` require a valid Primeagent API key in the `x-api-key` header. Requests without a valid key return `401`.
-* **OAuth**: Not supported for A2A as of Primeagent 1.11.x. This setting behaves the same as API key.
+- **None**: The endpoint is public. The card advertises no security scheme and callers omit `x-api-key`.
+- **API key**: The card advertises an `apiKey` security scheme. `message/send` and `message/stream` require a valid Primeagent API key in the `x-api-key` header. Requests without a valid key return `401`.
+- **OAuth**: Not supported for A2A as of Primeagent 1.11.x. This setting behaves the same as API key.
 
 Authenticated request example:
 
@@ -820,7 +821,7 @@ For more information, see [**A2A Agent** component](./a2a-agent-component).
 
 ## A2A environment variables
 
-| Variable | Default | Description |
-| --- | --- | --- |
-| `PRIMEAGENT_A2A_ENABLED` | `false` | Enables the A2A card and JSON-RPC endpoints for agent-typed, published flows. |
+| Variable                                | Default | Description                                                                                                  |
+| --------------------------------------- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| `PRIMEAGENT_A2A_ENABLED`                | `false` | Enables the A2A card and JSON-RPC endpoints for agent-typed, published flows.                                |
 | `PRIMEAGENT_A2A_ALLOW_PRIVATE_WEBHOOKS` | `false` | Allows push-notification webhooks that resolve to private addresses. Use only on a trusted internal network. |

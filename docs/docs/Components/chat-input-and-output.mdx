@@ -4,7 +4,7 @@ slug: /chat-input-and-output
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
 
 :::warning
 **Chat Input and Output** components are required to chat with your flow in the **Playground**.
@@ -24,17 +24,17 @@ Initial input should _not_ be provided as a complete `Message` object because th
 
 <PartialParams />
 
-| Name | Display Name | Info |
-|------|--------------|------|
-|input_value|Input Text| Input parameter. The message text string to be passed as input. |
-|sender|Sender Type| Input parameter. Identifies the sender as either `User` or `Language Model`.|
-|sender_name|Sender Name| Input parameter. The name of the sender. If unspecified, defaults to `User` or `Language Model`. |
-|session_id|Session ID| Input parameter. The unique identifier for the chat session. If empty, the current session ID parameter is used.|
-|files|Files| Input parameter. The files to be sent with the message.|
-|background_color|Background Color| Input parameter. The background color of the icon.|
-|chat_icon|Icon| Input parameter. The icon of the message.|
-|should_store_message|Store Messages| Input parameter. Whether to store the message in chat history.|
-|text_color|Text Color| Input parameter. The text color of the name.|
+| Name                 | Display Name     | Info                                                                                                             |
+| -------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------- |
+| input_value          | Input Text       | Input parameter. The message text string to be passed as input.                                                  |
+| sender               | Sender Type      | Input parameter. Identifies the sender as either `User` or `Language Model`.                                     |
+| sender_name          | Sender Name      | Input parameter. The name of the sender. If unspecified, defaults to `User` or `Language Model`.                 |
+| session_id           | Session ID       | Input parameter. The unique identifier for the chat session. If empty, the current session ID parameter is used. |
+| files                | Files            | Input parameter. The files to be sent with the message.                                                          |
+| background_color     | Background Color | Input parameter. The background color of the icon.                                                               |
+| chat_icon            | Icon             | Input parameter. The icon of the message.                                                                        |
+| should_store_message | Store Messages   | Input parameter. Whether to store the message in chat history.                                                   |
+| text_color           | Text Color       | Input parameter. The text color of the name.                                                                     |
 
 For information about the resulting `Message` object, including input parameters that are directly mapped to `Message` attributes, see [`Message` data](/data-types#message).
 
@@ -77,18 +77,18 @@ For an example, see the [Primeagent quickstart](/get-started-quickstart).
 
 <PartialParams />
 
-| Name | Display Name | Info |
-|------|--------------|------|
-|input_value|Inputs| Input parameter. The message text string to be passed as output. |
-|should_store_message|Store Messages| Input parameter. Whether to store the message in chat history.|
-|sender|Sender Type| Input parameter. Identifies the sender as either `User` or `Language Model`.|
-|sender_name|Sender Name| Input parameter. The name of the sender. If unspecified, defaults to `User` or `Language Model`. |
-|session_id|Session ID| Input parameter. The unique identifier for the chat session. If empty, the current session ID parameter is used.|
-|data_template|Data Template| Input parameter. The template to convert [`JSON` input](/data-types#json) to `text`. If empty, it is dynamically set to the `JSON` object's `text` key.|
-|background_color|Background Color| Input parameter. The background color of the icon.|
-|chat_icon|Icon| Input parameter. The icon of the message.|
-|text_color|Text Color| Input parameter. The text color of the name.|
-|clean_data|Basic Clean Data| Input parameter. When enabled, [`Table` input](/data-types#table) is cleaned when converted to text. Cleaning removes empty rows, empty lines in cells, and multiple newlines.|
+| Name                 | Display Name     | Info                                                                                                                                                                           |
+| -------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| input_value          | Inputs           | Input parameter. The message text string to be passed as output.                                                                                                               |
+| should_store_message | Store Messages   | Input parameter. Whether to store the message in chat history.                                                                                                                 |
+| sender               | Sender Type      | Input parameter. Identifies the sender as either `User` or `Language Model`.                                                                                                   |
+| sender_name          | Sender Name      | Input parameter. The name of the sender. If unspecified, defaults to `User` or `Language Model`.                                                                               |
+| session_id           | Session ID       | Input parameter. The unique identifier for the chat session. If empty, the current session ID parameter is used.                                                               |
+| data_template        | Data Template    | Input parameter. The template to convert [`JSON` input](/data-types#json) to `text`. If empty, it is dynamically set to the `JSON` object's `text` key.                        |
+| background_color     | Background Color | Input parameter. The background color of the icon.                                                                                                                             |
+| chat_icon            | Icon             | Input parameter. The icon of the message.                                                                                                                                      |
+| text_color           | Text Color       | Input parameter. The text color of the name.                                                                                                                                   |
+| clean_data           | Basic Clean Data | Input parameter. When enabled, [`Table` input](/data-types#table) is cleaned when converted to text. Cleaning removes empty rows, empty lines in cells, and multiple newlines. |
 
 For information about the resulting `Message` object, including input parameters that are directly mapped to `Message` attributes, see [`Message` data](/data-types#message).
 
@@ -103,10 +103,10 @@ For example, the following flow connects **Chat Input** and **Chat Output** to a
 :::tip
 For detailed examples of **Chat Input and Output** components in flows, see the following:
 
-* [Primeagent quickstart](/get-started-quickstart): Create and run a basic agent flow.
-* **Basic Prompting** template: Create an LLM-based chat flow that accepts chat input as well as a prompt with additional instructions for the LLM. Many other Primeagent templates also use **Chat Input and Output** components.
-* [Connect applications to agents](/agent-tutorial): Explore more advanced concepts around agent flows and prompting, including triggering agent flows from external applications.
-:::
+- [Primeagent quickstart](/get-started-quickstart): Create and run a basic agent flow.
+- **Basic Prompting** template: Create an LLM-based chat flow that accepts chat input as well as a prompt with additional instructions for the LLM. Many other Primeagent templates also use **Chat Input and Output** components.
+- [Connect applications to agents](/agent-tutorial): Explore more advanced concepts around agent flows and prompting, including triggering agent flows from external applications.
+  :::
 
 ### Send chat input with the Primeagent API
 
