@@ -144,7 +144,7 @@ Payload contracts intentionally split ownership across layers:
     `wfx.services.adapters.deployment.payloads`)
 - **Adapters (WFX side) own adapter-facing payload models**:
   - adapters populate their `*PayloadSchemas` registry with adapter-side models
-- **API hosts (for example Primeagent) own API-facing payload models**:
+- **API hosts (for example PrimeAgent) own API-facing payload models**:
   - API mapper layers populate their own API payload registries
   - API slots may differ from adapter slots when API-specific references or reshaping are required
 
@@ -154,7 +154,7 @@ transformation logic outside adapter implementations.
 Deployment is the concrete example in this repository:
 
 - WFX defines deployment slot taxonomy and adapter registry (`DeploymentPayloadFields` / `DeploymentPayloadSchemas`)
-- Primeagent defines deployment API registry (`DeploymentApiPayloads`) and mapper behavior
+- PrimeAgent defines deployment API registry (`DeploymentApiPayloads`) and mapper behavior
 
 ### Error Handling Behavior
 
@@ -339,7 +339,7 @@ replaces that singleton. Writes invalidate the handling process after commit;
 the other backend workers poll its durable version on the configurable refresh
 interval (10 seconds by default) and invalidate their snapshots when it changes.
 A plugin that owns the deployment ceiling
-outside Primeagent returns its active set from `external_approved_provider_ids`.
+outside PrimeAgent returns its active set from `external_approved_provider_ids`.
 Any non-`None` value, including an empty frozenset, marks external ownership:
 GET returns that set with `managed_externally: true`, and POST/PUT return `409`
 without changing the database, emitting an audit event, applying OSS state, or
@@ -430,13 +430,13 @@ registry keys and starter-template `name_key` values. Implementations subclass
 `CatalogPolicySnapshot` through `snapshot`, and preload any external state
 before calling `set_ready()`.
 
-When a plugin owns this policy outside Primeagent, it also returns the active
+When a plugin owns this policy outside PrimeAgent, it also returns the active
 snapshot from `external_policy_snapshot`. A non-`None` snapshot marks external
 ownership even when both blocked sets are empty. The superuser catalog-policy
 GET endpoints return that external snapshot with `managed_externally: true`;
 their PUT endpoints return `409` without invoking the writable service methods
 or emitting audit events. The default `None` marker keeps the database-backed
-Primeagent read/write behavior unchanged. External implementations must expose
+PrimeAgent read/write behavior unchanged. External implementations must expose
 value-equivalent active state through both `snapshot` and
 `external_policy_snapshot`: administration reads use the latter while runtime
 enforcement uses the former.
@@ -646,10 +646,10 @@ class ServiceB(Service):
 ## Examples
 
 See:
-- `wfx.toml.example` - Example configuration file showing Primeagent service registration
+- `wfx.toml.example` - Example configuration file showing PrimeAgent service registration
 - `src/wfx/services/` - Minimal built-in service implementations (auth, telemetry, tracing, variable, storage, etc.)
   - Auth: `wfx.services.auth.base` (BaseAuthService) and `wfx.services.auth.service` (AuthService). Use `get_auth_service()` from `wfx.services.deps`. Override with `auth_service = "primeagent.services.auth.service:AuthService"` in config for full JWT/API key auth.
-- `src/backend/base/primeagent/services/` - Full-featured Primeagent services
+- `src/backend/base/primeagent/services/` - Full-featured PrimeAgent services
 
 ## Architecture Benefits
 

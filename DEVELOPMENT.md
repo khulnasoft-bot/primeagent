@@ -9,9 +9,9 @@ This document details how to set up a local development environment that will al
 
 ## Set up Git Repository Fork
 
-You will push changes to a fork of the Primeagent repository, and from there create a Pull Request into the project repository.
+You will push changes to a fork of the PrimeAgent repository, and from there create a Pull Request into the project repository.
 
-Fork the [Primeagent GitHub repository](https://github.com/khulnasoft-bot/primeagent/fork), and follow the instructions to create a new fork.
+Fork the [PrimeAgent GitHub repository](https://github.com/khulnasoft-bot/primeagent/fork), and follow the instructions to create a new fork.
 
 On your new fork, click the "<> Code" button to get a URL to [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) using your preferred method, and clone the repository; for example using `https`:
 
@@ -68,12 +68,12 @@ make init
 This sets up the development environment by installing backend and frontend dependencies and installing pre-commit hooks. It runs `make install_backend`, `make install_frontend`, and `uvx pre-commit install`.
 
 > [!TIP]
-> If you want to quickly run Primeagent from source without setting up the full development environment, you can use `make run_cli` instead. This command installs dependencies, builds the frontend, and starts the application in one step.
+> If you want to quickly run PrimeAgent from source without setting up the full development environment, you can use `make run_cli` instead. This command installs dependencies, builds the frontend, and starts the application in one step.
 
-After running `make init`, you have two options for running Primeagent:
+After running `make init`, you have two options for running PrimeAgent:
 
 - Use `make run_cli` to build and run the application immediately.
-- Continue to the next section to run Primeagent in Development mode.
+- Continue to the next section to run PrimeAgent in Development mode.
 
 Automatic login is enabled by default when running the workspace from a development branch, including local builds. To require authentication, set `PRIMEAGENT_AUTO_LOGIN=false` and `PRIMEAGENT_SUPERUSER_PASSWORD` in your environment or `.env` file. The default username is `primeagent`; set `PRIMEAGENT_SUPERUSER` to use a different username.
 Official release packages, source checkouts/downloads of official release tags, and Docker images (including DEV/CDK) default to `PRIMEAGENT_AUTO_LOGIN=false`. To opt in for trusted local development, explicitly set `PRIMEAGENT_AUTO_LOGIN=true` or use `make backend login=true`.
@@ -100,7 +100,7 @@ Nightly and standalone WFX release workflows prepare their source tags automatic
 
 ### Troubleshooting frontend build issues
 
-If you encounter frontend build problems or are upgrading from an older version of Primeagent, run `make run_clic` once.
+If you encounter frontend build problems or are upgrading from an older version of PrimeAgent, run `make run_clic` once.
 
 ```bash
 make run_clic
@@ -126,7 +126,7 @@ uv sync
 uv run pre-commit install
 ```
 
-## Run Primeagent in Development mode
+## Run PrimeAgent in Development mode
 
 With the above validation, you can now run the backend (FastAPI) and frontend (Node) services in a way that will "hot-reload" your changes. In this mode, the FastAPI server requires a Node.js server to serve the frontend pages rather than serving them directly.
 
@@ -146,7 +146,7 @@ make backend
 ```
 
 > [!TIP]
-> **Component Development Mode**: By default, Primeagent uses a prebuilt component index for fast startup (~10ms). If you're actively developing or modifying components, enable dynamic component loading with `WFX_DEV`:
+> **Component Development Mode**: By default, PrimeAgent uses a prebuilt component index for fast startup (~10ms). If you're actively developing or modifying components, enable dynamic component loading with `WFX_DEV`:
 >
 > ```bash
 > # Load all components dynamically
@@ -171,7 +171,7 @@ INFO:     Will watch for changes in these directories: ['/home/phil/git/primeage
 INFO:     Loading environment from '.env'
 INFO:     Uvicorn running on http://0.0.0.0:7860 (Press CTRL+C to quit)
 INFO:     Started reloader process [22330] using WatchFiles
-Starting Primeagent ...
+Starting PrimeAgent ...
 ```
 
 At which point you can check http://localhost:7860/health in a browser; when the backend service is ready it will return a document like:
@@ -198,7 +198,7 @@ You will get output similar to:
   ➜  press h + enter to show help
 ```
 
-At this point, you can navigate to http://localhost:3000/ in a browser and access the Primeagent User Interface.
+At this point, you can navigate to http://localhost:3000/ in a browser and access the PrimeAgent User Interface.
 
 ### Build and display documentation
 

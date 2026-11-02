@@ -1,4 +1,4 @@
-# Feature: Primeagent Assistant
+# Feature: PrimeAgent Assistant
 
 > Generated on: 2026-01-21
 > Updated on: 2026-03-30
@@ -356,15 +356,15 @@ keyword-only arguments: 'public_key', 'secret_key', 'base_url'`, surfaced as
 
 ### Summary
 
-The Primeagent Assistant is an AI-powered chat interface that helps users generate custom Primeagent components through natural language prompts. It provides real-time streaming feedback during component generation, automatic code validation with retry logic, and seamless integration with the Primeagent canvas.
+The PrimeAgent Assistant is an AI-powered chat interface that helps users generate custom PrimeAgent components through natural language prompts. It provides real-time streaming feedback during component generation, automatic code validation with retry logic, and seamless integration with the PrimeAgent canvas.
 
 ### Business Context
 
-Building custom components in Primeagent requires knowledge of the component architecture, Python programming, and understanding of inputs/outputs. The Primeagent Assistant removes this barrier by allowing users to describe what they want in natural language, and the AI generates validated, ready-to-use component code that can be added directly to their flow.
+Building custom components in PrimeAgent requires knowledge of the component architecture, Python programming, and understanding of inputs/outputs. The PrimeAgent Assistant removes this barrier by allowing users to describe what they want in natural language, and the AI generates validated, ready-to-use component code that can be added directly to their flow.
 
 ### Bounded Context
 
-**Context**: `Agentic` - AI-assisted development capabilities within Primeagent
+**Context**: `Agentic` - AI-assisted development capabilities within PrimeAgent
 
 This context owns:
 

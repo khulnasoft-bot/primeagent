@@ -1,4 +1,4 @@
-# Primeagent Development Guide (Example)
+# PrimeAgent Development Guide (Example)
 
 > **This is an EXAMPLE file.** Use at your own risk.
 > It is provided as a reference template for development standards and coding conventions.
@@ -487,6 +487,6 @@ npx vitest run tests/your_tests.test.ts --coverage
 
 ---
 
-> **This guide applies to every line of code in the Primeagent project.**
+> **This guide applies to every line of code in the PrimeAgent project.**
 > **When in doubt, choose simplicity. When trade-offs arise, follow the priority order in Section 1.**
 > **Build for correctness first. Optimize later. Test always.**

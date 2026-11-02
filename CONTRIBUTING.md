@@ -1,10 +1,10 @@
-# How to contribute to Primeagent
+# How to contribute to PrimeAgent
 
 Thank you for your interest in contributing!
 
 ## How to Contribute
 
-1. Fork the [Primeagent GitHub repository](https://github.com/khulnasoft-bot/primeagent).
+1. Fork the [PrimeAgent GitHub repository](https://github.com/khulnasoft-bot/primeagent).
 2. Create a new branch for your changes.
 3. Open a GitHub pull request against the active `release-X.Y.Z` release candidate branch.
 Do not target `main`.
@@ -20,7 +20,7 @@ For detailed instructions on setting up your local development environment, see 
 
 ## Documentation Contributions
 
-Primeagent documentation is built with [Docusaurus](https://docusaurus.io/).
+PrimeAgent documentation is built with [Docusaurus](https://docusaurus.io/).
 For setup instructions, see [DEVELOPMENT.md](./DEVELOPMENT.md).
 
 ## Additional Guides
@@ -30,4 +30,4 @@ For setup instructions, see [DEVELOPMENT.md](./DEVELOPMENT.md).
 - [Contribute Tests](./docs/docs/Contributing/contributing-component-tests.mdx)
 - [Contribute Templates](./docs/docs/Contributing/contributing-templates.mdx)
 
-Thank you for helping improve Primeagent!
+Thank you for helping improve PrimeAgent!

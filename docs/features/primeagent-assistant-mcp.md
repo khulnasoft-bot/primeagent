@@ -1,4 +1,4 @@
-# Feature: Primeagent Assistant — MCP Flow Builder Integration
+# Feature: PrimeAgent Assistant — MCP Flow Builder Integration
 
 > Generated on: 2026-05-11 · Updated: 2026-05-12 · Updated: 2026-05-19 · Updated: 2026-05-27
 > Status: Draft

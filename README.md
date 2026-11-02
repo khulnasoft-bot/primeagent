@@ -1,4 +1,4 @@
-# 🚀 **Explore Primeagent**
+# 🚀 **Explore PrimeAgent**
 ### *A Developer Platform for Building AI Agents, Workflows & Systems — Visually or in Code*
 
 [![GitHub Repo](https://img.shields.io/badge/GitHub-khulnasoft/primeagent-181717?logo=github)](https://github.com/khulnasoft/primeagent)
@@ -6,15 +6,13 @@
 [![Website](https://img.shields.io/badge/Website-khulnasoft.com-00B4D8?logo=google-chrome&logoColor=white)](https://khulnasoft.com)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-</div>
-
 ---
 
-## 🌍 **What Is Primeagent?**
+## 🌍 **What Is PrimeAgent?**
 
-**Primeagent** is an open-source, next-generation platform for building, deploying, and orchestrating **AI agents and workflows** — powered by code, or visually through an elegant interface.
+**PrimeAgent** is an open-source, next-generation platform for building, deploying, and orchestrating **AI agents and workflows** — powered by code, or visually through an elegant interface.
 
-> 💡 *Primeagent bridges the gap between no-code prototyping and enterprise-grade AI engineering.*
+> 💡 *PrimeAgent bridges the gap between no-code prototyping and enterprise-grade AI engineering.*
 
 ---
 
@@ -39,7 +37,7 @@
 <td width="50%" valign="top">
 
 #### ⚙️ **Developer-First Framework**
-> *If you can write Python, you can extend Primeagent.*
+> *If you can write Python, you can extend PrimeAgent.*
 - Modular Python components
 - Hot-reload development
 - CLI & SDK for automation
@@ -78,8 +76,8 @@
 
 | 🧰 Step | Action | Description |
 |:--:|:--|:--|
-| 1️⃣ | **Install** | ```bash<br>uv pip install primeagent -U<br>``` |
-| 2️⃣ | **Run** | ```bash<br>uv run primeagent run<br>``` |
+| 1️⃣ | **Install** | `uv pip install primeagent -U` |
+| 2️⃣ | **Run** | `uv run primeagent run` |
 | 3️⃣ | **Explore** | Visit [http://127.0.0.1:7860](http://127.0.0.1:7860) and start creating |
 
 </div>
@@ -141,7 +139,7 @@
 ## 🤝 **Contributing**
 
 We welcome developers of all backgrounds.
-Help us make Primeagent the best open-source platform for AI orchestration.
+Help us make PrimeAgent the best open-source platform for AI orchestration.
 
 <div align="center">
 
@@ -162,22 +160,7 @@ Help us make Primeagent the best open-source platform for AI orchestration.
 
 ---
 
-### *Built with ❤️ by the Primeagent Community*
+### *Built with ❤️ by the PrimeAgent Community*
 **Empowering developers to build the future of AI.**
 
 </div>
-````
-
----
-
-### 🧠 What Makes This Version *“Professionally Designed”*
-
-| Element                                | Design Concept                                | Result                                 |
-| -------------------------------------- | --------------------------------------------- | -------------------------------------- |
-| **Hero Banner**                        | Image + centered heading                      | Immediate visual identity              |
-| **Explore Section**                    | “Discover”-style layout                       | Feels like an interactive product site |
-| **Modern Tone**                        | Short sentences, tagline under each heading   | Feels like Vercel, LangChain           |
-| **Symmetry & White Space**             | Consistent padding, balanced tables           | Easy to scan visually                  |
-| **Exploration Table**                  | Encourages curiosity (“Explore Key Concepts”) | Adds professional polish               |
-| **Minimalist Icons**                   | Emojis used as accents only                   | Cleaner look                           |
-| **Contributor + Star Chart at bottom** | “Growth narrative”                            | Builds credibility                     |

@@ -1,16 +1,16 @@
-# WFX - Primeagent Executor
+# WFX - PrimeAgent Executor
 
-The Primeagent Executor (WFX) is a command-line tool that serves and runs flows statelessly from flow JSON files with minimal dependencies.
+The PrimeAgent Executor (WFX) is a command-line tool that serves and runs flows statelessly from flow JSON files with minimal dependencies.
 
-Running a flow with WFX is similar to running flows with the `--backend-only` environment variable enabled, but even more lightweight because the Primeagent package and all of its dependencies don't need to be installed.
+Running a flow with WFX is similar to running flows with the `--backend-only` environment variable enabled, but even more lightweight because the PrimeAgent package and all of its dependencies don't need to be installed.
 
 WFX uses a no-op database interface called [`NoopSession`](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/services/session.py) for all operations that require persistent state.
 There is no `primeagent.db` database file when using WFX.
-You can run flows with the API, but any stateful operations that depend on the Primeagent database, like saving flows, storing messages, or managing users **will not** persist data.
-Operations that depend on `primeagent.db` will not work as they do in the full Primeagent application.
+You can run flows with the API, but any stateful operations that depend on the PrimeAgent database, like saving flows, storing messages, or managing users **will not** persist data.
+Operations that depend on `primeagent.db` will not work as they do in the full PrimeAgent application.
 
 Memory operations are dispatched at call time, not at import time.
-If the `primeagent` package is installed in the same Python environment as `wfx` and a real database service is registered, memory operations are routed to the full `primeagent.memory` implementation instead. This applies when `wfx` is used as a Python library inside a running Primeagent server, not when running `wfx run` or `wfx serve` from the command line.
+If the `primeagent` package is installed in the same Python environment as `wfx` and a real database service is registered, memory operations are routed to the full `primeagent.memory` implementation instead. This applies when `wfx` is used as a Python library inside a running PrimeAgent server, not when running `wfx run` or `wfx serve` from the command line.
 
 ## Commands
 
@@ -20,18 +20,18 @@ If the `primeagent` package is installed in the same Python environment as `wfx`
 |---------|-------------|
 | [`wfx serve`](#serve-the-simple-agent-starter-flow-with-wfx-serve) | Serve one or more flows as FastAPI endpoints at `/flows/{flow_id}/run` |
 | [`wfx run`](#run-the-simple-agent-flow-with-wfx-run) | Execute a flow locally and stream results to `stdout` |
-| [`wfx-mcp`](#wfx-mcp) | Start an MCP server that connects to a running Primeagent instance |
+| [`wfx-mcp`](#wfx-mcp) | Start an MCP server that connects to a running PrimeAgent instance |
 
 **Flow DevOps SDK commands** — documented in the [Flow DevOps Toolkit](https://docs.prime.khulnasoft.com/flow-devops-sdk):
 
 | Command | Description |
 |---------|-------------|
 | `wfx init` | Scaffold a versioned flow project with CI templates |
-| `wfx login` | Validate credentials against a remote Primeagent instance |
+| `wfx login` | Validate credentials against a remote PrimeAgent instance |
 | `wfx create` | Create a new flow JSON from a built-in or custom template |
 | `wfx validate` | Validate flow JSON before pushing |
 | `wfx requirements` | Generate `requirements.txt` from a flow's component dependencies |
-| `wfx status` | Compare local flow files against a remote Primeagent instance |
+| `wfx status` | Compare local flow files against a remote PrimeAgent instance |
 | `wfx push` | Push flows to a remote instance by stable ID |
 | `wfx pull` | Pull flows from a remote instance to local files |
 | `wfx export` | Normalize flow JSON for clean git diffs |
@@ -47,15 +47,15 @@ If the `primeagent` package is installed in the same Python environment as `wfx`
   ```
 
 - Create an [OpenAI API key](https://platform.openai.com/api-keys).
-- Create a Primeagent API key. For WFX, you can generate a secure token locally (see [Serve the simple agent starter flow with `wfx serve`](#serve-the-simple-agent-starter-flow-with-wfx-serve)), or create one through the Primeagent server UI or CLI.
+- Create a PrimeAgent API key. For WFX, you can generate a secure token locally (see [Serve the simple agent starter flow with `wfx serve`](#serve-the-simple-agent-starter-flow-with-wfx-serve)), or create one through the PrimeAgent server UI or CLI.
 
 ## Install WFX
 
-WFX can be installed in multiple ways. If you have installed Primeagent OSS version >=1.6, `wfx` is already included.
+WFX can be installed in multiple ways. If you have installed PrimeAgent OSS version >=1.6, `wfx` is already included.
 
 ### Clone repository
 
-1. Clone the Primeagent repository:
+1. Clone the PrimeAgent repository:
 
    ```bash
    git clone https://github.com/khulnasoft-bot/primeagent
@@ -96,7 +96,7 @@ WFX can be installed in multiple ways. If you have installed Primeagent OSS vers
 
 Run WFX without installing it locally using `uvx`.
 
-1. Create a Primeagent API key (see [Serve](#serve-the-simple-agent-starter-flow-with-wfx-serve)), and set `PRIMEAGENT_API_KEY` in the same terminal session as `wfx`:
+1. Create a PrimeAgent API key (see [Serve](#serve-the-simple-agent-starter-flow-with-wfx-serve)), and set `PRIMEAGENT_API_KEY` in the same terminal session as `wfx`:
 
    ```bash
    export PRIMEAGENT_API_KEY="sk..."
@@ -122,7 +122,7 @@ The API key is required for security because `wfx serve` can create a publicly a
 
 This example uses the **Agent** component's built-in OpenAI model, which requires an OpenAI API key. If you want to use a different provider, edit the model provider, model name, and credentials accordingly.
 
-1. Generate a Primeagent API key.
+1. Generate a PrimeAgent API key.
 
    For WFX, you can generate a secure token locally to use as your `PRIMEAGENT_API_KEY`:
 
@@ -130,7 +130,7 @@ This example uses the **Agent** component's built-in OpenAI model, which require
    uv run python -c "import secrets; print(secrets.token_urlsafe(32))"
    ```
 
-   This is different from creating a Primeagent API key through the Primeagent server UI or CLI, which stores the key in the Primeagent database. For WFX, you only need a secure token string to authenticate requests to your WFX server.
+   This is different from creating a PrimeAgent API key through the PrimeAgent server UI or CLI, which stores the key in the PrimeAgent database. For WFX, you only need a secure token string to authenticate requests to your WFX server.
 
 2. Set up your environment variables using one of the following options.
 
@@ -154,7 +154,7 @@ This example uses the **Agent** component's built-in OpenAI model, which require
 
 3. Install dependencies.
 
-   If you already have Primeagent installed, or if you're running from source at `src/wfx`, WFX is included with Primeagent and all dependencies are already available. You don't need to install additional dependencies.
+   If you already have PrimeAgent installed, or if you're running from source at `src/wfx`, WFX is included with PrimeAgent and all dependencies are already available. You don't need to install additional dependencies.
 
    If you install the standalone `wfx` package from [PyPI](https://pypi.org/project/wfx/) or run WFX with `uvx`, you need to manually install the dependencies required by the components in your flow.
 
@@ -239,7 +239,7 @@ This example uses the **Agent** component's built-in OpenAI model, which require
    }
    ```
 
-Your flow is now running as a lightweight API endpoint, with only the flow's required dependencies and no visual builder installed. Users who call your endpoint don't need to install Primeagent or configure their own LLM provider keys.
+Your flow is now running as a lightweight API endpoint, with only the flow's required dependencies and no visual builder installed. Users who call your endpoint don't need to install PrimeAgent or configure their own LLM provider keys.
 
 To make your server publicly accessible, use a tunneling service like ngrok or deploy to a public cloud provider.
 
@@ -294,7 +294,7 @@ The WFX server exposes the following endpoints. All `/flows/{flow_id}` routes re
 
 ### Response schema
 
-The WFX server's response schema is different from the Primeagent API `/run` endpoint's schema. Requests to the WFX server's `/flows/{flow_id}/run` endpoint return the following fields:
+The WFX server's response schema is different from the PrimeAgent API `/run` endpoint's schema. Requests to the WFX server's `/flows/{flow_id}/run` endpoint return the following fields:
 
 ```json
 {
@@ -412,7 +412,7 @@ Credentials supplied in `PRIMEAGENT_REQUEST_VARIABLES` are scoped to the current
 
 ### Check or upgrade flow compatibility at startup
 
-Use `--upgrade-flow` to check compatibility between a flow and the current WFX version before serving it. See [WFX and Primeagent version compatibility](https://docs.prime.khulnasoft.com/wfx-compatibility) for details on the version model.
+Use `--upgrade-flow` to check compatibility between a flow and the current WFX version before serving it. See [WFX and PrimeAgent version compatibility](https://docs.prime.khulnasoft.com/wfx-compatibility) for details on the version model.
 
 ```bash
 # Fail at startup if any component is incompatible
@@ -445,7 +445,7 @@ uv run wfx serve my-flow.json --upgrade-flow=safe
 
 ## Run the simple agent flow with `wfx run`
 
-The `wfx run` command runs a flow from a JSON file without serving it, and the output is sent to `stdout`. Input to `wfx run` can be a path to the JSON file, inline JSON passed with `--input-value`, or read from `stdin`. No Primeagent API key is required.
+The `wfx run` command runs a flow from a JSON file without serving it, and the output is sent to `stdout`. Input to `wfx run` can be a path to the JSON file, inline JSON passed with `--input-value`, or read from `stdin`. No PrimeAgent API key is required.
 
 This example uses the **Agent** component's built-in OpenAI model, which requires an OpenAI API key. If you want to use a different provider, edit the model provider, model name, and credentials accordingly.
 
@@ -457,7 +457,7 @@ This example uses the **Agent** component's built-in OpenAI model, which require
 
 2. Install dependencies.
 
-   If you already have Primeagent installed, or if you're running from source at `src/wfx`, WFX is included with Primeagent and all dependencies are already available. You don't need to install additional dependencies.
+   If you already have PrimeAgent installed, or if you're running from source at `src/wfx`, WFX is included with PrimeAgent and all dependencies are already available. You don't need to install additional dependencies.
 
    If you install the standalone `wfx` package from [PyPI](https://pypi.org/project/wfx/) or run WFX with `uvx`, you need to manually install the dependencies required by the components in your flow.
 
@@ -558,7 +558,7 @@ For a complete example of creating an agent flow programmatically using WFX comp
 Create a file called `simple_agent.py`:
 
 ```python
-"""A simple agent flow example for Primeagent.
+"""A simple agent flow example for PrimeAgent.
 
 Usage:
     uv run wfx run simple_agent.py "How are you?"
@@ -612,11 +612,11 @@ CLI HITL is **interactive-session only**:
 - There is **no durable resume**: a paused run cannot be resumed later, from another terminal, or after a restart (no `--resume <id>`).
 - A **non-interactive** run (piped stdin, CI, or `--no-human-input`) does **not** pause: the pausing node is passed through and the run continues; the CLI prints a warning so this is never silent.
 
-For durable pause/resume that survives restarts, run the flow through the Primeagent server's v2 workflows API instead.
+For durable pause/resume that survives restarts, run the flow through the PrimeAgent server's v2 workflows API instead.
 
 ## wfx-mcp
 
-`wfx-mcp` is a separate binary installed with `wfx`. It starts an MCP server that gives any MCP-compatible client programmatic control over a Primeagent instance for building flows, managing components, and running executions.
+`wfx-mcp` is a separate binary installed with `wfx`. It starts an MCP server that gives any MCP-compatible client programmatic control over a PrimeAgent instance for building flows, managing components, and running executions.
 
 For more information, see [WFX_MCP.md](./WFX_MCP.md).
 
@@ -635,7 +635,7 @@ make format
 
 ## Pluggable services
 
-WFX supports a pluggable service architecture that lets you customize and extend its behavior. You can replace built-in services (storage, telemetry, tracing, etc.) with your own implementations or use Primeagent's full-featured services.
+WFX supports a pluggable service architecture that lets you customize and extend its behavior. You can replace built-in services (storage, telemetry, tracing, etc.) with your own implementations or use PrimeAgent's full-featured services.
 
 For more information, see [PLUGGABLE_SERVICES.md](./PLUGGABLE_SERVICES.md).
 

@@ -1,6 +1,6 @@
 # Bundle API
 
-Stable surface that Primeagent Extension Bundles consume.  Every public symbol
+Stable surface that PrimeAgent Extension Bundles consume.  Every public symbol
 listed below is part of the contract: changes to its name, signature, semantics,
 or visibility require a coordinated version bump and a `## Changelog` entry.
 
@@ -214,7 +214,7 @@ Why this bundle:
   bare-name migration entry is allowed by `check_bare_names.py`.
 
 The runtime half of the M1 proof-of-delivery gate (save a flow on
-pre-migration Primeagent, upgrade, confirm it loads AND runs identically)
+pre-migration PrimeAgent, upgrade, confirm it loads AND runs identically)
 lives in the dogfood checklist at
 [`src/bundles/duckduckgo/M1_DOGFOOD_CHECKLIST.md`](src/bundles/duckduckgo/M1_DOGFOOD_CHECKLIST.md);
 the deserialize half is covered by
@@ -497,7 +497,7 @@ Manifest precedence, entry-point ordering, and public signatures are unchanged;
   direct callers may select one with `load_extension(..., bundle_name=...)`.
   Single-bundle and provider-only manifests retain their existing behavior,
   so this is additive and does not change `BUNDLE_API_VERSION`.
-- Inline bundle discovery now skips Primeagent-owned component compatibility
+- Inline bundle discovery now skips PrimeAgent-owned component compatibility
   shims marked with `# wfx-bundles-shim` or `# wfx-compat-shim`.  These
   packages remain importable, but are not treated as user inline bundles
   and no longer emit `bundle-empty`.
@@ -810,7 +810,7 @@ Manifest precedence, entry-point ordering, and public signatures are unchanged;
 - **Provider identity and static catalogs (additive).**  A `providers[]` entry
   may now declare a stable lowercase `provider_id`, an independent
   `display_name`, legacy `aliases`, and a dotted-path `catalog_loader`.  The
-  loader must return a flat list of model metadata rows; Primeagent validates
+  loader must return a flat list of model metadata rows; PrimeAgent validates
   model identities and stamps provider ownership before merging those rows
   into the unified catalog.  Manifests that omit `provider_id` retain their
   existing behavior through a deterministic ID derived from `name`.
