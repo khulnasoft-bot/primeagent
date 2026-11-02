@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
-          cache-dependency-path: ./src/frontend/package-lock.json
+          cache-dependency-path: src/frontend/package-lock.json
 
       # These are regression locks: every a11y unit test passes as of the
       # component fixes in feat/a11y-unit-tests, so a failure here means a
