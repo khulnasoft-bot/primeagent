@@ -6,9 +6,9 @@ import re
 
 logger = logging.getLogger(__name__)
 
-PYTHON_CODE_BLOCK_PATTERN = r"```python\s*([\s\S]*?)```"
+PYTHON_CODE_BLOCK_PATTERN = r"```python\s*([\s\S]*?)(?:\r\n|\n|\r)```"
 FLOW_JSON_BLOCK_PATTERN = r"```flow_json\s*([\s\S]*?)```"
-GENERIC_CODE_BLOCK_PATTERN = r"```\s*([\s\S]*?)```"
+GENERIC_CODE_BLOCK_PATTERN = r"```\s*([\s\S]*?)(?:\r\n|\n|\r)```"
 UNCLOSED_PYTHON_BLOCK_PATTERN = r"```python\s*([\s\S]*)$"
 UNCLOSED_GENERIC_BLOCK_PATTERN = r"```\s*([\s\S]*)$"
 ANY_CODE_BLOCK_PATTERN = r"```[\s\S]*?```|```[\s\S]*$"
