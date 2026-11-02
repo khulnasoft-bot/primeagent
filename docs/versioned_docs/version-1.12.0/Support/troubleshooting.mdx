@@ -3,8 +3,8 @@ title: Troubleshoot Primeagent
 slug: /troubleshoot
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 import Icon from "@site/src/components/icon";
 
 This page provides troubleshooting advice for issues you might encounter when using Primeagent or contributing to Primeagent.
@@ -13,13 +13,13 @@ This page provides troubleshooting advice for issues you might encounter when us
 
 As Primeagent development continues, components are often recategorized or deprecated for better alignment or to prepare for new components.
 
-If a component appears to be missing from the <Icon name="Component" aria-hidden="true" /> **Core components** and  menus, try the following:
+If a component appears to be missing from the <Icon name="Component" aria-hidden="true" /> **Core components** and menus, try the following:
 
-* <Icon name="Search" aria-hidden="true" /> **Search** for the component.
-* Check other component categories and <Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components).
-* Check [legacy components](/concepts-components#legacy-components), which are hidden by default.
-* Check the [Changelog](https://github.com/khulnasoft-bot/primeagent/releases/latest) for component changes in recent releases.
-* Make sure the component isn't already present in your flow if it is a single-use component.
+- <Icon name="Search" aria-hidden="true" /> **Search** for the component.
+- Check other component categories and <Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components).
+- Check [legacy components](/concepts-components#legacy-components), which are hidden by default.
+- Check the [Changelog](https://github.com/khulnasoft-bot/primeagent/releases/latest) for component changes in recent releases.
+- Make sure the component isn't already present in your flow if it is a single-use component.
 
 If you still cannot locate the component, see [Primeagent GitHub Issues and Discussions](/contributing-github-issues).
 
@@ -35,9 +35,9 @@ For more information, see [Test flows in the Playground](/concepts-playground).
 
 If you get an API key error when running a flow, try the following:
 
-* For all components that require credentials, make sure those components have a valid credential in the component's settings, such as the **API Key** field.
-* If you store your credentials in [Primeagent global variables](/configuration-global-variables), make sure you selected the correct global variable and that the variable contains a valid credential.
-* Make sure the provided credentials are active, have the required permissions, and, if applicable, have sufficient funds in the account to execute the required action. For example, model providers require credits to use their LLMs.
+- For all components that require credentials, make sure those components have a valid credential in the component's settings, such as the **API Key** field.
+- If you store your credentials in [Primeagent global variables](/configuration-global-variables), make sure you selected the correct global variable and that the variable contains a valid credential.
+- Make sure the provided credentials are active, have the required permissions, and, if applicable, have sufficient funds in the account to execute the required action. For example, model providers require credits to use their LLMs.
 
 ## Primeagent installation issues
 
@@ -152,8 +152,8 @@ Primeagent Desktop installed Primeagent OSS but the OSS backend isn't responding
 To resolve this error, do the following:
 
 1. Check if another process is using Primeagent Desktop's default port `7860`.
-    * On Windows, run `netstat -ano | findstr :7860`.
-    * On macOS or Linux, run `lsof -i :7860`.
+   - On Windows, run `netstat -ano | findstr :7860`.
+   - On macOS or Linux, run `lsof -i :7860`.
 2. If another process is using the port, stop that process or [configure Primeagent Desktop to use a different port](/environment-variables#set-environment-variables-for-primeagent-desktop).
 
 ### Failed to install uv or unable to find uv
@@ -166,36 +166,36 @@ To resolve this error, do the following:
 2. Based on the output, install `uv` or add it to your PATH:
 
    <Tabs>
-   <TabItem value="not-installed" label="uv is not installed (command not found)" default>
+<TabItem value="not-installed" label="uv is not installed (command not found)" default>
 
    Install `uv` using one of the following methods:
 
-   * Windows (PowerShell):
+   - Windows (PowerShell):
      ```powershell
      powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
      ```
-   * macOS or Linux:
+   - macOS or Linux:
      ```bash
      curl -LsSf https://astral.sh/uv/install.sh | sh
      ```
-   * Any platform (pip):
+   - Any platform (pip):
      ```bash
      pip install uv
      ```
 
    </TabItem>
-   <TabItem value="not-found" label="uv is installed but not found by Primeagent Desktop">
+<TabItem value="not-found" label="uv is installed but not found by Primeagent Desktop">
 
    Add `uv` to your PATH so Primeagent Desktop can locate it:
 
-   * Windows: In PowerShell, run:
+   - Windows: In PowerShell, run:
      ```powershell
      [System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\.cargo\bin", "User")
      ```
-   * macOS or Linux: Add `~/.local/bin` to your PATH in `~/.bashrc` or `~/.zshrc`.
+   - macOS or Linux: Add `~/.local/bin` to your PATH in `~/.bashrc` or `~/.zshrc`.
 
    </TabItem>
-   </Tabs>
+</Tabs>
 
 3. Restart Primeagent Desktop.
 
@@ -207,8 +207,8 @@ To resolve this error, do the following:
 
 1. Ensure you have sufficient disk space available (at least 2 GB free).
 2. Ensure that you have write permissions in the Primeagent Desktop data directory:
-   * On Windows: `%LOCALAPPDATA%\com.PrimeagentDesktop`
-   * On macOS: `~/Library/Application Support/com.PrimeagentDesktop`
+   - On Windows: `%LOCALAPPDATA%\com.PrimeagentDesktop`
+   - On macOS: `~/Library/Application Support/com.PrimeagentDesktop`
 3. Close Primeagent Desktop.
 4. Delete the `venv` or `python_env` folder in the Primeagent Desktop data directory.
 5. Restart Primeagent Desktop.
@@ -243,18 +243,21 @@ Primeagent Desktop tried multiple methods to automatically install `uv` but all 
 To resolve this error, do the following:
 
 1. Install `uv` manually using PowerShell:
-    ```powershell
-    powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-    ```
 
-    Or install using pip:
-    ```bash
-    pip install uv
-    ```
+   ```powershell
+   powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+   ```
+
+   Or install using pip:
+
+   ```bash
+   pip install uv
+   ```
 
 2. Verify the installation by running `uv --version` in a new PowerShell or Command Prompt window.
 
    If `uv` is not found, add it to your PATH. In PowerShell, run:
+
    ```powershell
    [System.Environment]::SetEnvironmentVariable("Path", $env:Path + ";$env:USERPROFILE\.cargo\bin", "User")
    ```
@@ -271,28 +274,28 @@ If you reinstall Primeagent after uninstalling, any data you didn't delete will 
 
 1. To uninstall the Primeagent OSS Python package, run the following command in the virtual environment where Primeagent is installed:
 
-    ```bash
-    uv pip uninstall primeagent
-    ```
+   ```bash
+   uv pip uninstall primeagent
+   ```
 
 2. To remove the Primeagent data directory, which contains your flows, settings, and cache, run:
 
-    <Tabs>
-    <TabItem value="mac-linux" label="macOS / Linux" default>
+   <Tabs>
+<TabItem value="mac-linux" label="macOS / Linux" default>
 
-    ```bash
-    rm -rf ~/.primeagent
-    ```
+   ```bash
+   rm -rf ~/.primeagent
+   ```
 
-    </TabItem>
-    <TabItem value="windows" label="Windows">
+   </TabItem>
+<TabItem value="windows" label="Windows">
 
-    ```powershell
-    Remove-Item -Recurse -Force "$env:USERPROFILE\.primeagent"
-    ```
+   ```powershell
+   Remove-Item -Recurse -Force "$env:USERPROFILE\.primeagent"
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
 ### Uninstall Primeagent Desktop
 
@@ -305,19 +308,19 @@ To uninstall Primeagent Desktop, uninstall the application with your OS package 
 2. Empty the **Trash** to remove the application file.
 3. To remove the Primeagent data directory, run the following command:
 
-    ```bash
-    rm -rf ~/.primeagent
-    ```
+   ```bash
+   rm -rf ~/.primeagent
+   ```
 
 4. To remove the Desktop app support files, run the following commands:
 
-    ```bash
-    rm -rf ~/Library/Application\ Support/com.PrimeagentDesktop
-    rm -rf ~/Library/Caches/com.PrimeagentDesktop
-    rm -rf ~/Library/Logs/com.PrimeagentDesktop
-    rm -f  ~/Library/Preferences/com.PrimeagentDesktop.plist
-    rm -rf ~/Library/WebKit/com.PrimeagentDesktop
-    ```
+   ```bash
+   rm -rf ~/Library/Application\ Support/com.PrimeagentDesktop
+   rm -rf ~/Library/Caches/com.PrimeagentDesktop
+   rm -rf ~/Library/Logs/com.PrimeagentDesktop
+   rm -f  ~/Library/Preferences/com.PrimeagentDesktop.plist
+   rm -rf ~/Library/WebKit/com.PrimeagentDesktop
+   ```
 
 </TabItem>
 <TabItem value="windows" label="Windows">
@@ -327,9 +330,9 @@ To uninstall Primeagent Desktop, uninstall the application with your OS package 
 3. Follow the on-screen prompts to complete the uninstallation.
 4. To remove the Primeagent data directory, run the following command:
 
-    ```powershell
-    Remove-Item -Recurse -Force "$env:LOCALAPPDATA\com.PrimeagentDesktop"
-    ```
+   ```powershell
+   Remove-Item -Recurse -Force "$env:LOCALAPPDATA\com.PrimeagentDesktop"
+   ```
 
 </TabItem>
 </Tabs>
@@ -362,13 +365,13 @@ When you try to run Primeagent using the command `primeagent run`, you encounter
 
 There are two possible reasons for this error:
 
-* **Multiple Primeagent installations**: You installed Primeagent using `pip install primeagent` but you already had a previous version of Primeagent installed in your system. In this case, you might be running the wrong executable.
+- **Multiple Primeagent installations**: You installed Primeagent using `pip install primeagent` but you already had a previous version of Primeagent installed in your system. In this case, you might be running the wrong executable.
 
-    To solve this issue, run the correct executable by running `python -m primeagent run` instead of `primeagent run`.
+  To solve this issue, run the correct executable by running `python -m primeagent run` instead of `primeagent run`.
 
-    If that doesn't work, try uninstalling and reinstalling Primeagent with `uv pip install primeagent --pre -U`.
+  If that doesn't work, try uninstalling and reinstalling Primeagent with `uv pip install primeagent --pre -U`.
 
-* **Version conflict during installation**: Some version conflicts might have occurred during the installation process. To resolve this issue, reinstall Primeagent and its dependencies by running `python -m pip install primeagent --pre -U --force-reinstall`.
+- **Version conflict during installation**: Some version conflicts might have occurred during the installation process. To resolve this issue, reinstall Primeagent and its dependencies by running `python -m pip install primeagent --pre -U --force-reinstall`.
 
 ### Environment variables not available from terminal
 
@@ -456,16 +459,16 @@ Podman with rootless user-namespace mapping does not reproduce the issue.
 
 To preserve the `primeagent-postgres` data while resetting only the `primeagent-data` volume, do the following:
 
-1. Stop the container and find the exact volume name for `primeagent-data`.
-This command lists the volumes, and then searches for `primeagent-data`.
+1.  Stop the container and find the exact volume name for `primeagent-data`.
+    This command lists the volumes, and then searches for `primeagent-data`.
 
-    ```sh
-    docker compose down
-    docker compose config --volumes
-    docker volume ls | grep primeagent-data
-    ```
+        ```sh
+        docker compose down
+        docker compose config --volumes
+        docker volume ls | grep primeagent-data
+        ```
 
-2. Once you have confirmed the exact volume name, remove only that volume:
+2.  Once you have confirmed the exact volume name, remove only that volume:
 
     ```sh
     docker volume rm PRIMEAGENT_DATA_VOLUME_NAME
@@ -582,48 +585,48 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
 
 1. To find your `uvx` path, run `which uvx`.
 
-    To find your `npx` path, run `which npx`.
+   To find your `npx` path, run `which npx`.
 
 2. In your `claude_desktop_config.json` file, add the path to your Primeagent MCP server configuration, as shown in the following examples.
 
-    <Tabs>
-    <TabItem value="uvx" label="uvx" default>
+   <Tabs>
+<TabItem value="uvx" label="uvx" default>
 
-    ```json
-    {
-      "mcpServers": {
-        "PROJECT_NAME": {
-          "command": "PATH_TO_UVX",
-          "args": [
-            "mcp-proxy",
-            "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable"
-          ]
-        }
-      }
-    }
-    ```
+   ```json
+   {
+     "mcpServers": {
+       "PROJECT_NAME": {
+         "command": "PATH_TO_UVX",
+         "args": [
+           "mcp-proxy",
+           "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable"
+         ]
+       }
+     }
+   }
+   ```
 
-    </TabItem>
-    <TabItem value="npx" label="npx">
+   </TabItem>
+<TabItem value="npx" label="npx">
 
-    ```json
-    {
-      "mcpServers": {
-        "PROJECT_NAME": {
-          "command": "PATH_TO_NPX",
-          "args": [
-            "-y",
-            "supergateway",
-            "--sse",
-            "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable"
-          ]
-        }
-      }
-    }
-    ```
+   ```json
+   {
+     "mcpServers": {
+       "PROJECT_NAME": {
+         "command": "PATH_TO_NPX",
+         "args": [
+           "-y",
+           "supergateway",
+           "--sse",
+           "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable"
+         ]
+       }
+     }
+   }
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
 ### MCP browser-based flows don't open a browser on Windows
 
@@ -694,7 +697,8 @@ If you are building a custom component, see [Error handling and logging for cust
 
 If your custom components are not appearing in the Primeagent visual editor, try the following troubleshooting steps:
 
-1. Ensure your components follow the [required directory structure](https://docs.prime.khulnasoft.com/components-custom-components#directory-structure-requirements).
+1.  Ensure your components follow the [required directory structure](https://prime.khulnasoft.com/docs/components-custom-components#directory-structure-requirements).
+
     ```
     /your/custom/components/path/       # Base directory set by PRIMEAGENT_COMPONENTS_PATH
         └── category_name/              # Required category subfolder that determines menu name
@@ -702,15 +706,15 @@ If your custom components are not appearing in the Primeagent visual editor, try
             └── custom_component.py     # Component file
     ```
 
-2. Verify each category directory includes an `__init__.py` file.
-This is required for Python to recognize the directory as a module.
+2.  Verify each category directory includes an `__init__.py` file.
+    This is required for Python to recognize the directory as a module.
 
-3. Use the command line argument instead of the environment variable for `PRIMEAGENT_COMPONENTS_PATH`.
-If you're using the `PRIMEAGENT_COMPONENTS_PATH` environment variable and components aren't loading, try the `--components-path` command line argument instead:
+3.  Use the command line argument instead of the environment variable for `PRIMEAGENT_COMPONENTS_PATH`.
+    If you're using the `PRIMEAGENT_COMPONENTS_PATH` environment variable and components aren't loading, try the `--components-path` command line argument instead:
 
-    ```bash
-    uv run primeagent run --components-path /path/to/your/custom/components
-    ```
+        ```bash
+        uv run primeagent run --components-path /path/to/your/custom/components
+        ```
 
 If you continue to experience issues, please [report them on GitHub](https://github.com/khulnasoft-bot/primeagent/issues) with details about your directory structure and component setup.
 

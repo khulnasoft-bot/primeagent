@@ -10,10 +10,10 @@ If the flow changed after you opened it, your edits stay on the canvas until you
 
 ## Prerequisites
 
-* Primeagent 1.13 or later.
-* A flow you can edit.
+- Primeagent 1.13 or later.
+- A flow you can edit.
   If the flow is locked, [unlock it first](/concepts-flows#lock-a-flow).
-* To follow the example on this page, open the flow in two browser tabs before making any changes.
+- To follow the example on this page, open the flow in two browser tabs before making any changes.
 
 ## Try concurrent editing
 
@@ -23,11 +23,11 @@ To demonstrate how Primeagent protects concurrent work, do the following:
 2. In the first tab, change the canvas, and then wait for [auto-save](/environment-variables#visual-editor-and-playground-behavior) or press <kbd>Ctrl</kbd>+<kbd>S</kbd> (<kbd>Cmd</kbd>+<kbd>S</kbd> on macOS).
 3. In the second tab, make a different canvas change and save it.
 4. The **Review changes** banner appears, and the second save is refused because it was based on the older flow.
-    Your edits remain on the canvas and auto-save pauses.
-    The first tab's saved version is not overwritten.
+   Your edits remain on the canvas and auto-save pauses.
+   The first tab's saved version is not overwritten.
 
-    If another account saved last, the **Review changes** banner displays the username.
-    If both tabs use your account, the banner reads **A newer version of this flow is available**.
+   If another account saved last, the **Review changes** banner displays the username.
+   If both tabs use your account, the banner reads **A newer version of this flow is available**.
 
 5. Click **Review changes**.
    The **Review Version Changes** dialog opens.
@@ -39,13 +39,13 @@ To demonstrate how Primeagent protects concurrent work, do the following:
    You can select **Keep my version**, or the version named for the user who saved it.
 8. Select an option for saving the changes:
 
-    * Click **Update Current Flow** to save the selected result to the original flow.
-      Primeagent first puts the version being replaced in <Icon name="History" aria-hidden="true" /> **Version History**, and then auto-save resumes.
-    * Click **Duplicate Flow** to create a private copy with the selected result.
-      The original flow remains unchanged.
-      The copy has no endpoint name, MCP exposure, webhook, or lock.
-    * Click **Load Latest** if you no longer want your current canvas to be the active version.
-      Primeagent saves your canvas in **Version History**, and then loads the version on the server.
+   - Click **Update Current Flow** to save the selected result to the original flow.
+     Primeagent first puts the version being replaced in <Icon name="History" aria-hidden="true" /> **Version History**, and then auto-save resumes.
+   - Click **Duplicate Flow** to create a private copy with the selected result.
+     The original flow remains unchanged.
+     The copy has no endpoint name, MCP exposure, webhook, or lock.
+   - Click **Load Latest** if you no longer want your current canvas to be the active version.
+     Primeagent saves your canvas in **Version History**, and then loads the version on the server.
 
 To decide later, click **Cancel**.
 The banner remains and auto-save remains paused until you resolve the changes.
@@ -65,7 +65,7 @@ To remove the stored copy, click **Discard**.
 
 ## See also
 
-* [Update a flow with the API](/api-flows#update-flow)
-* [Save and restore flow versions](/concepts-flows#save-and-restore-flow-versions)
-* [Build flows](/concepts-flows)
-* [Authorization](/authorization)
+- [Update a flow with the API](/api-flows#update-flow)
+- [Save and restore flow versions](/concepts-flows#save-and-restore-flow-versions)
+- [Build flows](/concepts-flows)
+- [Authorization](/authorization)

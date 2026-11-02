@@ -103,23 +103,23 @@ Create one from within the visual editor.
 2. Click **Create**.
 3. In the **Create Memory** pane, enter the following information:
 
-    * **Name**: Display name for this memory base. Must be unique within your account.
-    * **Embedding Model**: The embedding model used to vectorize messages. The available models are those you have configured in **Settings → Model Providers**.
-    * **Vector Database**: The [DB Provider](/knowledge#configure-vector-database-providers) where this memory base stores vectors.
-    The field defaults to the active provider from **Settings → DB Providers**.
-    You must select a configured provider before you can create the memory base.
-    Once created, you cannot change the vector database for that memory base.
+   - **Name**: Display name for this memory base. Must be unique within your account.
+   - **Embedding Model**: The embedding model used to vectorize messages. The available models are those you have configured in **Settings → Model Providers**.
+   - **Vector Database**: The [DB Provider](/knowledge#configure-vector-database-providers) where this memory base stores vectors.
+     The field defaults to the active provider from **Settings → DB Providers**.
+     You must select a configured provider before you can create the memory base.
+     Once created, you cannot change the vector database for that memory base.
 
-    Optionally, enable **LLM Preprocessing**.
-    This option allows you to include a natural language prompt for preprocessing instructions, such as `Summarize the key facts from this conversation: the issue the user reported, any troubleshooting steps taken, and the outcome or resolution.`
-    * **Preprocessing Model**: The LLM used for distillation.
-    * **Preprocessing Instructions**: Optional system prompt prepended to each preprocessing request.
-    If no prompt is included, the connected LLM processes the conversation however it deems reasonable.
+   Optionally, enable **LLM Preprocessing**.
+   This option allows you to include a natural language prompt for preprocessing instructions, such as `Summarize the key facts from this conversation: the issue the user reported, any troubleshooting steps taken, and the outcome or resolution.`
+   - **Preprocessing Model**: The LLM used for distillation.
+   - **Preprocessing Instructions**: Optional system prompt prepended to each preprocessing request.
+     If no prompt is included, the connected LLM processes the conversation however it deems reasonable.
 
 4. Click **Create Memory**.
-Primeagent creates the memory base and provisions storage on the selected vector database.
-For local Chroma, that includes an on-disk directory; for remote providers such as Chroma Cloud, OpenSearch, or Postgres pgvector, vectors are stored in the configured cluster or database.
-A new memory base's status is **Empty** until the first ingestion job completes.
+   Primeagent creates the memory base and provisions storage on the selected vector database.
+   For local Chroma, that includes an on-disk directory; for remote providers such as Chroma Cloud, OpenSearch, or Postgres pgvector, vectors are stored in the configured cluster or database.
+   A new memory base's status is **Empty** until the first ingestion job completes.
 
 ## Use a memory base in a flow
 
@@ -132,8 +132,8 @@ For example, to connect a Memory Base to an Agent to give the agent memory of al
 4. In the **Memory Base** component, enable **Tool Mode**.
 5. Connect the Memory Base component's **Toolset** output to the **Agent** component's **Tools** input.
 
-    Each time the flow runs, the component queries the memory base for chunks similar to the current **Search Query**.
-    By default, only chunks from the same `session_id` are returned. To retrieve chunks from all sessions, disable **Filter by Session**.
+   Each time the flow runs, the component queries the memory base for chunks similar to the current **Search Query**.
+   By default, only chunks from the same `session_id` are returned. To retrieve chunks from all sessions, disable **Filter by Session**.
 
 For more information, see the [**Memory Base** component reference](../Components/memory-base.mdx).
 
@@ -144,12 +144,12 @@ To view and manage the memory bases attached to the current flow, on the visual 
 Click a memory base name to open its detailed view.
 The following information is available for each memory base:
 
-* Name
-* Embedding model
-* Vector store (the DB Provider selected at memory base creation)
-* Ingestion threshold
-* Auto-capture
-* Session history
+- Name
+- Embedding model
+- Vector store (the DB Provider selected at memory base creation)
+- Ingestion threshold
+- Auto-capture
+- Session history
 
 To view the embedding model, provider, and vector store for a memory base, open its detail view and expand the configuration summary.
 
@@ -172,11 +172,11 @@ For **local Chroma**, memory bases use the same on-disk layout as [knowledge bas
 The default storage location depends on your operating system and installation method:
 
 - **Primeagent Desktop**:
-    - **macOS**: `/Users/<username>/.primeagent/knowledge_bases`
-    - **Windows**: `C:\Users\<name>\AppData\Roaming\com.PrimeagentDesktop\knowledge_bases`
+  - **macOS**: `/Users/<username>/.primeagent/knowledge_bases`
+  - **Windows**: `C:\Users\<name>\AppData\Roaming\com.PrimeagentDesktop\knowledge_bases`
 - **Primeagent OSS**:
-    - **macOS/Windows/Linux/WSL with `uv pip install`**: `<path_to_venv>/lib/python3.12/site-packages/primeagent/knowledge_bases`
-    - **macOS/Windows/Linux/WSL with `git clone`**: `<path_to_clone>/src/backend/base/primeagent/knowledge_bases`
+  - **macOS/Windows/Linux/WSL with `uv pip install`**: `<path_to_venv>/lib/python3.12/site-packages/primeagent/knowledge_bases`
+  - **macOS/Windows/Linux/WSL with `git clone`**: `<path_to_clone>/src/backend/base/primeagent/knowledge_bases`
 
 If you set the `PRIMEAGENT_CONFIG_DIR` environment variable, the `knowledge_bases` subdirectory is created relative to that path.
 

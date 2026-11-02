@@ -158,7 +158,9 @@
   border: 1px solid var(--ifm-color-emphasis-200);
   border-radius: var(--ifm-global-radius);
   background: var(--ifm-background-surface-color);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
 }
 
 .lf-card:hover {
@@ -213,7 +215,9 @@
   top: 1.25rem;
   right: 1.25rem;
   color: var(--ifm-color-emphasis-400);
-  transition: color 0.15s ease, transform 0.15s ease;
+  transition:
+    color 0.15s ease,
+    transform 0.15s ease;
 }
 
 .lf-card:hover .lf-card-arrow {

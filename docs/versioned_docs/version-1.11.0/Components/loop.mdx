@@ -4,7 +4,7 @@ slug: /loop
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
 
 The **Loop** component iterates over a list of input by passing individual items to other components attached at the **Item** output port until there are no items left to process.
 Then, the **Loop** component passes the aggregated result of all looping to the component connected to the **Done** port.
@@ -18,18 +18,18 @@ Here's a breakdown of the looping process:
 
 2. Splits the input into individual items. For example, a CSV file is broken down by rows.
 
-    Specifically, the **Loop** component repeatedly extracts items by `text` key in the `JSON` or `Table` objects until there are no more items to extract.
-    Each `item` output is a `JSON` objects.
+   Specifically, the **Loop** component repeatedly extracts items by `text` key in the `JSON` or `Table` objects until there are no more items to extract.
+   Each `item` output is a `JSON` objects.
 
 3. Iterates over each `item` by passing them to the **Item** output port.
 
-    This port connects to one or more components that perform actions on each item.
-    The final component in the **Item** loop connects back to the **Loop** component's **Looping** port to process the next item.
+   This port connects to one or more components that perform actions on each item.
+   The final component in the **Item** loop connects back to the **Loop** component's **Looping** port to process the next item.
 
-    Only one component connects to the **Item** port, but you can pass the data through as many components as you need, as long as the last component in the chain connects back to the **Looping** port.
+   Only one component connects to the **Item** port, but you can pass the data through as many components as you need, as long as the last component in the chain connects back to the **Looping** port.
 
-    The [**If-Else** component](/if-else) isn't compatible with the **Loop** component.
-    For more information, see [Conditional looping](#conditional-looping).
+   The [**If-Else** component](/if-else) isn't compatible with the **Loop** component.
+   For more information, see [Conditional looping](#conditional-looping).
 
 4. After processing all items, the results are aggregated into a single `JSON` object that is passed from the **Loop** component's **Done** port to the next component in the flow.
 
@@ -68,4 +68,3 @@ If you need conditional loop events, redesign your flow to process conditions be
 For example, if you are looping over a `Table`, you could use multiple [**Data Operations** components](./operations) to conditionally filter data, and then run separate loops on each set of filtered data.
 
 ![A flow with conditional looping.](/img/conditional-looping.png)
-

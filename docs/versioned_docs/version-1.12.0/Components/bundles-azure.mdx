@@ -4,12 +4,14 @@ slug: /bundles-azure
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import { GraduatedBundleInstall } from '@site/docs/_partial-bundle-graduated-install.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-install.mdx";
 
 <GraduatedBundleInstall packageName="azure" />
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with Primeagent.
 
 This page describes the components that are available in the **Azure** bundle.
 
@@ -28,17 +30,17 @@ For more information, see [Language model components](/components-models).
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| Model Name | String | Input parameter. Specifies the name of the Azure OpenAI model to be used for text generation. |
-| Azure Endpoint | String | Input parameter. Your Azure endpoint, including the resource. |
-| Deployment Name | String | Input parameter. Specifies the name of the deployment. |
-| API Version | String | Input parameter. Specifies the version of the Azure OpenAI API to be used. |
-| API Key | SecretString | Input parameter. Your Azure OpenAI API key. |
-| Temperature | Float | Input parameter. Specifies the sampling temperature. Defaults to `1.0`. |
-| Max Tokens | Integer | Input parameter. Specifies the maximum number of tokens to generate. Defaults to `1000`. |
-| Input Value | String | Input parameter. Specifies the input text for text generation. |
-| Stream | Boolean | Input parameter. Specifies whether to stream the response from the model. Default to `false`. |
+| Name            | Type         | Description                                                                                   |
+| --------------- | ------------ | --------------------------------------------------------------------------------------------- |
+| Model Name      | String       | Input parameter. Specifies the name of the Azure OpenAI model to be used for text generation. |
+| Azure Endpoint  | String       | Input parameter. Your Azure endpoint, including the resource.                                 |
+| Deployment Name | String       | Input parameter. Specifies the name of the deployment.                                        |
+| API Version     | String       | Input parameter. Specifies the version of the Azure OpenAI API to be used.                    |
+| API Key         | SecretString | Input parameter. Your Azure OpenAI API key.                                                   |
+| Temperature     | Float        | Input parameter. Specifies the sampling temperature. Defaults to `1.0`.                       |
+| Max Tokens      | Integer      | Input parameter. Specifies the maximum number of tokens to generate. Defaults to `1000`.      |
+| Input Value     | String       | Input parameter. Specifies the input text for text generation.                                |
+| Stream          | Boolean      | Input parameter. Specifies whether to stream the response from the model. Default to `false`. |
 
 ## Azure OpenAI Embeddings
 
@@ -50,10 +52,10 @@ For more information about using embedding model components in flows, see [Embed
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| Model | String | Input parameter. The name of the model to use. Default: `text-embedding-3-small`. |
-| Azure Endpoint | String | Input parameter. Your Azure endpoint, including the resource, such as `https://example-resource.azure.openai.com/`. |
-| Deployment Name | String | Input parameter. The name of the deployment. |
-| API Version | String | Input parameter. The API version to use, with options including various dates. |
-| API Key | String | Input parameter. The API key required to access the Azure OpenAI service. |
+| Name            | Type   | Description                                                                                                         |
+| --------------- | ------ | ------------------------------------------------------------------------------------------------------------------- |
+| Model           | String | Input parameter. The name of the model to use. Default: `text-embedding-3-small`.                                   |
+| Azure Endpoint  | String | Input parameter. Your Azure endpoint, including the resource, such as `https://example-resource.azure.openai.com/`. |
+| Deployment Name | String | Input parameter. The name of the deployment.                                                                        |
+| API Version     | String | Input parameter. The API version to use, with options including various dates.                                      |
+| API Key         | String | Input parameter. The API key required to access the Azure OpenAI service.                                           |

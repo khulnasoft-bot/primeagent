@@ -89,10 +89,7 @@
       "type": "category",
       "label": "Agents",
       "className": "sidebar-category-with-icon sidebar-icon-bot",
-      "items": [
-        "Agents/agents",
-        "Agents/agents-tools"
-      ]
+      "items": ["Agents/agents", "Agents/agents-tools"]
     },
     {
       "type": "category",

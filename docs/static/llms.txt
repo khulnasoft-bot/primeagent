@@ -6,16 +6,16 @@ Primeagent is open source (MIT). Run locally with `uv run primeagent run` (Pytho
 
 ## Docs
 
-- [About Primeagent](https://docs.prime.khulnasoft.com/about-primeagent): Platform overview and introduction
-- [Install Primeagent](https://docs.prime.khulnasoft.com/get-started-installation): Installation options (OSS, Docker, from source)
-- [Quickstart](https://docs.prime.khulnasoft.com/get-started-quickstart): Get up and running quickly
-- [Use the visual editor](https://docs.prime.khulnasoft.com/concepts-overview): Visual flow builder overview
-- [Trigger flows with the API](https://docs.prime.khulnasoft.com/concepts-publish): Run flows via the Primeagent API
-- [Agents](https://docs.prime.khulnasoft.com/agents): Agents and tools
-- [MCP client and server](https://docs.prime.khulnasoft.com/mcp-client): Model Context Protocol integration
-- [Deployment overview](https://docs.prime.khulnasoft.com/deployment-overview): How to deploy Primeagent
-- [Security](https://docs.prime.khulnasoft.com/security): Deployment and security guidance
-- [Release notes](https://docs.prime.khulnasoft.com/release-notes): Version history and release notes
+- [About Primeagent](https://prime.khulnasoft.com/docs/about-primeagent): Platform overview and introduction
+- [Install Primeagent](https://prime.khulnasoft.com/docs/get-started-installation): Installation options (OSS, Docker, from source)
+- [Quickstart](https://prime.khulnasoft.com/docs/get-started-quickstart): Get up and running quickly
+- [Use the visual editor](https://prime.khulnasoft.com/docs/concepts-overview): Visual flow builder overview
+- [Trigger flows with the API](https://prime.khulnasoft.com/docs/concepts-publish): Run flows via the Primeagent API
+- [Agents](https://prime.khulnasoft.com/docs/agents): Agents and tools
+- [MCP client and server](https://prime.khulnasoft.com/docs/mcp-client): Model Context Protocol integration
+- [Deployment overview](https://prime.khulnasoft.com/docs/deployment-overview): How to deploy Primeagent
+- [Security](https://prime.khulnasoft.com/docs/security): Deployment and security guidance
+- [Release notes](https://prime.khulnasoft.com/docs/release-notes): Version history and release notes
 
 ## Community
 
@@ -28,8 +28,8 @@ Primeagent is open source (MIT). Run locally with `uv run primeagent run` (Pytho
 
 ## Optional
 
-- [Build flows](https://docs.prime.khulnasoft.com/concepts-flows): Concepts for building flows
-- [Test flows](https://docs.prime.khulnasoft.com/concepts-playground): Playground and testing
-- [Components overview](https://docs.prime.khulnasoft.com/concepts-components): Component reference introduction
-- [API reference](https://docs.prime.khulnasoft.com/api-reference-api-examples): Get started with the Primeagent API
-- [Troubleshooting](https://docs.prime.khulnasoft.com/troubleshoot): Troubleshooting guide
+- [Build flows](https://prime.khulnasoft.com/docs/concepts-flows): Concepts for building flows
+- [Test flows](https://prime.khulnasoft.com/docs/concepts-playground): Playground and testing
+- [Components overview](https://prime.khulnasoft.com/docs/concepts-components): Component reference introduction
+- [API reference](https://prime.khulnasoft.com/docs/api-reference-api-examples): Get started with the Primeagent API
+- [Troubleshooting](https://prime.khulnasoft.com/docs/troubleshoot): Troubleshooting guide

@@ -19,7 +19,7 @@ You create a client, point Primeagent at the identity provider's JWKS URL and is
 
 ## Prerequisites
 
-* [Docker](https://docs.docker.com/get-docker/) or [Podman](https://docs.podman.io/) installed and running
+- [Docker](https://docs.docker.com/get-docker/) or [Podman](https://docs.podman.io/) installed and running
 
 ### Create a Keycloak realm and OIDC client
 
@@ -35,16 +35,17 @@ You create a client, point Primeagent at the identity provider's JWKS URL and is
      -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
      quay.io/keycloak/keycloak:latest start-dev
    ```
+
 1. Open the Keycloak admin console at `http://localhost:8080/admin`, and then sign in with `admin` / `admin`.
-2. Create a new realm named `primeagent`.
-3. Click **Clients**, and then create an OpenID Connect client named `primeagent-app`.
-4. Set **Client authentication** to **On**.
-5. Click **Capability config**, and then enable **Direct access grants**.
+1. Create a new realm named `primeagent`.
+1. Click **Clients**, and then create an OpenID Connect client named `primeagent-app`.
+1. Set **Client authentication** to **On**.
+1. Click **Capability config**, and then enable **Direct access grants**.
 
    For this example, tokens will be requested with `curl` with a password grant, so you do not need a redirect URI.
    If your users will sign in through an OIDC proxy, set a redirect URI later, such as `http://localhost:7860/*`.
 
-6. Copy the client secret from the **Credentials** tab.
+1. Copy the client secret from the **Credentials** tab.
    You will use it to form the request for an access token.
 
 ### Add an audience mapper to the access token
@@ -128,6 +129,7 @@ Keycloak access tokens do not include your client ID in `aud` by default, so you
    An expired token returns `{"detail":"Invalid token"}` with HTTP status `401`.
    If you get this error, request a new token.
    :::
+
 4. Copy the `access_token` value, which Primeagent expects in the `Authorization: Bearer` header.
 5. To save the `access_token` from the response as a terminal environment variable, run:
 
@@ -171,21 +173,21 @@ Keycloak access tokens do not include your client ID in `aud` by default, so you
 
 ## Configure external authentication environment variables
 
-| Variable | Description | Default |
-|---|---|---|
-| `PRIMEAGENT_EXTERNAL_AUTH_ENABLED` | Enable external authentication and JIT user provisioning. | `false` |
-| `PRIMEAGENT_EXTERNAL_AUTH_PROVIDER` | Stable key written to the user profile to identify the external provider. Used to associate API-key restrictions with external users. | `external` |
-| `PRIMEAGENT_EXTERNAL_AUTH_TOKEN_HEADER` | HTTP header from which the credential is extracted. Supports `Bearer`-prefixed values. | `Authorization` |
-| `PRIMEAGENT_EXTERNAL_AUTH_TOKEN_COOKIE` | Optional cookie name from which the credential is extracted. The header is checked first. | _(none)_ |
+| Variable                                | Description                                                                                                                           | Default         |
+| --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| `PRIMEAGENT_EXTERNAL_AUTH_ENABLED`      | Enable external authentication and JIT user provisioning.                                                                             | `false`         |
+| `PRIMEAGENT_EXTERNAL_AUTH_PROVIDER`     | Stable key written to the user profile to identify the external provider. Used to associate API-key restrictions with external users. | `external`      |
+| `PRIMEAGENT_EXTERNAL_AUTH_TOKEN_HEADER` | HTTP header from which the credential is extracted. Supports `Bearer`-prefixed values.                                                | `Authorization` |
+| `PRIMEAGENT_EXTERNAL_AUTH_TOKEN_COOKIE` | Optional cookie name from which the credential is extracted. The header is checked first.                                             | _(none)_        |
 
 ### JWKS signature verification
 
-| Variable | Description | Default |
-|---|---|---|
-| `PRIMEAGENT_EXTERNAL_AUTH_JWKS_URL` | HTTPS URL of the IdP's JWKS endpoint. Required unless trusted-decode mode is enabled. | _(none)_ |
-| `PRIMEAGENT_EXTERNAL_AUTH_AUDIENCE` | Expected `aud` claim value. Comma-separated values are accepted. Required alongside JWKS to prevent cross-service token reuse. | _(none)_ |
-| `PRIMEAGENT_EXTERNAL_AUTH_ISSUER` | Expected `iss` claim value. Leave empty to skip issuer validation. | _(none)_ |
-| `PRIMEAGENT_EXTERNAL_AUTH_ALGORITHMS` | Comma-separated list of accepted JWT signing algorithms. | `RS256` |
+| Variable                              | Description                                                                                                                    | Default  |
+| ------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| `PRIMEAGENT_EXTERNAL_AUTH_JWKS_URL`   | HTTPS URL of the IdP's JWKS endpoint. Required unless trusted-decode mode is enabled.                                          | _(none)_ |
+| `PRIMEAGENT_EXTERNAL_AUTH_AUDIENCE`   | Expected `aud` claim value. Comma-separated values are accepted. Required alongside JWKS to prevent cross-service token reuse. | _(none)_ |
+| `PRIMEAGENT_EXTERNAL_AUTH_ISSUER`     | Expected `iss` claim value. Leave empty to skip issuer validation.                                                             | _(none)_ |
+| `PRIMEAGENT_EXTERNAL_AUTH_ALGORITHMS` | Comma-separated list of accepted JWT signing algorithms.                                                                       | `RS256`  |
 
 :::warning
 `PRIMEAGENT_EXTERNAL_AUTH_JWKS_URL` must use `https`. A `http` URL is accepted only for `localhost` and loopback addresses in development environments, because an unencrypted JWKS endpoint allows a network attacker to substitute signing keys and forge tokens.
@@ -193,8 +195,8 @@ Keycloak access tokens do not include your client ID in `aud` by default, so you
 
 ### Trusted-decode mode
 
-| Variable | Description | Default |
-|---|---|---|
+| Variable                                      | Description                                                                                                                                     | Default |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | `PRIMEAGENT_EXTERNAL_AUTH_TRUSTED_JWT_DECODE` | Decode the JWT without verifying its signature. Only enable this when Primeagent is behind a trusted proxy that has already verified the token. | `false` |
 
 :::danger
@@ -205,13 +207,13 @@ Trusted-decode mode skips all cryptographic verification. Only enable it when Pr
 
 Primeagent maps JWT claims to local user attributes when creating or updating the provisioned account.
 
-| Variable | Description | Default |
-|---|---|---|
-| `PRIMEAGENT_EXTERNAL_AUTH_SUBJECT_CLAIM` | JWT claim used as the stable external user identifier. | `sub` |
-| `PRIMEAGENT_EXTERNAL_AUTH_USERNAME_CLAIM` | JWT claim preferred for the local Primeagent username. Falls back to email, name, or a deterministic hash. | `preferred_username` |
-| `PRIMEAGENT_EXTERNAL_AUTH_EMAIL_CLAIM` | JWT claim containing the user's email address. | `email` |
-| `PRIMEAGENT_EXTERNAL_AUTH_NAME_CLAIM` | JWT claim containing the user's display name. | `name` |
-| `PRIMEAGENT_EXTERNAL_AUTH_GROUP_RECONCILE_INTERVAL_SECONDS` | Minimum seconds between group reconciliations for an unchanged directory state. A changed group set always reconciles immediately. Set to `0` to reconcile on every request. | `60` |
+| Variable                                                    | Description                                                                                                                                                                  | Default              |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| `PRIMEAGENT_EXTERNAL_AUTH_SUBJECT_CLAIM`                    | JWT claim used as the stable external user identifier.                                                                                                                       | `sub`                |
+| `PRIMEAGENT_EXTERNAL_AUTH_USERNAME_CLAIM`                   | JWT claim preferred for the local Primeagent username. Falls back to email, name, or a deterministic hash.                                                                   | `preferred_username` |
+| `PRIMEAGENT_EXTERNAL_AUTH_EMAIL_CLAIM`                      | JWT claim containing the user's email address.                                                                                                                               | `email`              |
+| `PRIMEAGENT_EXTERNAL_AUTH_NAME_CLAIM`                       | JWT claim containing the user's display name.                                                                                                                                | `name`               |
+| `PRIMEAGENT_EXTERNAL_AUTH_GROUP_RECONCILE_INTERVAL_SECONDS` | Minimum seconds between group reconciliations for an unchanged directory state. A changed group set always reconciles immediately. Set to `0` to reconcile on every request. | `60`                 |
 
 ## Configure an access ceiling from JWT claims
 
@@ -219,21 +221,21 @@ The access ceiling is a coarse, deny-only mechanism that maps a JWT claim value 
 It is not a full RBAC engine.
 When enabled, requests from external users whose ceiling is below the required level are denied before reaching the resource.
 
-| Variable | Description | Default |
-|---|---|---|
-| `PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CEILING_ENABLED` | Enable claim-based access ceiling for external users. | `false` |
-| `PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CLAIM` | JWT claim name from which the access level is derived. | _(none)_ |
-| `PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CLAIM_MAPPING` | JSON object or comma-separated `claim_value:level` pairs that map external claim values to `viewer`, `editor`, or `admin`. When this is set it is authoritative — values absent from the mapping fall back to the default level rather than being interpreted through built-in aliases. | _(none)_ |
-| `PRIMEAGENT_EXTERNAL_AUTH_DEFAULT_ACCESS_LEVEL` | Fallback level used when the access claim is absent or unmapped. | `viewer` |
-| `PRIMEAGENT_EXTERNAL_AUTH_DISABLE_API_KEYS_FOR_EXTERNAL_USERS` | Reject Primeagent API-key authentication for users provisioned through the external provider, so API keys cannot bypass the JWT claim ceiling. | `true` |
+| Variable                                                       | Description                                                                                                                                                                                                                                                                             | Default  |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- |
+| `PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CEILING_ENABLED`              | Enable claim-based access ceiling for external users.                                                                                                                                                                                                                                   | `false`  |
+| `PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CLAIM`                        | JWT claim name from which the access level is derived.                                                                                                                                                                                                                                  | _(none)_ |
+| `PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CLAIM_MAPPING`                | JSON object or comma-separated `claim_value:level` pairs that map external claim values to `viewer`, `editor`, or `admin`. When this is set it is authoritative — values absent from the mapping fall back to the default level rather than being interpreted through built-in aliases. | _(none)_ |
+| `PRIMEAGENT_EXTERNAL_AUTH_DEFAULT_ACCESS_LEVEL`                | Fallback level used when the access claim is absent or unmapped.                                                                                                                                                                                                                        | `viewer` |
+| `PRIMEAGENT_EXTERNAL_AUTH_DISABLE_API_KEYS_FOR_EXTERNAL_USERS` | Reject Primeagent API-key authentication for users provisioned through the external provider, so API keys cannot bypass the JWT claim ceiling.                                                                                                                                          | `true`   |
 
 **Built-in access level aliases** (used when no explicit mapping is configured):
 
-| Claim value | Maps to |
-|---|---|
+| Claim value                                                    | Maps to  |
+| -------------------------------------------------------------- | -------- |
 | `view`, `viewer`, `read`, `readonly`, `read_only`, `read-only` | `viewer` |
-| `edit`, `editor`, `write`, `developer` | `editor` |
-| `admin`, `administrator` | `admin` |
+| `edit`, `editor`, `write`, `developer`                         | `editor` |
+| `admin`, `administrator`                                       | `admin`  |
 
 **Mapping examples:**
 

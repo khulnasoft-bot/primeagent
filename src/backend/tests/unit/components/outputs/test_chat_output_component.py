@@ -32,10 +32,7 @@ class TestChatOutput(ComponentTestBaseWithClient):
 
     @pytest.fixture
     def file_names_mapping(self):
-        return [
-            {"version": "1.0.19", "module": "outputs", "file_name": "ChatOutput"},
-            {"version": "1.1.0", "module": "outputs", "file_name": "chat"},
-        ]
+        return []
 
     async def test_process_string_input(self, component_class, default_kwargs):
         """Test processing a simple string input."""

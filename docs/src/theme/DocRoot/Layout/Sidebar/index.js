@@ -1,6 +1,9 @@
 import React, { useState, useCallback } from "react";
 import clsx from "clsx";
-import { prefersReducedMotion, ThemeClassNames } from "@docusaurus/theme-common";
+import {
+  prefersReducedMotion,
+  ThemeClassNames,
+} from "@docusaurus/theme-common";
 import { useDocsSidebar } from "@docusaurus/plugin-content-docs/client";
 import { useLocation } from "@docusaurus/router";
 import DocSidebar from "@theme/DocSidebar";
@@ -9,7 +12,11 @@ import styles from "./styles.module.css";
 
 function ResetOnSidebarChange({ children }) {
   const sidebar = useDocsSidebar();
-  return <React.Fragment key={sidebar?.name ?? "noSidebar"}>{children}</React.Fragment>;
+  return (
+    <React.Fragment key={sidebar?.name ?? "noSidebar"}>
+      {children}
+    </React.Fragment>
+  );
 }
 
 export default function DocRootLayoutSidebar({

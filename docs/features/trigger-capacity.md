@@ -8,14 +8,14 @@ The figures on this page describe implementation defaults. They are sizing estim
 
 ## What scales
 
-| Stage | Work | Effect of adding replicas |
-|---|---|---|
-| Ingress | Verify deliveries and persist events or source hints | API replicas can share requests; they still use one database and should share rate-limit storage. |
-| Listeners | Hold connections and poll provider change feeds | Listener replicas share connections through database leases. One busy connection is not divided across replicas. |
-| Schedule production | Turn due schedules into ledger events | A shared lease normally elects one schedule producer. More API replicas provide takeover capacity. |
-| Trigger dispatch | Claim canonical events and submit jobs | A shared lease elects one dispatcher. Adding API replicas does not multiply normal dispatch throughput. |
-| Source maintenance | Expand hints, reconcile change feeds, renew subscriptions, and retry cleanup | A separate leased loop runs alongside dispatch. Slow providers can delay other sources, while ordinary job submission continues. |
-| Flow execution | Execute the submitted jobs | Capacity depends on the background execution configuration, flow duration, downstream quotas, and per-trigger concurrency. |
+| Stage               | Work                                                                         | Effect of adding replicas                                                                                                        |
+| ------------------- | ---------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| Ingress             | Verify deliveries and persist events or source hints                         | API replicas can share requests; they still use one database and should share rate-limit storage.                                |
+| Listeners           | Hold connections and poll provider change feeds                              | Listener replicas share connections through database leases. One busy connection is not divided across replicas.                 |
+| Schedule production | Turn due schedules into ledger events                                        | A shared lease normally elects one schedule producer. More API replicas provide takeover capacity.                               |
+| Trigger dispatch    | Claim canonical events and submit jobs                                       | A shared lease elects one dispatcher. Adding API replicas does not multiply normal dispatch throughput.                          |
+| Source maintenance  | Expand hints, reconcile change feeds, renew subscriptions, and retry cleanup | A separate leased loop runs alongside dispatch. Slow providers can delay other sources, while ordinary job submission continues. |
+| Flow execution      | Execute the submitted jobs                                                   | Capacity depends on the background execution configuration, flow duration, downstream quotas, and per-trigger concurrency.       |
 
 Use a shared PostgreSQL database for deployments with multiple API or listener replicas. Subprocess listener mode still creates a second process; it does not remove SQLite write contention. Keep the database URL, encryption key, and OAuth registrations consistent across API and listener processes.
 
@@ -57,21 +57,21 @@ Rate-limit storage defaults to `memory://`, which makes counters local to each A
 
 ## Configuration and tradeoffs
 
-| Setting | Default | Sizing implication |
-|---|---|---|
-| `PRIMEAGENT_TRIGGER_MAX_EVENTS_PER_POLL` | `25` | Larger batches amortize pass overhead but increase transaction work and in-flight claims. |
-| `PRIMEAGENT_TRIGGER_DISPATCHER_POLL_INTERVAL_S` | `5` | Wait after partly full or blocked dispatch passes, and between source-maintenance passes. Full dispatch batches drain immediately. |
-| `PRIMEAGENT_TRIGGER_LEASE_TTL_S` | `30` | Controls trigger worker, scheduler, and event-claim leases. Longer values delay takeover. |
-| Per-trigger `concurrency_limit` | `1` | Limits claimed/dispatched work for one trigger. Increase only when overlapping flows are acceptable. |
-| `PRIMEAGENT_LISTENER_POLL_INTERVAL_S` | `30` | Polling delay after work, with jitter; Microsoft and Google sources enforce a 30-second minimum. |
-| `PRIMEAGENT_LISTENER_RECONCILE_INTERVAL_S` | `5` | Each replica scans active connected triggers; more replicas add database work. |
-| `PRIMEAGENT_LISTENER_LEASE_TTL_S` | `30` | Listener ownership lifetime. |
-| `PRIMEAGENT_LISTENER_HEARTBEAT_INTERVAL_S` | `10` | Checked during reconcile; keep well below listener TTL. |
-| `PRIMEAGENT_TRIGGER_SUBSCRIPTION_RENEW_INTERVAL_S` | `300` | Frequency of subscription-renewal checks, with at most 25 rows claimed by default. |
-| `PRIMEAGENT_TRIGGER_EVENT_RETENTION_DAYS` | `30` | Retention for terminal ledger rows. It does not cap pending backlog. |
-| `PRIMEAGENT_TRIGGER_REPLAY_WINDOW_DAYS` | `7` | Operator replay window; must not exceed event retention. |
-| `PRIMEAGENT_TRIGGER_PURGE_INTERVAL_S` | `3600` | Cadence of terminal-event cleanup. |
-| `PRIMEAGENT_RATE_LIMIT_STORAGE_URI` | `memory://` | Use shared storage for aggregate ingress limits. |
+| Setting                                            | Default     | Sizing implication                                                                                                                 |
+| -------------------------------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_TRIGGER_MAX_EVENTS_PER_POLL`           | `25`        | Larger batches amortize pass overhead but increase transaction work and in-flight claims.                                          |
+| `PRIMEAGENT_TRIGGER_DISPATCHER_POLL_INTERVAL_S`    | `5`         | Wait after partly full or blocked dispatch passes, and between source-maintenance passes. Full dispatch batches drain immediately. |
+| `PRIMEAGENT_TRIGGER_LEASE_TTL_S`                   | `30`        | Controls trigger worker, scheduler, and event-claim leases. Longer values delay takeover.                                          |
+| Per-trigger `concurrency_limit`                    | `1`         | Limits claimed/dispatched work for one trigger. Increase only when overlapping flows are acceptable.                               |
+| `PRIMEAGENT_LISTENER_POLL_INTERVAL_S`              | `30`        | Polling delay after work, with jitter; Microsoft and Google sources enforce a 30-second minimum.                                   |
+| `PRIMEAGENT_LISTENER_RECONCILE_INTERVAL_S`         | `5`         | Each replica scans active connected triggers; more replicas add database work.                                                     |
+| `PRIMEAGENT_LISTENER_LEASE_TTL_S`                  | `30`        | Listener ownership lifetime.                                                                                                       |
+| `PRIMEAGENT_LISTENER_HEARTBEAT_INTERVAL_S`         | `10`        | Checked during reconcile; keep well below listener TTL.                                                                            |
+| `PRIMEAGENT_TRIGGER_SUBSCRIPTION_RENEW_INTERVAL_S` | `300`       | Frequency of subscription-renewal checks, with at most 25 rows claimed by default.                                                 |
+| `PRIMEAGENT_TRIGGER_EVENT_RETENTION_DAYS`          | `30`        | Retention for terminal ledger rows. It does not cap pending backlog.                                                               |
+| `PRIMEAGENT_TRIGGER_REPLAY_WINDOW_DAYS`            | `7`         | Operator replay window; must not exceed event retention.                                                                           |
+| `PRIMEAGENT_TRIGGER_PURGE_INTERVAL_S`              | `3600`      | Cadence of terminal-event cleanup.                                                                                                 |
+| `PRIMEAGENT_RATE_LIMIT_STORAGE_URI`                | `memory://` | Use shared storage for aggregate ingress limits.                                                                                   |
 
 Do not select a larger batch or more replicas from event count alone. First measure tick duration, oldest pending age, database lock waits, and provider request volume. Keep arrival rate below the measured sustainable rate with room for bursts and retries.
 

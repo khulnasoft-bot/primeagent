@@ -1,17 +1,17 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/projects/`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
   body: JSON.stringify({
-  "name": "new_project_name",
-  "description": "string",
-  "components_list": [],
-  "flows_list": []
-}),
+    name: "new_project_name",
+    description: "string",
+    components_list: [],
+    flows_list: [],
+  }),
 };
 
 fetch(url, options)

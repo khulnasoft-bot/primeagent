@@ -25,21 +25,21 @@ To create the registration, see [Register an application with the Microsoft iden
 To connect Microsoft 365, do the following:
 
 1. In Microsoft Entra, copy the directory (tenant) ID and the application (client) ID from your [registered single-tenant application](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-register-app).
-Primeagent accepts one tenant per registration.
+   Primeagent accepts one tenant per registration.
 
 2. Add [Primeagent's redirect URI](#redirect-uris) to the Microsoft Entra registration.
-Use the same hostname in the browser and in the URI.
-For more information on adding a redirect URI in Microsoft Entra, see [Redirect URI (reply URL) restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/reply-url).
+   Use the same hostname in the browser and in the URI.
+   For more information on adding a redirect URI in Microsoft Entra, see [Redirect URI (reply URL) restrictions](https://learn.microsoft.com/en-us/entra/identity-platform/reply-url).
 
 3. In Microsoft Entra, add the delegated permissions for the actions you use with `offline_access`.
-Use the short names in [Delegated permissions](#delegated-permissions).
-For more information, see [Configure a client application to access web APIs](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-configure-app-access-web-apis).
+   Use the short names in [Delegated permissions](#delegated-permissions).
+   For more information, see [Configure a client application to access web APIs](https://learn.microsoft.com/en-us/entra/identity-platform/quickstart-configure-app-access-web-apis).
 
 4. In Microsoft Entra, create a client secret or a certificate.
-For more information, see [Add credentials to your application](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials).
-   * If you're creating a client secret, copy the secret when Entra displays it.
-   * If you're creating a client certificate, copy the private key and the certificate's SHA-256 thumbprint.
-   * If you're creating a Desktop client, no secret is required.
+   For more information, see [Add credentials to your application](https://learn.microsoft.com/en-us/entra/identity-platform/how-to-add-credentials).
+   - If you're creating a client secret, copy the secret when Entra displays it.
+   - If you're creating a client certificate, copy the private key and the certificate's SHA-256 thumbprint.
+   - If you're creating a Desktop client, no secret is required.
 
 For more information, see [Public and confidential client apps](https://learn.microsoft.com/en-us/entra/identity-platform/msal-client-applications).
 
@@ -61,11 +61,11 @@ For more information, see [Public and confidential client apps](https://learn.mi
    }
    ```
 
-   * Set `PRIMEAGENT_CONNECTION_OAUTH_CONTEXT` to the same value as `context`: `self_managed`, `hosted`, or `desktop`.
-   * Replace `YOUR_APPLICATION_CLIENT_ID`, `YOUR_CLIENT_SECRET`, and `tenant` with the values from the registration.
-   * Replace `primeagent.example` with your instance's public hostname.
-   * For a certificate, set `private_key` and `certificate_thumbprint` instead of `client_secret`.
-   * For Desktop, set `client_type` to `public` and omit the secret. `scopes` is the list of permissions a person can consent to.
+   - Set `PRIMEAGENT_CONNECTION_OAUTH_CONTEXT` to the same value as `context`: `self_managed`, `hosted`, or `desktop`.
+   - Replace `YOUR_APPLICATION_CLIENT_ID`, `YOUR_CLIENT_SECRET`, and `tenant` with the values from the registration.
+   - Replace `primeagent.example` with your instance's public hostname.
+   - For a certificate, set `private_key` and `certificate_thumbprint` instead of `client_secret`.
+   - For Desktop, set `client_type` to `public` and omit the secret. `scopes` is the list of permissions a person can consent to.
 
 6. Restart Primeagent.
 7. In the Primeagent header, click your profile icon, and then select **Settings**.
@@ -95,11 +95,11 @@ To remove the Primeagent app's access in Microsoft Entra, see [Review permission
 
 In Microsoft Entra, add the redirect URI that matches how you run Primeagent. Use the **Web** platform for a hosted or self-managed server, and **Mobile and desktop applications** for Primeagent Desktop. A headless run doesn't use a redirect.
 
-| Context | Platform | Redirect URI |
-| --- | --- | --- |
-| Hosted or self-managed server | Web | `https://YOUR_INSTANCE/api/v1/connections/oauth/microsoft/callback` |
-| Desktop | Mobile and desktop applications | `http://localhost:7860/api/v1/connections/oauth/microsoft/callback` |
-| Headless | Not applicable | No redirect. For how to supply a token, see [Headless and CLI runs](../Components/bundles-microsoft.mdx#headless-and-cli-runs). |
+| Context                       | Platform                        | Redirect URI                                                                                                                    |
+| ----------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Hosted or self-managed server | Web                             | `https://YOUR_INSTANCE/api/v1/connections/oauth/microsoft/callback`                                                             |
+| Desktop                       | Mobile and desktop applications | `http://localhost:7860/api/v1/connections/oauth/microsoft/callback`                                                             |
+| Headless                      | Not applicable                  | No redirect. For how to supply a token, see [Headless and CLI runs](../Components/bundles-microsoft.mdx#headless-and-cli-runs). |
 
 Replace `YOUR_INSTANCE` with the public hostname of the Primeagent instance.
 
@@ -109,16 +109,16 @@ In Microsoft Entra, add a Microsoft Graph permission for each action your flows 
 These permissions don't require admin consent.
 For more information, see [Configure how users consent to applications](https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-user-consent).
 
-| Component | Delegated permission |
-| --- | --- |
-| Outlook: Send Mail | `Mail.Send` |
-| Outlook: Search Mail | `Mail.Read` |
-| Outlook Calendar: List Events | `Calendars.Read` |
-| Outlook Calendar: Create Event | `Calendars.ReadWrite` |
-| Teams: Post Chat Message | `ChatMessage.Send` |
-| Teams: Post Channel Message | `ChannelMessage.Send` |
-| SharePoint/OneDrive: List Items | `Files.Read` |
-| SharePoint/OneDrive: Fetch Item | `Files.Read` |
+| Component                       | Delegated permission  |
+| ------------------------------- | --------------------- |
+| Outlook: Send Mail              | `Mail.Send`           |
+| Outlook: Search Mail            | `Mail.Read`           |
+| Outlook Calendar: List Events   | `Calendars.Read`      |
+| Outlook Calendar: Create Event  | `Calendars.ReadWrite` |
+| Teams: Post Chat Message        | `ChatMessage.Send`    |
+| Teams: Post Channel Message     | `ChannelMessage.Send` |
+| SharePoint/OneDrive: List Items | `Files.Read`          |
+| SharePoint/OneDrive: Fetch Item | `Files.Read`          |
 
 The Fetch Item action also requires `Files.Read.All` when you supply a **Drive ID**, and `Sites.Read.All` when you supply a **Site ID**.
 

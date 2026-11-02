@@ -94,11 +94,7 @@
       "type": "category",
       "label": "Agents",
       "className": "sidebar-category-with-icon sidebar-icon-bot",
-      "items": [
-        "Agents/agents",
-        "Agents/agents-tools",
-        "Agents/a2a-server"
-      ]
+      "items": ["Agents/agents", "Agents/agents-tools", "Agents/a2a-server"]
     },
     {
       "type": "category",

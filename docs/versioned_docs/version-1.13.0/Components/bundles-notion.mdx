@@ -4,7 +4,7 @@ slug: /bundles-notion
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialWfxBundlesInstall from '@site/docs/_partial-bundle-wfx-bundles-install.mdx';
+import PartialWfxBundlesInstall from "@site/docs/_partial-bundle-wfx-bundles-install.mdx";
 
 <PartialWfxBundlesInstall />
 
@@ -94,39 +94,39 @@ Treat all keys and other credentials as sensitive information. Use secure refere
 
 ![Notion Meeting Agent Part 1](/img/notion_meeting_agent_part_1.png)
 
-* Meeting Transcript (text input): This component allows users to input the meeting transcript directly into the flow.
-* List Users (Notion component): Retrieves a list of users from the Notion workspace. Requires a Notion Secret (API key).
-* List Databases (Notion component): Searches and lists all databases in the Notion workspace. Requires the following inputs:
-    - Notion Secret (API key)
-    - Query (optional)
-    - Filter Type (default: database)
-    - Sort Direction
-* Prompt Template: This component creates a dynamic prompt template using the following inputs:
-    - Meeting Transcript
-    - List of Users
-    - List of Databases
-    - Current Date
-* Meeting Summarizer (Tool Calling Agent): Analyzes the meeting transcript and identifies tasks and action items. Requires the following inputs:
-    - System Prompt (from the **Prompt Template** component)
-    - Language Model (OpenAI)
-    - Tools:
-        - Notion Search
-        - List Database Properties: Retrieves the properties of a specified Notion database. Requires a Database ID and a Notion Secret (API key) as input.
-        - Create Page: Creates a new page in a Notion database. Requires a Database ID, Properties (JSON), and a Notion Secret (API key) as input.
-        - Update Page Property: Updates the properties of an existing Notion page. Requires a Page ID, Notion Secret (API key), and properties to update as input.
-        - Add Content to Page: Converts markdown text to Notion blocks and appends them to a specified Notion page. Requires a Page/Block ID, Notion Secret (API key), and Markdown text as input.
+- Meeting Transcript (text input): This component allows users to input the meeting transcript directly into the flow.
+- List Users (Notion component): Retrieves a list of users from the Notion workspace. Requires a Notion Secret (API key).
+- List Databases (Notion component): Searches and lists all databases in the Notion workspace. Requires the following inputs:
+  - Notion Secret (API key)
+  - Query (optional)
+  - Filter Type (default: database)
+  - Sort Direction
+- Prompt Template: This component creates a dynamic prompt template using the following inputs:
+  - Meeting Transcript
+  - List of Users
+  - List of Databases
+  - Current Date
+- Meeting Summarizer (Tool Calling Agent): Analyzes the meeting transcript and identifies tasks and action items. Requires the following inputs:
+  - System Prompt (from the **Prompt Template** component)
+  - Language Model (OpenAI)
+  - Tools:
+    - Notion Search
+    - List Database Properties: Retrieves the properties of a specified Notion database. Requires a Database ID and a Notion Secret (API key) as input.
+    - Create Page: Creates a new page in a Notion database. Requires a Database ID, Properties (JSON), and a Notion Secret (API key) as input.
+    - Update Page Property: Updates the properties of an existing Notion page. Requires a Page ID, Notion Secret (API key), and properties to update as input.
+    - Add Content to Page: Converts markdown text to Notion blocks and appends them to a specified Notion page. Requires a Page/Block ID, Notion Secret (API key), and Markdown text as input.
 
 ![Notion Meeting Agent Part 2](/img/notion_meeting_agent_part_2.png)
 
-* Notion Agent (Tool Calling Agent): Executes actions in Notion based on the meeting summary/ Requires the following inputs:
-    - System Prompt (from the second **Prompt Template** component)
-    - Language Model (OpenAI)
-    - Tools:
-        - List Database Properties: Retrieves the properties of a specified Notion database. Requires a Database ID and a Notion Secret (API key) as input.
-        - Create Page: Creates a new page in a Notion database. Requires a Database ID, Properties (JSON), and a Notion Secret (API key) as input.
-        - Update Page Property: Updates the properties of an existing Notion page. Requires a Page ID, Notion Secret (API key), and properties to update as input.
-        - Add Content to Page: Converts markdown text to Notion blocks and appends them to a specified Notion page. Requires a Page/Block ID, Notion Secret (API key), and Markdown text as input.
-* Chat Output: Displays the final output of the Notion Agent in the Playground.
+- Notion Agent (Tool Calling Agent): Executes actions in Notion based on the meeting summary/ Requires the following inputs:
+  - System Prompt (from the second **Prompt Template** component)
+  - Language Model (OpenAI)
+  - Tools:
+    - List Database Properties: Retrieves the properties of a specified Notion database. Requires a Database ID and a Notion Secret (API key) as input.
+    - Create Page: Creates a new page in a Notion database. Requires a Database ID, Properties (JSON), and a Notion Secret (API key) as input.
+    - Update Page Property: Updates the properties of an existing Notion page. Requires a Page ID, Notion Secret (API key), and properties to update as input.
+    - Add Content to Page: Converts markdown text to Notion blocks and appends them to a specified Notion page. Requires a Page/Block ID, Notion Secret (API key), and Markdown text as input.
+- Chat Output: Displays the final output of the Notion Agent in the Playground.
 
 ### Flow Process
 
@@ -144,21 +144,20 @@ Treat all keys and other credentials as sensitive information. Use secure refere
 
 1. Create a flow manually or import a pre-built flow JSON file:
 
-    * Recommended: [Download the Meeting Agent flow JSON](/files/Meeting_Notes_Agent.json) and then [import the flow](/concepts-flows-import) into Primeagent.
-    * Create a blank flow, and then add the previously described components to your flow, connecting them as shown in the flow diagram.
+   - Recommended: [Download the Meeting Agent flow JSON](/files/Meeting_Notes_Agent.json) and then [import the flow](/concepts-flows-import) into Primeagent.
+   - Create a blank flow, and then add the previously described components to your flow, connecting them as shown in the flow diagram.
 
 2. Input the Notion and OpenAI API keys in their respective components.
 3. Paste your meeting transcript into the **Meeting Transcript** component.
 
-    For optimal results, use detailed meeting transcripts. The quality of the output depends on the comprehensiveness of the input provided.
+   For optimal results, use detailed meeting transcripts. The quality of the output depends on the comprehensiveness of the input provided.
 
 4. Run the flow by clicking <Icon name="Play" aria-hidden="true" /> **Run component** on the **Chat Output** component or open the **Playground**.
 5. Review the output summarizing the actions taken in your Notion workspace.
 6. Optional: The flow can be customized to meet your team's specific needs.
-Customize this flow by:
-    * Adjusting the system prompt to change the agent's behavior or context.
-    * Adding or removing Notion tools based on your specific needs.
-    * Modifying the OpenAI model parameters (e.g., temperature) to adjust the agent's response style.
+   Customize this flow by:
+   _ Adjusting the system prompt to change the agent's behavior or context.
+   _ Adding or removing Notion tools based on your specific needs. \* Modifying the OpenAI model parameters (e.g., temperature) to adjust the agent's response style.
 
 ## Notion Conversational Agent
 
@@ -208,7 +207,7 @@ To build this flow, you need the following:
 8. Continue the conversation, asking follow-up questions or giving new commands as needed.
 
    <details>
-   <summary>Example Conversation</summary>
+<summary>Example Conversation</summary>
 
    ```
    User: List all the users in my Notion workspace.
@@ -262,10 +261,10 @@ To build this flow, you need the following:
    </details>
 
 9. Optional: The flow can be customized to meet your team's specific needs.
-For example:
-   * Adjust the system prompt to change the agent's behavior or context.
-   * Add or remove Notion tools based on your specific needs.
-   * Modify the OpenAI model parameters (e.g., temperature) to adjust the agent's response style.
+   For example:
+   - Adjust the system prompt to change the agent's behavior or context.
+   - Add or remove Notion tools based on your specific needs.
+   - Modify the OpenAI model parameters (e.g., temperature) to adjust the agent's response style.
 
 ## Troubleshooting
 

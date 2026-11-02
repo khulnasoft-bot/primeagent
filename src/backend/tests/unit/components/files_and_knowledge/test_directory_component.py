@@ -40,10 +40,7 @@ class TestDirectoryComponent(ComponentTestBaseWithoutClient):
     @pytest.fixture
     def file_names_mapping(self):
         """Return an empty list since this component doesn't have version-specific files."""
-        return [
-            {"version": "1.1.0", "module": "data", "file_name": "directory"},
-            {"version": "1.1.1", "module": "data", "file_name": "directory"},
-        ]
+        return []
 
     @patch("wfx.components.data.directory.parallel_load_data")
     @patch("wfx.components.data.directory.retrieve_file_paths")

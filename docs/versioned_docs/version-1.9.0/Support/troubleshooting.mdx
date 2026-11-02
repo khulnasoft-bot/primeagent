@@ -3,8 +3,8 @@ title: Troubleshoot Primeagent
 slug: /troubleshoot
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 import Icon from "@site/src/components/icon";
 
 This page provides troubleshooting advice for issues you might encounter when using Primeagent or contributing to Primeagent.
@@ -13,13 +13,13 @@ This page provides troubleshooting advice for issues you might encounter when us
 
 As Primeagent development continues, components are often recategorized or deprecated for better alignment or to prepare for new components.
 
-If a component appears to be missing from the <Icon name="Component" aria-hidden="true" /> **Core components** and  menus, try the following:
+If a component appears to be missing from the <Icon name="Component" aria-hidden="true" /> **Core components** and menus, try the following:
 
-* <Icon name="Search" aria-hidden="true" /> **Search** for the component.
-* Check other component categories and <Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components).
-* Check [legacy components](/concepts-components#legacy-components), which are hidden by default.
-* Check the [Changelog](https://github.com/khulnasoft-bot/primeagent/releases/latest) for component changes in recent releases.
-* Make sure the component isn't already present in your flow if it is a single-use component.
+- <Icon name="Search" aria-hidden="true" /> **Search** for the component.
+- Check other component categories and <Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components).
+- Check [legacy components](/concepts-components#legacy-components), which are hidden by default.
+- Check the [Changelog](https://github.com/khulnasoft-bot/primeagent/releases/latest) for component changes in recent releases.
+- Make sure the component isn't already present in your flow if it is a single-use component.
 
 If you still cannot locate the component, see [Primeagent GitHub Issues and Discussions](/contributing-github-issues).
 
@@ -35,9 +35,9 @@ For more information, see [Test flows in the Playground](/concepts-playground).
 
 If you get an API key error when running a flow, try the following:
 
-* For all components that require credentials, make sure those components have a valid credential in the component's settings, such as the **API Key** field.
-* If you store your credentials in [Primeagent global variables](/configuration-global-variables), make sure you selected the correct global variable and that the variable contains a valid credential.
-* Make sure the provided credentials are active, have the required permissions, and, if applicable, have sufficient funds in the account to execute the required action. For example, model providers require credits to use their LLMs.
+- For all components that require credentials, make sure those components have a valid credential in the component's settings, such as the **API Key** field.
+- If you store your credentials in [Primeagent global variables](/configuration-global-variables), make sure you selected the correct global variable and that the variable contains a valid credential.
+- Make sure the provided credentials are active, have the required permissions, and, if applicable, have sufficient funds in the account to execute the required action. For example, model providers require credits to use their LLMs.
 
 ## Primeagent installation issues
 
@@ -123,13 +123,13 @@ When you try to run Primeagent using the command `primeagent run`, you encounter
 
 There are two possible reasons for this error:
 
-* **Multiple Primeagent installations**: You installed Primeagent using `pip install primeagent` but you already had a previous version of Primeagent installed in your system. In this case, you might be running the wrong executable.
+- **Multiple Primeagent installations**: You installed Primeagent using `pip install primeagent` but you already had a previous version of Primeagent installed in your system. In this case, you might be running the wrong executable.
 
-    To solve this issue, run the correct executable by running `python -m primeagent run` instead of `primeagent run`.
+  To solve this issue, run the correct executable by running `python -m primeagent run` instead of `primeagent run`.
 
-    If that doesn't work, try uninstalling and reinstalling Primeagent with `uv pip install primeagent --pre -U`.
+  If that doesn't work, try uninstalling and reinstalling Primeagent with `uv pip install primeagent --pre -U`.
 
-* **Version conflict during installation**: Some version conflicts might have occurred during the installation process. To resolve this issue, reinstall Primeagent and its dependencies by running `python -m pip install primeagent --pre -U --force-reinstall`.
+- **Version conflict during installation**: Some version conflicts might have occurred during the installation process. To resolve this issue, reinstall Primeagent and its dependencies by running `python -m pip install primeagent --pre -U --force-reinstall`.
 
 ### Environment variables not available from terminal
 
@@ -297,48 +297,48 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
 
 1. To find your `uvx` path, run `which uvx`.
 
-    To find your `npx` path, run `which npx`.
+   To find your `npx` path, run `which npx`.
 
 2. In your `claude_desktop_config.json` file, add the path to your Primeagent MCP server configuration, as shown in the following examples.
 
-    <Tabs>
-    <TabItem value="uvx" label="uvx" default>
+   <Tabs>
+<TabItem value="uvx" label="uvx" default>
 
-    ```json
-    {
-      "mcpServers": {
-        "PROJECT_NAME": {
-          "command": "PATH_TO_UVX",
-          "args": [
-            "mcp-proxy",
-            "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable"
-          ]
-        }
-      }
-    }
-    ```
+   ```json
+   {
+     "mcpServers": {
+       "PROJECT_NAME": {
+         "command": "PATH_TO_UVX",
+         "args": [
+           "mcp-proxy",
+           "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable"
+         ]
+       }
+     }
+   }
+   ```
 
-    </TabItem>
-    <TabItem value="npx" label="npx">
+   </TabItem>
+<TabItem value="npx" label="npx">
 
-    ```json
-    {
-      "mcpServers": {
-        "PROJECT_NAME": {
-          "command": "PATH_TO_NPX",
-          "args": [
-            "-y",
-            "supergateway",
-            "--sse",
-            "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable"
-          ]
-        }
-      }
-    }
-    ```
+   ```json
+   {
+     "mcpServers": {
+       "PROJECT_NAME": {
+         "command": "PATH_TO_NPX",
+         "args": [
+           "-y",
+           "supergateway",
+           "--sse",
+           "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable"
+         ]
+       }
+     }
+   }
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
 ### MCP browser-based flows don't open a browser on Windows
 
@@ -409,7 +409,8 @@ If you are building a custom component, see [Error handling and logging for cust
 
 If your custom components are not appearing in the Primeagent visual editor, try the following troubleshooting steps:
 
-1. Ensure your components follow the [required directory structure](https://docs.prime.khulnasoft.com/components-custom-components#directory-structure-requirements).
+1.  Ensure your components follow the [required directory structure](https://prime.khulnasoft.com/docs/components-custom-components#directory-structure-requirements).
+
     ```
     /your/custom/components/path/       # Base directory set by PRIMEAGENT_COMPONENTS_PATH
         └── category_name/              # Required category subfolder that determines menu name
@@ -417,15 +418,15 @@ If your custom components are not appearing in the Primeagent visual editor, try
             └── custom_component.py     # Component file
     ```
 
-2. Verify each category directory includes an `__init__.py` file.
-This is required for Python to recognize the directory as a module.
+2.  Verify each category directory includes an `__init__.py` file.
+    This is required for Python to recognize the directory as a module.
 
-3. Use the command line argument instead of the environment variable for `PRIMEAGENT_COMPONENTS_PATH`.
-If you're using the `PRIMEAGENT_COMPONENTS_PATH` environment variable and components aren't loading, try the `--components-path` command line argument instead:
+3.  Use the command line argument instead of the environment variable for `PRIMEAGENT_COMPONENTS_PATH`.
+    If you're using the `PRIMEAGENT_COMPONENTS_PATH` environment variable and components aren't loading, try the `--components-path` command line argument instead:
 
-    ```bash
-    uv run primeagent run --components-path /path/to/your/custom/components
-    ```
+        ```bash
+        uv run primeagent run --components-path /path/to/your/custom/components
+        ```
 
 If you continue to experience issues, please [report them on GitHub](https://github.com/khulnasoft-bot/primeagent/issues) with details about your directory structure and component setup.
 

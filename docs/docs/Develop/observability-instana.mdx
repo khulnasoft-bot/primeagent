@@ -46,7 +46,7 @@ OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=delta
 
 Three of these are not optional in practice:
 
-- **A host identity.** This is the one that breaks a naive setup. Instana attaches telemetry to a host entity, and data that identifies no host is accepted and then has nowhere to live, so it never appears in the UI. Satisfy it in one of two ways: set the `x-instana-host` header, or set a `host.id`, `faas.id`, or `device.id` resource attribute. `host.name` does not count. It is a label, so it can supply the *value* you put in `x-instana-host`, but on its own it leaves the data unattached. Any stable string works; reuse the same one across restarts or each run creates a new entity.
+- **A host identity.** This is the one that breaks a naive setup. Instana attaches telemetry to a host entity, and data that identifies no host is accepted and then has nowhere to live, so it never appears in the UI. Satisfy it in one of two ways: set the `x-instana-host` header, or set a `host.id`, `faas.id`, or `device.id` resource attribute. `host.name` does not count. It is a label, so it can supply the _value_ you put in `x-instana-host`, but on its own it leaves the data unattached. Any stable string works; reuse the same one across restarts or each run creates a new entity.
 - **`OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf`.** Port `4318` speaks HTTP. Pointing the gRPC exporter at it fails at connect time.
 - **`OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=delta`.** Instana renders counters from delta values, and the OpenTelemetry SDK sends cumulative by default. Without this, rate charts read as ever-climbing totals, which looks like a broken integration when it is only the temporality.
 

@@ -4,15 +4,22 @@ function pluginSegment(context, options = {}) {
   const segmentPublicWriteKey = options.segmentPublicWriteKey;
 
   if (!segmentPublicWriteKey) {
-    console.warn('Segment plugin: No write key provided. Analytics will not be initialized.');
-    return { name: 'docusaurus-plugin-segment' };
+    console.warn(
+      "Segment plugin: No write key provided. Analytics will not be initialized.",
+    );
+    return { name: "docusaurus-plugin-segment" };
   }
 
   return {
-    name: 'docusaurus-plugin-segment',
+    name: "docusaurus-plugin-segment",
 
     getClientModules() {
-      return isProd ? [require.resolve('./analytics-page'), require.resolve('./data-attribute-tracking')] : [];
+      return isProd
+        ? [
+            require.resolve("./analytics-page"),
+            require.resolve("./data-attribute-tracking"),
+          ]
+        : [];
     },
 
     injectHtmlTags() {
@@ -24,7 +31,7 @@ function pluginSegment(context, options = {}) {
         headTags: [
           // IBM Analytics and TrustArc Configuration
           {
-            tagName: 'script',
+            tagName: "script",
             attributes: {},
             innerHTML: `
               window._ibmAnalytics = {
@@ -71,10 +78,10 @@ function pluginSegment(context, options = {}) {
           },
           // IBM Common Stats Script - handles Segment initialization
           {
-            tagName: 'script',
+            tagName: "script",
             attributes: {
-              src: '//1.www.s81c.com/common/stats/ibm-common.js',
-              async: 'true',
+              src: "//1.www.s81c.com/common/stats/ibm-common.js",
+              async: "true",
             },
           },
         ],

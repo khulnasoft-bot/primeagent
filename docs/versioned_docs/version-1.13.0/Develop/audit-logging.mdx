@@ -36,11 +36,11 @@ Cleanup runs at startup and according to the interval set in [`PRIMEAGENT_AUTHZ_
 
 To leave an action out of future events, set `PRIMEAGENT_AUDIT_EXCLUDE_EVENTS` to a comma-separated list of actions to leave out, and then restart Primeagent. Names match the `action` field, for example:
 
-| Entry | What is left out |
-|---|---|
-| `project:delete` | That action only |
-| `flow:*` | Every action on flows |
-| `*:delete` | Deletes of every resource type |
+| Entry            | What is left out               |
+| ---------------- | ------------------------------ |
+| `project:delete` | That action only               |
+| `flow:*`         | Every action on flows          |
+| `*:delete`       | Deletes of every resource type |
 
 ```bash
 PRIMEAGENT_AUDIT_EXCLUDE_EVENTS=project:delete,flow:*,*:delete
@@ -116,36 +116,36 @@ Visibility matches a flow's history. With an enforcement plugin, reading a proje
 
 Each flow or project change records one event.
 
-| Result | When |
-|---|---|
-| No event | The request was refused before it became a change, such as an unknown id or a malformed body |
-| `succeeded` | The change was saved |
-| `failed` | The change was allowed, and then the operation failed |
+| Result      | When                                                                                         |
+| ----------- | -------------------------------------------------------------------------------------------- |
+| No event    | The request was refused before it became a change, such as an unknown id or a malformed body |
+| `succeeded` | The change was saved                                                                         |
+| `failed`    | The change was allowed, and then the operation failed                                        |
 
-| Action | What it records |
-|---|---|
-| `flow:create` | Creating, uploading, or replacing a flow that did not exist |
-| `flow:write` | Patching, replacing, or activating a flow version |
-| `flow:delete` | Deleting a flow, including a flow removed with its project |
-| `project:create` | Creating or uploading a project |
-| `project:write` | Patching a project |
-| `project:delete` | Deleting a project |
+| Action           | What it records                                             |
+| ---------------- | ----------------------------------------------------------- |
+| `flow:create`    | Creating, uploading, or replacing a flow that did not exist |
+| `flow:write`     | Patching, replacing, or activating a flow version           |
+| `flow:delete`    | Deleting a flow, including a flow removed with its project  |
+| `project:create` | Creating or uploading a project                             |
+| `project:write`  | Patching a project                                          |
+| `project:delete` | Deleting a project                                          |
 
 To narrow a read, add query parameters.
 
-| Parameter | Description |
-|---|---|
+| Parameter                 | Description                                                                               |
+| ------------------------- | ----------------------------------------------------------------------------------------- |
 | `flow_id` or `project_id` | One resource. Use `flow_id` on the flow endpoint and `project_id` on the project endpoint |
-| `operation` | `create`, `replace`, `patch`, or `delete` |
-| `result` | `succeeded` or `failed` |
-| `user_id` | The Primeagent account the request ran as |
-| `actor_type` | How the request authenticated: `user`, `api_key`, `service`, `system`, or `unknown` |
-| `actor_id` | The account or credential id |
-| `request_id` | The id shared by events from one HTTP request |
-| `since` | Inclusive RFC 3339 timestamp with a timezone offset |
-| `until` | Exclusive RFC 3339 timestamp, later than `since` |
-| `cursor` | The `next_cursor` value from the previous page |
-| `limit` | Page size, from 1 to 200. Default 50 |
+| `operation`               | `create`, `replace`, `patch`, or `delete`                                                 |
+| `result`                  | `succeeded` or `failed`                                                                   |
+| `user_id`                 | The Primeagent account the request ran as                                                 |
+| `actor_type`              | How the request authenticated: `user`, `api_key`, `service`, `system`, or `unknown`       |
+| `actor_id`                | The account or credential id                                                              |
+| `request_id`              | The id shared by events from one HTTP request                                             |
+| `since`                   | Inclusive RFC 3339 timestamp with a timezone offset                                       |
+| `until`                   | Exclusive RFC 3339 timestamp, later than `since`                                          |
+| `cursor`                  | The `next_cursor` value from the previous page                                            |
+| `limit`                   | Page size, from 1 to 200. Default 50                                                      |
 
 For example, to return a list of successful PATCH changes from one flow, run:
 

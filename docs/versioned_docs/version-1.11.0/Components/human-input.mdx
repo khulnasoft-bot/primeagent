@@ -4,7 +4,7 @@ slug: /human-input
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
 
 The **Human Input** component pauses a flow so a human can review content and choose an action. Each configured **User Action** becomes a branch output.
 After the human makes a decision, the flow continues only on the selected branch.
@@ -39,11 +39,11 @@ To handle unanswered requests, do the following:
 
 ## Human Input parameters
 
-| Name | Display name | Description |
-|------|--------------|-------------|
-| `prompt` | Form Content | Content shown to the human for review. |
-| `decisions` | User Actions | Actions the human can select. Each action becomes a component branch output. |
-| `timeout` | Timeout | When **Enable Fallback** is on, how long to wait for a response before taking the fallback path. |
+| Name              | Display name    | Description                                                                                       |
+| ----------------- | --------------- | ------------------------------------------------------------------------------------------------- |
+| `prompt`          | Form Content    | Content shown to the human for review.                                                            |
+| `decisions`       | User Actions    | Actions the human can select. Each action becomes a component branch output.                      |
+| `timeout`         | Timeout         | When **Enable Fallback** is on, how long to wait for a response before taking the fallback path.  |
 | `enable_fallback` | Enable Fallback | When enabled, adds a **Fallback** output used when no user action is answered within the timeout. |
 
 <PartialParams />

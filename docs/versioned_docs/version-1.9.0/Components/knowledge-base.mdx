@@ -4,8 +4,8 @@ slug: /knowledge-base
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import PartialKbSummary from '@site/docs/_partial-kb-summary-chroma.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import PartialKbSummary from "@site/docs/_partial-kb-summary-chroma.mdx";
 
 <PartialKbSummary />
 
@@ -17,13 +17,13 @@ The output is a [`Table`](/data-types#table) containing the top matching results
 
 <PartialParams />
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| knowledge_base | Knowledge | Input parameter. Select the knowledge base to retrieve data from. |
-| api_key | Embedding Provider API Key | Input parameter. Optional API key for the embedding provider to override a previously-provided key. The embedding provider and model are chosen when you create a knowledge base. |
-| search_query | Search Query | Input parameter. Optional search query to filter knowledge base data using semantic similarity. If omitted, the top results are returned from an arbitrary sort. |
-| top_k | Top K Results | Input parameter. Number of search results to return. Default: `5`. |
-| include_metadata | Include Metadata | Input parameter. Whether to include all metadata and embeddings in the output. If enabled, each output row includes all metadata, embeddings, and content. If disabled, only the content is returned. Default: Enabled (true). |
+| Name             | Display Name               | Info                                                                                                                                                                                                                           |
+| ---------------- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| knowledge_base   | Knowledge                  | Input parameter. Select the knowledge base to retrieve data from.                                                                                                                                                              |
+| api_key          | Embedding Provider API Key | Input parameter. Optional API key for the embedding provider to override a previously-provided key. The embedding provider and model are chosen when you create a knowledge base.                                              |
+| search_query     | Search Query               | Input parameter. Optional search query to filter knowledge base data using semantic similarity. If omitted, the top results are returned from an arbitrary sort.                                                               |
+| top_k            | Top K Results              | Input parameter. Number of search results to return. Default: `5`.                                                                                                                                                             |
+| include_metadata | Include Metadata           | Input parameter. Whether to include all metadata and embeddings in the output. If enabled, each output row includes all metadata, embeddings, and content. If disabled, only the content is returned. Default: Enabled (true). |
 
 ## Use the Knowledge Base component in a flow
 
@@ -43,4 +43,4 @@ After you create and load data to a [knowledge base](/knowledge), you can use th
 
 ## See also
 
-* [Manage vector data](/knowledge)
+- [Manage vector data](/knowledge)

@@ -9,6 +9,7 @@
 ---
 
 ## Table of Contents
+
 1. [Overview](#1-overview)
 2. [Ubiquitous Language Glossary](#2-ubiquitous-language-glossary)
 3. [Domain Model](#3-domain-model)
@@ -24,39 +25,44 @@
 ## 1. Overview
 
 ### Summary
+
 Human-in-the-Loop (HITL) lets a flow **pause mid-run to ask a human to approve, reject, or supply input**, then resume exactly where it stopped. The pause is **durable**: it is checkpointed to the database, survives a process restart, and resumes without re-running or re-billing already-completed work. The paused/resumed run is fully **observable** as a single backend trace, with the approval step and the terminal output recorded as real spans.
 
 ### Business Context
+
 Agentic flows take consequential actions (calling tools, sending requests, spending tokens). Teams need a control point where a human gates a risky step before it executes, without losing the run if the browser closes or the server restarts. HITL turns a flow into a long-lived, resumable workflow rather than a single fire-and-forget request.
 
 ### Bounded Context
+
 Flow Execution — Durable Background Jobs & Graph Checkpointing.
 
 ### Related Contexts
+
 - **Graph Engine** (Customer-Supplier): raises and restores the pause at layer boundaries.
 - **Background Execution / Job Service** (Partnership): persists job status and serves the single-flight resume.
 - **Tracing** (Conformist): records the run — including the gate and the terminal output — as spans.
 - **Frontend (AG-UI)** (Customer-Supplier): reattaches to the live stream and renders the decision surfaces.
 
 ### Default-off guarantee
+
 The pause probe is a no-op unless a component requests it, so normal flows are byte-for-byte unaffected: no checkpointing, no extra spans, no status churn.
 
 ---
 
 ## 2. Ubiquitous Language Glossary
 
-| Term | Definition | Code Reference |
-|------|------------|----------------|
-| Pause request | A component's signal that it needs a human decision before continuing | `PauseRequested`, `GraphPausedException` |
-| Checkpoint | A serialized snapshot of graph state at a layer boundary, written to the DB | `wfx/graph/checkpoint/schema.py`, `checkpoint` table |
-| Suspend | The job transitioning to a durable waiting state | `JobStatus.SUSPENDED` |
-| Resume | Re-hydrating the graph from its checkpoint and continuing past the pause | `resume_from_checkpoint`, `build_resumed_graph_and_get_order` |
-| Single-flight resume | An atomic `SUSPENDED → IN_PROGRESS` claim so a decision is applied exactly once | `claim_suspended_for_resume` |
-| Human input request | The pending question shown to the user (tool approval or HumanInput node) | `get_pending_human_request`, `human_input_required` event |
-| Decision | The human's answer: `action_id` (e.g. `approve`/`reject`) plus optional `values` | `graph.human_input_decisions` |
-| Run id | The graph's tracing identity; equals `graph_run_id` on the messages | `graph.set_run_id`, trace `id` |
-| Job id | The durable job identity used for checkpoints + resume | `JobStatus`, `/api/v2/workflows/{job_id}/resume` |
-| Gate span | The trace span recording the resolved decision: "Human In The Loop — {action label}" (e.g. Approve/Reject/Remove) | `TracingService.record_event_span` |
+| Term                 | Definition                                                                                                        | Code Reference                                                |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Pause request        | A component's signal that it needs a human decision before continuing                                             | `PauseRequested`, `GraphPausedException`                      |
+| Checkpoint           | A serialized snapshot of graph state at a layer boundary, written to the DB                                       | `wfx/graph/checkpoint/schema.py`, `checkpoint` table          |
+| Suspend              | The job transitioning to a durable waiting state                                                                  | `JobStatus.SUSPENDED`                                         |
+| Resume               | Re-hydrating the graph from its checkpoint and continuing past the pause                                          | `resume_from_checkpoint`, `build_resumed_graph_and_get_order` |
+| Single-flight resume | An atomic `SUSPENDED → IN_PROGRESS` claim so a decision is applied exactly once                                   | `claim_suspended_for_resume`                                  |
+| Human input request  | The pending question shown to the user (tool approval or HumanInput node)                                         | `get_pending_human_request`, `human_input_required` event     |
+| Decision             | The human's answer: `action_id` (e.g. `approve`/`reject`) plus optional `values`                                  | `graph.human_input_decisions`                                 |
+| Run id               | The graph's tracing identity; equals `graph_run_id` on the messages                                               | `graph.set_run_id`, trace `id`                                |
+| Job id               | The durable job identity used for checkpoints + resume                                                            | `JobStatus`, `/api/v2/workflows/{job_id}/resume`              |
+| Gate span            | The trace span recording the resolved decision: "Human In The Loop — {action label}" (e.g. Approve/Reject/Remove) | `TracingService.record_event_span`                            |
 
 ---
 
@@ -65,6 +71,7 @@ The pause probe is a no-op unless a component requests it, so normal flows are b
 ### 3.1 Aggregates
 
 #### Durable Run Aggregate
+
 - **Root Entity**: the background **Job** (`job_id`)
 - **Entities**: the **Graph** (with its `run_id`), the **Checkpoint**, the **Pending Human Request**
 - **Value Objects**: `JobStatus`, `Decision` (`action_id` + `values`), `request_id` (`{node_id}:{run_id}`; agent tool approvals append the LangGraph interrupt id — `{node_id}:{run_id}:{interrupt_id}` — so each approval in one run is individually addressable and a stale resume for approval N is rejected during approval N+1)
@@ -76,13 +83,13 @@ The pause probe is a no-op unless a component requests it, so normal flows are b
 
 ### 3.2 Domain Events
 
-| Event | Trigger | Payload | Consumers |
-|-------|---------|---------|-----------|
-| `human_input_required` | A component raises a pause | card/request descriptor | Frontend (renders card/bar); job runner (suspends) |
-| Job `SUSPENDED` | Checkpoint written, run yields | `job_id`, `request_id` | Pending-requests API; UI badges |
-| Resume accepted | Valid decision claimed | `job_id`, `decision` | Graph rebuild; tracing |
-| Gate resolved span | Resume re-initializes tracing | "Human In The Loop — {decision}" | Trace panel (`/monitor/traces/{id}`) |
-| Job `COMPLETED` / terminal span | Resumed run finishes | Chat Output span + flush | Trace panel; message history |
+| Event                           | Trigger                        | Payload                          | Consumers                                          |
+| ------------------------------- | ------------------------------ | -------------------------------- | -------------------------------------------------- |
+| `human_input_required`          | A component raises a pause     | card/request descriptor          | Frontend (renders card/bar); job runner (suspends) |
+| Job `SUSPENDED`                 | Checkpoint written, run yields | `job_id`, `request_id`           | Pending-requests API; UI badges                    |
+| Resume accepted                 | Valid decision claimed         | `job_id`, `decision`             | Graph rebuild; tracing                             |
+| Gate resolved span              | Resume re-initializes tracing  | "Human In The Loop — {decision}" | Trace panel (`/monitor/traces/{id}`)               |
+| Job `COMPLETED` / terminal span | Resumed run finishes           | Chat Output span + flush         | Trace panel; message history                       |
 
 ---
 
@@ -95,21 +102,25 @@ The pause probe is a no-op unless a component requests it, so normal flows are b
 **So that** risky actions are gated and no run is lost if the server restarts.
 
 ### Background
+
 - Given a flow with an agent tool (or HumanInput node) that can request approval
 - And durable background execution is enabled
 
 ### Scenario: Agent tool pauses for approval
+
 - **Given** the agent decides to call a gated tool
 - **When** the run reaches the tool call
 - **Then** the graph checkpoints and the job becomes `SUSPENDED`
 - **And** a `human_input_required` event surfaces an Approve/Reject card
 
 ### Scenario: Resume survives a process restart
+
 - **Given** a job is `SUSPENDED` with a written checkpoint
 - **When** the backend process restarts and the user approves
 - **Then** the graph is rebuilt from the checkpoint and continues past the pause
 
 ### Scenario: Resume is not a re-run
+
 - **Given** a paused run with already-built vertices
 - **When** the run resumes
 - **Then** built vertices are restored, not re-executed (no LLM re-billing, no re-fired tools)
@@ -117,18 +128,21 @@ The pause probe is a no-op unless a component requests it, so normal flows are b
 - **And** branches killed before the pause stay dead
 
 ### Scenario: HITL inside a nested flow is rejected
+
 - **Given** a flow whose Run Flow / Sub Flow / flow-as-tool target contains a connected Human Input node (or an approval-gated agent tool)
 - **When** the nested flow is executed
 - **Then** the run fails with a clear error ("cannot run as a nested flow… move the approval to the parent flow") instead of silently not pausing
 - **And** a target flow with an unwired Human Input (no downstream consumer) still runs — it is skipped at runtime, not blocking
 
 ### Scenario: Two HITL nodes in sequence
+
 - **Given** a flow with two HumanInput nodes where the first gates the path to the second
 - **When** the first is approved, the second pauses, and the second is then approved
 - **Then** the run finalizes once — no loop back to the first node
 - **And** only the chosen branch of each node runs (the first node's non-chosen branches stay dead across the second pause's resume, not just within the build that answered them)
 
 ### Scenario: Rerunning a paused flow supersedes the stale pause
+
 - **Given** a flow with a `SUSPENDED` run awaiting a decision
 - **When** the same user submits a new background run of that flow under the same session
 - **Then** the stale suspended run is cancelled (`CANCELLED`, pending request cleared) before the new run starts, so only the new pause is offered on every surface
@@ -136,22 +150,26 @@ The pause probe is a no-op unless a component requests it, so normal flows are b
 - **And** the scope is flow + user + effective session on the primeagent backend (the submitting run's `session_id`, falling back to the flow id) — a rerun replaces stale pauses of the SAME session/thread, while SUSPENDED runs of other sessions stay untouched; the scope is flow on `wfx serve` (single API-key identity); running jobs are never superseded, so parallel runs stay supported
 
 ### Scenario: Supersede loses the race to a resume
+
 - **Given** a `SUSPENDED` run whose resume arrives while a rerun's supersede is in flight
 - **When** the resume wins the atomic `SUSPENDED → IN_PROGRESS` claim between supersede's select and its cancel
 - **Then** supersede skips that job entirely — no `CANCELLED` write, no checkpoint delete, no metadata clear (backend) and no lingering STOP signal (`wfx serve`) — and the resumed run finishes normally
 
 ### Scenario: Single-flight resume
+
 - **Given** two resume requests for the same `SUSPENDED` job
 - **When** both arrive
 - **Then** exactly one claims the `SUSPENDED → IN_PROGRESS` transition; the other is rejected (`NOT_RESUMABLE`)
 
 ### Scenario: The resumed run is one complete backend trace
+
 - **Given** a run that paused and resumed
 - **When** the resumed run finishes
 - **Then** a single trace holds `Chat Input → Human In The Loop — {decision} → … → Chat Output`
 - **And** the trace panel shows the gate + terminal output after a full page refresh, with no client-side persistence
 
 ### Scenario: A decision applied after timeout is rerouted, not lost
+
 - **Given** a pending request that has a timeout policy
 - **When** the decision arrives after the deadline
 - **Then** `reroute_decision_on_timeout` resolves the effective decision deterministically
@@ -165,12 +183,15 @@ The pause probe is a no-op unless a component requests it, so normal flows are b
 **Status**: Accepted
 
 #### Context
+
 A component needing human input must stop the graph without corrupting state or marking the run failed.
 
 #### Decision
-Model the pause as a dedicated exception (`GraphPausedException`) raised at a **layer boundary**, after the graph snapshots itself and writes a checkpoint. The build seam catches it and emits a **non-terminal** `human_input_required` event — the stream ends *without* `on_end`, so the run is "waiting", not "done".
+
+Model the pause as a dedicated exception (`GraphPausedException`) raised at a **layer boundary**, after the graph snapshots itself and writes a checkpoint. The build seam catches it and emits a **non-terminal** `human_input_required` event — the stream ends _without_ `on_end`, so the run is "waiting", not "done".
 
 #### Consequences
+
 - **Benefits**: clean separation of "waiting" from "failed"; resumable by construction; default-off (no probe → no-op).
 - **Trade-offs**: every layer boundary consults a pause probe (cheap; skipped entirely when no pause is pending).
 
@@ -179,12 +200,15 @@ Model the pause as a dedicated exception (`GraphPausedException`) raised at a **
 **Status**: Accepted
 
 #### Context
+
 A decision must apply exactly once even under duplicate clicks, retries, or concurrent callers.
 
 #### Decision
+
 Claim the job with an atomic `SUSPENDED → IN_PROGRESS` transition (`claim_suspended_for_resume`); on failure during resume, roll the status back so the decision is never silently consumed.
 
 #### Consequences
+
 - **Benefits**: exactly-once decisions; safe retries; no lost approvals.
 - **Trade-offs**: a stale/duplicate resume returns `NOT_RESUMABLE` (handled by the UI).
 
@@ -193,14 +217,17 @@ Claim the job with an atomic `SUSPENDED → IN_PROGRESS` transition (`claim_susp
 **Status**: Accepted
 
 #### Context
+
 Re-executing completed vertices on resume would re-bill LLMs, re-fire tools, and could revive dead branches.
 
 #### Decision
+
 Restore built vertices from the checkpoint; re-run only the paused vertex's **non-input predecessors whose dropped output an unbuilt consumer will actually read** (`_rerun_non_input_predecessors` / `_unbuild_needed_dropped_producers`). A producer behind a still-built, round-tripped consumer is left alone — re-running it is wasted work and, for a side-effecting node (an Agent re-bills its LLM and re-emits its message), surfaces as duplicate outputs on every later resume. Inputs (e.g. Chat Input) are never re-executed.
 
 Selecting the resume layer is not enough to hold that invariant. A resume restores `vertices_to_run` verbatim from the checkpoint, so vertices that came back **built** stay in the runnable pool; because `RunnableVerticesManager.is_vertex_runnable` never consulted `built`, the backward walk that looks for runnable predecessors when a successor is blocked (`find_runnable_predecessors_for_successor`) could hand one back to the build loop mid-resume. `Graph.is_vertex_runnable` therefore rejects a vertex that is still `built` **and** was restored from the checkpoint (`checkpoint_restored_built_ids`), excluding loop vertices, which legitimately re-run. Reading the live `built` flag rather than the checkpoint's is what keeps the gated node and the opaque-dropped producers — built at checkpoint time, deliberately un-built by the resume — eligible.
 
 #### Consequences
+
 - **Benefits**: no double billing, no duplicate side effects, deterministic continuation.
 - **Trade-offs**: the resume re-runs a minimal predecessor set; the terminal output is produced fresh on resume (see ADR-004).
 - **Symptom this prevents**: a re-executed Chat Input persists a second `User` message for the same turn, so the paused chat renders the user's question twice after the decision.
@@ -210,15 +237,18 @@ Selecting the resume layer is not enough to hold that invariant. A resume restor
 **Status**: Accepted (2026-06-23)
 
 #### Context
+
 Originally, resumed runs lost trace data in the backend: the **Chat Output** span was missing and the **Human In The Loop** step existed only as a frontend-injected node persisted in `localStorage` — invisible to other devices/users and incomplete in the DB. Root cause: the resume path **never initialized tracing** (`trace_context_var` was unset, so post-pause vertices skipped `add_trace`), and the initial run traced under a throwaway uuid instead of the `run_id`, splitting the run into an orphan trace.
 
 #### Decision
+
 1. On resume, call `graph.initialize_run()` on the checkpoint's `run_id` so resumed vertices trace into the **same** trace as the pre-pause run, and restore `flow_name` for the trace title.
 2. Pin the caller's `run_id` in `build_graph_from_data` **before** `initialize_run` (forwarded by `create_graph`), so the initial run traces into `graph_run_id` — not a fresh uuid.
 3. Record the resolved gate as a real span via `TracingService.record_event_span` ("Human In The Loop — {action label}", e.g. Approve/Reject/Remove).
 4. Remove the frontend `localStorage` persistence; `TraceDetailView` reads the gate + output from the backend trace and only synthesizes a gate for the live window, deduped by name.
 
 #### Consequences
+
 - **Benefits**: one complete trace (`Chat Input → gate → … → Chat Output`) durable across refresh, devices, and users; no client-side band-aid.
 - **Trade-offs**: the resume re-initializes tracing once (a no-op when tracing is disabled).
 - **Impact on Product**: the trace panel is now the source of truth for what a HITL run did.
@@ -228,12 +258,15 @@ Originally, resumed runs lost trace data in the backend: the **Chat Output** spa
 **Status**: Accepted
 
 #### Context
+
 Component spans are recorded asynchronously via a worker queue. At end-of-run the worker was cancelled while the **terminal** component's end event was still enqueued, dropping the Chat Output span in ~7 of 8 runs.
 
 #### Decision
+
 Drain the queue **inline** after cancelling the worker (`service.py::_stop`), and force-complete any started-but-unended span at flush (`native.py::_finalize_pending_spans`).
 
 #### Consequences
+
 - **Benefits**: no executed component is silently dropped from a trace.
 - **Trade-offs**: a tiny synchronous drain at shutdown (bounded by queue size).
 
@@ -242,6 +275,7 @@ Drain the queue **inline** after cancelling the worker (`service.py::_stop`), an
 ## 6. Technical Specification
 
 ### 6.1 Submit supersedes stale pauses
+
 - `BackgroundExecutionService.submit` calls `supersede_suspended_runs(flow_id, user_id, session_id)` after `create_job` (so idempotent retries still return the existing job) and before enqueue: every `SUSPENDED` workflow job of the same flow + user **+ effective session** (`session_id` from the submit request, falling back to the flow id) is cancelled — in-process through `_cancel_suspended` (status `CANCELLED`, card stamped superseded, checkpoint deleted, pending cleared, `run_cancelled` event, bus closed), in scaled mode through `_backend.stop`. A stale run's session is read back off its persisted row (`job_metadata['request']['session_id']`, or the flat `job_metadata['session_id']` legacy rows carry) with the same flow-id fallback the runner uses for `thread_id`, so SUSPENDED jobs of OTHER sessions are left untouched and one flow can serve many concurrent callers ([#14599](https://github.com/khulnasoft-bot/primeagent/issues/14599)).
 - The cancel is an **atomic claim**: `JobService.claim_suspended_for_cancel` (a conditional `UPDATE … WHERE status = SUSPENDED`, the mirror of `claim_suspended_for_resume`) flips the row, and cleanup runs only for rows this caller actually claimed. A resume that won the flip first keeps its run — supersede can never cancel a resumed job or destroy its checkpoint mid-flight. `stop_job` uses the same claim and falls through to the running-job STOP path when it loses.
 - Before metadata is cleared, `mark_card_superseded` (`api/v2/hitl.py`) patches the persisted card's `human_input` content with `superseded: true` (skipping already-answered cards); `HumanInputCard` renders that state closed, so a reloaded history cannot re-offer a decision that would only 409.
@@ -249,11 +283,13 @@ Drain the queue **inline** after cancelling the worker (`service.py::_stop`), an
 - Frontend: the canvas badge auto-open is keyed by `request_id`, so the superseding run's new pause reopens a dismissed popover; the 5s pending poll converges every surface onto the single remaining pause.
 
 ### 6.2 Pause → suspend (initial run)
+
 - The graph consults a pause probe at each layer boundary; on a pending pause it snapshots itself, writes a `checkpoint` row (always-writable schema), and raises `GraphPausedException`.
 - The build seam (`api/build.py`) catches it, persists the human-input card to history, emits `human_input_required`, and ends the stream without `on_end`.
 - The runner marks the job `SUSPENDED` (`services/background_execution/runner.py`).
 
 ### 6.3 Resume (single-flight)
+
 - `POST /api/v2/workflows/{job_id}/resume` with `{request_id, decision}`.
 - The route re-enforces `FlowAction.EXECUTE` (`ensure_resume_execute_permission`) before applying the decision — job ownership alone is not enough once shared access has been revoked.
 - `claim_suspended_for_resume` performs the atomic status claim; failure → `NOT_RESUMABLE`.
@@ -279,6 +315,7 @@ Drain the queue **inline** after cancelling the worker (`service.py::_stop`), an
   ```
 
 ### 6.4 Trace continuity (initial run)
+
 - `build_graph_from_data` (`api/utils/flow_utils.py`) pins the run id before tracing starts:
   ```python
   if (caller_run_id := kwargs.get("run_id")) is not None:
@@ -288,9 +325,11 @@ Drain the queue **inline** after cancelling the worker (`service.py::_stop`), an
 - `create_graph` forwards `run_id=str(job_id) if job_id is not None else run_id` to both `build_graph_from_data` and `build_graph_from_db`.
 
 ### 6.5 Gate span recording
+
 - `TracingService.record_event_span(span_id, name, outputs, span_type="chain")` writes a standalone start+end span into the active trace for every ready tracer; deactivated/contextless calls are no-ops.
 
 ### 6.6 Frontend (reads backend spans)
+
 - `useGetTraceQuery` → `GET /api/v1/monitor/traces/{id}` returns the span tree.
 - `TraceDetailView.tsx`: renders the backend gate span; `backendHasGate` dedup prevents a duplicate synthetic node; `executedOutputSpans` bridges Chat Output from live `flowPool` only during the resume window (deduped by name).
 - `hitlStore.ts`: in-memory only (`pending` slot); `localStorage`/`persist` removed.
@@ -310,17 +349,17 @@ Bare `wfx serve` gains the same background + HITL contract without a database, b
 
 ### 6.8 Component map (quick index)
 
-| Concern | Where | Key symbols |
-|---------|-------|-------------|
-| Pause signal + checkpoint | `wfx/graph/graph/base.py`, `wfx/graph/checkpoint/` | `GraphPausedException`, `resume_from_checkpoint`, `set_run_id` |
-| Build seam + resume rebuild | `api/build.py` | `build_resumed_graph_and_get_order`, `_rerun_non_input_predecessors` |
-| Resume scheduling guard | `wfx/graph/graph/base.py` | `is_vertex_runnable`, `checkpoint_restored_built_ids` |
-| Run-id pinning | `api/utils/flow_utils.py` | `build_graph_from_data` |
-| Durable job + single-flight | `services/background_execution/{runner,service}.py` | `JobStatus.SUSPENDED`, `claim_suspended_for_resume` |
+| Concern                     | Where                                               | Key symbols                                                                  |
+| --------------------------- | --------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Pause signal + checkpoint   | `wfx/graph/graph/base.py`, `wfx/graph/checkpoint/`  | `GraphPausedException`, `resume_from_checkpoint`, `set_run_id`               |
+| Build seam + resume rebuild | `api/build.py`                                      | `build_resumed_graph_and_get_order`, `_rerun_non_input_predecessors`         |
+| Resume scheduling guard     | `wfx/graph/graph/base.py`                           | `is_vertex_runnable`, `checkpoint_restored_built_ids`                        |
+| Run-id pinning              | `api/utils/flow_utils.py`                           | `build_graph_from_data`                                                      |
+| Durable job + single-flight | `services/background_execution/{runner,service}.py` | `JobStatus.SUSPENDED`, `claim_suspended_for_resume`                          |
 | wfx serve durable substrate | `wfx/services/durable/`, `wfx/cli/serve_durable.py` | `SqliteDurableJobStore`, `SqliteCheckpointStore`, `DurableServeWorkflowHost` |
-| Tracing | `services/tracing/{native,service}.py` | `record_event_span`, `_finalize_pending_spans`, `_stop` drain |
-| Trace UI | `TraceComponent/TraceDetailView.tsx` | `backendHasGate`, `executedOutputSpans` |
-| Live HITL slot | `stores/hitlStore.ts` | `pending` (in-memory) |
+| Tracing                     | `services/tracing/{native,service}.py`              | `record_event_span`, `_finalize_pending_spans`, `_stop` drain                |
+| Trace UI                    | `TraceComponent/TraceDetailView.tsx`                | `backendHasGate`, `executedOutputSpans`                                      |
+| Live HITL slot              | `stores/hitlStore.ts`                               | `pending` (in-memory)                                                        |
 
 ---
 

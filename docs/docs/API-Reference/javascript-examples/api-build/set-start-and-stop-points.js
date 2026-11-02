@@ -1,15 +1,15 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/build/${process.env.FLOW_ID ?? ""}/flow`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
-    "accept": `application/json`,
+    accept: `application/json`,
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
   body: JSON.stringify({
-  "stop_component_id": "OpenAIModel-Uksag"
-}),
+    stop_component_id: "OpenAIModel-Uksag",
+  }),
 };
 
 fetch(url, options)

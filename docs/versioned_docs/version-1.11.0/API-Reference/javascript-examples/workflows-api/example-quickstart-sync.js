@@ -1,5 +1,9 @@
 (async () => {
-  const base = (process.env.PRIMEAGENT_URL ?? process.env.PRIMEAGENT_SERVER_URL ?? "").replace(/\/$/, "");
+  const base = (
+    process.env.PRIMEAGENT_URL ??
+    process.env.PRIMEAGENT_SERVER_URL ??
+    ""
+  ).replace(/\/$/, "");
   const flowId = process.env.FLOW_ID ?? "";
   const apiKey = process.env.PRIMEAGENT_API_KEY ?? "";
 

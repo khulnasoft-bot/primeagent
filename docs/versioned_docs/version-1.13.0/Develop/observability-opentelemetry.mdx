@@ -33,23 +33,23 @@ If no OTLP endpoint is set, Primeagent installs no providers and the export path
 
 The standard OpenTelemetry SDK variables also apply. The following are the ones operators reach for most often:
 
-| Variable | Purpose |
-|----------|---------|
-| `OTEL_EXPORTER_OTLP_PROTOCOL` | `http/protobuf` (default) or `grpc`. |
-| `OTEL_EXPORTER_OTLP_HEADERS` | Authentication headers, such as an API key. |
-| `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT` | Per-signal endpoint override. The same pattern applies to `METRICS` and `LOGS`. |
-| `OTEL_TRACES_EXPORTER=none` | Disables a single signal. The same pattern applies to `METRICS` and `LOGS`. |
-| `OTEL_EXPORTER_OTLP_COMPRESSION=gzip` | Compresses payloads. Required by backends with a payload size cap. |
+| Variable                              | Purpose                                                                         |
+| ------------------------------------- | ------------------------------------------------------------------------------- |
+| `OTEL_EXPORTER_OTLP_PROTOCOL`         | `http/protobuf` (default) or `grpc`.                                            |
+| `OTEL_EXPORTER_OTLP_HEADERS`          | Authentication headers, such as an API key.                                     |
+| `OTEL_EXPORTER_OTLP_TRACES_ENDPOINT`  | Per-signal endpoint override. The same pattern applies to `METRICS` and `LOGS`. |
+| `OTEL_TRACES_EXPORTER=none`           | Disables a single signal. The same pattern applies to `METRICS` and `LOGS`.     |
+| `OTEL_EXPORTER_OTLP_COMPRESSION=gzip` | Compresses payloads. Required by backends with a payload size cap.              |
 
 ## What Primeagent exports
 
 ### Traces
 
-| Span | Emitted by | Carries |
-|------|-----------|---------|
-| `flow.execute` | Primeagent | `flow_id`, `run_id`, `session_id`, `protocol`, `status`, and `error.type` when the run fails |
-| HTTP server spans | FastAPI and ASGI instrumentation | Route, method, status code |
-| Database spans | SQLAlchemy instrumentation | `db.system`, `db.operation`, and `db.statement` with bound parameters left as `?` placeholders |
+| Span              | Emitted by                       | Carries                                                                                        |
+| ----------------- | -------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `flow.execute`    | Primeagent                       | `flow_id`, `run_id`, `session_id`, `protocol`, `status`, and `error.type` when the run fails   |
+| HTTP server spans | FastAPI and ASGI instrumentation | Route, method, status code                                                                     |
+| Database spans    | SQLAlchemy instrumentation       | `db.system`, `db.operation`, and `db.statement` with bound parameters left as `?` placeholders |
 
 The `flow.execute` span is the unit of work. There is no span per component, because component spans would carry component payloads.
 
@@ -83,10 +83,10 @@ The following never reach your backend:
 
 Two settings widen this, and both warn when set:
 
-| Variable | Effect |
-|----------|--------|
+| Variable                          | Effect                                                                                                                                                                                                         |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `PRIMEAGENT_OTEL_LOG_LEVEL=DEBUG` | Exports `DEBUG` records. Primeagent logs flow inputs and outputs at `DEBUG`, so this raises export volume. Prompt and completion **bodies** stay withheld unless `PRIMEAGENT_OTEL_LOG_BODIES=all` is also set. |
-| `PRIMEAGENT_OTEL_LOG_BODIES=all` | Exports log message bodies, including completions, chat history, and provider error text. With `PRIMEAGENT_OTEL_LOG_LEVEL=DEBUG`, prompt and completion content reaches your backend. |
+| `PRIMEAGENT_OTEL_LOG_BODIES=all`  | Exports log message bodies, including completions, chat history, and provider error text. With `PRIMEAGENT_OTEL_LOG_LEVEL=DEBUG`, prompt and completion content reaches your backend.                          |
 
 ## Control span volume
 
@@ -118,12 +118,12 @@ A successful send is not proof that your backend kept the data. Some backends ac
 
 Primeagent opts into the stable OpenTelemetry HTTP semantic conventions, because APMs key their HTTP dashboards and service maps off the stable names. Dashboards or alerts built on the older names need updating.
 
-| Before | After |
-|---|---|
-| `http.server.duration` (milliseconds) | `http.server.request.duration` (seconds) |
-| `http.method` | `http.request.method` |
-| `http.status_code` | `http.response.status_code` |
-| `http.target` | `url.path` and `url.query`, split into two |
+| Before                                | After                                      |
+| ------------------------------------- | ------------------------------------------ |
+| `http.server.duration` (milliseconds) | `http.server.request.duration` (seconds)   |
+| `http.method`                         | `http.request.method`                      |
+| `http.status_code`                    | `http.response.status_code`                |
+| `http.target`                         | `url.path` and `url.query`, split into two |
 
 Note the unit change on the first row. A latency threshold carried over unchanged is out by a factor of 1000, and it will not look broken: it will simply stop firing.
 

@@ -4,9 +4,11 @@ slug: /bundles-slack
 ---
 
 import Icon from "@site/src/components/icon";
-import { GraduatedBundleInstall } from '@site/docs/_partial-bundle-graduated-install.mdx';
+import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-install.mdx";
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with Primeagent.
 
 This page describes the components that are available in the **Slack** bundle.
 
@@ -18,10 +20,10 @@ Every Slack component runs on the [Slack Web API](https://docs.slack.dev/referen
 
 Slack has two kinds of token, and a component is fixed to one of them:
 
-| Identity | Authorization profile | Posts as | Available on Desktop |
-| --- | --- | --- | --- |
-| Connected Slack user | `slack-user-oauth` | the person who authorized the connection | Yes |
-| App bot user | `slack-bot-install` | the app's bot user | With a pasted bot token (`xoxb-`); not through Slack sign-in |
+| Identity             | Authorization profile | Posts as                                 | Available on Desktop                                         |
+| -------------------- | --------------------- | ---------------------------------------- | ------------------------------------------------------------ |
+| Connected Slack user | `slack-user-oauth`    | the person who authorized the connection | Yes                                                          |
+| App bot user         | `slack-bot-install`   | the app's bot user                       | With a pasted bot token (`xoxb-`); not through Slack sign-in |
 
 Slack user scopes and bot scopes share names — `chat:write` is both a User Token Scope and a Bot Token Scope — so the scopes a connection was granted cannot tell the two identities apart. Each component instead checks the identity recorded on the connection and the token's own type prefix (`xoxb-` for a bot token, `xoxp-` for a user token), and fails with a connection authorization error, before any request reaches Slack, when either one names the wrong kind.
 
@@ -33,8 +35,8 @@ Primeagent checks pasted bot tokens with Slack before saving and records the sco
 
 ## Prerequisites
 
-* A Slack app installed in the target workspace, and a Primeagent connection for it. See [Connections](./connections) to connect the account, and [Configure connection OAuth](./connection-oauth) for the registration steps, the redirect URLs, and the per-action scope tables.
-* For bot components, the app's bot user must be a member of the channel it acts on.
+- A Slack app installed in the target workspace, and a Primeagent connection for it. See [Connections](./connections) to connect the account, and [Configure connection OAuth](./connection-oauth) for the registration steps, the redirect URLs, and the per-action scope tables.
+- For bot components, the app's bot user must be a member of the channel it acts on.
 
 ## Slack: Search (as user)
 
@@ -96,10 +98,10 @@ Calls [`conversations.members`](https://docs.slack.dev/reference/methods/convers
 
 Required scope: `channels:read`. Two scopes are requested only when you enable the matching option:
 
-| Option | Additional scope |
-| --- | --- |
-| **Private channel** | `groups:read` |
-| **Resolve display names** | `users:read` |
+| Option                    | Additional scope |
+| ------------------------- | ---------------- |
+| **Private channel**       | `groups:read`    |
+| **Resolve display names** | `users:read`     |
 
 With **Resolve display names** off, the component returns member IDs. With it on, it calls [`users.info`](https://docs.slack.dev/reference/methods/users.info) once per member and returns the name, real name, display name, and bot flag as well — which costs one extra request per member, so leave it off for large channels.
 
@@ -113,10 +115,10 @@ A trigger runs its flow when something happens in Slack. Add one to a flow, choo
 
 Slack delivers events in two ways. Primeagent picks one from the connection you choose on the trigger, so the flow never names a transport, and the same flow runs unchanged on hosted Primeagent, a self-managed instance, and Desktop:
 
-| Connection on the trigger | Transport | Where it works |
-| --- | --- | --- |
-| A Slack app installation (**Sign in with Slack**, bot) | [Events API](https://docs.slack.dev/apis/events-api/): Slack posts each event to your Primeagent over HTTPS | Hosted, and self-managed instances Slack can reach |
-| An app-level token (**Paste a token**, `xapp-`) | [Socket Mode](https://docs.slack.dev/apis/socket-mode/): Primeagent opens a WebSocket to Slack and holds it | Self-managed instances Slack cannot reach, and Desktop |
+| Connection on the trigger                              | Transport                                                                                                   | Where it works                                         |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| A Slack app installation (**Sign in with Slack**, bot) | [Events API](https://docs.slack.dev/apis/events-api/): Slack posts each event to your Primeagent over HTTPS | Hosted, and self-managed instances Slack can reach     |
+| An app-level token (**Paste a token**, `xapp-`)        | [Socket Mode](https://docs.slack.dev/apis/socket-mode/): Primeagent opens a WebSocket to Slack and holds it | Self-managed instances Slack cannot reach, and Desktop |
 
 Hosted Primeagent uses the Events API only: its Slack app is listed in the Slack Marketplace, and Marketplace apps cannot use Socket Mode. Desktop uses Socket Mode only, because Slack has no way to reach a computer. If you choose a connection the deployment cannot use, the trigger says why and stays unarmed.
 
@@ -128,15 +130,15 @@ They differ in one way: which workspaces a trigger hears. An Events API trigger 
 
 Runs the flow when someone posts where the app can see it: in a public channel, a private channel, a direct message with the app, or a group DM. The app's own messages never trigger it, so a flow that replies in the thread doesn't trigger itself.
 
-| Input | Description |
-| --- | --- |
-| **Slack Connection** | The connection the trigger listens through. It decides the transport. |
-| **Only when the app is mentioned** | Fire only for messages that @-mention the app. |
-| **Channel IDs** | Fire only in these conversations, by ID, such as `C0123456789`. Find a channel's ID at the bottom of its details. Leave empty for every conversation the app can see. |
-| **Conversation types** | `channel` (public), `group` (private), `im` (direct message), `mpim` (group DM). All four by default. Hidden and reset to all four when **Only when the app is mentioned** is on, because Slack mention events do not include a conversation type. |
-| **Include thread replies** | On by default. |
-| **Include messages from other bots** | Off by default. |
-| **Include edits and deletions** | Off by default. When on, the event's `subtype` is `message_changed` or `message_deleted`. |
+| Input                                | Description                                                                                                                                                                                                                                        |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Slack Connection**                 | The connection the trigger listens through. It decides the transport.                                                                                                                                                                              |
+| **Only when the app is mentioned**   | Fire only for messages that @-mention the app.                                                                                                                                                                                                     |
+| **Channel IDs**                      | Fire only in these conversations, by ID, such as `C0123456789`. Find a channel's ID at the bottom of its details. Leave empty for every conversation the app can see.                                                                              |
+| **Conversation types**               | `channel` (public), `group` (private), `im` (direct message), `mpim` (group DM). All four by default. Hidden and reset to all four when **Only when the app is mentioned** is on, because Slack mention events do not include a conversation type. |
+| **Include thread replies**           | On by default.                                                                                                                                                                                                                                     |
+| **Include messages from other bots** | Off by default.                                                                                                                                                                                                                                    |
+| **Include edits and deletions**      | Off by default. When on, the event's `subtype` is `message_changed` or `message_deleted`.                                                                                                                                                          |
 
 Outputs the event as `Data` and its text as a `Message`, ready to connect to an agent.
 
@@ -144,27 +146,27 @@ Outputs the event as `Data` and its text as a `Message`, ready to connect to an 
 
 Runs the flow when someone adds or removes an emoji reaction on a message.
 
-| Input | Description |
-| --- | --- |
-| **Slack Connection** | The connection the trigger listens through. |
-| **Emoji** | Emoji names without colons, such as `rocket`. Leave empty for any reaction. A skin-toned reaction matches its emoji. |
-| **Channel IDs** | Fire only in these conversations. Leave empty for every conversation. |
-| **Fire when a reaction is** | `added` (default), `removed`, or `both`. |
+| Input                       | Description                                                                                                          |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Slack Connection**        | The connection the trigger listens through.                                                                          |
+| **Emoji**                   | Emoji names without colons, such as `rocket`. Leave empty for any reaction. A skin-toned reaction matches its emoji. |
+| **Channel IDs**             | Fire only in these conversations. Leave empty for every conversation.                                                |
+| **Fire when a reaction is** | `added` (default), `removed`, or `both`.                                                                             |
 
 ### What the flow receives
 
 The trigger's **Event** output is a `Data` object. Its `payload` has the same keys for every Slack event, with `null` where a key does not apply:
 
-| Key | Description |
-| --- | --- |
-| `type` | `message`, `app_mention`, `reaction_added`, or `reaction_removed`. |
-| `channel_id`, `channel_type` | The conversation, and its kind for messages. |
-| `user_id`, `text`, `ts` | Who posted (or reacted), the message text, and the message timestamp. |
-| `thread_ts`, `is_thread_reply` | Set when the message is a reply in a thread. |
-| `reaction`, `item_ts`, `item_user_id` | The emoji, and the message it was added to. |
-| `session_key` | `slack:{team}:{channel}:{thread_ts or ts}`, the conversation the run belongs to. `{team}` is the workspace of the app installation that received the event, so a thread in a channel shared with another workspace stays one session whichever side replies. |
-| `slack_event_id`, `team_id`, `api_app_id`, `event_time` | Slack's identifiers for the event. In a shared channel, `team_id` can name the other workspace. |
-| `event` | Slack's original event object, for anything the other keys leave out. |
+| Key                                                     | Description                                                                                                                                                                                                                                                  |
+| ------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                  | `message`, `app_mention`, `reaction_added`, or `reaction_removed`.                                                                                                                                                                                           |
+| `channel_id`, `channel_type`                            | The conversation, and its kind for messages.                                                                                                                                                                                                                 |
+| `user_id`, `text`, `ts`                                 | Who posted (or reacted), the message text, and the message timestamp.                                                                                                                                                                                        |
+| `thread_ts`, `is_thread_reply`                          | Set when the message is a reply in a thread.                                                                                                                                                                                                                 |
+| `reaction`, `item_ts`, `item_user_id`                   | The emoji, and the message it was added to.                                                                                                                                                                                                                  |
+| `session_key`                                           | `slack:{team}:{channel}:{thread_ts or ts}`, the conversation the run belongs to. `{team}` is the workspace of the app installation that received the event, so a thread in a channel shared with another workspace stays one session whichever side replies. |
+| `slack_event_id`, `team_id`, `api_app_id`, `event_time` | Slack's identifiers for the event. In a shared channel, `team_id` can name the other workspace.                                                                                                                                                              |
+| `event`                                                 | Slack's original event object, for anything the other keys leave out.                                                                                                                                                                                        |
 
 Every run started by a Slack event uses the conversation as its session: each reply in a thread lands in the thread's session, so an agent keeps the whole thread as memory. Three replies to one thread start three runs that share one session. A reaction's session is the message it was added to.
 
@@ -174,8 +176,8 @@ To reply in the thread, pass `channel_id` and `thread_ts` (or `ts`, for a top-le
 
 Create the app from one of these manifests (**Create New App** > **From a manifest**), and then replace the placeholders:
 
-* [Events API manifest](/files/slack/primeagent-slack-app-events-api.json): replace `PRIMEAGENT_HOST` with your Primeagent's public host, and `REGISTRATION_ID` with the name of the app's registration in `PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS`.
-* [Socket Mode manifest](/files/slack/primeagent-slack-app-socket-mode.json): no URL is needed.
+- [Events API manifest](/files/slack/primeagent-slack-app-events-api.json): replace `PRIMEAGENT_HOST` with your Primeagent's public host, and `REGISTRATION_ID` with the name of the app's registration in `PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS`.
+- [Socket Mode manifest](/files/slack/primeagent-slack-app-socket-mode.json): no URL is needed.
 
 Both manifests subscribe the bot to `message.channels`, `message.groups`, `message.im`, `message.mpim`, `app_mention`, `reaction_added`, and `reaction_removed`, and request these bot scopes, which also cover the **as app** actions:
 
@@ -202,9 +204,17 @@ A trigger on the Events API also needs the scopes for what it listens to: a mess
 1. Under **Basic Information**, copy the app's **Signing Secret** into the registration's `signing_secret`, next to its `client_id` and `client_secret`:
 
    ```json
-   {"slack-app": {"provider": "slack", "profile": "bot", "client_id": "...", "client_secret": "...",
-    "signing_secret": "...", "redirect_uri": "https://PRIMEAGENT_HOST/api/v1/connections/oauth/slack/callback",
-    "scopes": ["chat:write", "channels:history", "..."]}}
+   {
+     "slack-app": {
+       "provider": "slack",
+       "profile": "bot",
+       "client_id": "...",
+       "client_secret": "...",
+       "signing_secret": "...",
+       "redirect_uri": "https://PRIMEAGENT_HOST/api/v1/connections/oauth/slack/callback",
+       "scopes": ["chat:write", "channels:history", "..."]
+     }
+   }
    ```
 
 2. Under **Event Subscriptions**, set the **Request URL** to `https://PRIMEAGENT_HOST/api/v1/triggers/ingress/slack/apps/slack-app`, where the last segment is the registration name. Slack verifies the URL immediately; Primeagent answers as soon as the registration is configured, before any trigger exists.
@@ -243,14 +253,14 @@ A trigger runs its flow with no one signed in. The connection on the trigger, an
 
 Slack reports application-level failures as `HTTP 200` with `{"ok": false, ...}`. The bundle translates those into Primeagent's integration error codes, so the canvas shows an actionable message instead of a generic provider outage:
 
-| Slack error | Primeagent error | What to do |
-| --- | --- | --- |
-| `invalid_auth`, `token_expired`, `token_revoked`, `account_inactive`, `not_authed` | `auth-expired` | Reconnect the connection. |
-| `missing_scope` | `scope-missing` | Grant the listed scopes and reconnect. |
-| `ratelimited` | `rate-limited` | Retry after the reported interval. |
-| `channel_not_found`, `not_in_channel` | `invalid-request` | Check the channel ID, and invite the app to the channel (or join it, for actions that run as you). |
-| Input errors such as `invalid_name`, `invalid_blocks_format`, `no_text`, `thread_not_found` | `invalid-request` | Fix the component's inputs. Retrying with the same inputs fails again. |
-| Workspace or admin denials such as `restricted_action`, `team_access_not_granted`, `no_permission` | `connection-not-authorized` | Ask a workspace administrator, or use a connection that is allowed to act. |
-| `not_allowed_token_type`, `method_not_supported_for_channel_type` | `action-unsupported` | Use a different component, channel type, or plan. |
+| Slack error                                                                                        | Primeagent error            | What to do                                                                                         |
+| -------------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------- |
+| `invalid_auth`, `token_expired`, `token_revoked`, `account_inactive`, `not_authed`                 | `auth-expired`              | Reconnect the connection.                                                                          |
+| `missing_scope`                                                                                    | `scope-missing`             | Grant the listed scopes and reconnect.                                                             |
+| `ratelimited`                                                                                      | `rate-limited`              | Retry after the reported interval.                                                                 |
+| `channel_not_found`, `not_in_channel`                                                              | `invalid-request`           | Check the channel ID, and invite the app to the channel (or join it, for actions that run as you). |
+| Input errors such as `invalid_name`, `invalid_blocks_format`, `no_text`, `thread_not_found`        | `invalid-request`           | Fix the component's inputs. Retrying with the same inputs fails again.                             |
+| Workspace or admin denials such as `restricted_action`, `team_access_not_granted`, `no_permission` | `connection-not-authorized` | Ask a workspace administrator, or use a connection that is allowed to act.                         |
+| `not_allowed_token_type`, `method_not_supported_for_channel_type`                                  | `action-unsupported`        | Use a different component, channel type, or plan.                                                  |
 
 If Slack rejects a token, the component re-resolves the connection once and retries. That is how a rotated Slack token is picked up: Slack tokens do not expire unless the app opted into token rotation, so a rejection is the only signal.

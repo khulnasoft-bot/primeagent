@@ -4,12 +4,14 @@ slug: /bundles-anthropic
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import { GraduatedBundleInstall } from '@site/docs/_partial-bundle-graduated-install.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-install.mdx";
 
 <GraduatedBundleInstall packageName="anthropic" />
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with Primeagent.
 
 This page describes the components that are available in the **Anthropic** bundle.
 
@@ -30,11 +32,11 @@ For more information, see [Language model components](/components-models).
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| max_tokens | Integer | Input parameter. The maximum number of tokens to generate. Set to 0 for unlimited tokens. Default: `4096`. |
-| model | String | Input parameter. The name of the Anthropic model to use. Options include various Claude 3 models. |
-| anthropic_api_key | SecretString | Input parameter. Your Anthropic API key for authentication. |
-| temperature | Float | Input parameter. Controls randomness in the output. Default: `0.1`. |
-| anthropic_api_url | String | Input parameter. Endpoint of the Anthropic API. Defaults to `https://api.anthropic.com` if not specified. |
-| prefill | String | Input parameter. Prefill text to guide the model's response. |
+| Name              | Type         | Description                                                                                                |
+| ----------------- | ------------ | ---------------------------------------------------------------------------------------------------------- |
+| max_tokens        | Integer      | Input parameter. The maximum number of tokens to generate. Set to 0 for unlimited tokens. Default: `4096`. |
+| model             | String       | Input parameter. The name of the Anthropic model to use. Options include various Claude 3 models.          |
+| anthropic_api_key | SecretString | Input parameter. Your Anthropic API key for authentication.                                                |
+| temperature       | Float        | Input parameter. Controls randomness in the output. Default: `0.1`.                                        |
+| anthropic_api_url | String       | Input parameter. Endpoint of the Anthropic API. Defaults to `https://api.anthropic.com` if not specified.  |
+| prefill           | String       | Input parameter. Prefill text to guide the model's response.                                               |

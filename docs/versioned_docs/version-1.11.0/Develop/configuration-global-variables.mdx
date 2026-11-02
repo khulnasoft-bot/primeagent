@@ -4,8 +4,8 @@ slug: /configuration-global-variables
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Use global variables to store and reuse credentials and generic values across all of your flows.
 Global variables are typically used by components in flow, and you can use them in any field with the <Icon name="Globe" aria-hidden="true"/> global variable icon.
@@ -128,27 +128,27 @@ If you installed Primeagent locally, set `PRIMEAGENT_VARIABLES_TO_GET_FROM_ENVIR
 
 If you're using Docker, there are two ways that you can set `PRIMEAGENT_VARIABLES_TO_GET_FROM_ENVIRONMENT`:
 
-* On the command line:
+- On the command line:
 
-   ```bash
-   docker run -it --rm \
-      -p 7860:7860 \
-      -e PRIMEAGENT_VARIABLES_TO_GET_FROM_ENVIRONMENT="VARIABLE1,VARIABLE2" \
-      -e VARIABLE1="VALUE1" \
-      -e VARIABLE2="VALUE2" \
-      khulnasoft/primeagent:latest
-   ```
+  ```bash
+  docker run -it --rm \
+     -p 7860:7860 \
+     -e PRIMEAGENT_VARIABLES_TO_GET_FROM_ENVIRONMENT="VARIABLE1,VARIABLE2" \
+     -e VARIABLE1="VALUE1" \
+     -e VARIABLE2="VALUE2" \
+     khulnasoft/primeagent:latest
+  ```
 
-* In your `.env` file:
+- In your `.env` file:
 
-   ```bash
-   docker run -it --rm \
-      -p 7860:7860 \
-      --env-file .env \
-      -e VARIABLE1="VALUE1" \
-      -e VARIABLE2="VALUE2" \
-      khulnasoft/primeagent:latest
-   ```
+  ```bash
+  docker run -it --rm \
+     -p 7860:7860 \
+     --env-file .env \
+     -e VARIABLE1="VALUE1" \
+     -e VARIABLE2="VALUE2" \
+     khulnasoft/primeagent:latest
+  ```
 
 The list in `PRIMEAGENT_VARIABLES_TO_GET_FROM_ENVIRONMENT` includes only the variable names.
 You must ensure that these environment variables are defined in your Docker environment, such as with `-e` or otherwise.
@@ -174,7 +174,7 @@ Credentials are stored with a `credential_` prefix on the secret key.
 
 ### Prerequisites
 
-* Primeagent running inside a Kubernetes cluster. See [Kubernetes deployment](/deployment-kubernetes-dev).
+- Primeagent running inside a Kubernetes cluster. See [Kubernetes deployment](/deployment-kubernetes-dev).
 
 ### Grant Primeagent permission to manage Kubernetes Secrets
 
@@ -217,6 +217,7 @@ If you're deploying with the [Primeagent Helm chart](https://github.com/khulnaso
    ```
 
 2. Apply the resources to your cluster:
+
    ```bash
    kubectl apply -f primeagent-rbac.yaml
    ```
@@ -245,24 +246,24 @@ If you're deploying with the [Primeagent Helm chart](https://github.com/khulnaso
 
 6. To confirm that Primeagent created a corresponding Kubernetes Secret, run:
 
-    ```bash
-    kubectl get secrets -n primeagent
-    ```
+   ```bash
+   kubectl get secrets -n primeagent
+   ```
 
-    The output should include a Secret named after the user's UUID.
+   The output should include a Secret named after the user's UUID.
 
 7. Inspect the Secret's keys to confirm your variable was stored, replacing **YOUR_USER_ID** with the user's UUID:
 
-    ```bash
-    kubectl get secret uuid-YOUR_USER_ID -n primeagent -o jsonpath='{.data}' | python3 -m json.tool
-    ```
+   ```bash
+   kubectl get secret uuid-YOUR_USER_ID -n primeagent -o jsonpath='{.data}' | python3 -m json.tool
+   ```
 
-    Credential-type variables appear with a `credential_` prefix.
-    Generic-type variables use the variable name directly as the key.
+   Credential-type variables appear with a `credential_` prefix.
+   Generic-type variables use the variable name directly as the key.
 
-    :::warning
-    Do not read or modify Secret values directly with `kubectl`. Editing Secrets outside of Primeagent can cause variables to become unreadable.
-    :::
+   :::warning
+   Do not read or modify Secret values directly with `kubectl`. Editing Secrets outside of Primeagent can cause variables to become unreadable.
+   :::
 
 ## Disallow global variables from the environment
 

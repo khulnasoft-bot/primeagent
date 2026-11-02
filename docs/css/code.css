@@ -55,7 +55,6 @@ html[data-theme="light"] {
   --lf-ch-variable: #64748b;
 }
 
-
 /* Light mode: Prism / theme-code-block overrides */
 html[data-theme="light"] .theme-code-block {
   border-color: #e2e4f0;
@@ -100,7 +99,6 @@ html[data-theme="light"] .theme-code-block div[class*="codeBlockTitle"] {
   background: #232328;
   border-bottom-color: #303038;
 }
-
 
 .theme-code-block pre,
 .theme-code-block code {

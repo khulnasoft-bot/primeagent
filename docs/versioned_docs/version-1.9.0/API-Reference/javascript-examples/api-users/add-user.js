@@ -1,15 +1,15 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/users/`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
   body: JSON.stringify({
-  "username": "newuser2",
-  "password": "securepassword123"
-}),
+    username: "newuser2",
+    password: "securepassword123",
+  }),
 };
 
 fetch(url, options)

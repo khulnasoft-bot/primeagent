@@ -1,9 +1,9 @@
 const url = `${process.env.PRIMEAGENT_SERVER_URL ?? ""}/api/v2/workflows?job_id=job_id_1234567890`;
 
 const options = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    "accept": `application/json`,
+    accept: `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
 };

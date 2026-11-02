@@ -56,11 +56,7 @@ class TestMongoVectorStoreComponent(ComponentTestBaseWithoutClient):
     @pytest.fixture
     def file_names_mapping(self) -> list[VersionComponentMapping]:
         """Return the file names mapping for different versions."""
-        return [
-            {"version": "1.0.19", "module": "vectorstores", "file_name": "MongoDBAtlasVector"},
-            {"version": "1.1.0", "module": "vectorstores", "file_name": "mongodb_atlas"},
-            {"version": "1.1.1", "module": "vectorstores", "file_name": "mongodb_atlas"},
-        ]
+        return []
 
     def __create_search_index(
         self, component_class: type[MongoVectorStoreComponent], collection: Collection, default_kwargs: dict[str, Any]

@@ -3,10 +3,10 @@ title: API keys and authentication
 slug: /api-keys-and-authentication
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 import Icon from "@site/src/components/icon";
-import PartialAutoLoginDefaults from '@site/docs/_partial-auto-login-defaults.mdx';
+import PartialAutoLoginDefaults from "@site/docs/_partial-auto-login-defaults.mdx";
 
 This page documents Primeagent's built-in authentication, including user accounts, Primeagent API keys, and the environment variables that control access to your server.
 To connect Primeagent to an external identity provider or SSO system, see [SSO and external authentication](./external-authentication).
@@ -21,9 +21,9 @@ Authentication credentials help prevent unauthorized access to your Primeagent s
 
 There are three types of credentials that you use in Primeagent:
 
-* [Primeagent API keys](#primeagent-api-keys): For authentication with the Primeagent API and authorizing server-side Primeagent actions like running flows and uploading files.
-* [Component API keys](#component-api-keys): For authentication between Primeagent and a service connected through a component, such as a model provider or third-party API.
-* [Authentication environment variables](#authentication-environment-variables): These environment variables configure how Primeagent handles user authentication and authorization.
+- [Primeagent API keys](#primeagent-api-keys): For authentication with the Primeagent API and authorizing server-side Primeagent actions like running flows and uploading files.
+- [Component API keys](#component-api-keys): For authentication between Primeagent and a service connected through a component, such as a model provider or third-party API.
+- [Authentication environment variables](#authentication-environment-variables): These environment variables configure how Primeagent handles user authentication and authorization.
 
 ## Primeagent API keys {#primeagent-api-keys}
 
@@ -71,25 +71,25 @@ Use the Primeagent API when your server has [authentication enabled](#start-a-pr
 
 1. Sign in with your username and password to get an access token:
 
-    ```shell
-    TOKEN=$(curl -s -X POST "http://$PRIMEAGENT_SERVER_ADDRESS/api/v1/login" \
-      -H "Content-Type: application/x-www-form-urlencoded" \
-      --data-urlencode "username=$PRIMEAGENT_USERNAME" \
-      --data-urlencode "password=$PRIMEAGENT_PASSWORD" \
-      | python3 -c "import sys, json; print(json.load(sys.stdin)['access_token'])")
-    ```
+   ```shell
+   TOKEN=$(curl -s -X POST "http://$PRIMEAGENT_SERVER_ADDRESS/api/v1/login" \
+     -H "Content-Type: application/x-www-form-urlencoded" \
+     --data-urlencode "username=$PRIMEAGENT_USERNAME" \
+     --data-urlencode "password=$PRIMEAGENT_PASSWORD" \
+     | python3 -c "import sys, json; print(json.load(sys.stdin)['access_token'])")
+   ```
 
 2. Create an API key with the access token:
 
-    ```shell
-    curl -X POST "http://$PRIMEAGENT_SERVER_ADDRESS/api/v1/api_key/" \
-      -H "Authorization: Bearer $TOKEN" \
-      -H "Content-Type: application/json" \
-      -d '{"name": "my-api-key"}'
-    ```
+   ```shell
+   curl -X POST "http://$PRIMEAGENT_SERVER_ADDRESS/api/v1/api_key/" \
+     -H "Authorization: Bearer $TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{"name": "my-api-key"}'
+   ```
 
-    The `api_key` field in the response contains the full key. Primeagent shows the full key only in this response, so store it securely.
-    The key has the privileges of the user who signed in.
+   The `api_key` field in the response contains the full key. Primeagent shows the full key only in this response, so store it securely.
+   The key has the privileges of the user who signed in.
 
 </TabItem>
 <TabItem value="Primeagent CLI" label="Primeagent CLI">
@@ -191,14 +191,14 @@ For role-based access control, see [Authorization](./authorization).
 
 This variable controls whether the visual editor uses automatic login or requires users to sign in.
 
-* If `PRIMEAGENT_AUTO_LOGIN=False`, automatic login is disabled. Users must sign in to the visual editor and authenticate as a superuser to run certain Primeagent CLI commands.
-Management API requests accept a Primeagent API key or a session token. Session tokens can be sent in the `access_token_lf` cookie or `Authorization: Bearer` header.
-Requests that run a flow require a Primeagent API key in the `x-api-key` header or query parameter. This includes `/api/v1/run`, `/api/v1/run/advanced`, `/api/v1/predict`, `/api/v1/process`, and `/api/v1/responses`.
-You must explicitly set [`PRIMEAGENT_SUPERUSER_PASSWORD`](#primeagent-superuser) before startup. Set [`PRIMEAGENT_SUPERUSER`](#primeagent-superuser) only if you want to override the default superuser username (`primeagent`).
+- If `PRIMEAGENT_AUTO_LOGIN=False`, automatic login is disabled. Users must sign in to the visual editor and authenticate as a superuser to run certain Primeagent CLI commands.
+  Management API requests accept a Primeagent API key or a session token. Session tokens can be sent in the `access_token_lf` cookie or `Authorization: Bearer` header.
+  Requests that run a flow require a Primeagent API key in the `x-api-key` header or query parameter. This includes `/api/v1/run`, `/api/v1/run/advanced`, `/api/v1/predict`, `/api/v1/process`, and `/api/v1/responses`.
+  You must explicitly set [`PRIMEAGENT_SUPERUSER_PASSWORD`](#primeagent-superuser) before startup. Set [`PRIMEAGENT_SUPERUSER`](#primeagent-superuser) only if you want to override the default superuser username (`primeagent`).
 
-* If `PRIMEAGENT_AUTO_LOGIN=True`, the visual editor automatically signs in all users as the configured superuser, and Primeagent uses that username with a configured or generated bootstrap password.
-All users share the same visual editor environment without password protection, and they can run Primeagent CLI commands as superusers.
-Management API requests still require a Primeagent API key or a session token unless you also set [`PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN`](#primeagent-skip-auth-auto-login) to `true`. Requests that run a flow require a Primeagent API key in the `x-api-key` header or query parameter.
+- If `PRIMEAGENT_AUTO_LOGIN=True`, the visual editor automatically signs in all users as the configured superuser, and Primeagent uses that username with a configured or generated bootstrap password.
+  All users share the same visual editor environment without password protection, and they can run Primeagent CLI commands as superusers.
+  Management API requests still require a Primeagent API key or a session token unless you also set [`PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN`](#primeagent-skip-auth-auto-login) to `true`. Requests that run a flow require a Primeagent API key in the `x-api-key` header or query parameter.
 
 <PartialAutoLoginDefaults />
 
@@ -233,26 +233,26 @@ To recover them, temporarily re-enable auto-login and set a password on that sam
 2. Stop Primeagent. Set `PRIMEAGENT_AUTO_LOGIN=true` in the environment or `.env` file, then start Primeagent with the same database and configuration directory. Keep the instance restricted to trusted local access until you finish.
 3. Request an auto-login token, and copy the `access_token` value from the response:
 
-    ```bash
-    curl -s http://localhost:7860/api/v1/auto_login
-    ```
+   ```bash
+   curl -s http://localhost:7860/api/v1/auto_login
+   ```
 
 4. Get the account's ID, and copy the `id` value from the response:
 
-    ```bash
-    curl -s http://localhost:7860/api/v1/users/whoami \
-      -H "Authorization: Bearer ACCESS_TOKEN"
-    ```
+   ```bash
+   curl -s http://localhost:7860/api/v1/users/whoami \
+     -H "Authorization: Bearer ACCESS_TOKEN"
+   ```
 
 5. Set a strong password on that account. Don't use the legacy default value `primeagent`. Read the password into a variable so that it isn't stored in your shell history, and avoid `"` and `\` characters, which break the JSON body.
 
-    ```bash
-    read -rs NEW_PASSWORD
-    curl -s -X PATCH http://localhost:7860/api/v1/users/USER_ID \
-      -H "Authorization: Bearer ACCESS_TOKEN" \
-      -H "Content-Type: application/json" \
-      -d "{\"password\": \"$NEW_PASSWORD\"}"
-    ```
+   ```bash
+   read -rs NEW_PASSWORD
+   curl -s -X PATCH http://localhost:7860/api/v1/users/USER_ID \
+     -H "Authorization: Bearer ACCESS_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d "{\"password\": \"$NEW_PASSWORD\"}"
+   ```
 
 6. Stop Primeagent. Remove `PRIMEAGENT_AUTO_LOGIN=true` or set it to `false`. If the account's username isn't `primeagent`, set `PRIMEAGENT_SUPERUSER` to it. Set `PRIMEAGENT_SUPERUSER_PASSWORD` to the password from step 5. Startup requires this variable, but it doesn't overwrite the password you just set.
 7. Start Primeagent, sign in with that username and password, and verify that your existing flows are present.
@@ -299,50 +299,48 @@ This is particularly important for multi-instance deployments like Kubernetes to
 
 To generate a secret encryption key for `PRIMEAGENT_SECRET_KEY`, do the following:
 
-1. Run the command to generate and copy a secret to the clipboard.
+1.  Run the command to generate and copy a secret to the clipboard.
 
     <Tabs>
-    <TabItem value="unix" label="macOS or Linux">
+<TabItem value="unix" label="macOS or Linux">
+    - **macOS**: Generate a secret key and copy it to the clipboard:
 
-    * **macOS**: Generate a secret key and copy it to the clipboard:
+      ```bash
+      python3 -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')" | pbcopy
+      ```
 
-        ```bash
-        python3 -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')" | pbcopy
-        ```
+    - **Linux**: Generate a secret key and copy it to the clipboard:
 
-    * **Linux**: Generate a secret key and copy it to the clipboard:
+      ```bash
+      python3 -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')" | xclip -selection clipboard
+      ```
 
-        ```bash
-        python3 -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')" | xclip -selection clipboard
-        ```
+    - **Unix**: Generate a secret key and print it to the terminal to manually copy it:
 
-    * **Unix**: Generate a secret key and print it to the terminal to manually copy it:
-
-        ```bash
-        python3 -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
-        ```
-
-    </TabItem>
-    <TabItem value="windows" label="Windows">
-
-    * Generate a secret key and copy it to the clipboard:
-
-        ```bash
-        python -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
-        ```
-
-    * Generate a secret key and print it to the terminal to manually copy it:
-
-        ```bash
-
-        # Or just print
-        python -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
-        ```
+      ```bash
+      python3 -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
+      ```
 
     </TabItem>
-    </Tabs>
+<TabItem value="windows" label="Windows">
+    - Generate a secret key and copy it to the clipboard:
 
-2. Paste the value into your `.env` file:
+      ```bash
+      python -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
+      ```
+
+    - Generate a secret key and print it to the terminal to manually copy it:
+
+      ```bash
+
+      # Or just print
+      python -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
+      ```
+
+    </TabItem>
+</Tabs>
+
+2.  Paste the value into your `.env` file:
 
     ```text
     PRIMEAGENT_SECRET_KEY=dBuu...2kM2_fb
@@ -381,10 +379,10 @@ For more information, see [Start a Primeagent server with authentication enabled
 
 This variable controls whether public self-registration is allowed at the `POST /api/v1/users/` endpoint.
 
-| Value | Description |
-|-------|-------------|
-| `True` (default) | Anyone can create a new Primeagent account by calling the registration endpoint directly. |
-| `False` | Public registration is disabled. Only superusers can create new accounts with the [Users API](/api-users). |
+| Value            | Description                                                                                                |
+| ---------------- | ---------------------------------------------------------------------------------------------------------- |
+| `True` (default) | Anyone can create a new Primeagent account by calling the registration endpoint directly.                  |
+| `False`          | Public registration is disabled. Only superusers can create new accounts with the [Users API](/api-users). |
 
 Self-registration is always disabled when `PRIMEAGENT_AUTO_LOGIN=True`, because single-user mode has no multi-account concept.
 Superusers can create accounts regardless of this setting.
@@ -393,10 +391,10 @@ Superusers can create accounts regardless of this setting.
 
 This variable controls how Primeagent validates API keys.
 
-| Value | Description |
-|-------|-------------|
-| `db` (default) | Validates API keys against [Primeagent API keys](#primeagent-api-keys) stored in the database. This is the standard behavior where users create and manage API keys through the Primeagent UI or CLI. |
-| `env` | Validates API keys against the `PRIMEAGENT_API_KEY` environment variable. Useful for Kubernetes deployments, CI/CD pipelines, or any environment where you want to inject a pre-defined API key without database configuration. |
+| Value          | Description                                                                                                                                                                                                                     |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `db` (default) | Validates API keys against [Primeagent API keys](#primeagent-api-keys) stored in the database. This is the standard behavior where users create and manage API keys through the Primeagent UI or CLI.                           |
+| `env`          | Validates API keys against the `PRIMEAGENT_API_KEY` environment variable. Useful for Kubernetes deployments, CI/CD pipelines, or any environment where you want to inject a pre-defined API key without database configuration. |
 
 By default, Primeagent validates the `x-api-key` header against the Primeagent database with `PRIMEAGENT_API_KEY_SOURCE=db`.
 When using database-based validation, you can create multiple keys with per-user permissions, track usage, and manage keys through the Primeagent UI or CLI.
@@ -411,27 +409,27 @@ To enable environment-based API key validation:
 
 1. In the Primeagent `.env` file, set the API key source to `env`:
 
-    ```text
-    PRIMEAGENT_API_KEY_SOURCE=env
-    ```
+   ```text
+   PRIMEAGENT_API_KEY_SOURCE=env
+   ```
 
 2. In the Primeagent `.env` file, set the API key value:
 
-    ```text
-    PRIMEAGENT_API_KEY=your-secure-api-key
-    ```
+   ```text
+   PRIMEAGENT_API_KEY=your-secure-api-key
+   ```
 
 3. Use the API key in your requests:
 
-    ```shell
-    curl -X POST \
-      "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID?stream=false" \
-      -H "Content-Type: application/json" \
-      -H "x-api-key: PRIMEAGENT_API_KEY" \
-      -d '{"inputs": {"text":""}, "tweaks": {}}'
-    ```
+   ```shell
+   curl -X POST \
+     "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID?stream=false" \
+     -H "Content-Type: application/json" \
+     -H "x-api-key: PRIMEAGENT_API_KEY" \
+     -d '{"inputs": {"text":""}, "tweaks": {}}'
+   ```
 
-    Replace `PRIMEAGENT_SERVER_ADDRESS`, `FLOW_ID`, and `PRIMEAGENT_API_KEY` with the values from your deployment.
+   Replace `PRIMEAGENT_SERVER_ADDRESS`, `FLOW_ID`, and `PRIMEAGENT_API_KEY` with the values from your deployment.
 
 <details>
 <summary>Kubernetes deployment example</summary>
@@ -440,40 +438,40 @@ To configure an environment-based API key in a Kubernetes Secret, do the followi
 
 1. Create a Kubernetes Secret with your API key:
 
-    ```yaml
-    apiVersion: v1
-    kind: Secret
-    metadata:
-      name: primeagent-api-key
-    type: Opaque
-    stringData:
-      api-key: "YOUR_API_KEY"
-    ```
+   ```yaml
+   apiVersion: v1
+   kind: Secret
+   metadata:
+     name: primeagent-api-key
+   type: Opaque
+   stringData:
+     api-key: "YOUR_API_KEY"
+   ```
 
-    Replace `YOUR_API_KEY` with the `PRIMEAGENT_API_KEY` value from the Primeagent `.env` file.
+   Replace `YOUR_API_KEY` with the `PRIMEAGENT_API_KEY` value from the Primeagent `.env` file.
 
 2. Reference the `primeagent-api-key` Secret in your Kubernetes deployment:
 
-    ```yaml
-    apiVersion: apps/v1
-    kind: Deployment
-    metadata:
-      name: primeagent
-    spec:
-      template:
-        spec:
-          containers:
-          - name: primeagent
-            image: khulnasoft/primeagent:latest
-            env:
-            - name: PRIMEAGENT_API_KEY_SOURCE
-              value: "env"
-            - name: PRIMEAGENT_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: primeagent-api-key
-                  key: api-key
-    ```
+   ```yaml
+   apiVersion: apps/v1
+   kind: Deployment
+   metadata:
+     name: primeagent
+   spec:
+     template:
+       spec:
+         containers:
+           - name: primeagent
+             image: khulnasoft/primeagent:latest
+             env:
+               - name: PRIMEAGENT_API_KEY_SOURCE
+                 value: "env"
+               - name: PRIMEAGENT_API_KEY
+                 valueFrom:
+                   secretKeyRef:
+                     name: primeagent-api-key
+                     key: api-key
+   ```
 
 </details>
 
@@ -484,38 +482,38 @@ To configure an environment-based API key in Docker Compose, do the following:
 
 1. Set the API key in your Primeagent `.env` file.
 
-    ```text
-    PRIMEAGENT_API_KEY=your-secure-api-key
-    ```
+   ```text
+   PRIMEAGENT_API_KEY=your-secure-api-key
+   ```
 
-    Replace `YOUR_API_KEY` with your actual Primeagent API key value.
+   Replace `YOUR_API_KEY` with your actual Primeagent API key value.
 
 2. Create or update your `docker-compose.yml` file to set `PRIMEAGENT_API_KEY_SOURCE=env` and reference the `PRIMEAGENT_API_KEY`.
 
-    ```yaml
-    services:
-      primeagent:
-        image: khulnasoft/primeagent:latest
-        environment:
-          - PRIMEAGENT_API_KEY_SOURCE=env
-          - PRIMEAGENT_API_KEY=${PRIMEAGENT_API_KEY}
-        ports:
-          - "7860:7860"
-    ```
+   ```yaml
+   services:
+     primeagent:
+       image: khulnasoft/primeagent:latest
+       environment:
+         - PRIMEAGENT_API_KEY_SOURCE=env
+         - PRIMEAGENT_API_KEY=${PRIMEAGENT_API_KEY}
+       ports:
+         - "7860:7860"
+   ```
 
 </details>
 
-### PRIMEAGENT_CORS_* {#cors-configuration-for-authentication}
+### PRIMEAGENT*CORS*\* {#cors-configuration-for-authentication}
 
 Cross-Origin Resource Sharing (CORS) configuration controls how authentication credentials are handled when your Primeagent frontend and backend are served from different origins.
 The following `PRIMEAGENT_CORS_*` environment variables are available:
 
-| Variable | Format | Default | Description |
-|----------|--------|---------|-------------|
-| `PRIMEAGENT_CORS_ALLOW_CREDENTIALS` | Boolean | `True` | Whether to allow credentials, such as cookies and authorization headers, in CORS requests. |
-| `PRIMEAGENT_CORS_ALLOW_HEADERS` | List[String] or String | `*` | The allowed headers for CORS requests. Provide a comma-separated list of headers or use `*` to allow all headers. |
-| `PRIMEAGENT_CORS_ALLOW_METHODS` | List[String] or String | `*` | The allowed HTTP methods for CORS requests. Provide a comma-separated list of methods or use `*` to allow all methods. |
-| `PRIMEAGENT_CORS_ORIGINS` | String | `*` | The allowed CORS origins. Provide a comma-separated list of origins or use `*` for all origins. |
+| Variable                            | Format                 | Default | Description                                                                                                            |
+| ----------------------------------- | ---------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_CORS_ALLOW_CREDENTIALS` | Boolean                | `True`  | Whether to allow credentials, such as cookies and authorization headers, in CORS requests.                             |
+| `PRIMEAGENT_CORS_ALLOW_HEADERS`     | List[String] or String | `*`     | The allowed headers for CORS requests. Provide a comma-separated list of headers or use `*` to allow all headers.      |
+| `PRIMEAGENT_CORS_ALLOW_METHODS`     | List[String] or String | `*`     | The allowed HTTP methods for CORS requests. Provide a comma-separated list of methods or use `*` to allow all methods. |
+| `PRIMEAGENT_CORS_ORIGINS`           | String                 | `*`     | The allowed CORS origins. Provide a comma-separated list of origins or use `*` for all origins.                        |
 
 The default configuration enables CORS credentials and uses wildcards (`*`) to allow all origins, headers, and methods:
 
@@ -539,9 +537,10 @@ PRIMEAGENT_CORS_ALLOW_CREDENTIALS=True
 PRIMEAGENT_CORS_ALLOW_HEADERS=["Content-Type","Authorization"]
 PRIMEAGENT_CORS_ALLOW_METHODS=["GET","POST","PUT"]
 ```
+
 :::
 
-### PRIMEAGENT_ACCESS_* and PRIMEAGENT_REFRESH_* {#session-cookie-hardening}
+### PRIMEAGENT*ACCESS*_ and PRIMEAGENT*REFRESH*_ {#session-cookie-hardening}
 
 For a shared or public deployment served over HTTPS, harden the session cookies.
 `Secure` and `SameSite` default to values that support local HTTP development.
@@ -549,15 +548,15 @@ Both the access and refresh cookies are `HttpOnly` by default; the browser sends
 
 Set both `PRIMEAGENT_ACCESS_SECURE` and `PRIMEAGENT_REFRESH_SECURE` to `True` for HTTPS deployments. Cross-site HTTPS deployments must also set `PRIMEAGENT_REFRESH_SAME_SITE=none`.
 
-| Variable | Format | Default | Description |
-|----------|--------|---------|-------------|
-| `PRIMEAGENT_ACCESS_SECURE` | Boolean | `False` | When `true`, the `access_token_lf` cookie is sent only over HTTPS. Recommended `true` for any HTTPS deployment. |
-| `PRIMEAGENT_ACCESS_HTTPONLY` | Boolean | `True` | When `true`, the `access_token_lf` cookie is not readable by JavaScript. Set to `false` only if a client must read this cookie in JavaScript. |
-| `PRIMEAGENT_ACCESS_SAME_SITE` | String | `lax` | The `SameSite` attribute of the access-token cookie (`lax`, `strict`, or `none`). |
-| `PRIMEAGENT_REFRESH_SECURE` | Boolean | `False` | When `true`, the `refresh_token_lf` cookie is sent only over HTTPS. Set this to `true` for any HTTPS deployment. |
-| `PRIMEAGENT_REFRESH_HTTPONLY` | Boolean | `True` | When `true`, the `refresh_token_lf` cookie is not readable by JavaScript. |
-| `PRIMEAGENT_REFRESH_SAME_SITE` | String | `lax` | The `SameSite` attribute of the refresh-token cookie (`lax`, `strict`, or `none`). |
-| `PRIMEAGENT_COOKIE_DOMAIN` | String | Not set | Domain attribute for the access and refresh cookies. Leave unset for host-only cookies. Set to a parent domain, such as `.example.com`, when the frontend and API are on different subdomains. |
+| Variable                       | Format  | Default | Description                                                                                                                                                                                    |
+| ------------------------------ | ------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_ACCESS_SECURE`     | Boolean | `False` | When `true`, the `access_token_lf` cookie is sent only over HTTPS. Recommended `true` for any HTTPS deployment.                                                                                |
+| `PRIMEAGENT_ACCESS_HTTPONLY`   | Boolean | `True`  | When `true`, the `access_token_lf` cookie is not readable by JavaScript. Set to `false` only if a client must read this cookie in JavaScript.                                                  |
+| `PRIMEAGENT_ACCESS_SAME_SITE`  | String  | `lax`   | The `SameSite` attribute of the access-token cookie (`lax`, `strict`, or `none`).                                                                                                              |
+| `PRIMEAGENT_REFRESH_SECURE`    | Boolean | `False` | When `true`, the `refresh_token_lf` cookie is sent only over HTTPS. Set this to `true` for any HTTPS deployment.                                                                               |
+| `PRIMEAGENT_REFRESH_HTTPONLY`  | Boolean | `True`  | When `true`, the `refresh_token_lf` cookie is not readable by JavaScript.                                                                                                                      |
+| `PRIMEAGENT_REFRESH_SAME_SITE` | String  | `lax`   | The `SameSite` attribute of the refresh-token cookie (`lax`, `strict`, or `none`).                                                                                                             |
+| `PRIMEAGENT_COOKIE_DOMAIN`     | String  | Not set | Domain attribute for the access and refresh cookies. Leave unset for host-only cookies. Set to a parent domain, such as `.example.com`, when the frontend and API are on different subdomains. |
 
 ### Anonymous public-flow authorization
 
@@ -573,37 +572,37 @@ For more information, see [Authorization](./authorization).
 
 For A2A, `auth_type=none` applies this contract to both the direct agent card and execution routes. API-key and OAuth agent cards remain anonymously readable by direct link for A2A protocol discovery, but their JSON-RPC execution routes retain owner-key admission and owner execution.
 
-### PRIMEAGENT_RATE_LIMIT_* {#login-rate-limiting}
+### PRIMEAGENT*RATE_LIMIT*\* {#login-rate-limiting}
 
 The following environment variables configure IP-based rate limiting to protect against brute-force attacks on the `/login` endpoint and abuse of public flow endpoints.
 When the limit is exceeded, Primeagent returns HTTP 429 with a `Retry-After: 60` header.
 
 The connection and integration endpoints count requests per signed-in user instead of per IP address, so users who reach Primeagent through the same NAT or proxy do not share a limit. The unauthenticated OAuth callback is the exception and is still counted per IP address.
 
-| Variable | Format | Default | Description |
-|----------|--------|---------|-------------|
-| `PRIMEAGENT_RATE_LIMIT_ENABLED` | Boolean | `True` | Enable rate limiting on the `/login` and `/api/v2/workflows/public` endpoints. Set to False to disable those limits (not recommended in production). |
-| `PRIMEAGENT_RATE_LIMIT_PER_MINUTE` | Integer | `5` | Maximum number of login attempts allowed per minute from a single IP address. |
-| `PRIMEAGENT_RATE_LIMIT_STORAGE_URI` | String | `memory://` | Storage backend for rate limit counters. Use `memory://` for single-server deployments or `redis://host:port` for multi-server deployments where the limit should be shared across instances. |
-| `PRIMEAGENT_RATE_LIMIT_TRUST_PROXY` | Boolean | `False` | When `true`, Primeagent reads the client IP from the rightmost `X-Forwarded-For` header entry instead of the direct connection IP. Enable only when Primeagent is behind a trusted reverse proxy or load balancer. Do not enable if users can reach Primeagent directly, as this allows header spoofing. |
-| `PRIMEAGENT_PUBLIC_FLOW_RATE_LIMIT_PER_MINUTE` | Integer | `20` | Maximum number of unauthenticated public-flow runs allowed per minute from a single IP address. Public flows consume resources under an isolated anonymous principal, so they are rate-limited separately from the `/login` endpoint. |
-| `PRIMEAGENT_CONNECTION_METADATA_RATE_LIMIT_PER_MINUTE` | Integer | `60` | Maximum number of connection and integration metadata reads allowed per minute for each signed-in user. These endpoints return no credential material and make no outbound provider call, and the Connections UI polls the connection listing every two seconds while an OAuth consent is pending, so they are limited separately from and more generously than the `/login` endpoint. Connection writes have their own limit, and credential tests, health checks, and the OAuth endpoints keep their own tighter buckets. |
-| `PRIMEAGENT_CONNECTION_WRITE_RATE_LIMIT_PER_MINUTE` | Integer | `30` | Maximum number of connection creates, updates, revokes, and deletes allowed per minute for each signed-in user. The four operations share one limit, sized for someone managing connections in the Connections UI rather than for login attempts. Credential tests, health checks, and starting an OAuth consent use `PRIMEAGENT_RATE_LIMIT_PER_MINUTE`, each with its own counter. |
+| Variable                                               | Format  | Default     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------ | ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_RATE_LIMIT_ENABLED`                        | Boolean | `True`      | Enable rate limiting on the `/login` and `/api/v2/workflows/public` endpoints. Set to False to disable those limits (not recommended in production).                                                                                                                                                                                                                                                                                                                                                                        |
+| `PRIMEAGENT_RATE_LIMIT_PER_MINUTE`                     | Integer | `5`         | Maximum number of login attempts allowed per minute from a single IP address.                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `PRIMEAGENT_RATE_LIMIT_STORAGE_URI`                    | String  | `memory://` | Storage backend for rate limit counters. Use `memory://` for single-server deployments or `redis://host:port` for multi-server deployments where the limit should be shared across instances.                                                                                                                                                                                                                                                                                                                               |
+| `PRIMEAGENT_RATE_LIMIT_TRUST_PROXY`                    | Boolean | `False`     | When `true`, Primeagent reads the client IP from the rightmost `X-Forwarded-For` header entry instead of the direct connection IP. Enable only when Primeagent is behind a trusted reverse proxy or load balancer. Do not enable if users can reach Primeagent directly, as this allows header spoofing.                                                                                                                                                                                                                    |
+| `PRIMEAGENT_PUBLIC_FLOW_RATE_LIMIT_PER_MINUTE`         | Integer | `20`        | Maximum number of unauthenticated public-flow runs allowed per minute from a single IP address. Public flows consume resources under an isolated anonymous principal, so they are rate-limited separately from the `/login` endpoint.                                                                                                                                                                                                                                                                                       |
+| `PRIMEAGENT_CONNECTION_METADATA_RATE_LIMIT_PER_MINUTE` | Integer | `60`        | Maximum number of connection and integration metadata reads allowed per minute for each signed-in user. These endpoints return no credential material and make no outbound provider call, and the Connections UI polls the connection listing every two seconds while an OAuth consent is pending, so they are limited separately from and more generously than the `/login` endpoint. Connection writes have their own limit, and credential tests, health checks, and the OAuth endpoints keep their own tighter buckets. |
+| `PRIMEAGENT_CONNECTION_WRITE_RATE_LIMIT_PER_MINUTE`    | Integer | `30`        | Maximum number of connection creates, updates, revokes, and deletes allowed per minute for each signed-in user. The four operations share one limit, sized for someone managing connections in the Connections UI rather than for login attempts. Credential tests, health checks, and starting an OAuth consent use `PRIMEAGENT_RATE_LIMIT_PER_MINUTE`, each with its own counter.                                                                                                                                         |
 
-### PRIMEAGENT_SSRF_* and PRIMEAGENT_CONNECTOR_SSRF_* {#ssrf-protection}
+### PRIMEAGENT*SSRF*_ and PRIMEAGENT*CONNECTOR_SSRF*_ {#ssrf-protection}
 
 The following environment variables configure Server-Side Request Forgery (SSRF) protection for the [**API Request** component](/api-request) and for connector components that take a tenant-controlled host or URL.
 SSRF protection prevents requests to internal or private network resources, such as private IP ranges, loopback addresses, and cloud metadata endpoints.
 
 In a shared server where users you do not fully trust can build flows, set `PRIMEAGENT_CONNECTOR_SSRF_VALIDATION_ENABLED=true`, `PRIMEAGENT_SSRF_PROTECTION_ENABLED=true`, and `PRIMEAGENT_CONNECTOR_SSRF_ALLOW_LOOPBACK=false`, and then allowlist your own internal hosts with `PRIMEAGENT_SSRF_ALLOWED_HOSTS`.
 
-| Variable | Format | Default | Description |
-|----------|--------|---------|-------------|
-| `PRIMEAGENT_SSRF_PROTECTION_ENABLED` | Boolean | `True` | Enable SSRF protection for the **API Request** component. When enabled, the component blocks requests to private IP addresses. When disabled, requests are not blocked. |
-| `PRIMEAGENT_SSRF_ALLOWED_HOSTS` | List[String] | Not set | A comma-separated list of allowed hosts, IP addresses, or CIDR ranges that can bypass SSRF protection checks. For example: `192.168.1.0/24,10.0.0.5,*.internal.company.local`.|
-| `PRIMEAGENT_CONNECTOR_SSRF_VALIDATION_ENABLED` | Boolean | `True` | Apply SSRF host validation to connector components that take a tenant-controlled host or URL. Uses `PRIMEAGENT_SSRF_PROTECTION_ENABLED` and `PRIMEAGENT_SSRF_ALLOWED_HOSTS` for the host policy. Set to `false`, or allowlist specific hosts, only when a trusted single-tenant deployment intentionally connects to private-network services. |
-| `PRIMEAGENT_CONNECTOR_SSRF_ALLOW_LOOPBACK` | Boolean | `True` | When connector SSRF validation is enabled, allow literal loopback hosts (`localhost`, `127.0.0.0/8`, `::1`) and local Redis/MongoDB Unix sockets. Multi-tenant deployments where a tenant must not reach the server's loopback should set this to `false`. |
-| `PRIMEAGENT_KB_ALLOWED_HOSTS` | List[String] | Not set | An **exclusive** allowlist of destination hosts for the network knowledge base backends (OpenSearch and Postgres pgvector). Accepts the same patterns as `PRIMEAGENT_SSRF_ALLOWED_HOSTS`. Unlike that variable, which is an exception list that still admits any unlisted public host, this one denies by default: a destination a user supplies is refused unless its host is listed here. A destination Primeagent reads from a server environment variable is already operator-controlled and does not need an entry, so setting `OPENSEARCH_URL` on the server keeps working unchanged. See the note below. |
+| Variable                                       | Format       | Default | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| ---------------------------------------------- | ------------ | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_SSRF_PROTECTION_ENABLED`           | Boolean      | `True`  | Enable SSRF protection for the **API Request** component. When enabled, the component blocks requests to private IP addresses. When disabled, requests are not blocked.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `PRIMEAGENT_SSRF_ALLOWED_HOSTS`                | List[String] | Not set | A comma-separated list of allowed hosts, IP addresses, or CIDR ranges that can bypass SSRF protection checks. For example: `192.168.1.0/24,10.0.0.5,*.internal.company.local`.                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| `PRIMEAGENT_CONNECTOR_SSRF_VALIDATION_ENABLED` | Boolean      | `True`  | Apply SSRF host validation to connector components that take a tenant-controlled host or URL. Uses `PRIMEAGENT_SSRF_PROTECTION_ENABLED` and `PRIMEAGENT_SSRF_ALLOWED_HOSTS` for the host policy. Set to `false`, or allowlist specific hosts, only when a trusted single-tenant deployment intentionally connects to private-network services.                                                                                                                                                                                                                                                                  |
+| `PRIMEAGENT_CONNECTOR_SSRF_ALLOW_LOOPBACK`     | Boolean      | `True`  | When connector SSRF validation is enabled, allow literal loopback hosts (`localhost`, `127.0.0.0/8`, `::1`) and local Redis/MongoDB Unix sockets. Multi-tenant deployments where a tenant must not reach the server's loopback should set this to `false`.                                                                                                                                                                                                                                                                                                                                                      |
+| `PRIMEAGENT_KB_ALLOWED_HOSTS`                  | List[String] | Not set | An **exclusive** allowlist of destination hosts for the network knowledge base backends (OpenSearch and Postgres pgvector). Accepts the same patterns as `PRIMEAGENT_SSRF_ALLOWED_HOSTS`. Unlike that variable, which is an exception list that still admits any unlisted public host, this one denies by default: a destination a user supplies is refused unless its host is listed here. A destination Primeagent reads from a server environment variable is already operator-controlled and does not need an entry, so setting `OPENSEARCH_URL` on the server keeps working unchanged. See the note below. |
 
 Connector validation covers Cassandra, MongoDB, Redis vector store, PGVector, Couchbase, Valkey, Supabase, and the other vector stores and tools listed above. Private service names in container networks (for example, `redis`, `mongo`, or `postgres` resolving to 172.x addresses) require an entry in `PRIMEAGENT_SSRF_ALLOWED_HOSTS`. MongoDB and Couchbase SRV targets are checked by their own hostnames; allowlisting only the seed name does not cover those targets. For a single Couchbase DNS seed with an explicit port, validation checks both the seed and any SRV targets. Allowlist the target names with a wildcard such as `*.cluster.internal`, or their address range with a CIDR.
 
@@ -644,8 +643,8 @@ export PRIMEAGENT_KB_ALLOWED_HOSTS=search.corp.example,*.opensearch.internal
 
 A destination is permitted when either of the following is true:
 
-* Primeagent read it from a server environment variable, such as `OPENSEARCH_URL` set on the server process. Only an operator can set one, so no allowlist entry is needed.
-* Its host appears in `PRIMEAGENT_KB_ALLOWED_HOSTS`.
+- Primeagent read it from a server environment variable, such as `OPENSEARCH_URL` set on the server process. Only an operator can set one, so no allowlist entry is needed.
+- Its host appears in `PRIMEAGENT_KB_ALLOWED_HOSTS`.
 
 Everything else is refused, including hosts that resolve to ordinary public addresses.
 A cluster URL a user saved as a Primeagent variable in the UI needs an entry.
@@ -657,18 +656,18 @@ The pgvector knowledge base backend uses the database URL validation described b
 
 ### Component hardening for untrusted users {#multi-tenant-component-hardening}
 
-Use these variables when users who can build or run flows on your server should not get host-level code execution, arbitrary file reads, or  MCP mounts.
+Use these variables when users who can build or run flows on your server should not get host-level code execution, arbitrary file reads, or MCP mounts.
 
 For more information, see [Docker image defaults](/deployment-docker#docker-image-security-defaults).
 
-| Variable | Format | Default | Description |
-|----------|--------|---------|-------------|
-| `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS` | Boolean | `True` | When `false`, blocks user-authored component code and registered built-in code-execution components at runtime. See [Block custom components](/deployment-block-custom-components). |
-| `PRIMEAGENT_BLOCK_CODE_INTERPRETER_COMPONENTS` | Boolean | `False` | When `true`, blocks execution of any flow containing a built-in arbitrary-code-execution component, including the [**Python Interpreter**](/python-interpreter), Python REPL/Code tools, [**Smart Transform**](/smart-transform), [**CSV Agent**](/bundles-langchain#csv-agent), and code-running agents such as [**CodeAct**](/bundles-codeagents#codeact-agent-smolagents), [**CUGA**](/bundles-cuga), and [**OpenDsStar**](/bundles-codeagents#opendstar-agent). |
-| `PRIMEAGENT_RESTRICT_LOCAL_FILE_ACCESS` | Boolean | `True` | By default, built-in file-reading components, including the [**File**](/read-file), [**Directory**](/legacy-core-components#legacy-data-components), [**JSON/CSV-to-Data**](/legacy-core-components#legacy-data-components), and the [**CSV Agent**](/bundles-langchain#csv-agent), [**JSON Agent**](/bundles-langchain#legacy-langchain-components), and [**OpenAPI Agent**](/bundles-langchain#openapi-agent) can only read and write paths inside the [`PRIMEAGENT_CONFIG_DIR`](/memory) storage directory. This also blocks `sqlite` and `duckdb` dialects in the [**SQL Database**](/sql-database) components and local-filesystem Git clones. **Security warning:** setting this to `false` allows any user who can build flows to read arbitrary files on the server (including Primeagent's own secret keys) through file components and `sqlite:////path` database URLs. Set it to `false` only in single-tenant deployments where reading local server files by absolute path is an intentional feature. |
-| `PRIMEAGENT_DATABASE_TLS_FILES_DIR` | Absolute directory path | Unset | Directory of administrator-provided TLS files that SQL database connector URLs may reference while local file access stays restricted. Only PostgreSQL `sslrootcert`, `sslcert`, and `sslkey` and MySQL/MariaDB `ssl_ca`, `ssl_cert`, and `ssl_key` options are eligible. The referenced file must exist and resolve to a regular file inside this directory; traversal and symlink escapes are rejected. Keep this directory outside tenant-writable storage and mount it read-only. |
-| `PRIMEAGENT_MCP_SERVER_DOCKER_HARDENING` | Boolean | `False` | When `true`, applies a strict Docker-argument policy to MCP stdio servers that use the `docker` transport. Rejects host filesystem or device mounts, `host/another-container` namespaces, non-default networks, privilege flags, and sandbox-disabling `--security-opt` values. Forms such as `--network none` / `bridge` and `--security-opt no-new-privileges` remain allowed. |
-| `PRIMEAGENT_TWEAKS_POLICY` | String | `permissive` | Which component fields a run request may set through `tweaks`. For more information, see [Restrict API tweaks](./deployment-tweaks-policy). |
+| Variable                                       | Format                  | Default      | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------------------------------- | ----------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS`           | Boolean                 | `True`       | When `false`, blocks user-authored component code and registered built-in code-execution components at runtime. See [Block custom components](/deployment-block-custom-components).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `PRIMEAGENT_BLOCK_CODE_INTERPRETER_COMPONENTS` | Boolean                 | `False`      | When `true`, blocks execution of any flow containing a built-in arbitrary-code-execution component, including the [**Python Interpreter**](/python-interpreter), Python REPL/Code tools, [**Smart Transform**](/smart-transform), [**CSV Agent**](/bundles-langchain#csv-agent), and code-running agents such as [**CodeAct**](/bundles-codeagents#codeact-agent-smolagents), [**CUGA**](/bundles-cuga), and [**OpenDsStar**](/bundles-codeagents#opendstar-agent).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| `PRIMEAGENT_RESTRICT_LOCAL_FILE_ACCESS`        | Boolean                 | `True`       | By default, built-in file-reading components, including the [**File**](/read-file), [**Directory**](/legacy-core-components#legacy-data-components), [**JSON/CSV-to-Data**](/legacy-core-components#legacy-data-components), and the [**CSV Agent**](/bundles-langchain#csv-agent), [**JSON Agent**](/bundles-langchain#legacy-langchain-components), and [**OpenAPI Agent**](/bundles-langchain#openapi-agent) can only read and write paths inside the [`PRIMEAGENT_CONFIG_DIR`](/memory) storage directory. This also blocks `sqlite` and `duckdb` dialects in the [**SQL Database**](/sql-database) components and local-filesystem Git clones. **Security warning:** setting this to `false` allows any user who can build flows to read arbitrary files on the server (including Primeagent's own secret keys) through file components and `sqlite:////path` database URLs. Set it to `false` only in single-tenant deployments where reading local server files by absolute path is an intentional feature. |
+| `PRIMEAGENT_DATABASE_TLS_FILES_DIR`            | Absolute directory path | Unset        | Directory of administrator-provided TLS files that SQL database connector URLs may reference while local file access stays restricted. Only PostgreSQL `sslrootcert`, `sslcert`, and `sslkey` and MySQL/MariaDB `ssl_ca`, `ssl_cert`, and `ssl_key` options are eligible. The referenced file must exist and resolve to a regular file inside this directory; traversal and symlink escapes are rejected. Keep this directory outside tenant-writable storage and mount it read-only.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `PRIMEAGENT_MCP_SERVER_DOCKER_HARDENING`       | Boolean                 | `False`      | When `true`, applies a strict Docker-argument policy to MCP stdio servers that use the `docker` transport. Rejects host filesystem or device mounts, `host/another-container` namespaces, non-default networks, privilege flags, and sandbox-disabling `--security-opt` values. Forms such as `--network none` / `bridge` and `--security-opt no-new-privileges` remain allowed.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `PRIMEAGENT_TWEAKS_POLICY`                     | String                  | `permissive` | Which component fields a run request may set through `tweaks`. For more information, see [Restrict API tweaks](./deployment-tweaks-policy).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 With the default `PRIMEAGENT_RESTRICT_LOCAL_FILE_ACCESS=true`, SQL Database URLs using `mysql+mysqlconnector://` must include `allow_local_infile=false`, and URLs using `mariadb+mariadbconnector://` must include `local_infile=false`. Add the option with `?` or append it with `&` if the URL already has a query string. On a trusted single-tenant server, setting `PRIMEAGENT_RESTRICT_LOCAL_FILE_ACCESS=false` restores the prior URL behavior but also permits flows to access local server files.
 
@@ -681,11 +680,11 @@ The `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS` and `PRIMEAGENT_BLOCK_CODE_INTERPRETER_
 
 To enable these flags, set the following:
 
-* `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS=false`: blocks user-authored component code and registered built-in code-execution components. See [Block custom components](/deployment-block-custom-components).
-* `PRIMEAGENT_BLOCK_CODE_INTERPRETER_COMPONENTS=true`: blocks built-in code-execution components.
-* `PRIMEAGENT_RESTRICT_LOCAL_FILE_ACCESS=true`: confines built-in file access to the upload sandbox. This is the default; keep it enabled when untrusted users can build flows.
-* `PRIMEAGENT_MCP_SERVER_DOCKER_HARDENING=true`: tightens Docker MCP server arguments.
-* `PRIMEAGENT_TWEAKS_POLICY=declared` or `off`: limits which component fields an API caller can override at run time. See [Restrict API tweaks](./deployment-tweaks-policy).
+- `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS=false`: blocks user-authored component code and registered built-in code-execution components. See [Block custom components](/deployment-block-custom-components).
+- `PRIMEAGENT_BLOCK_CODE_INTERPRETER_COMPONENTS=true`: blocks built-in code-execution components.
+- `PRIMEAGENT_RESTRICT_LOCAL_FILE_ACCESS=true`: confines built-in file access to the upload sandbox. This is the default; keep it enabled when untrusted users can build flows.
+- `PRIMEAGENT_MCP_SERVER_DOCKER_HARDENING=true`: tightens Docker MCP server arguments.
+- `PRIMEAGENT_TWEAKS_POLICY=declared` or `off`: limits which component fields an API caller can override at run time. See [Restrict API tweaks](./deployment-tweaks-policy).
 
 To block named built-in components, starter templates, model providers, or models across the install, use the [catalog and model policy APIs](./api-governance-policy).
 
@@ -693,7 +692,7 @@ Pair these settings with the [SSRF settings](#ssrf-protection) to reduce common 
 
 These settings **do not** provide full user isolation. For more information, see [Security](/security).
 
-The flags above decide *whether* code is allowed to run. They do not constrain what it does once it runs, so they are authorization controls rather than an isolation boundary.
+The flags above decide _whether_ code is allowed to run. They do not constrain what it does once it runs, so they are authorization controls rather than an isolation boundary.
 
 To run permitted executions behind a kernel boundary instead of blocking them outright, set a [sandbox backend](./environment-variables.mdx). The built-in `exec-sandbox` backend runs code in a QEMU microVM on this host. Trusted third-party packages can register other backends.
 
@@ -708,9 +707,9 @@ External tracing integrations such as Langfuse and Arize are _process-wide_, not
 
 This variable controls whether API key authentication is required for webhook endpoints.
 
-| Variable | Format | Default | Description |
-|----------|--------|---------|-------------|
-| `PRIMEAGENT_WEBHOOK_AUTH_ENABLE` | Boolean | `True` | When `True`, webhook endpoints require API key authentication and validate that the authenticated user owns the flow being executed. When `False`, no Primeagent API key is required and all requests to the webhook endpoint are treated as being sent by the flow owner. |
+| Variable                         | Format  | Default | Description                                                                                                                                                                                                                                                                |
+| -------------------------------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PRIMEAGENT_WEBHOOK_AUTH_ENABLE` | Boolean | `True`  | When `True`, webhook endpoints require API key authentication and validate that the authenticated user owns the flow being executed. When `False`, no Primeagent API key is required and all requests to the webhook endpoint are treated as being sent by the flow owner. |
 
 By default, webhooks require API key authentication with `PRIMEAGENT_WEBHOOK_AUTH_ENABLE=True`.
 
@@ -733,9 +732,9 @@ A JWT consists of three parts separated by dots (`.`):
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
-* The header contains the token type and signing algorithm.
-* The payload contains _claims_ — token data for user information and expiration time.
-* The signature ensures the token hasn't been tampered with.
+- The header contains the token type and signing algorithm.
+- The payload contains _claims_ — token data for user information and expiration time.
+- The signature ensures the token hasn't been tampered with.
 
 Each part of the JWT is Base64URL-encoded. You can paste this example JWT to decode the actual JSON data at [jwt.io](https://jwt.io/).
 
@@ -743,13 +742,13 @@ Each part of the JWT is Base64URL-encoded. You can paste this example JWT to dec
 
 The following environment variables control JWT signing. `PRIMEAGENT_SECRET_KEY` is also used for data encryption and is documented separately in [`PRIMEAGENT_SECRET_KEY`](#primeagent-secret-key).
 
-| Variable | Description | Default |
-|---|---|---|
-| `PRIMEAGENT_ALGORITHM` | JWT signing algorithm: `HS256`, `RS256`, or `RS512` | `HS256` |
-| `PRIMEAGENT_PRIVATE_KEY` | RSA private key for RS256/RS512 signing | Auto-generated |
-| `PRIMEAGENT_PUBLIC_KEY` | RSA public key for RS256/RS512 verification | Derived from private key |
-| `PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS` | Access token expiration time | `3600` (1 hour) |
-| `PRIMEAGENT_REFRESH_TOKEN_EXPIRE_SECONDS` | Refresh token expiration time | `604800` (7 days) |
+| Variable                                  | Description                                         | Default                  |
+| ----------------------------------------- | --------------------------------------------------- | ------------------------ |
+| `PRIMEAGENT_ALGORITHM`                    | JWT signing algorithm: `HS256`, `RS256`, or `RS512` | `HS256`                  |
+| `PRIMEAGENT_PRIVATE_KEY`                  | RSA private key for RS256/RS512 signing             | Auto-generated           |
+| `PRIMEAGENT_PUBLIC_KEY`                   | RSA public key for RS256/RS512 verification         | Derived from private key |
+| `PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS`  | Access token expiration time                        | `3600` (1 hour)          |
+| `PRIMEAGENT_REFRESH_TOKEN_EXPIRE_SECONDS` | Refresh token expiration time                       | `604800` (7 days)        |
 
 ### HS256 (default)
 
@@ -798,6 +797,7 @@ MIIBIjANBgkqhkiG9w0BAQEFAAOC...
 To generate an RSA key pair manually:
 
 1. Generate a 2048-bit private key:
+
    ```bash
    openssl genrsa -out private_key.pem 2048
    ```
@@ -933,53 +933,53 @@ User management is through the [Users API](/api-users), not the visual editor.
 
 1. Create a `.env` file with the following variables:
 
-    ```text
-    PRIMEAGENT_AUTO_LOGIN=False
-    PRIMEAGENT_SUPERUSER=
-    PRIMEAGENT_SUPERUSER_PASSWORD=
-    PRIMEAGENT_SECRET_KEY=
-    PRIMEAGENT_NEW_USER_IS_ACTIVE=False
-    PRIMEAGENT_ENABLE_SIGNUP=False
-    PRIMEAGENT_ENABLE_SUPERUSER_CLI=False
-    ```
+   ```text
+   PRIMEAGENT_AUTO_LOGIN=False
+   PRIMEAGENT_SUPERUSER=
+   PRIMEAGENT_SUPERUSER_PASSWORD=
+   PRIMEAGENT_SECRET_KEY=
+   PRIMEAGENT_NEW_USER_IS_ACTIVE=False
+   PRIMEAGENT_ENABLE_SIGNUP=False
+   PRIMEAGENT_ENABLE_SUPERUSER_CLI=False
+   ```
 
-    Your `.env` file can have other environment variables.
-    This example focuses on authentication variables.
+   Your `.env` file can have other environment variables.
+   This example focuses on authentication variables.
 
-    `PRIMEAGENT_ENABLE_SIGNUP=False` restricts account creation to superusers.
-    `PRIMEAGENT_NEW_USER_IS_ACTIVE=False` keeps new accounts inactive until you activate them with the Users API.
+   `PRIMEAGENT_ENABLE_SIGNUP=False` restricts account creation to superusers.
+   `PRIMEAGENT_NEW_USER_IS_ACTIVE=False` keeps new accounts inactive until you activate them with the Users API.
 
 2. Set `PRIMEAGENT_SUPERUSER_PASSWORD` to your desired superuser password. Optionally set `PRIMEAGENT_SUPERUSER` to override the default `primeagent` username.
 
-    For a one-time test, you can use basic credentials like `administrator` and `password`.
-    Strong, securely-stored credentials are recommended in genuine development and production environments.
+   For a one-time test, you can use basic credentials like `administrator` and `password`.
+   Strong, securely-stored credentials are recommended in genuine development and production environments.
 
 3. Recommended: Generate and set a `PRIMEAGENT_SECRET_KEY` for encrypting sensitive data.
 
-    If you don't set a secret key, Primeagent generates one automatically, but this isn't recommended for production environments.
+   If you don't set a secret key, Primeagent generates one automatically, but this isn't recommended for production environments.
 
-    For instructions on generating and setting a secret key, see [`PRIMEAGENT_SECRET_KEY`](#primeagent-secret-key).
+   For instructions on generating and setting a secret key, see [`PRIMEAGENT_SECRET_KEY`](#primeagent-secret-key).
 
 4. Save your `.env` file with the populated variables. For example:
 
-    ```text
-    PRIMEAGENT_AUTO_LOGIN=False
-    PRIMEAGENT_SUPERUSER=administrator
-    PRIMEAGENT_SUPERUSER_PASSWORD=securepassword
-    PRIMEAGENT_SECRET_KEY=dBuu...2kM2_fb
-    PRIMEAGENT_NEW_USER_IS_ACTIVE=False
-    PRIMEAGENT_ENABLE_SIGNUP=False
-    PRIMEAGENT_ENABLE_SUPERUSER_CLI=False
-    ```
+   ```text
+   PRIMEAGENT_AUTO_LOGIN=False
+   PRIMEAGENT_SUPERUSER=administrator
+   PRIMEAGENT_SUPERUSER_PASSWORD=securepassword
+   PRIMEAGENT_SECRET_KEY=dBuu...2kM2_fb
+   PRIMEAGENT_NEW_USER_IS_ACTIVE=False
+   PRIMEAGENT_ENABLE_SIGNUP=False
+   PRIMEAGENT_ENABLE_SUPERUSER_CLI=False
+   ```
 
 5. Start Primeagent with the configuration from your `.env` file:
 
-    ```text
-    uv run primeagent run --env-file .env
-    ```
+   ```text
+   uv run primeagent run --env-file .env
+   ```
 
-    Starting Primeagent with this `.env` file creates or uses the configured superuser.
-    If `PRIMEAGENT_SUPERUSER_PASSWORD` isn't set, startup fails instead of creating a default password.
+   Starting Primeagent with this `.env` file creates or uses the configured superuser.
+   If `PRIMEAGENT_SUPERUSER_PASSWORD` isn't set, startup fails instead of creating a default password.
 
 6. Verify the server is running. The default location is `http://localhost:7860`.
 
@@ -992,164 +992,164 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
 
 1. To complete your first-time login as a superuser, navigate to `http://localhost:7860/login`.
 
-    If you aren't using the default location, replace `localhost:7860` with your server's address.
+   If you aren't using the default location, replace `localhost:7860` with your server's address.
 
 2. Log in with the password you set in `PRIMEAGENT_SUPERUSER_PASSWORD` and the username from `PRIMEAGENT_SUPERUSER`.
-    If you did not set `PRIMEAGENT_SUPERUSER`, the username is `primeagent`.
+   If you did not set `PRIMEAGENT_SUPERUSER`, the username is `primeagent`.
 
 3. [Create a Primeagent API key](#create-a-primeagent-api-key) while signed in as the superuser.
-    User-management requests require a Primeagent API key in the `x-api-key` header.
+   User-management requests require a Primeagent API key in the `x-api-key` header.
 
 4. Create a user:
 
-    <Tabs groupId="users-api">
-    <TabItem value="Python" label="Python" default>
+   <Tabs groupId="users-api">
+<TabItem value="Python" label="Python" default>
 
-    ```python
-    import os
+   ```python
+   import os
 
-    import requests
+   import requests
 
-    base = os.environ["PRIMEAGENT_URL"]
-    headers = {
-        "Content-Type": "application/json",
-        "x-api-key": os.environ["PRIMEAGENT_API_KEY"],
-    }
-    payload = {
-        "username": "newuser",
-        "password": "securepassword123",
-    }
+   base = os.environ["PRIMEAGENT_URL"]
+   headers = {
+       "Content-Type": "application/json",
+       "x-api-key": os.environ["PRIMEAGENT_API_KEY"],
+   }
+   payload = {
+       "username": "newuser",
+       "password": "securepassword123",
+   }
 
-    response = requests.post(f"{base}/api/v1/users/", headers=headers, json=payload, timeout=30)
-    response.raise_for_status()
-    print(response.json())
-    ```
+   response = requests.post(f"{base}/api/v1/users/", headers=headers, json=payload, timeout=30)
+   response.raise_for_status()
+   print(response.json())
+   ```
 
-    </TabItem>
-    <TabItem value="typescript" label="TypeScript">
+   </TabItem>
+<TabItem value="typescript" label="TypeScript">
 
-    ```typescript
-    const url = `${process.env.PRIMEAGENT_URL}/api/v1/users/`;
+   ```typescript
+   const url = `${process.env.PRIMEAGENT_URL}/api/v1/users/`;
 
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process.env.PRIMEAGENT_API_KEY!,
-      },
-      body: JSON.stringify({
-        username: "newuser",
-        password: "securepassword123",
-      }),
-    });
+   const response = await fetch(url, {
+     method: "POST",
+     headers: {
+       "Content-Type": "application/json",
+       "x-api-key": process.env.PRIMEAGENT_API_KEY!,
+     },
+     body: JSON.stringify({
+       username: "newuser",
+       password: "securepassword123",
+     }),
+   });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+   if (!response.ok) {
+     throw new Error(`HTTP ${response.status}`);
+   }
 
-    console.log(await response.json());
-    ```
+   console.log(await response.json());
+   ```
 
-    </TabItem>
-    <TabItem value="curl" label="curl">
+   </TabItem>
+<TabItem value="curl" label="curl">
 
-    ```bash
-    curl -X POST \
-      "$PRIMEAGENT_URL/api/v1/users/" \
-      -H "Content-Type: application/json" \
-      -H "x-api-key: $PRIMEAGENT_API_KEY" \
-      -d '{
-        "username": "newuser",
-        "password": "securepassword123"
-      }'
-    ```
+   ```bash
+   curl -X POST \
+     "$PRIMEAGENT_URL/api/v1/users/" \
+     -H "Content-Type: application/json" \
+     -H "x-api-key: $PRIMEAGENT_API_KEY" \
+     -d '{
+       "username": "newuser",
+       "password": "securepassword123"
+     }'
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
-    The response includes the user's `id`.
-    New accounts are inactive when `PRIMEAGENT_NEW_USER_IS_ACTIVE=False` (the default, and the value in the `.env` example above).
+   The response includes the user's `id`.
+   New accounts are inactive when `PRIMEAGENT_NEW_USER_IS_ACTIVE=False` (the default, and the value in the `.env` example above).
 
 5. Activate the account so the user can sign in.
-    Replace `USER_ID` with the `id` from the create response:
+   Replace `USER_ID` with the `id` from the create response:
 
-    <Tabs groupId="users-api">
-    <TabItem value="Python" label="Python" default>
+   <Tabs groupId="users-api">
+<TabItem value="Python" label="Python" default>
 
-    ```python
-    import os
+   ```python
+   import os
 
-    import requests
+   import requests
 
-    base = os.environ["PRIMEAGENT_URL"]
-    user_id = "USER_ID"
-    headers = {
-        "Content-Type": "application/json",
-        "x-api-key": os.environ["PRIMEAGENT_API_KEY"],
-    }
-    payload = {"is_active": True}
+   base = os.environ["PRIMEAGENT_URL"]
+   user_id = "USER_ID"
+   headers = {
+       "Content-Type": "application/json",
+       "x-api-key": os.environ["PRIMEAGENT_API_KEY"],
+   }
+   payload = {"is_active": True}
 
-    response = requests.patch(
-        f"{base}/api/v1/users/{user_id}", headers=headers, json=payload, timeout=30
-    )
-    response.raise_for_status()
-    print(response.json())
-    ```
+   response = requests.patch(
+       f"{base}/api/v1/users/{user_id}", headers=headers, json=payload, timeout=30
+   )
+   response.raise_for_status()
+   print(response.json())
+   ```
 
-    </TabItem>
-    <TabItem value="typescript" label="TypeScript">
+   </TabItem>
+<TabItem value="typescript" label="TypeScript">
 
-    ```typescript
-    const userId = "USER_ID";
-    const url = `${process.env.PRIMEAGENT_URL}/api/v1/users/${userId}`;
+   ```typescript
+   const userId = "USER_ID";
+   const url = `${process.env.PRIMEAGENT_URL}/api/v1/users/${userId}`;
 
-    const response = await fetch(url, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": process.env.PRIMEAGENT_API_KEY!,
-      },
-      body: JSON.stringify({ is_active: true }),
-    });
+   const response = await fetch(url, {
+     method: "PATCH",
+     headers: {
+       "Content-Type": "application/json",
+       "x-api-key": process.env.PRIMEAGENT_API_KEY!,
+     },
+     body: JSON.stringify({ is_active: true }),
+   });
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
+   if (!response.ok) {
+     throw new Error(`HTTP ${response.status}`);
+   }
 
-    console.log(await response.json());
-    ```
+   console.log(await response.json());
+   ```
 
-    </TabItem>
-    <TabItem value="curl" label="curl">
+   </TabItem>
+<TabItem value="curl" label="curl">
 
-    ```bash
-    curl -X PATCH \
-      "$PRIMEAGENT_URL/api/v1/users/USER_ID" \
-      -H "Content-Type: application/json" \
-      -H "x-api-key: $PRIMEAGENT_API_KEY" \
-      -d '{
-        "is_active": true
-      }'
-    ```
+   ```bash
+   curl -X PATCH \
+     "$PRIMEAGENT_URL/api/v1/users/USER_ID" \
+     -H "Content-Type: application/json" \
+     -H "x-api-key: $PRIMEAGENT_API_KEY" \
+     -d '{
+       "is_active": true
+     }'
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
-    To grant administrative privileges, include `"is_superuser": true` in the same request.
-    To reset another user's password, `PATCH /api/v1/users/{id}` with `"password": "<new password>"`. That path does not require the current password. `PATCH /api/v1/users/{id}/reset-password` is self-service: it must be called as that user and requires `current_password`. See [Update user](./api-users#update-user).
-    To list, deactivate, or delete a user, see [Users endpoints](/api-users).
+   To grant administrative privileges, include `"is_superuser": true` in the same request.
+   To reset another user's password, `PATCH /api/v1/users/{id}` with `"password": "<new password>"`. That path does not require the current password. `PATCH /api/v1/users/{id}/reset-password` is self-service: it must be called as that user and requires `current_password`. See [Update user](./api-users#update-user).
+   To list, deactivate, or delete a user, see [Users endpoints](/api-users).
 
 6. Send the username and password to the user.
-    The superuser sets the initial password when creating the account.
+   The superuser sets the initial password when creating the account.
 
 7. To test the new user's access, sign out of Primeagent, and then sign in at `/login` with the new user's credentials.
-    A non-superuser can use the visual editor and cannot call the Users API to manage other accounts.
+   A non-superuser can use the visual editor and cannot call the Users API to manage other accounts.
 
 ## See also
 
-* [Authentication and authorization overview](./authentication-overview)
-* [SSO and external authentication](./external-authentication)
-* [Authorization](./authorization)
-* [Primeagent environment variables](/environment-variables)
-* [Users endpoints](/api-users)
-* [Primeagent Security Policy](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md) — reporting vulnerabilities, security configuration, and [secret key rotation](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md#secret-key-rotation)
+- [Authentication and authorization overview](./authentication-overview)
+- [SSO and external authentication](./external-authentication)
+- [Authorization](./authorization)
+- [Primeagent environment variables](/environment-variables)
+- [Users endpoints](/api-users)
+- [Primeagent Security Policy](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md) — reporting vulnerabilities, security configuration, and [secret key rotation](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md#secret-key-rotation)

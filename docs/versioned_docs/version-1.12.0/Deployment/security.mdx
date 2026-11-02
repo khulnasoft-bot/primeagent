@@ -13,10 +13,10 @@ Primeagent neither enforces isolation between users within a single Primeagent p
 :::warning
 You are responsible for the following:
 
-* Enforcing comprehensive infrastructure isolation.
-* Running flows safely, particularly flows that use LLM-generated code or user inputs that could contain user-submitted code.
-* Ensuring that end-user interactions with Primeagent-backed APIs are secure from end-to-end, including data at rest and in transit.
-:::
+- Enforcing comprehensive infrastructure isolation.
+- Running flows safely, particularly flows that use LLM-generated code or user inputs that could contain user-submitted code.
+- Ensuring that end-user interactions with Primeagent-backed APIs are secure from end-to-end, including data at rest and in transit.
+  :::
 
 ## Secure Primeagent during local development
 
@@ -32,9 +32,9 @@ When you are serving APIs backed by flows that you or your organization authored
 
 Follow industry best practices for APIs:
 
-* Use a secure API gateway to provide authentication and authorization
-* Ensure user data is appropriately isolated
-* Sanitize inputs and outputs against XSS and injection attacks, including regex patterns to prevent ReDoS vulnerabilities
+- Use a secure API gateway to provide authentication and authorization
+- Ensure user data is appropriately isolated
+- Sanitize inputs and outputs against XSS and injection attacks, including regex patterns to prevent ReDoS vulnerabilities
 
 For more information on setting up a reverse proxy, see [Deploy Primeagent with Nginx and SSL](/deployment-nginx-ssl).
 For more information on authentication configuration, see [API keys and authentication](/api-keys-and-authentication).
@@ -45,10 +45,10 @@ If you provide Primeagent as a service to third parties, you must assume that an
 
 Primeagent provides no isolation between tenants, so it's your responsibility to enforce isolation at the infrastructure level.
 
-* Use process-level isolation to prevent tenants from sharing a single Primeagent process.
-* Use disk-level isolation to prevent shared access to writable persistent storage.
-* Use network-level isolation to prevent access to private networks.
-* Use database-level isolation to prevent access to or modification of shared database resources.
+- Use process-level isolation to prevent tenants from sharing a single Primeagent process.
+- Use disk-level isolation to prevent shared access to writable persistent storage.
+- Use network-level isolation to prevent access to private networks.
+- Use database-level isolation to prevent access to or modification of shared database resources.
 
 Authentication and authorization must be provided and enforced outside of the Primeagent container.
 For shared services, such as databases, enforce access limitations externally through credentials and security policies.

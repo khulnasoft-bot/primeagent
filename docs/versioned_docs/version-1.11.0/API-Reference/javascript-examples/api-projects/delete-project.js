@@ -1,9 +1,9 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/projects/${process.env.PROJECT_ID ?? ""}`;
 
 const options = {
-  method: 'DELETE',
+  method: "DELETE",
   headers: {
-    "accept": `*/*`,
+    accept: `*/*`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
 };

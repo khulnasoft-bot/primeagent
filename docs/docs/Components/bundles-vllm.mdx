@@ -4,12 +4,14 @@ slug: /bundles-vllm
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import { GraduatedBundleInstall } from '@site/docs/_partial-bundle-graduated-install.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-install.mdx";
 
 <GraduatedBundleInstall packageName="vllm" />
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with Primeagent.
 
 This page describes the components that are available in the **vLLM** bundle.
 
@@ -33,18 +35,18 @@ For more information, see [Language model components](/components-models).
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| api_key | SecretString | Input parameter. The API Key to use for the vLLM model (optional for local servers). |
-| model_name | String | Input parameter. The name of the vLLM model to use (e.g., 'ibm-granite/granite-3.3-8b-instruct'). |
-| api_base | String | Input parameter. The base URL of the vLLM API server. Defaults to http://localhost:8000/v1 for local vLLM server. |
-| temperature | Float | Input parameter. Controls randomness in the output. Range: [0.0, 1.0]. Default: 0.1. |
-| max_tokens | Integer | Input parameter. The maximum number of tokens to generate. Set to 0 for unlimited tokens. |
-| seed | Integer | Input parameter. The seed controls the reproducibility of the job. Default: 1. |
-| max_retries | Integer | Input parameter. The maximum number of retries to make when generating. Default: 5. |
-| timeout | Integer | Input parameter. The timeout for requests to vLLM completion API. Default: 700. |
-| model_kwargs | Dict | Input parameter. Additional keyword arguments to pass to the model. |
-| json_mode | Boolean | Input parameter. If True, it will output JSON regardless of passing a schema. |
+| Name         | Type         | Description                                                                                                       |
+| ------------ | ------------ | ----------------------------------------------------------------------------------------------------------------- |
+| api_key      | SecretString | Input parameter. The API Key to use for the vLLM model (optional for local servers).                              |
+| model_name   | String       | Input parameter. The name of the vLLM model to use (e.g., 'ibm-granite/granite-3.3-8b-instruct').                 |
+| api_base     | String       | Input parameter. The base URL of the vLLM API server. Defaults to http://localhost:8000/v1 for local vLLM server. |
+| temperature  | Float        | Input parameter. Controls randomness in the output. Range: [0.0, 1.0]. Default: 0.1.                              |
+| max_tokens   | Integer      | Input parameter. The maximum number of tokens to generate. Set to 0 for unlimited tokens.                         |
+| seed         | Integer      | Input parameter. The seed controls the reproducibility of the job. Default: 1.                                    |
+| max_retries  | Integer      | Input parameter. The maximum number of retries to make when generating. Default: 5.                               |
+| timeout      | Integer      | Input parameter. The timeout for requests to vLLM completion API. Default: 700.                                   |
+| model_kwargs | Dict         | Input parameter. Additional keyword arguments to pass to the model.                                               |
+| json_mode    | Boolean      | Input parameter. If True, it will output JSON regardless of passing a schema.                                     |
 
 ## Setting up vLLM
 
@@ -71,8 +73,8 @@ For more information on multi-vector embeddings, see the [langchain-plaid reposi
 
 ## See also
 
-* [**Agent** component](/components-agents)
-* [**Language Model** component](/components-models)
-* [**NextPlaid** bundle](./bundles-nextplaid)
-* [**OpenAI Compatible** provider](./bundles-openai-compatible)
-* [vLLM GitHub repository](https://github.com/vllm-project/vllm)
+- [**Agent** component](/components-agents)
+- [**Language Model** component](/components-models)
+- [**NextPlaid** bundle](./bundles-nextplaid)
+- [**OpenAI Compatible** provider](./bundles-openai-compatible)
+- [vLLM GitHub repository](https://github.com/vllm-project/vllm)

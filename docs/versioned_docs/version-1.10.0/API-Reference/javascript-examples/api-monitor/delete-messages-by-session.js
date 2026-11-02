@@ -1,9 +1,9 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/monitor/messages/session/different_session_id_2`;
 
 const options = {
-  method: 'DELETE',
+  method: "DELETE",
   headers: {
-    "accept": `*/*`,
+    accept: `*/*`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
 };

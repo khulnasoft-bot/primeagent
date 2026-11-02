@@ -9,12 +9,12 @@ They are a good choice for flows that use custom, domain-specific datasets, like
 You can use knowledge base components in much the same way that you use vector store components.
 However, there are several key differences:
 
-* **Local storage by default**: Primeagent knowledge bases use SQLite local storage by default, unless you configure another DB Provider such as Postgres pgvector.
-In contrast, only some vector store components support local databases.
-* **Built-in embedding models**: Primeagent knowledge bases include built-in support for several embedding models.
-Other models aren't supported for use with knowledge bases.
-To use a different provider or model, you must use a vector store component along with your preferred embedding model component.
-* **Basic similarity search**: When querying Primeagent knowledge bases, only standard similarity search is supported.
-For more advanced searches, you must use a vector store component for a vector database provider that supports your desired functionality.
-* **Structured data**: Primeagent knowledge bases only support structured data.
-For unstructured data, you must use a compatible vector store component.
+- **Local storage by default**: Primeagent knowledge bases use SQLite local storage by default, unless you configure another DB Provider such as Postgres pgvector.
+  In contrast, only some vector store components support local databases.
+- **Built-in embedding models**: Primeagent knowledge bases include built-in support for several embedding models.
+  Other models aren't supported for use with knowledge bases.
+  To use a different provider or model, you must use a vector store component along with your preferred embedding model component.
+- **Basic similarity search**: When querying Primeagent knowledge bases, only standard similarity search is supported.
+  For more advanced searches, you must use a vector store component for a vector database provider that supports your desired functionality.
+- **Structured data**: Primeagent knowledge bases only support structured data.
+  For unstructured data, you must use a compatible vector store component.

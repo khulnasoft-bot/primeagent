@@ -1,21 +1,21 @@
 const url = `${process.env.PRIMEAGENT_SERVER_URL ?? ""}/api/v2/workflows`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
   body: JSON.stringify({
-  "flow_id": "67ccd2be-17f0-8190-81ff-3bb2cf6508e6",
-  "input_value": "what is 2+2",
-  "session_id": "session-123",
-  "mode": "sync",
-  "globals": {
-    "FILENAME": "relatório—final.pdf",
-    "OWNER_NAME": "José"
-  }
-}),
+    flow_id: "67ccd2be-17f0-8190-81ff-3bb2cf6508e6",
+    input_value: "what is 2+2",
+    session_id: "session-123",
+    mode: "sync",
+    globals: {
+      FILENAME: "relatório—final.pdf",
+      OWNER_NAME: "José",
+    },
+  }),
 };
 
 fetch(url, options)

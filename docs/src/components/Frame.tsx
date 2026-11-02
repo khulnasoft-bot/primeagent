@@ -41,7 +41,9 @@ export default function Frame({
   return (
     <figure className="lf-frame">
       <div className="lf-frame-content">{renderImages()}</div>
-      {caption && <figcaption className="lf-frame-caption">{caption}</figcaption>}
+      {caption && (
+        <figcaption className="lf-frame-caption">{caption}</figcaption>
+      )}
     </figure>
   );
 }

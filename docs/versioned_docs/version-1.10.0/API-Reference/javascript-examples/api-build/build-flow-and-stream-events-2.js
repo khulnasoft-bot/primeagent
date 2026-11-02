@@ -1,9 +1,9 @@
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/build/123e4567-e89b-12d3-a456-426614174000/events`;
 
 const options = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    "accept": `application/json`,
+    accept: `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
 };

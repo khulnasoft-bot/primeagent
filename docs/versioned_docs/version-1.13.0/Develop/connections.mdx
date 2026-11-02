@@ -10,9 +10,9 @@ Google Workspace, Microsoft 365, and Slack components can re-use **Connections**
 
 ## Prerequisite
 
-* Configure a provider's OAuth registration.
+- Configure a provider's OAuth registration.
   To configure OAuth, see [Configure connection OAuth](./connection-oauth).
-* Sign in to the Primeagent server. Any signed-in user can create their own connection.
+- Sign in to the Primeagent server. Any signed-in user can create their own connection.
 
 ## Add a connection
 
@@ -74,18 +74,19 @@ To transfer a flow connection from one server to another, do the following:
 
 Open <Icon name="Ellipsis" aria-hidden="true" /> **Actions** on the row.
 
-* **Check credential** tests the stored credential. It is available after the connection has one.
-* **Authorize** or **Reconnect** starts consent again. Scopes the connection already holds stay selected. Check another scope to add it, or clear one to drop it. A pending connection offers **Authorize**. A connection that already completed consent offers **Reconnect**.
-* **Rename** changes the display name. The handle stays the same, so flows that reference it keep working.
-* **Allow scheduled and deployed runs** lets the owner opt a user-owned connection into unattended execution.
+- **Check credential** tests the stored credential. It is available after the connection has one.
+- **Authorize** or **Reconnect** starts consent again. Scopes the connection already holds stay selected. Check another scope to add it, or clear one to drop it. A pending connection offers **Authorize**. A connection that already completed consent offers **Reconnect**.
+- **Rename** changes the display name. The handle stays the same, so flows that reference it keep working.
+- **Allow scheduled and deployed runs** lets the owner opt a user-owned connection into unattended execution.
 
-    Enable this setting for owner-based webhooks, deployments, and resumed jobs that use a user-owned connection. For example, `POST /api/v1/webhook/FLOW_ID` runs the flow as the flow's owner and resolves connections for that owner.
+  Enable this setting for owner-based webhooks, deployments, and resumed jobs that use a user-owned connection. For example, `POST /api/v1/webhook/FLOW_ID` runs the flow as the flow's owner and resolves connections for that owner.
 
-    The authenticated playground and `POST /api/v1/run` endpoints act as the signed-in caller. They can use the caller's own connections, connections shared with the caller, or instance connections without enabling this setting.
+  The authenticated playground and `POST /api/v1/run` endpoints act as the signed-in caller. They can use the caller's own connections, connections shared with the caller, or instance connections without enabling this setting.
 
-    A [public playground link](/concepts-playground#share-a-flows-playground) or an [A2A agent](/a2a-server) cannot use a connection, whether this setting is enabled or disabled.
-* **Revoke** removes the stored credential. The row stays, with status **Revoked**, and later runs fail until someone authorizes the connection again.
-* **Delete** removes the connection. It is available after the credential is gone, so revoke the connection first, or delete it while it is still **Pending**.
+  A [public playground link](/concepts-playground#share-a-flows-playground) or an [A2A agent](/a2a-server) cannot use a connection, whether this setting is enabled or disabled.
+
+- **Revoke** removes the stored credential. The row stays, with status **Revoked**, and later runs fail until someone authorizes the connection again.
+- **Delete** removes the connection. It is available after the credential is gone, so revoke the connection first, or delete it while it is still **Pending**.
 
 Revoking a Google connection authorized through OAuth sign-in also asks Google to revoke the token.
 For Slack, Primeagent asks Slack to revoke the stored token whether you used OAuth sign-in or **Paste a token**.
@@ -94,6 +95,3 @@ it says that the credential was only removed from Primeagent and directs you to 
 For a Slack Socket Mode app-level token (`xapp-`), use **Basic Information > App-Level Tokens** in the Slack app's settings if Slack rejects the revocation request.
 Microsoft Entra has no per-grant revocation endpoint for this flow, so an administrator removes the app's consent in Entra when upstream revocation is required.
 For the provider differences, see [Provider revocation and token rotation](./connection-oauth#provider-revocation-and-token-rotation).
-
-
-

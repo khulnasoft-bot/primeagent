@@ -1,9 +1,9 @@
 const url = `${process.env.PRIMEAGENT_SERVER_URL ?? ""}/api/v1/version`;
 
 const options = {
-  method: 'GET',
+  method: "GET",
   headers: {
-    "accept": `application/json`,
+    accept: `application/json`,
   },
 };
 

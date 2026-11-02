@@ -10,7 +10,11 @@ const flowName = path.basename(flowImportPath);
 const url = `${process.env.PRIMEAGENT_URL ?? ""}/api/v1/flows/upload/?folder_id=${process.env.FOLDER_ID ?? ""}`;
 
 const formData = new FormData();
-formData.append("file", new Blob([flowBuf], { type: "application/json" }), flowName);
+formData.append(
+  "file",
+  new Blob([flowBuf], { type: "application/json" }),
+  flowName,
+);
 
 const options = {
   method: "POST",

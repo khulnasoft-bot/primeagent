@@ -2,43 +2,41 @@
 title: OpenAI Responses API
 slug: /api-openai-responses
 ---
-import CodeBlock from '@theme/CodeBlock';
-import exampleApiOpenaiResponsesExampleRequest from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/example-request.sh';
-import exampleApiOpenaiResponsesExampleStreamingRequest from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/example-streaming-request.sh';
-import resultApiOpenaiResponsesResultExampleStreamingRequest from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/result-example-streaming-request.json';
-import exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/continue-conversations-with-response-and-session-ids.sh';
-import resultApiOpenaiResponsesResultContinueConversationsWithResponseAndSessionIds from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/result-continue-conversations-with-response-and-session-ids.json';
-import exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2 from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-2.sh';
-import resultApiOpenaiResponsesResultContinueConversationsWithResponseAndSessionIds2 from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/result-continue-conversations-with-response-and-session-ids-2.json';
-import exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3 from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-3.sh';
-import exampleApiOpenaiResponsesRetrieveToolCallResults from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/retrieve-tool-call-results.sh';
-import resultApiOpenaiResponsesResultRetrieveToolCallResults from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/result-retrieve-tool-call-results.json';
-import exampleApiOpenaiResponsesPassGlobalVariablesToYourFlowsInHeaders from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/pass-global-variables-to-your-flows-in-headers.sh';
-import exampleApiOpenaiResponsesTokenUsageTracking from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/token-usage-tracking.sh';
-import examplePythonApiOpenaiResponsesAdditionalConfigurationForOpenaiClientLibraries from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/additional-configuration-for-openai-client-libraries.py';
-import exampleJavascriptApiOpenaiResponsesAdditionalConfigurationForOpenaiClientLibraries from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/additional-configuration-for-openai-client-libraries.ts';
-import examplePythonApiOpenaiResponsesTokenUsageTracking from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/token-usage-tracking.py';
-import examplePythonApiOpenaiResponsesExampleRequest from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/example-request.py';
-import exampleJavascriptApiOpenaiResponsesExampleRequest from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/example-request.js';
-import examplePythonApiOpenaiResponsesExampleStreamingRequest from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/example-streaming-request.py';
-import exampleJavascriptApiOpenaiResponsesExampleStreamingRequest from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/example-streaming-request.js';
-import examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/continue-conversations-with-response-and-session-ids.py';
-import exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/continue-conversations-with-response-and-session-ids.js';
-import examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2 from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-2.py';
-import exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2 from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-2.js';
-import examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3 from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-3.py';
-import exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3 from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-3.js';
-import examplePythonApiOpenaiResponsesRetrieveToolCallResults from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/retrieve-tool-call-results.py';
-import exampleJavascriptApiOpenaiResponsesRetrieveToolCallResults from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/retrieve-tool-call-results.js';
-import examplePythonApiOpenaiResponsesPassGlobalVariablesToYourFlowsInHeaders from '!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/pass-global-variables-to-your-flows-in-headers.py';
-import exampleJavascriptApiOpenaiResponsesPassGlobalVariablesToYourFlowsInHeaders from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/pass-global-variables-to-your-flows-in-headers.js';
-import exampleJavascriptApiOpenaiResponsesTokenUsageTracking from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/token-usage-tracking.js';
 
+import CodeBlock from "@theme/CodeBlock";
+import exampleApiOpenaiResponsesExampleRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/example-request.sh";
+import exampleApiOpenaiResponsesExampleStreamingRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/example-streaming-request.sh";
+import resultApiOpenaiResponsesResultExampleStreamingRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/result-example-streaming-request.json";
+import exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/continue-conversations-with-response-and-session-ids.sh";
+import resultApiOpenaiResponsesResultContinueConversationsWithResponseAndSessionIds from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/result-continue-conversations-with-response-and-session-ids.json";
+import exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-2.sh";
+import resultApiOpenaiResponsesResultContinueConversationsWithResponseAndSessionIds2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/result-continue-conversations-with-response-and-session-ids-2.json";
+import exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-3.sh";
+import exampleApiOpenaiResponsesRetrieveToolCallResults from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/retrieve-tool-call-results.sh";
+import resultApiOpenaiResponsesResultRetrieveToolCallResults from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/result-retrieve-tool-call-results.json";
+import exampleApiOpenaiResponsesPassGlobalVariablesToYourFlowsInHeaders from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/pass-global-variables-to-your-flows-in-headers.sh";
+import exampleApiOpenaiResponsesTokenUsageTracking from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-openai-responses/token-usage-tracking.sh";
+import examplePythonApiOpenaiResponsesAdditionalConfigurationForOpenaiClientLibraries from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/additional-configuration-for-openai-client-libraries.py";
+import exampleJavascriptApiOpenaiResponsesAdditionalConfigurationForOpenaiClientLibraries from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/additional-configuration-for-openai-client-libraries.ts";
+import examplePythonApiOpenaiResponsesTokenUsageTracking from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/token-usage-tracking.py";
+import examplePythonApiOpenaiResponsesExampleRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/example-request.py";
+import exampleJavascriptApiOpenaiResponsesExampleRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/example-request.js";
+import examplePythonApiOpenaiResponsesExampleStreamingRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/example-streaming-request.py";
+import exampleJavascriptApiOpenaiResponsesExampleStreamingRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/example-streaming-request.js";
+import examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/continue-conversations-with-response-and-session-ids.py";
+import exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/continue-conversations-with-response-and-session-ids.js";
+import examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2 from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-2.py";
+import exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2 from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-2.js";
+import examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3 from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-3.py";
+import exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3 from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/continue-conversations-with-response-and-session-ids-3.js";
+import examplePythonApiOpenaiResponsesRetrieveToolCallResults from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/retrieve-tool-call-results.py";
+import exampleJavascriptApiOpenaiResponsesRetrieveToolCallResults from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/retrieve-tool-call-results.js";
+import examplePythonApiOpenaiResponsesPassGlobalVariablesToYourFlowsInHeaders from "!!raw-loader!@site/docs/API-Reference/python-examples/api-openai-responses/pass-global-variables-to-your-flows-in-headers.py";
+import exampleJavascriptApiOpenaiResponsesPassGlobalVariablesToYourFlowsInHeaders from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/pass-global-variables-to-your-flows-in-headers.js";
+import exampleJavascriptApiOpenaiResponsesTokenUsageTracking from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-openai-responses/token-usage-tracking.js";
 
-
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Primeagent includes an endpoint that is compatible with the [OpenAI Responses API](https://platform.openai.com/docs/api-reference/responses).
 It is available at `POST /api/v1/responses`.
@@ -52,12 +50,12 @@ You can find Flow IDs in the code snippets on the [**API access** pane](/concept
 To be compatible with Primeagent's OpenAI Responses API endpoint, your flow and request must adhere to the following requirements:
 
 - **Chat Input**: Your flow must contain a **Chat Input** component.
-Flows without this component return an error when passed to this endpoint.
-The component types `ChatInput` and `Chat Input` are recognized as chat inputs.
+  Flows without this component return an error when passed to this endpoint.
+  The component types `ChatInput` and `Chat Input` are recognized as chat inputs.
 - **Tools**: The `tools` parameter isn't supported, and returns an error if provided.
 - **Model Names**: In your request, the `model` field must contain a valid flow ID or endpoint name.
 - **Authentication**: All requests require an API key passed in the `x-api-key` header.
-For more information, see [API keys and authentication](/api-keys-and-authentication).
+  For more information, see [API keys and authentication](/api-keys-and-authentication).
 
 ### Additional configuration for OpenAI client libraries
 
@@ -67,37 +65,35 @@ When sending requests to Primeagent with OpenAI client libraries, you must confi
 The `api_key` parameter can have any value, such as `"dummy-api-key"` in the client examples, as the actual authentication is handled through the `default_headers` configuration.
 
 In the following examples, replace the values for `PRIMEAGENT_SERVER_URL`, `PRIMEAGENT_API_KEY`, and `FLOW_ID` with values from your deployment.
+
 <Tabs groupId="client">
 <TabItem value="Python" label="OpenAI Python Client" default>
 
-<CodeBlock language="python">{examplePythonApiOpenaiResponsesAdditionalConfigurationForOpenaiClientLibraries}</CodeBlock>
+<CodeBlock language="python">
+  {
+    examplePythonApiOpenaiResponsesAdditionalConfigurationForOpenaiClientLibraries
+  }
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="OpenAI TypeScript Client">
 
-<CodeBlock language="javascript">{exampleJavascriptApiOpenaiResponsesAdditionalConfigurationForOpenaiClientLibraries}</CodeBlock>
+<CodeBlock language="javascript">
+  {
+    exampleJavascriptApiOpenaiResponsesAdditionalConfigurationForOpenaiClientLibraries
+  }
+</CodeBlock>
 
 </TabItem>
 </Tabs>
 
 <details closed>
-<summary>Response</summary>
-```text
-Here are the event dates for the second Wednesday of each month in 2026:
-- January 14, 2026
-- February 11, 2026
-- March 11, 2026
-- April 8, 2026
-- May 13, 2026
-- June 10, 2026
-- July 8, 2026
-- August 12, 2026
-- September 9, 2026
-- October 14, 2026
-- November 11, 2026
-- December 9, 2026
-If you need these in a different format or want a downloadable calendar, let me know!
-```
+  <summary>Response</summary>
+  ```text Here are the event dates for the second Wednesday of each month in
+  2026: - January 14, 2026 - February 11, 2026 - March 11, 2026 - April 8, 2026
+  - May 13, 2026 - June 10, 2026 - July 8, 2026 - August 12, 2026 - September 9,
+  2026 - October 14, 2026 - November 11, 2026 - December 9, 2026 If you need
+  these in a different format or want a downloadable calendar, let me know! ```
 </details>
 
 ## Example request
@@ -105,12 +101,16 @@ If you need these in a different format or want a downloadable calendar, let me 
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiOpenaiResponsesExampleRequest}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiOpenaiResponsesExampleRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiOpenaiResponsesExampleRequest}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiOpenaiResponsesExampleRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -122,23 +122,23 @@ If you need these in a different format or want a downloadable calendar, let me 
 
 ### Headers
 
-| Header | Required | Description | Example |
-|--------|----------|-------------|---------|
-| `x-api-key` | Yes | Your Primeagent API key for authentication | `"sk-..."` |
-| `Content-Type` | Yes | Specifies the JSON format | `"application/json"` |
-| `X-PRIMEAGENT-GLOBAL-VAR-*` | No | Global variables for the flow | `"X-PRIMEAGENT-GLOBAL-VAR-API_KEY: sk-..."` For more, see [Pass global variables to your flows in headers](#global-var). |
+| Header                      | Required | Description                                | Example                                                                                                                  |
+| --------------------------- | -------- | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `x-api-key`                 | Yes      | Your Primeagent API key for authentication | `"sk-..."`                                                                                                               |
+| `Content-Type`              | Yes      | Specifies the JSON format                  | `"application/json"`                                                                                                     |
+| `X-PRIMEAGENT-GLOBAL-VAR-*` | No       | Global variables for the flow              | `"X-PRIMEAGENT-GLOBAL-VAR-API_KEY: sk-..."` For more, see [Pass global variables to your flows in headers](#global-var). |
 
 ### Request body
 
-| Field | Type | Required | Default | Description |
-|-------|------|----------|---------|-------------|
-| `model` | `string` | Yes | - | The flow ID or endpoint name to execute. |
-| `input` | `string` | Yes | - | The input text to process. |
-| `stream` | `boolean` | No | `false` | Whether to stream the response. |
-| `background` | `boolean` | No | `false` | Whether to process in background. |
-| `tools` | `list[Any]` | No | `null` | Tools are not supported yet. |
-| `previous_response_id` | `string` | No | `null` | ID of previous response to continue conversation. For more, see [Continue conversations with response and session IDs](#response-id). |
-| `include` | `list[string]` | No | `null` | Additional response data to include, such as `['tool_call.results']`. For more, see [Retrieve tool call results](#tool-call-results). |
+| Field                  | Type           | Required | Default | Description                                                                                                                           |
+| ---------------------- | -------------- | -------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| `model`                | `string`       | Yes      | -       | The flow ID or endpoint name to execute.                                                                                              |
+| `input`                | `string`       | Yes      | -       | The input text to process.                                                                                                            |
+| `stream`               | `boolean`      | No       | `false` | Whether to stream the response.                                                                                                       |
+| `background`           | `boolean`      | No       | `false` | Whether to process in background.                                                                                                     |
+| `tools`                | `list[Any]`    | No       | `null`  | Tools are not supported yet.                                                                                                          |
+| `previous_response_id` | `string`       | No       | `null`  | ID of previous response to continue conversation. For more, see [Continue conversations with response and session IDs](#response-id). |
+| `include`              | `list[string]` | No       | `null`  | Additional response data to include, such as `['tool_call.results']`. For more, see [Retrieve tool call results](#tool-call-results). |
 
 ## Example response
 
@@ -166,10 +166,10 @@ If you need these in a different format or want a downloadable calendar, let me 
   ],
   "parallel_tool_calls": true,
   "previous_response_id": null,
-  "reasoning": {"effort": null, "summary": null},
+  "reasoning": { "effort": null, "summary": null },
   "store": true,
   "temperature": 1.0,
-  "text": {"format": {"type": "text"}},
+  "text": { "format": { "type": "text" } },
   "tool_choice": "auto",
   "tools": [],
   "top_p": 1.0,
@@ -192,38 +192,38 @@ The default values are documented here for completeness and to show the full res
 
 Fields set dynamically by Primeagent:
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | `string` | Unique response identifier. |
-| `created_at` | `int` | Unix timestamp of response creation. |
-| `model` | `string` | The flow ID that was executed. |
-| `output` | `list[dict]` | Array of output items (messages, tool calls, etc.). |
-| `previous_response_id` | `string` | ID of previous response if continuing conversation. |
-| `usage` | `dict` | Token usage statistics if the `usage` field is available. Contains `prompt_tokens`, `completion_tokens`, and `total_tokens`. |
+| Field                  | Type         | Description                                                                                                                  |
+| ---------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| `id`                   | `string`     | Unique response identifier.                                                                                                  |
+| `created_at`           | `int`        | Unix timestamp of response creation.                                                                                         |
+| `model`                | `string`     | The flow ID that was executed.                                                                                               |
+| `output`               | `list[dict]` | Array of output items (messages, tool calls, etc.).                                                                          |
+| `previous_response_id` | `string`     | ID of previous response if continuing conversation.                                                                          |
+| `usage`                | `dict`       | Token usage statistics if the `usage` field is available. Contains `prompt_tokens`, `completion_tokens`, and `total_tokens`. |
 
 <details>
 <summary>Fields with OpenAI-compatible default values</summary>
 
-| Field | Type | Default Value | Description |
-|-------|------|---------------|-------------|
-| `object` | `string` | `"response"` | Always `"response"`. |
-| `status` | `string` | `"completed"` | Response status: `"completed"`, `"in_progress"`, or `"failed"`. |
-| `error` | `dict` | `null` | Error details (if any). |
-| `incomplete_details` | `dict` | `null` | Incomplete response details (if any). |
-| `instructions` | `string` | `null` | Response instructions (if any). |
-| `max_output_tokens` | `int` | `null` | Maximum output tokens (if any). |
-| `parallel_tool_calls` | `boolean` | `true` | Whether parallel tool calls are enabled. |
-| `reasoning` | `dict` | `{"effort": null, "summary": null}` | Reasoning information with effort and summary. |
-| `store` | `boolean` | `true` | Whether response is stored. |
-| `temperature` | `float` | `1.0` | Temperature setting. |
-| `text` | `dict` | `{"format": {"type": "text"}}` | Text format configuration. |
-| `tool_choice` | `string` | `"auto"` | Tool choice setting. |
-| `tools` | `list[dict]` | `[]` | Available tools. |
-| `top_p` | `float` | `1.0` | Top-p setting. |
-| `truncation` | `string` | `"disabled"` | Truncation setting. |
-| `usage` | `dict` | `null` | Token usage statistics. Set dynamically when available from flow components, otherwise `null`. See [Token usage tracking](#token-usage-tracking). |
-| `user` | `string` | `null` | User identifier (if any). |
-| `metadata` | `dict` | `{}` | Additional metadata. |
+| Field                 | Type         | Default Value                       | Description                                                                                                                                       |
+| --------------------- | ------------ | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `object`              | `string`     | `"response"`                        | Always `"response"`.                                                                                                                              |
+| `status`              | `string`     | `"completed"`                       | Response status: `"completed"`, `"in_progress"`, or `"failed"`.                                                                                   |
+| `error`               | `dict`       | `null`                              | Error details (if any).                                                                                                                           |
+| `incomplete_details`  | `dict`       | `null`                              | Incomplete response details (if any).                                                                                                             |
+| `instructions`        | `string`     | `null`                              | Response instructions (if any).                                                                                                                   |
+| `max_output_tokens`   | `int`        | `null`                              | Maximum output tokens (if any).                                                                                                                   |
+| `parallel_tool_calls` | `boolean`    | `true`                              | Whether parallel tool calls are enabled.                                                                                                          |
+| `reasoning`           | `dict`       | `{"effort": null, "summary": null}` | Reasoning information with effort and summary.                                                                                                    |
+| `store`               | `boolean`    | `true`                              | Whether response is stored.                                                                                                                       |
+| `temperature`         | `float`      | `1.0`                               | Temperature setting.                                                                                                                              |
+| `text`                | `dict`       | `{"format": {"type": "text"}}`      | Text format configuration.                                                                                                                        |
+| `tool_choice`         | `string`     | `"auto"`                            | Tool choice setting.                                                                                                                              |
+| `tools`               | `list[dict]` | `[]`                                | Available tools.                                                                                                                                  |
+| `top_p`               | `float`      | `1.0`                               | Top-p setting.                                                                                                                                    |
+| `truncation`          | `string`     | `"disabled"`                        | Truncation setting.                                                                                                                               |
+| `usage`               | `dict`       | `null`                              | Token usage statistics. Set dynamically when available from flow components, otherwise `null`. See [Token usage tracking](#token-usage-tracking). |
+| `user`                | `string`     | `null`                              | User identifier (if any).                                                                                                                         |
+| `metadata`            | `dict`       | `{}`                                | Additional metadata.                                                                                                                              |
 
 </details>
 
@@ -234,17 +234,23 @@ When you set `"stream": true` with your request, the API returns a stream where 
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiOpenaiResponsesExampleStreamingRequest}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiOpenaiResponsesExampleStreamingRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiOpenaiResponsesExampleStreamingRequest}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiOpenaiResponsesExampleStreamingRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleApiOpenaiResponsesExampleStreamingRequest}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleApiOpenaiResponsesExampleStreamingRequest}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -252,20 +258,22 @@ When you set `"stream": true` with your request, the API returns a stream where 
 <details>
 <summary>Result</summary>
 
-<CodeBlock language="json">{resultApiOpenaiResponsesResultExampleStreamingRequest}</CodeBlock>
+<CodeBlock language="json">
+  {resultApiOpenaiResponsesResultExampleStreamingRequest}
+</CodeBlock>
 
 </details>
 
 ### Streaming response body
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `id` | `string` | Unique response identifier. |
-| `object` | `string` | Always `"response.chunk"`. |
-| `created` | `int` | Unix timestamp of chunk creation. |
-| `model` | `string` | The flow ID that was executed. |
-| `delta` | `dict` | The new content chunk. |
-| `status` | `string` | Response status: `"completed"`, `"in_progress"`, or `"failed"` (optional). |
+| Field     | Type     | Description                                                                |
+| --------- | -------- | -------------------------------------------------------------------------- |
+| `id`      | `string` | Unique response identifier.                                                |
+| `object`  | `string` | Always `"response.chunk"`.                                                 |
+| `created` | `int`    | Unix timestamp of chunk creation.                                          |
+| `model`   | `string` | The flow ID that was executed.                                             |
+| `delta`   | `dict`   | The new content chunk.                                                     |
+| `status`  | `string` | Response status: `"completed"`, `"in_progress"`, or `"failed"` (optional). |
 
 The stream continues until a final chunk with `"status": "completed"` indicates the response is finished.
 
@@ -282,6 +290,7 @@ The stream continues until a final chunk with `"status": "completed"` indicates 
   "status": "completed"
 }
 ```
+
 </details>
 
 ## Continue conversations with response and session IDs {#response-id}
@@ -295,17 +304,27 @@ First Message:
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds}</CodeBlock>
+<CodeBlock language="python">
+  {
+    examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds
+  }
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds}</CodeBlock>
+<CodeBlock language="javascript">
+  {
+    exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds
+  }
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -313,7 +332,9 @@ First Message:
 <details>
 <summary>Result</summary>
 
-<CodeBlock language="json">{resultApiOpenaiResponsesResultContinueConversationsWithResponseAndSessionIds}</CodeBlock>
+<CodeBlock language="json">
+  {resultApiOpenaiResponsesResultContinueConversationsWithResponseAndSessionIds}
+</CodeBlock>
 
 </details>
 
@@ -322,17 +343,27 @@ Follow-up message:
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2}</CodeBlock>
+<CodeBlock language="python">
+  {
+    examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2
+  }
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2}</CodeBlock>
+<CodeBlock language="javascript">
+  {
+    exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2
+  }
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds2}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -340,7 +371,11 @@ Follow-up message:
 <details>
 <summary>Result</summary>
 
-<CodeBlock language="json">{resultApiOpenaiResponsesResultContinueConversationsWithResponseAndSessionIds2}</CodeBlock>
+<CodeBlock language="json">
+  {
+    resultApiOpenaiResponsesResultContinueConversationsWithResponseAndSessionIds2
+  }
+</CodeBlock>
 
 </details>
 
@@ -349,17 +384,27 @@ Optionally, you can use your own session ID values for the `previous_response_id
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3}</CodeBlock>
+<CodeBlock language="python">
+  {
+    examplePythonApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3
+  }
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3}</CodeBlock>
+<CodeBlock language="javascript">
+  {
+    exampleJavascriptApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3
+  }
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleApiOpenaiResponsesContinueConversationsWithResponseAndSessionIds3}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -414,22 +459,28 @@ For example:
 },
 ```
 
-To get the raw `results` of each tool execution, add  `include: ["tool_call.results"]` to the request payload:
+To get the raw `results` of each tool execution, add `include: ["tool_call.results"]` to the request payload:
 
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiOpenaiResponsesRetrieveToolCallResults}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiOpenaiResponsesRetrieveToolCallResults}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiOpenaiResponsesRetrieveToolCallResults}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiOpenaiResponsesRetrieveToolCallResults}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleApiOpenaiResponsesRetrieveToolCallResults}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleApiOpenaiResponsesRetrieveToolCallResults}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -443,14 +494,16 @@ For example:
   "type": "tool_call",
   "tool_name": "evaluate_expression",
   "queries": ["15*23"],
-  "results": {"result": "345"}
+  "results": { "result": "345" }
 }
 ```
 
 <details>
 <summary>Result</summary>
 
-<CodeBlock language="json">{resultApiOpenaiResponsesResultRetrieveToolCallResults}</CodeBlock>
+<CodeBlock language="json">
+  {resultApiOpenaiResponsesResultRetrieveToolCallResults}
+</CodeBlock>
 
 </details>
 
@@ -479,17 +532,23 @@ The `usage` field is always present in the response, either with token counts or
 <Tabs groupId="token-usage">
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonApiOpenaiResponsesTokenUsageTracking}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonApiOpenaiResponsesTokenUsageTracking}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiOpenaiResponsesTokenUsageTracking}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiOpenaiResponsesTokenUsageTracking}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleApiOpenaiResponsesTokenUsageTracking}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleApiOpenaiResponsesTokenUsageTracking}
+</CodeBlock>
 
 <details>
 <summary>Response with token usage</summary>

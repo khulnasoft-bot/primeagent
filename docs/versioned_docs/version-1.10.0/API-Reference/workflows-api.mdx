@@ -2,26 +2,24 @@
 title: Workflow API (Beta)
 slug: /workflow-api
 ---
-import CodeBlock from '@theme/CodeBlock';
-import exampleWorkflowsApiExampleSynchronousRequest from '!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-synchronous-request.sh';
-import exampleWorkflowsApiExampleAsynchronousRequest from '!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-asynchronous-request.sh';
-import exampleWorkflowsApiExampleRequest from '!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-request.sh';
-import exampleWorkflowsApiExampleRequest2 from '!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-request-2.sh';
-import examplePythonWorkflowsApiExampleSynchronousRequest from '!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-synchronous-request.py';
-import examplePythonWorkflowsApiExampleAsynchronousRequest from '!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-asynchronous-request.py';
-import examplePythonWorkflowsApiExampleRequest from '!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-request.py';
-import examplePythonWorkflowsApiExampleRequest2 from '!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-request-2.py';
-import exampleJavascriptWorkflowsApiExampleSynchronousRequest from '!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-synchronous-request.js';
-import exampleJavascriptWorkflowsApiExampleAsynchronousRequest from '!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-asynchronous-request.js';
-import exampleJavascriptWorkflowsApiExampleRequest from '!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-request.js';
-import exampleJavascriptWorkflowsApiExampleRequest2 from '!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-request-2.js';
 
+import CodeBlock from "@theme/CodeBlock";
+import exampleWorkflowsApiExampleSynchronousRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-synchronous-request.sh";
+import exampleWorkflowsApiExampleAsynchronousRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-asynchronous-request.sh";
+import exampleWorkflowsApiExampleRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-request.sh";
+import exampleWorkflowsApiExampleRequest2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-request-2.sh";
+import examplePythonWorkflowsApiExampleSynchronousRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-synchronous-request.py";
+import examplePythonWorkflowsApiExampleAsynchronousRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-asynchronous-request.py";
+import examplePythonWorkflowsApiExampleRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-request.py";
+import examplePythonWorkflowsApiExampleRequest2 from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-request-2.py";
+import exampleJavascriptWorkflowsApiExampleSynchronousRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-synchronous-request.js";
+import exampleJavascriptWorkflowsApiExampleAsynchronousRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-asynchronous-request.js";
+import exampleJavascriptWorkflowsApiExampleRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-request.js";
+import exampleJavascriptWorkflowsApiExampleRequest2 from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-request-2.js";
 
-
-
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import PartialAPISetup from '@site/docs/_partial-api-setup.mdx';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import PartialAPISetup from "@site/docs/_partial-api-setup.mdx";
 
 :::warning Beta Feature
 The Workflow API is currently in **Beta**.
@@ -54,17 +52,23 @@ Execute a workflow synchronously and receive complete results immediately:
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonWorkflowsApiExampleSynchronousRequest}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonWorkflowsApiExampleSynchronousRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptWorkflowsApiExampleSynchronousRequest}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptWorkflowsApiExampleSynchronousRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleWorkflowsApiExampleSynchronousRequest}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleWorkflowsApiExampleSynchronousRequest}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -84,17 +88,23 @@ The asynchronous request contains `stream` parameter, but streaming is not yet s
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonWorkflowsApiExampleAsynchronousRequest}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonWorkflowsApiExampleAsynchronousRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptWorkflowsApiExampleAsynchronousRequest}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptWorkflowsApiExampleAsynchronousRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
-<CodeBlock language="bash">{exampleWorkflowsApiExampleAsynchronousRequest}</CodeBlock>
+<CodeBlock language="bash">
+  {exampleWorkflowsApiExampleAsynchronousRequest}
+</CodeBlock>
 
 </TabItem>
 </Tabs>
@@ -112,13 +122,13 @@ The asynchronous request contains `stream` parameter, but streaming is not yet s
 
 ### Request body
 
-| Field | Type | Required | Default | Description |
-|-------|------|----------|---------|-------------|
-| `flow_id` | `string` | Yes | - | The ID or endpoint name of the flow to execute. |
-| `flow_version` | `string` | No | - | Optional version hash to pin to a specific flow version. |
-| `background` | `boolean` | No | `false` | Must be `false` for synchronous execution. |
-| `inputs` | `object` | No | `{}` | Inputs for the workflow execution. Uses component identifiers with dot notation (e.g., `ChatInput-abc.input_value`). See [Component identifiers and input structure](#component-identifiers-and-input-structure) for detailed information. |
-| `globals` | `object` | No | `{}` | Request-level global variables available to workflow components. Use this body field for arbitrary strings, including Unicode values. Keys are limited to 256 characters and values to 64 KB. See [Migrating from `X-PRIMEAGENT-GLOBAL-VAR-*` headers](#migrating-from-x-primeagent-global-var--headers). |
+| Field          | Type      | Required | Default | Description                                                                                                                                                                                                                                                                                               |
+| -------------- | --------- | -------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `flow_id`      | `string`  | Yes      | -       | The ID or endpoint name of the flow to execute.                                                                                                                                                                                                                                                           |
+| `flow_version` | `string`  | No       | -       | Optional version hash to pin to a specific flow version.                                                                                                                                                                                                                                                  |
+| `background`   | `boolean` | No       | `false` | Must be `false` for synchronous execution.                                                                                                                                                                                                                                                                |
+| `inputs`       | `object`  | No       | `{}`    | Inputs for the workflow execution. Uses component identifiers with dot notation (e.g., `ChatInput-abc.input_value`). See [Component identifiers and input structure](#component-identifiers-and-input-structure) for detailed information.                                                                |
+| `globals`      | `object`  | No       | `{}`    | Request-level global variables available to workflow components. Use this body field for arbitrary strings, including Unicode values. Keys are limited to 256 characters and values to 64 KB. See [Migrating from `X-PRIMEAGENT-GLOBAL-VAR-*` headers](#migrating-from-x-primeagent-global-var--headers). |
 
 ### Example response
 
@@ -155,13 +165,13 @@ The asynchronous request contains `stream` parameter, but streaming is not yet s
 
 The response includes an `outputs` field containing component-level results. Each output has a `type` field indicating the type of content:
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `message` | Text message content. | Chat responses, summaries |
-| `image` | Image URL or data. | Generated images, processed images |
-| `sql` | SQL query results. | Database query outputs |
-| `data` | Structured data. | JSON objects, arrays |
-| `file` | File reference. | Generated documents, reports |
+| Type      | Description           | Example                            |
+| --------- | --------------------- | ---------------------------------- |
+| `message` | Text message content. | Chat responses, summaries          |
+| `image`   | Image URL or data.    | Generated images, processed images |
+| `sql`     | SQL query results.    | Database query outputs             |
+| `data`    | Structured data.      | JSON objects, arrays               |
+| `file`    | File reference.       | Generated documents, reports       |
 
 ## Get workflow status endpoint
 
@@ -174,12 +184,16 @@ The response includes an `outputs` field containing component-level results. Eac
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonWorkflowsApiExampleRequest}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonWorkflowsApiExampleRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptWorkflowsApiExampleRequest}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptWorkflowsApiExampleRequest}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -191,11 +205,11 @@ The response includes an `outputs` field containing component-level results. Eac
 
 ### Query parameters
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| `job_id` | `string` | Yes | The job ID returned from a workflow execution. |
-| `stream` | `boolean` | No | If `true`, returns server-sent events stream. Default: `false`. |
-| `sequence_id` | `integer` | No | Optional sequence ID to resume streaming from a specific point. |
+| Parameter     | Type      | Required | Description                                                     |
+| ------------- | --------- | -------- | --------------------------------------------------------------- |
+| `job_id`      | `string`  | Yes      | The job ID returned from a workflow execution.                  |
+| `stream`      | `boolean` | No       | If `true`, returns server-sent events stream. Default: `false`. |
+| `sequence_id` | `integer` | No       | Optional sequence ID to resume streaming from a specific point. |
 
 ### Example response
 
@@ -230,13 +244,13 @@ The response includes an `outputs` field containing component-level results. Eac
 
 The response includes a `status` field that indicates the current state of the workflow execution:
 
-| Status | Description |
-|--------|-------------|
-| `queued` | Job is queued and waiting to start. |
-| `in_progress` | Job is currently executing. |
-| `completed` | Job completed successfully. |
-| `failed` | Job failed during execution. |
-| `error` | Job encountered an error. |
+| Status        | Description                         |
+| ------------- | ----------------------------------- |
+| `queued`      | Job is queued and waiting to start. |
+| `in_progress` | Job is currently executing.         |
+| `completed`   | Job completed successfully.         |
+| `failed`      | Job failed during execution.        |
+| `error`       | Job encountered an error.           |
 
 ## Stop workflow endpoint
 
@@ -249,12 +263,16 @@ The response includes a `status` field that indicates the current state of the w
 <Tabs>
 <TabItem value="Python" label="Python" default>
 
-<CodeBlock language="python">{examplePythonWorkflowsApiExampleRequest2}</CodeBlock>
+<CodeBlock language="python">
+  {examplePythonWorkflowsApiExampleRequest2}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptWorkflowsApiExampleRequest2}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptWorkflowsApiExampleRequest2}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -266,9 +284,9 @@ The response includes a `status` field that indicates the current state of the w
 
 ### Request body
 
-| Field | Type | Required | Default | Description |
-|-------|------|----------|---------|-------------|
-| `job_id` | `string` | Yes | - | The job ID of the workflow to stop. |
+| Field    | Type     | Required | Default | Description                         |
+| -------- | -------- | -------- | ------- | ----------------------------------- |
+| `job_id` | `string` | Yes      | -       | The job ID of the workflow to stop. |
 
 ### Example response
 
@@ -347,14 +365,14 @@ You can override any component's parameters.
 
 The API uses standard HTTP status codes to indicate success or failure:
 
-| Status Code | Description |
-|-------------|-------------|
-| `200 OK` | Request successful. |
-| `400 Bad Request` | Invalid request parameters. |
-| `401 Unauthorized` | Invalid or missing API key. |
-| `404 Not Found` | Flow not found or developer API disabled. |
-| `500 Internal Server Error` | Server error during execution. |
-| `501 Not Implemented` | Endpoint not yet implemented. |
+| Status Code                 | Description                               |
+| --------------------------- | ----------------------------------------- |
+| `200 OK`                    | Request successful.                       |
+| `400 Bad Request`           | Invalid request parameters.               |
+| `401 Unauthorized`          | Invalid or missing API key.               |
+| `404 Not Found`             | Flow not found or developer API disabled. |
+| `500 Internal Server Error` | Server error during execution.            |
+| `501 Not Implemented`       | Endpoint not yet implemented.             |
 
 ### Error response format
 

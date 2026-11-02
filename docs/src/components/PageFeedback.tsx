@@ -61,7 +61,7 @@ export function PageFeedback(): JSX.Element {
   const pageUrl =
     typeof window !== "undefined"
       ? window.location.href
-      : `https://docs.prime.khulnasoft.com${pathname}`;
+      : `https://prime.khulnasoft.com/docs${pathname}`;
 
   return (
     <div className={styles.root}>

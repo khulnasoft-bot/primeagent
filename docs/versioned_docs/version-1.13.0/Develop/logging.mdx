@@ -4,8 +4,8 @@ slug: /logging
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
 Primeagent produces logs for individual flows and the Primeagent application itself using the [structlog](https://www.structlog.org) library for logging.
 
@@ -17,35 +17,35 @@ The `PRIMEAGENT_CONFIG_DIR` environment variable controls where Primeagent store
 
 - **Primeagent Desktop**:
 
-    - **macOS**: `/Users/<username>/Library/Logs/com.PrimeagentDesktop`
-    - **Windows**: `C:\Users\<username>\AppData\Local\com.PrimeagentDesktop\logs`
+  - **macOS**: `/Users/<username>/Library/Logs/com.PrimeagentDesktop`
+  - **Windows**: `C:\Users\<username>\AppData\Local\com.PrimeagentDesktop\logs`
 
 - **OSS Primeagent** (all installation methods, including `uv pip install` and `git clone`):
 
-    - **macOS**: `/Users/<username>/Library/Caches/primeagent`
-    - **Linux**: `/home/<username>/.cache/primeagent`
-    - **Windows/WSL**: `C:\Users\<username>\AppData\Local\primeagent\primeagent\Cache`
+  - **macOS**: `/Users/<username>/Library/Caches/primeagent`
+  - **Linux**: `/home/<username>/.cache/primeagent`
+  - **Windows/WSL**: `C:\Users\<username>\AppData\Local\primeagent\primeagent\Cache`
 
 To customize log storage locations and behaviors, set the following [Primeagent environment variables](/environment-variables) in your Primeagent `.env` file, and then start Primeagent with `uv run primeagent run --env-file .env`:
 
-| Variable | Format | Default | Description |
-|----------|--------|---------|-------------|
-| `PRIMEAGENT_CONFIG_DIR` | String | Varies | Set the Primeagent configuration directory where files and logs are stored. Default path depends on your installation, as described in the preceding list. |
-| `PRIMEAGENT_ENABLE_LOG_RETRIEVAL` | Boolean | `False` | Enables retrieval of logs from your Primeagent instance with [Logs endpoints](/api-logs). |
-| `PRIMEAGENT_ENVIRONMENT` | String | Not set | Adds an `environment` field to every JSON log record when set (`staging`, `production`, etc.). Omitted otherwise. |
-| `PRIMEAGENT_LOG_ENV` | String | `default` | Primary log format controller. `container` or `container_json`: JSON format via [`JSONRenderer`](https://www.structlog.org/en/stable/api.html#structlog.processors.JSONRenderer). `container_csv`: Key-value format. `default` or unset: uses `PRIMEAGENT_PRETTY_LOGS` to determine format. See [JSON log format](#json-log-format). |
-| `PRIMEAGENT_LOG_FILE` | String | Not set | Sets the log file storage location. For example, `PRIMEAGENT_LOG_FILE=path/to/logfile.log`. If not set, logs are written to stdout. |
-| `PRIMEAGENT_LOG_FORMAT` | String | Not set | Set to `key_value` for key-value format or `console` for [`ConsoleRenderer`](https://www.structlog.org/en/stable/console-output.html). Only applies when `PRIMEAGENT_LOG_ENV=default` and `PRIMEAGENT_PRETTY_LOGS=true`. |
-| `PRIMEAGENT_LOG_LEVEL` | String | `ERROR` | Global log level. One of `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL`. |
-| `PRIMEAGENT_LOG_LEVELS` | String | Not set | Per-logger level overrides as `name=LEVEL,name=LEVEL`. Overrides `PRIMEAGENT_LOG_LEVEL` for specific loggers without changing the global default. Malformed entries raise a `UserWarning` at startup. Example: `sqlalchemy.engine=WARNING,httpx=INFO`. |
-| `PRIMEAGENT_LOG_REDACT_KEYS` | String | Not set | Comma-separated extra keys to scrub from JSON log records, on top of the defaults (`password`, `api_key`, `token`, `authorization`, `cookie`, etc.). |
-| `PRIMEAGENT_LOG_RETRIEVER_BUFFER_SIZE` | Integer | `10000` | Buffer size for log retrieval when `PRIMEAGENT_ENABLE_LOG_RETRIEVAL=True`. Must be greater than `0`. |
-| `PRIMEAGENT_LOG_ROTATION` | String | `1 day` | Controls log file rotation by time (`1 day`, `12 hours`, `1 week`) or size (`10 MB`, `1 GB`). Set to `None` to disable rotation. |
-| `PRIMEAGENT_LOG_TRACE_LOCALS` | Boolean | `false` | Include frame locals in structured tracebacks. Off by default because locals can leak secrets; enable only for local debugging. |
-| `PRIMEAGENT_NATIVE_TRACING` | Boolean | `true` | Enables the tracer to record execution traces in the Primeagent database for use in Trace View. Set to `false` to disable. |
-| `PRIMEAGENT_PRETTY_LOGS` | Boolean | `True` | Controls output format when `PRIMEAGENT_LOG_ENV=default` or unset. `true`: [`ConsoleRenderer`](https://www.structlog.org/en/stable/console-output.html) (human-readable). `false`: JSON format. |
-| `PRIMEAGENT_SERVICE_NAME` | String | `primeagent` | Value of the `service` field on every JSON log record. Used as a label by log aggregators. See [Grafana Loki](./observability-grafana-loki.mdx). |
-| `PRIMEAGENT_VERSION` | String | Not set | Adds a `version` field to every JSON log record when set. Omitted otherwise. |
+| Variable                               | Format  | Default      | Description                                                                                                                                                                                                                                                                                                                          |
+| -------------------------------------- | ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `PRIMEAGENT_CONFIG_DIR`                | String  | Varies       | Set the Primeagent configuration directory where files and logs are stored. Default path depends on your installation, as described in the preceding list.                                                                                                                                                                           |
+| `PRIMEAGENT_ENABLE_LOG_RETRIEVAL`      | Boolean | `False`      | Enables retrieval of logs from your Primeagent instance with [Logs endpoints](/api-logs).                                                                                                                                                                                                                                            |
+| `PRIMEAGENT_ENVIRONMENT`               | String  | Not set      | Adds an `environment` field to every JSON log record when set (`staging`, `production`, etc.). Omitted otherwise.                                                                                                                                                                                                                    |
+| `PRIMEAGENT_LOG_ENV`                   | String  | `default`    | Primary log format controller. `container` or `container_json`: JSON format via [`JSONRenderer`](https://www.structlog.org/en/stable/api.html#structlog.processors.JSONRenderer). `container_csv`: Key-value format. `default` or unset: uses `PRIMEAGENT_PRETTY_LOGS` to determine format. See [JSON log format](#json-log-format). |
+| `PRIMEAGENT_LOG_FILE`                  | String  | Not set      | Sets the log file storage location. For example, `PRIMEAGENT_LOG_FILE=path/to/logfile.log`. If not set, logs are written to stdout.                                                                                                                                                                                                  |
+| `PRIMEAGENT_LOG_FORMAT`                | String  | Not set      | Set to `key_value` for key-value format or `console` for [`ConsoleRenderer`](https://www.structlog.org/en/stable/console-output.html). Only applies when `PRIMEAGENT_LOG_ENV=default` and `PRIMEAGENT_PRETTY_LOGS=true`.                                                                                                             |
+| `PRIMEAGENT_LOG_LEVEL`                 | String  | `ERROR`      | Global log level. One of `DEBUG`, `INFO`, `WARNING`, `ERROR`, or `CRITICAL`.                                                                                                                                                                                                                                                         |
+| `PRIMEAGENT_LOG_LEVELS`                | String  | Not set      | Per-logger level overrides as `name=LEVEL,name=LEVEL`. Overrides `PRIMEAGENT_LOG_LEVEL` for specific loggers without changing the global default. Malformed entries raise a `UserWarning` at startup. Example: `sqlalchemy.engine=WARNING,httpx=INFO`.                                                                               |
+| `PRIMEAGENT_LOG_REDACT_KEYS`           | String  | Not set      | Comma-separated extra keys to scrub from JSON log records, on top of the defaults (`password`, `api_key`, `token`, `authorization`, `cookie`, etc.).                                                                                                                                                                                 |
+| `PRIMEAGENT_LOG_RETRIEVER_BUFFER_SIZE` | Integer | `10000`      | Buffer size for log retrieval when `PRIMEAGENT_ENABLE_LOG_RETRIEVAL=True`. Must be greater than `0`.                                                                                                                                                                                                                                 |
+| `PRIMEAGENT_LOG_ROTATION`              | String  | `1 day`      | Controls log file rotation by time (`1 day`, `12 hours`, `1 week`) or size (`10 MB`, `1 GB`). Set to `None` to disable rotation.                                                                                                                                                                                                     |
+| `PRIMEAGENT_LOG_TRACE_LOCALS`          | Boolean | `false`      | Include frame locals in structured tracebacks. Off by default because locals can leak secrets; enable only for local debugging.                                                                                                                                                                                                      |
+| `PRIMEAGENT_NATIVE_TRACING`            | Boolean | `true`       | Enables the tracer to record execution traces in the Primeagent database for use in Trace View. Set to `false` to disable.                                                                                                                                                                                                           |
+| `PRIMEAGENT_PRETTY_LOGS`               | Boolean | `True`       | Controls output format when `PRIMEAGENT_LOG_ENV=default` or unset. `true`: [`ConsoleRenderer`](https://www.structlog.org/en/stable/console-output.html) (human-readable). `false`: JSON format.                                                                                                                                      |
+| `PRIMEAGENT_SERVICE_NAME`              | String  | `primeagent` | Value of the `service` field on every JSON log record. Used as a label by log aggregators. See [Grafana Loki](./observability-grafana-loki.mdx).                                                                                                                                                                                     |
+| `PRIMEAGENT_VERSION`                   | String  | Not set      | Adds a `version` field to every JSON log record when set. Omitted otherwise.                                                                                                                                                                                                                                                         |
 
 ## View logs in real-time
 
@@ -65,44 +65,43 @@ By default, OSS Primeagent writes logs to stdout. To write logs to a file that y
 
 3. Change to the directory where you set `PRIMEAGENT_LOG_FILE`:
 
-    <Tabs groupId="cd-command">
-    <TabItem value="macOS" label="macOS" default>
+   <Tabs groupId="cd-command">
+<TabItem value="macOS" label="macOS" default>
 
-    ```bash
-    cd /Users/**USERNAME**/Library/Caches/primeagent
-    ```
+   ```bash
+   cd /Users/**USERNAME**/Library/Caches/primeagent
+   ```
 
-    </TabItem>
-    <TabItem value="Windows" label="Windows">
+   </TabItem>
+<TabItem value="Windows" label="Windows">
 
-    ```cmd
-    cd C:\Users\**USERNAME**\AppData\Local\com.PrimeagentDesktop\logs
-    ```
+   ```cmd
+   cd C:\Users\**USERNAME**\AppData\Local\com.PrimeagentDesktop\logs
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
 4. Tail the log file:
 
-    <Tabs groupId="tail-command">
-    <TabItem value="macOS" label="macOS" default>
+   <Tabs groupId="tail-command">
+<TabItem value="macOS" label="macOS" default>
 
-    ```bash
-    tail -f primeagent.log
-    ```
+   ```bash
+   tail -f primeagent.log
+   ```
 
-    </TabItem>
-    <TabItem value="Windows" label="Windows">
+   </TabItem>
+<TabItem value="Windows" label="Windows">
 
-    ```cmd
-    Get-Content -Wait -Path primeagent.log
-    ```
+   ```cmd
+   Get-Content -Wait -Path primeagent.log
+   ```
 
-    </TabItem>
-    </Tabs>
+   </TabItem>
+</Tabs>
 
-    If you don't see new log entries, check that Primeagent is running, and perform some actions to generate logs events. You can also check the terminal where you started Primeagent to see if logs are being printed there.
-
+   If you don't see new log entries, check that Primeagent is running, and perform some actions to generate logs events. You can also check the terminal where you started Primeagent to see if logs are being printed there.
 
 ## Flow and component logs
 
@@ -159,11 +158,13 @@ Follow the steps for your operating system.
 <TabItem value="macos" label="macOS">
 
 1. Open Terminal and run:
+
    ```bash
    cd ~/Library/Logs/com.PrimeagentDesktop
    ```
 
 2. To open the folder and view the log files, run the command:
+
    ```bash
    open .
    ```
@@ -245,7 +246,7 @@ When a log record includes an exception, the `exception` field contains a struct
       "exc_type": "ConnectionError",
       "exc_value": "upstream returned 503",
       "frames": [
-        {"filename": "/app/.../runner.py", "lineno": 142, "name": "run_flow"}
+        { "filename": "/app/.../runner.py", "lineno": 142, "name": "run_flow" }
       ]
     }
   ]
@@ -264,8 +265,8 @@ If `opentelemetry-api` is installed and an active span is present, every log rec
 
 ## See also
 
-* [Audit logging](./audit-logging)
-* [Grafana Loki](./observability-grafana-loki.mdx)
-* [Logs endpoints](/api-logs)
-* [Memory management options](/memory)
-* [Configure an external PostgreSQL database](/configuration-custom-database)
+- [Audit logging](./audit-logging)
+- [Grafana Loki](./observability-grafana-loki.mdx)
+- [Logs endpoints](/api-logs)
+- [Memory management options](/memory)
+- [Configure an external PostgreSQL database](/configuration-custom-database)

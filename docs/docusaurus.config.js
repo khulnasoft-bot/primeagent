@@ -3,7 +3,6 @@
 
 const path = require("path");
 
-
 const { lightNeonPrismTheme, grafiteNeonTheme } = require("./src/prismThemes");
 
 const rehypeWbrUnderscore = require("./src/plugins/rehypeWbrUnderscore");
@@ -16,8 +15,8 @@ const config = {
   tagline:
     "Primeagent is a low-code app builder for RAG and multi-agent AI applications.",
   favicon: "img/favicon.ico",
-  url: "https://docs.prime.khulnasoft.com",
-  baseUrl: process.env.BASE_URL ? process.env.BASE_URL : "/",
+  url: "https://prime.khulnasoft.com",
+  baseUrl: process.env.BASE_URL ? process.env.BASE_URL : "/docs/",
   onBrokenLinks: "throw",
   onBrokenAnchors: "warn",
   organizationName: "khulnasoft-bot",
@@ -241,7 +240,13 @@ const config = {
     },
     ["docusaurus-node-polyfills", { excludeAliases: ["console"] }],
     "docusaurus-plugin-image-zoom",
-    ["./src/plugins/segment", { segmentPublicWriteKey: process.env.SEGMENT_PUBLIC_WRITE_KEY, allowedInDev: true }],
+    [
+      "./src/plugins/segment",
+      {
+        segmentPublicWriteKey: process.env.SEGMENT_PUBLIC_WRITE_KEY,
+        allowedInDev: true,
+      },
+    ],
     [
       "@docusaurus/plugin-client-redirects",
       {
@@ -356,17 +361,11 @@ const config = {
           },
           {
             to: "/get-started-quickstart",
-            from: [
-              "/basic-prompting",
-              "/starter-projects-basic-prompting",
-            ],
+            from: ["/basic-prompting", "/starter-projects-basic-prompting"],
           },
           {
             to: "/chat-with-rag",
-            from: [
-              "/vector-store-rag",
-              "/starter-projects-vector-store-rag",
-            ],
+            from: ["/vector-store-rag", "/starter-projects-vector-store-rag"],
           },
           {
             to: "/components-bundle-components",
@@ -397,11 +396,7 @@ const config = {
           },
           {
             to: "/concepts-publish",
-            from: [
-              "/concepts-api",
-              "/workspace-api",
-              "/embedded-chat-widget",
-            ],
+            from: ["/concepts-api", "/workspace-api", "/embedded-chat-widget"],
           },
           {
             to: "/components-custom-components",
@@ -473,14 +468,11 @@ const config = {
               "/integrations-nvidia-ingest",
               "/integrations-nvidia-g-assist",
               "/integrations-nvidia-system-assist",
-            ]
+            ],
           },
           {
             to: "/legacy-core-components",
-            from: [
-              "/directory",
-              "/text-input-and-output",
-            ]
+            from: ["/directory", "/text-input-and-output"],
           },
           {
             to: "/operations",
@@ -488,7 +480,7 @@ const config = {
               "/data-operations",
               "/dataframe-operations",
               "/text-operations",
-            ]
+            ],
           },
           {
             to: "/api#tag/Workflow",
@@ -544,8 +536,8 @@ const config = {
         },
         items: [
           {
-            type: 'docsVersionDropdown',
-            position: 'left',
+            type: "docsVersionDropdown",
+            position: "left",
           },
           // right
           {
@@ -555,12 +547,12 @@ const config = {
             target: "_blank",
             rel: null,
             "aria-label": "GitHub",
-            'data-event': 'UI Interaction',
-            'data-action': 'clicked',
-            'data-channel': 'docs',
-            'data-element-id': 'social-github',
-            'data-namespace': 'header',
-            'data-platform-title': 'Primeagent'
+            "data-event": "UI Interaction",
+            "data-action": "clicked",
+            "data-channel": "docs",
+            "data-element-id": "social-github",
+            "data-namespace": "header",
+            "data-platform-title": "Primeagent",
           },
           {
             position: "right",
@@ -569,12 +561,12 @@ const config = {
             target: "_blank",
             rel: null,
             "aria-label": "Twitter",
-            'data-event': 'UI Interaction',
-            'data-action': 'clicked',
-            'data-channel': 'docs',
-            'data-element-id': 'social-twitter',
-            'data-namespace': 'header',
-            'data-platform-title': 'Primeagent'
+            "data-event": "UI Interaction",
+            "data-action": "clicked",
+            "data-channel": "docs",
+            "data-element-id": "social-twitter",
+            "data-namespace": "header",
+            "data-platform-title": "Primeagent",
           },
           {
             position: "right",
@@ -583,12 +575,12 @@ const config = {
             target: "_blank",
             rel: null,
             "aria-label": "Discord",
-            'data-event': 'UI Interaction',
-            'data-action': 'clicked',
-            'data-channel': 'docs',
-            'data-element-id': 'social-discord',
-            'data-namespace': 'header',
-            'data-platform-title': 'Primeagent'
+            "data-event": "UI Interaction",
+            "data-action": "clicked",
+            "data-channel": "docs",
+            "data-element-id": "social-discord",
+            "data-namespace": "header",
+            "data-platform-title": "Primeagent",
           },
         ],
       },

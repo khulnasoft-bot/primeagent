@@ -246,14 +246,14 @@ authenticated. Every Primeagent entry point stamps that identity on the graph be
 resolver enforces the rule below. A graph that reaches a component without one resolves nothing, so a
 misconfigured or unrecognized path fails closed rather than borrowing someone else's credential.
 
-| Entry point | Runs as | Which connection it may use |
-|---|---|---|
-| Playground and canvas builds, `POST /api/v1/run`, the OpenAI-compatible Responses API, voice, `POST /api/v2/workflows` | the authenticated caller | that caller's own connection, or one explicitly shared with them |
-| `POST /api/v1/webhook/FLOW_ID` | the published flow's owner | the owner's connection, and only when `allow_non_interactive` is set on it |
-| Deployments on the serving plane | the deployment owner | the owner's connection, and only when `allow_non_interactive` is set on it |
-| A resumed background or human-in-the-loop run | the owner of the job that started it | that owner's connection with `allow_non_interactive` set; the identity is recomputed on the worker and is never read back from the checkpoint |
-| MCP (legacy transport and MCP projects) | the transport's authenticated user | that user's own connection only — a shared connection is not used, because a shared flow is not admitted through MCP either |
-| Shareable-playground links, the public workflow endpoint, and A2A | an isolated anonymous principal | none: no user connection and no instance connection, whatever the flow references |
+| Entry point                                                                                                            | Runs as                              | Which connection it may use                                                                                                                   |
+| ---------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Playground and canvas builds, `POST /api/v1/run`, the OpenAI-compatible Responses API, voice, `POST /api/v2/workflows` | the authenticated caller             | that caller's own connection, or one explicitly shared with them                                                                              |
+| `POST /api/v1/webhook/FLOW_ID`                                                                                         | the published flow's owner           | the owner's connection, and only when `allow_non_interactive` is set on it                                                                    |
+| Deployments on the serving plane                                                                                       | the deployment owner                 | the owner's connection, and only when `allow_non_interactive` is set on it                                                                    |
+| A resumed background or human-in-the-loop run                                                                          | the owner of the job that started it | that owner's connection with `allow_non_interactive` set; the identity is recomputed on the worker and is never read back from the checkpoint |
+| MCP (legacy transport and MCP projects)                                                                                | the transport's authenticated user   | that user's own connection only — a shared connection is not used, because a shared flow is not admitted through MCP either                   |
+| Shareable-playground links, the public workflow endpoint, and A2A                                                      | an isolated anonymous principal      | none: no user connection and no instance connection, whatever the flow references                                                             |
 
 Two rules are worth stating plainly, because they change what a working flow does when it is published:
 
@@ -324,8 +324,8 @@ Only customer-owned single-tenant registrations are configurable today, since
 this broker uses a fixed-tenant authority. A Primeagent-owned multitenant
 application, which also needs Entra publisher verification, is a follow-up.
 
-{/* INT-12 (LE-2470): appended section. Keep additions to this page as new
-    trailing sections so stacked integration branches do not collide. */}
+{/_ INT-12 (LE-2470): appended section. Keep additions to this page as new
+trailing sections so stacked integration branches do not collide. _/}
 
 ## Slack redirect URLs and scopes per action
 
@@ -345,15 +345,15 @@ The `wfx-slack` bundle declares these scopes per action. A registration's `scope
 array is the operator ceiling, so it must be a superset of the actions you intend to
 enable; the connection then requests the subset an action needs.
 
-| Action | Identity | Registration | Scopes |
-| --- | --- | --- | --- |
-| Search | user | `profile: "user"` | `search:read` |
-| Read Thread | user | `profile: "user"` | `channels:history`, `groups:history`, `im:history`, `mpim:history` |
-| Send Message | user | `profile: "user"` | `chat:write` |
-| Create Canvas | user | `profile: "user"` | `canvases:write` |
-| Post Message | bot | `profile: "bot"` | `chat:write` |
-| Add Reaction | bot | `profile: "bot"` | `reactions:write` |
-| List Channel Members | bot | `profile: "bot"` | `channels:read`, plus `groups:read` for private channels and `users:read` to resolve display names |
+| Action               | Identity | Registration      | Scopes                                                                                             |
+| -------------------- | -------- | ----------------- | -------------------------------------------------------------------------------------------------- |
+| Search               | user     | `profile: "user"` | `search:read`                                                                                      |
+| Read Thread          | user     | `profile: "user"` | `channels:history`, `groups:history`, `im:history`, `mpim:history`                                 |
+| Send Message         | user     | `profile: "user"` | `chat:write`                                                                                       |
+| Create Canvas        | user     | `profile: "user"` | `canvases:write`                                                                                   |
+| Post Message         | bot      | `profile: "bot"`  | `chat:write`                                                                                       |
+| Add Reaction         | bot      | `profile: "bot"`  | `reactions:write`                                                                                  |
+| List Channel Members | bot      | `profile: "bot"`  | `channels:read`, plus `groups:read` for private channels and `users:read` to resolve display names |
 
 User Token Scopes and Bot Token Scopes are configured separately in the Slack app,
 and `chat:write` appears in both lists. Because the two token types cannot be told
@@ -394,7 +394,13 @@ A worked two-registration example, covering every action above:
     "client_secret": "YOUR_CLIENT_SECRET",
     "redirect_uri": "https://primeagent.example/api/v1/connections/oauth/slack/callback",
     "allowed_tenants": ["T0SLACKTEAM"],
-    "scopes": ["chat:write", "reactions:write", "channels:read", "groups:read", "users:read"]
+    "scopes": [
+      "chat:write",
+      "reactions:write",
+      "channels:read",
+      "groups:read",
+      "users:read"
+    ]
   }
 }
 ```
@@ -420,13 +426,13 @@ operator to supply the right token type.
 The wave-1 Google action components each request exactly one scope. Configure a Google
 registration whose `scopes` ceiling contains the ones your flows use:
 
-| Component | Scope |
-|---|---|
-| **Gmail: Send Email** | `https://www.googleapis.com/auth/gmail.send` |
-| **Drive: List Files (app files)** | `https://www.googleapis.com/auth/drive.file` |
-| **Drive: Fetch File (app files)** | `https://www.googleapis.com/auth/drive.file` |
-| **Calendar: List Events** | `https://www.googleapis.com/auth/calendar.events.readonly` |
-| **Calendar: Create Event** | `https://www.googleapis.com/auth/calendar.events` |
+| Component                         | Scope                                                      |
+| --------------------------------- | ---------------------------------------------------------- |
+| **Gmail: Send Email**             | `https://www.googleapis.com/auth/gmail.send`               |
+| **Drive: List Files (app files)** | `https://www.googleapis.com/auth/drive.file`               |
+| **Drive: Fetch File (app files)** | `https://www.googleapis.com/auth/drive.file`               |
+| **Calendar: List Events**         | `https://www.googleapis.com/auth/calendar.events.readonly` |
+| **Calendar: Create Event**        | `https://www.googleapis.com/auth/calendar.events`          |
 
 ```json
 {
@@ -489,11 +495,11 @@ test consent in a sandbox tenant, does not establish consent in the production t
 `POST /api/v1/connections/CONNECTION_ID/revoke` always removes the stored credential
 locally; its `provider_revocation` field then reports what happened upstream:
 
-| Provider | Upstream call on revoke | `provider_revocation` |
-|---|---|---|
-| Google (OAuth sign-in) | Google's token revocation endpoint, with the refresh token when one is stored, otherwise the access token. See the [web server registration guide](https://developers.google.com/identity/protocols/oauth2/web-server). | `revoked` on success |
-| Slack (OAuth sign-in or pasted token) | [`auth.revoke`](https://docs.slack.dev/reference/methods/auth.revoke/) with the stored token, without requiring an OAuth registration for pasted tokens | `revoked` only when Slack confirms revocation |
-| Microsoft (OAuth sign-in) | None: Entra exposes no per-grant revocation endpoint for this flow | `unsupported` |
+| Provider                              | Upstream call on revoke                                                                                                                                                                                                 | `provider_revocation`                         |
+| ------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| Google (OAuth sign-in)                | Google's token revocation endpoint, with the refresh token when one is stored, otherwise the access token. See the [web server registration guide](https://developers.google.com/identity/protocols/oauth2/web-server). | `revoked` on success                          |
+| Slack (OAuth sign-in or pasted token) | [`auth.revoke`](https://docs.slack.dev/reference/methods/auth.revoke/) with the stored token, without requiring an OAuth registration for pasted tokens                                                                 | `revoked` only when Slack confirms revocation |
+| Microsoft (OAuth sign-in)             | None: Entra exposes no per-grant revocation endpoint for this flow                                                                                                                                                      | `unsupported`                                 |
 
 `failed` means the provider did not confirm revocation, so revoke the token in the
 provider's account or admin console as well. This includes rejected token types and

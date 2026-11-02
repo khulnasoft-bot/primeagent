@@ -3,8 +3,8 @@ title: Test flows in the Playground
 slug: /concepts-playground
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 import Icon from "@site/src/components/icon";
 
 Primeagent's **Playground** is a dynamic interface you can use to test your LLM-based flows in real-time.
@@ -76,10 +76,10 @@ If you need to preserve chat context over multiple flow runs or differentiate ch
 
 Custom session IDs are helpful for multiple reasons:
 
-* Separate chat sessions in situations where one flow has multiple chat sessions, such as a chatbot that can have multiple simultaneous user interactions.
-* Preserve memory when continuing a chat session across multiple flow runs or when passing context from one flow to another.
-* Differentiate activity from multiple users within the same flow.
-* Identify your own chat sessions when debugging and testing flows.
+- Separate chat sessions in situations where one flow has multiple chat sessions, such as a chatbot that can have multiple simultaneous user interactions.
+- Preserve memory when continuing a chat session across multiple flow runs or when passing context from one flow to another.
+- Differentiate activity from multiple users within the same flow.
+- Identify your own chat sessions when debugging and testing flows.
 
 You can set custom session IDs in the visual editor and programmatically.
 
@@ -92,7 +92,7 @@ In your [input and output components](/chat-input-and-output), use the **Session
 2. In the [component inspection panel](/concepts-components#component-menus), enable **Session ID**.
 3. Click **Close**.
 4. Enter a custom session ID.
-If the field is empty, the flow uses the default session ID.
+   If the field is empty, the flow uses the default session ID.
 5. Open the **Playground** to start a chat under your custom session ID.
 
 Make sure to change the **Session ID** when you want to start a new chat session or continue an earlier chat session with a different session ID.
@@ -148,7 +148,7 @@ To share a flow's **Playground** with another user, do the following:
 1. In Primeagent, open the flow you want share.
 2. In the [workspace](/concepts-overview#workspace), click **Share**, and then enable **Shareable Playground**.
 3. Click **Shareable Playground** again to open the **Playground** window.
-This window's URL is the flow's **Shareable Playground** address, such as `https://3f7c-73-64-93-151.ngrok-free.app/playground/d764c4b8-5cec-4c0f-9de0-4b419b11901a`.
+   This window's URL is the flow's **Shareable Playground** address, such as `https://3f7c-73-64-93-151.ngrok-free.app/playground/d764c4b8-5cec-4c0f-9de0-4b419b11901a`.
 4. Send the URL to another user to give them access to the flow's **Playground**.
 
 ## See also

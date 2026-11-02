@@ -63,10 +63,14 @@ function useTransformSearchClient() {
 
 function useTransformItems(props) {
   const processSearchResultUrl = useSearchResultUrlProcessor();
-  const [transformItems] = useState(() => (items) =>
-    props.transformItems
-      ? props.transformItems(items)
-      : items.map((item) => ({ ...item, url: processSearchResultUrl(item.url) })),
+  const [transformItems] = useState(
+    () => (items) =>
+      props.transformItems
+        ? props.transformItems(items)
+        : items.map((item) => ({
+            ...item,
+            url: processSearchResultUrl(item.url),
+          })),
   );
   return transformItems;
 }
@@ -74,8 +78,7 @@ function useTransformItems(props) {
 function useResultsFooterComponent({ closeModal }) {
   return useMemo(
     () =>
-      ({ state }) =>
-        <ResultsFooter state={state} onClose={closeModal} />,
+      ({ state }) => <ResultsFooter state={state} onClose={closeModal} />,
     [closeModal],
   );
 }
@@ -88,7 +91,10 @@ function ResultsFooter({ state, onClose }) {
   const createSearchLink = useSearchLinkCreator();
   return (
     <Link to={createSearchLink(state.query)} onClick={onClose}>
-      <Translate id="theme.SearchBar.seeAll" values={{ count: state.context.nbHits }}>
+      <Translate
+        id="theme.SearchBar.seeAll"
+        values={{ count: state.context.nbHits }}
+      >
         {"See all {count} results"}
       </Translate>
     </Link>
@@ -108,10 +114,12 @@ function patchDocSearchButtonSvg() {
   if (typeof document === "undefined") return;
   const svgs = document.querySelectorAll(".DocSearch-Button svg");
   svgs.forEach((svg, index) => {
-    if (svg.getAttribute("aria-label") || svg.getAttribute("aria-labelledby")) return;
+    if (svg.getAttribute("aria-label") || svg.getAttribute("aria-labelledby"))
+      return;
     const existingTitle = svg.querySelector("title");
     if (existingTitle) return;
-    const label = index === 0 ? "Option key shortcut icon" : "K key shortcut icon";
+    const label =
+      index === 0 ? "Option key shortcut icon" : "K key shortcut icon";
     svg.setAttribute("role", "img");
     svg.setAttribute("aria-label", label);
     svg.setAttribute("focusable", "false");

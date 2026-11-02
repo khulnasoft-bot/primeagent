@@ -1,19 +1,17 @@
 const url = `http://${process.env.PRIMEAGENT_SERVER_URL ?? ""}/api/v1/responses`;
 
 const options = {
-  method: 'POST',
+  method: "POST",
   headers: {
     "Content-Type": `application/json`,
     "x-api-key": `${process.env.PRIMEAGENT_API_KEY ?? ""}`,
   },
   body: JSON.stringify({
-  "model": "FLOW_ID",
-  "input": "Calculate 23 * 15 and show me the result",
-  "stream": false,
-  "include": [
-    "tool_call.results"
-  ]
-}),
+    model: "FLOW_ID",
+    input: "Calculate 23 * 15 and show me the result",
+    stream: false,
+    include: ["tool_call.results"],
+  }),
 };
 
 fetch(url, options)

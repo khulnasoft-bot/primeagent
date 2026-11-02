@@ -24,9 +24,9 @@ A JWT consists of three parts separated by dots (`.`):
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 ```
 
-* The header contains the token type and signing algorithm.
-* The payload contains _claims_, which are token data for user information and expiration time.
-* The signature is a secret key that ensures the token hasn't been tampered with.
+- The header contains the token type and signing algorithm.
+- The payload contains _claims_, which are token data for user information and expiration time.
+- The signature is a secret key that ensures the token hasn't been tampered with.
 
 Each part of the JWT is Base64URL-encoded.
 You can paste this example JWT to decode the actual JSON data at [jwt.io](https://jwt.io/).
@@ -37,14 +37,14 @@ You can paste this example JWT to decode the actual JSON data at [jwt.io](https:
 
 Configure JWT authentication in Primeagent using the following environment variables:
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `PRIMEAGENT_ALGORITHM` | JWT signing algorithm (`HS256`, `RS256`, or `RS512`) | `HS256` |
-| `PRIMEAGENT_SECRET_KEY` | Secret key for HS256 signing | Auto-generated |
-| `PRIMEAGENT_PRIVATE_KEY` | RSA private key for RS256/RS512 signing | Auto-generated |
-| `PRIMEAGENT_PUBLIC_KEY` | RSA public key for RS256/RS512 verification | Derived from private key |
-| `PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS` | Access token expiration time | `3600` (1 hour) |
-| `PRIMEAGENT_REFRESH_TOKEN_EXPIRE_SECONDS` | Refresh token expiration time | `604800` (7 days) |
+| Variable                                  | Description                                          | Default                  |
+| ----------------------------------------- | ---------------------------------------------------- | ------------------------ |
+| `PRIMEAGENT_ALGORITHM`                    | JWT signing algorithm (`HS256`, `RS256`, or `RS512`) | `HS256`                  |
+| `PRIMEAGENT_SECRET_KEY`                   | Secret key for HS256 signing                         | Auto-generated           |
+| `PRIMEAGENT_PRIVATE_KEY`                  | RSA private key for RS256/RS512 signing              | Auto-generated           |
+| `PRIMEAGENT_PUBLIC_KEY`                   | RSA public key for RS256/RS512 verification          | Derived from private key |
+| `PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS`  | Access token expiration time                         | `3600` (1 hour)          |
+| `PRIMEAGENT_REFRESH_TOKEN_EXPIRE_SECONDS` | Refresh token expiration time                        | `604800` (7 days)        |
 
 ## Configure signing algorithms
 
@@ -61,25 +61,25 @@ No configuration is necessary, but if you want to explicitly set it in the Prime
 To generate a custom secure key instead of using the Primeagent-generated secret key, do the following:
 
 1. Generate a secure secret key with the Python secrets module or OpenSSL.
-    The key must be at least 32 characters long.
+   The key must be at least 32 characters long.
 
-    **Using Python:**
+   **Using Python:**
 
-    ```bash
-    python -c "import secrets; print(secrets.token_urlsafe(32))"
-    ```
+   ```bash
+   python -c "import secrets; print(secrets.token_urlsafe(32))"
+   ```
 
-    **Using OpenSSL:**
+   **Using OpenSSL:**
 
-    ```bash
-    openssl rand -base64 32
-    ```
+   ```bash
+   openssl rand -base64 32
+   ```
 
 2. Set the value for `PRIMEAGENT_SECRET_KEY` in your `.env` file.
-    ```bash
-    PRIMEAGENT_ALGORITHM="HS256"
-    PRIMEAGENT_SECRET_KEY="your-custom-secret-key"
-    ```
+   ```bash
+   PRIMEAGENT_ALGORITHM="HS256"
+   PRIMEAGENT_SECRET_KEY="your-custom-secret-key"
+   ```
 
 ### RS256
 
@@ -89,6 +89,7 @@ The private key must be kept secret, while the public key can be safely shared.
 
 To automatically generate a private and public key pair and store it in the Primeagent [`PRIMEAGENT_CONFIG_DIR`](/logging), set `PRIMEAGENT_ALGORITHM="RS256"` in your Primeagent `.env`.
 When Primeagent starts, it will:
+
 1. Check if RSA keys exist in the configuration directory.
 2. If not, generate a new 2048-bit RSA key pair.
 3. Save the keys to `private_key.pem` and `public_key.pem`.
@@ -119,11 +120,13 @@ MIIBIjANBgkqhkiG9w0BAQEFAAOC...
 To generate an RSA key pair manually, do the following:
 
 1. Generate a 2048-bit private key:
+
    ```bash
    openssl genrsa -out private_key.pem 2048
    ```
 
 2. Extract the public key from the private key:
+
    ```bash
    openssl rsa -in private_key.pem -pubout -out public_key.pem
    ```
@@ -142,6 +145,7 @@ The private key must be kept secret, while the public key can be safely shared.
 
 To automatically generate a private and public key pair and store it in the Primeagent [`PRIMEAGENT_CONFIG_DIR`](/logging), set `PRIMEAGENT_ALGORITHM="RS512"` in your Primeagent `.env`.
 When Primeagent starts, it does the following:
+
 1. Check if RSA keys exist in the configuration directory.
 2. If not, generate a new 2048-bit RSA key pair.
 3. Save the keys to `private_key.pem` and `public_key.pem`.
@@ -172,11 +176,13 @@ MIIBIjANBgkqhkiG9w0BAQEFAAOC...
 To generate an RSA key pair manually, do the following:
 
 1. Generate a 2048-bit private key:
+
    ```bash
    openssl genrsa -out private_key.pem 2048
    ```
 
 2. Extract the public key from the private key:
+
    ```bash
    openssl rsa -in private_key.pem -pubout -out public_key.pem
    ```
@@ -196,25 +202,27 @@ Use Docker or Kubernetes with RS256 (asymmetric) for production deployments requ
 ### Docker with HS256
 
 1. Add the value for your JWT secret key to the Primeagent `.env` file.
-    ```bash
-    JWT_SECRET_KEY=your-secret-key
-    ```
+
+   ```bash
+   JWT_SECRET_KEY=your-secret-key
+   ```
 
 2. Set the signing algorithm and include a variable for the secret key in the Docker Compose file.
-    ```yaml
-    version: "3.8"
-    services:
-      primeagent:
-        image: khulnasoft/primeagent:latest
-        environment:
-          - PRIMEAGENT_ALGORITHM=HS256
-          - PRIMEAGENT_SECRET_KEY=${JWT_SECRET_KEY}  # Set in .env file
-        volumes:
-          - primeagent_data:/app/primeagent
 
-    volumes:
-      primeagent_data:
-    ```
+   ```yaml
+   version: "3.8"
+   services:
+     primeagent:
+       image: khulnasoft/primeagent:latest
+       environment:
+         - PRIMEAGENT_ALGORITHM=HS256
+         - PRIMEAGENT_SECRET_KEY=${JWT_SECRET_KEY} # Set in .env file
+       volumes:
+         - primeagent_data:/app/primeagent
+
+   volumes:
+     primeagent_data:
+   ```
 
 ### Docker with RS256
 
@@ -229,7 +237,7 @@ services:
     environment:
       - PRIMEAGENT_ALGORITHM=RS256
     volumes:
-      - primeagent_data:/app/primeagent  # Keys stored here
+      - primeagent_data:/app/primeagent # Keys stored here
 
 volumes:
   primeagent_data:

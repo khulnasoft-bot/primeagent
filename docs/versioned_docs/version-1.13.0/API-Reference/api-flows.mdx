@@ -2,46 +2,45 @@
 title: Flow management endpoints
 slug: /api-flows
 ---
-import CodeBlock from '@theme/CodeBlock';
-import exampleApiFlowsCreateFlow from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/create-flow.sh';
-import resultApiFlowsResultCreateFlow from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-create-flow.json';
-import exampleApiFlowsCreateFlows from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/create-flows.sh';
-import exampleApiFlowsReadFlow from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/read-flow.sh';
-import resultApiFlowsResultReadFlow from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-read-flow.json';
-import exampleApiFlowsReadFlows from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/read-flows.sh';
-import exampleApiFlowsReadFlows2 from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/read-flows-2.sh';
-import exampleApiFlowsReadSampleFlows from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/read-sample-flows.sh';
-import exampleApiFlowsUpdateFlow from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/update-flow.sh';
-import resultApiFlowsResultUpdateFlow from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-update-flow.json';
-import exampleApiFlowsDeleteFlow from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/delete-flow.sh';
-import resultApiFlowsResultDeleteFlow from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-delete-flow.json';
-import exampleApiFlowsExportFlows from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/export-flows.sh';
-import resultApiFlowsResultExportFlows from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-export-flows.txt';
-import exampleApiFlowsImportFlows from '!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/import-flows.sh';
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import examplePythonApiFlowsCreateFlow from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/create-flow.py';
-import exampleJavascriptApiFlowsCreateFlow from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/create-flow.js';
-import examplePythonApiFlowsCreateFlows from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/create-flows.py';
-import exampleJavascriptApiFlowsCreateFlows from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/create-flows.js';
-import examplePythonApiFlowsReadFlow from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/read-flow.py';
-import exampleJavascriptApiFlowsReadFlow from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/read-flow.js';
-import examplePythonApiFlowsReadFlows from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/read-flows.py';
-import exampleJavascriptApiFlowsReadFlows from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/read-flows.js';
-import examplePythonApiFlowsReadFlows2 from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/read-flows-2.py';
-import exampleJavascriptApiFlowsReadFlows2 from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/read-flows-2.js';
-import examplePythonApiFlowsReadSampleFlows from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/read-sample-flows.py';
-import exampleJavascriptApiFlowsReadSampleFlows from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/read-sample-flows.js';
-import examplePythonApiFlowsUpdateFlow from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/update-flow.py';
-import exampleJavascriptApiFlowsUpdateFlow from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/update-flow.js';
-import examplePythonApiFlowsDeleteFlow from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/delete-flow.py';
-import exampleJavascriptApiFlowsDeleteFlow from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/delete-flow.js';
-import examplePythonApiFlowsExportFlows from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/export-flows.py';
-import exampleJavascriptApiFlowsExportFlows from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/export-flows.js';
-import examplePythonApiFlowsImportFlows from '!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/import-flows.py';
-import exampleJavascriptApiFlowsImportFlows from '!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/import-flows.js';
 
-
+import CodeBlock from "@theme/CodeBlock";
+import exampleApiFlowsCreateFlow from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/create-flow.sh";
+import resultApiFlowsResultCreateFlow from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-create-flow.json";
+import exampleApiFlowsCreateFlows from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/create-flows.sh";
+import exampleApiFlowsReadFlow from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/read-flow.sh";
+import resultApiFlowsResultReadFlow from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-read-flow.json";
+import exampleApiFlowsReadFlows from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/read-flows.sh";
+import exampleApiFlowsReadFlows2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/read-flows-2.sh";
+import exampleApiFlowsReadSampleFlows from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/read-sample-flows.sh";
+import exampleApiFlowsUpdateFlow from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/update-flow.sh";
+import resultApiFlowsResultUpdateFlow from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-update-flow.json";
+import exampleApiFlowsDeleteFlow from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/delete-flow.sh";
+import resultApiFlowsResultDeleteFlow from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-delete-flow.json";
+import exampleApiFlowsExportFlows from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/export-flows.sh";
+import resultApiFlowsResultExportFlows from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/result-export-flows.txt";
+import exampleApiFlowsImportFlows from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-flows/import-flows.sh";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import examplePythonApiFlowsCreateFlow from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/create-flow.py";
+import exampleJavascriptApiFlowsCreateFlow from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/create-flow.js";
+import examplePythonApiFlowsCreateFlows from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/create-flows.py";
+import exampleJavascriptApiFlowsCreateFlows from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/create-flows.js";
+import examplePythonApiFlowsReadFlow from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/read-flow.py";
+import exampleJavascriptApiFlowsReadFlow from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/read-flow.js";
+import examplePythonApiFlowsReadFlows from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/read-flows.py";
+import exampleJavascriptApiFlowsReadFlows from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/read-flows.js";
+import examplePythonApiFlowsReadFlows2 from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/read-flows-2.py";
+import exampleJavascriptApiFlowsReadFlows2 from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/read-flows-2.js";
+import examplePythonApiFlowsReadSampleFlows from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/read-sample-flows.py";
+import exampleJavascriptApiFlowsReadSampleFlows from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/read-sample-flows.js";
+import examplePythonApiFlowsUpdateFlow from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/update-flow.py";
+import exampleJavascriptApiFlowsUpdateFlow from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/update-flow.js";
+import examplePythonApiFlowsDeleteFlow from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/delete-flow.py";
+import exampleJavascriptApiFlowsDeleteFlow from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/delete-flow.js";
+import examplePythonApiFlowsExportFlows from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/export-flows.py";
+import exampleJavascriptApiFlowsExportFlows from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/export-flows.js";
+import examplePythonApiFlowsImportFlows from "!!raw-loader!@site/docs/API-Reference/python-examples/api-flows/import-flows.py";
+import exampleJavascriptApiFlowsImportFlows from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-flows/import-flows.js";
 
 Use the `/flows` endpoint to create, read, update, and delete flows.
 
@@ -59,7 +58,9 @@ Creates a new flow.
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsCreateFlow}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsCreateFlow}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -88,7 +89,9 @@ Creates multiple new flows, returning an array of flow objects.
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsCreateFlows}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsCreateFlows}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -141,7 +144,9 @@ Retrieve all flows with pagination:
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsReadFlows}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsReadFlows}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -161,7 +166,9 @@ To retrieve flows from a specific project, use the `project_id` query parameter:
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsReadFlows2}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsReadFlows2}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -183,7 +190,9 @@ Retrieves a list of sample flows:
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsReadSampleFlows}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsReadSampleFlows}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -207,7 +216,9 @@ This example changes the value for `endpoint_name` from a random UUID to `my_new
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsUpdateFlow}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsUpdateFlow}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -261,7 +272,9 @@ Deletes a specific flow by its ID.
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsDeleteFlow}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsDeleteFlow}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -292,7 +305,9 @@ This endpoint downloads a ZIP file containing [Primeagent JSON files](/concepts-
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsExportFlows}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsExportFlows}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -326,7 +341,9 @@ This example uploads a local file named `agent-with-astra-db-tool.json` to a fol
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
-<CodeBlock language="javascript">{exampleJavascriptApiFlowsImportFlows}</CodeBlock>
+<CodeBlock language="javascript">
+  {exampleJavascriptApiFlowsImportFlows}
+</CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
@@ -352,4 +369,5 @@ This example uploads a local file named `agent-with-astra-db-tool.json` to a fol
   }
 ]
 ```
+
 </details>

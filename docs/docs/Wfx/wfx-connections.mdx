@@ -3,12 +3,12 @@ title: Resolve connections in headless WFX
 slug: /wfx-connections
 ---
 
-import CodeBlock from '@theme/CodeBlock';
-import sampleConnectionAction from '!!raw-loader!@site/docs/Wfx/samples/connections/connection_action_component.py';
-import sampleEnvResolverHost from '!!raw-loader!@site/docs/Wfx/samples/connections/env_resolver_host.py';
-import sampleSecretManagerResolver from '!!raw-loader!@site/docs/Wfx/samples/connections/secret_manager_resolver.py';
-import sampleWfxToml from '!!raw-loader!@site/docs/Wfx/samples/connections/wfx.toml';
-import sampleServeRequest from '!!raw-loader!@site/docs/Wfx/samples/connections/serve_request.sh';
+import CodeBlock from "@theme/CodeBlock";
+import sampleConnectionAction from "!!raw-loader!@site/docs/Wfx/samples/connections/connection_action_component.py";
+import sampleEnvResolverHost from "!!raw-loader!@site/docs/Wfx/samples/connections/env_resolver_host.py";
+import sampleSecretManagerResolver from "!!raw-loader!@site/docs/Wfx/samples/connections/secret_manager_resolver.py";
+import sampleWfxToml from "!!raw-loader!@site/docs/Wfx/samples/connections/wfx.toml";
+import sampleServeRequest from "!!raw-loader!@site/docs/Wfx/samples/connections/serve_request.sh";
 
 A flow stores a **connection reference**, such as `google/work`, in place of a credential.
 The reference is portable and non-secret: it names a provider and a connection, and says nothing about where the credential lives or who is allowed to use it.
@@ -21,21 +21,21 @@ For the Primeagent backend's own OAuth broker and connection records, see [Confi
 
 Every host implements the same contract, `BaseConnectionResolverService`:
 
-| Step | What happens |
-|---|---|
-| A component declares a `ConnectionRefInput` | The flow stores the handle `provider/name`, plus the provider id and the scopes the action requires. |
-| The component calls `self.resolve_connection("field")` | It receives a lazy `CredentialLease`. Nothing has been resolved yet. |
-| The lease is awaited | The host's resolver runs, subject to the deny floor below, and returns a `ResolvedCredential`. |
-| The credential is used | `ResolvedCredential.access_token` is a `SecretStr`, and the object refuses pickling, so a token cannot enter a graph snapshot, a job payload, or a process cache. |
-| The token nears expiry | The lease re-resolves under its own lock, so concurrent callers sharing that lease coalesce their refresh. Separate leases can resolve independently. |
+| Step                                                   | What happens                                                                                                                                                      |
+| ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A component declares a `ConnectionRefInput`            | The flow stores the handle `provider/name`, plus the provider id and the scopes the action requires.                                                              |
+| The component calls `self.resolve_connection("field")` | It receives a lazy `CredentialLease`. Nothing has been resolved yet.                                                                                              |
+| The lease is awaited                                   | The host's resolver runs, subject to the deny floor below, and returns a `ResolvedCredential`.                                                                    |
+| The credential is used                                 | `ResolvedCredential.access_token` is a `SecretStr`, and the object refuses pickling, so a token cannot enter a graph snapshot, a job payload, or a process cache. |
+| The token nears expiry                                 | The lease re-resolves under its own lock, so concurrent callers sharing that lease coalesce their refresh. Separate leases can resolve independently.             |
 
 Which resolver runs depends on the host:
 
-| Host | Resolver | Credential source |
-|---|---|---|
-| Primeagent backend (including Primeagent Enterprise serving mode) | `DatabaseConnectionResolverService` | Encrypted connection records, refreshed by the worker that uses them. |
-| `wfx run`, `wfx serve`, embedded WFX | `EnvConnectionResolver` (the default) | `LF_CONNECTION__*` from the request scope, then the process environment. |
-| Your host | Your `BaseConnectionResolverService` subclass | Whatever you implement, such as a secret manager. |
+| Host                                                              | Resolver                                      | Credential source                                                        |
+| ----------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------ |
+| Primeagent backend (including Primeagent Enterprise serving mode) | `DatabaseConnectionResolverService`           | Encrypted connection records, refreshed by the worker that uses them.    |
+| `wfx run`, `wfx serve`, embedded WFX                              | `EnvConnectionResolver` (the default)         | `LF_CONNECTION__*` from the request scope, then the process environment. |
+| Your host                                                         | Your `BaseConnectionResolverService` subclass | Whatever you implement, such as a secret manager.                        |
 
 The rest of this page is about the last two rows.
 
@@ -52,10 +52,10 @@ That is what keeps a multi-tenant Primeagent backend from serving a machine cred
 A headless credential is delivered under the key `LF_CONNECTION__<PROVIDER>__<NAME>`.
 The provider segment is uppercased, and punctuation is escaped with its ASCII hex value so provider ids stay distinct:
 
-| Handle | Key |
-|---|---|
-| `google/work` | `LF_CONNECTION__GOOGLE__WORK` |
-| `slack/team_bot` | `LF_CONNECTION__SLACK__TEAM_BOT` |
+| Handle               | Key                                    |
+| -------------------- | -------------------------------------- |
+| `google/work`        | `LF_CONNECTION__GOOGLE__WORK`          |
+| `slack/team_bot`     | `LF_CONNECTION__SLACK__TEAM_BOT`       |
 | `test.provider/work` | `LF_CONNECTION__TEST_2EPROVIDER__WORK` |
 
 The value is either a bare access token or a JSON object:
@@ -65,7 +65,7 @@ The value is either a bare access token or a JSON object:
   "access_token": "ya29.a0-example",
   "token_type": "Bearer",
   "scopes": ["https://www.googleapis.com/auth/drive.readonly"],
-  "account": {"id": "person@example.com", "display": "Work"}
+  "account": { "id": "person@example.com", "display": "Work" }
 }
 ```
 
@@ -84,7 +84,9 @@ When known, supply the token's actual `expires_at` as an ISO-8601 string or Unix
 This sample component resolves a connection and reports only non-secret facts about it.
 Use it as the shape for your own actions: a component never reads a token out of a flow field, never logs one, and never returns one.
 
-<CodeBlock language="python" title="connection_action_component.py">{sampleConnectionAction}</CodeBlock>
+<CodeBlock language="python" title="connection_action_component.py">
+  {sampleConnectionAction}
+</CodeBlock>
 
 Supply the credential in the environment and run it:
 
@@ -113,7 +115,9 @@ The same text is what a client sees, so it is safe to log and to forward.
 `wfx serve` accepts per-request variables in the request body's `global_vars`.
 They are applied to a deep copy of the graph and bound to that request only, so one caller's credential never becomes an ambient default for the next caller on the same warm worker.
 
-<CodeBlock language="bash" title="serve_request.sh">{sampleServeRequest}</CodeBlock>
+<CodeBlock language="bash" title="serve_request.sh">
+  {sampleServeRequest}
+</CodeBlock>
 
 Resolution order for one request is:
 
@@ -141,7 +145,7 @@ The v2 workflow router mounted at `/api/v2` and durable runs use the same reques
 
 ### watsonx Orchestrate and other tool runtimes
 
-The watsonx Orchestrate tool runtime (TRM) calls `POST /flows/{id}/run` with `global_vars`, and it can also send a `PRIMEAGENT_REQUEST_VARIABLES` key whose value is a *JSON-encoded string* holding an object of merged variables. A nested object sent in place of that string fails request validation. A string that decodes to a non-object is logged and ignored.
+The watsonx Orchestrate tool runtime (TRM) calls `POST /flows/{id}/run` with `global_vars`, and it can also send a `PRIMEAGENT_REQUEST_VARIABLES` key whose value is a _JSON-encoded string_ holding an object of merged variables. A nested object sent in place of that string fails request validation. A string that decodes to a non-object is logged and ignored.
 Both channels feed the same request scope, and explicit keys beat keys carried inside the JSON blob.
 
 To satisfy a connection reference from watsonx Orchestrate, the connection variable must be named exactly `LF_CONNECTION__<PROVIDER>__<NAME>` — the same key `ConnectionRef.env_key()` derives — either as a `global_vars` key or as a key inside the object encoded in `PRIMEAGENT_REQUEST_VARIABLES`.
@@ -155,20 +159,26 @@ A process-environment `PRIMEAGENT_REQUEST_VARIABLES` blob is honored at resoluti
 
 Two samples follow. The first uses the built-in environment resolver, which is what a host gets when it configures nothing.
 
-<CodeBlock language="python" title="env_resolver_host.py">{sampleEnvResolverHost}</CodeBlock>
+<CodeBlock language="python" title="env_resolver_host.py">
+  {sampleEnvResolverHost}
+</CodeBlock>
 
 The second replaces it with a secret store.
 Subclass `BaseConnectionResolverService`, implement `_get_access_policy()` and `_resolve()`, reuse the wire format, and call `set_ready()` once your client is usable.
 The base class authorizes the policy before `_resolve()` can fetch a secret and verifies required scopes after it returns, including provider-specific scope aliases.
 
-<CodeBlock language="python" title="secret_manager_resolver.py">{sampleSecretManagerResolver}</CodeBlock>
+<CodeBlock language="python" title="secret_manager_resolver.py">
+  {sampleSecretManagerResolver}
+</CodeBlock>
 
 Save `secret_manager_resolver.py` in a directory on the serving process's `PYTHONPATH`, or install it as part of your host application and update the module path below.
 The sample module is reference code in this repository and is not included in the `wfx` wheel; copying `wfx.toml` alone does not install it.
 Copy the following configuration to `$PRIMEAGENT_CONFIG_DIR/wfx.toml` to select the resolver at deploy time.
 Configuration beats an `wfx.services` entry point, and `wfx.toml` beats `pyproject.toml`'s `[tool.wfx.services]`:
 
-<CodeBlock language="toml" title="wfx.toml">{sampleWfxToml}</CodeBlock>
+<CodeBlock language="toml" title="wfx.toml">
+  {sampleWfxToml}
+</CodeBlock>
 
 Selection fails closed. A module that cannot be imported, a class that does not subclass `BaseConnectionResolverService`, or a resolver that never became ready raises at service resolution rather than silently falling back to the environment resolver — a misconfigured plugin can never quietly change which credentials a flow runs on.
 
@@ -178,20 +188,20 @@ A resolver is callable from a process that serves no HTTP: a sidecar or worker r
 
 Resolution failures are sanitized `IntegrationError` subclasses. Their string form is safe for clients, logs, and telemetry: it names handles, keys, and scopes, never a credential.
 
-| Code | Raised when | Host action |
-|---|---|---|
-| `connection-unresolved` | No credential was supplied for the handle. | Provision the key or the secret, then retry. |
-| `connection-not-authorized` | The execution principal may not use this connection. | Run the flow under a headless operator principal, or use an owned connection. |
-| `auth-expired` | The credential declares a past `expires_at`, or the provider rejected it. | Refresh the credential in the injecting system. |
-| `scope-missing` | Required scopes are unverified or the declared `scopes` do not cover them. | Supply verified scope metadata or re-grant with the missing scopes. |
-| `rate-limited` | The provider returned 429. | Retry after the provider's backoff. |
-| `provider-unavailable` | The provider failed or was temporarily unavailable. | Retry later. |
-| `network-error` | The server could not reach the provider because of a timeout, DNS, connection, or TLS failure. | Check the server's outbound network, DNS, proxy, and TLS settings. Check whether a write completed before retrying to avoid duplicate actions. |
-| `action-unsupported` | The provider does not support the action. | Use a different action. |
-| `invalid-request` | The action's inputs are invalid or were rejected by the provider. | Correct the inputs before retrying. |
-| `resource-not-found` | The requested provider resource was not found or is inaccessible. | Check the resource ID and the connected account's access before retrying. |
-| `policy-blocked` | The deployment's integration policy blocks the provider or action. | Ask an administrator to approve the integration or action. |
-| `incompatible-tool` | The MCP server's tools no longer match the contract pinned by the action. | Upgrade to a bundle release whose pinned tools match the server before retrying. |
+| Code                        | Raised when                                                                                    | Host action                                                                                                                                    |
+| --------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `connection-unresolved`     | No credential was supplied for the handle.                                                     | Provision the key or the secret, then retry.                                                                                                   |
+| `connection-not-authorized` | The execution principal may not use this connection.                                           | Run the flow under a headless operator principal, or use an owned connection.                                                                  |
+| `auth-expired`              | The credential declares a past `expires_at`, or the provider rejected it.                      | Refresh the credential in the injecting system.                                                                                                |
+| `scope-missing`             | Required scopes are unverified or the declared `scopes` do not cover them.                     | Supply verified scope metadata or re-grant with the missing scopes.                                                                            |
+| `rate-limited`              | The provider returned 429.                                                                     | Retry after the provider's backoff.                                                                                                            |
+| `provider-unavailable`      | The provider failed or was temporarily unavailable.                                            | Retry later.                                                                                                                                   |
+| `network-error`             | The server could not reach the provider because of a timeout, DNS, connection, or TLS failure. | Check the server's outbound network, DNS, proxy, and TLS settings. Check whether a write completed before retrying to avoid duplicate actions. |
+| `action-unsupported`        | The provider does not support the action.                                                      | Use a different action.                                                                                                                        |
+| `invalid-request`           | The action's inputs are invalid or were rejected by the provider.                              | Correct the inputs before retrying.                                                                                                            |
+| `resource-not-found`        | The requested provider resource was not found or is inaccessible.                              | Check the resource ID and the connected account's access before retrying.                                                                      |
+| `policy-blocked`            | The deployment's integration policy blocks the provider or action.                             | Ask an administrator to approve the integration or action.                                                                                     |
+| `incompatible-tool`         | The MCP server's tools no longer match the contract pinned by the action.                      | Upgrade to a bundle release whose pinned tools match the server before retrying.                                                               |
 
 ## Declare connections in deployment artifacts
 
@@ -201,10 +211,14 @@ Alongside `required_variables`, the manifest carries `required_connections`: the
 ```json
 {
   "schema_version": 4,
-  "project": {"id": "…", "name": "Marketing"},
+  "project": { "id": "…", "name": "Marketing" },
   "required_variables": ["OPENAI_API_KEY"],
   "required_connections": [
-    {"provider": "google", "name": "work", "scopes": ["https://www.googleapis.com/auth/drive.readonly"]}
+    {
+      "provider": "google",
+      "name": "work",
+      "scopes": ["https://www.googleapis.com/auth/drive.readonly"]
+    }
   ],
   "flows": [
     {
@@ -215,7 +229,11 @@ Alongside `required_variables`, the manifest carries `required_connections`: the
       "size": 4096,
       "required_variables": ["OPENAI_API_KEY"],
       "required_connections": [
-        {"provider": "google", "name": "work", "scopes": ["https://www.googleapis.com/auth/drive.readonly"]}
+        {
+          "provider": "google",
+          "name": "work",
+          "scopes": ["https://www.googleapis.com/auth/drive.readonly"]
+        }
       ]
     }
   ]

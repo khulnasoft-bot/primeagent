@@ -4,10 +4,10 @@ slug: /parser
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import PartialCurlyBraces from '@site/docs/_partial-escape-curly-braces.mdx';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import PartialCurlyBraces from "@site/docs/_partial-escape-curly-braces.mdx";
 
 The **Parser** component extracts text from structured data (`Table` or `JSON`) using a template or direct stringification.
 The output is a `Message` containing the parsed text.
@@ -15,11 +15,11 @@ The output is a `Message` containing the parsed text.
 This is a versatile component for data extraction and manipulation in your flows.
 For examples of **Parser** components in flows, see the following:
 
-* [**Batch Run** component example](/batch-run)
-* [**Structured Output** component example](/structured-output)
-* **Financial Report Parser** template
-* [Trigger flows with webhooks](/webhook)
-* [Create a vector RAG chatbot](/chat-with-rag)
+- [**Batch Run** component example](/batch-run)
+- [**Structured Output** component example](/structured-output)
+- **Financial Report Parser** template
+- [Trigger flows with webhooks](/webhook)
+- [Create a vector RAG chatbot](/chat-with-rag)
 
 ![A flow that uses a Parser component to extract text from a Structured Output component.](/img/component-parser.png)
 
@@ -81,14 +81,15 @@ The resulting text for each row is output as a [`Message`](/data-types#message).
 </details>
 
 The following parameters are available in **Parser** mode.
+
 <PartialParams />
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| input_data | JSON or Table | Input parameter. The `JSON` or `Table` input to parse. |
-| pattern | Template | Input parameter. The formatting template using plaintext and variables for keys (`{KEY_NAME}`). See the preceding examples for more information. |
-| sep | Separator | Input parameter. A string defining the separator for rows or lines. Default: `\n` (new line). |
-| clean_data | Clean Data | Whether to remove empty rows and lines in each cell or key of the `Table` or `JSON` input. Default: Enabled (`true`) |
+| Name       | Display Name  | Info                                                                                                                                             |
+| ---------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| input_data | JSON or Table | Input parameter. The `JSON` or `Table` input to parse.                                                                                           |
+| pattern    | Template      | Input parameter. The formatting template using plaintext and variables for keys (`{KEY_NAME}`). See the preceding examples for more information. |
+| sep        | Separator     | Input parameter. A string defining the separator for rows or lines. Default: `\n` (new line).                                                    |
+| clean_data | Clean Data    | Whether to remove empty rows and lines in each cell or key of the `Table` or `JSON` input. Default: Enabled (`true`)                             |
 
 </TabItem>
 <TabItem value="stringify" label="Stringify mode">
@@ -97,13 +98,14 @@ Use **Stringify** mode to convert the entire input directly to text.
 This mode doesn't support templates or key selection.
 
 The following parameters are available in **Stringify** mode.
+
 <PartialParams />
 
-| Name | Display Name | Info |
-|------|--------------|------|
-| input_data | JSON or Table | Input parameter. The `JSON` or `Table` input to parse. |
-| sep | Separator | Input parameter. A string defining the separator for rows or lines. Default: `\n` (new line). |
-| clean_data | Clean Data | Whether to remove empty rows and lines in each cell or key of the `Table` or `JSON` input. Default: Enabled (`true`) |
+| Name       | Display Name  | Info                                                                                                                 |
+| ---------- | ------------- | -------------------------------------------------------------------------------------------------------------------- |
+| input_data | JSON or Table | Input parameter. The `JSON` or `Table` input to parse.                                                               |
+| sep        | Separator     | Input parameter. A string defining the separator for rows or lines. Default: `\n` (new line).                        |
+| clean_data | Clean Data    | Whether to remove empty rows and lines in each cell or key of the `Table` or `JSON` input. Default: Enabled (`true`) |
 
 </TabItem>
 </Tabs>
@@ -129,14 +131,13 @@ The following `Message` could result from parsing a row where `employee_first_na
 
 To troubleshoot missing or unexpected values, you can do the following:
 
-* Make sure the variables in your template map to keys in the incoming `JSON` or `Table`.
-To see the data being passed directly to the **Parser** component, click <Icon name="TextSearch" aria-hidden="true"/> **Inspect output** on the component that is sending data to the **Parser** component.
+- Make sure the variables in your template map to keys in the incoming `JSON` or `Table`.
+  To see the data being passed directly to the **Parser** component, click <Icon name="TextSearch" aria-hidden="true"/> **Inspect output** on the component that is sending data to the **Parser** component.
 
-* Check the source data for missing or incorrect values.
-There are several ways you can address these inconsistencies:
+- Check the source data for missing or incorrect values.
+  There are several ways you can address these inconsistencies:
 
-    * Rectify the source data directly.
-    * Use other components to amend or filter anomalies before passing the data to the **Parser** component.
-    There are many components you can use for this depending on your goal, such as the [**JSON Operations** component](/1.9.0/data-operations), [**Structured Output** component](/structured-output), and [**Smart Transform** component](/smart-transform).
-    * Enable the **Parser** component's **Clean Data** parameter to skip empty rows or lines.
-
+      * Rectify the source data directly.
+      * Use other components to amend or filter anomalies before passing the data to the **Parser** component.
+      There are many components you can use for this depending on your goal, such as the [**JSON Operations** component](/1.9.0/data-operations), [**Structured Output** component](/structured-output), and [**Smart Transform** component](/smart-transform).
+      * Enable the **Parser** component's **Clean Data** parameter to skip empty rows or lines.

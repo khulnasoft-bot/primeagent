@@ -2,30 +2,32 @@
 
 Before using the API, you need:
 
-* [Install and start Primeagent](/get-started-installation) with the developer API enabled
+- [Install and start Primeagent](/get-started-installation) with the developer API enabled
 
-    The Workflows API endpoints require the `developer_api_enabled` setting to be enabled. If this setting is disabled, these endpoints will return a 404 Not Found error.
+  The Workflows API endpoints require the `developer_api_enabled` setting to be enabled. If this setting is disabled, these endpoints will return a 404 Not Found error.
 
-    To enable the developer API endpoint, do the following:
-    1. In the Primeagent `.env` file, set the environment variable to `true`:
-       ```
-       PRIMEAGENT_DEVELOPER_API_ENABLED=true
-       ```
-    2. Start your Primeagent server with the `.env` file enabled:
-       ```
-       uv run primeagent run --env-file .env
-       ```
+  To enable the developer API endpoint, do the following:
+  1. In the Primeagent `.env` file, set the environment variable to `true`:
+     ```
+     PRIMEAGENT_DEVELOPER_API_ENABLED=true
+     ```
+  2. Start your Primeagent server with the `.env` file enabled:
+     ```
+     uv run primeagent run --env-file .env
+     ```
 
-    For more information about configuring environment variables, see [Environment variables](/environment-variables).
-* [Create a Primeagent API key](/api-keys-and-authentication)
-* [Create a flow](/concepts-flows) that you want to execute
-* [Get the flow ID](/concepts-publish#api-access) or endpoint name of the flow you want to execute
+  For more information about configuring environment variables, see [Environment variables](/environment-variables).
+
+- [Create a Primeagent API key](/api-keys-and-authentication)
+- [Create a flow](/concepts-flows) that you want to execute
+- [Get the flow ID](/concepts-publish#api-access) or endpoint name of the flow you want to execute
 
 ### Set environment variables
 
 All code examples in this documentation assume you have set the following environment variables:
 
 **Python:**
+
 ```python
 import os
 
@@ -34,6 +36,7 @@ PRIMEAGENT_API_KEY = os.getenv("PRIMEAGENT_API_KEY")
 ```
 
 **TypeScript/JavaScript:**
+
 ```typescript
 const PRIMEAGENT_SERVER_URL = process.env.PRIMEAGENT_SERVER_URL;
 const PRIMEAGENT_API_KEY = process.env.PRIMEAGENT_API_KEY;
@@ -50,8 +53,8 @@ All Workflows API requests require authentication using a Primeagent API key. Th
 
 For more information, see [Create a Primeagent API key](/api-keys-and-authentication).
 
-| Header | Description | Example |
-|--------|-------------|---------|
-| `Content-Type` | Specifies the JSON format. | `application/json` |
-| `x-api-key` | Your Primeagent API key. | `sk-...` |
-| `accept` | Optional. Specifies the response format. | `application/json` |
+| Header         | Description                              | Example            |
+| -------------- | ---------------------------------------- | ------------------ |
+| `Content-Type` | Specifies the JSON format.               | `application/json` |
+| `x-api-key`    | Your Primeagent API key.                 | `sk-...`           |
+| `accept`       | Optional. Specifies the response format. | `application/json` |
