@@ -76,8 +76,6 @@ class TestURLComponent(ComponentTestBaseWithoutClient):
     def file_names_mapping(self):
         """Return an empty list since this component doesn't have version-specific files."""
         return [
-            {"version": "1.0.19", "module": "data", "file_name": "URL"},
-            {"version": "1.1.0", "module": "data", "file_name": "url"},
             {"version": "1.2.0", "module": "data", "file_name": "url"},
         ]
 

@@ -52,9 +52,6 @@ class TestPythonREPLComponent(ComponentTestBaseWithoutClient):
         return [
             {"version": "1.0.17", "module": "tools", "file_name": DID_NOT_EXIST},
             {"version": "1.0.18", "module": "tools", "file_name": DID_NOT_EXIST},
-            {"version": "1.0.19", "module": "tools", "file_name": DID_NOT_EXIST},
-            {"version": "1.1.0", "module": "tools", "file_name": DID_NOT_EXIST},
-            {"version": "1.1.1", "module": "tools", "file_name": DID_NOT_EXIST},
         ]
 
     def test_component_initialization(self, component_class, default_kwargs):

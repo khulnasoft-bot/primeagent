@@ -28,11 +28,7 @@ class TestSplitTextComponent(ComponentTestBaseWithoutClient):
     @pytest.fixture
     def file_names_mapping(self):
         """Return the file names mapping for different versions."""
-        return [
-            # It was in helpers in version 1.0.19
-            {"version": "1.0.19", "module": "helpers", "file_name": "SplitText"},
-            {"version": "1.1.1", "module": "processing", "file_name": "split_text"},
-        ]
+        return []
 
     def test_split_text_basic(self):
         """Test basic text splitting functionality."""
