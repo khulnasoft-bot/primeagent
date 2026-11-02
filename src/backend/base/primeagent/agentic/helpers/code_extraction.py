@@ -45,7 +45,7 @@ def _find_unclosed_code_block(text: str) -> list[str]:
     for pattern in [UNCLOSED_PYTHON_BLOCK_PATTERN, UNCLOSED_GENERIC_BLOCK_PATTERN]:
         match = re.search(pattern, text, re.IGNORECASE)
         if match:
-            code = match.group(1).rstrip("`").strip()
+            code = match.group(1).strip()
             return [code] if code else []
 
     return []

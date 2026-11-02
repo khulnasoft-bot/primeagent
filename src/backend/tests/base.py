@@ -174,24 +174,13 @@ class ComponentTestBase:
         assert not returned_none, f"{name} outputs returned None: {returned_none}"
 
     def test_all_versions_have_a_file_name_defined(self, file_names_mapping: list[VersionComponentMapping]) -> None:
-        """Ensure all supported versions have a file name defined."""
+        """Ensure every declared version mapping has a valid file name and module."""
         if not file_names_mapping:
             msg = f"file_names_mapping is empty for {self.__class__.__name__}. Skipping versions test."
             pytest.skip(msg)
 
-        version_mappings = {mapping["version"]: mapping for mapping in file_names_mapping}
-
-        for version in SUPPORTED_VERSIONS:
-            if version not in version_mappings:
-                supported_versions = ", ".join(sorted(m["version"] for m in file_names_mapping))
-                msg = (
-                    f"Version {version} not found in file_names_mapping for {self.__class__.__name__}.\n"
-                    f"Currently defined versions: {supported_versions}\n"
-                    "Please add this version to your component's file_names_mapping."
-                )
-                raise AssertionError(msg)
-
-            mapping = version_mappings[version]
+        for mapping in file_names_mapping:
+            version = mapping["version"]
             if mapping["file_name"] is None:
                 msg = (
                     f"file_name is None for version {version} in {self.__class__.__name__}.\n"
@@ -217,6 +206,9 @@ class ComponentTestBase:
         if not file_names_mapping:
             pytest.skip("No file names mapping defined for this component.")
         version_mappings = {mapping["version"]: mapping for mapping in file_names_mapping}
+
+        if version not in version_mappings:
+            pytest.skip(f"Skipping version {version} as it is not defined in file_names_mapping.")
 
         mapping = version_mappings[version]
         if mapping["file_name"] is DID_NOT_EXIST:

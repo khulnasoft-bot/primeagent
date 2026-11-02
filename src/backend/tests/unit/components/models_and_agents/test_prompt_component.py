@@ -30,6 +30,3 @@ class TestPromptComponent(ComponentTestBaseWithClient):
     def test_prompt_component_latest(self, component_class, default_kwargs):
         result = component_class(**default_kwargs)()
         assert result is not None
-
-    def test_component_versions(self, version, default_kwargs, file_names_mapping):
-        pass
