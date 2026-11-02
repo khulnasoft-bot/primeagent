@@ -52,6 +52,9 @@ async def _run_graph_with_events(
         if session_id:
             graph.session_id = session_id
 
+        if graph.context is None:
+            graph.context = {}
+
         if global_variables:
             if "request_variables" not in graph.context:
                 graph.context["request_variables"] = {}
@@ -135,6 +138,9 @@ async def execute_flow_file(
             graph.user_id = user_id
         if session_id:
             graph.session_id = session_id
+
+        if graph.context is None:
+            graph.context = {}
 
         if global_variables:
             if "request_variables" not in graph.context:

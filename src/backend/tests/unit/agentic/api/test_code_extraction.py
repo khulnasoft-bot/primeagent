@@ -459,10 +459,6 @@ class TestBugsAndEdgeCases:
         result = extract_python_code("```python\n\n```")
         assert result is None
 
-    @pytest.mark.xfail(
-        reason="BUG: rstrip('`') at L81 strips ALL trailing backticks, corrupting code",
-        strict=True,
-    )
     def test_rstrip_should_not_corrupt_code_with_backticks(self):
         """Unclosed blocks should not strip backticks that are part of the code."""
         text = '```python\nmarkdown_var = "```"'
