@@ -1,0 +1,2552 @@
+{
+  "repository": "khulnasoft-bot/primeagent",
+  "audit_date": "2026-11-02T19:54:28.530306+00:00",
+  "discovery": {
+    "issues_scanned": 0,
+    "code_scanning_alerts": 149,
+    "dependabot_alerts": 0,
+    "secret_scanning_alerts": 0,
+    "discovery_complete": true,
+    "open_prs": 3
+  },
+  "summary": {
+    "critical": 0,
+    "high": 104,
+    "medium": 45,
+    "low": 0,
+    "fixed": 5,
+    "unresolved": 95,
+    "blocked": 0,
+    "previously_fixed_on_main": 54
+  },
+  "findings": [
+    {
+      "id": 149,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/cli/serve_app.py",
+      "line": 1020,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/149"
+    },
+    {
+      "id": 148,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/api/router.py",
+      "line": 500,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/148"
+    },
+    {
+      "id": 147,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/api/router.py",
+      "line": 418,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/147"
+    },
+    {
+      "id": 146,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/openai_responses.py",
+      "line": 958,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/146"
+    },
+    {
+      "id": 145,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/template/utils.py",
+      "line": 30,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/145"
+    },
+    {
+      "id": 144,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/template/utils.py",
+      "line": 18,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/144"
+    },
+    {
+      "id": 143,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/utils/migration_runs.py",
+      "line": 349,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/143"
+    },
+    {
+      "id": 142,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/utils/migration_runs.py",
+      "line": 211,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/142"
+    },
+    {
+      "id": 141,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/utils/migration_runs.py",
+      "line": 154,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/141"
+    },
+    {
+      "id": 140,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/flows_helpers.py",
+      "line": 125,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/140"
+    },
+    {
+      "id": 139,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/knowledge_bases/ingestion_sources/folder.py",
+      "line": 100,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/139"
+    },
+    {
+      "id": 138,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/services/flow_preparation.py",
+      "line": 314,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/138"
+    },
+    {
+      "id": 137,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/services/flow_preparation.py",
+      "line": 310,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/137"
+    },
+    {
+      "id": 136,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/services/flow_preparation.py",
+      "line": 306,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/136"
+    },
+    {
+      "id": 135,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/services/helpers/flow_loader.py",
+      "line": 100,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/135"
+    },
+    {
+      "id": 134,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/services/helpers/flow_loader.py",
+      "line": 95,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/134"
+    },
+    {
+      "id": 133,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/services/helpers/flow_loader.py",
+      "line": 91,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/133"
+    },
+    {
+      "id": 132,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/services/helpers/flow_loader.py",
+      "line": 83,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/132"
+    },
+    {
+      "id": 131,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/services/helpers/flow_loader.py",
+      "line": 77,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/131"
+    },
+    {
+      "id": 130,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/components/files_and_knowledge/filesystem.py",
+      "line": 892,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/130"
+    },
+    {
+      "id": 129,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/components/files_and_knowledge/filesystem.py",
+      "line": 293,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/129"
+    },
+    {
+      "id": 128,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/components/files_and_knowledge/filesystem.py",
+      "line": 290,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/128"
+    },
+    {
+      "id": 127,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/components/files_and_knowledge/filesystem.py",
+      "line": 268,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/127"
+    },
+    {
+      "id": 126,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/components/files_and_knowledge/filesystem.py",
+      "line": 265,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/126"
+    },
+    {
+      "id": 125,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/components/files_and_knowledge/filesystem.py",
+      "line": 215,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/125"
+    },
+    {
+      "id": 124,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/api/files_router.py",
+      "line": 163,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/124"
+    },
+    {
+      "id": 123,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/api/files_router.py",
+      "line": 158,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/123"
+    },
+    {
+      "id": 122,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/api/files_router.py",
+      "line": 157,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/122"
+    },
+    {
+      "id": 121,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/api/files_router.py",
+      "line": 151,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/121"
+    },
+    {
+      "id": 120,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/agentic/api/files_router.py",
+      "line": 151,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/120"
+    },
+    {
+      "id": 119,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/files.py",
+      "line": 232,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/119"
+    },
+    {
+      "id": 118,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/utils/file_path_security.py",
+      "line": 337,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.\nThis path depends on a user-provided value.\nThis path depends on a user-provided value.\nThis path depends on a user-provided value.\nThis path depends on a user-provided value.\nThis path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/118"
+    },
+    {
+      "id": 117,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/utils/file_path_security.py",
+      "line": 261,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/117"
+    },
+    {
+      "id": 116,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/bundles/google/tests/test_workspace_network_errors.py",
+      "line": 119,
+      "description": "The string www.googleapis.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/116"
+    },
+    {
+      "id": 115,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/bundles/google/tests/test_workspace_network_errors.py",
+      "line": 53,
+      "description": "The string gmail.googleapis.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/115"
+    },
+    {
+      "id": 114,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/unit/api/v1/test_models_enabled_providers.py",
+      "line": 538,
+      "description": "The string https://us-south.ml.cloud.ibm.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/114"
+    },
+    {
+      "id": 113,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/unit/components/bundles/google/test_google_serper_api_core.py",
+      "line": 103,
+      "description": "The string https://test.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/113"
+    },
+    {
+      "id": 112,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/tests/unit/base/mcp/test_ga_swap_procedure.py",
+      "line": 249,
+      "description": "The string mcp.slack.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/112"
+    },
+    {
+      "id": 111,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/unit/api/utils/test_execution_errors_integration.py",
+      "line": 156,
+      "description": "The string gmail.googleapis.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/111"
+    },
+    {
+      "id": 110,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/unit/components/data_source/test_dns_rebinding.py",
+      "line": 646,
+      "description": "The string evil.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/110"
+    },
+    {
+      "id": 109,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/unit/components/data_source/test_dns_rebinding.py",
+      "line": 645,
+      "description": "The string safe.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/109"
+    },
+    {
+      "id": 108,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/unit/components/data_source/test_dns_rebinding.py",
+      "line": 315,
+      "description": "The string internal.example.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/108"
+    },
+    {
+      "id": 107,
+      "source": "CodeQL",
+      "rule_id": "py/weak-sensitive-data-hashing",
+      "rule_name": "py/weak-sensitive-data-hashing",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/models/model_utils.py",
+      "line": 803,
+      "description": "Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.",
+      "cwe": [
+        "external/cwe/cwe-327",
+        "external/cwe/cwe-328",
+        "external/cwe/cwe-916"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/107"
+    },
+    {
+      "id": 106,
+      "source": "CodeQL",
+      "rule_id": "py/weak-sensitive-data-hashing",
+      "rule_name": "py/weak-sensitive-data-hashing",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/services/database/models/api_key/crud.py",
+      "line": 41,
+      "description": "Sensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\nSensitive data (password) is used in a hashing algorithm (SHA256) that is insecure for password hashing, since it is not a computationally expensive hash function.\n[Sensitive data (password",
+      "cwe": [
+        "external/cwe/cwe-327",
+        "external/cwe/cwe-328",
+        "external/cwe/cwe-916"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/106"
+    },
+    {
+      "id": 105,
+      "source": "CodeQL",
+      "rule_id": "py/http-response-splitting",
+      "rule_name": "py/http-response-splitting",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/bundles/wfx-bundles/tests/test_nvidia_component.py",
+      "line": 323,
+      "description": "This HTTP header is constructed from a user-provided value.\nThis HTTP header is constructed from a user-provided value.\nThis HTTP header is constructed from a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-079",
+        "external/cwe/cwe-113"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/105"
+    },
+    {
+      "id": 104,
+      "source": "CodeQL",
+      "rule_id": "py/redos",
+      "rule_name": "py/redos",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/tests/unit/components/tools/test_filesystem.py",
+      "line": 594,
+      "description": "This part of the regular expression may cause exponential backtracking on strings containing many repetitions of 'a'.",
+      "cwe": [
+        "external/cwe/cwe-1333",
+        "external/cwe/cwe-400",
+        "external/cwe/cwe-730"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/104"
+    },
+    {
+      "id": 103,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "scripts/migrate_secret_key.py",
+      "line": 728,
+      "description": "This expression logs sensitive data (secret) as clear text.\nThis expression logs sensitive data (secret) as clear text.\nThis expression logs sensitive data (secret) as clear text.\nThis expression logs sensitive data (secret) as clear text.\nThis expression logs sensitive data (secret) as clear text.\nThis expression logs sensitive data (secret) as clear text.\nThis expression logs sensitive data (secret) as clear text.\nThis expression logs sensitive data (secret) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/103"
+    },
+    {
+      "id": 102,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "scripts/ci/check_capability_matrices.py",
+      "line": 839,
+      "description": "This expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/102"
+    },
+    {
+      "id": 101,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/unit/services/telemetry/test_span_url_redaction.py",
+      "line": 72,
+      "description": "This expression stores sensitive data (secret) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/101"
+    },
+    {
+      "id": 100,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/tests/unit/cli/test_serve_app_flow_span.py",
+      "line": 117,
+      "description": "This expression stores sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/100"
+    },
+    {
+      "id": 99,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/login.py",
+      "line": 157,
+      "description": "This expression stores sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/99"
+    },
+    {
+      "id": 98,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/login.py",
+      "line": 91,
+      "description": "This expression stores sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/98"
+    },
+    {
+      "id": 97,
+      "source": "CodeQL",
+      "rule_id": "js/incomplete-sanitization",
+      "rule_name": "js/incomplete-sanitization",
+      "severity": "high",
+      "state": "open",
+      "file": "docs/src/components/CopyPageButton.tsx",
+      "line": 26,
+      "description": "This does not escape backslash characters in the input.",
+      "cwe": [
+        "external/cwe/cwe-020",
+        "external/cwe/cwe-080",
+        "external/cwe/cwe-116"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/97"
+    },
+    {
+      "id": 96,
+      "source": "CodeQL",
+      "rule_id": "js/stack-trace-exposure",
+      "rule_name": "js/stack-trace-exposure",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/frontend/tests/fixtures/openai-compatible-server.mjs",
+      "line": 11,
+      "description": "This information exposed to the user depends on stack trace information.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/96"
+    },
+    {
+      "id": 95,
+      "source": "CodeQL",
+      "rule_id": "js/tainted-format-string",
+      "rule_name": "js/tainted-format-string",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/src/pages/FlowPage/hooks/use-load-flow-for-route.ts",
+      "line": 96,
+      "description": "Format string depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-134"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/95"
+    },
+    {
+      "id": 94,
+      "source": "CodeQL",
+      "rule_id": "js/tainted-format-string",
+      "rule_name": "js/tainted-format-string",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/src/pages/FlowPage/hooks/use-load-flow-for-route.ts",
+      "line": 81,
+      "description": "Format string depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-134"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/94"
+    },
+    {
+      "id": 93,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/tests/utils/add-new-user-and-loggin.ts",
+      "line": 76,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/93"
+    },
+    {
+      "id": 92,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/tests/utils/add-new-user-and-loggin.ts",
+      "line": 75,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/92"
+    },
+    {
+      "id": 91,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/tests/core/features/auto-login-off.spec.ts",
+      "line": 91,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/91"
+    },
+    {
+      "id": 90,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/tests/core/features/auto-login-off.spec.ts",
+      "line": 88,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/90"
+    },
+    {
+      "id": 89,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/tests/core/features/auto-login-off.spec.ts",
+      "line": 87,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/89"
+    },
+    {
+      "id": 88,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/tests/core/features/auto-login-off.spec.ts",
+      "line": 82,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/88"
+    },
+    {
+      "id": 87,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/tests/core/features/auto-login-off.spec.ts",
+      "line": 81,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/87"
+    },
+    {
+      "id": 86,
+      "source": "CodeQL",
+      "rule_id": "js/clear-text-storage-of-sensitive-data",
+      "rule_name": "js/clear-text-storage-of-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/src/utils/conflict-draft.ts",
+      "line": 126,
+      "description": "This stores sensitive data returned by a call to clearRemainingSecrets as clear text.\nThis stores sensitive data returned by a call to removeApiKeys as clear text.\nThis stores sensitive data returned by a call to clearRemainingSecrets as clear text.\nThis stores sensitive data returned by a call to removeApiKeys as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/86"
+    },
+    {
+      "id": 85,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/wfx/tests/unit/services/settings/test_mcp_composer.py",
+      "line": 33,
+      "description": "Binding a socket to all interfaces (using '0.0.0.0') is a security risk.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/85"
+    },
+    {
+      "id": 84,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/tests/unit/cli/test_common.py",
+      "line": 79,
+      "description": "Binding a socket to all interfaces (using '') is a security risk.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/84"
+    },
+    {
+      "id": 83,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/tests/unit/cli/test_common.py",
+      "line": 62,
+      "description": "Binding a socket to all interfaces (using '') is a security risk.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/83"
+    },
+    {
+      "id": 82,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/tests/unit/cli/test_common.py",
+      "line": 52,
+      "description": "Binding a socket to all interfaces (using '') is a security risk.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/82"
+    },
+    {
+      "id": 81,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/tests/unit/test_cli.py",
+      "line": 22,
+      "description": "Binding a socket to all interfaces (using '') is a security risk.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/81"
+    },
+    {
+      "id": 80,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/cli/common.py",
+      "line": 179,
+      "description": "Binding a socket to all interfaces (using '') is a security risk.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/80"
+    },
+    {
+      "id": 79,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/flows.py",
+      "line": 119,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/79"
+    },
+    {
+      "id": 78,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/flows.py",
+      "line": 104,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/78"
+    },
+    {
+      "id": 77,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/flows.py",
+      "line": 94,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/77"
+    },
+    {
+      "id": 76,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/files.py",
+      "line": 248,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/76"
+    },
+    {
+      "id": 75,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/files.py",
+      "line": 241,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/75"
+    },
+    {
+      "id": 74,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/files.py",
+      "line": 214,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/74"
+    },
+    {
+      "id": 73,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/files.py",
+      "line": 210,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/73"
+    },
+    {
+      "id": 72,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/files.py",
+      "line": 200,
+      "description": "This path depends on a user-provided value.\nThis path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/72"
+    },
+    {
+      "id": 71,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/wfx/tests/unit/services/settings/test_mcp_composer.py",
+      "line": 33,
+      "description": "'0.0.0.0' binds a socket to all interfaces.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/71"
+    },
+    {
+      "id": 70,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/wfx/src/wfx/template/utils.py",
+      "line": 29,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/70"
+    },
+    {
+      "id": 69,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/voice_mode.py",
+      "line": 1486,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/69"
+    },
+    {
+      "id": 68,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/voice_mode.py",
+      "line": 1481,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/68"
+    },
+    {
+      "id": 67,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/voice_mode.py",
+      "line": 1478,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/67"
+    },
+    {
+      "id": 66,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/openai_responses.py",
+      "line": 401,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/66"
+    },
+    {
+      "id": 65,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/wfx/src/wfx/template/utils.py",
+      "line": 31,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/65"
+    },
+    {
+      "id": 64,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/flows.py",
+      "line": 53,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/64"
+    },
+    {
+      "id": 63,
+      "source": "CodeQL",
+      "rule_id": "py/url-redirection",
+      "rule_name": "py/url-redirection",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/folders.py",
+      "line": 88,
+      "description": "Untrusted URL redirection depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-601"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/63"
+    },
+    {
+      "id": 62,
+      "source": "CodeQL",
+      "rule_id": "py/url-redirection",
+      "rule_name": "py/url-redirection",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/folders.py",
+      "line": 78,
+      "description": "Untrusted URL redirection depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-601"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/62"
+    },
+    {
+      "id": 61,
+      "source": "CodeQL",
+      "rule_id": "py/url-redirection",
+      "rule_name": "py/url-redirection",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/folders.py",
+      "line": 69,
+      "description": "Untrusted URL redirection depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-601"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/61"
+    },
+    {
+      "id": 60,
+      "source": "CodeQL",
+      "rule_id": "py/url-redirection",
+      "rule_name": "py/url-redirection",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/backend/base/primeagent/api/v1/folders.py",
+      "line": 60,
+      "description": "Untrusted URL redirection depends on a user-provided value.\nUntrusted URL redirection depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-601"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/60"
+    },
+    {
+      "id": 59,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/login.py",
+      "line": 111,
+      "description": "This expression stores sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/59"
+    },
+    {
+      "id": 58,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/primeagent/api/v1/login.py",
+      "line": 62,
+      "description": "This expression stores sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/58"
+    },
+    {
+      "id": 57,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/locust/primeagent_setup_test.py",
+      "line": 382,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/57"
+    },
+    {
+      "id": 56,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/locust/primeagent_setup_test.py",
+      "line": 371,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/56"
+    },
+    {
+      "id": 55,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/locust/primeagent_setup_test.py",
+      "line": 368,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/55"
+    },
+    {
+      "id": 54,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/primeagent_setup_test.py",
+      "line": 319,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/54"
+    },
+    {
+      "id": 53,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/primeagent_setup_test.py",
+      "line": 315,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/53"
+    },
+    {
+      "id": 52,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/locust/primeagent_setup_test.py",
+      "line": 282,
+      "description": "This expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/52"
+    },
+    {
+      "id": 51,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/locust/primeagent_example_workflow.py",
+      "line": 166,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/51"
+    },
+    {
+      "id": 50,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/locust/primeagent_run_load_test.py",
+      "line": 230,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/50"
+    },
+    {
+      "id": 49,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/backend/tests/locust/primeagent_run_load_test.py",
+      "line": 70,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/49"
+    },
+    {
+      "id": 48,
+      "source": "CodeQL",
+      "rule_id": "js/double-escaping",
+      "rule_name": "js/double-escaping",
+      "severity": "high",
+      "state": "open",
+      "file": "src/frontend/tests/utils/extract-and-clean-code.ts",
+      "line": 13,
+      "description": "This replacement may produce '&' characters that are double-unescaped here.",
+      "cwe": [
+        "external/cwe/cwe-020",
+        "external/cwe/cwe-116"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/48"
+    },
+    {
+      "id": 47,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/voice_mode.py",
+      "line": 1375,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/47"
+    },
+    {
+      "id": 46,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/voice_mode.py",
+      "line": 1370,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/46"
+    },
+    {
+      "id": 45,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/voice_mode.py",
+      "line": 1367,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/45"
+    },
+    {
+      "id": 44,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/wfx/src/wfx/cli/serve_app.py",
+      "line": 523,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/44"
+    },
+    {
+      "id": 43,
+      "source": "CodeQL",
+      "rule_id": "py/stack-trace-exposure",
+      "rule_name": "py/stack-trace-exposure",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/openai_responses.py",
+      "line": 375,
+      "description": "Stack trace information flows to this location and may be exposed to an external user.",
+      "cwe": [
+        "external/cwe/cwe-209",
+        "external/cwe/cwe-497"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/43"
+    },
+    {
+      "id": 42,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/wfx/src/wfx/template/utils.py",
+      "line": 31,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/42"
+    },
+    {
+      "id": 41,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/wfx/src/wfx/template/utils.py",
+      "line": 25,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/41"
+    },
+    {
+      "id": 40,
+      "source": "CodeQL",
+      "rule_id": "py/path-injection",
+      "rule_name": "py/path-injection",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/flows.py",
+      "line": 47,
+      "description": "This path depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-022",
+        "external/cwe/cwe-023",
+        "external/cwe/cwe-036",
+        "external/cwe/cwe-073",
+        "external/cwe/cwe-099"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/40"
+    },
+    {
+      "id": 39,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/wfx/tests/unit/cli/test_common.py",
+      "line": 77,
+      "description": "'' binds a socket to all interfaces.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/39"
+    },
+    {
+      "id": 38,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/wfx/tests/unit/cli/test_common.py",
+      "line": 60,
+      "description": "'' binds a socket to all interfaces.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/38"
+    },
+    {
+      "id": 37,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/wfx/tests/unit/cli/test_common.py",
+      "line": 50,
+      "description": "'' binds a socket to all interfaces.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/37"
+    },
+    {
+      "id": 36,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/tests/unit/test_cli.py",
+      "line": 22,
+      "description": "'' binds a socket to all interfaces.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/36"
+    },
+    {
+      "id": 35,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/wfx/src/wfx/services/mcp_composer/service.py",
+      "line": 81,
+      "description": "'0.0.0.0' binds a socket to all interfaces.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/35"
+    },
+    {
+      "id": 34,
+      "source": "CodeQL",
+      "rule_id": "py/bind-socket-all-network-interfaces",
+      "rule_name": "py/bind-socket-all-network-interfaces",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/wfx/src/wfx/cli/common.py",
+      "line": 91,
+      "description": "'' binds a socket to all interfaces.",
+      "cwe": [
+        "external/cwe/cwe-200"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/34"
+    },
+    {
+      "id": 33,
+      "source": "CodeQL",
+      "rule_id": "py/url-redirection",
+      "rule_name": "py/url-redirection",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/folders.py",
+      "line": 88,
+      "description": "Untrusted URL redirection depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-601"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/33"
+    },
+    {
+      "id": 32,
+      "source": "CodeQL",
+      "rule_id": "py/url-redirection",
+      "rule_name": "py/url-redirection",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/folders.py",
+      "line": 78,
+      "description": "Untrusted URL redirection depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-601"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/32"
+    },
+    {
+      "id": 31,
+      "source": "CodeQL",
+      "rule_id": "py/url-redirection",
+      "rule_name": "py/url-redirection",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/folders.py",
+      "line": 69,
+      "description": "Untrusted URL redirection depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-601"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/31"
+    },
+    {
+      "id": 30,
+      "source": "CodeQL",
+      "rule_id": "py/url-redirection",
+      "rule_name": "py/url-redirection",
+      "severity": "medium",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/folders.py",
+      "line": 60,
+      "description": "Untrusted URL redirection depends on a user-provided value.\nUntrusted URL redirection depends on a user-provided value.",
+      "cwe": [
+        "external/cwe/cwe-601"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/30"
+    },
+    {
+      "id": 29,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 298,
+      "description": "Suspicious character range that overlaps with \\u2640-\\u2642 in the same character class, and overlaps with \\u2702-\\u27b0 in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/29"
+    },
+    {
+      "id": 28,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 298,
+      "description": "Suspicious character range that overlaps with \\ufffd-\\ufffd in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/28"
+    },
+    {
+      "id": 27,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 298,
+      "description": "Suspicious character range that overlaps with \\u2500-\\u2bef in the same character class, and overlaps with \\u2600-\\u2b55 in the same character class, and overlaps with \\u2640-\\u2642 in the same character class, and overlaps with \\u2702-\\u27b0 in the same character class, and overlaps with \\ufffd-\\ufffd in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/27"
+    },
+    {
+      "id": 26,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 297,
+      "description": "Suspicious character range that overlaps with \\u2702-\\u27b0 in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/26"
+    },
+    {
+      "id": 25,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 297,
+      "description": "Suspicious character range that overlaps with \\u2600-\\u2b55 in the same character class, and overlaps with \\u2640-\\u2642 in the same character class, and overlaps with \\u2702-\\u27b0 in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/25"
+    },
+    {
+      "id": 24,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 297,
+      "description": "Suspicious character range that overlaps with \\ufffd-\\ufffd in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/24"
+    },
+    {
+      "id": 23,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 297,
+      "description": "Suspicious character range that overlaps with \\ufffd-\\ufffd in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/23"
+    },
+    {
+      "id": 22,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 297,
+      "description": "Suspicious character range that overlaps with \\ufffd-\\ufffd in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/22"
+    },
+    {
+      "id": 21,
+      "source": "CodeQL",
+      "rule_id": "py/overly-large-range",
+      "rule_name": "py/overly-large-range",
+      "severity": "medium",
+      "state": "open",
+      "file": "src/wfx/src/wfx/base/mcp/util.py",
+      "line": 297,
+      "description": "Suspicious character range that overlaps with \\ufffd-\\ufffd in the same character class.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/21"
+    },
+    {
+      "id": 20,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/unit/test_initial_setup.py",
+      "line": 231,
+      "description": "The string github.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/20"
+    },
+    {
+      "id": 19,
+      "source": "CodeQL",
+      "rule_id": "py/incomplete-url-substring-sanitization",
+      "rule_name": "py/incomplete-url-substring-sanitization",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/unit/components/search/test_google_serper_api_core.py",
+      "line": 100,
+      "description": "The string https://test.com may be at an arbitrary position in the sanitized URL.",
+      "cwe": [
+        "external/cwe/cwe-020"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/19"
+    },
+    {
+      "id": 18,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "open",
+      "file": "src/wfx/src/wfx/services/settings/utils.py",
+      "line": 136,
+      "description": "This expression stores sensitive data (secret) as clear text.\nThis expression stores sensitive data (secret) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/18"
+    },
+    {
+      "id": 17,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/login.py",
+      "line": 104,
+      "description": "This expression stores sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/17"
+    },
+    {
+      "id": 16,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-storage-sensitive-data",
+      "rule_name": "py/clear-text-storage-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/base/aiexec/api/v1/login.py",
+      "line": 62,
+      "description": "This expression stores sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-315",
+        "external/cwe/cwe-359"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/16"
+    },
+    {
+      "id": 15,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_setup_test.py",
+      "line": 372,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/15"
+    },
+    {
+      "id": 14,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_setup_test.py",
+      "line": 361,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/14"
+    },
+    {
+      "id": 13,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_setup_test.py",
+      "line": 358,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/13"
+    },
+    {
+      "id": 12,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_setup_test.py",
+      "line": 319,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/12"
+    },
+    {
+      "id": 11,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_setup_test.py",
+      "line": 315,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/11"
+    },
+    {
+      "id": 10,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_setup_test.py",
+      "line": 272,
+      "description": "This expression logs sensitive data (password) as clear text.\nThis expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/10"
+    },
+    {
+      "id": 9,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_run_load_test.py",
+      "line": 230,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/9"
+    },
+    {
+      "id": 8,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_run_load_test.py",
+      "line": 70,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/8"
+    },
+    {
+      "id": 7,
+      "source": "CodeQL",
+      "rule_id": "py/clear-text-logging-sensitive-data",
+      "rule_name": "py/clear-text-logging-sensitive-data",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/backend/tests/locust/aiexec_example_workflow.py",
+      "line": 166,
+      "description": "This expression logs sensitive data (password) as clear text.",
+      "cwe": [
+        "external/cwe/cwe-312",
+        "external/cwe/cwe-359",
+        "external/cwe/cwe-532"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/7"
+    },
+    {
+      "id": 6,
+      "source": "CodeQL",
+      "rule_id": "js/double-escaping",
+      "rule_name": "js/double-escaping",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/frontend/tests/core/unit/tabComponent.spec.ts",
+      "line": 109,
+      "description": "This replacement may produce '&' characters that are double-unescaped here.",
+      "cwe": [
+        "external/cwe/cwe-020",
+        "external/cwe/cwe-116"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/6"
+    },
+    {
+      "id": 5,
+      "source": "CodeQL",
+      "rule_id": "js/double-escaping",
+      "rule_name": "js/double-escaping",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/frontend/tests/core/unit/sliderComponent.spec.ts",
+      "line": 107,
+      "description": "This replacement may produce '&' characters that are double-unescaped here.",
+      "cwe": [
+        "external/cwe/cwe-020",
+        "external/cwe/cwe-116"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/5"
+    },
+    {
+      "id": 4,
+      "source": "CodeQL",
+      "rule_id": "js/double-escaping",
+      "rule_name": "js/double-escaping",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/frontend/tests/core/unit/queryInputComponent.spec.ts",
+      "line": 133,
+      "description": "This replacement may produce '&' characters that are double-unescaped here.",
+      "cwe": [
+        "external/cwe/cwe-020",
+        "external/cwe/cwe-116"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/4"
+    },
+    {
+      "id": 3,
+      "source": "CodeQL",
+      "rule_id": "js/double-escaping",
+      "rule_name": "js/double-escaping",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/frontend/tests/core/unit/linkComponent.spec.ts",
+      "line": 87,
+      "description": "This replacement may produce '&' characters that are double-unescaped here.",
+      "cwe": [
+        "external/cwe/cwe-020",
+        "external/cwe/cwe-116"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/3"
+    },
+    {
+      "id": 2,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/frontend/tests/core/features/user-flow-state-cleanup.spec.ts",
+      "line": 36,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/2"
+    },
+    {
+      "id": 1,
+      "source": "CodeQL",
+      "rule_id": "js/insecure-randomness",
+      "rule_name": "js/insecure-randomness",
+      "severity": "high",
+      "state": "fixed",
+      "file": "src/frontend/tests/core/features/user-flow-state-cleanup.spec.ts",
+      "line": 35,
+      "description": "This uses a cryptographically insecure random number generated at Math.random() in a security context.",
+      "cwe": [
+        "external/cwe/cwe-338"
+      ],
+      "url": "https://github.com/khulnasoft-bot/primeagent/security/code-scanning/1"
+    }
+  ],
+  "tests": [
+    {
+      "name": "ruff check (changed files)",
+      "result": "pass",
+      "command": "uv run ruff check src/wfx/src/wfx/cli/common.py src/backend/base/primeagent/api/v1/folders.py src/wfx/src/wfx/cli/serve_app.py src/backend/base/primeagent/api/v1/voice_mode.py src/backend/base/primeagent/agentic/api/router.py"
+    },
+    {
+      "name": "ruff format --check (changed files)",
+      "result": "pass",
+      "command": "uv run ruff format --check ..."
+    },
+    {
+      "name": "pytest test_folders.py",
+      "result": "4 passed",
+      "command": "uv run pytest src/backend/tests/unit/api/v1/test_folders.py -p no:benchmark -q"
+    },
+    {
+      "name": "pytest test_common.py (wfx)",
+      "result": "not run (env constraint)",
+      "command": "requires primeagent uninstalled"
+    },
+    {
+      "name": "ast.parse syntax check",
+      "result": "OK",
+      "files": 5
+    }
+  ],
+  "remaining_risks": [
+    "login.py stores API key in HttpOnly/Secure/SameSite session cookie - security/product team decision",
+    "Open PRs #13, #23, #25 unreviewed",
+    "CodeQL path-injection noise on already-defended production paths",
+    "wfx test_common.py could not run (env constraint)"
+  ]
+}

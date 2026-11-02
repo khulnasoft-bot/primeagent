@@ -300,12 +300,10 @@ def sanitize_mcp_name(name: str, max_length: int = 46) -> str:
         "\U0001f1e0-\U0001f1ff"  # flags (iOS)
         "\U00002500-\U00002bef"  # chinese char
         "\U00002702-\U000027b0"
-        "\U00002702-\U000027b0"
-        "\U000024c2-\U0001f251"
+        "\U0001f000-\U0001faff"  # supplementary symbols & pictographs
         "\U0001f926-\U0001f937"
-        "\U00010000-\U0010ffff"
         "\u2640-\u2642"
-        "\u2600-\u2b55"
+        "\u2600-\u26ff"
         "\u200d"
         "\u23cf"
         "\u23e9"

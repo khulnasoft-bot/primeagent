@@ -1011,8 +1011,8 @@ def create_multi_serve_app(
                 media_type="text/event-stream",
             )
         except Exception as exc:  # noqa: BLE001
-            logger.error(f"Error setting up streaming for flow {flow_id}: {exc}")
-            error_payload = json.dumps({"error": str(exc), "success": False})
+            logger.error(f"Error setting up streaming for flow {flow_id}: {exc}", exc_info=True)
+            error_payload = json.dumps({"error": "Failed to set up streaming", "success": False})
 
             async def error_stream():
                 yield f"data: {error_payload}\n\n"

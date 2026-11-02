@@ -1475,12 +1475,12 @@ async def get_elevenlabs_voice_ids(
         ]
     except ValueError as e:
         await logger.aerror(f"Error fetching ElevenLabs voices (ValueError): {e}")
-        return {"error": str(e)}
+        return {"error": "Failed to fetch voices"}
     except requests.RequestException as e:
         await logger.aerror(f"Error fetching ElevenLabs voices (RequestException): {e}")
-        return {"error": str(e)}
+        return {"error": "Failed to fetch voices"}
     except (KeyError, AttributeError, TypeError) as e:
         # More specific exceptions instead of blind Exception
         await logger.aerror(f"Error fetching ElevenLabs voices: {e}")
         await logger.aerror(traceback.format_exc())
-        return {"error": str(e)}
+        return {"error": "Failed to fetch voices"}

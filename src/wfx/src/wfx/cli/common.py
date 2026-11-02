@@ -176,7 +176,10 @@ def get_free_port(starting_port: int = 8000) -> int:
     while port < MAX_PORT_NUMBER:
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             try:
-                s.bind(("", port))
+                # Bind to loopback only: this is a port-availability probe, not a
+                # server. Binding to all interfaces would briefly expose the probe
+                # socket on every interface.
+                s.bind(("127.0.0.1", port))
             except OSError:
                 port += 1
             else:

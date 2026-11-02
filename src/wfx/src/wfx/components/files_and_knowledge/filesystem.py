@@ -6,7 +6,7 @@ import contextvars
 import json
 import os
 import re
-from pathlib import Path, PureWindowsPath
+from pathlib import Path, PurePath, PureWindowsPath
 from typing import TYPE_CHECKING
 
 from langchain_core.tools import StructuredTool
@@ -195,7 +195,7 @@ def _looks_binary(head: bytes) -> bool:
     return b"\x00" in head
 
 
-def _check_hardlink(candidate: Path) -> str | None:
+def _check_hardlink(candidate: Path, root: Path) -> str | None:
     """Return an error string when ``candidate`` is a multi-hardlink file.
 
     Why we refuse multi-hardlink files: an attacker with write access to a
@@ -210,9 +210,17 @@ def _check_hardlink(candidate: Path) -> str | None:
     them would refuse every nested path. Symlinks fall through to the
     boundary check and the no-follow helpers. Non-existent paths return
     ``None`` — creation is handled by the O_NOFOLLOW write helper.
+
+    Defense-in-depth: ``candidate`` is already resolved and
+    containment-checked by ``_validate_path``, but we re-normalize and
+    re-verify containment here so this helper is safe to invoke from any
+    context before touching the filesystem.
     """
+    normalized = Path(os.path.realpath(candidate))
+    if not normalized.is_relative_to(root):
+        return f"Path escapes workspace boundary: {candidate}"
     try:
-        st = os.lstat(candidate)
+        st = os.lstat(normalized)
     except FileNotFoundError:
         return None
     except OSError as exc:
@@ -889,6 +897,12 @@ class FileSystemToolComponent(Component):
         if deny_error := _check_deny_list(path):
             raise PermissionError(deny_error)
         root_resolved = self._validate_root()
+        # Reject absolute paths and `..` traversal before user-controlled data
+        # reaches a path expression, so the join below is always relative.
+        raw = PurePath(path)
+        if raw.is_absolute() or ".." in raw.parts:
+            msg = f"Invalid path: {path}"
+            raise PermissionError(msg)
         candidate = (root_resolved / path).resolve()
         if not candidate.is_relative_to(root_resolved):
             msg = f"Path escapes workspace boundary: {path}"
@@ -897,7 +911,7 @@ class FileSystemToolComponent(Component):
         # alias a denied target that `.resolve()` has already followed.
         if deny_error := _check_deny_list(str(candidate.relative_to(root_resolved))):
             raise PermissionError(deny_error)
-        if hardlink_error := _check_hardlink(candidate):
+        if hardlink_error := _check_hardlink(candidate, root_resolved):
             raise PermissionError(hardlink_error)
         return candidate
 

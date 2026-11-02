@@ -483,9 +483,9 @@ async def assist_headless(
                 yield f"data: {json.dumps(event)}\n\n"
             try:
                 result = await task
-            except Exception as exc:  # noqa: BLE001
+            except Exception:  # noqa: BLE001
                 logger.exception("Headless assistant run failed")
-                yield format_error_event(str(exc))
+                yield format_error_event("Assistant run failed")
                 return
             yield format_complete_event(result)
         finally:

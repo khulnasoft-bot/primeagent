@@ -23,7 +23,7 @@ function nodeToInlineMarkdown(node: Node): string {
     case "i":
       return `*${childText}*`;
     case "code":
-      return `\`${(el.textContent ?? "").replace(/`/g, "\\`")}\``;
+      return `\`${(el.textContent ?? "").replace(/\\/g, "\\\\").replace(/`/g, "\\`")}\``;
     case "a": {
       const href = el.getAttribute("href") ?? "";
       const text = childText || href;
