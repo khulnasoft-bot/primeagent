@@ -150,7 +150,7 @@ jobs:
 
       - name: Set up release source verification
         if: ${{ !inputs.dry_run }}
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.13"
       - name: Verify tagged source disables auto-login
@@ -287,7 +287,7 @@ jobs:
 
       - name: Setup Environment
         if: ${{ inputs.pre_release }}
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -462,7 +462,7 @@ jobs:
           ref: ${{ inputs.release_commit }}
 
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -516,7 +516,7 @@ jobs:
           ref: ${{ inputs.release_commit }}
 
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -567,7 +567,7 @@ jobs:
           ref: ${{ inputs.release_commit }}
 
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -618,7 +618,7 @@ jobs:
           ref: ${{ inputs.release_commit }}
 
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -704,7 +704,7 @@ jobs:
         with:
           ref: ${{ inputs.release_commit }}
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -774,7 +774,7 @@ jobs:
         with:
           ref: ${{ inputs.release_commit }}
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -900,7 +900,7 @@ jobs:
         with:
           ref: ${{ inputs.release_commit }}
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -1084,7 +1084,7 @@ jobs:
         with:
           ref: ${{ inputs.release_commit }}
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -1294,7 +1294,7 @@ jobs:
         with:
           ref: ${{ inputs.release_commit }}
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -1471,7 +1471,7 @@ jobs:
           name: dist-base
           path: src/backend/base/dist
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: false
@@ -1510,7 +1510,7 @@ jobs:
           name: dist-bundles
           path: bundles-dist
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: false
@@ -1566,7 +1566,7 @@ jobs:
           name: dist-main
           path: dist
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: false
@@ -1602,7 +1602,7 @@ jobs:
           name: dist-sdk
           path: src/sdk/dist
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: false
@@ -1635,7 +1635,7 @@ jobs:
           name: dist-wfx
           path: src/wfx/dist
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: false
