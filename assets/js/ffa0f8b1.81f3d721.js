@@ -1,1 +1,0 @@
-"use strict";(globalThis.webpackChunkprimeagent_docs=globalThis.webpackChunkprimeagent_docs||[]).push([[681],{72152(e){e.exports=JSON.parse('{"name":"docusaurus-plugin-redoc","id":"api"}')}}]);

@@ -4,8 +4,8 @@
   <ShortName>Primeagent Documentation</ShortName>
   <Description>Search Primeagent Documentation</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://docs-primeagent.khulnasoft.com/img/favicon.ico</Image>
-  <Url type="text/html" method="get" template="https://docs-primeagent.khulnasoft.com/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://docs-primeagent.khulnasoft.com/opensearch.xml" />
-  <moz:SearchForm>https://docs-primeagent.khulnasoft.com/</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://docs.prime.khulnasoft.com/img/favicon.ico</Image>
+  <Url type="text/html" method="get" template="https://docs.prime.khulnasoft.com/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://docs.prime.khulnasoft.com/opensearch.xml" />
+  <moz:SearchForm>https://docs.prime.khulnasoft.com/</moz:SearchForm>
 </OpenSearchDescription>
