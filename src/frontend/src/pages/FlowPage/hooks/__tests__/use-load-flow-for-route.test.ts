@@ -36,17 +36,19 @@ const RouterWrapper = ({ children }: PropsWithChildren) =>
 const renderRouteLoader = (
   options: {
     id?: string;
+    flows?: FlowType[];
     getFlow?: jest.Mock<Promise<FlowType>, [{ id: string }]>;
   } = {},
 ) => {
   const id = "id" in options ? options.id : FLOW.id;
   const getFlow = options.getFlow ?? jest.fn().mockResolvedValue(FLOW);
+  const flows = options.flows ?? [];
   const applyFlowToCanvas = jest.fn();
   const navigate = jest.fn();
   const result = renderHook(() =>
     useLoadFlowForRoute({
       id,
-      flows: [],
+      flows,
       currentFlowId: "",
       types: { flow: "Flow" },
       getFlow,
@@ -255,16 +257,35 @@ describe("useLoadFlowForRoute", () => {
   it("logs and redirects when the server cannot confirm the flow", async () => {
     const error = new Error("network unavailable");
     const getFlow = jest.fn().mockRejectedValue(error);
-    const { applyFlowToCanvas, navigate } = renderRouteLoader({ getFlow });
+    const { applyFlowToCanvas, navigate } = renderRouteLoader({
+      id: "%d",
+      getFlow,
+    });
 
     await waitFor(() => {
       expect(consoleError).toHaveBeenCalledWith(
-        `Failed to confirm flow ${FLOW.id} from the server:`,
+        "Failed to confirm flow %s from the server:",
+        "%d",
         error,
       );
       expect(navigate).toHaveBeenCalledWith("/all");
     });
     expect(applyFlowToCanvas).not.toHaveBeenCalled();
+  });
+
+  it("logs stored-flow IDs as data when loading fails", async () => {
+    const error = new Error("network unavailable");
+    const id = "%d";
+    const getFlow = jest.fn().mockRejectedValue(error);
+    renderRouteLoader({ id, flows: [{ ...FLOW, id }], getFlow });
+
+    await waitFor(() => {
+      expect(consoleError).toHaveBeenCalledWith(
+        "Failed to load flow %s into the canvas:",
+        id,
+        error,
+      );
+    });
   });
 
   it("redirects without fetching when the route id is missing", async () => {

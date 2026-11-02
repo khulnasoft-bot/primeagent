@@ -78,7 +78,7 @@ export default function useLoadFlowForRoute({
         const stale = isStale();
         releaseForRetry();
         if (!stale) {
-          console.error(`Failed to load flow ${id} into the canvas:`, error);
+          console.error("Failed to load flow %s into the canvas:", id, error);
         }
       });
     } else {
@@ -93,7 +93,7 @@ export default function useLoadFlowForRoute({
         if (stale) {
           return;
         }
-        console.error(`Failed to confirm flow ${id} from the server:`, error);
+        console.error("Failed to confirm flow %s from the server:", id, error);
         navigate("/all");
       });
     }
