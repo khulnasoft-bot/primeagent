@@ -187,7 +187,7 @@ FROM ${PYTHON_IMAGE} AS runtime
 USER root
 
 RUN microdnf update -y \
-    && microdnf install -y curl git gnupg libpq shadow-utils tar xz \
+    && microdnf install -y curl git gnupg libpq mount shadow-utils tar xz \
     && microdnf clean all
 
 RUN python3.14 -m pip install --no-cache-dir --upgrade "pip==26.2.1"

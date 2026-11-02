@@ -66,6 +66,7 @@ RUN microdnf update -y \
         git \
         libpq \
         gnupg \
+        mount \
         xz tar \
     && microdnf clean all
 RUN python3.14 -m pip install --no-cache-dir --upgrade "pip==26.2.1"
