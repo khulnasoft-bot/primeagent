@@ -51,7 +51,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v7
       - name: Setup Environment
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: true
@@ -237,7 +237,7 @@ jobs:
           architecture: ${{ matrix.arch == 'amd64' && 'x64' || matrix.arch }}
 
       - name: Setup UV
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: false
@@ -521,7 +521,7 @@ jobs:
           architecture: ${{ matrix.arch == 'amd64' && 'x64' || matrix.arch }}
 
       - name: Setup UV
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: false
@@ -889,7 +889,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup UV
-        uses: astral-sh/setup-uv@v10.0.0
+        uses: astral-sh/setup-uv@v7
         with:
           version: latest-known
           enable-cache: false
