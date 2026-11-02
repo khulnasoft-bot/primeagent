@@ -11,6 +11,7 @@ WORKDIR /app
 RUN microdnf install -y tar xz \
     gcc gcc-c++ make python3.14-devel \
     curl \
+    mount \
     npm \
     git \
     && microdnf clean all
