@@ -23,10 +23,18 @@
 ## Verification
 
 - `uv run ruff check` on all changed files: **pass**
-- `uv run ruff format --check` on all changed files: **5 files already formatted**
-- `src/backend/tests/unit/api/v1/test_folders.py`: **4 passed**
+- `uv run ruff format --check` on all changed files: **pass**
+- `src/backend/tests/unit/api/v1/test_folders.py`: **7 passed** (4 original + 3 new regression tests for CRLF/header injection)
 - Python syntax (ast.parse) on all changed files: **OK**
 - wfx `test_common.py`: could not run (environment constraint: wfx tests require `primeagent` uninstalled)
+
+## Regression tests added
+
+| Test | Covers |
+|---|---|
+| `test_read_folder_redirect_rejects_crlf_in_search` | CRLF characters in `search` param rejected (HTTP 400) |
+| `test_read_folder_redirect_rejects_control_chars_in_search` | Control characters (code < 0x20) in `search` rejected |
+| `test_read_folder_redirect_allows_safe_search` | Normal `search` values still work |
 
 ## Findings not changed (documented as false positive / accepted risk / design decision)
 
