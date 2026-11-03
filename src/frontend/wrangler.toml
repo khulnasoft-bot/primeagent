@@ -1,0 +1,19 @@
+name = "primeagent"
+compatibility_date = "2026-11-03"
+
+[pages]
+build_output_dir = "build"
+build_command = "npm run build"
+root = "src/frontend"
+
+[env.production]
+name = "primeagent-production"
+
+[env.staging]
+name = "primeagent-staging"
+
+[[env.production.vars]]
+BACKEND_URL = "https://api.your-domain.com"
+
+[[env.staging.vars]]
+BACKEND_URL = "https://api-staging.your-domain.com"

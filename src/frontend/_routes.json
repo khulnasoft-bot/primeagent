@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/_vercel/*",
+    "/api/*",
+    "/_next/*",
+    "/static/*",
+    "/favicon.ico",
+    "/manifest.json",
+    "/robots.txt"
+  ],
+  "fallback": "/index.html"
+}

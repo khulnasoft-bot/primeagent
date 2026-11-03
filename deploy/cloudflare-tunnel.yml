@@ -1,0 +1,25 @@
+# Cloudflare Tunnel service to expose Primeagent Docker Compose deployment
+# Add this service to deploy/docker-compose.yml or use as a standalone compose file.
+#
+# Prerequisites:
+# 1. Create a tunnel in Cloudflare Zero Trust dashboard
+# 2. Get your TUNNEL_TOKEN
+# 3. Add CLOUDFLARE_TOKEN to your .env file
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f cloudflare-tunnel.yml up -d
+
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: primeagent-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TOKEN?Variable not set}
+    networks:
+      - default
+    depends_on:
+      - backend
+      - frontend
+    deploy:
+      labels:
+        - traefik.enable=false
