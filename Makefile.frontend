@@ -39,7 +39,7 @@ build_frontend: ## build the frontend static files
 	@echo 'Checking if $(FRONTEND_DIR) exists...'
 	@ls -la $(FRONTEND_DIR) || true
 	@echo 'Building frontend static files...'
-	@cd $(FRONTEND_DIR) && CI='' npm run build 2>&1 || { echo "\nBuild failed! Error output above ☝️"; exit 1; }
+	@cd $(FRONTEND_DIR) && CI='' NODE_OPTIONS="--max-old-space-size=4096" npm run build 2>&1 || { echo "\nBuild failed! Error output above ☝️"; exit 1; }
 	@echo 'Clearing destination directory...'
 	$(call CLEAR_DIRS,src/backend/base/primeagent/frontend)
 	@echo 'Copying build files...'
