@@ -1,3 +1,4 @@
+import "@xyflow/react/dist/style.css";
 import { useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useTranslation } from "react-i18next";
