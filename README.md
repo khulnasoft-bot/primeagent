@@ -122,6 +122,13 @@
 
 ---
 
+## 🔬 **REA Reverse Engineering for WFX**
+
+The optional [`wfx-rea` extension](src/bundles/rea/README.md) adds authorized,
+evidence-preserving REA MCP/CLI nodes to WFX workflows. Target paths are bounded
+by operator-configured allowlisted roots; recovered target code is never run by
+the integration.
+
 ## 🌟 **Community Highlights**
 
 <div align="center">
