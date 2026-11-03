@@ -72,31 +72,39 @@ class ReaEvidence(BaseModel):
 def authorize_target_path(target_path: str, allowed_roots: str | None = None) -> Path:
     """Resolve a local target and require it to be inside an operator-approved root."""
     if not target_path or not target_path.strip():
-        raise ReaAuthorizationError("REA target path must not be empty.")
+        msg = "REA target path must not be empty."
+        raise ReaAuthorizationError(msg)
     configured_roots = allowed_roots if allowed_roots is not None else os.getenv("REA_ALLOWED_TARGET_ROOTS", "")
     roots = [root.strip() for root in configured_roots.split(os.pathsep) if root.strip()]
     if not roots:
-        raise ReaAuthorizationError("Set REA_ALLOWED_TARGET_ROOTS to authorize REA target paths.")
+        msg = "Set REA_ALLOWED_TARGET_ROOTS to authorize REA target paths."
+        raise ReaAuthorizationError(msg)
 
     try:
         target = Path(target_path).expanduser().resolve(strict=True)
         resolved_roots = [Path(root).expanduser().resolve(strict=True) for root in roots]
     except (OSError, RuntimeError) as exc:
-        raise ReaAuthorizationError(f"REA target or authorization root is unavailable: {exc}") from exc
+        msg = f"REA target or authorization root is unavailable: {exc}"
+        raise ReaAuthorizationError(msg) from exc
 
     if not target.is_file() and not target.is_dir():
-        raise ReaAuthorizationError("REA targets must be existing regular files or directories.")
+        msg = "REA targets must be existing regular files or directories."
+        raise ReaAuthorizationError(msg)
     if not any(target == root or root in target.parents for root in resolved_roots):
-        raise ReaAuthorizationError("REA target is outside REA_ALLOWED_TARGET_ROOTS.")
+        msg = "REA target is outside REA_ALLOWED_TARGET_ROOTS."
+        raise ReaAuthorizationError(msg)
 
     try:
         max_bytes = int(os.getenv("REA_MAX_TARGET_BYTES", str(2 * 1024 * 1024 * 1024)))
     except ValueError as exc:
-        raise ReaAuthorizationError("REA_MAX_TARGET_BYTES must be an integer.") from exc
+        msg = "REA_MAX_TARGET_BYTES must be an integer."
+        raise ReaAuthorizationError(msg) from exc
     if max_bytes < 1:
-        raise ReaAuthorizationError("REA_MAX_TARGET_BYTES must be positive.")
+        msg = "REA_MAX_TARGET_BYTES must be positive."
+        raise ReaAuthorizationError(msg)
     if target.is_file() and target.stat().st_size > max_bytes:
-        raise ReaAuthorizationError(f"REA target exceeds the configured {max_bytes}-byte limit.")
+        msg = f"REA target exceeds the configured {max_bytes}-byte limit."
+        raise ReaAuthorizationError(msg)
     if target.is_dir():
         _validate_directory_target(target, max_bytes)
     return target
@@ -106,9 +114,11 @@ def _validate_directory_target(target: Path, max_bytes: int) -> None:
     try:
         max_entries = int(os.getenv("REA_MAX_TARGET_ENTRIES", "100000"))
     except ValueError as exc:
-        raise ReaAuthorizationError("REA_MAX_TARGET_ENTRIES must be an integer.") from exc
+        msg = "REA_MAX_TARGET_ENTRIES must be an integer."
+        raise ReaAuthorizationError(msg) from exc
     if max_entries < 1:
-        raise ReaAuthorizationError("REA_MAX_TARGET_ENTRIES must be positive.")
+        msg = "REA_MAX_TARGET_ENTRIES must be positive."
+        raise ReaAuthorizationError(msg)
 
     entries = 0
     total_bytes = 0
@@ -122,27 +132,33 @@ def _validate_directory_target(target: Path, max_bytes: int) -> None:
         for directory in directories:
             path = root / directory
             if path.is_symlink():
-                raise ReaAuthorizationError("REA target directories must not contain symlinks.")
+                msg = "REA target directories must not contain symlinks."
+                raise ReaAuthorizationError(msg)
             entries += 1
         for filename in filenames:
             path = root / filename
             if path.is_symlink() or not path.is_file():
-                raise ReaAuthorizationError("REA target directories may contain only regular files and directories.")
+                msg = "REA target directories may contain only regular files and directories."
+                raise ReaAuthorizationError(msg)
             entries += 1
             try:
                 total_bytes += path.stat().st_size
             except OSError as exc:
-                raise ReaAuthorizationError(f"REA target file could not be inspected: {path}") from exc
+                msg = f"REA target file could not be inspected: {path}"
+                raise ReaAuthorizationError(msg) from exc
         if entries >= max_entries:
-            raise ReaAuthorizationError(f"REA target exceeds the configured {max_entries}-entry limit.")
+            msg = f"REA target exceeds the configured {max_entries}-entry limit."
+            raise ReaAuthorizationError(msg)
         if total_bytes > max_bytes:
-            raise ReaAuthorizationError(f"REA target exceeds the configured {max_bytes}-byte limit.")
+            msg = f"REA target exceeds the configured {max_bytes}-byte limit."
+            raise ReaAuthorizationError(msg)
 
 
 def validate_tool_arguments(tool: str, arguments: dict[str, Any]) -> None:
     """Reject REA inputs that could escape the target path authorization boundary."""
     if len(json.dumps(arguments, separators=(",", ":")).encode("utf-8")) > DEFAULT_MAX_OUTPUT_BYTES:
-        raise ReaAdapterError(f"REA arguments exceed the {DEFAULT_MAX_OUTPUT_BYTES}-byte limit.")
+        msg = f"REA arguments exceed the {DEFAULT_MAX_OUTPUT_BYTES}-byte limit."
+        raise ReaAdapterError(msg)
     if tool == "inspect_analysis_view":
         source = arguments.get("source")
         if (
@@ -150,20 +166,24 @@ def validate_tool_arguments(tool: str, arguments: dict[str, Any]) -> None:
             or source.get("kind") != "inline"
             or not isinstance(source.get("evidence"), dict)
         ):
-            raise ReaAuthorizationError("REA analysis views must use inline evidence, not local file references.")
+            msg = "REA analysis views must use inline evidence, not local file references."
+            raise ReaAuthorizationError(msg)
 
 
 def _process_parameters() -> StdioServerParameters:
     command = os.getenv("REA_MCP_COMMAND", "rea").strip()
     raw_args = os.getenv("REA_MCP_ARGS", '["mcp"]')
     if not command:
-        raise ReaAdapterError("REA_MCP_COMMAND must name an installed REA executable.")
+        msg = "REA_MCP_COMMAND must name an installed REA executable."
+        raise ReaAdapterError(msg)
     try:
         args = json.loads(raw_args)
     except json.JSONDecodeError as exc:
-        raise ReaAdapterError("REA_MCP_ARGS must be a JSON array of strings.") from exc
+        msg = "REA_MCP_ARGS must be a JSON array of strings."
+        raise ReaAdapterError(msg) from exc
     if not isinstance(args, list) or not all(isinstance(arg, str) for arg in args):
-        raise ReaAdapterError("REA_MCP_ARGS must be a JSON array of strings.")
+        msg = "REA_MCP_ARGS must be a JSON array of strings."
+        raise ReaAdapterError(msg)
     return StdioServerParameters(
         command=command,
         args=args,
@@ -217,16 +237,19 @@ class ReaMcpClient:
 
     def __init__(self, timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS) -> None:
         if timeout_seconds < 1:
-            raise ValueError("timeout_seconds must be at least one")
+            msg = "timeout_seconds must be at least one"
+            raise ValueError(msg)
         self.timeout_seconds = timeout_seconds
 
     async def call(self, tool: str, target_path: str, arguments: dict[str, Any] | None = None) -> ReaEvidence:
         if tool not in ALLOWED_READ_ONLY_TOOLS:
-            raise ReaCapabilityError(f"REA tool {tool!r} is not enabled by this read-only adapter.")
+            msg = f"REA tool {tool!r} is not enabled by this read-only adapter."
+            raise ReaCapabilityError(msg)
         target = authorize_target_path(target_path)
         tool_arguments = arguments or {}
         if not isinstance(tool_arguments, dict):
-            raise ValueError("REA tool arguments must be a JSON object.")
+            msg = "REA tool arguments must be a JSON object."
+            raise TypeError(msg)
         validate_tool_arguments(tool, tool_arguments)
 
         try:
@@ -235,31 +258,39 @@ class ReaMcpClient:
                 timeout=self.timeout_seconds,
             )
         except asyncio.TimeoutError as exc:
-            raise ReaAdapterError(f"REA operation exceeded the {self.timeout_seconds}-second timeout.") from exc
+            msg = f"REA operation exceeded the {self.timeout_seconds}-second timeout."
+            raise ReaAdapterError(msg) from exc
         except asyncio.CancelledError:
             raise
         except ReaAdapterError:
             raise
         except Exception as exc:
-            raise ReaAdapterError(f"REA MCP operation failed: {type(exc).__name__}: {exc}") from exc
+            msg = f"REA MCP operation failed: {type(exc).__name__}: {exc}"
+            raise ReaAdapterError(msg) from exc
 
     async def _call_in_session(self, tool: str, target: Path, arguments: dict[str, Any]) -> ReaEvidence:
-        async with stdio_client(_process_parameters()) as (read_stream, write_stream):
-            async with ClientSession(read_stream, write_stream) as session:
-                initialized = await session.initialize()
-                available = {item.name for item in (await session.list_tools()).tools}
-                missing = {"open_binary", tool} - available
-                if missing:
-                    raise ReaCapabilityError(f"REA server is missing required tools: {', '.join(sorted(missing))}.")
+        async with (
+            stdio_client(_process_parameters()) as (read_stream, write_stream),
+            ClientSession(read_stream, write_stream) as session,
+        ):
+            initialized = await session.initialize()
+            available = {item.name for item in (await session.list_tools()).tools}
+            missing = {"open_binary", tool} - available
+            if missing:
+                msg = f"REA server is missing required tools: {', '.join(sorted(missing))}."
+                raise ReaCapabilityError(msg)
 
-                opened = await session.call_tool("open_binary", {"path": str(target)})
-                if getattr(opened, "isError", False):
-                    raise ReaAdapterError("REA refused to open the authorized target.")
-                result = await session.call_tool(tool, arguments)
-                evidence = normalize_result(tool, target, result, getattr(initialized, "serverInfo", None))
-                serialized_size = len(evidence.model_dump_json().encode("utf-8"))
-                if serialized_size > DEFAULT_MAX_OUTPUT_BYTES:
-                    raise ReaAdapterError(
-                        f"REA response exceeds the {DEFAULT_MAX_OUTPUT_BYTES}-byte output limit; evidence was not forwarded."
-                    )
-                return evidence
+            opened = await session.call_tool("open_binary", {"path": str(target)})
+            if getattr(opened, "isError", False):
+                msg = "REA refused to open the authorized target."
+                raise ReaAdapterError(msg)
+            result = await session.call_tool(tool, arguments)
+            evidence = normalize_result(tool, target, result, getattr(initialized, "serverInfo", None))
+            serialized_size = len(evidence.model_dump_json().encode("utf-8"))
+            if serialized_size > DEFAULT_MAX_OUTPUT_BYTES:
+                msg = (
+                    f"REA response exceeds the {DEFAULT_MAX_OUTPUT_BYTES}-byte output limit; "
+                    "evidence was not forwarded."
+                )
+                raise ReaAdapterError(msg)
+            return evidence

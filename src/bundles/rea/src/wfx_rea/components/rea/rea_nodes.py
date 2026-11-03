@@ -51,10 +51,12 @@ class ReaNodeComponent(Component):
             if isinstance(validation, Data):
                 validation = validation.data
             if not isinstance(validation, dict) or validation.get("status") != "complete":
-                raise ValueError("Connect a successful REA Target Validation output before analysis.")
+                msg = "Connect a successful REA Target Validation output before analysis."
+                raise ValueError(msg)
             authorized_path = authorize_target_path(str(self.target_path))
             if validation.get("target_path") != str(authorized_path):
-                raise ValueError("REA validation output does not match the configured target path.")
+                msg = "REA validation output does not match the configured target path."
+                raise ValueError(msg)
 
         timeout_seconds = int(self.timeout_seconds or 120)
         client = ReaCliClient(timeout_seconds) if self.transport == "cli" else ReaMcpClient(timeout_seconds)
@@ -104,10 +106,12 @@ class REAInspectComponent(ReaNodeComponent):
         if isinstance(source, Data):
             source = source.data
         if not isinstance(source, dict):
-            raise ValueError("REA Inspect requires a connected REA evidence output.")
+            msg = "REA Inspect requires a connected REA evidence output."
+            raise TypeError(msg)
         source_evidence = source.get("structured_content")
         if not isinstance(source_evidence, dict):
-            raise ValueError("Connected REA result does not contain structured Evidence.")
+            msg = "Connected REA result does not contain structured Evidence."
+            raise TypeError(msg)
         arguments = dict(getattr(self, "arguments", {}) or {})
         arguments["source"] = {"kind": "inline", "evidence": source_evidence}
         return await self._invoke_async("inspect_analysis_view", arguments)
@@ -178,10 +182,12 @@ class REACollectEvidenceComponent(Component):
             if item is None:
                 continue
             if not isinstance(item, dict):
-                raise ValueError(f"{field} must contain a normalized REA evidence object.")
+                msg = f"{field} must contain a normalized REA evidence object."
+                raise TypeError(msg)
             records.append(item)
         if not records:
-            raise ValueError("Connect at least one REA evidence output.")
+            msg = "Connect at least one REA evidence output."
+            raise ValueError(msg)
         bundle = {"provider": "REA", "records": records}
         return Data(text=json.dumps(bundle, ensure_ascii=True), data=bundle)
 
@@ -202,11 +208,13 @@ class REAFindingsReportComponent(Component):
         if isinstance(evidence, Data):
             evidence = evidence.data
         if not isinstance(evidence, dict):
-            raise ValueError("REA Findings / Report requires an evidence object.")
+            msg = "REA Findings / Report requires an evidence object."
+            raise TypeError(msg)
 
         records = evidence.get("records", [evidence]) if isinstance(evidence, dict) else evidence
         if not isinstance(records, list) or not all(isinstance(record, dict) for record in records):
-            raise ValueError("REA Findings / Report requires REA evidence records.")
+            msg = "REA Findings / Report requires REA evidence records."
+            raise ValueError(msg)
 
         facts: list[Any] = []
         hypotheses: list[Any] = []

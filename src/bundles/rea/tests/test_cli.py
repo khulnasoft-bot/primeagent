@@ -1,10 +1,8 @@
 import os
 import sys
-from pathlib import Path
 
 import pytest
-from wfx_rea.cli import build_cli_arguments
-from wfx_rea.cli import ReaCliClient
+from wfx_rea.cli import ReaCliClient, build_cli_arguments
 from wfx_rea.client import ReaAdapterError
 
 
