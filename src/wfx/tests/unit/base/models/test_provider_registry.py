@@ -233,7 +233,7 @@ def test_model_component_policy_mode_reads_inherited_annotated_declaration():
     assert provider_registry.uses_standalone_model_provider_policy(Component()) is False
 
 
-@pytest.mark.parametrize("mode", ["standalone", "standalone", "", None])
+@pytest.mark.parametrize("mode", ["standalone", "", None])
 def test_model_component_policy_mode_fails_closed_for_unknown_modes(mode):
     class Component:
         model_provider_policy_mode = mode

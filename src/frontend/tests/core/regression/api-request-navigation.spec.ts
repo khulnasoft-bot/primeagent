@@ -42,82 +42,98 @@ const test = fixtureTest.extend<{}, { serverUrl: string }>({
 });
 
 for (const navigation of ["reload", "navigation"] as const) {
-  test(`retires API requests discarded by a document ${navigation}`, {
+  test(
+    `retires API requests discarded by a document ${navigation}`,
+    {
+      tag: ["@release", "@workspace"],
+    },
+    async ({ page, serverUrl }) => {
+      await page.goto(serverUrl);
+      await Promise.all([
+        page.waitForRequest("**/api/pending"),
+        page.evaluate(() => {
+          void fetch("/api/pending");
+        }),
+      ]);
+
+      if (navigation === "reload") {
+        await page.reload();
+      } else {
+        await page.goto(`${serverUrl}/next`);
+      }
+      await expect(page.getByText("Document ready")).toBeVisible();
+      // The fixture's teardown must accept the canceled request without an
+      // expectPendingRequest allowance or a missing requestfailed event.
+    },
+  );
+}
+
+test(
+  "retires API requests when their iframe is detached",
+  {
     tag: ["@release", "@workspace"],
-  }, async ({ page, serverUrl }) => {
+  },
+  async ({ page, serverUrl }) => {
     await page.goto(serverUrl);
+    await page.evaluate(() => {
+      const iframe = document.createElement("iframe");
+      iframe.src = "/child";
+      document.body.append(iframe);
+    });
+    await expect(
+      page.frameLocator("iframe").getByText("Document ready"),
+    ).toBeVisible();
+    const frame = page.frame({ url: `${serverUrl}/child` });
+    expect(frame).not.toBeNull();
     await Promise.all([
       page.waitForRequest("**/api/pending"),
-      page.evaluate(() => {
+      frame!.evaluate(() => {
         void fetch("/api/pending");
       }),
     ]);
+    await page.locator("iframe").evaluate((iframe) => iframe.remove());
+  },
+);
 
-    if (navigation === "reload") {
-      await page.reload();
-    } else {
-      await page.goto(`${serverUrl}/next`);
-    }
-    await expect(page.getByText("Document ready")).toBeVisible();
-    // The fixture's teardown must accept the canceled request without an
-    // expectPendingRequest allowance or a missing requestfailed event.
-  });
-}
+test(
+  "keeps checking requests started immediately by the new document",
+  {
+    tag: ["@release", "@workspace"],
+  },
+  async ({ page, serverUrl }) => {
+    await page.goto(serverUrl);
+    page.expectServerError({
+      method: "GET",
+      path: "/api/delayed-error",
+      status: 503,
+      count: 1,
+    });
+    await page.goto(`${serverUrl}/new-fetch`);
+    // Teardown must wait for and inspect the new document's delayed response.
+  },
+);
 
-test("retires API requests when their iframe is detached", {
-  tag: ["@release", "@workspace"],
-}, async ({ page, serverUrl }) => {
-  await page.goto(serverUrl);
-  await page.evaluate(() => {
-    const iframe = document.createElement("iframe");
-    iframe.src = "/child";
-    document.body.append(iframe);
-  });
-  await expect(
-    page.frameLocator("iframe").getByText("Document ready"),
-  ).toBeVisible();
-  const frame = page.frame({ url: `${serverUrl}/child` });
-  expect(frame).not.toBeNull();
-  await Promise.all([
-    page.waitForRequest("**/api/pending"),
-    frame!.evaluate(() => {
-      void fetch("/api/pending");
-    }),
-  ]);
-  await page.locator("iframe").evaluate((iframe) => iframe.remove());
-});
-
-test("keeps checking requests started immediately by the new document", {
-  tag: ["@release", "@workspace"],
-}, async ({ page, serverUrl }) => {
-  await page.goto(serverUrl);
-  page.expectServerError({
-    method: "GET",
-    path: "/api/delayed-error",
-    status: 503,
-    count: 1,
-  });
-  await page.goto(`${serverUrl}/new-fetch`);
-  // Teardown must wait for and inspect the new document's delayed response.
-});
-
-test("keeps checking requests across same-document navigation", {
-  tag: ["@release", "@workspace"],
-}, async ({ page, serverUrl }) => {
-  await page.goto(serverUrl);
-  page.expectServerError({
-    method: "GET",
-    path: "/api/delayed-error",
-    status: 503,
-    count: 1,
-  });
-  await Promise.all([
-    page.waitForRequest("**/api/delayed-error"),
-    page.evaluate(() => {
-      void fetch("/api/delayed-error");
-    }),
-  ]);
-  await page.evaluate(() => {
-    history.pushState({}, "", "/same-document#fragment");
-  });
-});
+test(
+  "keeps checking requests across same-document navigation",
+  {
+    tag: ["@release", "@workspace"],
+  },
+  async ({ page, serverUrl }) => {
+    await page.goto(serverUrl);
+    page.expectServerError({
+      method: "GET",
+      path: "/api/delayed-error",
+      status: 503,
+      count: 1,
+    });
+    await Promise.all([
+      page.waitForRequest("**/api/delayed-error"),
+      page.evaluate(() => {
+        void fetch("/api/delayed-error");
+      }),
+    ]);
+    await page.evaluate(() => {
+      history.pushState({}, "", "/same-document#fragment");
+    });
+  },
+);
