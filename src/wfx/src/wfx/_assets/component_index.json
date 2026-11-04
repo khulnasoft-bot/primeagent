@@ -30,7 +30,7 @@
           "icon": "Agentics",
           "legacy": true,
           "metadata": {
-            "code_hash": "8a4f9ec27023",
+            "code_hash": "e7492082ec67",
             "component_class_name": "AMapComponent",
             "dependencies": {
               "dependencies": [
@@ -424,7 +424,7 @@
           "icon": "Agentics",
           "legacy": true,
           "metadata": {
-            "code_hash": "b330d2afb66f",
+            "code_hash": "ae69b151716b",
             "component_class_name": "AgenerateComponent",
             "dependencies": {
               "dependencies": [
@@ -792,7 +792,7 @@
           "icon": "Agentics",
           "legacy": true,
           "metadata": {
-            "code_hash": "facf7a24bf57",
+            "code_hash": "ba7c08878c6b",
             "component_class_name": "AreduceComponent",
             "dependencies": {
               "dependencies": [
@@ -2874,7 +2874,7 @@
           "icon": "code",
           "legacy": false,
           "metadata": {
-            "code_hash": "5910c735003b",
+            "code_hash": "aa8f81c4f1d3",
             "component_class_name": "CustomComponent",
             "dependencies": {
               "dependencies": [
@@ -2989,7 +2989,7 @@
           "icon": "Globe",
           "legacy": false,
           "metadata": {
-            "code_hash": "15ef4d2aed84",
+            "code_hash": "8ef3aa44a3d8",
             "component_class_name": "APIRequestComponent",
             "dependencies": {
               "dependencies": [
@@ -3853,7 +3853,7 @@
           "icon": "newspaper",
           "legacy": true,
           "metadata": {
-            "code_hash": "357a5d1ca891",
+            "code_hash": "4d874407ea70",
             "component_class_name": "NewsSearchComponent",
             "dependencies": {
               "dependencies": [
@@ -4110,7 +4110,7 @@
           "icon": "rss",
           "legacy": true,
           "metadata": {
-            "code_hash": "9f77f8853226",
+            "code_hash": "d5a62fea9135",
             "component_class_name": "RSSReaderComponent",
             "dependencies": {
               "dependencies": [
@@ -4249,7 +4249,7 @@
           "icon": "database",
           "legacy": false,
           "metadata": {
-            "code_hash": "73e28dad0b4b",
+            "code_hash": "ba3d927f95c1",
             "component_class_name": "SQLComponent",
             "dependencies": {
               "dependencies": [
@@ -4448,7 +4448,7 @@
           "icon": "layout-template",
           "legacy": false,
           "metadata": {
-            "code_hash": "58ff154490ca",
+            "code_hash": "821723b66a77",
             "component_class_name": "URLComponent",
             "dependencies": {
               "dependencies": [
@@ -4860,7 +4860,7 @@
           "icon": "search",
           "legacy": false,
           "metadata": {
-            "code_hash": "26f9fdea4e68",
+            "code_hash": "2194dd9890cf",
             "component_class_name": "WebSearchComponent",
             "dependencies": {
               "dependencies": [
@@ -5200,7 +5200,7 @@
               "dependencies": [
                 {
                   "name": "numpy",
-                  "version": "2.4.6"
+                  "version": "2.5.1"
                 },
                 {
                   "name": "wfx",
@@ -5469,7 +5469,7 @@
           "icon": "folder",
           "legacy": true,
           "metadata": {
-            "code_hash": "4d0730bc8b7b",
+            "code_hash": "f709f89a0a90",
             "component_class_name": "DirectoryComponent",
             "dependencies": {
               "dependencies": [
@@ -5766,7 +5766,7 @@
           "icon": "file-text",
           "legacy": false,
           "metadata": {
-            "code_hash": "6f6f3d8790e1",
+            "code_hash": "336e445d03c2",
             "component_class_name": "FileComponent",
             "dependencies": {
               "dependencies": [
@@ -6033,7 +6033,7 @@
               "api_editable": false,
               "display_name": "Server File Path",
               "dynamic": false,
-              "info": "Data object with a 'file_path' property pointing to server file or a Message object with a path to the file. Supercedes 'Path' but supports same file types.",
+              "info": "Data object with a 'file_path' property pointing to server file or a Message object with a path to the file. Supersedes 'Path' but supports same file types.",
               "input_types": [
                 "Data",
                 "JSON",
@@ -6684,7 +6684,7 @@
                 },
                 {
                   "name": "numpy",
-                  "version": "2.4.6"
+                  "version": "2.5.1"
                 }
               ],
               "total_dependencies": 5
@@ -8253,7 +8253,7 @@
               "dependencies": [
                 {
                   "name": "numpy",
-                  "version": "2.4.6"
+                  "version": "2.5.1"
                 },
                 {
                   "name": "wfx",
@@ -8463,7 +8463,7 @@
           "icon": "file-text",
           "legacy": false,
           "metadata": {
-            "code_hash": "2191420075ad",
+            "code_hash": "f48d736b1728",
             "component_class_name": "SaveToFileComponent",
             "dependencies": {
               "dependencies": [
@@ -9450,7 +9450,7 @@
           "icon": "split",
           "legacy": false,
           "metadata": {
-            "code_hash": "a017d8d5d147",
+            "code_hash": "1fd2541843cb",
             "component_class_name": "ConditionalRouterComponent",
             "dependencies": {
               "dependencies": [
@@ -10433,7 +10433,7 @@
           "icon": "infinity",
           "legacy": false,
           "metadata": {
-            "code_hash": "918d1130248b",
+            "code_hash": "a11683775e57",
             "component_class_name": "LoopComponent",
             "dependencies": {
               "dependencies": [
@@ -10830,7 +10830,7 @@
           "icon": "Workflow",
           "legacy": false,
           "metadata": {
-            "code_hash": "1c71459e7ba8",
+            "code_hash": "d28a5905ce56",
             "component_class_name": "RunFlowComponent",
             "dependencies": {
               "dependencies": [
@@ -11098,7 +11098,7 @@
           "icon": "MessagesSquare",
           "legacy": false,
           "metadata": {
-            "code_hash": "e1a6adcd2554",
+            "code_hash": "3b546eab0e5e",
             "component_class_name": "ChatInput",
             "dependencies": {
               "dependencies": [
@@ -11382,7 +11382,7 @@
           "icon": "MessagesSquare",
           "legacy": false,
           "metadata": {
-            "code_hash": "76d4a69dd1da",
+            "code_hash": "6f4de8eaa0f6",
             "component_class_name": "ChatOutput",
             "dependencies": {
               "dependencies": [
@@ -11666,7 +11666,7 @@
           "icon": "type",
           "legacy": true,
           "metadata": {
-            "code_hash": "ca285d2cf288",
+            "code_hash": "318732508800",
             "component_class_name": "TextInputComponent",
             "dependencies": {
               "dependencies": [
@@ -11795,7 +11795,7 @@
           "icon": "type",
           "legacy": true,
           "metadata": {
-            "code_hash": "0638b11d4e7b",
+            "code_hash": "3d2082d13fbf",
             "component_class_name": "TextOutputComponent",
             "dependencies": {
               "dependencies": [
@@ -11903,7 +11903,7 @@
           "icon": "webhook",
           "legacy": false,
           "metadata": {
-            "code_hash": "1cb979c970ba",
+            "code_hash": "3dbe236a07c3",
             "component_class_name": "WebhookComponent",
             "dependencies": {
               "dependencies": [
@@ -12481,7 +12481,7 @@
           "icon": "LangChain",
           "legacy": false,
           "metadata": {
-            "code_hash": "52508f71af94",
+            "code_hash": "f34b9dd4be71",
             "component_class_name": "CharacterTextSplitterComponent",
             "dependencies": {
               "dependencies": [
@@ -13702,7 +13702,7 @@
           "icon": "LangChain",
           "legacy": false,
           "metadata": {
-            "code_hash": "721f688c6a56",
+            "code_hash": "12eea4e4eeb9",
             "component_class_name": "LanguageRecursiveTextSplitterComponent",
             "dependencies": {
               "dependencies": [
@@ -14891,7 +14891,7 @@
           "icon": "LangChain",
           "legacy": false,
           "metadata": {
-            "code_hash": "69d65e86fca2",
+            "code_hash": "44622f9f2cf0",
             "component_class_name": "RecursiveCharacterTextSplitterComponent",
             "dependencies": {
               "dependencies": [
@@ -17842,7 +17842,7 @@
           "icon": "List",
           "legacy": false,
           "metadata": {
-            "code_hash": "71c7655a0cfe",
+            "code_hash": "0ee5d76711e7",
             "component_class_name": "BatchRunComponent",
             "dependencies": {
               "dependencies": [
@@ -18171,7 +18171,7 @@
           "icon": "shield-check",
           "legacy": true,
           "metadata": {
-            "code_hash": "d39b2c2bf601",
+            "code_hash": "36292718f787",
             "component_class_name": "GuardrailsComponent",
             "dependencies": {
               "dependencies": [
@@ -18516,7 +18516,7 @@
           "icon": "shield-check",
           "legacy": false,
           "metadata": {
-            "code_hash": "fc552b167534",
+            "code_hash": "fa264b623239",
             "component_class_name": "GuardrailsV2Component",
             "dependencies": {
               "dependencies": [
@@ -19439,7 +19439,7 @@
           "icon": "git-branch",
           "legacy": false,
           "metadata": {
-            "code_hash": "7ec6b782f3f8",
+            "code_hash": "3e1316ce55fc",
             "component_class_name": "LLMSelectorComponent",
             "dependencies": {
               "dependencies": [
@@ -19722,7 +19722,7 @@
           "icon": "square-function",
           "legacy": false,
           "metadata": {
-            "code_hash": "972d5c126b1e",
+            "code_hash": "4aac1201a4c4",
             "component_class_name": "LambdaFilterComponent",
             "dependencies": {
               "dependencies": [
@@ -20281,7 +20281,7 @@
           "icon": "braces",
           "legacy": false,
           "metadata": {
-            "code_hash": "db7b589b8497",
+            "code_hash": "7114bf2c640e",
             "component_class_name": "StructuredOutputComponent",
             "dependencies": {
               "dependencies": [
@@ -20609,7 +20609,7 @@
           "icon": "bot",
           "legacy": false,
           "metadata": {
-            "code_hash": "b31d180fd8f2",
+            "code_hash": "01da06b7c369",
             "component_class_name": "A2AAgentComponent",
             "dependencies": {
               "dependencies": [
@@ -20880,7 +20880,7 @@
           "icon": "bot",
           "legacy": false,
           "metadata": {
-            "code_hash": "d429ce481de6",
+            "code_hash": "920d67e9ec15",
             "component_class_name": "AgentComponent",
             "dependencies": {
               "dependencies": [
@@ -21476,7 +21476,7 @@
           "icon": "binary",
           "legacy": false,
           "metadata": {
-            "code_hash": "6ec9501195fd",
+            "code_hash": "8bf6339b1fc2",
             "component_class_name": "EmbeddingModelComponent",
             "dependencies": {
               "dependencies": [
@@ -21942,7 +21942,7 @@
           "icon": "brain-circuit",
           "legacy": false,
           "metadata": {
-            "code_hash": "c5ac6f2c67a7",
+            "code_hash": "7c45c4fa1d4e",
             "component_class_name": "LanguageModelComponent",
             "dependencies": {
               "dependencies": [
@@ -22361,7 +22361,7 @@
           "icon": "Mcp",
           "legacy": false,
           "metadata": {
-            "code_hash": "94100e4364f5",
+            "code_hash": "17cd38416fb3",
             "component_class_name": "MCPToolsComponent",
             "dependencies": {
               "dependencies": [
@@ -22621,7 +22621,7 @@
           "icon": "message-square-more",
           "legacy": false,
           "metadata": {
-            "code_hash": "f8d9e7622eef",
+            "code_hash": "b4e7877c0632",
             "component_class_name": "MemoryComponent",
             "dependencies": {
               "dependencies": [
@@ -22996,7 +22996,7 @@
           "icon": "prompts",
           "legacy": false,
           "metadata": {
-            "code_hash": "8cde8f057646",
+            "code_hash": "7b65854c42f7",
             "component_class_name": "PromptComponent",
             "dependencies": {
               "dependencies": [
@@ -23775,7 +23775,7 @@
           "icon": "table",
           "legacy": true,
           "metadata": {
-            "code_hash": "dd1911ccb143",
+            "code_hash": "389a5347589b",
             "component_class_name": "DataFrameOperationsComponent",
             "dependencies": {
               "dependencies": [
@@ -25865,7 +25865,7 @@
           "icon": "wand-sparkles",
           "legacy": false,
           "metadata": {
-            "code_hash": "484e5b99c9ec",
+            "code_hash": "390683d46627",
             "component_class_name": "OperationsComponent",
             "dependencies": {
               "dependencies": [
@@ -27733,7 +27733,7 @@
           "icon": "braces",
           "legacy": false,
           "metadata": {
-            "code_hash": "9cfa66c526dd",
+            "code_hash": "fabb091df220",
             "component_class_name": "ParserComponent",
             "dependencies": {
               "dependencies": [
@@ -28195,7 +28195,7 @@
           "icon": "scissors-line-dashed",
           "legacy": false,
           "metadata": {
-            "code_hash": "af830aa70538",
+            "code_hash": "6c67223e9aa0",
             "component_class_name": "SplitTextComponent",
             "dependencies": {
               "dependencies": [
@@ -29279,7 +29279,7 @@
           "icon": "repeat",
           "legacy": false,
           "metadata": {
-            "code_hash": "fb5514ed10fe",
+            "code_hash": "23cffcc79b6c",
             "component_class_name": "TypeConverterComponent",
             "dependencies": {
               "dependencies": [
@@ -31732,7 +31732,7 @@
           "icon": "Webhook",
           "legacy": false,
           "metadata": {
-            "code_hash": "e7201ec3360b",
+            "code_hash": "9324f0d438f4",
             "component_class_name": "InboundWebhookTriggerComponent",
             "dependencies": {
               "dependencies": [
@@ -31888,7 +31888,7 @@
           "icon": "Clock",
           "legacy": false,
           "metadata": {
-            "code_hash": "5b4064f26bb4",
+            "code_hash": "66e4a50b90cd",
             "component_class_name": "ScheduleTriggerComponent",
             "dependencies": {
               "dependencies": [
@@ -32093,7 +32093,7 @@
           "icon": "calculator",
           "legacy": false,
           "metadata": {
-            "code_hash": "5b6fedfb0ad7",
+            "code_hash": "bdaf6f7a3157",
             "component_class_name": "CalculatorComponent",
             "dependencies": {
               "dependencies": [
@@ -32193,7 +32193,7 @@
           "icon": "clock",
           "legacy": false,
           "metadata": {
-            "code_hash": "9ebffd69cbec",
+            "code_hash": "f5b2cbb7a806",
             "component_class_name": "CurrentDateComponent",
             "dependencies": {
               "dependencies": [
@@ -32399,7 +32399,7 @@
           "icon": "square-terminal",
           "legacy": false,
           "metadata": {
-            "code_hash": "087b1c6880e5",
+            "code_hash": "d01cd7d73b00",
             "component_class_name": "PythonREPLComponent",
             "dependencies": {
               "dependencies": [
@@ -32518,6 +32518,6 @@
     "num_components": 130,
     "num_modules": 17
   },
-  "sha256": "113e4f3f3927cdcc315c0e07c3e9a8d19bb871531295637289cdad2adb5a2aad",
+  "sha256": "544f893b01a51bfa2ae91a9e0df7acf075803830fef3c32af0af9e1b10489d3a",
   "version": "1.13.0"
 }

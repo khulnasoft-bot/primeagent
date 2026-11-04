@@ -261,7 +261,7 @@
             "legacy": false,
             "lf_version": "1.10.1rc3",
             "metadata": {
-              "code_hash": "6f6f3d8790e1",
+              "code_hash": "336e445d03c2",
               "component_class_name": "FileComponent",
               "dependencies": {
                 "dependencies": [
@@ -510,7 +510,7 @@
                 "advanced": true,
                 "display_name": "Server File Path",
                 "dynamic": false,
-                "info": "Data object with a 'file_path' property pointing to server file or a Message object with a path to the file. Supercedes 'Path' but supports same file types.",
+                "info": "Data object with a 'file_path' property pointing to server file or a Message object with a path to the file. Supersedes 'Path' but supports same file types.",
                 "input_types": [
                   "Data",
                   "JSON",
@@ -960,7 +960,7 @@
             "icon": "scissors-line-dashed",
             "legacy": false,
             "metadata": {
-              "code_hash": "af830aa70538",
+              "code_hash": "6c67223e9aa0",
               "component_class_name": "SplitTextComponent",
               "dependencies": {
                 "dependencies": [
@@ -1252,7 +1252,7 @@
             "last_updated": "2026-06-25T19:23:56.879Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "7ab8db06f564",
+              "code_hash": "8cb973b917e6",
               "component_class_name": "AstraDBVectorStoreComponent",
               "dependencies": {
                 "dependencies": [
@@ -2216,7 +2216,7 @@
             "legacy": false,
             "lf_version": "1.6.0",
             "metadata": {
-              "code_hash": "e1a6adcd2554",
+              "code_hash": "3b546eab0e5e",
               "component_class_name": "ChatInput",
               "dependencies": {
                 "dependencies": [
@@ -2512,7 +2512,7 @@
             "legacy": false,
             "lf_version": "1.10.1rc3",
             "metadata": {
-              "code_hash": "d429ce481de6",
+              "code_hash": "920d67e9ec15",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
@@ -3274,7 +3274,7 @@
             "last_updated": "2026-06-25T19:23:56.881Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "7ab8db06f564",
+              "code_hash": "8cb973b917e6",
               "component_class_name": "AstraDBVectorStoreComponent",
               "dependencies": {
                 "dependencies": [
@@ -4236,7 +4236,7 @@
             "legacy": false,
             "lf_version": "1.6.0",
             "metadata": {
-              "code_hash": "9cfa66c526dd",
+              "code_hash": "fabb091df220",
               "component_class_name": "ParserComponent",
               "dependencies": {
                 "dependencies": [
@@ -4534,7 +4534,7 @@
             "icon": "MessagesSquare",
             "legacy": false,
             "metadata": {
-              "code_hash": "76d4a69dd1da",
+              "code_hash": "6f4de8eaa0f6",
               "component_class_name": "ChatOutput",
               "dependencies": {
                 "dependencies": [

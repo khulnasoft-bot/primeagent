@@ -244,7 +244,7 @@
             "last_updated": "2026-06-25T19:55:06.184Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "d429ce481de6",
+              "code_hash": "920d67e9ec15",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
@@ -989,7 +989,7 @@
             "last_updated": "2026-06-25T19:55:06.189Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "d429ce481de6",
+              "code_hash": "920d67e9ec15",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
@@ -1726,7 +1726,7 @@
             "legacy": false,
             "lf_version": "1.0.19.post2",
             "metadata": {
-              "code_hash": "8cde8f057646",
+              "code_hash": "7b65854c42f7",
               "component_class_name": "PromptComponent",
               "dependencies": {
                 "dependencies": [
@@ -1937,7 +1937,7 @@
             "legacy": false,
             "lf_version": "1.0.19.post2",
             "metadata": {
-              "code_hash": "e1a6adcd2554",
+              "code_hash": "3b546eab0e5e",
               "component_class_name": "ChatInput",
               "dependencies": {
                 "dependencies": [
@@ -2220,7 +2220,7 @@
             "last_updated": "2026-06-25T19:55:06.211Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "d429ce481de6",
+              "code_hash": "920d67e9ec15",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
@@ -2956,7 +2956,7 @@
             "last_updated": "2026-06-25T19:55:05.866Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "26f9fdea4e68",
+              "code_hash": "2194dd9890cf",
               "component_class_name": "WebSearchComponent",
               "dependencies": {
                 "dependencies": [
@@ -3394,7 +3394,7 @@
             "icon": "MessagesSquare",
             "legacy": false,
             "metadata": {
-              "code_hash": "76d4a69dd1da",
+              "code_hash": "6f4de8eaa0f6",
               "component_class_name": "ChatOutput",
               "dependencies": {
                 "dependencies": [

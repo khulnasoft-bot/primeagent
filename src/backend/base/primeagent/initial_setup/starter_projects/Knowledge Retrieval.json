@@ -152,7 +152,7 @@
             "legacy": false,
             "lf_version": "1.10.1rc3",
             "metadata": {
-              "code_hash": "e1a6adcd2554",
+              "code_hash": "3b546eab0e5e",
               "component_class_name": "ChatInput",
               "dependencies": {
                 "dependencies": [
@@ -409,7 +409,7 @@
             "legacy": false,
             "lf_version": "1.10.1rc3",
             "metadata": {
-              "code_hash": "76d4a69dd1da",
+              "code_hash": "6f4de8eaa0f6",
               "component_class_name": "ChatOutput",
               "dependencies": {
                 "dependencies": [
@@ -723,7 +723,7 @@
                   },
                   {
                     "name": "numpy",
-                    "version": "2.4.6"
+                    "version": "2.5.1"
                   }
                 ],
                 "total_dependencies": 5
@@ -1143,7 +1143,7 @@
             "legacy": false,
             "lf_version": "1.10.1rc3",
             "metadata": {
-              "code_hash": "9cfa66c526dd",
+              "code_hash": "fabb091df220",
               "component_class_name": "ParserComponent",
               "dependencies": {
                 "dependencies": [
