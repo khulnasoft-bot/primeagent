@@ -11,7 +11,7 @@ from wfx.schema.data import Data
 class NotionPageContent(LCToolComponent):
     display_name = "Page Content Viewer "
     description = "Retrieve the content of a Notion page as plain text."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-notion"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-notion"
     icon = "NotionDirectoryLoader"
 
     inputs = [

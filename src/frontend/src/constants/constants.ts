@@ -1028,7 +1028,7 @@ export const DEFAULT_FILE_PICKER_TIMEOUT = 60000;
 export const DISCORD_URL = "https://discord.com/invite/EqksyE2EX9";
 export const GITHUB_URL = "https://github.com/khulnasoft-bot/primeagent";
 export const TWITTER_URL = "https://x.com/primeagent_ai";
-export const DOCS_URL = "https://docs.prime.khulnasoft.com";
+export const DOCS_URL = "https://prime.khulnasoft.com/docs";
 export const DATASTAX_DOCS_URL =
   "https://docs.datastax.com/en/primeagent/index.html";
 export const DESKTOP_URL = "https://www.prime.khulnasoft.com/desktop";

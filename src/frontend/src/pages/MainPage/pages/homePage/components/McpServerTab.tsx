@@ -76,7 +76,7 @@ const McpServerTab = ({ folderName }: { folderName: string }) => {
             {t("mcp.serverDescription")}
             <a
               className="text-accent-pink-foreground"
-              href="https://docs.prime.khulnasoft.com/mcp-server"
+              href="https://prime.khulnasoft.com/docs/mcp-server"
               target="_blank"
               rel="noreferrer"
             >

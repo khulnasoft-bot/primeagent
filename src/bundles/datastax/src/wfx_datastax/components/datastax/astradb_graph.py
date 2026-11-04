@@ -20,7 +20,7 @@ class AstraDBGraphVectorStoreComponent(AstraDBBaseComponent, LCVectorStoreCompon
     display_name: str = "Astra DB Graph"
     description: str = "Implementation of Graph Vector Store using Astra DB"
     name = "AstraDBGraph"
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-datastax"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-datastax"
     icon: str = "AstraDB"
     legacy: bool = True
     replacement = ["datastax.GraphRAG"]

@@ -79,7 +79,7 @@ class URLComponent(Component):
 
     display_name = "URL"
     description = "Fetch content from one or more web pages, following links recursively."
-    documentation: str = "https://docs.prime.khulnasoft.com/url"
+    documentation: str = "https://prime.khulnasoft.com/docs/url"
     icon = "layout-template"
     name = "URLComponent"
     # Body bytes the current fetch may still read; reset by ``fetch_url_contents``.

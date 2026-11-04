@@ -82,7 +82,7 @@ jest.mock("@/components/common/genericIconComponent", () => ({
 jest.mock("@/constants/constants", () => ({
   __esModule: true,
   DATASTAX_DOCS_URL: "https://docs.datastax.com",
-  DOCS_URL: "https://docs.prime.khulnasoft.com",
+  DOCS_URL: "https://prime.khulnasoft.com/docs",
   DESKTOP_URL: "https://desktop.prime.khulnasoft.com",
 }));
 
@@ -154,7 +154,7 @@ describe("HelpDropdown", () => {
 
     fireEvent.click(screen.getByTestId("canvas_controls_dropdown_docs"));
     expect(window.open).toHaveBeenCalledWith(
-      "https://docs.prime.khulnasoft.com",
+      "https://prime.khulnasoft.com/docs",
       "_blank",
     );
 

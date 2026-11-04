@@ -437,7 +437,7 @@ def update_model_options_in_build_config(
 
             # A bare initial load is not a configuration act, and an unvalidated credential
             # harvested from the environment already marks a provider enabled, so falling
-            # back to ``options[0]`` there pre-selects a provider the user never set up
+            # back to ``options[0]`` there preselects a provider the user never set up
             # (LE-2168). A user-triggered update or a just-replaced selection still fills.
             user_triggered = field_name is not None
             if not default_model and options and (user_triggered or replaced_unusable_selection):

@@ -28,7 +28,7 @@ class TeamsChatPostComponent(MicrosoftGraphComponent):
 
     display_name = "Teams: Post Chat Message"
     description = "Post a message into an existing Microsoft Teams chat."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-microsoft"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-microsoft"
     name = "TeamsPostChatMessage"
     capability_id = "microsoft.teams.chat_post"
 

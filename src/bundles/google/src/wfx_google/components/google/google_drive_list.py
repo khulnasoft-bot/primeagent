@@ -32,7 +32,7 @@ class GoogleDriveListComponent(Component):
         "Lists Google Drive files this app created or the user opened with it. "
         "The drive.file scope cannot see the rest of the user's Drive."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-google"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-google"
     icon = "GoogleDrive"
     name = "GoogleDriveListComponent"
 

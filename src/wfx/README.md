@@ -22,7 +22,7 @@ If the `primeagent` package is installed in the same Python environment as `wfx`
 | [`wfx run`](#run-the-simple-agent-flow-with-wfx-run) | Execute a flow locally and stream results to `stdout` |
 | [`wfx-mcp`](#wfx-mcp) | Start an MCP server that connects to a running PrimeAgent instance |
 
-**Flow DevOps SDK commands** — documented in the [Flow DevOps Toolkit](https://docs.prime.khulnasoft.com/flow-devops-sdk):
+**Flow DevOps SDK commands** — documented in the [Flow DevOps Toolkit](https://prime.khulnasoft.com/docs/flow-devops-sdk):
 
 | Command | Description |
 |---------|-------------|
@@ -412,7 +412,7 @@ Credentials supplied in `PRIMEAGENT_REQUEST_VARIABLES` are scoped to the current
 
 ### Check or upgrade flow compatibility at startup
 
-Use `--upgrade-flow` to check compatibility between a flow and the current WFX version before serving it. See [WFX and PrimeAgent version compatibility](https://docs.prime.khulnasoft.com/wfx-compatibility) for details on the version model.
+Use `--upgrade-flow` to check compatibility between a flow and the current WFX version before serving it. See [WFX and PrimeAgent version compatibility](https://prime.khulnasoft.com/docs/wfx-compatibility) for details on the version model.
 
 ```bash
 # Fail at startup if any component is incompatible

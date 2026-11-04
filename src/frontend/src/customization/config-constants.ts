@@ -14,7 +14,7 @@ export const API_ROUTES = ["^/api/v1/", "^/api/v2/", "/health"];
 export const BASE_URL_API = `${BASENAME}/api/v1/`;
 export const BASE_URL_API_V2 = `${BASENAME}/api/v2/`;
 export const HEALTH_CHECK_URL = `${BASENAME}/health_check`;
-export const DOCS_LINK = "https://docs.prime.khulnasoft.com";
+export const DOCS_LINK = "https://prime.khulnasoft.com/docs";
 
 export default {
   DOCS_LINK,

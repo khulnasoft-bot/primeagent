@@ -19,7 +19,7 @@ registered provider adds no import cost until it is actually used.
 
 Guarantees:
 
-- **Core wins.** A bundle that re-declares a built-in provider name is ignored
+- **Core wins.** A bundle that redeclares a built-in provider name is ignored
   with a warning; the built-in definition is never overwritten.
 - **Zero cost when empty.** With no provider registered, nothing mutates and
   behavior is byte-identical to the un-patched tables.

@@ -10,7 +10,7 @@ from wfx.schema.data import Data
 class NotionUserList(LCToolComponent):
     display_name = "List Users "
     description = "Retrieve users from Notion."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-notion"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-notion"
     icon = "NotionDirectoryLoader"
 
     inputs = [

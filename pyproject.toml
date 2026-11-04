@@ -173,7 +173,7 @@ packages = ["src/backend/primeagent"]
 
 [project.urls]
 Repository = "https://github.com/khulnasoft-bot/primeagent"
-Documentation = "https://docs.prime.khulnasoft.com"
+Documentation = "https://prime.khulnasoft.com/docs"
 
 [project.optional-dependencies]
 bundles = [

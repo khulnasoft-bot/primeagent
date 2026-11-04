@@ -16,7 +16,7 @@ from primeagent.schema import Data
 class CustomComponent(Component):
     display_name = "Custom Component"
     description = "Use as a template to create your own component."
-    documentation: str = "https://docs.prime.khulnasoft.com/components-custom-components"
+    documentation: str = "https://prime.khulnasoft.com/docs/components-custom-components"
     icon = "code"
     name = "CustomComponent"
 

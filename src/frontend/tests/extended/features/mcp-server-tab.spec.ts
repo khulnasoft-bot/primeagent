@@ -214,7 +214,7 @@ test("user should be able to manage MCP server tools and configuration", {
   await expect(page.getByText("setup guide")).toBeVisible();
   await expect(page.getByText("setup guide")).toHaveAttribute(
     "href",
-    "https://docs.prime.khulnasoft.com/mcp-server#connect-clients-to-use-the-servers-actions",
+    "https://prime.khulnasoft.com/docs/mcp-server#connect-clients-to-use-the-servers-actions",
   );
 
   // Create a new flow with MCP component

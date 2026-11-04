@@ -256,7 +256,7 @@ class MCPToolsComponent(ComponentWithCache):
 
     display_name = "MCP Tools"
     description = "Connect to an MCP server to use its tools."
-    documentation: str = "https://docs.prime.khulnasoft.com/mcp-tools"
+    documentation: str = "https://prime.khulnasoft.com/docs/mcp-tools"
     icon = "Mcp"
     name = "MCPTools"
 

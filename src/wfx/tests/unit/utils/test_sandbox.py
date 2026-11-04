@@ -480,7 +480,7 @@ class TestRunCodeInSandbox:
     def test_unicode_docstring_same_line_composes_correctly(self, monkeypatch, fake_exec_sandbox):
         """Ast col_offset is a UTF-8 byte offset; non-ASCII text must not shift the split."""
         monkeypatch.setattr("wfx.services.deps.get_settings_service", lambda: _settings("exec-sandbox"))
-        code = '"""caf\u00e9."""; print(math.pi)'
+        code = '"""calf\u00e9."""; print(math.pi)'
         run_code_in_sandbox(code, global_imports="math")
         sent = fake_exec_sandbox.instances[-1].run_calls[-1]["code"]
         compile(sent, "<test>", "exec")

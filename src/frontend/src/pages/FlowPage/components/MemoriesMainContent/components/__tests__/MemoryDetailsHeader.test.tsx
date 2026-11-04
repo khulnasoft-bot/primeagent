@@ -431,7 +431,7 @@ describe("MemoryDetailsHeader", () => {
     const link = screen.getByRole("link", { name: /read the docs/i });
     expect(link).toHaveAttribute(
       "href",
-      "https://docs.prime.khulnasoft.com/memory-bases",
+      "https://prime.khulnasoft.com/docs/memory-bases",
     );
     expect(link).toHaveAttribute("target", "_blank");
   });

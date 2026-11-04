@@ -245,7 +245,7 @@ def _output(types, display_name="Output", method="run"):
 
 def test_outdated_safe_when_output_display_name_changed():
     """A cosmetic display_name change (e.g. a registry typo fix) is not breaking."""
-    node = _node(code=REGISTRY_CODE_V1, outputs=[_output(["Message"], display_name="Outpout")])
+    node = _node(code=REGISTRY_CODE_V1, outputs=[_output(["Message"], display_name="Output")])
     registry = _registry(code=REGISTRY_CODE_V2, outputs=[_output(["Message"], display_name="Output")])
     report = check_flow_compatibility(_flow(node), registry)
     assert report.nodes[0].status == "outdated_safe"

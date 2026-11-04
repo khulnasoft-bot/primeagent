@@ -5,7 +5,7 @@ model field with ``options[0]`` — the first default model of the first enabled
 in alphabetical order. Providers are marked enabled purely because a credential exists
 (``skip_validation=True``), and Primeagent harvests ``GOOGLE_API_KEY`` / ``OPENAI_API_KEY``
 / ``ANTHROPIC_API_KEY`` from the environment into global variables. So a key the user
-never entered anywhere silently produced a pre-selected model — Gemini when only Google
+never entered anywhere silently produced a preselected model — Gemini when only Google
 was present, Claude when Anthropic sorted first.
 
 The user's explicit ``__default_language_model__`` preference remains the one source of

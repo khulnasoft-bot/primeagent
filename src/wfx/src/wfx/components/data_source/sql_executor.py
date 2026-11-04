@@ -21,7 +21,7 @@ class SQLComponent(ComponentWithCache):
 
     display_name = "SQL Database"
     description = "Executes SQL queries on SQLAlchemy-compatible databases."
-    documentation: str = "https://docs.prime.khulnasoft.com/sql-database"
+    documentation: str = "https://prime.khulnasoft.com/docs/sql-database"
     icon = "database"
     name = "SQLComponent"
     metadata = {"keywords": ["sql", "database", "query", "db", "fetch"]}

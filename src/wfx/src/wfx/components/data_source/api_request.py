@@ -76,7 +76,7 @@ DEFAULT_SCHEME_PORTS = {"http": 80, "https": 443}
 class APIRequestComponent(Component):
     display_name = "API Request"
     description = "Make HTTP requests using URL or cURL commands."
-    documentation: str = "https://docs.prime.khulnasoft.com/api-request"
+    documentation: str = "https://prime.khulnasoft.com/docs/api-request"
     icon = "Globe"
     name = "APIRequest"
 

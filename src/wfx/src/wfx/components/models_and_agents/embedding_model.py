@@ -24,7 +24,7 @@ class EmbeddingModelComponent(LCEmbeddingsModel):
     model_provider_policy_mode = "delegate"
     display_name = "Embedding Model"
     description = "Generate embeddings using a specified provider."
-    documentation: str = "https://docs.prime.khulnasoft.com/components-embedding-models"
+    documentation: str = "https://prime.khulnasoft.com/docs/components-embedding-models"
     icon = "binary"
     name = "EmbeddingModel"
     category = "models"

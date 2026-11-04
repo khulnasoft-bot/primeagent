@@ -23,7 +23,7 @@ class OutlookSearchComponent(MicrosoftGraphComponent):
 
     display_name = "Outlook: Search Mail"
     description = "Search the connected user's Outlook mailbox."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-microsoft"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-microsoft"
     name = "OutlookSearchMail"
     capability_id = "microsoft.outlook.search"
 

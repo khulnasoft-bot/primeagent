@@ -2,7 +2,7 @@
 
 These instructions will walk you through the process of running a Primeagent demo via GitHub Codespaces.
 
-If you want a faster and easier demo experience with Primeagent, download and install [Primeagent Desktop](https://docs.prime.khulnasoft.com/get-started-installation#install-and-run-primeagent-desktop) for the least complicated setup experience.
+If you want a faster and easier demo experience with Primeagent, download and install [Primeagent Desktop](https://prime.khulnasoft.com/docs/get-started-installation#install-and-run-primeagent-desktop) for the least complicated setup experience.
 
 ## Create a Codespace in GitHub
 

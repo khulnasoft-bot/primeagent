@@ -19,7 +19,7 @@ class _DefaultDict(dict):
 class ParserComponent(Component):
     display_name = "Parser"
     description = "Extracts text using a template."
-    documentation: str = "https://docs.prime.khulnasoft.com/parser"
+    documentation: str = "https://prime.khulnasoft.com/docs/parser"
     icon = "braces"
 
     inputs = [

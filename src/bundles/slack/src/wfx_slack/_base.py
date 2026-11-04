@@ -225,7 +225,7 @@ class SlackBaseComponent(Component):
     """
 
     icon = "Slack"
-    documentation = "https://docs.prime.khulnasoft.com/bundles-slack"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-slack"
 
     capability_id: ClassVar[str] = ""
     slack_identity: ClassVar[str] = USER_IDENTITY

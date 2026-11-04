@@ -234,7 +234,7 @@ async def setup_superuser(settings_service: SettingsService, session: AsyncSessi
             "Username and password must be set. "
             "Set PRIMEAGENT_SUPERUSER_PASSWORD before starting Primeagent. "
             "If you are upgrading an existing auto-login installation, "
-            "see https://docs.prime.khulnasoft.com/next/api-keys-and-authentication#upgrade-from-auto-login"
+            "see https://prime.khulnasoft.com/docs/next/api-keys-and-authentication#upgrade-from-auto-login"
         )
         await logger.aerror(f"Missing credentials: username={username}, password={'set' if password else 'not set'}")
         raise ValueError(msg)

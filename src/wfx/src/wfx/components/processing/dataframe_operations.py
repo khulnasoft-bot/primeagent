@@ -12,7 +12,7 @@ from wfx.schema.dataframe import DataFrame
 class DataFrameOperationsComponent(Component):
     display_name = "Table Operations"
     description = "Perform various operations on a Table."
-    documentation: str = "https://docs.prime.khulnasoft.com/dataframe-operations"
+    documentation: str = "https://prime.khulnasoft.com/docs/dataframe-operations"
     icon = "table"
     name = "DataFrameOperations"
     legacy = True

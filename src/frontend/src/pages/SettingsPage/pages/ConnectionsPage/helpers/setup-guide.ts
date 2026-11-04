@@ -3,18 +3,18 @@ import { BASENAME } from "@/customization/config-constants";
 const SETUP_GUIDES = new Map([
   [
     "google",
-    "https://docs.prime.khulnasoft.com/connection-oauth#customer-owned-google-registration",
+    "https://prime.khulnasoft.com/docs/connection-oauth#customer-owned-google-registration",
   ],
-  ["microsoft", "https://docs.prime.khulnasoft.com/entra-app-registration"],
+  ["microsoft", "https://prime.khulnasoft.com/docs/entra-app-registration"],
   [
     "slack",
-    "https://docs.prime.khulnasoft.com/connection-oauth#customer-owned-slack-registration",
+    "https://prime.khulnasoft.com/docs/connection-oauth#customer-owned-slack-registration",
   ],
 ]);
 
 export function connectionSetupGuide(provider: string, usesToken = false) {
   if (provider === "slack" && usesToken) {
-    return "https://docs.prime.khulnasoft.com/bundles-slack#two-executing-identities";
+    return "https://prime.khulnasoft.com/docs/bundles-slack#two-executing-identities";
   }
   return SETUP_GUIDES.get(provider);
 }

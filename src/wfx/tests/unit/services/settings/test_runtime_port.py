@@ -38,7 +38,7 @@ def test_runtime_port_default_is_none(monkeypatch):
 
 
 def test_runtime_port_garbage_value_returns_none(monkeypatch):
-    """Unparseable values fall back to None."""
+    """Unparsable values fall back to None."""
     monkeypatch.setenv("PRIMEAGENT_RUNTIME_PORT", "not-a-port")
     settings = Settings()
     assert settings.runtime_port is None

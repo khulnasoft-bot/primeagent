@@ -251,7 +251,7 @@ all-no-torch = [
 
 [project.urls]
 Homepage = "https://github.com/khulnasoft-bot/primeagent"
-Documentation = "https://docs.prime.khulnasoft.com/extensions"
+Documentation = "https://prime.khulnasoft.com/docs/extensions"
 Repository = "https://github.com/khulnasoft-bot/primeagent"
 
 # Manifest-less discovery via the ``wfx.bundles`` entry-point group (NOT

@@ -40,7 +40,7 @@ def test_serve_command_help():
 
 
 def test_serve_command_invalid_json():
-    """Test serve command fails fast on unparseable JSON (before any server init)."""
+    """Test serve command fails fast on unparsable JSON (before any server init)."""
     from wfx.__main__ import app
 
     invalid_json = '{"invalid": json}'

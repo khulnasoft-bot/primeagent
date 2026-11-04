@@ -134,7 +134,7 @@ async def aget_agent_chat_history(
 class MemoryComponent(Component):
     display_name = "Message History"
     description = "Stores or retrieves stored chat messages from Primeagent tables or an external memory."
-    documentation: str = "https://docs.prime.khulnasoft.com/message-history"
+    documentation: str = "https://prime.khulnasoft.com/docs/message-history"
     icon = "message-square-more"
     name = "Memory"
     default_keys = ["mode", "memory", "session_id", "context_id"]

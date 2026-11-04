@@ -21,7 +21,7 @@ _DEPRECATION_MESSAGE = (
     "GoogleOAuthToken is deprecated. It runs a local-server OAuth flow and hands a long-lived "
     "token to the flow, which cannot work on a server deployment and stores credentials in flow "
     "data. Use a managed Google connection with the Gmail, Drive and Calendar action components "
-    "instead: https://docs.prime.khulnasoft.com/connection-oauth"
+    "instead: https://prime.khulnasoft.com/docs/connection-oauth"
 )
 
 # Class names of the connection-backed components that replace this one. Kept as
@@ -42,7 +42,7 @@ class GoogleOAuthToken(Component):
     description = (
         "Deprecated. Generates a JSON string with your Google OAuth token. Use a managed Google connection instead."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/connection-oauth"
+    documentation: str = "https://prime.khulnasoft.com/docs/connection-oauth"
     icon = "Google"
     name = "GoogleOAuthToken"
     legacy: bool = True

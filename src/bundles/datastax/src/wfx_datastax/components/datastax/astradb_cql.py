@@ -20,7 +20,7 @@ from wfx.utils.ssrf_protection import validate_connector_url_for_ssrf
 class AstraDBCQLToolComponent(AstraDBBaseComponent, LCToolComponent):
     display_name: str = "Astra DB CQL"
     description: str = "Create a tool to get transactional data from DataStax Astra DB CQL Table"
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-datastax"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-datastax"
     icon: str = "AstraDB"
 
     inputs = [
