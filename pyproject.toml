@@ -290,9 +290,10 @@ override-dependencies = [
 ]
 
 [tool.codespell]
-skip = '.git,*.pdf,*.svg,*.pdf,*.yaml,*.ipynb,poetry.lock,*.min.js,*.css,package-lock.json,*.trig.,**/node_modules/**,./stuff/*,*.csv'
+skip = '.git,*.pdf,*.svg,*.pdf,*.yaml,*.ipynb,poetry.lock,*.min.js,*.css,package-lock.json,*.trig.,**/node_modules/**,./stuff/*,*.csv,**/locales/*.json,.venv,dist,build,**/tests/data/**,*.raw,*.bin,*.dat'
 # Ignore latin etc
 ignore-regex = '.*(Stati Uniti|Tense=Pres).*'
+ignore-words-list = 'ot,unparseable,optins,meu,composant,raed,re-declare,pre-empted,pre-empt,memor'
 
 
 [tool.pytest.ini_options]
