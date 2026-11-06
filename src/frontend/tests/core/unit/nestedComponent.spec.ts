@@ -11,7 +11,9 @@ import {
 
 test(
   "user should be able to use nested component",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await openBlankFlow(page);
     await page.getByTestId("sidebar-search-input").click();

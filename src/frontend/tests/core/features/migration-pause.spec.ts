@@ -5,7 +5,9 @@ import { NO_DESTINATION, prepare, startOver } from "../../utils/migration-walk";
 
 test(
   "an admin pauses changes, backs up this instance and turns changes back on",
-  { tag: ["@release", "@workspace", "@api"] },
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     // Pausing refuses every change to the instance, so this walk can't share a server with other specs.
     test.skip(Boolean(NO_DESTINATION), NO_DESTINATION);

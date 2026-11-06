@@ -5,7 +5,9 @@ import { TEXTS } from "../../utils/constants/texts";
 
 test(
   "user must be able to edit an empty prompt",
-  { tag: ["@release", "@starter-projects"] },
+  {
+    tag: ["@release", "@starter-projects"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

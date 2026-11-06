@@ -8,7 +8,9 @@ import { sendPlaygroundMessage } from "../../utils/playground/send-playground-me
 
 test(
   "user should be able to publish a flow",
-  { tag: ["@release", "@workspace", "@api"] },
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page, context }) => {
     await openBlankFlow(page);
     await page.waitForSelector(`[data-testid="${TID.sidebarSearchInput}"]`, {
@@ -84,7 +86,9 @@ test(
 
 test(
   "user should see and copy the full shareable playground link",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page, context }) => {
     await context.grantPermissions(["clipboard-read", "clipboard-write"]);
     await openBlankFlow(page);

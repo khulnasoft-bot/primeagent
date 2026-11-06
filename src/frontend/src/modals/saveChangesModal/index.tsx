@@ -71,7 +71,7 @@ export function SaveChangesModal({
             <a
               target="_blank"
               className="text-accent-pink-foreground hover:underline"
-              href="https://docs.prime.khulnasoft.com/environment-variables#visual-editor-and-playground-behavior"
+              href="https://prime.khulnasoft.com/docs/environment-variables#visual-editor-and-playground-behavior"
               rel="noopener"
             >
               {t("flow.enableAutoSaving")}

@@ -42,7 +42,7 @@ class AMapComponent(BaseAgenticComponent):
         "Augment the input dataframe adding new columns defined in the input schema. "
         "Rows are processed independently and in parallel using LLMs."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-agentics"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-agentics"
     icon = "Agentics"
     legacy = True
 

@@ -42,7 +42,7 @@ def _is_default_storage(storage_name: str) -> bool:
 class SaveToFileComponent(Component):
     display_name = "Write File"
     description = "Save content to a file in the specified format and return its path."
-    documentation: str = "https://docs.prime.khulnasoft.com/write-file"
+    documentation: str = "https://prime.khulnasoft.com/docs/write-file"
     icon = "file-text"
     name = "SaveToFile"
 

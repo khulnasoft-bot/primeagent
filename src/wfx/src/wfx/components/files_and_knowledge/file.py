@@ -160,7 +160,7 @@ class FileComponent(BaseFileComponent):
     display_name = "Read File"
     # description is now a dynamic property - see get_tool_description()
     _base_description = "Loads and returns the content from uploaded files."
-    documentation: str = "https://docs.prime.khulnasoft.com/read-file"
+    documentation: str = "https://prime.khulnasoft.com/docs/read-file"
     icon = "file-text"
     name = "File"
     add_tool_output = True  # Enable tool mode toggle without requiring tool_mode inputs

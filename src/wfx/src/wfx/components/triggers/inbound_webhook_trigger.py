@@ -37,7 +37,7 @@ def validate_payload_schema(raw: str) -> dict[str, Any] | None:
 class InboundWebhookTriggerComponent(BaseTriggerComponent):
     display_name = "Inbound Webhook"
     description = "Run this flow when a signed HTTP request arrives at this trigger's own URL."
-    documentation: str = "https://docs.prime.khulnasoft.com/triggers"
+    documentation: str = "https://prime.khulnasoft.com/docs/triggers"
     name = "InboundWebhookTrigger"
     icon = "Webhook"
 

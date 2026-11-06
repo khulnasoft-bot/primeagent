@@ -14,7 +14,7 @@ from wfx.utils.file_path_security import component_file_access_scopes, enforce_l
 class DirectoryComponent(Component):
     display_name = "Directory"
     description = "Recursively load files from a directory."
-    documentation: str = "https://docs.prime.khulnasoft.com/directory"
+    documentation: str = "https://prime.khulnasoft.com/docs/directory"
     icon = "folder"
     name = "Directory"
     legacy = True

@@ -52,7 +52,9 @@ class ComposioGmailAPIComponent(Component):
 
 test(
   "user should be able to configure and run a deterministic Composio Gmail action",
-  { tag: ["@release", "@workspace", "@api", "@components"] },
+  {
+    tag: ["@release", "@workspace", "@api", "@components"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

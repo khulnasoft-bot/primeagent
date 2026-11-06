@@ -6,7 +6,9 @@ import { openBlankFlow } from "../../utils/flow/open-blank-flow";
 // TODO: This test might not be needed anymore
 test(
   "should be able to select all with ctrl + A on a node input",
-  { tag: ["@release"] },
+  {
+    tag: ["@release"],
+  },
   async ({ page }) => {
     await openBlankFlow(page);
 

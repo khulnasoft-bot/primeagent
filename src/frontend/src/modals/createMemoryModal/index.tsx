@@ -243,7 +243,7 @@ export default function CreateMemoryModal({
                       <span>
                         {t("memory.preprocessingInstructionsHint")}{" "}
                         <a
-                          href="https://docs.prime.khulnasoft.com/memory-bases#preprocessing-prompt-examples"
+                          href="https://prime.khulnasoft.com/docs/memory-bases#preprocessing-prompt-examples"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-0.5 text-tooltip-foreground underline opacity-80 hover:opacity-100"

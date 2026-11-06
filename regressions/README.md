@@ -67,7 +67,7 @@ Area options:
 
 During QA, support engineers keep entries current throughout RC by moving items out of `triage`, add workarounds, and marked fixed items as `resolved` with `resolved_in_version`.
 
-Docs team reviews all `ship_with_note` entries before release, and ncludes `workaround` text to update known issues in release notes.
+Docs team reviews all `ship_with_note` entries before release, and includes `workaround` text to update known issues in release notes.
 
 Release captain confirms no unresolved `blocking` entries exist.
 If `blocking` entries exist, they should be signed off on in the GitHub issue by a maintainer.

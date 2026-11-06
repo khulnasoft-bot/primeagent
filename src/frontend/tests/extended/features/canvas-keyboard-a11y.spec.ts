@@ -60,7 +60,9 @@ async function setupTwoNodeFlow(page) {
 
 test(
   "creates a connection with the keyboard alone",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await setupTwoNodeFlow(page);
 
@@ -83,7 +85,9 @@ test(
 
 test(
   "moves a node with arrow keys, announces it, and makes it undoable and persistent",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await setupTwoNodeFlow(page);
 
@@ -140,7 +144,9 @@ test(
 
 test(
   "arrow keys inside an open menu never move the node underneath",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await setupTwoNodeFlow(page);
 

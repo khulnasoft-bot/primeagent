@@ -1,0 +1,18 @@
+{
+    "$schema": "https://schemas.prime.khulnasoft.com/extension/v1.json",
+    "id": "wfx-rea",
+    "version": "0.1.0",
+    "name": "REA",
+    "description": "Evidence-driven reverse-engineering components backed by the REA MCP server.",
+    "wfx": {
+        "compat": [
+            "1"
+        ]
+    },
+    "bundles": [
+        {
+            "name": "rea",
+            "path": "components/rea"
+        }
+    ]
+}

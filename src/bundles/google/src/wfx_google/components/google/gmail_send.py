@@ -47,7 +47,7 @@ class GmailSendComponent(Component):
 
     display_name = "Gmail: Send Email"
     description = "Sends an email from the connected Google account's mailbox."
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-google"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-google"
     icon = "Gmail"
     name = "GmailSendComponent"
 

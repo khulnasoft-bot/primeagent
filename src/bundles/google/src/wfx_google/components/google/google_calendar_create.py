@@ -40,7 +40,7 @@ class GoogleCalendarCreateComponent(Component):
 
     display_name = "Calendar: Create Event"
     description = "Creates an event on a Google Calendar as the connected account."
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-google"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-google"
     icon = "Googlecalendar"
     name = "GoogleCalendarCreateComponent"
 

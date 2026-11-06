@@ -215,7 +215,7 @@ describe("AddConnectionDialog: pasted Slack tokens", () => {
     await user.selectOptions(screen.getByTestId("connection-method"), "token");
     expect(screen.getByRole("link", { name: "Setup guide" })).toHaveAttribute(
       "href",
-      "https://docs.prime.khulnasoft.com/bundles-slack#two-executing-identities",
+      "https://prime.khulnasoft.com/docs/bundles-slack#two-executing-identities",
     );
     expect(
       screen.queryByTestId("connection-callback-url"),

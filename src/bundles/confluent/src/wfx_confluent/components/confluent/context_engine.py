@@ -34,7 +34,7 @@ class ConfluentContextEngineComponent(MCPPresetComponent):
         "Give an Agent live, governed context from Kafka topics through Confluent's "
         "Real-Time Context Engine (MCP): list topics, inspect schemas, and query the latest data."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-confluent"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-confluent"
     icon = "Confluent"
     name = "ConfluentContextEngine"
     metadata = {"keywords": ["confluent", "kafka", "context engine", "mcp", "real-time", "streaming", "ibm"]}

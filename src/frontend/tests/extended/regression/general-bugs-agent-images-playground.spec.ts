@@ -8,7 +8,9 @@ import { seedLoopbackProvider } from "../../utils/seed-loopback-provider";
 
 test(
   "user must be able to send images in the playground with the agent component",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     await seedLoopbackProvider(page);
     await openStarterProject(page, "Simple Agent");

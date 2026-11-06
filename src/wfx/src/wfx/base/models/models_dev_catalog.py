@@ -258,7 +258,7 @@ def _is_aged_out(model_dict: dict[str, Any], now: datetime) -> bool:
 def _release_date_to_epoch(value: Any) -> int:
     """Convert a models.dev ``release_date`` (YYYY-MM-DD) to a Unix epoch.
 
-    Returns 0 for missing or unparseable values so downstream sort code can
+    Returns 0 for missing or unparsable values so downstream sort code can
     treat "unknown" as a stable tier without special-casing.
     """
     if not isinstance(value, str) or len(value) < _RELEASE_DATE_MIN_LEN:

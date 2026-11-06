@@ -168,7 +168,7 @@ describe("AddConnectionDialog ownership", () => {
     expect(screen.getByTestId("connection-authorize")).toBeDisabled();
     expect(screen.getByRole("link", { name: "Setup guide" })).toHaveAttribute(
       "href",
-      "https://docs.prime.khulnasoft.com/connection-oauth#customer-owned-google-registration",
+      "https://prime.khulnasoft.com/docs/connection-oauth#customer-owned-google-registration",
     );
     expect(
       screen.getByText(/PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS/),
@@ -202,7 +202,7 @@ describe("AddConnectionDialog ownership", () => {
     );
     expect(screen.getByRole("link", { name: "Setup guide" })).toHaveAttribute(
       "href",
-      "https://docs.prime.khulnasoft.com/entra-app-registration",
+      "https://prime.khulnasoft.com/docs/entra-app-registration",
     );
     expect(screen.getByTestId("connection-callback-url")).toHaveTextContent(
       "/oauth/microsoft/callback",

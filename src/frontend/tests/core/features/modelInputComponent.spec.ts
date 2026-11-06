@@ -64,7 +64,9 @@ test.describe("ModelInputComponent", () => {
 
   test(
     "should display model selector in a node with model input",
-    { tag: ["@release", "@components", "@workspace"] },
+    {
+      tag: ["@release", "@components", "@workspace"],
+    },
     async ({ page }) => {
       await openBlankFlowForModelInput(page);
 

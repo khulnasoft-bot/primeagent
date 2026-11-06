@@ -10,7 +10,9 @@ import { unselectNodes } from "../../utils/unselect-nodes";
 
 test(
   "user must be able to lock a flow and it must be saved",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     // Four lock/unlock round trips, each a settings save plus a full editor
     // reload, then twenty click-and-assert iterations. That is ~1 minute on

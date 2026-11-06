@@ -72,7 +72,7 @@ class WatsonxDataPrestoComponent(Component):
         "Execute a SQL query on an IBM watsonx.data Presto engine (Iceberg lakehouse, federated "
         "sources, Confluent Tableflow tables) and return the result as a DataFrame."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-ibm"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-ibm"
     icon = "WatsonxData"
     name = "WatsonxDataPresto"
     metadata = {"keywords": ["ibm", "watsonx", "watsonx.data", "presto", "sql", "lakehouse", "iceberg", "streamhouse"]}

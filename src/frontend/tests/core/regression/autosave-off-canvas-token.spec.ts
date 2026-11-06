@@ -32,7 +32,9 @@ async function dragFirstNode(page: Page): Promise<void> {
 for (const section of ["memories", "traces"]) {
   test(
     `an autosave that lands while ${section} is open keeps autosave working`,
-    { tag: ["@release", "@workspace"] },
+    {
+      tag: ["@release", "@workspace"],
+    },
     async ({ page }) => {
       await openStarterProject(page, "Basic Prompting");
       await adjustScreenView(page);

@@ -125,7 +125,7 @@ WORKDIR /app
 ENV PRIMEAGENT_HOST=0.0.0.0
 ENV PRIMEAGENT_PORT=7860
 
-# secuirty options
+# security options
 ENV PRIMEAGENT_AUTO_LOGIN=false
 
 CMD ["python", "-m", "primeagent", "run", "--backend-only"]

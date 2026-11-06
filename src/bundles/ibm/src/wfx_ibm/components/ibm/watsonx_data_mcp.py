@@ -90,7 +90,7 @@ class WatsonxDataMCPComponent(MCPPresetComponent):
         "Give an Agent access to IBM watsonx.data document libraries, document sets, and data "
         "assets through the watsonx.data remote MCP server."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-ibm"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-ibm"
     icon = "WatsonxData"
     name = "WatsonxDataMCP"
     metadata = {"keywords": ["ibm", "watsonx", "watsonx.data", "mcp", "document library", "lakehouse", "retrieval"]}

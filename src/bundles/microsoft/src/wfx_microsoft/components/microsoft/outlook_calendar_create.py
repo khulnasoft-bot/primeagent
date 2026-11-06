@@ -25,7 +25,7 @@ class OutlookCalendarCreateComponent(MicrosoftGraphComponent):
 
     display_name = "Outlook Calendar: Create Event"
     description = "Create a calendar event on the connected user's calendar."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-microsoft"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-microsoft"
     name = "OutlookCalendarCreateEvent"
     capability_id = "microsoft.calendar.create"
 

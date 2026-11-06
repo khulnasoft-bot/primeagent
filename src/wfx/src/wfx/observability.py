@@ -338,7 +338,7 @@ def safe_endpoint(endpoint: str) -> str:
     the line announcing it.
 
     Userinfo and query string go; scheme, host, port and path stay, because a wrong port is the
-    thing this line exists to make visible. Unparseable input degrades to a fixed marker rather
+    thing this line exists to make visible. Unparsable input degrades to a fixed marker rather
     than raising, since this only ever runs to build a log message.
 
     Control characters are rejected outright rather than parsed. ``urlsplit`` silently strips
@@ -349,18 +349,18 @@ def safe_endpoint(endpoint: str) -> str:
     not a URL.
     """
     if _CONTROL_CHARACTERS.intersection(endpoint):
-        return "<unparseable endpoint>"
+        return "<unparsable endpoint>"
     try:
         parts = urlsplit(endpoint)
         _ = parts.port  # Validates the authority; a bad port raises here rather than later.
     except ValueError:
-        return "<unparseable endpoint>"
+        return "<unparsable endpoint>"
     # An endpoint with no authority is not an endpoint, and the failure mode is the one this
     # function exists to prevent: ``urlsplit`` treats ``https:sekrit`` as an opaque value and
     # parks the whole of it in ``path``, so a typo that drops the slashes would have printed the
     # secret verbatim on the one log scope that is exported. Same for a bare word with no scheme.
     if not parts.netloc:
-        return "<unparseable endpoint>"
+        return "<unparsable endpoint>"
     netloc = parts.netloc.rsplit("@", maxsplit=1)[-1]
     return urlunsplit((parts.scheme, netloc, parts.path, "", ""))
 

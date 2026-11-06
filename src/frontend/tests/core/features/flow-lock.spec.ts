@@ -14,7 +14,9 @@ const waitForFlowSave = (page: Page) =>
 test.describe("Flow Lock Feature", () => {
   test(
     "should lock and unlock a flow and verify UI changes",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openStarterProject(page, TEXTS.templateBasicPrompting);
       await waitForFlowEditorReady(page);
@@ -117,7 +119,9 @@ test.describe("Flow Lock Feature", () => {
 
   test(
     "should show correct lock/unlock icon in settings based on state",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openStarterProject(page, TEXTS.templateBasicPrompting);
       await waitForFlowEditorReady(page);

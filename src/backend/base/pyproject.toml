@@ -207,7 +207,7 @@ build-backend = "hatchling.build"
 
 [project.urls]
 Repository = "https://github.com/khulnasoft-bot/primeagent"
-Documentation = "https://docs.prime.khulnasoft.com"
+Documentation = "https://prime.khulnasoft.com/docs"
 # Optional dependencies
 [project.optional-dependencies]
 audio = [

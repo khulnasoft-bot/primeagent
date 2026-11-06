@@ -196,7 +196,9 @@ async function openDbProvidersRoute(
 test.describe("DB providers route accessibility", () => {
   test(
     "scans default SQLite Local active state",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, emptyVariables);
       await expect(page.getByTestId("db-provider-item-sqlite")).toBeVisible();
@@ -210,7 +212,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans OpenSearch required configuration and disabled actions",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, emptyVariables);
       await page.getByTestId("db-provider-item-opensearch").click();
@@ -235,7 +239,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans OpenSearch unconfigured configuration form with default toggle states",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, emptyVariables);
       await page.getByTestId("db-provider-item-opensearch").click();
@@ -270,7 +276,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans OpenSearch form with TLS toggles switched off",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, emptyVariables);
       await page.getByTestId("db-provider-item-opensearch").click();
@@ -295,7 +303,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans OpenSearch configured/active state with masked secret field",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, openSearchConfiguredVariables);
 
@@ -313,7 +323,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans secret field editing/unmasked state",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, openSearchConfiguredVariables);
 
@@ -328,7 +340,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans coming-soon provider panel",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, emptyVariables);
 
@@ -357,7 +371,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans save-pending loading state",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       // SQLite Local's "Use SQLite" action fires a single activation
       // request (no preceding field-save call), so delaying it produces a
@@ -407,7 +423,9 @@ test.describe("DB providers route accessibility", () => {
 
       await expect(
         page.getByText("OpenSearch configuration saved"),
-      ).toBeVisible({ timeout: TIMEOUTS.standard });
+      ).toBeVisible({
+        timeout: TIMEOUTS.standard,
+      });
 
       await page.runA11yScan("db-providers-save-success");
     },
@@ -442,7 +460,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans test-connection pending loading state",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       const testConnectionBehavior: TestConnectionBehavior = {
         delayMs: 1500,
@@ -470,7 +490,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "retains keyboard focus on test-connection after loading completes",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       const testConnectionBehavior: TestConnectionBehavior = {
         delayMs: 400,
@@ -499,7 +521,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans test-connection success toast state",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, openSearchConfiguredVariables);
       await mockTestConnection(page, {
@@ -517,7 +541,9 @@ test.describe("DB providers route accessibility", () => {
 
   test(
     "scans test-connection failure toast state",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await openDbProvidersRoute(page, openSearchConfiguredVariables);
       await mockTestConnection(page, {

@@ -54,7 +54,7 @@ class GoogleDriveFetchComponent(Component):
         "Fetches one Google Drive file this app created or the user opened with it. "
         "Google-native documents are exported to the requested MIME type."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-google"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-google"
     icon = "GoogleDrive"
     name = "GoogleDriveFetchComponent"
 

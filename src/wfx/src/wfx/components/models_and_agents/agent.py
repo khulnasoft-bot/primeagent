@@ -153,7 +153,7 @@ def _suppress_send_message(component: Any):
 class AgentComponent(ToolApprovalMixin, ToolCallingAgentComponent):
     display_name: str = "Agent"
     description: str = "Define the agent's instructions, then enter a task to complete using tools."
-    documentation: str = "https://docs.prime.khulnasoft.com/agents"
+    documentation: str = "https://prime.khulnasoft.com/docs/agents"
     icon = "bot"
     beta = False
     name = "Agent"

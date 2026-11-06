@@ -131,7 +131,7 @@ class TestValidateCodeSafety:
         validate_code_safety(code)  # should not raise
 
     def test_syntax_error_propagates(self):
-        """Unparseable code surfaces a SyntaxError to the caller."""
+        """Unparsable code surfaces a SyntaxError to the caller."""
         with pytest.raises(SyntaxError):
             validate_code_safety("print('unterminated")
 

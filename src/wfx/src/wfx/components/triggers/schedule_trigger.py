@@ -61,7 +61,7 @@ def validate_timezone(name: str) -> str:
 class ScheduleTriggerComponent(BaseTriggerComponent):
     display_name = "Schedule"
     description = "Run this flow on a cron schedule, evaluated in a timezone you choose."
-    documentation: str = "https://docs.prime.khulnasoft.com/triggers"
+    documentation: str = "https://prime.khulnasoft.com/docs/triggers"
     name = "ScheduleTrigger"
     icon = "Clock"
 

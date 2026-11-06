@@ -51,7 +51,9 @@ test(
 
 test(
   "user must be able to see output inspection using 'o' shortcut",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

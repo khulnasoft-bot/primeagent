@@ -7,8 +7,9 @@ import { openBlankFlow } from "../../utils/flow/open-blank-flow";
 // "panel disabled" variants collapsed into this single on-node flow.
 test(
   "user should be able to edit name and description of a node",
-  { tag: ["@release", "@workspace"] },
-
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     const randomName = Math.random().toString(36).substring(2, 15);
     const randomDescription = Math.random().toString(36).substring(2, 15);

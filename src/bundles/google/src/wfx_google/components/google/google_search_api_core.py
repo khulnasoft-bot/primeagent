@@ -27,7 +27,7 @@ class GoogleSearchAPICore(Component):
         f"Google closed this API to new customers, and it stops working on {_SUNSET_DATE}. "
         "Use Serper, SearchApi, or SerpApi instead."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-google#google-search-api"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-google#google-search-api"
     icon = "Google"
     legacy: bool = True
     replacement = _REPLACEMENTS

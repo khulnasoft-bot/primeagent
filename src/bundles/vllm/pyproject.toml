@@ -15,7 +15,7 @@ keywords = ["primeagent", "wfx", "extension", "bundle", "vllm", "model-provider"
 # is OpenAI-compatible, so its model/embedding classes (``ChatOpenAI`` /
 # ``OpenAIEmbeddings``) are the langchain-openai classes wfx already ships and
 # resolves lazily -- the bundle does not import them directly, so it is not
-# re-declared here. ``httpx`` backs the SSRF-safe, DNS-pinned live ``/v1/models``
+# redeclared here. ``httpx`` backs the SSRF-safe, DNS-pinned live ``/v1/models``
 # discovery and credential-validation probe.
 # The wfx floor is the current major.minor line (the seam ships in 1.11) and is
 # re-synced on ``make patch`` via scripts/ci/sync_bundle_wfx_pin.py; fine-grained
@@ -27,7 +27,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/khulnasoft-bot/primeagent"
-Documentation = "https://docs.prime.khulnasoft.com/extensions"
+Documentation = "https://prime.khulnasoft.com/docs/extensions"
 Repository = "https://github.com/khulnasoft-bot/primeagent"
 
 # Manifest-shipping distributions are discovered via the ``primeagent.extensions``

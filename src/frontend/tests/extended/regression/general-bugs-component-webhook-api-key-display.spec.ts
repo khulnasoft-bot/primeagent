@@ -12,7 +12,9 @@ import {
 
 test(
   "user must be able to see api key in webhook component when auto login is disabled",
-  { tag: ["@release"] },
+  {
+    tag: ["@release"],
+  },
   async ({ page }) => {
     await page.route("**/api/v1/auto_login", (route) => {
       route.fulfill({
@@ -88,7 +90,9 @@ test(
 
 test(
   "user must be able to not see api key in webhook component when auto login is enabled",
-  { tag: ["@release"] },
+  {
+    tag: ["@release"],
+  },
   async ({ page }) => {
     await page.route("**/api/v1/config", (route) => {
       route.fulfill({

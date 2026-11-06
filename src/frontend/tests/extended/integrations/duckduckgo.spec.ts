@@ -7,7 +7,9 @@ import { skipIfComponentUnavailable } from "../../utils/skip-if-component-unavai
 
 test(
   "user should be able to use duckduckgo search component",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

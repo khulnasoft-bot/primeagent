@@ -21,7 +21,7 @@ class HCDVectorStoreComponent(LCVectorStoreComponent):
     display_name: str = "Hyper-Converged Database"
     description: str = "Implementation of Vector Store using Hyper-Converged Database (HCD) with search capabilities"
     name = "HCD"
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-datastax"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-datastax"
     icon: str = "HCD"
 
     inputs = [

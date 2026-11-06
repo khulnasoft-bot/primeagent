@@ -2612,7 +2612,7 @@ class MyComponent:
                 '    display_name = "My Component"\n'
                 '    description = "What it does"\n'
                 '    icon = "component-icon"\n'
-                '    documentation: str = "https://docs.prime.khulnasoft.com"\n'
+                '    documentation: str = "https://prime.khulnasoft.com/docs"\n'
                 '    inputs = [MessageTextInput(name="input_value", display_name="Input")]\n'
                 '    outputs = [Output(display_name="Output", name="output", method="process")]\n\n'
                 "    def process(self):\n"

@@ -23,7 +23,7 @@ class GoogleCalendarListComponent(Component):
 
     display_name = "Calendar: List Events"
     description = "Lists events from a Google Calendar the connected account can read."
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-google"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-google"
     icon = "Googlecalendar"
     name = "GoogleCalendarListComponent"
 

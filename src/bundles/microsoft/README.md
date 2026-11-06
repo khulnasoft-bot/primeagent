@@ -31,8 +31,8 @@ required scopes.
 
 Every component takes a portable connection handle (`microsoft/<name>`) and resolves it
 through the host's connection resolver. See
-[Configure connection OAuth](https://docs.prime.khulnasoft.com/connection-oauth) and
-[Register a Microsoft Entra application](https://docs.prime.khulnasoft.com/entra-app-registration).
+[Configure connection OAuth](https://prime.khulnasoft.com/docs/connection-oauth) and
+[Register a Microsoft Entra application](https://prime.khulnasoft.com/docs/entra-app-registration).
 
 ## Listing and download limits
 

@@ -21,7 +21,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-DOCS_BASE = "https://docs.prime.khulnasoft.com/extensions/errors"
+DOCS_BASE = "https://prime.khulnasoft.com/docs/extensions/errors"
 """URL for extension error guidance.  Every ``ref_url`` / CLI ``see:`` line points
 to one page on how to read errors.
 """

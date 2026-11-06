@@ -9,7 +9,9 @@ import { zoomOut } from "../../utils/zoom-out";
 
 test(
   "user should be able to use ComposIO without getting api_key error",
-  { tag: ["@release"] },
+  {
+    tag: ["@release"],
+  },
   async ({ page }) => {
     await openBlankFlow(page);
     await page.getByTestId("sidebar-search-input").click();
@@ -42,7 +44,9 @@ test(
 
 test(
   "user should be able to use connect tools",
-  { tag: ["@release", "@api", "@components"] },
+  {
+    tag: ["@release", "@api", "@components"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

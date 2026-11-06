@@ -12,7 +12,9 @@ test.beforeEach(async ({ page }, testInfo) => {
 
 test(
   "user can run flow with If-Else component multiple times with different branches",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     await openBlankFlow(page);
 

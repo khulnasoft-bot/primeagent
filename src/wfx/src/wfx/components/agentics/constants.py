@@ -48,7 +48,7 @@ TRANSDUCTION_GENERATE = "generate"
 
 TRANSDUCTION_TYPES = [TRANSDUCTION_AMAP, TRANSDUCTION_AREDUCE, TRANSDUCTION_GENERATE]
 
-AGENTICS_DOCS_URL = "https://docs.prime.khulnasoft.com/bundles-agentics"
+AGENTICS_DOCS_URL = "https://prime.khulnasoft.com/docs/bundles-agentics"
 
 # Error messages for user feedback
 # No agentics-py release is co-installable with wfx: current releases pin langchain-core<1.0

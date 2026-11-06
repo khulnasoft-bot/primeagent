@@ -335,7 +335,7 @@ def collect_catalog_component_keys(target: Mapping[str, Any] | Any | None) -> fr
     a raw graph payload, a wrapped ``{"data": {...}}`` flow payload, or a
     Graph-like object — and includes keys from inlined nested flows. A target
     without extractable graph data yields an empty set; callers that must
-    fail closed on unparseable payloads should keep using
+    fail closed on unparsable payloads should keep using
     :func:`validate_catalog_policy_for_flow`.
     """
     normalized_flow_data = _extract_flow_data(target)

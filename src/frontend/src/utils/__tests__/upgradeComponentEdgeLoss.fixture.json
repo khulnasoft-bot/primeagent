@@ -1382,7 +1382,7 @@
           "custom_fields": {},
           "description": "Define the agent's instructions, then enter a task to complete using tools.",
           "display_name": "Agent",
-          "documentation": "https://docs.prime.khulnasoft.com/agents",
+          "documentation": "https://prime.khulnasoft.com/docs/agents",
           "edited": false,
           "field_order": [
             "model",
@@ -3326,7 +3326,7 @@
         "icon": "bot",
         "base_classes": ["Data", "JSON", "Message"],
         "display_name": "Agent",
-        "documentation": "https://docs.prime.khulnasoft.com/agents",
+        "documentation": "https://prime.khulnasoft.com/docs/agents",
         "minimized": false,
         "custom_fields": {},
         "output_types": [],
@@ -3556,7 +3556,7 @@
         "icon": "prompts",
         "base_classes": ["Message"],
         "display_name": "Prompt Template",
-        "documentation": "https://docs.prime.khulnasoft.com/components-prompts",
+        "documentation": "https://prime.khulnasoft.com/docs/components-prompts",
         "minimized": false,
         "custom_fields": {
           "template": ["context", "question"]

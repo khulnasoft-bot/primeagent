@@ -738,7 +738,7 @@ def test_normalize_azure_ai_foundry_endpoint_rewrites_project_endpoint(project_e
         "https://example.openai.azure.com/openai",
         "not-a-url/api/projects/my-project",
     ],
-    ids=["openai-v1", "openai-v1-trailing-slash", "bare-resource", "azure-openai", "unparseable"],
+    ids=["openai-v1", "openai-v1-trailing-slash", "bare-resource", "azure-openai", "unparsable"],
 )
 def test_normalize_azure_ai_foundry_endpoint_keeps_other_endpoints(endpoint):
     from wfx.base.models import model_utils

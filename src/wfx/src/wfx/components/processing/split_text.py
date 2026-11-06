@@ -11,7 +11,7 @@ from wfx.utils.util import unescape_string
 class SplitTextComponent(Component):
     display_name: str = "Split Text"
     description: str = "Split text into chunks based on specified criteria."
-    documentation: str = "https://docs.prime.khulnasoft.com/split-text"
+    documentation: str = "https://prime.khulnasoft.com/docs/split-text"
     icon = "scissors-line-dashed"
     name = "SplitText"
 

@@ -15,7 +15,7 @@ from wfx_slack._triggers import (
 class SlackOnReactionTriggerComponent(SlackTriggerComponent):
     display_name = "Slack: On Reaction"
     description = "Run this flow when someone adds or removes an emoji reaction on a Slack message."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-slack#slack-on-reaction"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-slack#slack-on-reaction"
     name = "SlackOnReactionTrigger"
 
     trigger_kind = "slack.reaction"

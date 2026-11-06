@@ -106,7 +106,9 @@ async function measureBurst(page: Page, interval: number): Promise<number> {
 
 test(
   "a longer debounce turns a burst of edits into fewer writes",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     const atTwo = await measureBurst(page, 2_000);
     const atTen = await measureBurst(page, 10_000);
@@ -127,7 +129,9 @@ test(
 
 test(
   "a continuous burst cannot defer its save past the ceiling",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     // The shipping configuration: a 5s debounce with a 15s ceiling. Without the
     // ceiling this same burst produced no write at all until the editing stopped.
@@ -163,7 +167,9 @@ test(
 
 test(
   "the conflict is still caught at ten seconds, only later",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await forceInterval(page, 10_000);
     await openStarterProject(page, "Basic Prompting");
@@ -194,7 +200,9 @@ test(
 
 test(
   "leaving with a debounce still pending is guarded, not silently lost",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await forceInterval(page, 10_000);
     await openStarterProject(page, "Basic Prompting");

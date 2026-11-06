@@ -726,7 +726,7 @@ class RunFlowBaseComponent(Component):
 
     def _is_cached_flow_up_to_date(self, cached_flow: Graph, updated_at: str | None) -> bool:
         if not updated_at or not (cached_ts := getattr(cached_flow, "updated_at", None)):
-            return False  # both timetamps must be present
+            return False  # both timestamps must be present
         return self._parse_timestamp(cached_ts) >= self._parse_timestamp(updated_at)
 
     @staticmethod

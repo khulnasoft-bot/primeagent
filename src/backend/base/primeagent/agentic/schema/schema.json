@@ -82,7 +82,7 @@
         "type": "button_preview",
         "trigger": {
           "action": "navigate",
-          "payload": { "path": "https://docs.prime.khulnasoft.com" }
+          "payload": { "path": "https://prime.khulnasoft.com/docs" }
         },
         "ui": {
           "icon": "book-open",
