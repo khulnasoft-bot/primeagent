@@ -5200,7 +5200,7 @@
               "dependencies": [
                 {
                   "name": "numpy",
-                  "version": "2.5.1"
+                  "version": "2.4.6"
                 },
                 {
                   "name": "wfx",
@@ -6684,7 +6684,7 @@
                 },
                 {
                   "name": "numpy",
-                  "version": "2.5.1"
+                  "version": "2.4.6"
                 }
               ],
               "total_dependencies": 5
@@ -8253,7 +8253,7 @@
               "dependencies": [
                 {
                   "name": "numpy",
-                  "version": "2.5.1"
+                  "version": "2.4.6"
                 },
                 {
                   "name": "wfx",
@@ -32518,6 +32518,6 @@
     "num_components": 130,
     "num_modules": 17
   },
-  "sha256": "544f893b01a51bfa2ae91a9e0df7acf075803830fef3c32af0af9e1b10489d3a",
+  "sha256": "90da41cba5629113438f70fa4c82623d1c0a70c766b671ab5932c1126202cb43",
   "version": "1.13.0"
 }
