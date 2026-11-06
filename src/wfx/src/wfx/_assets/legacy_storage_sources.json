@@ -5156,6 +5156,462 @@
           "tag": "v1.11.6"
         }
       ]
+    },
+    {
+      "sha256": "3fce73e452fb96c7b79fdde3e9b6b70a9c4466371c92b54b016fdd10383a83a6",
+      "module": "wfx.components.altk.altk_agent",
+      "class_name": "ALTKAgentComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/altk/altk_agent.py",
+          "kind": "class",
+          "tag": "current"
+        }
+      ]
+    },
+    {
+      "sha256": "73eee543f132b2edfb6fb8f17ad46bc4a72cedb42cffb2dd632463f046cfe290",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "current"
+        }
+      ]
+    },
+    {
+      "sha256": "daf4b260935df1afd6861f928e33341b0560adf4d121cb7bb2ae4e3ca9979d24",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "current"
+        }
+      ]
+    },
+    {
+      "sha256": "8f16591cdeeff826bf316d583879c38ef75d6294ad931fed2701385959ce3570",
+      "module": "wfx.components.altk.altk_agent",
+      "class_name": "ALTKAgentComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/altk/altk_agent.py",
+          "kind": "class",
+          "tag": "1.10.0"
+        }
+      ]
+    },
+    {
+      "sha256": "bbeaa26525b89d2c6e133f0e647a8976ff50851e48c9a43d969c69fadc345435",
+      "module": "wfx.components.altk.altk_agent",
+      "class_name": "ALTKAgentComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/altk/altk_agent.py",
+          "kind": "class",
+          "tag": "1.10.0"
+        }
+      ]
+    },
+    {
+      "sha256": "85e2326be00c907d505b1341de75834882e720d8c0258216dcc995263d61de39",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.10.0"
+        }
+      ]
+    },
+    {
+      "sha256": "3ca11ad46274984b65ecd7d8cf666a8b3b263b231bbb84d1da4ad4759433b588",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.10.0"
+        }
+      ]
+    },
+    {
+      "sha256": "d1f24be03c73b4c008403c908d4a49ccc4508056d19f2b36e315f24038db903b",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.6.0"
+        }
+      ]
+    },
+    {
+      "sha256": "584d0fc27d1a5334d382c6c14aeaf7bec9d966d32e41ac1fe440f179692b5ad9",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.6.0"
+        }
+      ]
+    },
+    {
+      "sha256": "3a5494068204c6abadb1bcd463dd43638e7086abc8db0e459c374c12c23a65ee",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.6.10"
+        }
+      ]
+    },
+    {
+      "sha256": "8c8104f113410ff99313e78d2e8ee5c3d7ba975970854b92ec6a8a930ca1a2d7",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.6.10"
+        }
+      ]
+    },
+    {
+      "sha256": "ee83eee0a3dd3c7581105e559dc038e5b82372992f97997a0211c3f7a558c119",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.7.0"
+        }
+      ]
+    },
+    {
+      "sha256": "a74a67d4d262515eb4928dd4a2e68485dd60a623e558a89d1361835b96681f1e",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.7.0"
+        }
+      ]
+    },
+    {
+      "sha256": "04f23c1b9d1b40ee47b229facbb833639dffb416a4ebed41d70f79d658d56bdf",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.8.1"
+        }
+      ]
+    },
+    {
+      "sha256": "6547260d9ef5700e66aa0a38fc6d93c2d3f60181f6d8c586588130d4c4dd63b5",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.8.1"
+        }
+      ]
+    },
+    {
+      "sha256": "8cadb3a1f4d7afff99a3f832235f5a45ab8f1f6634aa422bcf1550a4b0480458",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.9.2"
+        }
+      ]
+    },
+    {
+      "sha256": "4c38d12f7624e0447c6f70fe78d3e0f3405d737fe1502955c672c83948eb53c5",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "1.9.2"
+        }
+      ]
+    },
+    {
+      "sha256": "856d3838fbf1bb241dc11b606ae87928a96fad5610393d14bf46459aa002f648",
+      "module": "wfx.components.altk.altk_agent",
+      "class_name": "ALTKAgentComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/altk/altk_agent.py",
+          "kind": "class",
+          "tag": "v1.10.0"
+        }
+      ]
+    },
+    {
+      "sha256": "5b33fc29f667959830d9272a4c9017e1e483a9b69f3dbc3841830eb7d017f147",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.10.0"
+        }
+      ]
+    },
+    {
+      "sha256": "97785158af1693d8f88828d5ed9f0890ad59f4ba3c85f436303297e1139cc391",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.10.0"
+        }
+      ]
+    },
+    {
+      "sha256": "8eaf3bc6ec08990e047ddc7279af5a229bb79b5af1baf5bc2612ed578eabf465",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.10.0"
+        }
+      ]
+    },
+    {
+      "sha256": "f7cf3f6a64b514163397a1ca62c12cc56fe9d5424eacf3b5f2216d3fa25396e2",
+      "module": "wfx.components.altk.altk_agent",
+      "class_name": "ALTKAgentComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/altk/altk_agent.py",
+          "kind": "class",
+          "tag": "v1.10.1"
+        }
+      ]
+    },
+    {
+      "sha256": "620664be510f7498cf165e2f69578550401270ce51160de528f0bd04e2a3d068",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.10.3"
+        }
+      ]
+    },
+    {
+      "sha256": "f9680b12dbb445b81dec8e5db69fb83377fea9205e74b5db6d87e40d98998e02",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.10.3"
+        }
+      ]
+    },
+    {
+      "sha256": "f85630168c3c1b2767bbb02c69e79d630c5ca8d4f17cc257294993e713bc29f8",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.11.0"
+        }
+      ]
+    },
+    {
+      "sha256": "0fd3e4d6a6a8d1e4a36cc65159d3e903788803497fc5a9dca755d76e6840a2e1",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.11.0"
+        }
+      ]
+    },
+    {
+      "sha256": "c417ba5bbf12987cd186f6da571400c74b1dd2f02e3928fcf3603ba6441567ab",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.12.0"
+        }
+      ]
+    },
+    {
+      "sha256": "2c8d8667a18c0ee4437b2517c4f663da4f97e65fca073ae4ebb101325d043aa0",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.12.0"
+        }
+      ]
+    },
+    {
+      "sha256": "d148fa510e4dcf1933d29325c7605c59d7861bc06704383f038e5b7e34563f02",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.12.1"
+        }
+      ]
+    },
+    {
+      "sha256": "22d4eed7eb53dbb255a872391417f72eec58c30b9d71de6103aa2882032b63e6",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.12.1"
+        }
+      ]
+    },
+    {
+      "sha256": "f9c1e6de075952041514d7fd3b74b4fd4d52a4f4a39cc21cd7b7e4321476c05a",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.12.2"
+        }
+      ]
+    },
+    {
+      "sha256": "43ae64166510d98ee5cb293969cd211ef45a1d1b2a46f84447fddab8f8a54d81",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.12.2"
+        }
+      ]
+    },
+    {
+      "sha256": "b23505f3d1d7962d3801ba17a2ebd11ae940fb63b737a46e643c20935851cd25",
+      "module": "wfx.components.files_and_knowledge.knowledge",
+      "class_name": "KnowledgeComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.12.3"
+        }
+      ]
+    },
+    {
+      "sha256": "0b6d3808d2883a79435cedb56b36c0e773058afd5c69b0eeff801867055420b6",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.7.0"
+        }
+      ]
+    },
+    {
+      "sha256": "82ffc537bfa1a4a1724ecf5d6b6369b0d735c9f06a979b2eac74b826308970a6",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.7.0"
+        }
+      ]
+    },
+    {
+      "sha256": "2ce70d3d814f09b626b043a825261e338f83fd1872ee03996b78f218c55aa32b",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.8.0"
+        }
+      ]
+    },
+    {
+      "sha256": "3ab99b0fa12e2d52897228bb4f74d569316d346a357ebb7bd5e7d550a1e44f30",
+      "module": "wfx.components.files_and_knowledge.ingestion",
+      "class_name": "KnowledgeIngestionComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/files_and_knowledge/knowledge.py",
+          "kind": "class",
+          "tag": "v1.8.0"
+        }
+      ]
+    },
+    {
+      "sha256": "40d849727589ad4bcbc5ba06b6897a43d28a63edb79c02721f60c1a8bcd04745",
+      "module": "wfx.components.altk.altk_agent",
+      "class_name": "ALTKAgentComponent",
+      "sources": [
+        {
+          "path": "src/wfx/src/wfx/components/altk/altk_agent.py",
+          "kind": "class",
+          "tag": "class-only"
+        }
+      ]
     }
   ]
 }
