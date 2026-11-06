@@ -792,7 +792,7 @@ class OpenSearchVectorStoreComponent(LCVectorStoreComponent):
         """Search documents and return results as Data objects.
 
         This is the main interface method that performs the search using the
-        configured search_query and returns results in Primeagent's Data format.
+        configured search_query and returns results in PrimeAgent's Data format.
 
         Returns:
             List of Data objects containing search results with text and metadata

@@ -1,7 +1,7 @@
 """MCP subprocess cleanup utilities for graceful shutdown.
 
 This module provides functions to properly terminate MCP server subprocesses
-spawned by stdio_client during Primeagent shutdown.
+spawned by stdio_client during PrimeAgent shutdown.
 
 Works on macOS and Linux only.
 """
@@ -42,7 +42,7 @@ async def cleanup_mcp_sessions() -> None:
 
 
 async def _kill_mcp_processes() -> None:
-    """Kill MCP server subprocesses spawned by this Primeagent process.
+    """Kill MCP server subprocesses spawned by this PrimeAgent process.
 
     This is a fallback for when the normal cleanup doesn't properly terminate
     subprocesses spawned by stdio_client.

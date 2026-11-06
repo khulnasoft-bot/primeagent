@@ -17,7 +17,7 @@
 ### Use existing services for DB operations; do not bypass with ad-hoc queries
 - Category: maintainability
 - Severity: suggestion
-- Description: Primeagent uses a service layer pattern rather than a repository pattern. Each service under `src/backend/base/primeagent/services/` encapsulates business logic and data access for its domain. If a service already handles operations for a given model/table, all reads/writes/queries for that table should go through the existing service (or its associated CRUD module). Additionally, many models have CRUD utility functions in `src/backend/base/primeagent/services/database/models/<model>/crud.py` that should be reused rather than duplicated.
+- Description: PrimeAgent uses a service layer pattern rather than a repository pattern. Each service under `src/backend/base/primeagent/services/` encapsulates business logic and data access for its domain. If a service already handles operations for a given model/table, all reads/writes/queries for that table should go through the existing service (or its associated CRUD module). Additionally, many models have CRUD utility functions in `src/backend/base/primeagent/services/database/models/<model>/crud.py` that should be reused rather than duplicated.
 - Suggested fix:
   - First check `src/backend/base/primeagent/services/` and `src/backend/base/primeagent/services/database/models/<model>/crud.py` to verify whether the table/model already has a service or CRUD abstraction. If it exists, route all operations through it and add missing methods instead of bypassing it with ad-hoc SQLAlchemy queries.
   - If no service or CRUD module exists, add methods to the most closely related existing service or CRUD module rather than scattering inline queries across route handlers.
@@ -50,7 +50,7 @@
 ### Follow the ServiceFactory pattern for new services
 - Category: best practices
 - Severity: critical
-- Description: Primeagent manages services through `ServiceManager` which uses `ServiceFactory` instances to create and configure services. Each service consists of:
+- Description: PrimeAgent manages services through `ServiceManager` which uses `ServiceFactory` instances to create and configure services. Each service consists of:
   1. A base class or protocol (optional, for abstraction) inheriting from `primeagent.services.base.Service`
   2. A concrete implementation in `service.py`
   3. A factory class in `factory.py` inheriting from `primeagent.services.factory.ServiceFactory`
@@ -178,7 +178,7 @@
 ### CRUD modules complement services, not replace them
 - Category: best practices
 - Severity: suggestion
-- Description: Many Primeagent models have a `crud.py` file alongside their model definition (e.g., `models/message/crud.py`, `models/user/crud.py`). These CRUD modules contain reusable async functions for common database operations (get, list, create, update, delete). They are lower-level building blocks that services call internally. Route handlers should prefer calling service methods rather than CRUD functions directly, unless the operation is trivially simple and the model has no associated service.
+- Description: Many PrimeAgent models have a `crud.py` file alongside their model definition (e.g., `models/message/crud.py`, `models/user/crud.py`). These CRUD modules contain reusable async functions for common database operations (get, list, create, update, delete). They are lower-level building blocks that services call internally. Route handlers should prefer calling service methods rather than CRUD functions directly, unless the operation is trivially simple and the model has no associated service.
 - Suggested fix:
   - Services should call CRUD functions internally to avoid duplicating query logic.
   - Route handlers should call services, not CRUD functions, to maintain the layering.

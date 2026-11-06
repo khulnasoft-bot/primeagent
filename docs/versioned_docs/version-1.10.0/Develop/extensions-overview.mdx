@@ -1,16 +1,16 @@
 ---
-title: Primeagent Extensions overview
+title: PrimeAgent Extensions overview
 slug: /extensions-overview
 ---
 
 import Icon from "@site/src/components/icon";
 
-Primeagent ships component bundles that are maintained and released separately from the core Primeagent server as Extensions.
+PrimeAgent ships component bundles that are maintained and released separately from the core PrimeAgent server as Extensions.
 Instead of every integration being built into `primeagent`, each bundle is its own pip-installable package, such as `wfx-duckduckgo` or `wfx-arxiv`.
 
 When you run `uv pip install primeagent`, you install:
 
-- All Primeagent core components
+- All PrimeAgent core components
 - All bundles that ship as dependencies of the `primeagent` metapackage
 
 Some bundles that were previously included in `primeagent` are moved into standalone packages.
@@ -29,7 +29,7 @@ The following Extension bundles are included with `uv pip install primeagent`:
 
 The internal identifier for each component changes.
 For example, a DuckDuckGo component previously referenced as a `DuckDuckGoSearchComponent` class is now `ext:duckduckgo:DuckDuckGoSearchComponent@official`.
-Primeagent rewrites these references automatically when you open a saved flow, so in most cases the migration is invisible.
+PrimeAgent rewrites these references automatically when you open a saved flow, so in most cases the migration is invisible.
 
 ## If a component is missing after an upgrade
 
@@ -50,14 +50,14 @@ Use the bundle name from the hint, such as `duckduckgo` in this example, to find
 
 ## Install a bundle extension
 
-If a bundle you need is not included in your Primeagent environment, install it with pip:
+If a bundle you need is not included in your PrimeAgent environment, install it with pip:
 
 ```bash
 uv pip install wfx-duckduckgo
 uv run primeagent run
 ```
 
-Primeagent discovers the package at server startup and loads the components into the palette automatically.
+PrimeAgent discovers the package at server startup and loads the components into the palette automatically.
 No additional configuration is required.
 
 To see what extensions are currently loaded, run:
@@ -68,9 +68,9 @@ wfx extension list
 
 ## Build your own extension
 
-If you have custom components that you want to distribute and version independently of your Primeagent install, you can package them as an extension.
+If you have custom components that you want to distribute and version independently of your PrimeAgent install, you can package them as an extension.
 
-For more information, see [Build your first Primeagent Extension](./extensions-quickstart.mdx).
+For more information, see [Build your first PrimeAgent Extension](./extensions-quickstart.mdx).
 
 ## See also
 

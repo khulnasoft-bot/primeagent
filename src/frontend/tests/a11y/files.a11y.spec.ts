@@ -1,5 +1,5 @@
 import type { Route } from "@playwright/test";
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 
@@ -43,7 +43,7 @@ const populatedFiles: FileRow[] = [
   },
 ];
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -59,7 +59,7 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function mockFiles(page: PrimeagentPage, files: FileRow[]) {
+async function mockFiles(page: PrimeAgentPage, files: FileRow[]) {
   await page.route("**/api/v2/files", async (route: Route) => {
     if (route.request().method() === "GET") {
       await route.fulfill({ json: files });
@@ -69,7 +69,7 @@ async function mockFiles(page: PrimeagentPage, files: FileRow[]) {
   });
 }
 
-async function openFilesRoute(page: PrimeagentPage, files = populatedFiles) {
+async function openFilesRoute(page: PrimeAgentPage, files = populatedFiles) {
   await mockFiles(page, files);
   await awaitBootstrapTest(page, { skipModal: true });
   await page.goto("/assets/files");
@@ -82,7 +82,7 @@ async function openFilesRoute(page: PrimeagentPage, files = populatedFiles) {
     .catch(() => {});
 }
 
-async function openActionsMenu(page: PrimeagentPage) {
+async function openActionsMenu(page: PrimeAgentPage) {
   await page
     .getByRole("button", { name: /File actions/ })
     .first()

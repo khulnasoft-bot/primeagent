@@ -89,7 +89,7 @@ function deterministicText(body) {
   const conversation = conversationText(body);
   if (hasImageContent(body)) {
     return (
-      "Loopback image received: the attached chain.png is a chain-style Primeagent diagram. " +
+      "Loopback image received: the attached chain.png is a chain-style PrimeAgent diagram. " +
       "This distinctive response proves that the image content reached the OpenAI-compatible " +
       "model request instead of merely appearing as a filename in the playground."
     );
@@ -99,7 +99,7 @@ function deterministicText(body) {
     conversation.includes("LOOPBACK_YOUTUBE_TRANSCRIPT_USED")
   ) {
     return (
-      "LOOPBACK_YOUTUBE_COMMENTS_USED. LOOPBACK_YOUTUBE_TRANSCRIPT_USED. Content Summary: deterministic Primeagent video fixture. Audience Reception: positive and engaged. " +
+      "LOOPBACK_YOUTUBE_COMMENTS_USED. LOOPBACK_YOUTUBE_TRANSCRIPT_USED. Content Summary: deterministic PrimeAgent video fixture. Audience Reception: positive and engaged. " +
       "Synthesis: the transcript and comments consistently describe the workflow. " +
       "Recommendations: keep the explanation concise and include a practical demonstration."
     );
@@ -119,7 +119,7 @@ function deterministicText(body) {
     return '```python\nprint("Hello, World!")\n```';
   }
   if (prompt.includes("pirate")) {
-    return "Ahoy matey! Hello from Primeagent's deterministic loopback model.";
+    return "Ahoy matey! Hello from PrimeAgent's deterministic loopback model.";
   }
   if (
     prompt.includes("what is my name") &&
@@ -138,7 +138,7 @@ function deterministicText(body) {
     prompt.includes("custom component") &&
     prompt.includes("primeagent random number")
   ) {
-    return `Here is a deterministic Primeagent custom component:\n\n\`\`\`python\nfrom random import randint\nfrom wfx.custom import Component\nfrom wfx.io import Output\n\nclass PrimeagentRandomNumber(Component):\n    display_name = "Primeagent Random Number"\n    outputs = [Output(name="number", display_name="Number", method="generate")]\n\n    def generate(self) -> int:\n        return randint(1, 100)\n\`\`\`\n\nThe component exposes a stable Number output while exercising Primeagent's code rendering path.`;
+    return `Here is a deterministic PrimeAgent custom component:\n\n\`\`\`python\nfrom random import randint\nfrom wfx.custom import Component\nfrom wfx.io import Output\n\nclass PrimeAgentRandomNumber(Component):\n    display_name = "PrimeAgent Random Number"\n    outputs = [Output(name="number", display_name="Number", method="generate")]\n\n    def generate(self) -> int:\n        return randint(1, 100)\n\`\`\`\n\nThe component exposes a stable Number output while exercising PrimeAgent's code rendering path.`;
   }
   if (conversation.includes("LOOPBACK_WEB_SEARCH_USED")) {
     return (
@@ -147,14 +147,14 @@ function deterministicText(body) {
     );
   }
   if (prompt.includes("travel plan")) {
-    return `Travel plan — Day 1: ${originalPrompt}. Day 2: continue the trip with local food and cultural activities. This deterministic itinerary preserves the requested origin, destination, and cuisine so Primeagent can verify the complete multi-agent workflow without a hosted provider.`;
+    return `Travel plan — Day 1: ${originalPrompt}. Day 2: continue the trip with local food and cultural activities. This deterministic itinerary preserves the requested origin, destination, and cuisine so PrimeAgent can verify the complete multi-agent workflow without a hosted provider.`;
   }
   return (
-    "This is a deterministic response from Primeagent's local OpenAI-compatible test server. " +
-    "It keeps CI work repeatable while exercising the real Primeagent graph, persistence, " +
+    "This is a deterministic response from PrimeAgent's local OpenAI-compatible test server. " +
+    "It keeps CI work repeatable while exercising the real PrimeAgent graph, persistence, " +
     "streaming, tracing, usage, and message paths. The fixture deliberately returns enough " +
     "content for starter-project output assertions without relying on wording from a hosted " +
-    "model. Primeagent can therefore validate how each workflow transforms and displays this " +
+    "model. PrimeAgent can therefore validate how each workflow transforms and displays this " +
     "response while every run receives the same stable input and output."
   );
 }

@@ -1,4 +1,4 @@
-"""Deterministic content guardrail for the Primeagent Assistant.
+"""Deterministic content guardrail for the PrimeAgent Assistant.
 
 Security: this runs OUTSIDE the model, on both directions. Until now the only thing keeping
 the assistant from emitting slurs was the model's own alignment: `sanitize_input` covers
@@ -33,7 +33,7 @@ class ContentCategory(str, Enum):
 
 
 REFUSAL_MESSAGE = (
-    "I can't help with that. I'm the Primeagent Assistant and I won't produce slurs or abusive "
+    "I can't help with that. I'm the PrimeAgent Assistant and I won't produce slurs or abusive "
     "content. I'm happy to help you build components, flows, and integrations."
 )
 

@@ -10,7 +10,7 @@ from uuid import uuid4
 import pytest
 from primeagent.services.catalog_policy import service as catalog_policy_service_module
 from primeagent.services.catalog_policy.factory import CatalogPolicyServiceFactory
-from primeagent.services.catalog_policy.service import PrimeagentCatalogPolicyService
+from primeagent.services.catalog_policy.service import PrimeAgentCatalogPolicyService
 from primeagent.services.database.models.catalog_policy import (
     CatalogPolicyMode,
     CatalogPolicyRule,
@@ -83,7 +83,7 @@ async def test_unhydrated_service_is_fail_open_then_hydrates_global_blocks(catal
         )
         await session.commit()
 
-    service = PrimeagentCatalogPolicyService(catalog_database)
+    service = PrimeAgentCatalogPolicyService(catalog_database)
     assert service.hydrated is False
     assert service.enabled is False
     assert service.is_component_allowed("OpenAIModel") is True
@@ -110,7 +110,7 @@ async def test_whole_set_replace_normalizes_and_preserves_other_resource_kind(ca
         )
         await session.commit()
 
-    service = PrimeagentCatalogPolicyService(catalog_database)
+    service = PrimeAgentCatalogPolicyService(catalog_database)
     await service.hydrate()
 
     update = await service.replace_blocked_component_keys(
@@ -139,7 +139,7 @@ async def test_whole_set_replace_normalizes_and_preserves_other_resource_kind(ca
 
 @pytest.mark.asyncio
 async def test_replace_rejects_empty_keys_before_opening_a_transaction(catalog_database):
-    service = PrimeagentCatalogPolicyService(catalog_database)
+    service = PrimeAgentCatalogPolicyService(catalog_database)
 
     with pytest.raises(ValueError, match="must not be empty"):
         await service.replace_blocked_template_keys(["valid", "   "], actor_user_id=None)
@@ -150,7 +150,7 @@ async def test_replace_rejects_empty_keys_before_opening_a_transaction(catalog_d
 
 def test_snapshot_projection_is_reused_until_bundle_identity_changes():
     bundle_service = PolicyBundleService()
-    service = PrimeagentCatalogPolicyService(None, bundle_service)
+    service = PrimeAgentCatalogPolicyService(None, bundle_service)
     first_bundle = PolicyBundleSnapshot(
         revision=1,
         initialized=True,
@@ -176,7 +176,7 @@ def test_snapshot_projection_is_reused_until_bundle_identity_changes():
 @pytest.mark.asyncio
 async def test_component_replace_retries_conflicts_with_each_newest_complete_bundle(monkeypatch):
     bundle_service = PolicyBundleService()
-    service = PrimeagentCatalogPolicyService(None, bundle_service)
+    service = PrimeAgentCatalogPolicyService(None, bundle_service)
     current_bundles = [
         PolicyBundleSnapshot(
             revision=revision,
@@ -249,7 +249,7 @@ async def test_template_replace_propagates_third_conflict_without_publishing(mon
         blocked_template_keys={"published-template"},
     )
     bundle_service.publish(published)
-    service = PrimeagentCatalogPolicyService(None, bundle_service)
+    service = PrimeAgentCatalogPolicyService(None, bundle_service)
     current_bundles = [
         PolicyBundleSnapshot(
             revision=revision,
@@ -361,7 +361,7 @@ async def test_snapshot_is_published_only_after_commit(monkeypatch):
     session = _Session()
     database = _SingleSessionDatabase(session)
     _patch_session_scopes(monkeypatch, database)
-    service = PrimeagentCatalogPolicyService(database)
+    service = PrimeAgentCatalogPolicyService(database)
     session.before_commit = lambda: (
         pytest.fail("snapshot published before commit") if service.is_component_blocked("new") else None
     )
@@ -376,7 +376,7 @@ async def test_failed_commit_rolls_back_and_keeps_fail_open_snapshot(monkeypatch
     session = _Session(commit_error=RuntimeError("commit failed"))
     database = _SingleSessionDatabase(session)
     _patch_session_scopes(monkeypatch, database)
-    service = PrimeagentCatalogPolicyService(database)
+    service = PrimeAgentCatalogPolicyService(database)
 
     with pytest.raises(RuntimeError, match="commit failed"):
         await service.replace_blocked_component_keys(["new"], actor_user_id=None)
@@ -395,7 +395,7 @@ async def test_failed_hydration_keeps_fail_open_snapshot(monkeypatch):
 
     database = _SingleSessionDatabase(_UnavailableSession())
     _patch_session_scopes(monkeypatch, database)
-    service = PrimeagentCatalogPolicyService(database)
+    service = PrimeAgentCatalogPolicyService(database)
 
     with pytest.raises(RuntimeError, match="database unavailable"):
         await service.hydrate()
@@ -413,7 +413,7 @@ def test_factory_uses_database_dependency_and_canonical_service_type():
     service = factory.create(database)
 
     assert isinstance(service, BaseCatalogPolicyService)
-    assert isinstance(service, PrimeagentCatalogPolicyService)
+    assert isinstance(service, PrimeAgentCatalogPolicyService)
     assert service.database_service is database
     assert factory.name == ServiceType.CATALOG_POLICY_SERVICE.value
 
@@ -454,7 +454,7 @@ async def test_catalog_facet_write_preserves_integration_governance(monkeypatch)
     ceiling and action deny-list on the next revision.
     """
     bundle_service = PolicyBundleService()
-    service = PrimeagentCatalogPolicyService(None, bundle_service)
+    service = PrimeAgentCatalogPolicyService(None, bundle_service)
     current = PolicyBundleSnapshot(
         revision=7,
         initialized=True,

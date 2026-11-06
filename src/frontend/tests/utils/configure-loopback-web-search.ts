@@ -35,7 +35,7 @@ class WebSearchComponent(Component):
                 data={
                     "marker": "LOOPBACK_WEB_SEARCH_USED",
                     "query": self.query,
-                    "title": "Deterministic Primeagent travel and social research",
+                    "title": "Deterministic PrimeAgent travel and social research",
                     "url": "https://example.test/primeagent-search-fixture",
                     "content": "Local attractions, transit, food, and current social content research.",
                 }

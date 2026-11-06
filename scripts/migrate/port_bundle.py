@@ -151,7 +151,7 @@ PYPROJECT_TEMPLATE = """\
 [project]
 name = "wfx-{bundle}"
 version = "0.1.0"
-description = "{display_name} component(s) as a standalone Primeagent Extension Bundle."
+description = "{display_name} component(s) as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = {{ text = "MIT" }}
@@ -220,7 +220,7 @@ EXTENSION_JSON_TEMPLATE = """\
   "id": "wfx-{bundle}",
   "version": "0.1.0",
   "name": "{display_name}",
-  "description": "{display_name} component(s) as a standalone Primeagent Extension Bundle.",
+  "description": "{display_name} component(s) as a standalone PrimeAgent Extension Bundle.",
   "wfx": {{
     "compat": ["1"]
   }},
@@ -237,7 +237,7 @@ EXTENSION_JSON_TEMPLATE = """\
 PACKAGE_INIT_TEMPLATE = '''\
 """wfx-{bundle}: {display_name} bundle.
 
-Distribution unit ``wfx-{bundle}``.  At runtime Primeagent's loader
+Distribution unit ``wfx-{bundle}``.  At runtime PrimeAgent's loader
 discovers ``extension.json`` shipped alongside this ``__init__.py`` and
 registers the bundle's components under the namespaced IDs
 ``ext:{bundle}:<Class>@official``.
@@ -313,7 +313,7 @@ imported by the {bundle} components.
 README_TEMPLATE = """\
 # wfx-{bundle}
 
-{display_name} component(s) as a standalone Primeagent Extension Bundle.
+{display_name} component(s) as a standalone PrimeAgent Extension Bundle.
 
 ## Install
 
@@ -322,7 +322,7 @@ pip install wfx-{bundle}
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point.  After install, restart your Primeagent server; the bundle's
+entry-point.  After install, restart your PrimeAgent server; the bundle's
 components will appear in the palette under the `{bundle}` group with
 the namespaced IDs `ext:{bundle}:<Class>@official`.
 
@@ -407,7 +407,7 @@ class PortPlan:
 
 
 # Capture both class name and base list so we can filter out classes
-# that obviously aren't Primeagent components (pydantic BaseModels,
+# that obviously aren't PrimeAgent components (pydantic BaseModels,
 # dataclasses, vendor SDK schemas, ABCs, etc.).
 _CLASS_DECL_RE = re.compile(r"^class\s+(?P<name>\w+)\s*\((?P<bases>[^)]*)\)", re.MULTILINE)
 
@@ -452,7 +452,7 @@ def _discover_classes(source: str) -> tuple[str, ...]:
     Filters out classes whose first base is a known non-Component
     shape (``BaseModel``, ``Enum``, ``TypedDict``, ``ABC``, ``Exception``,
     etc.).  The filter is base-list-based rather than name-based because
-    Primeagent's naming convention is loose: some components don't end in
+    PrimeAgent's naming convention is loose: some components don't end in
     ``Component`` (``Dotenv``, ``GetEnvVar``).
     """
     result: list[str] = []
@@ -570,7 +570,7 @@ def _discover_external_consumers(
         # version fixtures).  The migration table rewrites these at flow
         # load time -- the bare-name + full-path + short-path entries
         # in the four-entry block we just appended cover every legacy
-        # form Primeagent has serialized.  Mechanically rewriting the
+        # form PrimeAgent has serialized.  Mechanically rewriting the
         # JSONs would defeat the migration test suite's purpose
         # (verifying frozen historical snapshots still load).
         "--glob",
@@ -709,7 +709,7 @@ def _validate_candidate(
                     msg = (
                         f"{nested} imports from ``primeagent`` -- the bundle is "
                         "installed against the public BUNDLE_API surface (wfx), "
-                        "not Primeagent internals.  Either rewrite the import or "
+                        "not PrimeAgent internals.  Either rewrite the import or "
                         "leave the component in-tree.  See src/bundles/PORTING.md § 0."
                     )
                     raise SystemExit(msg)
@@ -721,7 +721,7 @@ def _validate_candidate(
         if "from primeagent" in text:
             msg = (
                 f"{src} imports from ``primeagent`` -- the bundle is installed "
-                "against the public BUNDLE_API surface (wfx), not Primeagent "
+                "against the public BUNDLE_API surface (wfx), not PrimeAgent "
                 "internals.  Either rewrite the import or leave the component "
                 "in-tree.  See src/bundles/PORTING.md § 0."
             )
@@ -1585,7 +1585,7 @@ def _remove_base_extra(plan: PortPlan, *, apply: bool) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Port an in-tree provider directory into a standalone Primeagent "
+            "Port an in-tree provider directory into a standalone PrimeAgent "
             "Extension Bundle.  Writes the skeleton, moves the source files, "
             "rewrites external consumers, migrates ruff per-file ignores, "
             "patches the workspace, and -- with ``--migration-release`` -- "

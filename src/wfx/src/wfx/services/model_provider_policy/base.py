@@ -248,7 +248,7 @@ class BaseModelProviderPolicyService(Service, abc.ABC):
     def external_approved_provider_ids(self) -> frozenset[str] | None:
         """Return the externally owned deployment ceiling, if one is active.
 
-        ``None`` means Primeagent owns the persisted policy. An empty frozenset
+        ``None`` means PrimeAgent owns the persisted policy. An empty frozenset
         still marks the policy as externally managed, so administration must not
         fall back to the OSS database. For decisions, an empty external set is
         unrestricted; a non-empty set is a deployment ceiling. Every synchronous

@@ -3,7 +3,7 @@
   "id": "wfx-firecrawl",
   "version": "0.2.0",
   "name": "Firecrawl",
-  "description": "Firecrawl components (Scrape, Crawl, Map, and Search APIs) as a standalone Primeagent Extension Bundle.",
+  "description": "Firecrawl components (Scrape, Crawl, Map, and Search APIs) as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

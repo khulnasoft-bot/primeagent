@@ -1,17 +1,17 @@
 ---
-title: Deploy Primeagent trigger listeners
+title: Deploy PrimeAgent trigger listeners
 slug: /deployment-trigger-listeners
 ---
 
-Some triggers need Primeagent to call out and hold a connection, or to poll a provider. Slack Socket Mode works this way, and so do polling triggers for Microsoft and Google. That work runs in a separate `primeagent listeners` process, not in the API.
+Some triggers need PrimeAgent to call out and hold a connection, or to poll a provider. Slack Socket Mode works this way, and so do polling triggers for Microsoft and Google. That work runs in a separate `primeagent listeners` process, not in the API.
 
-Use listeners when Primeagent is not reachable from the public internet, including Primeagent Desktop. If a provider can post to a public HTTPS URL instead, see [Receive provider events with trigger webhooks](./deployment-trigger-webhooks.mdx).
+Use listeners when PrimeAgent is not reachable from the public internet, including PrimeAgent Desktop. If a provider can post to a public HTTPS URL instead, see [Receive provider events with trigger webhooks](./deployment-trigger-webhooks.mdx).
 
 ## Prerequisites
 
 Complete these before you start the listener. It uses the same database and credentials as the API, and it does not run database migrations.
 
-1. Start or upgrade the Primeagent API against this database first. If the trigger tables are missing, the listener exits and tells you to start the API.
+1. Start or upgrade the PrimeAgent API against this database first. If the trigger tables are missing, the listener exits and tells you to start the API.
 2. Use the API's `PRIMEAGENT_DATABASE_URL`. Use PostgreSQL when more than one API or listener process will run. A single container can use SQLite.
 3. Use the API's `PRIMEAGENT_SECRET_KEY`. A different key cannot read connection credentials.
 4. If any connection was authorized with OAuth, set `PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS` to the same value as the API. The listener refreshes tokens itself. Without the registrations, every refresh fails.
@@ -20,11 +20,11 @@ Complete these before you start the listener. It uses the same database and cred
 
 - **Kubernetes:** a second Deployment, with `args: ["primeagent", "listeners"]`.
 - **Docker Compose:** a second service, with `command: ["primeagent", "listeners"]`.
-- **One container, or Primeagent Desktop:** a child of the API, with `PRIMEAGENT_LISTENERS_MODE=subprocess`.
+- **One container, or PrimeAgent Desktop:** a child of the API, with `PRIMEAGENT_LISTENERS_MODE=subprocess`.
 
 `wfx run` and `wfx serve` do not run listeners.
 
-In subprocess mode, listeners stop when Primeagent stops. On Desktop, triggers fire only while Primeagent is open.
+In subprocess mode, listeners stop when PrimeAgent stops. On Desktop, triggers fire only while PrimeAgent is open.
 
 ## Run listeners on Kubernetes
 
@@ -106,14 +106,14 @@ services:
 
 ## Run listeners in one container or on Desktop
 
-1. Set this variable on the Primeagent container or app:
+1. Set this variable on the PrimeAgent container or app:
 
    ```bash
    PRIMEAGENT_LISTENERS_MODE=subprocess
    ```
 
-2. Start Primeagent. It starts `primeagent listeners` as a child and stops that child on shutdown.
-3. Leave Primeagent running. On Desktop, triggers fire only while the app is open.
+2. Start PrimeAgent. It starts `primeagent listeners` as a child and stops that child on shutdown.
+3. Leave PrimeAgent running. On Desktop, triggers fire only while the app is open.
 
 Only one API worker starts the child, even when `PRIMEAGENT_WORKERS` is greater than 1.
 

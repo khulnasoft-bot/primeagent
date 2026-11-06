@@ -105,13 +105,13 @@ fi
 
 print_info "Preparing to release WFX version $NEW_VERSION"
 
-# Soft check: warn if WFX minor doesn't match Primeagent minor
+# Soft check: warn if WFX minor doesn't match PrimeAgent minor
 PRIMEAGENT_VERSION=$(grep '^version = ' pyproject.toml | cut -d'"' -f2)
 WFX_MINOR=$(echo "$NEW_VERSION" | cut -d. -f1-2)
 PRIMEAGENT_MINOR=$(echo "$PRIMEAGENT_VERSION" | cut -d. -f1-2)
 if [ "$WFX_MINOR" != "$PRIMEAGENT_MINOR" ]; then
-    print_warning "WFX minor version ($WFX_MINOR) does not match Primeagent minor version ($PRIMEAGENT_MINOR)."
-    print_warning "Per the compatibility policy, WFX X.Y.N must align with Primeagent X.Y.M."
+    print_warning "WFX minor version ($WFX_MINOR) does not match PrimeAgent minor version ($PRIMEAGENT_MINOR)."
+    print_warning "Per the compatibility policy, WFX X.Y.N must align with PrimeAgent X.Y.M."
     print_warning "Proceed only if this is intentional (e.g., a patch-only WFX release)."
 fi
 

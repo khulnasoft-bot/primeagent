@@ -135,7 +135,7 @@ edges:
         assert "nodes" in flow["data"]
         assert "edges" in flow["data"]
         assert "viewport" in flow["data"]
-        # Each node should have proper Primeagent structure
+        # Each node should have proper PrimeAgent structure
         for node in flow["data"]["nodes"]:
             assert "data" in node
             assert "id" in node["data"]

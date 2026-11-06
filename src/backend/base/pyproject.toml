@@ -338,7 +338,7 @@ litellm = [
     "litellm>=1.103.1,<2.0.0,!=1.104.0rc1,!=1.107.0",
     # Runtime deps from litellm[proxy] that primeagent-ide hits when logging
     # to langfuse via litellm.proxy.proxy_server (issue #12228). The full
-    # Pull in only the modules Primeagent uses from litellm[proxy] rather than
+    # Pull in only the modules PrimeAgent uses from litellm[proxy] rather than
     # its much larger dependency surface.
     "apscheduler>=3.10.4,<4.0.0",
     "cryptography",
@@ -434,7 +434,7 @@ fastmcp = ["fastmcp>=3.2.0"]
 # constrained by aioboto3's exact pin to aiobotocore 2.25.1.
 aiobotocore = ["aiobotocore>=3.7.0,<4.0.0"]
 # Preserve the legacy extra name so existing primeagent-base[aioboto3] install
-# commands continue to enable Primeagent's async S3 backend.
+# commands continue to enable PrimeAgent's async S3 backend.
 aioboto3 = ["aiobotocore>=3.7.0,<4.0.0"]
 
 # Astra

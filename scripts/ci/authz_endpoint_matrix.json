@@ -555,7 +555,7 @@
       "family": "trigger_ingress",
       "source": "api/v1/trigger_ingress.py",
       "resource": "trigger",
-      "domain": "none: the caller is a provider, not a Primeagent principal, and no role grants access",
+      "domain": "none: the caller is a provider, not a PrimeAgent principal, and no role grants access",
       "privacy": "every outcome - unknown trigger or Slack app, wrong provider, bad signature, stale timestamp, paused trigger, oversized body, rate limited - answers 404 with one body, so the route is not an oracle for which trigger ids or registrations exist; the reason is recorded in the audit row instead. The Microsoft Graph subscription handshake is the one 200 without provider proof, and it is answered before the trigger is resolved so its response cannot depend on whether the public id exists. Slack's url_verification is signed and names no trigger, so it is answered only after the registration's signing secret verifies it",
       "side_effects": "per-trigger route: appends at most one trigger_event ledger row per verified delivery. Slack app route: appends at most one row per matching armed trigger (active, Events API mechanism, an installation of that registration in the delivering workspace, on a connection its owner owns), all in one commit. Both answer only after the commit, inside the provider's acknowledgement deadline, never execute a flow and never fetch from the provider in the request",
       "frontend": "no frontend surface: the URL is shown on the trigger, and the secret only when it is minted",

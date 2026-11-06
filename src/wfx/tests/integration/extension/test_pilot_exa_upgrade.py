@@ -8,7 +8,7 @@ unchanged, so the canonical ID -- and the migration entries added when
 the provider was first consolidated -- are stable across the move.
 
 Verifies the save/upgrade/load contract for flows referencing
-``ExaSearchToolkit`` from the pre-extraction Primeagent:
+``ExaSearchToolkit`` from the pre-extraction PrimeAgent:
 
     1. A saved flow uses the legacy bare class name ``ExaSearchToolkit``.
     2. The migration table rewrites it to the canonical namespaced ID
@@ -56,7 +56,7 @@ def _saved_flow_node(node_id: str, type_value: str) -> dict:
 
 
 def _saved_flow(*nodes: dict) -> dict:
-    """Wrap nodes in the canonical Primeagent flow envelope."""
+    """Wrap nodes in the canonical PrimeAgent flow envelope."""
     return {"data": {"nodes": list(nodes), "edges": []}}
 
 

@@ -68,7 +68,7 @@ def inject_history_limit_into_flow(flow_data: dict, limit: int | None) -> dict:
 
 
 MAX_ASSISTANT_ITERATIONS = 200
-# Pinned assistant step budget (a COST decision, tripwire-tested): PrimeagentAssistant.json
+# Pinned assistant step budget (a COST decision, tripwire-tested): PrimeAgentAssistant.json
 # pins it on its Agents and the Python builder flow defaults to it — one source of truth.
 DEFAULT_ASSISTANT_ITERATIONS = 100
 ASSISTANT_ITERATIONS_ENV = "PRIMEAGENT_ASSISTANT_ITERATIONS"
@@ -77,7 +77,7 @@ ASSISTANT_ITERATIONS_ENV = "PRIMEAGENT_ASSISTANT_ITERATIONS"
 def assistant_iterations_default() -> int:
     """Step budget for a request that carries no ``/iterations N`` override.
 
-    ``/iterations N`` tunes one browser session; an operator running Primeagent for a
+    ``/iterations N`` tunes one browser session; an operator running PrimeAgent for a
     team whose flows are multi-stage by nature needs the DEFAULT to move, which is
     what this env var does (same shape as ``PRIMEAGENT_ASSISTANT_HISTORY_TURNS``).
     Precedence is per-request > env > pinned default, and the value is clamped to
@@ -234,10 +234,10 @@ def inject_model_into_flow(
 def inject_wfx_components_path(flow_data: dict) -> dict:
     """Rewrite Directory nodes targeting bundled wfx components to an absolute path.
 
-    The bundled PrimeagentAssistant flow hardcodes a relative path that only
+    The bundled PrimeAgentAssistant flow hardcodes a relative path that only
     resolves from the monorepo root. In any packaged install the process CWD
     is different and the Directory component raises "Path ... must exist and
-    be a directory.", causing the Primeagent Assistant to fail with
+    be a directory.", causing the PrimeAgent Assistant to fail with
     "An internal error occurred while executing the flow." on first use.
 
     This function walks the flow nodes and, for each Directory node whose
@@ -260,7 +260,7 @@ def inject_wfx_components_path(flow_data: dict) -> dict:
 def inject_assistant_fs_root(flow_data: dict) -> dict:
     """Replace empty FileSystemTool.root_path with the resolved sandbox path.
 
-    The shipped PrimeagentAssistant flow leaves FileSystemTool.root_path empty
+    The shipped PrimeAgentAssistant flow leaves FileSystemTool.root_path empty
     on purpose so the path can be resolved per-host at runtime (see
     helpers.assistant_workspace.resolve_assistant_fs_root). Hardcoding any
     value in the JSON would break portability across macOS, Linux, Windows

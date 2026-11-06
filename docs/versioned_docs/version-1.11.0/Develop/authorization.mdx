@@ -3,20 +3,20 @@ title: Authorization
 slug: /authorization
 ---
 
-Primeagent includes a pluggable authorization layer for role-based access control (RBAC) over flows, projects, deployments, files, variables, and knowledge bases.
+PrimeAgent includes a pluggable authorization layer for role-based access control (RBAC) over flows, projects, deployments, files, variables, and knowledge bases.
 
-The authorization infrastructure is present in all Primeagent deployments, but the open-source build registers a pass-through service that **always allows** every action for every authenticated user.
+The authorization infrastructure is present in all PrimeAgent deployments, but the open-source build registers a pass-through service that **always allows** every action for every authenticated user.
 
 Setting `PRIMEAGENT_AUTHZ_ENABLED=true` without an enforcement plugin **does not** restrict access. Route guards still run and audit rows can still be written, but no policy is applied.
 
 Per-resource RBAC enforcement requires a registered authorization plugin.
-Primeagent OSS **does not** include a registered authorization plugin.
+PrimeAgent OSS **does not** include a registered authorization plugin.
 
 ## Enable RBAC with an enforcement plugin
 
 The following steps apply when you have a registered enforcement plugin.
 
-1. Set `PRIMEAGENT_AUTHZ_AUDIT_ENABLED=true` and run Primeagent in a staging environment. Review the [audit log](#audit-log-api) to understand what decisions would be made before enforcement is on.
+1. Set `PRIMEAGENT_AUTHZ_AUDIT_ENABLED=true` and run PrimeAgent in a staging environment. Review the [audit log](#audit-log-api) to understand what decisions would be made before enforcement is on.
 
 2. Install and register the enforcement plugin following its setup guide.
 
@@ -38,7 +38,7 @@ The following steps apply when you have a registered enforcement plugin.
 
 ## System roles
 
-Primeagent seeds three built-in system roles that an enforcement plugin uses as a starting point for policy sync. These roles cannot be deleted.
+PrimeAgent seeds three built-in system roles that an enforcement plugin uses as a starting point for policy sync. These roles cannot be deleted.
 
 | Role        | Permission slugs                                                                                    |
 | ----------- | --------------------------------------------------------------------------------------------------- |

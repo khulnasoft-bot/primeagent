@@ -1,7 +1,7 @@
-"""The Primeagent MCP toolkit must be reachable over HTTP, not only stdio.
+"""The PrimeAgent MCP toolkit must be reachable over HTTP, not only stdio.
 
-Community ask: call the Primeagent Assistant from external MCP clients
-(Cursor, Claude, Codex) against a RUNNING Primeagent server, without spawning
+Community ask: call the PrimeAgent Assistant from external MCP clients
+(Cursor, Claude, Codex) against a RUNNING PrimeAgent server, without spawning
 a local stdio process.
 
 These tests pin the ``/api/v1/agentic/mcp`` streamable-http endpoint:

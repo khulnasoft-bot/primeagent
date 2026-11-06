@@ -1,7 +1,7 @@
 """wfx-serply: Serply Search bundle.
 
 This package is the distribution unit ``wfx-serply``.  At runtime
-Primeagent's loader discovers ``extension.json`` shipped alongside this
+PrimeAgent's loader discovers ``extension.json`` shipped alongside this
 ``__init__.py`` and registers ``SerplySearchComponent`` under the
 namespaced ID ``ext:serply:SerplySearchComponent@official``.
 

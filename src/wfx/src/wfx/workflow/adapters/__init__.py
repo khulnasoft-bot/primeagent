@@ -1,6 +1,6 @@
 """Stream-protocol adapters for the v2 workflows endpoint.
 
-Each adapter translates Primeagent ``EventManager`` events into a wire protocol's
+Each adapter translates PrimeAgent ``EventManager`` events into a wire protocol's
 SSE event bodies. Adapters register under a string name; the endpoint dispatches
 by name based on the ``stream_protocol`` body field. Unknown protocols return
 422 with the available list.

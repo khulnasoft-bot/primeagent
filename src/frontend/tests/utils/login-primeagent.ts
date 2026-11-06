@@ -17,7 +17,7 @@ export async function submitLoginAndRequireSuccess(page: Page): Promise<void> {
   }
 }
 
-export const loginPrimeagent = async (page: Page) => {
+export const loginPrimeAgent = async (page: Page) => {
   await page.goto("/");
   await page
     .getByPlaceholder(TEXTS.placeholderUsername)

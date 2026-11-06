@@ -10,7 +10,7 @@ that both try to become writers. PostgreSQL uses conditional UPDATEs guarded on
 the exact value the caller read. Both paths elect exactly one holder when
 replicas race to claim an empty or expired lease.
 
-Expiry is a Primeagent recovery bound and nothing more. It says the previous
+Expiry is a PrimeAgent recovery bound and nothing more. It says the previous
 holder stopped heartbeating; it does not prove that its socket closed, so an
 adapter must tolerate bounded overlap during handover
 (``decisions/process-model.md``, "Bounded Socket Mode overlap during handover").
@@ -169,7 +169,7 @@ def held_clause(*, connection_id: UUID, holder: str, generation: datetime | None
     """A predicate that is true only while ``holder`` still owns ``generation``.
 
     Composed into another statement's ``WHERE`` so that the fence and the write
-    it guards are a single atomic mutation. Lease expiry is a Primeagent recovery
+    it guards are a single atomic mutation. Lease expiry is a PrimeAgent recovery
     bound, not proof that the previous holder stopped: without a fence, an old
     adapter can land a stale write *after* its successor saved a newer one and
     silently rewind a provider cursor. With one, the stale write matches no rows.

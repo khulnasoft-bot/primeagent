@@ -57,12 +57,12 @@ class Deployment(SQLModel, table=True):  # type: ignore[call-arg]
     )
     # ``DeploymentType`` is imported from WFX
     # (``wfx.services.adapters.deployment.schema``).  The DB-level
-    # ``deployment_type_enum`` constraint is defined by a Primeagent alembic
+    # ``deployment_type_enum`` constraint is defined by a PrimeAgent alembic
     # migration, **not** by WFX code.  This decoupling is intentional:
     #
     # WFX adds a new member  -> INSERT/UPDATE with the new value is rejected
-    #                           by the DB until a Primeagent migration adds it
-    #                           to the enum type.  Primeagent explicitly opts
+    #                           by the DB until a PrimeAgent migration adds it
+    #                           to the enum type.  PrimeAgent explicitly opts
     #                           in to new deployment types.
     #
     # WFX renames a value    -> Existing rows are unaffected (the DB stores
@@ -81,7 +81,7 @@ class Deployment(SQLModel, table=True):  # type: ignore[call-arg]
     #
     # To add a new value to ``deployment_type_enum``:
     #   1. Add the member to ``DeploymentType`` in WFX (or confirm it exists).
-    #   2. Create a Primeagent alembic migration that runs:
+    #   2. Create a PrimeAgent alembic migration that runs:
     #        op.execute("ALTER TYPE deployment_type_enum ADD VALUE '<new>'")
     #      For SQLite (dev/test) this is a no-op; the CHECK constraint is
     #      recreated automatically by ``batch_alter_table``.

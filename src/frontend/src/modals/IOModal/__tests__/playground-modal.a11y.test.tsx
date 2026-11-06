@@ -4,12 +4,12 @@ import { axe } from "@/utils/a11y-test";
 import IOModal from "../playground-modal";
 
 // This suite only asserts the accessible-name fixes on IOModal's own icon
-// buttons (the sidebar toggle and the two "Built with Primeagent" variants).
+// buttons (the sidebar toggle and the two "Built with PrimeAgent" variants).
 // Everything else on the page (chat panel, sidebar session list, output
 // panel) is mocked out so the suite doesn't have to model the full
 // store/query surface those subtrees depend on.
 
-jest.mock("@/assets/PrimeagentLogoColor.svg?react", () => ({
+jest.mock("@/assets/PrimeAgentLogoColor.svg?react", () => ({
   __esModule: true,
   // Forward props (aria-hidden in particular) so the fix is actually testable.
   default: (props: React.SVGProps<SVGSVGElement>) => (
@@ -85,7 +85,7 @@ jest.mock("@/customization/utils/custom-open-new-tab", () => ({
 
 jest.mock("@/customization/utils/urls", () => ({
   __esModule: true,
-  PrimeagentButtonRedirectTarget: () => "https://prime.khulnasoft.com",
+  PrimeAgentButtonRedirectTarget: () => "https://prime.khulnasoft.com",
 }));
 
 jest.mock("@/customization/feature-flags", () => ({
@@ -224,7 +224,7 @@ describe("IOModal (playground) accessibility", () => {
     ).toBeInTheDocument();
   });
 
-  it("hides the sidebar-open 'Built with Primeagent' logo from assistive tech", () => {
+  it("hides the sidebar-open 'Built with PrimeAgent' logo from assistive tech", () => {
     renderPlayground();
 
     // Sidebar-open variant: the button has a visible text label, but its
@@ -247,13 +247,13 @@ describe("IOModal (playground) accessibility", () => {
     ).toBeInTheDocument();
   });
 
-  it("names the collapsed-sidebar 'Built with Primeagent' button and hides its icon", () => {
+  it("names the collapsed-sidebar 'Built with PrimeAgent' button and hides its icon", () => {
     renderPlayground();
 
     fireEvent.click(screen.getByRole("button", { name: "Hide sidebar" }));
 
     const collapsedButton = screen.getByRole("button", {
-      name: "Built with Primeagent",
+      name: "Built with PrimeAgent",
     });
     expect(collapsedButton).toBeInTheDocument();
 

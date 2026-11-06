@@ -1,7 +1,7 @@
 import { expect, test } from "../fixtures";
-import type { PrimeagentPage } from "../utils/types";
+import type { PrimeAgentPage } from "../utils/types";
 
-async function disableAutoLogin(page: PrimeagentPage) {
+async function disableAutoLogin(page: PrimeAgentPage) {
   await page.route("**/api/v1/auto_login", (route) => {
     route.fulfill({
       status: 403,
@@ -13,7 +13,7 @@ async function disableAutoLogin(page: PrimeagentPage) {
   });
 }
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -29,7 +29,7 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function mockLoginError(page: PrimeagentPage) {
+async function mockLoginError(page: PrimeAgentPage) {
   await page.route("**/api/v1/login", (route) => {
     route.fulfill({
       status: 401,
@@ -39,7 +39,7 @@ async function mockLoginError(page: PrimeagentPage) {
   });
 }
 
-async function mockSignupError(page: PrimeagentPage) {
+async function mockSignupError(page: PrimeAgentPage) {
   await page.route("**/api/v1/users/", (route) => {
     route.fulfill({
       status: 400,
@@ -49,14 +49,14 @@ async function mockSignupError(page: PrimeagentPage) {
   });
 }
 
-async function forceDarkTheme(page: PrimeagentPage) {
+async function forceDarkTheme(page: PrimeAgentPage) {
   await page.addInitScript(() => {
     window.localStorage.setItem("themePreference", "dark");
     window.localStorage.setItem("isDark", "true");
   });
 }
 
-async function forceLightTheme(page: PrimeagentPage) {
+async function forceLightTheme(page: PrimeAgentPage) {
   await page.addInitScript(() => {
     window.localStorage.setItem("themePreference", "light");
     window.localStorage.setItem("isDark", "false");
@@ -67,14 +67,14 @@ async function forceLightTheme(page: PrimeagentPage) {
 // They are theme-agnostic (the theme is forced by the caller before goto), so
 // each state runs in BOTH light and dark below — IBM color-contrast checks are
 // theme-dependent, so both modes must be scanned.
-async function driveLoginEmpty(page: PrimeagentPage) {
+async function driveLoginEmpty(page: PrimeAgentPage) {
   await disableAutoLogin(page);
   await page.goto("/login");
   await disableAnimations(page);
   await expect(page.getByRole("button", { name: /sign in/i })).toBeVisible();
 }
 
-async function expectPageToReflow(page: PrimeagentPage) {
+async function expectPageToReflow(page: PrimeAgentPage) {
   const dimensions = await page.evaluate(() => ({
     clientWidth: document.documentElement.clientWidth,
     scrollWidth: document.documentElement.scrollWidth,
@@ -82,13 +82,13 @@ async function expectPageToReflow(page: PrimeagentPage) {
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
 }
 
-async function driveLoginMobile(page: PrimeagentPage) {
+async function driveLoginMobile(page: PrimeAgentPage) {
   await page.setViewportSize({ width: 320, height: 800 });
   await driveLoginEmpty(page);
   await expectPageToReflow(page);
 }
 
-async function driveLoginValidation(page: PrimeagentPage) {
+async function driveLoginValidation(page: PrimeAgentPage) {
   await disableAutoLogin(page);
   await page.goto("/login");
   await disableAnimations(page);
@@ -97,7 +97,7 @@ async function driveLoginValidation(page: PrimeagentPage) {
   await expect(page.getByRole("alert").first()).toBeVisible();
 }
 
-async function driveLoginErrorToast(page: PrimeagentPage) {
+async function driveLoginErrorToast(page: PrimeAgentPage) {
   await disableAutoLogin(page);
   await mockLoginError(page);
   await page.goto("/login");
@@ -126,7 +126,7 @@ async function driveLoginErrorToast(page: PrimeagentPage) {
   );
 }
 
-async function driveLoginErrorMobile(page: PrimeagentPage) {
+async function driveLoginErrorMobile(page: PrimeAgentPage) {
   await page.setViewportSize({ width: 320, height: 800 });
   await driveLoginErrorToast(page);
   // Wait for the existing fixed-width toast to close before checking the persistent inline guidance.
@@ -137,20 +137,20 @@ async function driveLoginErrorMobile(page: PrimeagentPage) {
   await expectPageToReflow(page);
 }
 
-async function driveSignupEmpty(page: PrimeagentPage) {
+async function driveSignupEmpty(page: PrimeAgentPage) {
   await disableAutoLogin(page);
   await page.goto("/signup");
   await disableAnimations(page);
   await expect(page.getByRole("button", { name: /sign up/i })).toBeVisible();
 }
 
-async function driveSignupMobile(page: PrimeagentPage) {
+async function driveSignupMobile(page: PrimeAgentPage) {
   await page.setViewportSize({ width: 320, height: 800 });
   await driveSignupEmpty(page);
   await expectPageToReflow(page);
 }
 
-async function driveSignupMismatch(page: PrimeagentPage) {
+async function driveSignupMismatch(page: PrimeAgentPage) {
   await disableAutoLogin(page);
   await page.goto("/signup");
   await disableAnimations(page);
@@ -163,7 +163,7 @@ async function driveSignupMismatch(page: PrimeagentPage) {
   );
 }
 
-async function driveSignupErrorToast(page: PrimeagentPage) {
+async function driveSignupErrorToast(page: PrimeAgentPage) {
   await disableAutoLogin(page);
   await mockSignupError(page);
   await page.goto("/signup");
@@ -183,14 +183,14 @@ async function driveSignupErrorToast(page: PrimeagentPage) {
   await expect(page.locator("#signup-form-error")).toBeVisible();
 }
 
-async function driveAdminLoginEmpty(page: PrimeagentPage) {
+async function driveAdminLoginEmpty(page: PrimeAgentPage) {
   await disableAutoLogin(page);
   await page.goto("/login/admin");
   await disableAnimations(page);
   await expect(page.getByRole("button", { name: /login/i })).toBeVisible();
 }
 
-async function driveAdminLoginErrorToast(page: PrimeagentPage) {
+async function driveAdminLoginErrorToast(page: PrimeAgentPage) {
   await disableAutoLogin(page);
   await mockLoginError(page);
   await page.goto("/login/admin");
@@ -205,7 +205,7 @@ async function driveAdminLoginErrorToast(page: PrimeagentPage) {
 
 const AUTH_STATES: Array<{
   label: string;
-  drive: (page: PrimeagentPage) => Promise<void>;
+  drive: (page: PrimeAgentPage) => Promise<void>;
 }> = [
   { label: "auth-login-empty", drive: driveLoginEmpty },
   { label: "auth-login-mobile", drive: driveLoginMobile },
@@ -222,7 +222,7 @@ const AUTH_STATES: Array<{
 
 const THEMES: Array<{
   name: "light" | "dark";
-  force: (page: PrimeagentPage) => Promise<void>;
+  force: (page: PrimeAgentPage) => Promise<void>;
   suffix: string;
   scanOptions?: { colorScheme: "dark" };
 }> = [

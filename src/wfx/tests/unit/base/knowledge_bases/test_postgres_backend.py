@@ -580,7 +580,7 @@ class TestCatalogProbes:
 
 
 class TestExtensionOwnership:
-    """Primeagent must never run ``CREATE EXTENSION`` on the operator's database."""
+    """PrimeAgent must never run ``CREATE EXTENSION`` on the operator's database."""
 
     def test_missing_extension_message_instructs_the_operator(self) -> None:
         assert "CREATE EXTENSION vector" in MISSING_EXTENSION_MESSAGE

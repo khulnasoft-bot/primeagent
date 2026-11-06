@@ -1,6 +1,6 @@
 # Incremental Testing Workflow
 
-Step-by-step process for systematically testing a directory of source files in Primeagent.
+Step-by-step process for systematically testing a directory of source files in PrimeAgent.
 
 ## Phase 1: Discovery
 

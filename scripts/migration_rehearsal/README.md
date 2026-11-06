@@ -1,6 +1,6 @@
 # Migration rehearsal fixtures
 
-Tooling for rehearsing a whole-instance migration: moving a Primeagent instance's data
+Tooling for rehearsing a whole-instance migration: moving a PrimeAgent instance's data
 onto a different deployment, or converting its database from SQLite to Postgres.
 
 Not related to `scripts/migrate/`, which checks alembic revisions and bundle

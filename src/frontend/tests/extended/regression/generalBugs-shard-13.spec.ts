@@ -84,7 +84,7 @@ test(
     await page.getByTestId("shared-button-flow").click();
 
     await page.waitForSelector(
-      "text=Publish workflow to the Primeagent Store.",
+      "text=Publish workflow to the PrimeAgent Store.",
       {
         timeout: 10000,
       },

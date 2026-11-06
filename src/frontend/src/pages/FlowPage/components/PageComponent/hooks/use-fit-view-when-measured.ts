@@ -13,7 +13,7 @@ import useFlowsManagerStore from "@/stores/flowsManagerStore";
  *
  * ReactFlow resolves a queued `fitView` on the first `updateNodeInternals`
  * batch, and `getFitViewNodes` drops any node without `measured.width/height`
- * from the bounding box — position included. Primeagent's nodes are heavy enough
+ * from the bounding box — position included. PrimeAgent's nodes are heavy enough
  * to measure across several ResizeObserver batches, so a fit issued when a flow
  * is applied runs over whichever subset landed first and is never recomputed:
  * flows open zoomed in on a few nodes, with the rest outside the viewport.

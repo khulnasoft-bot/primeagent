@@ -1,6 +1,6 @@
 # wfx-duckduckgo
 
-DuckDuckGo Search component as a standalone Primeagent Extension Bundle.
+DuckDuckGo Search component as a standalone PrimeAgent Extension Bundle.
 
 This is the first provider extracted from `wfx.components.<provider>`
 into a separate distribution.  The bundle ships a single component,
@@ -14,7 +14,7 @@ pip install wfx-duckduckgo
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point.  After install, restart your Primeagent server; the
+entry-point.  After install, restart your PrimeAgent server; the
 `DuckDuckGoSearchComponent` will appear in the palette under the
 `duckduckgo` bundle group.
 

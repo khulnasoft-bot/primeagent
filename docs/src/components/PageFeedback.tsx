@@ -54,7 +54,7 @@ export function PageFeedback(): JSX.Element {
       channel: "docs",
       elementId: `page-feedback-${value}`,
       namespace: "doc-footer",
-      platformTitle: "Primeagent",
+      platformTitle: "PrimeAgent",
     });
   };
 
@@ -102,7 +102,7 @@ export function PageFeedback(): JSX.Element {
                     data-channel="docs"
                     data-element-id="page-feedback-github-issue"
                     data-namespace="doc-footer"
-                    data-platform-title="Primeagent"
+                    data-platform-title="PrimeAgent"
                   >
                     opening a GitHub issue
                   </a>
@@ -120,7 +120,7 @@ export function PageFeedback(): JSX.Element {
           data-channel="docs"
           data-element-id="page-feedback-support"
           data-namespace="doc-footer"
-          data-platform-title="Primeagent"
+          data-platform-title="PrimeAgent"
         >
           <LifeBuoyIcon size={14} strokeWidth={2} aria-hidden="true" />
           <span>Support</span>

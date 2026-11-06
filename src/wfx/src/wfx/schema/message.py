@@ -88,7 +88,7 @@ def _is_image_attachment(file_path: str) -> bool:
 
 
 class Message(Data):
-    """Message schema for Primeagent.
+    """Message schema for PrimeAgent.
 
     Message ID Semantics:
     - Messages only have an ID after being stored in the database

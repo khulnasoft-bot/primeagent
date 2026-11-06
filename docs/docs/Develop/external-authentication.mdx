@@ -6,16 +6,16 @@ slug: /external-authentication
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-External authentication lets an upstream identity provider, OIDC proxy, or corporate SSO gateway handle login. Primeagent accepts the token the proxy forwards, validates it against the identity provider's JWKS endpoint, and provisions a local user automatically.
-This is useful when Primeagent is deployed behind a gateway that already handles authentication, such as an OIDC proxy, an API gateway, or a corporate SSO system.
+External authentication lets an upstream identity provider, OIDC proxy, or corporate SSO gateway handle login. PrimeAgent accepts the token the proxy forwards, validates it against the identity provider's JWKS endpoint, and provisions a local user automatically.
+This is useful when PrimeAgent is deployed behind a gateway that already handles authentication, such as an OIDC proxy, an API gateway, or a corporate SSO system.
 
-The built-in Primeagent JWT path is always attempted first. If that fails, the external path is tried as a fallback, so existing Primeagent credentials continue to work alongside external ones.
+The built-in PrimeAgent JWT path is always attempted first. If that fails, the external path is tried as a fallback, so existing PrimeAgent credentials continue to work alongside external ones.
 
 To enable external authentication, set `PRIMEAGENT_EXTERNAL_AUTH_ENABLED=true` and configure at least one validation mode.
 
-The following example connects Primeagent to [Keycloak](https://www.keycloak.org/) using JWKS verification.
+The following example connects PrimeAgent to [Keycloak](https://www.keycloak.org/) using JWKS verification.
 The same pattern applies to other OIDC identity providers.
-You create a client, point Primeagent at the identity provider's JWKS URL and issuer, set the expected audience, and forward the access token in the `Authorization` header.
+You create a client, point PrimeAgent at the identity provider's JWKS URL and issuer, set the expected audience, and forward the access token in the `Authorization` header.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ You create a client, point Primeagent at the identity provider's JWKS URL and is
 1. Start the Keycloak container in dev mode and publish **both** ports.
 
    Keycloak must be run with `start-dev` so HTTP is allowed on `localhost` for the admin console, token endpoint, and JWKS URL. Production mode requires HTTPS.
-   Port `7860` must be published on the Keycloak container for Primeagent to be reachable from your host. Primeagent shares Keycloak's network namespace in the Docker example.
+   Port `7860` must be published on the Keycloak container for PrimeAgent to be reachable from your host. PrimeAgent shares Keycloak's network namespace in the Docker example.
 
    ```bash
    docker run -d --name keycloak \
@@ -50,7 +50,7 @@ You create a client, point Primeagent at the identity provider's JWKS URL and is
 
 ### Add an audience mapper to the access token
 
-Primeagent requires the token `aud` claim to match `PRIMEAGENT_EXTERNAL_AUTH_AUDIENCE`.
+PrimeAgent requires the token `aud` claim to match `PRIMEAGENT_EXTERNAL_AUTH_AUDIENCE`.
 Keycloak access tokens do not include your client ID in `aud` by default, so you need to add a mapper.
 
 1. Open the **primeagent-app** client, and click **Client scopes** > **primeagent-app-dedicated** > **Add mapper** > **By configuration**.
@@ -67,9 +67,9 @@ Keycloak access tokens do not include your client ID in `aud` by default, so you
 2. Set **Username** to `alice`, **Email** to `alice@example.com`, and enable **Email verified**.
 3. Open the **Credentials** tab, set a password, and turn off **Temporary**.
 
-### Connect Primeagent to Keycloak
+### Connect PrimeAgent to Keycloak
 
-1. Add the following values to your Primeagent `.env` file:
+1. Add the following values to your PrimeAgent `.env` file:
 
    ```bash
    PRIMEAGENT_AUTO_LOGIN=False
@@ -83,7 +83,7 @@ Keycloak access tokens do not include your client ID in `aud` by default, so you
    PRIMEAGENT_EXTERNAL_AUTH_AUDIENCE=primeagent-app
    ```
 
-2. Start the Primeagent container.
+2. Start the PrimeAgent container.
 
    ```bash
    docker run -d --name primeagent \
@@ -130,14 +130,14 @@ Keycloak access tokens do not include your client ID in `aud` by default, so you
    If you get this error, request a new token.
    :::
 
-4. Copy the `access_token` value, which Primeagent expects in the `Authorization: Bearer` header.
+4. Copy the `access_token` value, which PrimeAgent expects in the `Authorization: Bearer` header.
 5. To save the `access_token` from the response as a terminal environment variable, run:
 
    ```bash
    export KEYCLOAK_TOKEN="ey..."
    ```
 
-6. To confirm Primeagent is reachable, send a request to the `whoami` endpoint with the Keycloak token:
+6. To confirm PrimeAgent is reachable, send a request to the `whoami` endpoint with the Keycloak token:
 
    ```bash
    curl -s http://localhost:7860/health
@@ -145,7 +145,7 @@ Keycloak access tokens do not include your client ID in `aud` by default, so you
      -H "Authorization: Bearer $KEYCLOAK_TOKEN"
    ```
 
-   On the first successful request, Primeagent JIT-provisions a local user from the token claims.
+   On the first successful request, PrimeAgent JIT-provisions a local user from the token claims.
    Subsequent requests authenticate as that user.
 
    ```json
@@ -197,20 +197,20 @@ Keycloak access tokens do not include your client ID in `aud` by default, so you
 
 | Variable                                      | Description                                                                                                                                     | Default |
 | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `PRIMEAGENT_EXTERNAL_AUTH_TRUSTED_JWT_DECODE` | Decode the JWT without verifying its signature. Only enable this when Primeagent is behind a trusted proxy that has already verified the token. | `false` |
+| `PRIMEAGENT_EXTERNAL_AUTH_TRUSTED_JWT_DECODE` | Decode the JWT without verifying its signature. Only enable this when PrimeAgent is behind a trusted proxy that has already verified the token. | `false` |
 
 :::danger
-Trusted-decode mode skips all cryptographic verification. Only enable it when Primeagent is not reachable directly from the internet and the upstream proxy is responsible for token validation.
+Trusted-decode mode skips all cryptographic verification. Only enable it when PrimeAgent is not reachable directly from the internet and the upstream proxy is responsible for token validation.
 :::
 
 ### JIT user provisioning claim mapping
 
-Primeagent maps JWT claims to local user attributes when creating or updating the provisioned account.
+PrimeAgent maps JWT claims to local user attributes when creating or updating the provisioned account.
 
 | Variable                                                    | Description                                                                                                                                                                  | Default              |
 | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
 | `PRIMEAGENT_EXTERNAL_AUTH_SUBJECT_CLAIM`                    | JWT claim used as the stable external user identifier.                                                                                                                       | `sub`                |
-| `PRIMEAGENT_EXTERNAL_AUTH_USERNAME_CLAIM`                   | JWT claim preferred for the local Primeagent username. Falls back to email, name, or a deterministic hash.                                                                   | `preferred_username` |
+| `PRIMEAGENT_EXTERNAL_AUTH_USERNAME_CLAIM`                   | JWT claim preferred for the local PrimeAgent username. Falls back to email, name, or a deterministic hash.                                                                   | `preferred_username` |
 | `PRIMEAGENT_EXTERNAL_AUTH_EMAIL_CLAIM`                      | JWT claim containing the user's email address.                                                                                                                               | `email`              |
 | `PRIMEAGENT_EXTERNAL_AUTH_NAME_CLAIM`                       | JWT claim containing the user's display name.                                                                                                                                | `name`               |
 | `PRIMEAGENT_EXTERNAL_AUTH_GROUP_RECONCILE_INTERVAL_SECONDS` | Minimum seconds between group reconciliations for an unchanged directory state. A changed group set always reconciles immediately. Set to `0` to reconcile on every request. | `60`                 |
@@ -227,7 +227,7 @@ When enabled, requests from external users whose ceiling is below the required l
 | `PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CLAIM`                        | JWT claim name from which the access level is derived.                                                                                                                                                                                                                                  | _(none)_ |
 | `PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CLAIM_MAPPING`                | JSON object or comma-separated `claim_value:level` pairs that map external claim values to `viewer`, `editor`, or `admin`. When this is set it is authoritative — values absent from the mapping fall back to the default level rather than being interpreted through built-in aliases. | _(none)_ |
 | `PRIMEAGENT_EXTERNAL_AUTH_DEFAULT_ACCESS_LEVEL`                | Fallback level used when the access claim is absent or unmapped.                                                                                                                                                                                                                        | `viewer` |
-| `PRIMEAGENT_EXTERNAL_AUTH_DISABLE_API_KEYS_FOR_EXTERNAL_USERS` | Reject Primeagent API-key authentication for users provisioned through the external provider, so API keys cannot bypass the JWT claim ceiling.                                                                                                                                          | `true`   |
+| `PRIMEAGENT_EXTERNAL_AUTH_DISABLE_API_KEYS_FOR_EXTERNAL_USERS` | Reject PrimeAgent API-key authentication for users provisioned through the external provider, so API keys cannot bypass the JWT claim ceiling.                                                                                                                                          | `true`   |
 
 **Built-in access level aliases** (used when no explicit mapping is configured):
 
@@ -249,7 +249,7 @@ PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CLAIM_MAPPING="read_access:viewer,write_access:e
 
 ## Use a custom identity resolver
 
-By default, Primeagent validates the credential as a JWT and maps the resulting claims to a local identity.
+By default, PrimeAgent validates the credential as a JWT and maps the resulting claims to a local identity.
 You can replace this logic with a custom resolver by pointing `PRIMEAGENT_EXTERNAL_AUTH_IDENTITY_RESOLVER` at a Python import path.
 
 ```bash
@@ -257,7 +257,7 @@ PRIMEAGENT_EXTERNAL_AUTH_IDENTITY_RESOLVER="mypackage.auth:MyResolver"
 ```
 
 The resolver must be a class with an async `resolve(token, auth_settings)` method, or a plain async callable with the same signature.
-It must return either an `ExternalIdentity` instance or a dict of claims that Primeagent maps using the standard claim settings.
+It must return either an `ExternalIdentity` instance or a dict of claims that PrimeAgent maps using the standard claim settings.
 
 ```python
 from primeagent.services.auth.external import ExternalIdentity
@@ -276,8 +276,8 @@ class MyResolver:
 
 ## Example: OIDC proxy setup
 
-A common deployment places Primeagent behind an OIDC-aware reverse proxy (such as oauth2-proxy or Nginx with `auth_request`).
-The proxy validates the OIDC token and forwards the original JWT (or an identity header) to Primeagent.
+A common deployment places PrimeAgent behind an OIDC-aware reverse proxy (such as oauth2-proxy or Nginx with `auth_request`).
+The proxy validates the OIDC token and forwards the original JWT (or an identity header) to PrimeAgent.
 
 ```bash
 # The proxy forwards the IdP-issued JWT in Authorization
@@ -297,7 +297,7 @@ PRIMEAGENT_EXTERNAL_AUTH_ACCESS_CLAIM_MAPPING='{"viewer":"viewer","editor":"edit
 
 ## Example: trusted-proxy setup
 
-When Primeagent is not directly reachable from the internet and the proxy has already validated the token:
+When PrimeAgent is not directly reachable from the internet and the proxy has already validated the token:
 
 ```bash
 PRIMEAGENT_EXTERNAL_AUTH_ENABLED=true
@@ -309,7 +309,7 @@ PRIMEAGENT_EXTERNAL_AUTH_TOKEN_HEADER=X-Forwarded-User-Token
 
 Full provider-specific SSO (OIDC, SAML, LDAP) is available as a plugin (`PRIMEAGENT_SSO_ENABLED`, `PRIMEAGENT_SSO_PROVIDER`, `PRIMEAGENT_SSO_CONFIG_FILE`, `PRIMEAGENT_SSO_REDIRECT_URL`).
 The external authentication settings above work independently of the SSO plugin and are the recommended starting point for deployments behind an OIDC proxy.
-Contact your Primeagent account team for information about the SSO plugin.
+Contact your PrimeAgent account team for information about the SSO plugin.
 
 ## See also
 

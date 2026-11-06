@@ -1,5 +1,5 @@
 STARTER_FOLDER_NAME = "Starter Projects"
-STARTER_FOLDER_DESCRIPTION = "Starter projects to help you get started in Primeagent."
+STARTER_FOLDER_DESCRIPTION = "Starter projects to help you get started in PrimeAgent."
 
-ASSISTANT_FOLDER_NAME = "Primeagent Assistant"
-ASSISTANT_FOLDER_DESCRIPTION = "Pre-built flows from Primeagent Assistant to enhance your workflow."
+ASSISTANT_FOLDER_NAME = "PrimeAgent Assistant"
+ASSISTANT_FOLDER_DESCRIPTION = "Pre-built flows from PrimeAgent Assistant to enhance your workflow."

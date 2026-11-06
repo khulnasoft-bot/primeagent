@@ -7,20 +7,20 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import Link from "@docusaurus/Link";
 
-In general, environment variables, like `PRIMEAGENT_PORT` or `PRIMEAGENT_LOG_LEVEL`, configure how Primeagent runs.
-These are broad settings that apply to your entire Primeagent deployment.
+In general, environment variables, like `PRIMEAGENT_PORT` or `PRIMEAGENT_LOG_LEVEL`, configure how PrimeAgent runs.
+These are broad settings that apply to your entire PrimeAgent deployment.
 
-In contrast, global variables are user-defined values stored in Primeagent's database for use in flows, such as `OPENAI_API_KEY`.
-Primeagent can also source global variables from environment variables.
-For more information, see [Primeagent global variables](/configuration-global-variables).
+In contrast, global variables are user-defined values stored in PrimeAgent's database for use in flows, such as `OPENAI_API_KEY`.
+PrimeAgent can also source global variables from environment variables.
+For more information, see [PrimeAgent global variables](/configuration-global-variables).
 
-## Configure environment variables for Primeagent OSS
+## Configure environment variables for PrimeAgent OSS
 
-Primeagent recognizes [supported environment variables](#supported-variables) from the following sources:
+PrimeAgent recognizes [supported environment variables](#supported-variables) from the following sources:
 
 - Environment variables set in your terminal.
-- Environment variables imported from a `.env` file when starting Primeagent.
-- Environment variables set with the [Primeagent CLI](./configuration-cli), including the `--env-file` option and direct options, such as `--port`.
+- Environment variables imported from a `.env` file when starting PrimeAgent.
+- Environment variables set with the [PrimeAgent CLI](./configuration-cli), including the `--env-file` option and direct options, such as `--port`.
 
 You can choose to use one or more of these sources.
 
@@ -28,15 +28,15 @@ You can choose to use one or more of these sources.
 
 If the same environment variable is set in multiple places, the following hierarchy applies:
 
-1. Primeagent CLI options override all other sources.
+1. PrimeAgent CLI options override all other sources.
 2. The `.env` file overrides system environment variables.
 3. System environment variables are used only if not set elsewhere.
-   When running a Primeagent Docker image, the `-e` flag can be used to set additional system environment variables.
+   When running a PrimeAgent Docker image, the `-e` flag can be used to set additional system environment variables.
 
 For example:
 
-- If you set `PRIMEAGENT_PORT=8080` in your system environment and `PRIMEAGENT_PORT=7860` in `.env`, Primeagent uses `7860` from `.env`.
-- If you use the Primeagent CLI to run `primeagent run --env-file .env --port 9000`, and you set `PRIMEAGENT_PORT=7860` in `.env`, then Primeagent uses `9000` from the CLI option.
+- If you set `PRIMEAGENT_PORT=8080` in your system environment and `PRIMEAGENT_PORT=7860` in `.env`, PrimeAgent uses `7860` from `.env`.
+- If you use the PrimeAgent CLI to run `primeagent run --env-file .env --port 9000`, and you set `PRIMEAGENT_PORT=7860` in `.env`, then PrimeAgent uses `9000` from the CLI option.
 
 ### Set environment variables in your terminal {#configure-variables-terminal}
 
@@ -69,16 +69,16 @@ docker run -it --rm \
 </TabItem>
 </Tabs>
 
-When you start Primeagent, it looks for environment variables that you've set in your terminal.
+When you start PrimeAgent, it looks for environment variables that you've set in your terminal.
 If it detects a supported environment variable, then it automatically adopts the specified value, subject to [precedence rules](#precedence).
 
 ### Import environment variables from a .env file {#configure-variables-env-file}
 
-1. If Primeagent is running, quit Primeagent.
+1. If PrimeAgent is running, quit PrimeAgent.
 
 2. Create a `.env` file, and then open it in your preferred editor.
 
-3. Define [Primeagent environment variables](#supported-variables) in the `.env` file.
+3. Define [PrimeAgent environment variables](#supported-variables) in the `.env` file.
 
    <details>
 <summary>Example: .env</summary>
@@ -116,13 +116,13 @@ If it detects a supported environment variable, then it automatically adopts the
    PRIMEAGENT_WORKERS=3
    ```
 
-   For additional examples, see [`.env.example`](https://github.com/khulnasoft-bot/primeagent/blob/main/.env.example) in the Primeagent repository.
+   For additional examples, see [`.env.example`](https://github.com/khulnasoft-bot/primeagent/blob/main/.env.example) in the PrimeAgent repository.
 
    </details>
 
 4. Save and close `.env`.
 
-5. Start Primeagent with your `.env` file:
+5. Start PrimeAgent with your `.env` file:
 
    <Tabs>
 <TabItem value="local" label="Local" default>
@@ -146,18 +146,18 @@ If it detects a supported environment variable, then it automatically adopts the
 
    If your `.env` file isn't in the same directory, provide the path to your `.env` file.
 
-On startup, Primeagent imports the environment variables from your `.env` file, as well as any others that you set in your terminal, and then adopts their specified values.
+On startup, PrimeAgent imports the environment variables from your `.env` file, as well as any others that you set in your terminal, and then adopts their specified values.
 
 ### Configure environment variables for development
 
-The following examples show how to configure Primeagent using environment variables in different development scenarios.
+The following examples show how to configure PrimeAgent using environment variables in different development scenarios.
 
 <Tabs>
 <TabItem value="env" label=".env file" default>
 
 The `.env` file is a text file that contains key-value pairs of environment variables.
 
-Create or edit a `.env` file in the root directory of your application or Primeagent environment, and then add your configuration variables to the file:
+Create or edit a `.env` file in the root directory of your application or PrimeAgent environment, and then add your configuration variables to the file:
 
 <details>
 <summary>Example: .env</summary>
@@ -310,16 +310,16 @@ Create or edit the `.vscode/tasks.json` file in your project root.
 
 </details>
 
-To run Primeagent using the above VSCode `tasks.json` file, in the VSCode command palette, select **Tasks: Run Task** > **primeagent backend**.
+To run PrimeAgent using the above VSCode `tasks.json` file, in the VSCode command palette, select **Tasks: Run Task** > **primeagent backend**.
 
 </TabItem>
 </Tabs>
 
-## Set environment variables for Primeagent Desktop
+## Set environment variables for PrimeAgent Desktop
 
-Environment variables set in your terminal aren't automatically available to GUI-based applications like Primeagent Desktop when you launch them from the Windows or macOS GUI.
+Environment variables set in your terminal aren't automatically available to GUI-based applications like PrimeAgent Desktop when you launch them from the Windows or macOS GUI.
 
-To modify environment variables for Primeagent Desktop, set environment variables in a Desktop `.env` file, and then restart the app.
+To modify environment variables for PrimeAgent Desktop, set environment variables in a Desktop `.env` file, and then restart the app.
 
 <Tabs>
 <TabItem value="macos" label="macOS" default>
@@ -327,7 +327,7 @@ To modify environment variables for Primeagent Desktop, set environment variable
 To modify the macOS `.env` file, do the following:
 
 1. Create or edit `~/.primeagent/data/.env`.
-2. Add your Primeagent environment variables, for example:
+2. Add your PrimeAgent environment variables, for example:
 
    ```text
    PRIMEAGENT_LOG_LEVEL=info
@@ -335,15 +335,15 @@ To modify the macOS `.env` file, do the following:
    ```
 
 3. Save the file.
-4. Restart Primeagent Desktop.
+4. Restart PrimeAgent Desktop.
 
 </TabItem>
 <TabItem value="windows" label="Windows .env file">
 
 To modify the Windows `.env` file, do the following:
 
-1. Create or edit `%APPDATA%\com.PrimeagentDesktop\data\.env`.
-2. Add your Primeagent environment variables, for example:
+1. Create or edit `%APPDATA%\com.PrimeAgentDesktop\data\.env`.
+2. Add your PrimeAgent environment variables, for example:
 
    ```text
    PRIMEAGENT_LOG_LEVEL=info
@@ -351,16 +351,16 @@ To modify the Windows `.env` file, do the following:
    ```
 
 3. Save the file.
-4. Restart Primeagent Desktop.
+4. Restart PrimeAgent Desktop.
 
 </TabItem>
 <TabItem value="windows-user-vars" label="Windows user environment variables">
 
-Windows supports two sources for Primeagent Desktop environment variables: a Primeagent application `.env` file, and Windows user environment variables.
+Windows supports two sources for PrimeAgent Desktop environment variables: a PrimeAgent application `.env` file, and Windows user environment variables.
 
-The `.env` file at `%APPDATA%\com.PrimeagentDesktop\data\.env` is the recommended approach, but
-Windows user variables are useful for single-sourcing API keys between Primeagent and other Windows applications.
-If the same variable is defined in both the Primeagent application `.env` file and as a Windows user environment variable, the `.env` file takes precedence.
+The `.env` file at `%APPDATA%\com.PrimeAgentDesktop\data\.env` is the recommended approach, but
+Windows user variables are useful for single-sourcing API keys between PrimeAgent and other Windows applications.
+If the same variable is defined in both the PrimeAgent application `.env` file and as a Windows user environment variable, the `.env` file takes precedence.
 
 To modify the Windows user environment variables, do the following:
 
@@ -368,14 +368,14 @@ To modify the Windows user environment variables, do the following:
 2. Click the **Advanced** tab, and then click **Environment Variables**.
 3. In **User variables**, click **New**.
 4. Enter the variable name, such as `OPENAI_API_KEY`, and its value.
-5. Click **OK**, and then **restart Primeagent Desktop**.
+5. Click **OK**, and then **restart PrimeAgent Desktop**.
 
 </TabItem>
 </Tabs>
 
 ## Supported environment variables {#supported-variables}
 
-The following sections provide information about specific Primeagent environment variables.
+The following sections provide information about specific PrimeAgent environment variables.
 
 ### Authentication and security
 
@@ -383,7 +383,7 @@ See [API keys and authentication](/api-keys-and-authentication).
 
 ### Global variables
 
-For information about the relationship between Primeagent global variables and environment variables, as well as environment variables that control handling of global variables, see [Global variables](/configuration-global-variables).
+For information about the relationship between PrimeAgent global variables and environment variables, as well as environment variables that control handling of global variables, see [Global variables](/configuration-global-variables).
 
 ### Logs {#logging}
 
@@ -391,33 +391,33 @@ See [Configure log options](/logging#log-storage).
 
 ### MCP servers {#mcp}
 
-See [Use Primeagent as an MCP server](/mcp-server).
+See [Use PrimeAgent as an MCP server](/mcp-server).
 
 ### Monitoring and metrics
 
-For environment variables for specific monitoring service providers, see the Primeagent monitoring integration guides, such as [Langfuse](/integrations-langfuse) and [Best practices for Primeagent on Kubernetes](/deployment-prod-best-practices).
+For environment variables for specific monitoring service providers, see the PrimeAgent monitoring integration guides, such as [Langfuse](/integrations-langfuse) and [Best practices for PrimeAgent on Kubernetes](/deployment-prod-best-practices).
 
 ### Server
 
-The following environment variables set base Primeagent server configuration, such as where the server is hosted, required files for SSL encryption, and the deployment type (frontend and backend, backend-only, development mode).
+The following environment variables set base PrimeAgent server configuration, such as where the server is hosted, required files for SSL encryption, and the deployment type (frontend and backend, backend-only, development mode).
 
 | Variable                              | Format  | Default     | Description                                                                                                                                                                                                           |
 | ------------------------------------- | ------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PRIMEAGENT_HOST`                     | String  | `localhost` | The host on which the Primeagent server will run.                                                                                                                                                                     |
-| `PRIMEAGENT_PORT`                     | Integer | `7860`      | The port on which the Primeagent server runs. The server automatically selects a free port if the specified port is in use.                                                                                           |
-| `PRIMEAGENT_BACKEND_ONLY`             | Boolean | `False`     | Run only the Primeagent backend service (no frontend).                                                                                                                                                                |
-| `PRIMEAGENT_DEV`                      | Boolean | `False`     | Whether to run Primeagent in development mode (may contain bugs).                                                                                                                                                     |
+| `PRIMEAGENT_HOST`                     | String  | `localhost` | The host on which the PrimeAgent server will run.                                                                                                                                                                     |
+| `PRIMEAGENT_PORT`                     | Integer | `7860`      | The port on which the PrimeAgent server runs. The server automatically selects a free port if the specified port is in use.                                                                                           |
+| `PRIMEAGENT_BACKEND_ONLY`             | Boolean | `False`     | Run only the PrimeAgent backend service (no frontend).                                                                                                                                                                |
+| `PRIMEAGENT_DEV`                      | Boolean | `False`     | Whether to run PrimeAgent in development mode (may contain bugs).                                                                                                                                                     |
 | `PRIMEAGENT_OPEN_BROWSER`             | Boolean | `False`     | Open the system web browser on startup.                                                                                                                                                                               |
-| `PRIMEAGENT_HEALTH_CHECK_MAX_RETRIES` | Integer | `5`         | Set the maximum number of retries for Primeagent's server status health checks.                                                                                                                                       |
+| `PRIMEAGENT_HEALTH_CHECK_MAX_RETRIES` | Integer | `5`         | Set the maximum number of retries for PrimeAgent's server status health checks.                                                                                                                                       |
 | `PRIMEAGENT_WORKERS`                  | Integer | `1`         | Number of worker processes.                                                                                                                                                                                           |
 | `PRIMEAGENT_WORKER_TIMEOUT`           | Integer | `300`       | Worker timeout in seconds.                                                                                                                                                                                            |
-| `PRIMEAGENT_SSL_CERT_FILE`            | String  | Not set     | Path to the SSL certificate file for enabling HTTPS on the Primeagent web server. This is separate from [database SSL connections](/configuration-custom-database#connect-primeagent-to-a-local-postgresql-database). |
-| `PRIMEAGENT_SSL_KEY_FILE`             | String  | Not set     | Path to the SSL key file for enabling HTTPS on the Primeagent web server. This is separate from [database SSL connections](/configuration-custom-database#connect-primeagent-to-a-local-postgresql-database).         |
+| `PRIMEAGENT_SSL_CERT_FILE`            | String  | Not set     | Path to the SSL certificate file for enabling HTTPS on the PrimeAgent web server. This is separate from [database SSL connections](/configuration-custom-database#connect-primeagent-to-a-local-postgresql-database). |
+| `PRIMEAGENT_SSL_KEY_FILE`             | String  | Not set     | Path to the SSL key file for enabling HTTPS on the PrimeAgent web server. This is separate from [database SSL connections](/configuration-custom-database#connect-primeagent-to-a-local-postgresql-database).         |
 | `PRIMEAGENT_DEACTIVATE_TRACING`       | Boolean | `False`     | Deactivate tracing functionality.                                                                                                                                                                                     |
 | `PRIMEAGENT_CELERY_ENABLED`           | Boolean | `False`     | Enable Celery for distributed task processing.                                                                                                                                                                        |
 | `PRIMEAGENT_ALEMBIC_LOG_TO_STDOUT`    | Boolean | `False`     | Whether to log Alembic database migration output to stdout instead of a log file. If `true`, Alembic logs to `stdout` and the default log file is ignored.                                                            |
 
-For more information about deploying Primeagent servers, see [Primeagent deployment overview](/deployment-overview).
+For more information about deploying PrimeAgent servers, see [PrimeAgent deployment overview](/deployment-overview).
 
 ### Storage
 
@@ -437,12 +437,12 @@ See [Telemetry](/contributing-telemetry).
 | `PRIMEAGENT_AUTO_SAVING_INTERVAL`         | Integer      | `1000`       | Set the auto-save interval in milliseconds if `PRIMEAGENT_AUTO_SAVING=True`.                                                                                                                                                                                                                                                                                                                     |
 | `PRIMEAGENT_BUNDLE_URLS`                  | List[String] | `[]`         | A list of URLs from which to load custom bundles. Supports GitHub URLs. If `PRIMEAGENT_AUTO_LOGIN=True`, flows from these bundles are loaded into the database.                                                                                                                                                                                                                                  |
 | `PRIMEAGENT_COMPONENTS_PATH`              | String       | Not set      | Path to a directory containing custom components. Typically used if you have local custom components or you are building a Docker image with custom components.                                                                                                                                                                                                                                  |
-| `PRIMEAGENT_COMPONENTS_INDEX_PATH`        | String       | Not set      | File path or URL (`http://` or `https://`) to a prebuilt component index JSON file used to populate built-in components in the visual editor. When not set, Primeagent uses the included index. Useful for supplying a curated component index, for example in airgapped deployments. For more information, see [Block custom components](../Deployment/deployment-block-custom-components.mdx). |
+| `PRIMEAGENT_COMPONENTS_INDEX_PATH`        | String       | Not set      | File path or URL (`http://` or `https://`) to a prebuilt component index JSON file used to populate built-in components in the visual editor. When not set, PrimeAgent uses the included index. Useful for supplying a curated component index, for example in airgapped deployments. For more information, see [Block custom components](../Deployment/deployment-block-custom-components.mdx). |
 | `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS`      | Boolean      | `True`       | If `false`, disables custom components and in-editor editing of component code. This feature is in beta. For more information, see [Block custom components](../Deployment/deployment-block-custom-components.mdx).                                                                                                                                                                              |
 | `PRIMEAGENT_LOAD_FLOWS_PATH`              | String       | Not set      | Path to a directory containing flow JSON files to be loaded on startup. Typically used when creating a Docker image with prepackaged flows. Requires `PRIMEAGENT_AUTO_LOGIN=True`.                                                                                                                                                                                                               |
-| `PRIMEAGENT_CREATE_STARTER_PROJECTS`      | Boolean      | `True`       | Whether to create templates during initialization. If `false`, Primeagent doesn't create templates, and `PRIMEAGENT_UPDATE_STARTER_PROJECTS` is treated as `false`.                                                                                                                                                                                                                              |
+| `PRIMEAGENT_CREATE_STARTER_PROJECTS`      | Boolean      | `True`       | Whether to create templates during initialization. If `false`, PrimeAgent doesn't create templates, and `PRIMEAGENT_UPDATE_STARTER_PROJECTS` is treated as `false`.                                                                                                                                                                                                                              |
 | `PRIMEAGENT_UPDATE_STARTER_PROJECTS`      | Boolean      | `True`       | Whether to update templates with the latest component versions when initializing after an upgrade.                                                                                                                                                                                                                                                                                               |
-| `PRIMEAGENT_LAZY_LOAD_COMPONENTS`         | Boolean      | `False`      | If `true`, Primeagent only partially loads components at startup and fully loads them on demand. This significantly reduces startup time but can cause a slight delay when a component is first used.                                                                                                                                                                                            |
+| `PRIMEAGENT_LAZY_LOAD_COMPONENTS`         | Boolean      | `False`      | If `true`, PrimeAgent only partially loads components at startup and fully loads them on demand. This significantly reduces startup time but can cause a slight delay when a component is first used.                                                                                                                                                                                            |
 | `PRIMEAGENT_EVENT_DELIVERY`               | String       | `streaming`  | How to deliver build events to the frontend: `polling`, `streaming` or `direct`.                                                                                                                                                                                                                                                                                                                 |
 | `PRIMEAGENT_FRONTEND_PATH`                | String       | `./frontend` | Path to the frontend directory containing build files. For development purposes only when you need to serve specific frontend code.                                                                                                                                                                                                                                                              |
 | `PRIMEAGENT_MAX_ITEMS_LENGTH`             | Integer      | `100`        | Maximum number of items to store and display in the visual editor. Lists longer than this will be truncated when displayed in the visual editor. Doesn't affect outputs or data passed between components.                                                                                                                                                                                       |

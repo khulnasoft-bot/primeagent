@@ -1,7 +1,7 @@
-"""Shared argv helpers for MCP servers that Primeagent launches through ``uvx``.
+"""Shared argv helpers for MCP servers that PrimeAgent launches through ``uvx``.
 
-``uvx`` builds a fresh environment per invocation, so Primeagent's own ``mcp`` pin never
-reaches the server it spawns. The packages Primeagent launches (``mcp-proxy``,
+``uvx`` builds a fresh environment per invocation, so PrimeAgent's own ``mcp`` pin never
+reaches the server it spawns. The packages PrimeAgent launches (``mcp-proxy``,
 ``mcp-composer``) declare an unbounded ``mcp>=1.x``, which now resolves to the 2.0 SDK --
 a release that removed ``request_ctx`` and renamed ``McpError``, so those packages fail
 at import. Injecting the constraint as ``--with`` keeps the resolve on a compatible SDK.

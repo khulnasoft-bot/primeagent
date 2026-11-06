@@ -41,7 +41,7 @@ Category: Code Quality
 
 Favor Tailwind CSS utility classes for all styling. Do not introduce new CSS modules or custom CSS files unless a Tailwind combination cannot achieve the required styling. Keeping styles in Tailwind improves consistency, reduces bundle size, and simplifies maintenance. The project uses Tailwind v3 with a custom theme configuration.
 
-Why this matters: Introducing custom CSS files creates a parallel styling system that falls out of sync with Tailwind tokens. When the design team changes a border color, they update the CSS variable in `index.css` — but your CSS module keeps the old hardcoded color. Custom CSS also bypasses Tailwind's purging, increasing bundle size. In Primeagent, with 300+ components sharing a design system, inconsistent styling compounds fast.
+Why this matters: Introducing custom CSS files creates a parallel styling system that falls out of sync with Tailwind tokens. When the design team changes a border color, they update the CSS variable in `index.css` — but your CSS module keeps the old hardcoded color. Custom CSS also bypasses Tailwind's purging, increasing bundle size. In PrimeAgent, with 300+ components sharing a design system, inconsistent styling compounds fast.
 
 ### Suggested Fix
 
@@ -185,7 +185,7 @@ Category: Code Quality
 
 ### Description
 
-Never use `any` as a type annotation. Using `any` disables TypeScript's ability to catch type mismatches at compile time — bugs that would be caught by the compiler instead crash in production. In Primeagent, flow data structures are deeply nested (`NodeDataType.node.template[fieldName].value`); an `any` at any level silently allows accessing non-existent properties, causing 'Cannot read properties of undefined' in the canvas. Use `unknown` with type guards for genuinely unknown data, or specific types/generics for everything else.
+Never use `any` as a type annotation. Using `any` disables TypeScript's ability to catch type mismatches at compile time — bugs that would be caught by the compiler instead crash in production. In PrimeAgent, flow data structures are deeply nested (`NodeDataType.node.template[fieldName].value`); an `any` at any level silently allows accessing non-existent properties, causing 'Cannot read properties of undefined' in the canvas. Use `unknown` with type guards for genuinely unknown data, or specific types/generics for everything else.
 
 ### Suggested Fix
 
@@ -234,7 +234,7 @@ Category: Code Quality
 
 ### Description
 
-When building interactive UI elements (dialogs, dropdowns, tooltips, popovers, tabs, etc.), use Radix UI primitives via the shadcn-ui wrappers in `components/ui/`. Custom implementations of these patterns consistently miss: keyboard navigation (arrow keys in dropdowns), focus trapping (Tab stays inside dialogs), screen reader announcements (ARIA live regions), and Escape key handling. Rebuilding these from scratch introduces accessibility regressions that affect keyboard-only and screen reader users. Primeagent is used by enterprise teams that may require WCAG compliance — every custom dropdown without proper focus management is a compliance risk.
+When building interactive UI elements (dialogs, dropdowns, tooltips, popovers, tabs, etc.), use Radix UI primitives via the shadcn-ui wrappers in `components/ui/`. Custom implementations of these patterns consistently miss: keyboard navigation (arrow keys in dropdowns), focus trapping (Tab stays inside dialogs), screen reader announcements (ARIA live regions), and Escape key handling. Rebuilding these from scratch introduces accessibility regressions that affect keyboard-only and screen reader users. PrimeAgent is used by enterprise teams that may require WCAG compliance — every custom dropdown without proper focus management is a compliance risk.
 
 ### Suggested Fix
 
@@ -304,7 +304,7 @@ Category: Code Quality
 
 Do not leave `console.log`, `console.warn`, or `console.error` statements in production code. Biome enforces this rule. Use proper error handling, error boundaries, or toast notifications for user-facing errors. If logging is truly needed for debugging, remove it before committing.
 
-Why: `console.log` in production code writes to the browser's developer console. In Primeagent, component data often includes API keys stored in global variables — a `console.log(data)` accidentally leaks credentials to anyone who opens DevTools. Biome catches this at lint time; if Biome is not catching it, the linting step was skipped.
+Why: `console.log` in production code writes to the browser's developer console. In PrimeAgent, component data often includes API keys stored in global variables — a `console.log(data)` accidentally leaks credentials to anyone who opens DevTools. Biome catches this at lint time; if Biome is not catching it, the linting step was skipped.
 
 ## Prefer `const` and immutable patterns
 
@@ -339,7 +339,7 @@ Category: Code Quality
 
 All React components must be functional components using hooks. Do not use class components, `React.Component`, or lifecycle methods (`componentDidMount`, etc.). Use `useEffect`, `useState`, `useMemo`, `useCallback`, and custom hooks instead.
 
-Why: Class components have a larger API surface (lifecycle methods, `this` binding, constructor), making them harder to test and reason about. Hooks compose better — a custom hook can combine state, effects, and context without nesting HOCs. The entire Primeagent codebase uses functional components; introducing a class component breaks consistency and forces other developers to context-switch between paradigms.
+Why: Class components have a larger API surface (lifecycle methods, `this` binding, constructor), making them harder to test and reason about. Hooks compose better — a custom hook can combine state, effects, and context without nesting HOCs. The entire PrimeAgent codebase uses functional components; introducing a class component breaks consistency and forces other developers to context-switch between paradigms.
 
 ## Early returns for guard clauses
 
@@ -384,7 +384,7 @@ Category: Code Quality
 
 The project standardizes on Lucide React for icons. Do not import icons from other libraries (heroicons, react-icons, font-awesome, etc.) unless Lucide does not have an equivalent. Check the Lucide icon set first at https://lucide.dev before introducing a new icon dependency.
 
-Why: Multiple icon libraries bloat the bundle (each library ships its own SVG set). Lucide is tree-shakeable — unused icons are removed at build time. Mixing libraries also creates visual inconsistency (different stroke widths, sizing conventions, visual weight). Primeagent standardized on Lucide; check https://lucide.dev before adding a new dependency.
+Why: Multiple icon libraries bloat the bundle (each library ships its own SVG set). Lucide is tree-shakeable — unused icons are removed at build time. Mixing libraries also creates visual inconsistency (different stroke widths, sizing conventions, visual weight). PrimeAgent standardized on Lucide; check https://lucide.dev before adding a new dependency.
 
 ### Suggested Fix
 

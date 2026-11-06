@@ -14,7 +14,7 @@ import IOModal from "../playground-modal";
 // stubbed: the chat view exposes which session is visible and which id the
 // next message is sent under, and the sidebar exposes the new-chat action.
 
-jest.mock("@/assets/PrimeagentLogoColor.svg?react", () => ({
+jest.mock("@/assets/PrimeAgentLogoColor.svg?react", () => ({
   __esModule: true,
   default: () => <svg />,
 }));
@@ -96,7 +96,7 @@ jest.mock("@/customization/utils/custom-open-new-tab", () => ({
 
 jest.mock("@/customization/utils/urls", () => ({
   __esModule: true,
-  PrimeagentButtonRedirectTarget: () => "https://prime.khulnasoft.com",
+  PrimeAgentButtonRedirectTarget: () => "https://prime.khulnasoft.com",
 }));
 
 const messagesQueryResult = { isFetched: true, refetch: jest.fn() };

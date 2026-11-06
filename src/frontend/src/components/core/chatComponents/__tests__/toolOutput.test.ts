@@ -94,7 +94,7 @@ describe("looksPreformatted", () => {
     // dozens of consecutive spaces between column values.
     const s =
       "                                                text                   url\n" +
-      "0  Primeagent | Low-code AI builder for agentic and...  https://prime.khulnasoft.com";
+      "0  PrimeAgent | Low-code AI builder for agentic and...  https://prime.khulnasoft.com";
     expect(looksPreformatted(s)).toBe(true);
   });
 

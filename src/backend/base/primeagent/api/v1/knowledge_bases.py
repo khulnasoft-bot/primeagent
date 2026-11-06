@@ -775,7 +775,7 @@ async def create_knowledge_base(
                         status_code=409,
                         detail=(
                             f"Knowledge base '{kb_name}' was deleted, but its on-disk files are still locked "
-                            "by another process. Close that process, restart Primeagent if needed, and try again."
+                            "by another process. Close that process, restart PrimeAgent if needed, and try again."
                         ),
                     )
             else:

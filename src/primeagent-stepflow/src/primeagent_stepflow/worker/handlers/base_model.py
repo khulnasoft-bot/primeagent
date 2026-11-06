@@ -162,7 +162,7 @@ class BaseModelOutputHandler(OutputHandler):
             if not isinstance(value, BaseModel):
                 return False
 
-            # Don't match Primeagent types (handled by PrimeagentTypeOutputHandler)
+            # Don't match PrimeAgent types (handled by PrimeAgentTypeOutputHandler)
             try:
                 from wfx.schema.data import Data
                 from wfx.schema.dataframe import DataFrame

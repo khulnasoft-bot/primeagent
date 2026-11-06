@@ -25,7 +25,7 @@
 #   Tests are automatically skipped when no connection is configured,
 #   so PRs from external contributors (who lack secrets) still pass.
 
-name: Test Primeagent Flows
+name: Test PrimeAgent Flows
 
 on:
   pull_request:

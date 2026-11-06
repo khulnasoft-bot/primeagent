@@ -3,24 +3,24 @@ title: Telemetry
 slug: /contributing-telemetry
 ---
 
-Primeagent uses anonymous telemetry to collect statistics about feature usage and performance.
-The Primeagent team uses this data to identify popular features and areas that need improvement based on actual usage patterns.
+PrimeAgent uses anonymous telemetry to collect statistics about feature usage and performance.
+The PrimeAgent team uses this data to identify popular features and areas that need improvement based on actual usage patterns.
 This helps prioritize development efforts on the most impactful changes and popular features.
 
 ## Privacy
 
-The Primeagent team respects your privacy, and the team is committed to protecting your data.
+The PrimeAgent team respects your privacy, and the team is committed to protecting your data.
 
-Primeagent telemetry doesn't collect any personal information or sensitive data.
-All telemetry data is anonymized and used solely for improving Primeagent.
+PrimeAgent telemetry doesn't collect any personal information or sensitive data.
+All telemetry data is anonymized and used solely for improving PrimeAgent.
 
 ## Opt out of telemetry
 
-To opt out of telemetry, set `DO_NOT_TRACK=True` in your [Primeagent environment variables](/environment-variables) before starting Primeagent. This disables telemetry data collection.
+To opt out of telemetry, set `DO_NOT_TRACK=True` in your [PrimeAgent environment variables](/environment-variables) before starting PrimeAgent. This disables telemetry data collection.
 
-## Data that Primeagent collects
+## Data that PrimeAgent collects
 
-Primeagent telemetry collects data on flow runs, your environment, and component usage.
+PrimeAgent telemetry collects data on flow runs, your environment, and component usage.
 
 ### Run
 
@@ -41,30 +41,30 @@ This telemetry event captures information about application lifecycle and runtim
 
 This telemetry event is sent once when the telemetry service starts.
 
-- **Version**: The specific version of Primeagent used, which helps in tracking feature adoption and compatibility.
+- **Version**: The specific version of PrimeAgent used, which helps in tracking feature adoption and compatibility.
 - **Platform**: Operating system of the host machine, which helps determine the most popular platforms for development and testing efforts.
 - **Python**: The version of Python used, assisting in maintaining compatibility and support for various Python versions.
-- **Arch**: Architecture of the system, such as x86 or ARM, which helps prioritize hardware optimization and testing in the Primeagent codebase.
+- **Arch**: Architecture of the system, such as x86 or ARM, which helps prioritize hardware optimization and testing in the PrimeAgent codebase.
 - **AutoLogin**: Indicates whether the auto-login feature is enabled, reflecting user preference settings.
 - **CacheType**: Type of caching mechanism used, which impacts performance and efficiency.
-- **BackendOnly**: Boolean indicating whether Primeagent is running in backend-only mode, useful for understanding deployment configurations.
-- **Desktop**: Indicates whether Primeagent is running in desktop mode (Primeagent Desktop), helping to understand usage patterns across different deployment types.
+- **BackendOnly**: Boolean indicating whether PrimeAgent is running in backend-only mode, useful for understanding deployment configurations.
+- **Desktop**: Indicates whether PrimeAgent is running in desktop mode (PrimeAgent Desktop), helping to understand usage patterns across different deployment types.
 
 ### Email
 
-This telemetry event is sent to track registered email addresses for Primeagent Desktop. The event is triggered in two cases:
+This telemetry event is sent to track registered email addresses for PrimeAgent Desktop. The event is triggered in two cases:
 
 - Every time a new email address is registered through the POST `/api/v2/registration/` endpoint.
-- Each time you start Primeagent Desktop _after_ an email address is registered.
+- Each time you start PrimeAgent Desktop _after_ an email address is registered.
 
-  The first time you start Primeagent Desktop and register your email address, the event is reported by the call to the POST `/api/v2/registration/` endpoint.
+  The first time you start PrimeAgent Desktop and register your email address, the event is reported by the call to the POST `/api/v2/registration/` endpoint.
 
 This telemetry event includes the following information:
 
-- **Email**: The registered email address, which helps track user registrations and facilitate an understanding of the Primeagent Desktop user base.
+- **Email**: The registered email address, which helps track user registrations and facilitate an understanding of the PrimeAgent Desktop user base.
 - **ClientType**: Indicates the client type, which can be "desktop" or "oss".
 
-If telemetry is disabled with the `DO_NOT_TRACK` environment variable in Primeagent Desktop, you are still prompted to enter your email address, but the email address is stored in your local Primeagent database only.
+If telemetry is disabled with the `DO_NOT_TRACK` environment variable in PrimeAgent Desktop, you are still prompted to enter your email address, but the email address is stored in your local PrimeAgent database only.
 
 ### Playground
 
@@ -85,7 +85,7 @@ This telemetry event is sent for each component execution.
 
 ### Exception
 
-This telemetry event is sent when an unhandled exception is captured by Primeagent's lifecycle or global exception handler.
+This telemetry event is sent when an unhandled exception is captured by PrimeAgent's lifecycle or global exception handler.
 
 - **Type**: The exception class name, such as `ValueError`.
 - **Message**: The exception message that was raised.

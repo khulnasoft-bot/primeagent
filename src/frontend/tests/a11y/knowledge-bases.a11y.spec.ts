@@ -1,4 +1,4 @@
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 import {
@@ -33,7 +33,7 @@ import {
 
 type A11yScenario = {
   name: string;
-  run: (page: PrimeagentPage) => Promise<void>;
+  run: (page: PrimeAgentPage) => Promise<void>;
 };
 
 const KB_LIST_SCENARIOS: A11yScenario[] = [
@@ -1034,7 +1034,7 @@ test.describe("knowledge base chunks page accessibility", () => {
 
   test("scans an expanded chunk card", RELEASE, async ({ page }) => {
     const longContent =
-      "Primeagent lets you compose AI workflows visually. ".repeat(12);
+      "PrimeAgent lets you compose AI workflows visually. ".repeat(12);
     await mockChunks(page, {
       chunks: [
         {

@@ -1,6 +1,6 @@
 """Tests for the ``primeagent`` stream adapter.
 
-The primeagent adapter is a passthrough: it takes Primeagent EventManager events
+The primeagent adapter is a passthrough: it takes PrimeAgent EventManager events
 and emits them as ``{"event": "<type>", "data": {...}}`` for SSE consumers
 that already know the v1 build-flow wire shape.
 """
@@ -99,7 +99,7 @@ class TestPayloadSerialization:
 
 
 class TestEventTypeForwarding:
-    """Every Primeagent EventManager event type round-trips through the adapter."""
+    """Every PrimeAgent EventManager event type round-trips through the adapter."""
 
     @pytest.mark.parametrize(
         "event_type",

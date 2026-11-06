@@ -1,11 +1,11 @@
-"""Unit tests for PrimeagentConverter."""
+"""Unit tests for PrimeAgentConverter."""
 
 from typing import Any
 
 import pytest
 
 from primeagent_stepflow.exceptions import ConversionError
-from primeagent_stepflow.translation.translator import PrimeagentConverter
+from primeagent_stepflow.translation.translator import PrimeAgentConverter
 
 
 def get_step_input_dict(step) -> dict:
@@ -68,7 +68,7 @@ class TrivialComponent(Component):
 
 
 def _custom_node(node_id: str, component_type: str, outputs: list[dict[str, str]]) -> dict[str, Any]:
-    """Build a custom-code Primeagent node with the given outputs."""
+    """Build a custom-code PrimeAgent node with the given outputs."""
     return {
         "id": node_id,
         "type": "genericNode",
@@ -83,7 +83,7 @@ def _custom_node(node_id: str, component_type: str, outputs: list[dict[str, str]
 
 
 def _edge(source: str, target: str, source_output: str, target_field: str) -> dict[str, Any]:
-    """Build a Primeagent edge carrying explicit source-output and target-field handles."""
+    """Build a PrimeAgent edge carrying explicit source-output and target-field handles."""
     return {
         "source": source,
         "target": target,
@@ -136,7 +136,7 @@ def _single_output_fanout_workflow() -> dict[str, Any]:
 
 
 def _known_core_node(node_id: str, component_type: str, outputs: list[dict[str, str]]) -> dict[str, Any]:
-    """Build a Primeagent node that routes through the core executor (no blob)."""
+    """Build a PrimeAgent node that routes through the core executor (no blob)."""
     return {
         "id": node_id,
         "type": "genericNode",
@@ -213,19 +213,19 @@ def _fanout_to_chat_output_workflow() -> dict[str, Any]:
     }
 
 
-class TestPrimeagentConverter:
-    """Test PrimeagentConverter functionality."""
+class TestPrimeAgentConverter:
+    """Test PrimeAgentConverter functionality."""
 
     def test_init_default(self):
         """Test default initialization."""
-        converter = PrimeagentConverter()
+        converter = PrimeAgentConverter()
         assert converter is not None
 
-    def test_convert_simple_workflow(self, converter: PrimeagentConverter, simple_primeagent_workflow: dict[str, Any]):
+    def test_convert_simple_workflow(self, converter: PrimeAgentConverter, simple_primeagent_workflow: dict[str, Any]):
         """Test conversion of simple workflow."""
         workflow = converter.convert(simple_primeagent_workflow)
 
-        assert workflow.name == "Converted Primeagent Workflow"
+        assert workflow.name == "Converted PrimeAgent Workflow"
 
         # ChatInput and ChatOutput are I/O connection points, not processing steps
         # They handle Message type conversion but don't create workflow steps
@@ -237,31 +237,31 @@ class TestPrimeagentConverter:
         # Workflow should have output that references input (passthrough)
         assert workflow.output is not None
 
-    def test_convert_empty_nodes(self, converter: PrimeagentConverter):
+    def test_convert_empty_nodes(self, converter: PrimeAgentConverter):
         """Test conversion with empty nodes list."""
         workflow_data = {"data": {"nodes": [], "edges": []}}
 
         with pytest.raises(ConversionError, match="No nodes found"):
             converter.convert(workflow_data)
 
-    def test_convert_missing_data(self, converter: PrimeagentConverter):
+    def test_convert_missing_data(self, converter: PrimeAgentConverter):
         """Test conversion with missing data key."""
         workflow_data = {"invalid": "structure"}
 
         with pytest.raises(ConversionError, match="missing 'data' key"):
             converter.convert(workflow_data)
 
-    def test_to_yaml(self, converter: PrimeagentConverter, simple_primeagent_workflow: dict[str, Any]):
+    def test_to_yaml(self, converter: PrimeAgentConverter, simple_primeagent_workflow: dict[str, Any]):
         """Test YAML generation."""
         workflow = converter.convert(simple_primeagent_workflow)
         yaml_output = converter.to_yaml(workflow)
 
         assert isinstance(yaml_output, str)
-        assert "name: Converted Primeagent Workflow" in yaml_output
+        assert "name: Converted PrimeAgent Workflow" in yaml_output
         # Should have output section since ChatInput/ChatOutput create passthrough
         assert "output:" in yaml_output
 
-    def test_analyze_workflow(self, converter: PrimeagentConverter, simple_primeagent_workflow: dict[str, Any]):
+    def test_analyze_workflow(self, converter: PrimeAgentConverter, simple_primeagent_workflow: dict[str, Any]):
         """Test workflow analysis."""
         analysis = converter.analyze(simple_primeagent_workflow)
 
@@ -270,7 +270,7 @@ class TestPrimeagentConverter:
         assert "ChatInput" in analysis.component_types
         assert "ChatOutput" in analysis.component_types
 
-    def test_step_ordering_with_dependencies(self, converter: PrimeagentConverter):
+    def test_step_ordering_with_dependencies(self, converter: PrimeAgentConverter):
         """Test that steps are ordered based on dependencies, not node order."""
         # Create workflow with intentionally wrong node order
         trivial_code = """
@@ -371,7 +371,7 @@ class TrivialComponent(Component):
                             except ValueError:
                                 pytest.fail(f"Step {step.id} references undefined step {from_step}")
 
-    def test_complex_dependency_ordering(self, converter: PrimeagentConverter):
+    def test_complex_dependency_ordering(self, converter: PrimeAgentConverter):
         """Test topological sorting with complex dependencies like memory_chatbot."""
         # Simulate the memory_chatbot structure with trivial custom code
         trivial_code = """
@@ -508,7 +508,7 @@ class TrivialComponent(Component):
 
     def test_component_routing_strategy_with_custom_code(self):
         """Test that components with custom code create custom blobs."""
-        converter = PrimeagentConverter()
+        converter = PrimeAgentConverter()
 
         # Create workflow with component that has custom code
         workflow_data = {
@@ -569,7 +569,7 @@ class CustomComponent(Component):
 
     def test_component_routing_strategy_rejects_incomplete_components(self):
         """Test that components without custom code are rejected (unified approach)."""
-        converter = PrimeagentConverter()
+        converter = PrimeAgentConverter()
 
         # Create workflow with component missing custom code (invalid scenario)
         workflow_data = {
@@ -601,7 +601,7 @@ class CustomComponent(Component):
         with pytest.raises(ConversionError, match="has no custom code"):
             converter.convert(workflow_data)
 
-    def test_build_output_mapping_is_edge_scoped(self, converter: PrimeagentConverter):
+    def test_build_output_mapping_is_edge_scoped(self, converter: PrimeAgentConverter):
         """Output mapping is keyed per (source, target), not collapsed per source.
 
         Regression guard for issue #12308: a node fanning out different outputs
@@ -616,7 +616,7 @@ class CustomComponent(Component):
 
         assert mapping == {("x", "t1"): "out_a", ("x", "t2"): "out_b"}
 
-    def test_build_source_outputs_collects_distinct_outputs(self, converter: PrimeagentConverter):
+    def test_build_source_outputs_collects_distinct_outputs(self, converter: PrimeAgentConverter):
         """Distinct outputs per source are collected in first-seen edge order."""
         mapping = {
             ("x", "t1"): "out_a",
@@ -629,7 +629,7 @@ class CustomComponent(Component):
 
         assert source_outputs == {"x": ["out_a", "out_b"], "y": ["only"]}
 
-    def test_multi_output_fanout_routes_each_branch_to_its_own_output(self, converter: PrimeagentConverter):
+    def test_multi_output_fanout_routes_each_branch_to_its_own_output(self, converter: PrimeAgentConverter):
         """Multi-output fan-out wires each consumer to the correct output (issue #12308).
 
         Before the fix, a single source step was created with a "first-edge-wins"
@@ -659,7 +659,7 @@ class CustomComponent(Component):
         assert b_ref == "primeagent_splitter__output_b"
         assert a_ref != b_ref
 
-    def test_single_output_fanout_reuses_one_source_step(self, converter: PrimeagentConverter):
+    def test_single_output_fanout_reuses_one_source_step(self, converter: PrimeAgentConverter):
         """A node fanning out the *same* output to many targets stays a single step.
 
         Guards against over-materialization: per-output steps are only created when
@@ -679,7 +679,7 @@ class CustomComponent(Component):
             consumer_inputs = get_step_input_dict(find_step(workflow, consumer))["input"]
             assert ref_step_id(consumer_inputs["input_0"]) == "primeagent_source"
 
-    def test_multi_output_fanout_core_executor_path(self, converter: PrimeagentConverter):
+    def test_multi_output_fanout_core_executor_path(self, converter: PrimeAgentConverter):
         """Fan-out routing also works for the core-executor path (no blob steps).
 
         The core path embeds ``selected_output`` directly in the step input rather
@@ -703,7 +703,7 @@ class CustomComponent(Component):
         assert a_ref == "primeagent_splitter-core"
         assert b_ref == "primeagent_splitter-core__output_b"
 
-    def test_chat_output_resolves_non_primary_fanout_output(self, converter: PrimeagentConverter):
+    def test_chat_output_resolves_non_primary_fanout_output(self, converter: PrimeAgentConverter):
         """ChatOutput wired to a source's non-primary output gets that output.
 
         Regression guard: the ChatOutput / workflow-output paths previously used the

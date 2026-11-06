@@ -879,9 +879,9 @@ class TestMCPComponentConfigPriority:
 
     @pytest.mark.asyncio
     async def test_update_tool_list_falls_back_to_value_config_when_primeagent_absent(self, component):
-        """Test WFX standalone mode falls back to value config when Primeagent is unavailable.
+        """Test WFX standalone mode falls back to value config when PrimeAgent is unavailable.
 
-        Regression test: when wfx is run without the full Primeagent package installed
+        Regression test: when wfx is run without the full PrimeAgent package installed
         (e.g., serving a flow via `wfx`), importing `primeagent.api.v2.mcp` raises
         ModuleNotFoundError. The component must gracefully fall back to the server
         config embedded in the flow JSON (server_config_from_value) rather than failing.
@@ -925,13 +925,13 @@ class TestMCPComponentConfigPriority:
 
     @pytest.mark.asyncio
     async def test_update_tool_list_surfaces_transitive_import_error_instead_of_falling_back(self, component):
-        """A transitive ModuleNotFoundError inside Primeagent must NOT be silently swallowed.
+        """A transitive ModuleNotFoundError inside PrimeAgent must NOT be silently swallowed.
 
-        If a Primeagent dependency (e.g. sqlmodel) fails to import while loading
+        If a PrimeAgent dependency (e.g. sqlmodel) fails to import while loading
         primeagent.services.database.models.user.crud, that's a real bug in the full
-        Primeagent stack — not WFX standalone mode. We must not silently fall back
+        PrimeAgent stack — not WFX standalone mode. We must not silently fall back
         to the flow-embedded config, because the database config is supposed to
-        take precedence when Primeagent is available.
+        take precedence when PrimeAgent is available.
         """
         import builtins
 
@@ -947,7 +947,7 @@ class TestMCPComponentConfigPriority:
 
         def fake_import(name, import_globals=None, import_locals=None, fromlist=(), level=0):
             # Simulate a transitive dependency failure: sqlmodel is the missing module,
-            # not a Primeagent module. This should NOT be treated as standalone mode.
+            # not a PrimeAgent module. This should NOT be treated as standalone mode.
             if name.startswith("primeagent.services.database"):
                 raise ModuleNotFoundError(transitive_error_msg, name="sqlmodel")
             return real_import(name, import_globals, import_locals, fromlist, level)
@@ -974,7 +974,7 @@ class TestMCPComponentConfigPriority:
         """A plain ImportError (attribute missing, not module missing) must surface.
 
         Regression test for the intentional `except ModuleNotFoundError` narrowing: if
-        an installed Primeagent no longer exposes `get_server` or `get_user_by_id` (real
+        an installed PrimeAgent no longer exposes `get_server` or `get_user_by_id` (real
         API break), the resulting ImportError — which is NOT a ModuleNotFoundError —
         must NOT be swallowed as standalone mode. It must propagate to the outer
         handler and surface as a `ValueError("Error updating tool list: ...")`.

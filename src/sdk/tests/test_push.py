@@ -1,4 +1,4 @@
-"""Unit tests for wfx push / PrimeagentClient.upsert_flow.
+"""Unit tests for wfx push / PrimeAgentClient.upsert_flow.
 
 Uses respx to mock HTTP without a live server.
 """
@@ -13,8 +13,8 @@ from uuid import UUID
 import httpx
 import pytest
 import respx
-from primeagent_sdk.client import PrimeagentClient
-from primeagent_sdk.exceptions import PrimeagentHTTPError, PrimeagentNotFoundError
+from primeagent_sdk.client import PrimeAgentClient
+from primeagent_sdk.exceptions import PrimeAgentHTTPError, PrimeAgentNotFoundError
 
 _BASE = "http://primeagent.test"
 _FLOW_ID = UUID("aaaaaaaa-0000-0000-0000-000000000001")
@@ -39,8 +39,8 @@ _FLOW_PAYLOAD = {
 }
 
 
-def _client() -> PrimeagentClient:
-    return PrimeagentClient(base_url=_BASE, api_key="test-key")  # pragma: allowlist secret
+def _client() -> PrimeAgentClient:
+    return PrimeAgentClient(base_url=_BASE, api_key="test-key")  # pragma: allowlist secret
 
 
 # ---------------------------------------------------------------------------
@@ -77,7 +77,7 @@ def test_upsert_flow_update():
 
 
 # ---------------------------------------------------------------------------
-# upsert_flow -- 404 raises PrimeagentNotFoundError
+# upsert_flow -- 404 raises PrimeAgentNotFoundError
 # ---------------------------------------------------------------------------
 
 
@@ -89,12 +89,12 @@ def test_upsert_flow_not_found_raises():
     from primeagent_sdk.models import FlowCreate
 
     client = _client()
-    with pytest.raises(PrimeagentNotFoundError):
+    with pytest.raises(PrimeAgentNotFoundError):
         client.upsert_flow(_FLOW_ID, FlowCreate(name="Test Flow"))
 
 
 # ---------------------------------------------------------------------------
-# upsert_flow -- 409 conflict raises PrimeagentHTTPError
+# upsert_flow -- 409 conflict raises PrimeAgentHTTPError
 # ---------------------------------------------------------------------------
 
 
@@ -106,7 +106,7 @@ def test_upsert_flow_conflict_raises():
     from primeagent_sdk.models import FlowCreate
 
     client = _client()
-    with pytest.raises(PrimeagentHTTPError) as exc_info:
+    with pytest.raises(PrimeAgentHTTPError) as exc_info:
         client.upsert_flow(_FLOW_ID, FlowCreate(name="Test Flow"))
     from http import HTTPStatus
 

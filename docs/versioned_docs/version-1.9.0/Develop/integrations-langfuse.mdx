@@ -6,9 +6,9 @@ slug: /integrations-langfuse
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-[Langfuse](https://langfuse.com) is an open-source platform for LLM observability. It provides tracing and monitoring capabilities for AI applications, helping developers debug, analyze, and optimize their AI systems. Langfuse integrates with various tools and frameworks, including workflow builders and runtimes like Primeagent.
+[Langfuse](https://langfuse.com) is an open-source platform for LLM observability. It provides tracing and monitoring capabilities for AI applications, helping developers debug, analyze, and optimize their AI systems. Langfuse integrates with various tools and frameworks, including workflow builders and runtimes like PrimeAgent.
 
-This guide explains how to configure Primeagent to collect [tracing](https://langfuse.com/docs/tracing) data about your flow executions and automatically send the data to Langfuse.
+This guide explains how to configure PrimeAgent to collect [tracing](https://langfuse.com/docs/tracing) data about your flow executions and automatically send the data to Langfuse.
 
 <iframe
   width="760"
@@ -24,10 +24,10 @@ This guide explains how to configure Primeagent to collect [tracing](https://lan
 ## Prerequisites
 
 - An account in a [Langfuse Cloud](https://cloud.langfuse.com) or [Langfuse self-hosted](https://langfuse.com/self-hosting) instance
-- A [running Primeagent server](/get-started-installation) with a [flow](/concepts-flows) that you want to trace
+- A [running PrimeAgent server](/get-started-installation) with a [flow](/concepts-flows) that you want to trace
 
 :::tip
-If you need a flow to test the Langfuse integration, see the [Primeagent quickstart](/get-started-quickstart).
+If you need a flow to test the Langfuse integration, see the [PrimeAgent quickstart](/get-started-quickstart).
 :::
 
 ## Set Langfuse credentials as environment variables {#langfuse-credentials}
@@ -41,7 +41,7 @@ If you need a flow to test the Langfuse integration, see the [Primeagent quickst
    - Base URL
 
    :::tip
-   Primeagent previously used `LANGFUSE_HOST` as the variable for the Langfuse base URL.
+   PrimeAgent previously used `LANGFUSE_HOST` as the variable for the Langfuse base URL.
    This is still supported for backward compatibility, but `LANGFUSE_BASE_URL` is now the preferred environment variable and will be used if both values are set.
    :::
 
@@ -56,7 +56,7 @@ If you need a flow to test the Langfuse integration, see the [Primeagent quickst
    LANGFUSE_BASE_URL=https://us.cloud.langfuse.com
    ```
 
-4. Start Primeagent with the configuration in the `.env` file:
+4. Start PrimeAgent with the configuration in the `.env` file:
 
    ```bash
    uv run primeagent run --env-file .env
@@ -64,7 +64,7 @@ If you need a flow to test the Langfuse integration, see the [Primeagent quickst
 
 5. Run a flow.
 
-   Primeagent automatically collects and sends tracing data about the flow execution to Langfuse.
+   PrimeAgent automatically collects and sends tracing data about the flow execution to Langfuse.
 
 6. View the collected data in your [Langfuse dashboard](https://langfuse.com/docs/analytics/overview).
 
@@ -72,9 +72,9 @@ If you need a flow to test the Langfuse integration, see the [Primeagent quickst
 
 ## Disable Langfuse tracing
 
-To disable the Langfuse integration, remove the [Langfuse environment variables](#langfuse-credentials), and then restart Primeagent.
+To disable the Langfuse integration, remove the [Langfuse environment variables](#langfuse-credentials), and then restart PrimeAgent.
 
-## Run Langfuse and Primeagent with Docker Compose
+## Run Langfuse and PrimeAgent with Docker Compose
 
 As an alternative to the previous setup, particularly for self-hosted Langfuse, you can run both services with Docker Compose.
 
@@ -87,12 +87,12 @@ As an alternative to the previous setup, particularly for self-hosted Langfuse, 
    - Base URL
 
    :::tip
-   Primeagent previously used `LANGFUSE_HOST` as the variable for the Langfuse base URL.
+   PrimeAgent previously used `LANGFUSE_HOST` as the variable for the Langfuse base URL.
    `LANGFUSE_HOST` is still supported for backward compatibility, but `LANGFUSE_BASE_URL` is the preferred environment variable.
    If both values are set, then `PRIMEAGENT_BASE_URL` is used.
    :::
 
-3. Add your Primeagent credentials to your Primeagent `docker-compose.yml` file in the `environment` section.
+3. Add your PrimeAgent credentials to your PrimeAgent `docker-compose.yml` file in the `environment` section.
 
    The following example is based on the [example `docker-compose.yml`](https://github.com/khulnasoft-bot/primeagent/blob/main/docker_example/docker-compose.yml).
 
@@ -137,7 +137,7 @@ As an alternative to the previous setup, particularly for self-hosted Langfuse, 
    docker-compose up
    ```
 
-5. To confirm Langfuse is connected to your Primeagent container, run the following command:
+5. To confirm Langfuse is connected to your PrimeAgent container, run the following command:
 
    ```sh
    docker compose exec primeagent python -c "import requests, os; addr = os.environ.get('LANGFUSE_BASE_URL'); print(addr); res = requests.get(addr, timeout=5); print(res.status_code)"

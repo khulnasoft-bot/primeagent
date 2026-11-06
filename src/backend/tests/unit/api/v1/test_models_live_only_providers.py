@@ -159,7 +159,7 @@ async def test_watsonx_seed_catalog_visible_before_configuration(client: AsyncCl
     """The WatsonX seed catalog must survive the default deprecated filter.
 
     Regression: every static WatsonX model was once flagged ``deprecated=True``,
-    so the default listing rendered the provider with 0 models ("IBM Primeagent
+    so the default listing rendered the provider with 0 models ("IBM PrimeAgent
     ships no IBM models") until credentials were configured.
     """
     providers = await _get_models(client, logged_in_headers)

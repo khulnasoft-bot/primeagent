@@ -26,16 +26,16 @@ import examplePythonApiBuildOverrideFlowParameters from "!!raw-loader!@site/docs
 import exampleJavascriptApiBuildOverrideFlowParameters from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-build/override-flow-parameters.js";
 
 :::info
-The `/build` endpoints are used by Primeagent's frontend visual editor code.
-These endpoints are part of the internal Primeagent codebase.
+The `/build` endpoints are used by PrimeAgent's frontend visual editor code.
+These endpoints are part of the internal PrimeAgent codebase.
 
-Don't use these endpoints to run flows in applications that use your Primeagent flows.
+Don't use these endpoints to run flows in applications that use your PrimeAgent flows.
 To run flows in your apps, see [Flow trigger endpoints](/api-flows-run).
 :::
 
-The `/build` endpoints support Primeagent's frontend code for building flows in the Primeagent visual editor.
+The `/build` endpoints support PrimeAgent's frontend code for building flows in the PrimeAgent visual editor.
 You can use these endpoints to build vertices and flows, as well as execute flows with streaming event responses.
-You might need to use or understand these endpoints when contributing to the Primeagent codebase.
+You might need to use or understand these endpoints when contributing to the PrimeAgent codebase.
 
 ## Build flow and stream events
 
@@ -153,8 +153,8 @@ To disable streaming and get all events at once, set `?stream=false`.
 | inputs             | object        | Optional. Input values for flow components.                                                                                                                                         |
 | data               | object        | Optional. Flow data to override stored configuration.                                                                                                                               |
 | files              | array[string] | Optional. List of file paths to use.                                                                                                                                                |
-| start_component_id | string        | Optional. ID of the component where the execution should start. Component `id` values can be found in [Primeagent JSON files](/concepts-flows-import#primeagent-json-file-contents) |
-| stop_component_id  | string        | Optional. ID of the component where the execution should stop. Component `id` values can be found in [Primeagent JSON files](/concepts-flows-import#primeagent-json-file-contents). |
+| start_component_id | string        | Optional. ID of the component where the execution should start. Component `id` values can be found in [PrimeAgent JSON files](/concepts-flows-import#primeagent-json-file-contents) |
+| stop_component_id  | string        | Optional. ID of the component where the execution should stop. Component `id` values can be found in [PrimeAgent JSON files](/concepts-flows-import#primeagent-json-file-contents). |
 | log_builds         | Boolean       | Whether to record build logs. Default: Enabled (`true`).                                                                                                                            |
 
 ### Set start and stop points
@@ -188,7 +188,7 @@ The following example stops flow execution at an **OpenAI** component:
 
 ### Override flow parameters
 
-The `/build` endpoint also accepts inputs for `data` directly, instead of using the values stored in the Primeagent database.
+The `/build` endpoint also accepts inputs for `data` directly, instead of using the values stored in the PrimeAgent database.
 This is useful for running flows without having to pass custom values through the visual editor.
 
 <Tabs>

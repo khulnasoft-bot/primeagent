@@ -1,4 +1,4 @@
-"""Flow component operations utilities for Primeagent."""
+"""Flow component operations utilities for PrimeAgent."""
 
 from datetime import datetime, timezone
 from typing import Any

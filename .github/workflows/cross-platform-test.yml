@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       primeagent-version:
-        description: "Primeagent version to test from PyPI (leave empty to test from source)"
+        description: "PrimeAgent version to test from PyPI (leave empty to test from source)"
         required: false
         type: string
         default: ""
@@ -1012,7 +1012,7 @@ jobs:
           echo "Base runtime result: $base_result"
 
           if [ "$stable_result" = "skipped" ] && [ "$base_result" = "skipped" ]; then
-            echo "✅ No Primeagent application distribution was selected; package build tests passed"
+            echo "✅ No PrimeAgent application distribution was selected; package build tests passed"
             exit 0
           fi
 

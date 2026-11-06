@@ -30,7 +30,7 @@ jest.mock("../../helpers/messages", () => ({
 }));
 
 jest.mock("../../assistant-panel.constants", () => ({
-  getAssistantPlaceholder: () => "Ask me anything about Primeagent...",
+  getAssistantPlaceholder: () => "Ask me anything about PrimeAgent...",
 }));
 
 describe("AssistantInput", () => {
@@ -78,7 +78,7 @@ describe("AssistantInput", () => {
       render(<AssistantInput {...defaultProps} />);
 
       expect(
-        screen.getByPlaceholderText("Ask me anything about Primeagent..."),
+        screen.getByPlaceholderText("Ask me anything about PrimeAgent..."),
       ).toBeInTheDocument();
     });
 

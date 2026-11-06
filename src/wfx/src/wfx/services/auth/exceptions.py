@@ -1,6 +1,6 @@
 """Framework-agnostic authentication exceptions for WFX auth service.
 
-Shared exception types so that both minimal (WFX) and full (Primeagent) auth
+Shared exception types so that both minimal (WFX) and full (PrimeAgent) auth
 implementations can raise the same errors.
 """
 

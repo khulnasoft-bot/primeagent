@@ -1,14 +1,14 @@
-"""Tests for PrimeagentClient.post_event -- best-effort event emission."""
+"""Tests for PrimeAgentClient.post_event -- best-effort event emission."""
 
 from unittest.mock import AsyncMock, patch
 
 import pytest
-from wfx.mcp.client import PrimeagentClient
+from wfx.mcp.client import PrimeAgentClient
 
 
 @pytest.fixture
 def client():
-    return PrimeagentClient(server_url="http://localhost:7860", api_key="test-key")  # pragma: allowlist secret
+    return PrimeAgentClient(server_url="http://localhost:7860", api_key="test-key")  # pragma: allowlist secret
 
 
 class TestPostEvent:

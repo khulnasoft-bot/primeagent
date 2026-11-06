@@ -15,7 +15,7 @@ def _ctx() -> StreamAdapterContext:
     return StreamAdapterContext(run_id="run-1", thread_id="thread-1")
 
 
-class TestPrimeagentDurability:
+class TestPrimeAgentDurability:
     def test_milestones_are_durable(self):
         adapter = get_stream_adapter("primeagent", _ctx())
         for event_type in ("build_start", "end_vertex", "output", "error", "end"):

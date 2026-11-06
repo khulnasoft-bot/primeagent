@@ -60,7 +60,7 @@ class ModelProviderPolicyRefreshWorker:
             catalog_service = get_catalog_policy_service()
             # The worker refreshes one shared bundle, so it may only stand down
             # when every decision the bundle carries is owned by a plugin. An
-            # integration ceiling Primeagent still owns keeps the worker running.
+            # integration ceiling PrimeAgent still owns keeps the worker running.
             if catalog_service.external_policy_snapshot is not None and _integration_policy_managed_externally():
                 await logger.adebug(
                     "Policy-bundle refresh worker not started: provider, catalog, and integration policies "

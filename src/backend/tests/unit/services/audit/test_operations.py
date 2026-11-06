@@ -59,7 +59,7 @@ def _wrapped(outer: Exception, cause: Exception) -> Exception:
         (HTTPException(422, "Flow(s) with the following IDs already exist: x"), FLOW, AuditErrorCode.FLOW_ID_CONFLICT),
         (HTTPException(400, "No flows found in the data"), PROJECT, AuditErrorCode.INVALID_CONTENT),
         (
-            HTTPException(403, "Cannot delete the 'Primeagent Assistant' folder"),
+            HTTPException(403, "Cannot delete the 'PrimeAgent Assistant' folder"),
             PROJECT,
             AuditErrorCode.CONSTRAINT_VIOLATION,
         ),

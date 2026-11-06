@@ -1999,7 +1999,7 @@ class OpenSearchVectorStoreComponentMultimodalMultiEmbedding(LCVectorStoreCompon
         """Search documents and return results as Data objects.
 
         This is the main interface method that performs the multi-model search using the
-        configured search_query and returns results in Primeagent's Table format.
+        configured search_query and returns results in PrimeAgent's Table format.
 
         Always builds the vector store (triggering ingestion if needed), then performs
         search only if a query is provided.

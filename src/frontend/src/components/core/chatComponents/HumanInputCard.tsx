@@ -22,7 +22,7 @@ export interface HumanInputDecision {
   values: Record<string, string>;
 }
 
-// Standard Primeagent button variants: Approve is the primary action, Reject the
+// Standard PrimeAgent button variants: Approve is the primary action, Reject the
 // destructive one; everything else stays a neutral outline.
 function decisionVariant(
   actionId: string,
@@ -35,7 +35,7 @@ function decisionVariant(
 /**
  * Interactive human-in-the-loop card: a prompt, optional editable form fields, and
  * one button per decision. Mirrors the convergent HITL pattern (a paused turn the
- * user resolves inline) using Primeagent's own components. Submit is single-use in the
+ * user resolves inline) using PrimeAgent's own components. Submit is single-use in the
  * UI (best-effort; the server is authoritative and returns 409 on a stale resume).
  */
 export default function HumanInputCard({

@@ -25,7 +25,7 @@ def _ctx() -> StreamAdapterContext:
     return StreamAdapterContext(run_id="run-1", thread_id="thread-1")
 
 
-class TestPrimeagentHumanInputEvent:
+class TestPrimeAgentHumanInputEvent:
     def test_translate_passes_through_one_frame(self):
         adapter = get_stream_adapter("primeagent", _ctx())
         events = list(adapter.translate("human_input_required", _PAYLOAD))

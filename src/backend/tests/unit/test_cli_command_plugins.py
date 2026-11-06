@@ -1,4 +1,4 @@
-"""Integration coverage for CLI command plugins on the Primeagent root app."""
+"""Integration coverage for CLI command plugins on the PrimeAgent root app."""
 
 from __future__ import annotations
 

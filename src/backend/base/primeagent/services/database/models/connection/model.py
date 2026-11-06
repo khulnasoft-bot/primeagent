@@ -89,7 +89,7 @@ class Connection(ConnectionBase, table=True):  # type: ignore[call-arg]
         sa_column=Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False),
     )
     # The credential envelope and the OAuth consent binding reference this row
-    # with ON DELETE CASCADE, which SQLite never enforces (Primeagent does not set
+    # with ON DELETE CASCADE, which SQLite never enforces (PrimeAgent does not set
     # PRAGMA foreign_keys=ON). Cascading through the ORM removes them wherever a
     # connection row is deleted, including through User.connections. The
     # relationship is spelled out with sa_relationship because this module's

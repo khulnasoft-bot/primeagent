@@ -1,12 +1,12 @@
 # Complexity Reduction Patterns
 
-This document provides patterns for reducing cognitive complexity in Primeagent React components.
+This document provides patterns for reducing cognitive complexity in PrimeAgent React components.
 
 ## Understanding Complexity
 
 ### SonarJS Cognitive Complexity
 
-Primeagent does not have automated complexity analysis tools. Assess complexity manually using SonarJS cognitive complexity rules:
+PrimeAgent does not have automated complexity analysis tools. Assess complexity manually using SonarJS cognitive complexity rules:
 
 - **Total Complexity**: Sum of all functions' complexity in the file
 - **Max Complexity**: Highest single function complexity

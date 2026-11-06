@@ -55,7 +55,7 @@ def http_transport(monkeypatch):
 
 
 def configure(component_class: type[Component], **values: Any) -> Component:
-    """Instantiate real Primeagent inputs and defaults before executing a component."""
+    """Instantiate real PrimeAgent inputs and defaults before executing a component."""
     component = component_class()
     component.set(api_token=MOCK_MR_API_TOKEN, **values)
     return component
@@ -217,7 +217,7 @@ async def test_scraper_api_maps_all_options_without_losing_false_or_zero(http_tr
 @pytest.mark.unit
 @pytest.mark.asyncio
 async def test_scraper_defaults_and_html_output_remain_compatible(http_transport):
-    """Automatic browser fallback and unset token budget survive default Primeagent inputs."""
+    """Automatic browser fallback and unset token budget survive default PrimeAgent inputs."""
     requests, responses = http_transport
     responses.append(httpx.Response(200, text="<html>plain</html>"))
     output = await configure(MrscraperFetchHtml, url="https://example.com").fetch()

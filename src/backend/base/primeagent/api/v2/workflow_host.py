@@ -1,4 +1,4 @@
-"""Primeagent's DB/tenant-bound host for the shared v2 workflow router.
+"""PrimeAgent's DB/tenant-bound host for the shared v2 workflow router.
 
 ``wfx.workflow.router.create_workflow_router`` owns the env-neutral POST run
 path; this host supplies the primeagent-specific capabilities the router cannot
@@ -41,7 +41,7 @@ if TYPE_CHECKING:
     from wfx.workflow.converters import ParsedWorkflowRun
 
 
-class PrimeagentWorkflowHost(WorkflowHostBase):
+class PrimeAgentWorkflowHost(WorkflowHostBase):
     """DB-backed host: background runs and per-request overrides are supported."""
 
     supports_background = True

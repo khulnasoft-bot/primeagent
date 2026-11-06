@@ -112,7 +112,7 @@ def test_an_option_the_admin_decided_on_is_added_to_the_command_of_its_own_step(
 def test_the_database_copy_reads_this_instance_and_writes_to_the_destination_and_nowhere_else():
     env = copy_environment("copy_database", SERVER, {"database_url": DESTINATION})
 
-    # Every Primeagent and AWS setting it gets is one it was given by name. None of the server's own comes along.
+    # Every PrimeAgent and AWS setting it gets is one it was given by name. None of the server's own comes along.
     assert env == {
         **MACHINE,
         **INSTANCE,

@@ -1,7 +1,7 @@
 """wfx-confluent: IBM Confluent bundle (data-in-motion side of the IBM streamhouse).
 
 This package is the distribution unit ``wfx-confluent``.  At runtime
-Primeagent's loader discovers ``extension.json`` shipped alongside this
+PrimeAgent's loader discovers ``extension.json`` shipped alongside this
 ``__init__.py`` and registers the components under the namespaced IDs:
 
 * ``ext:confluent:ConfluentContextEngineComponent@official``
@@ -11,7 +11,7 @@ Primeagent's loader discovers ``extension.json`` shipped alongside this
 
 Everything talks to Confluent over open protocols only -- the Kafka wire
 protocol (``confluent-kafka``), the Tableflow Iceberg REST catalog
-(``pyiceberg``), and MCP over Streamable HTTP (Primeagent's own MCP client
+(``pyiceberg``), and MCP over Streamable HTTP (PrimeAgent's own MCP client
 engine) -- so the same components work against Confluent Cloud, Confluent
 Platform, and WarpStream wherever the corresponding surface is exposed.
 """

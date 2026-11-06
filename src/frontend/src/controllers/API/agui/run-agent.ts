@@ -25,9 +25,9 @@ export type WorkflowMode = "sync" | "stream" | "background";
 /** Streaming protocol selector (server-side adapter registry). */
 export type StreamProtocol = "agui" | "primeagent";
 
-/** Options describing one Primeagent workflow run. */
+/** Options describing one PrimeAgent workflow run. */
 export interface WorkflowRunOptions {
-  /** The Primeagent flow id to run. Required by the v2 endpoint. */
+  /** The PrimeAgent flow id to run. Required by the v2 endpoint. */
   flowId: string;
   /** User chat input (last user message) — maps to `input_value`. */
   message?: string;
@@ -175,7 +175,7 @@ export type WorkflowHttpAgent = HttpAgent & {
  * Create a workflow agent preconfigured for the v2 workflows endpoint.
  *
  * Auth is carried by the browser: same-origin cookies are sent automatically,
- * and Primeagent's `fetch-intercept` registration adds any custom headers.
+ * and PrimeAgent's `fetch-intercept` registration adds any custom headers.
  */
 export function createWorkflowAgent(
   opts: WorkflowAgentOptions,

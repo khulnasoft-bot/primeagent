@@ -1,15 +1,15 @@
 ---
-title: Deploy the Primeagent production environment on Kubernetes
+title: Deploy the PrimeAgent production environment on Kubernetes
 slug: /deployment-kubernetes-prod
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-The [Primeagent runtime Helm chart](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime) is tailored for deploying applications in a production environment. It is focused on stability, performance, isolation, and security to ensure that applications run reliably and efficiently.
+The [PrimeAgent runtime Helm chart](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime) is tailored for deploying applications in a production environment. It is focused on stability, performance, isolation, and security to ensure that applications run reliably and efficiently.
 
 :::warning
-For security reasons, the default Primeagent runtime Helm chart sets [`readOnlyRootFilesystem: true`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime/values.yaml#L46). This setting prevents modifications to the container's root filesystem at runtime, which is a recommended security measure in production environments.
+For security reasons, the default PrimeAgent runtime Helm chart sets [`readOnlyRootFilesystem: true`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime/values.yaml#L46). This setting prevents modifications to the container's root filesystem at runtime, which is a recommended security measure in production environments.
 
 If `readOnlyRootFilesystem` is disabled (`false`), it degrades your deployment's security posture. Only disable this setting if you understand the security implications and you have implemented other security measures.
 
@@ -22,7 +22,7 @@ For more information, see the [Kubernetes documentation](https://kubernetes.io/d
 - [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
 - [Helm](https://helm.sh/docs/intro/install/)
 
-## Install the Primeagent runtime Helm chart
+## Install the PrimeAgent runtime Helm chart
 
 1. Add the repository to Helm:
 
@@ -31,12 +31,12 @@ For more information, see the [Kubernetes documentation](https://kubernetes.io/d
    helm repo update
    ```
 
-2. Install the Primeagent app with the default options in the `primeagent` namespace.
+2. Install the PrimeAgent app with the default options in the `primeagent` namespace.
 
    <Tabs groupId="">
 <TabItem value="Install chart with custom image" label="Install chart with custom image" default>
 
-   If you have a [custom image with packaged flows](/deployment-docker#package-your-flow-as-a-docker-image), you can deploy Primeagent by overriding the default [`values.yaml`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime/values.yaml) with the `--set` flag:
+   If you have a [custom image with packaged flows](/deployment-docker#package-your-flow-as-a-docker-image), you can deploy PrimeAgent by overriding the default [`values.yaml`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime/values.yaml) with the `--set` flag:
 
    ```shell
    helm install my-primeagent-app primeagent/primeagent-runtime -n primeagent --create-namespace --set image.repository=myuser/primeagent-hello-world --set image.tag=1.0.0
@@ -66,7 +66,7 @@ For more information, see the [Kubernetes documentation](https://kubernetes.io/d
    kubectl get pods -n primeagent
    ```
 
-## Access the Primeagent runtime
+## Access the PrimeAgent runtime
 
 1.  Get your service name:
 
@@ -76,7 +76,7 @@ For more information, see the [Kubernetes documentation](https://kubernetes.io/d
 
     The service name is your release name suffixed by `-primeagent-runtime`. For example, if you used `helm install my-primeagent-app-with-flow`, then the service name is `my-primeagent-app-with-flow-primeagent-runtime`.
 
-2.  Enable port forwarding to access Primeagent from your local machine:
+2.  Enable port forwarding to access PrimeAgent from your local machine:
 
     ```shell
     kubectl port-forward -n primeagent svc/my-primeagent-app-with-flow-primeagent-runtime 7860:7860
@@ -110,12 +110,12 @@ For more information, see the [Kubernetes documentation](https://kubernetes.io/d
 
 ## Configure secrets and environment variables
 
-Use the `.env` section of the Primeagent runtime Helm chart's [`values.yaml`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime/values.yaml) file to define environment variables for your Primeagent deployment.
-This includes built-in [Primeagent environment variables](/environment-variables), as well as [global variables](/configuration-global-variables) used by your flows.
+Use the `.env` section of the PrimeAgent runtime Helm chart's [`values.yaml`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime/values.yaml) file to define environment variables for your PrimeAgent deployment.
+This includes built-in [PrimeAgent environment variables](/environment-variables), as well as [global variables](/configuration-global-variables) used by your flows.
 
-Primeagent can source global variables from your runtime environment, such as Kubernetes secrets referenced in `values.yaml`.
-For example, the Primeagent runtime Helm chart's [example flow JSON](https://raw.githubusercontent.com/khulnasoft-bot/primeagent-helm-charts/refs/heads/main/examples/flows/basic-prompting-hello-world.json) uses a global variable that is a secret.
-If you want to run this flow in your Primeagent deployment on Kubernetes, you need to include the secret in your runtime configuration.
+PrimeAgent can source global variables from your runtime environment, such as Kubernetes secrets referenced in `values.yaml`.
+For example, the PrimeAgent runtime Helm chart's [example flow JSON](https://raw.githubusercontent.com/khulnasoft-bot/primeagent-helm-charts/refs/heads/main/examples/flows/basic-prompting-hello-world.json) uses a global variable that is a secret.
+If you want to run this flow in your PrimeAgent deployment on Kubernetes, you need to include the secret in your runtime configuration.
 
 :::tip
 When you export flows as JSON files, it's recommended to omit secrets.
@@ -185,9 +185,9 @@ env:
 
 ## Configure scaling
 
-Use `replicaCount` and `resources` in the Primeagent runtime Helm chart's [`values.yaml`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime/values.yaml) file to configure scaling:
+Use `replicaCount` and `resources` in the PrimeAgent runtime Helm chart's [`values.yaml`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-runtime/values.yaml) file to configure scaling:
 
-- **Horizontal scaling**: Use `replicaCount` to set the number of replicas for your Primeagent deployment.
+- **Horizontal scaling**: Use `replicaCount` to set the number of replicas for your PrimeAgent deployment.
 
   ```yaml
   replicaCount: 3
@@ -204,6 +204,6 @@ Use `replicaCount` and `resources` in the Primeagent runtime Helm chart's [`valu
 
 ## See also
 
-- [Best practices for Primeagent on Kubernetes](/deployment-prod-best-practices)
+- [Best practices for PrimeAgent on Kubernetes](/deployment-prod-best-practices)
 - [Production preflight checks](/deployment-prod-best-practices#production-preflight)
-- [Primeagent Helm Charts repository](https://github.com/khulnasoft-bot/primeagent-helm-charts)
+- [PrimeAgent Helm Charts repository](https://github.com/khulnasoft-bot/primeagent-helm-charts)

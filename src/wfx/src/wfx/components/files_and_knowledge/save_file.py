@@ -352,7 +352,7 @@ class SaveToFileComponent(Component):
         if type(self.input) is Data:
             return "Data"
         # When invoked by a code agent (e.g. OpenDsStar), the input may be a raw
-        # pandas DataFrame rather than Primeagent's DataFrame wrapper.
+        # pandas DataFrame rather than PrimeAgent's DataFrame wrapper.
         if isinstance(self.input, pd.DataFrame):
             self.input = DataFrame(self.input)
             return "DataFrame"

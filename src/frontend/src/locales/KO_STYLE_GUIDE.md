@@ -1,4 +1,4 @@
-# Primeagent 한국어 번역 스타일 가이드
+# PrimeAgent 한국어 번역 스타일 가이드
 
 한국어 번역 파일 두 개에 적용한다.
 
@@ -9,7 +9,7 @@
 
 ## 1. 톤
 
-**용어는 영어, 문장은 한국어.** Primeagent의 제품 용어는 영어로 두고, 그 밖의 말은 자연스러운 한국어로 쓴다.
+**용어는 영어, 문장은 한국어.** PrimeAgent의 제품 용어는 영어로 두고, 그 밖의 말은 자연스러운 한국어로 쓴다.
 영어 문서와 튜토리얼에 나오는 용어가 화면에 그대로 보이므로 찾아보기 쉽고, 문장은 한국어라 개발자가 아니어도 읽힌다.
 
 ```
@@ -27,11 +27,11 @@ Let us set things up first   → 먼저 기본 설정부터 할게요
 
 ### 영어로 두는 용어
 
-Primeagent 문서에 라벨로 나오는 제품 개념어와, 정착된 한국어가 없는 AI 용어다. 대소문자도 아래 표기를 따른다.
+PrimeAgent 문서에 라벨로 나오는 제품 개념어와, 정착된 한국어가 없는 AI 용어다. 대소문자도 아래 표기를 따른다.
 
 | 분류      | 용어                                                                                                                 |
 | --------- | -------------------------------------------------------------------------------------------------------------------- |
-| 제품      | Primeagent, Primeagent Store, Primeagent Assistant, Assistant, Playground, Bundles, Starter Project                  |
+| 제품      | PrimeAgent, PrimeAgent Store, PrimeAgent Assistant, Assistant, Playground, Bundles, Starter Project                  |
 | 핵심 개념 | Flow, Component, Custom Component, Agent, Template, Prompt, Tool, Tool Mode, Freeze, Global Variable, Trace          |
 | 모델      | Model, Model Provider, Provider, LLM, Embedding, Token, Temperature                                                  |
 | 지식      | Knowledge, Knowledge Base, Vector Store, Chunk                                                                       |
@@ -74,7 +74,7 @@ Primeagent 문서에 라벨로 나오는 제품 개념어와, 정착된 한국�
 | Shortcut                      | 단축키                       | Zoom in / Zoom out              | 확대 / 축소                     |
 | Ingestion, Ingest             | 수집                         | Inspect                         | 보기, 확인                      |
 | Metadata / Index / Collection | 메타데이터 / 인덱스 / 컬렉션 | Database / Table / Column / Row | 데이터베이스 / 테이블 / 열 / 행 |
-| Table (글 안의 표)            | 표                           | Table (Primeagent 입력 타입)    | Table                           |
+| Table (글 안의 표)            | 표                           | Table (PrimeAgent 입력 타입)    | Table                           |
 | Endpoint                      | 엔드포인트                   | Query                           | 검색어 (DB 문맥이면 쿼리)       |
 | Required / Optional           | 필수 / 선택 사항             | String / Number / Boolean       | 문자열 / 숫자 / 참거짓          |
 

@@ -3,7 +3,7 @@
 A preset component wraps a *known* remote MCP server -- one whose endpoint
 shape and auth scheme are fixed by the vendor -- so the flow author fills in
 a handful of IDs and a credential instead of hand-assembling an MCP server
-entry.  It reuses Primeagent's MCP client engine (``wfx.base.mcp.util``) rather
+entry.  It reuses PrimeAgent's MCP client engine (``wfx.base.mcp.util``) rather
 than the ``MCP Tools`` picker UI:
 
 * ``update_tools`` connects over Streamable HTTP (with the engine's SSE
@@ -208,7 +208,7 @@ class MCPPresetComponent(ComponentWithCache):
         schema, so an Agent could still hand a drifted argument to the provider.
 
         ``update_tools`` builds every tool with BOTH an async ``coroutine`` and a
-        synchronous ``func``.  Primeagent drives MCP tools through the coroutine
+        synchronous ``func``.  PrimeAgent drives MCP tools through the coroutine
         everywhere today, but a ``StructuredTool.run()`` from any other caller would
         take the ``func`` path, so both are wrapped: the guard is unconditional, not
         async-only.

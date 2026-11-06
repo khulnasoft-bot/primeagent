@@ -1,4 +1,4 @@
-"""Compatibility component for ALTK nodes saved before Primeagent 1.13.0."""
+"""Compatibility component for ALTK nodes saved before PrimeAgent 1.13.0."""
 
 from wfx.base.agents.altk_base_agent import ALTKBaseAgentComponent
 from wfx.base.models.model_input_constants import MODEL_PROVIDERS_DICT, MODELS_METADATA
@@ -72,7 +72,7 @@ class ALTKAgentComponent(ALTKBaseAgentComponent):
     """Retired node retained for saved-flow compatibility and migration guidance."""
 
     display_name: str = "ALTK Agent"
-    description: str = "ALTK was retired in Primeagent 1.13.0. Replace this node with the Agent component."
+    description: str = "ALTK was retired in PrimeAgent 1.13.0. Replace this node with the Agent component."
     documentation: str = "https://prime.khulnasoft.com/docs/bundles-altk"
     icon = "zap"
     beta = True

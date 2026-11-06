@@ -3,7 +3,7 @@
   "id": "wfx-slack",
   "version": "0.2.2",
   "name": "Slack",
-  "description": "Slack Web API actions (user-identity and bot-identity) and message and reaction triggers as a standalone Primeagent Extension Bundle backed by connections.",
+  "description": "Slack Web API actions (user-identity and bot-identity) and message and reaction triggers as a standalone PrimeAgent Extension Bundle backed by connections.",
   "wfx": {
     "compat": ["1"]
   },

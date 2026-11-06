@@ -12,10 +12,10 @@ import sampleServeRequest from "!!raw-loader!@site/docs/Wfx/samples/connections/
 
 A flow stores a **connection reference**, such as `google/work`, in place of a credential.
 The reference is portable and non-secret: it names a provider and a connection, and says nothing about where the credential lives or who is allowed to use it.
-Whatever executes the flow — a Primeagent backend, `wfx run`, `wfx serve`, or your own embedding host — resolves that reference into a short-lived credential at the moment a component needs it.
+Whatever executes the flow — a PrimeAgent backend, `wfx run`, `wfx serve`, or your own embedding host — resolves that reference into a short-lived credential at the moment a component needs it.
 
-This page covers the headless path, where there is no Primeagent database.
-For the Primeagent backend's own OAuth broker and connection records, see [Configure connection OAuth](../Develop/connection-oauth.mdx).
+This page covers the headless path, where there is no PrimeAgent database.
+For the PrimeAgent backend's own OAuth broker and connection records, see [Configure connection OAuth](../Develop/connection-oauth.mdx).
 
 ## How resolution works
 
@@ -33,7 +33,7 @@ Which resolver runs depends on the host:
 
 | Host                                                              | Resolver                                      | Credential source                                                        |
 | ----------------------------------------------------------------- | --------------------------------------------- | ------------------------------------------------------------------------ |
-| Primeagent backend (including Primeagent Enterprise serving mode) | `DatabaseConnectionResolverService`           | Encrypted connection records, refreshed by the worker that uses them.    |
+| PrimeAgent backend (including PrimeAgent Enterprise serving mode) | `DatabaseConnectionResolverService`           | Encrypted connection records, refreshed by the worker that uses them.    |
 | `wfx run`, `wfx serve`, embedded WFX                              | `EnvConnectionResolver` (the default)         | `LF_CONNECTION__*` from the request scope, then the process environment. |
 | Your host                                                         | Your `BaseConnectionResolverService` subclass | Whatever you implement, such as a secret manager.                        |
 
@@ -45,7 +45,7 @@ The rest of this page is about the last two rows.
 Implement `_get_access_policy()` to return ownership metadata without reading credentials, and `_resolve()` to fetch credentials after authorization succeeds.
 A credential owned by the environment or a secret store — `owner_kind="env"` — is usable **only** by a `headless_operator` principal.
 `wfx run` and `wfx serve` stamp that principal on the graph; an interactive actor, an anonymous public run, or an unknown principal is denied.
-That is what keeps a multi-tenant Primeagent backend from serving a machine credential to whoever opens a flow.
+That is what keeps a multi-tenant PrimeAgent backend from serving a machine credential to whoever opens a flow.
 
 ## The credential wire format
 
@@ -155,7 +155,7 @@ See [Deploy flows on watsonx Orchestrate](/deployment-wxo) for the deploy-time h
 A process-environment `PRIMEAGENT_REQUEST_VARIABLES` blob is honored at resolution time but is **not** unpacked by `wfx run`'s `--check-variables` pre-flight. Use exact or aliased environment keys for the CLI. An embedding host can supply normalized `graph.context['request_variables']` or an active request scope, both of which pre-flight reads; serve/TRM flattens its blob into that scope.
 :::
 
-## Implement a resolver without Primeagent's database
+## Implement a resolver without PrimeAgent's database
 
 Two samples follow. The first uses the built-in environment resolver, which is what a host gets when it configures nothing.
 
@@ -182,7 +182,7 @@ Configuration beats an `wfx.services` entry point, and `wfx.toml` beats `pyproje
 
 Selection fails closed. A module that cannot be imported, a class that does not subclass `BaseConnectionResolverService`, or a resolver that never became ready raises at service resolution rather than silently falling back to the environment resolver — a misconfigured plugin can never quietly change which credentials a flow runs on.
 
-A resolver is callable from a process that serves no HTTP: a sidecar or worker resolves connections through the registered `BaseConnectionResolverService`, not through Primeagent API routes.
+A resolver is callable from a process that serves no HTTP: a sidecar or worker resolves connections through the registered `BaseConnectionResolverService`, not through PrimeAgent API routes.
 
 ## Error codes
 
@@ -253,7 +253,7 @@ A model chosen at run time has no selector to read, so that count is what keeps 
 
 :::note
 Check that your deployment tooling explicitly supports the artifact's schema version before using it. Readers limited to lower versions reject it; setting environment variables does not make that artifact compatible.
-For headless WFX, provision the listed `LF_CONNECTION__*` credentials through the request scope or the configured resolver. For Primeagent Enterprise serving mode, provision database connections for the deployment owner and enable `allow_non_interactive`; its database resolver does not use these environment keys. See [Executing identity per entry point](../Develop/connection-oauth.mdx#executing-identity-per-entry-point-int-6).
+For headless WFX, provision the listed `LF_CONNECTION__*` credentials through the request scope or the configured resolver. For PrimeAgent Enterprise serving mode, provision database connections for the deployment owner and enable `allow_non_interactive`; its database resolver does not use these environment keys. See [Executing identity per entry point](../Develop/connection-oauth.mdx#executing-identity-per-entry-point-int-6).
 :::
 
 ## See also

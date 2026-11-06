@@ -1,8 +1,8 @@
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -18,12 +18,12 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function openMcpClientRoute(page: PrimeagentPage) {
+async function openMcpClientRoute(page: PrimeAgentPage) {
   await awaitBootstrapTest(page, { skipModal: true });
   await page.goto("/settings/mcp-client");
   await disableAnimations(page);
   await expect(
-    page.getByRole("heading", { name: "Primeagent MCP Client" }),
+    page.getByRole("heading", { name: "PrimeAgent MCP Client" }),
   ).toBeVisible({ timeout: TIMEOUTS.standard });
   await page
     .waitForLoadState("networkidle", { timeout: TIMEOUTS.medium })

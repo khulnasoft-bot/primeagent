@@ -27,7 +27,7 @@ html[data-theme="light"] {
 /* Dark theme - Slate dark background (Langfuse style) */
 html[data-theme="dark"] {
   --ifm-code-background: #1e1e24;
-  --ifm-color-primary: #f471b5; /* Primeagent pink — same as API spec */
+  --ifm-color-primary: #f471b5; /* PrimeAgent pink — same as API spec */
   --ifm-background-color: #111; /* Warm slate, not pure black */
   --ifm-background-surface-color: #111;
   --ifm-card-background-color: #232328;

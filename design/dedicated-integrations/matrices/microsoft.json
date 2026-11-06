@@ -161,12 +161,12 @@
       "title": "Public and confidential client apps (MSAL)",
       "kind": "provider_docs",
       "verified_on": "2026-09-02",
-      "notes": "Public client applications (desktop, mobile, browserless) 'can't have client secrets'; an app registration that serves a public client must enable the public client flow. Together with entra-reply-url (one registration carries redirect URIs for the Web and the Mobile and desktop applications platforms; http://localhost is valid and the port is ignored when matching localhost redirect URIs; 127.0.0.1 is preferred and an http loopback URI is added through the manifest replyUrlsWithType), this is the basis for the Primeagent-owned Desktop public client in decisions/desktop-oauth-ownership.md."
+      "notes": "Public client applications (desktop, mobile, browserless) 'can't have client secrets'; an app registration that serves a public client must enable the public client flow. Together with entra-reply-url (one registration carries redirect URIs for the Web and the Mobile and desktop applications platforms; http://localhost is valid and the port is ignored when matching localhost redirect URIs; 127.0.0.1 is preferred and an http loopback URI is added through the manifest replyUrlsWithType), this is the basis for the PrimeAgent-owned Desktop public client in decisions/desktop-oauth-ownership.md."
     }
   },
   "verification_programs": {
     "entra-publisher-verification": {
-      "description": "Publisher verification of the Primeagent-owned multitenant Entra application via a verified Microsoft AI Cloud Partner Program account and matching publisher domain. Without it, users in customer tenants that keep the default risk-based step-up consent cannot consent to the hosted app. Free; minutes once the partner account is verified.",
+      "description": "Publisher verification of the PrimeAgent-owned multitenant Entra application via a verified Microsoft AI Cloud Partner Program account and matching publisher domain. Without it, users in customer tenants that keep the default risk-based step-up consent cannot consent to the hosted app. Free; minutes once the partner account is verified.",
       "source": "entra-publisher-verification",
       "blocking_for_contexts": [
         "hosted"
@@ -287,7 +287,7 @@
         "source": "entra-refresh-tokens"
       },
       "revocation": {
-        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. Primeagent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
+        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. PrimeAgent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
         "source": "entra-refresh-tokens"
       },
       "substrate": "rest",
@@ -411,7 +411,7 @@
         "source": "entra-refresh-tokens"
       },
       "revocation": {
-        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. Primeagent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
+        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. PrimeAgent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
         "source": "entra-refresh-tokens"
       },
       "substrate": "rest",
@@ -533,7 +533,7 @@
         "source": "entra-refresh-tokens"
       },
       "revocation": {
-        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. Primeagent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
+        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. PrimeAgent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
         "source": "entra-refresh-tokens"
       },
       "substrate": "rest",
@@ -675,7 +675,7 @@
         "source": "entra-refresh-tokens"
       },
       "revocation": {
-        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. Primeagent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
+        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. PrimeAgent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
         "source": "entra-refresh-tokens"
       },
       "substrate": "rest",
@@ -786,7 +786,7 @@
         "source": "entra-refresh-tokens"
       },
       "revocation": {
-        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. Primeagent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
+        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. PrimeAgent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
         "source": "entra-refresh-tokens"
       },
       "substrate": "rest",
@@ -902,7 +902,7 @@
         "source": "entra-refresh-tokens"
       },
       "revocation": {
-        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. Primeagent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
+        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. PrimeAgent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
         "source": "entra-refresh-tokens"
       },
       "substrate": "rest",
@@ -1057,7 +1057,7 @@
         "source": "entra-refresh-tokens"
       },
       "revocation": {
-        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. Primeagent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
+        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. PrimeAgent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
         "source": "entra-refresh-tokens"
       },
       "substrate": "rest",
@@ -1195,7 +1195,7 @@
         "source": "entra-refresh-tokens"
       },
       "revocation": {
-        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. Primeagent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
+        "behavior": "There is no RFC 7009 revoke endpoint; revocation happens server-side when the user revokes their refresh tokens, an admin revokes all refresh tokens for the user, or a credential change matches the revocation table. PrimeAgent deletes its stored refresh token on disconnect and the next refresh attempt fails with an interaction_required or invalid_grant error.",
         "source": "entra-refresh-tokens"
       },
       "substrate": "rest",

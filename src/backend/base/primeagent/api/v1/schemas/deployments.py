@@ -4,22 +4,22 @@ Identifier domains
 ------------------
 Two identifier domains coexist in these schemas:
 
-* **Primeagent-managed (UUID)** -- ``id``, ``provider_id``, ``project_id``,
-  ``deployment_id``. These reference rows in the Primeagent database.
+* **PrimeAgent-managed (UUID)** -- ``id``, ``provider_id``, ``project_id``,
+  ``deployment_id``. These reference rows in the PrimeAgent database.
   ``provider_id`` maps to ``deployment_provider_account.id``.
 
 * **Provider-owned (str)** -- ``reference_id``, ``config_id``,
   ``run_id``.
   Opaque values assigned or consumed by the external deployment provider.
-  ``provider_key`` is Primeagent-owned adapter vocabulary.
+  ``provider_key`` is PrimeAgent-owned adapter vocabulary.
   Provider-specific metadata (for example URL and tenant/account identifiers)
   belongs inside ``provider_data``.
 
-* **Provider-originated but Primeagent-owned once persisted** -- ``resource_key``.
-  Primeagent stores and indexes this as part of its own deployment record.
+* **Provider-originated but PrimeAgent-owned once persisted** -- ``resource_key``.
+  PrimeAgent stores and indexes this as part of its own deployment record.
 
 ``provider_data`` dicts are opaque pass-through containers whose contents
-are defined by the provider adapter. Primeagent forwards them without
+are defined by the provider adapter. PrimeAgent forwards them without
 interpreting their schema.
 
 DeploymentType is imported from the adapter service layer as shared
@@ -181,9 +181,9 @@ class DeploymentProviderAccountUpdateRequest(BaseModel):
 
 
 class DeploymentProviderAccountGetResponse(BaseModel):
-    id: UUID = Field(description="Primeagent DB provider-account UUID (`deployment_provider_account.id`).")
+    id: UUID = Field(description="PrimeAgent DB provider-account UUID (`deployment_provider_account.id`).")
     name: str = Field(description="User-chosen display name for this provider account.")
-    provider_key: DeploymentProviderKey = Field(description="Official provider name used by Primeagent.")
+    provider_key: DeploymentProviderKey = Field(description="Official provider name used by PrimeAgent.")
     provider_data: dict[str, Any] | None = Field(
         default=None,
         description=(
@@ -191,8 +191,8 @@ class DeploymentProviderAccountGetResponse(BaseModel):
             "(for example URL, tenant/account identifiers). Credentials are excluded."
         ),
     )
-    created_at: datetime | None = Field(default=None, description="Primeagent DB row creation timestamp.")
-    updated_at: datetime | None = Field(default=None, description="Primeagent DB row update timestamp.")
+    created_at: datetime | None = Field(default=None, description="PrimeAgent DB row creation timestamp.")
+    updated_at: datetime | None = Field(default=None, description="PrimeAgent DB row update timestamp.")
 
 
 # ---------------------------------------------------------------------------
@@ -218,8 +218,8 @@ class DeploymentLlmListResponse(BaseModel):
 class _DeploymentResponseCommon(BaseModel):
     """Shared non-provider-data fields for deployment response schemas."""
 
-    id: UUID = Field(description="Primeagent DB deployment UUID.")
-    provider_id: UUID = Field(description="Primeagent DB provider-account UUID (`deployment_provider_account.id`).")
+    id: UUID = Field(description="PrimeAgent DB deployment UUID.")
+    provider_id: UUID = Field(description="PrimeAgent DB provider-account UUID (`deployment_provider_account.id`).")
     provider_key: str = Field(description="Provider identifier (e.g. 'watsonx-orchestrate').")
     description: str | None = None
     type: DeploymentType
@@ -245,7 +245,7 @@ class DeploymentGetResponse(_DeploymentResponseWithProviderData):
     list item stays lean.
     """
 
-    resource_key: str = Field(description="Primeagent-persisted stable provider resource identifier.")
+    resource_key: str = Field(description="PrimeAgent-persisted stable provider resource identifier.")
     attached_count: int = Field(default=0, ge=0, description="Number of flow versions attached to this deployment.")
 
 
@@ -255,7 +255,7 @@ class DeploymentListItem(_DeploymentResponseCommon):
     See ``DeploymentGetResponse`` docstring for rationale on the separate class.
     """
 
-    resource_key: str = Field(description="Primeagent-persisted stable provider resource identifier.")
+    resource_key: str = Field(description="PrimeAgent-persisted stable provider resource identifier.")
     attached_count: int = Field(default=0, ge=0, description="Number of flow versions attached to this deployment.")
     flow_version_ids: list[UUID] | None = Field(
         default=None,
@@ -317,17 +317,17 @@ class DeploymentSnapshotListResponse(_PaginatedResponse):
 class DeploymentFlowVersionListItem(BaseModel):
     """Flow version metadata attached to a deployment.
 
-    **Identity model:** Primeagent tracks provider tools by their immutable
+    **Identity model:** PrimeAgent tracks provider tools by their immutable
     ``provider_snapshot_id`` (the wxO tool_id), never by name.  This
     distinguishes the following cases:
 
     * **Tool renamed in provider** — Same ``provider_snapshot_id``, different
-      ``provider_data.tool_display_name``. Primeagent picks up the new label on the next fetch.
+      ``provider_data.tool_display_name``. PrimeAgent picks up the new label on the next fetch.
     * **Tool deleted in provider** — ``provider_snapshot_id`` no longer
       resolves. ``provider_data.tool_display_name`` may be missing/``None``.
     * **Tool deleted + new tool created with same name** — The new tool has
-      a different ID.  Primeagent's attachment still points to the old
-      (missing) ID.  The new tool is invisible to Primeagent until explicitly
+      a different ID.  PrimeAgent's attachment still points to the old
+      (missing) ID.  The new tool is invisible to PrimeAgent until explicitly
       attached via an update operation.
 
     Frontends should use ``provider_data.tool_display_name`` for display,
@@ -335,8 +335,8 @@ class DeploymentFlowVersionListItem(BaseModel):
     ``provider_snapshot_id`` for identity / operations.
     """
 
-    id: UUID = Field(description="Primeagent flow version UUID (`flow_version.id`).")
-    flow_id: UUID = Field(description="Primeagent flow UUID (`flow.id`) for this version.")
+    id: UUID = Field(description="PrimeAgent flow version UUID (`flow_version.id`).")
+    flow_id: UUID = Field(description="PrimeAgent flow UUID (`flow.id`) for this version.")
     flow_name: str | None = Field(
         default=None,
         description="Name of the flow owning this version (`flow.name`).",
@@ -363,13 +363,13 @@ class DeploymentFlowVersionListResponse(_PaginatedResponse):
 class DeploymentCreateResponse(_DeploymentResponseWithProviderData):
     """API response for deployment creation."""
 
-    resource_key: str = Field(description="Primeagent-persisted stable provider resource identifier.")
+    resource_key: str = Field(description="PrimeAgent-persisted stable provider resource identifier.")
 
 
 class DeploymentUpdateResponse(_DeploymentResponseWithProviderData):
     """API response for deployment update."""
 
-    resource_key: str = Field(description="Primeagent-persisted stable provider resource identifier.")
+    resource_key: str = Field(description="PrimeAgent-persisted stable provider resource identifier.")
 
 
 # ---------------------------------------------------------------------------
@@ -380,7 +380,7 @@ class DeploymentUpdateResponse(_DeploymentResponseWithProviderData):
 class DeploymentCreateRequest(BaseModel):
     model_config = {"extra": "forbid"}
 
-    provider_id: UUID = Field(description="Primeagent DB provider-account UUID (`deployment_provider_account.id`).")
+    provider_id: UUID = Field(description="PrimeAgent DB provider-account UUID (`deployment_provider_account.id`).")
     description: str = Field(
         default="",
         description="Deployment description.",
@@ -388,7 +388,7 @@ class DeploymentCreateRequest(BaseModel):
     type: DeploymentType = Field(description="Deployment type.")
     project_id: UUID | None = Field(
         default=None,
-        description="Primeagent DB project id to persist the deployment under. Defaults to user's Starter Project.",
+        description="PrimeAgent DB project id to persist the deployment under. Defaults to user's Starter Project.",
     )
     provider_data: dict[str, Any] | None = Field(
         default=None,
@@ -433,14 +433,14 @@ class RunCreateRequest(BaseModel):
 class _RunResponseBase(BaseModel):
     """Shared fields for run responses.
 
-    Only Primeagent-owned identifiers live at the top level.  All
+    Only PrimeAgent-owned identifiers live at the top level.  All
     provider-owned data (including the provider's ``id``)
     is returned inside ``provider_data`` so that ownership boundaries
-    stay clear and a future Primeagent-managed run id won't
+    stay clear and a future PrimeAgent-managed run id won't
     collide with provider terminology.
     """
 
-    deployment_id: UUID = Field(description="Primeagent DB deployment UUID.")
+    deployment_id: UUID = Field(description="PrimeAgent DB deployment UUID.")
     provider_data: dict[str, Any] | None = Field(
         default=None,
         description=(
@@ -483,7 +483,7 @@ class SnapshotUpdateRequest(BaseModel):
     model_config = {"extra": "forbid"}
 
     flow_version_id: UUID = Field(
-        description="Primeagent flow version whose artifact will replace the snapshot content.",
+        description="PrimeAgent flow version whose artifact will replace the snapshot content.",
     )
 
 

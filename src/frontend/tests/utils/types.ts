@@ -18,7 +18,7 @@ export type ExpectedServerError = {
  * detector when a spec intentionally drives the backend into an
  * error response (e.g. validation-error tests).
  */
-export type PrimeagentPage = Page & {
+export type PrimeAgentPage = Page & {
   allowFlowErrors: () => void;
   expectServerError: (expectation: ExpectedServerError) => void;
   /**

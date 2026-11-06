@@ -1,4 +1,4 @@
-"""Input handler that coerces Primeagent Message objects to plain strings."""
+"""Input handler that coerces PrimeAgent Message objects to plain strings."""
 
 from __future__ import annotations
 
@@ -8,10 +8,10 @@ from .base import InputHandler
 
 
 class StringCoercionInputHandler(InputHandler):
-    """Coerce Primeagent Message objects to their ``.text`` for string fields.
+    """Coerce PrimeAgent Message objects to their ``.text`` for string fields.
 
     Matches template fields with ``type == "str"`` whose runtime value is a
-    Primeagent ``Message`` instance. Extracts the ``text`` attribute so the
+    PrimeAgent ``Message`` instance. Extracts the ``text`` attribute so the
     component receives a plain string as expected.
 
     This is needed because wfx components (1.6.4+) are stricter about type

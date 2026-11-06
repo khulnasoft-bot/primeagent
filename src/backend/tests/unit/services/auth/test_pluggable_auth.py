@@ -89,14 +89,14 @@ async def test_get_current_user_delegates_to_service(dummy_auth_registration):
 
 
 def test_get_auth_service_replaces_wfx_no_op_stub():
-    """WFX's no-op auth service must never be what Primeagent resolves.
+    """WFX's no-op auth service must never be what PrimeAgent resolves.
 
     It self-registers for the ``auth_service`` slot at import time, so any process that
     touches auth before ``register_all_service_factories()`` would otherwise get a service
     that raises ``NotImplementedError`` for user/token operations and answers API-key
     checks with ``None``.
     """
-    from primeagent.services.auth.service import AuthService as PrimeagentAuthService
+    from primeagent.services.auth.service import AuthService as PrimeAgentAuthService
     from primeagent.services.deps import get_auth_service
     from wfx.services.auth.service import AuthService as WFXNoOpAuthService
 
@@ -107,7 +107,7 @@ def test_get_auth_service_replaces_wfx_no_op_stub():
 
     try:
         assert isinstance(service_manager.get(ServiceType.AUTH_SERVICE), WFXNoOpAuthService)
-        assert isinstance(get_auth_service(), PrimeagentAuthService)
+        assert isinstance(get_auth_service(), PrimeAgentAuthService)
     finally:
         service_manager.services.pop(ServiceType.AUTH_SERVICE, None)
         if previous_class is not None:

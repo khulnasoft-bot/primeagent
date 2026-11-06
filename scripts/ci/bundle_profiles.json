@@ -10,10 +10,10 @@
     "enterprise-hardened": {
       "description": "Reviewed provider inventory for the supported Enterprise UBI/hardened application image family.",
       "owners": [
-        "Primeagent Enterprise maintainers",
-        "Primeagent release maintainers"
+        "PrimeAgent Enterprise maintainers",
+        "PrimeAgent release maintainers"
       ],
-      "update_cadence": "Review on every Primeagent minor release and whenever a provider is added, removed, or graduated.",
+      "update_cadence": "Review on every PrimeAgent minor release and whenever a provider is added, removed, or graduated.",
       "indexes": [
         "https://pypi.org/simple"
       ],

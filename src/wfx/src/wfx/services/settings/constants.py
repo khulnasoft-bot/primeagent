@@ -8,7 +8,7 @@ LEGACY_DEFAULT_SUPERUSER_PASSWORD = SecretStr("primeagent")
 MINIMUM_SECRET_KEY_LENGTH = 32
 SHORT_SECRET_KEY_WARNING = (
     "PRIMEAGENT_SECRET_KEY is shorter than 32 characters. Short secrets are not recommended for production. "  # noqa: S105
-    "Keep this key unchanged during an upgrade so Primeagent can read credentials encrypted before 1.10.1, "
+    "Keep this key unchanged during an upgrade so PrimeAgent can read credentials encrypted before 1.10.1, "
     "then use a planned credential rotation to replace it with a randomly generated key of at least 32 characters."
 )
 

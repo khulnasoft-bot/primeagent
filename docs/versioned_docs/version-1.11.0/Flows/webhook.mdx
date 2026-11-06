@@ -21,7 +21,7 @@ For example:
 
 To use the **Webhook** component in a flow, do the following:
 
-1. In Primeagent, open the flow where you want to use the **Webhook** component.
+1. In PrimeAgent, open the flow where you want to use the **Webhook** component.
 
 2. Add a [**Webhook** component](/webhook) and a [**Parser** component](/parser) to your flow.
 
@@ -70,7 +70,7 @@ To use the **Webhook** component in a flow, do the following:
        -d '{"id": "12345", "name": "alex", "email": "alex@email.com"}'
    ```
 
-   A successful response indicates that Primeagent started the flow.
+   A successful response indicates that PrimeAgent started the flow.
    The response doesn't include the output for the entire flow, only an indication that the flow started.
 
    ```json
@@ -86,15 +86,15 @@ To use the **Webhook** component in a flow, do the following:
 ## Trigger flows with Composio webhooks
 
 Typically, you won't manually trigger the **Webhook** component.
-To learn about triggering flows with payloads from external applications, see the video tutorial [How to Use Webhooks in Primeagent](https://www.youtube.com/watch?v=IC1CAtzFRE0).
+To learn about triggering flows with payloads from external applications, see the video tutorial [How to Use Webhooks in PrimeAgent](https://www.youtube.com/watch?v=IC1CAtzFRE0).
 
 ## Require authentication for webhooks {#require-authentication-for-webhooks}
 
 By default, webhooks require API key authentication (`PRIMEAGENT_WEBHOOK_AUTH_ENABLE=True`).
 
-To allow webhooks to run without authentication (not recommended; use only in trusted environments), in your Primeagent `.env` file, set `PRIMEAGENT_WEBHOOK_AUTH_ENABLE=False`. When disabled, requests to the webhook endpoint are treated as being sent by the flow owner.
+To allow webhooks to run without authentication (not recommended; use only in trusted environments), in your PrimeAgent `.env` file, set `PRIMEAGENT_WEBHOOK_AUTH_ENABLE=False`. When disabled, requests to the webhook endpoint are treated as being sent by the flow owner.
 
-When webhook authentication is enabled, you must provide a Primeagent API key with each webhook request.
+When webhook authentication is enabled, you must provide a PrimeAgent API key with each webhook request.
 
 To include the API key with a request as an HTTP header:
 
@@ -146,6 +146,6 @@ Then, you can examine the string output and troubleshoot your parsing template, 
 
 ## See also
 
-- [Get started with the Primeagent API](/api-reference-api-examples)
+- [Get started with the PrimeAgent API](/api-reference-api-examples)
 - [**Webhook** component](/webhook)
 - [Flow trigger endpoints](/api-flows-run)

@@ -158,7 +158,7 @@ from primeagent.logging import logger, configure
 from primeagent.logging.logger import logger
 from primeagent.custom import Component
 
-class TestPrimeagentLoggingComponent(Component):
+class TestPrimeAgentLoggingComponent(Component):
     def some_method(self):
         # Test that both logger and configure work in primeagent context
         configure(log_level="INFO")
@@ -172,5 +172,5 @@ class TestPrimeagentLoggingComponent(Component):
         return "primeagent_logging_success"
     """)
 
-    result = create_class(code, "TestPrimeagentLoggingComponent")
-    assert result.__name__ == "TestPrimeagentLoggingComponent"
+    result = create_class(code, "TestPrimeAgentLoggingComponent")
+    assert result.__name__ == "TestPrimeAgentLoggingComponent"

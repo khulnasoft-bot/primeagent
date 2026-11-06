@@ -23,7 +23,7 @@ entries:
   workaround: Convert the Message to a DataFrame before the Loop input.
 
 - id: GH-13735
-  title: Primeagent Assistant reports no model provider configured when only IBM WatsonX is configured
+  title: PrimeAgent Assistant reports no model provider configured when only IBM WatsonX is configured
   status: resolved
   area: integrations
   first_bad_version: 1.10.0

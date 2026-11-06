@@ -50,7 +50,7 @@ _LIST_DEFAULT_LIMIT = 100
 _POSTGRES_UNIQUE_VIOLATION_SQLSTATE = "23505"
 _ROLE_NAME_UNIQUE_INDEX = "ix_authz_role_name"
 _SQLITE_ROLE_NAME_UNIQUE_MARKER = "UNIQUE constraint failed: authz_role.name"
-OperationId = Annotated[str | None, Header(alias="X-Primeagent-Operation-ID", max_length=128)]
+OperationId = Annotated[str | None, Header(alias="X-PrimeAgent-Operation-ID", max_length=128)]
 _LEGACY_SUPERUSER_DENIAL = "Superuser required to administer roles."
 
 

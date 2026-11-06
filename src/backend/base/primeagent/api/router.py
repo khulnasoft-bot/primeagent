@@ -61,7 +61,7 @@ from primeagent.api.v2 import mcp_router as mcp_router_v2
 from primeagent.api.v2 import registration_router as registration_router_v2
 from primeagent.api.v2 import workflow_background_router as workflow_background_router_v2
 from primeagent.api.v2 import workflow_public_router as workflow_public_router_v2
-from primeagent.api.v2.workflow_host import PrimeagentWorkflowHost
+from primeagent.api.v2.workflow_host import PrimeAgentWorkflowHost
 
 router_v1 = APIRouter(
     prefix="/v1",
@@ -185,7 +185,7 @@ router_v2.include_router(registration_router_v2)
 # ``settings.warm_registry_enabled`` while authentication and per-flow authorization
 # remain identical whether the cache is enabled or not. This module is imported before
 # ``load_dotenv`` runs, so keeping the decision out of this path preserves ``--env-file``.
-_workflow_host: WorkflowHost = PrimeagentWorkflowHost()
+_workflow_host: WorkflowHost = PrimeAgentWorkflowHost()
 assert isinstance(_workflow_host, WorkflowHost)  # noqa: S101
 router_v2.include_router(
     create_workflow_router(

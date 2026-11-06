@@ -1,7 +1,7 @@
 [project]
 name = "wfx-slack"
 version = "0.2.2"
-description = "Slack Web API actions (user-identity and bot-identity) as a standalone Primeagent Extension Bundle backed by connections."
+description = "Slack Web API actions (user-identity and bot-identity) as a standalone PrimeAgent Extension Bundle backed by connections."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = { text = "MIT" }

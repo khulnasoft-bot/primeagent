@@ -44,7 +44,7 @@ from wfx.utils.jq_security import validate_jq_program
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-# The "Input Type" selector tabs. Each value maps a Primeagent data type to the
+# The "Input Type" selector tabs. Each value maps a PrimeAgent data type to the
 # operations, input, and output that belong to it.
 INPUT_TYPES = ["Text", "JSON", "Table"]
 

@@ -3,7 +3,7 @@ import { axe } from "@/utils/a11y-test";
 import ChatMessage from "../chat-message";
 
 // Mock SVG imports
-jest.mock("@/assets/PrimeagentLogo.svg?react", () => ({
+jest.mock("@/assets/PrimeAgentLogo.svg?react", () => ({
   __esModule: true,
   default: () => <div data-testid="primeagent-logo" />,
 }));

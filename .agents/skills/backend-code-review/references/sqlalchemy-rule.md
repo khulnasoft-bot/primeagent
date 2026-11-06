@@ -4,11 +4,11 @@
 - Covers: SQLAlchemy/SQLModel async session and transaction lifecycle, query construction, user scoping, raw SQL boundaries, write-path concurrency safeguards, and async-specific pitfalls.
 - Key modules:
   - Session management (canonical source): `wfx.services.deps.session_scope`, `wfx.services.deps.session_scope_readonly`
-  - Primeagent wrappers (delegates to wfx): `primeagent.services.deps.session_scope`, `primeagent.services.deps.session_scope_readonly`
+  - PrimeAgent wrappers (delegates to wfx): `primeagent.services.deps.session_scope`, `primeagent.services.deps.session_scope_readonly`
   - Injectable dependencies: `wfx.services.deps.injectable_session_scope`, `wfx.services.deps.injectable_session_scope_readonly`
   - Database service: `primeagent.services.database.service.DatabaseService`
   - Model CRUD functions: `src/backend/base/primeagent/services/database/models/*/crud.py`
-- Import preference: Use `from primeagent.services.deps import session_scope` in Primeagent code for consistency. The Primeagent wrappers are thin `@asynccontextmanager` functions that delegate to `wfx.services.deps`. Only import directly from `wfx` when working inside the `wfx` package itself.
+- Import preference: Use `from primeagent.services.deps import session_scope` in PrimeAgent code for consistency. The PrimeAgent wrappers are thin `@asynccontextmanager` functions that delegate to `wfx.services.deps`. Only import directly from `wfx` when working inside the `wfx` package itself.
 - Does NOT cover: table/model schema and migration design details (handled by `db-schema-rule.md`).
 
 ## Rules
@@ -16,7 +16,7 @@
 ### Use `session_scope()` context manager with explicit transaction awareness
 - Category: best practices
 - Severity: critical
-- Description: Primeagent uses async sessions exclusively. The `session_scope()` context manager provides auto-commit on successful exit and auto-rollback on exception. For read-only paths, use `session_scope_readonly()` which skips commit overhead. In route handlers, use the injectable variants via `Depends(injectable_session_scope)`. Missing commits can silently drop intended updates, while ad-hoc or long-lived transactions increase contention and deadlock risk.
+- Description: PrimeAgent uses async sessions exclusively. The `session_scope()` context manager provides auto-commit on successful exit and auto-rollback on exception. For read-only paths, use `session_scope_readonly()` which skips commit overhead. In route handlers, use the injectable variants via `Depends(injectable_session_scope)`. Missing commits can silently drop intended updates, while ad-hoc or long-lived transactions increase contention and deadlock risk.
 - Suggested fix:
   - For write operations in services/CRUD: use `async with session_scope() as session:` which auto-commits on success.
   - For read-only operations: use `async with session_scope_readonly() as session:` to avoid unnecessary commit calls.
@@ -54,7 +54,7 @@
 ### Enforce `user_id` scoping on user-owned queries
 - Category: security
 - Severity: critical
-- Description: Reads and writes against user-owned tables must be scoped by `user_id` to prevent cross-user data leakage or corruption. Primeagent uses `user_id` (not `tenant_id`) for user-scoped data isolation. Every query on user-owned entities (flows, variables, folders, messages, API keys) must include a `user_id` filter.
+- Description: Reads and writes against user-owned tables must be scoped by `user_id` to prevent cross-user data leakage or corruption. PrimeAgent uses `user_id` (not `tenant_id`) for user-scoped data isolation. Every query on user-owned entities (flows, variables, folders, messages, API keys) must include a `user_id` filter.
 - Suggested fix: Add `user_id` predicate to all user-owned entity queries and propagate user context through service interfaces. The `current_user.id` is available from the `get_current_active_user` dependency in route handlers.
 - Example:
   - Bad:
@@ -75,7 +75,7 @@
 ### Prefer SQLAlchemy/SQLModel expressions over raw SQL
 - Category: maintainability
 - Severity: suggestion
-- Description: Raw SQL via `text()` should be exceptional. ORM/Core expressions are easier to evolve, safer to compose, dialect-portable (SQLite + PostgreSQL), and more consistent with the codebase. Primeagent uses `sqlmodel.select()` for queries which provides both type safety and dialect portability.
+- Description: Raw SQL via `text()` should be exceptional. ORM/Core expressions are easier to evolve, safer to compose, dialect-portable (SQLite + PostgreSQL), and more consistent with the codebase. PrimeAgent uses `sqlmodel.select()` for queries which provides both type safety and dialect portability.
 - Suggested fix: Rewrite straightforward raw SQL into SQLModel `select/update/delete` expressions; keep raw SQL only when required by clear technical constraints (e.g., database-specific administrative queries).
 - Example:
   - Bad:
@@ -102,7 +102,7 @@
 ### Do not run blocking operations inside async session scopes
 - Category: performance
 - Severity: critical
-- Description: Primeagent runs on an async event loop (uvicorn + FastAPI). Blocking calls inside a session scope (synchronous I/O, `time.sleep()`, CPU-bound computation, synchronous HTTP requests) block the entire event loop and starve other coroutines. This also extends transaction duration unnecessarily, increasing lock contention.
+- Description: PrimeAgent runs on an async event loop (uvicorn + FastAPI). Blocking calls inside a session scope (synchronous I/O, `time.sleep()`, CPU-bound computation, synchronous HTTP requests) block the entire event loop and starve other coroutines. This also extends transaction duration unnecessarily, increasing lock contention.
 - Suggested fix:
   - Move blocking operations outside the session scope.
   - Use `asyncio.to_thread()` or `anyio.to_thread.run_sync()` for CPU-bound or synchronous I/O work.
@@ -136,7 +136,7 @@
 ### Protect write paths with concurrency safeguards
 - Category: quality
 - Severity: critical
-- Description: Multi-writer paths without explicit concurrency control can silently overwrite data. Choose the safeguard based on contention level, lock scope, and throughput cost instead of defaulting to one strategy. Primeagent's async architecture means multiple coroutines may attempt concurrent writes.
+- Description: Multi-writer paths without explicit concurrency control can silently overwrite data. Choose the safeguard based on contention level, lock scope, and throughput cost instead of defaulting to one strategy. PrimeAgent's async architecture means multiple coroutines may attempt concurrent writes.
 - Suggested fix:
   - **Optimistic locking**: Use when contention is usually low and retries are acceptable. Add a version or `updated_at` guard in `WHERE` and treat `rowcount == 0` as a conflict.
   - **SELECT ... FOR UPDATE**: Use when contention is high on the same rows and strict in-transaction serialization is required. Keep transactions short to reduce lock wait/deadlock risk.

@@ -1,7 +1,7 @@
 """Plugin route discovery and registration with conflict protection.
 
 Plugins register via the ``primeagent.plugins`` entry-point group. They receive
-a wrapper so they cannot overwrite or shadow existing Primeagent routes.
+a wrapper so they cannot overwrite or shadow existing PrimeAgent routes.
 """
 
 from collections.abc import Iterable, Iterator
@@ -49,13 +49,13 @@ def _get_route_keys(app: FastAPI) -> set[tuple[str, str]]:
     """Collect (path, method) for all routes already on the app.
 
     Used to build the reserved set before loading plugins so that plugin
-    routes cannot overwrite or shadow existing Primeagent routes.
+    routes cannot overwrite or shadow existing PrimeAgent routes.
     """
     return set(_iter_route_keys(app.router.routes))
 
 
 class RouteConflictError(ValueError):
-    """A plugin tried to register a path+method Primeagent already serves.
+    """A plugin tried to register a path+method PrimeAgent already serves.
 
     Distinct from any other ``ValueError`` a plugin's ``register()`` may raise
     (a bad configuration, say): only a genuine conflict should be reported to
@@ -137,7 +137,7 @@ def _snapshot_registration(app: FastAPI, wrapper: _PluginAppWrapper) -> tuple[in
 
     Deliberately module-level rather than a wrapper method: the wrapper is
     handed to plugins, and a plugin able to roll back to an arbitrary snapshot
-    could delete Primeagent's own routes.
+    could delete PrimeAgent's own routes.
     """
     return len(app.router.routes), set(wrapper._reserved)  # noqa: SLF001
 

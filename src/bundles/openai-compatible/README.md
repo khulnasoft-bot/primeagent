@@ -1,9 +1,9 @@
 # wfx-openai-compatible
 
-Generic OpenAI-compatible endpoints as a first-class Primeagent model provider,
+Generic OpenAI-compatible endpoints as a first-class PrimeAgent model provider,
 packaged as a standalone Extension Bundle.
 
-Registers an **OpenAI Compatible** model provider that appears in Primeagent's
+Registers an **OpenAI Compatible** model provider that appears in PrimeAgent's
 unified model picker alongside the built-in providers. Any service that speaks
 the OpenAI HTTP API shape can be configured through it — for example:
 
@@ -21,8 +21,8 @@ is therefore offered in both the **Language Model** and **Embedding Model**
 contexts.
 
 Unlike a component bundle, this ships **no component**: it contributes a
-provider through the `providers[]` block in `extension.json`, which Primeagent's
-provider registry merges into the unified model system. It edits no Primeagent
+provider through the `providers[]` block in `extension.json`, which PrimeAgent's
+provider registry merges into the unified model system. It edits no PrimeAgent
 core files.
 
 ## Configure
@@ -33,7 +33,7 @@ variables:
 
 - `OPENAI_COMPATIBLE_BASE_URL` — base URL of the endpoint, e.g.
   `https://openrouter.ai/api` or `http://localhost:8000` (required). The bundle's
-  provider manifest declares `base_url_suffix: /v1`, so Primeagent appends `/v1`
+  provider manifest declares `base_url_suffix: /v1`, so PrimeAgent appends `/v1`
   when it is missing and preserves endpoints that already include it.
 - `OPENAI_COMPATIBLE_API_KEY` — bearer token, if the endpoint enforces one
   (optional; local servers without auth do not need it).
@@ -49,7 +49,7 @@ pip install wfx-openai-compatible
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point. Restart your Primeagent server and select **OpenAI Compatible** in
+entry-point. Restart your PrimeAgent server and select **OpenAI Compatible** in
 any Language Model or Embedding Model field.
 
 ## Develop

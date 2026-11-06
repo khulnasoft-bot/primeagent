@@ -1,7 +1,7 @@
 """Native tracer for storing execution traces in the database.
 
 This module provides a tracer that stores component-level and LangChain-level
-execution traces directly in Primeagent's database, enabling the Trace View
+execution traces directly in PrimeAgent's database, enabling the Trace View
 without requiring external services like LangSmith or LangFuse.
 """
 
@@ -46,7 +46,7 @@ TYPE_MAP = {
 
 
 class NativeTracer(BaseTracer):
-    """Tracer that stores execution traces in Primeagent's database.
+    """Tracer that stores execution traces in PrimeAgent's database.
 
     This tracer captures:
     - Component-level traces (via add_trace/end_trace)
@@ -494,7 +494,7 @@ class NativeTracer(BaseTracer):
             lc_attributes["gen_ai.response.model"] = span_info["model_name"]
         if span_info.get("provider"):
             lc_attributes["gen_ai.provider.name"] = span_info["provider"]
-        # Default to chat since most LLM usage in Primeagent is conversational
+        # Default to chat since most LLM usage in PrimeAgent is conversational
         if span_info.get("span_type") == "llm":
             lc_attributes["gen_ai.operation.name"] = "chat"
         if prompt_tokens:
@@ -571,5 +571,5 @@ class NativeTracer(BaseTracer):
 
     @staticmethod
     def _map_trace_type(trace_type: str) -> SpanType:
-        """Normalise Primeagent's string trace types to the SpanType enum, defaulting to CHAIN for unknown values."""
+        """Normalise PrimeAgent's string trace types to the SpanType enum, defaulting to CHAIN for unknown values."""
         return TYPE_MAP.get(trace_type.lower(), SpanType.CHAIN)

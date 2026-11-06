@@ -2,7 +2,7 @@
 
 ``mcp-proxy`` takes request headers positionally -- ``--headers <name>
 <value>`` -- rather than as a map, and project MCP servers are registered that
-way with a real Primeagent API key as the value. Encrypting only the ``env`` and
+way with a real PrimeAgent API key as the value. Encrypting only the ``env`` and
 ``headers`` maps left that one key in plaintext in ``mcp_server.config``.
 """
 

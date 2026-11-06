@@ -61,7 +61,7 @@ class MCPToolsComponent(ComponentWithCache):
     """MCP Tools component.
 
     Behaviour notes:
-    - Stale agent tools vs server were caused by Primeagent caching the Toolset output
+    - Stale agent tools vs server were caused by PrimeAgent caching the Toolset output
       (``Output.cache=True`` plus the persisted ``output.value`` in saved flow JSON), not
       only by the user-facing "Use Cached Server" (``use_cache``) toggle. ``_build_tool_output``
       declares the Toolset output with ``cache=False`` and ``map_outputs`` overrides the
@@ -218,7 +218,7 @@ class MCPToolsComponent(ComponentWithCache):
 
     def _build_tool_output(self) -> Output:
         # Do not cache Toolset output. This is separate from the MCP "Use Cached Server" (use_cache)
-        # toggle: Primeagent's Output.cache defaults to True and was memoizing the first to_toolkit()
+        # toggle: PrimeAgent's Output.cache defaults to True and was memoizing the first to_toolkit()
         # result, so per-request tweaks/headers never refreshed bound tools even when use_cache=False.
         return Output(
             name=TOOL_OUTPUT_NAME,
@@ -458,7 +458,7 @@ class MCPToolsComponent(ComponentWithCache):
             try:
                 # Try to fetch from database first to ensure we have the latest config.
                 # This ensures database updates (like editing a server) take effect.
-                # When running in WFX standalone mode the full Primeagent package and
+                # When running in WFX standalone mode the full PrimeAgent package and
                 # database may not be available — in that case we skip the DB lookup
                 # and fall back to the config embedded in the flow (server_config_from_value).
                 server_config_from_db = None
@@ -473,14 +473,14 @@ class MCPToolsComponent(ComponentWithCache):
                 except ModuleNotFoundError as e:
                     # Deliberately `except ModuleNotFoundError` (not `except ImportError`): a
                     # plain ImportError here means `get_server` / `get_user_by_id` was removed
-                    # from an installed Primeagent — a real API break that should NOT be
+                    # from an installed PrimeAgent — a real API break that should NOT be
                     # swallowed as "standalone mode". ModuleNotFoundError alone covers the
-                    # "Primeagent absent" case.
+                    # "PrimeAgent absent" case.
                     #
                     # Even within ModuleNotFoundError, only treat this as WFX standalone mode
-                    # when one of the target Primeagent modules is itself missing. Transitive
+                    # when one of the target PrimeAgent modules is itself missing. Transitive
                     # ModuleNotFoundError (e.g. a dependency like sqlmodel failing to import
-                    # inside primeagent.*) indicates a real bug in the full Primeagent stack and
+                    # inside primeagent.*) indicates a real bug in the full PrimeAgent stack and
                     # must surface — otherwise we would silently use a stale flow-embedded
                     # config when DB config should have taken precedence.
                     missing_module = e.name or ""
@@ -490,7 +490,7 @@ class MCPToolsComponent(ComponentWithCache):
                     if not is_primeagent_standalone:
                         raise
                     await logger.ainfo(
-                        "Primeagent package not available; using MCP server config "
+                        "PrimeAgent package not available; using MCP server config "
                         "from flow value (WFX standalone mode)."
                     )
                 else:
@@ -603,7 +603,7 @@ class MCPToolsComponent(ComponentWithCache):
                 # *name* upstream as the header value (#14604).
                 #
                 # The URL still resolves from the database only, via ``url_variables`` below:
-                # request_variables carry the caller's X-Primeagent-Global-Var-* values, and a
+                # request_variables carry the caller's X-PrimeAgent-Global-Var-* values, and a
                 # caller must not be able to choose where this flow connects.
                 request_variables = {**(db_variables or {}), **(request_variables or {})} or None
 
@@ -1083,7 +1083,7 @@ class MCPToolsComponent(ComponentWithCache):
         try:
             self.tools, _ = await self.update_tool_list()
             if self.tool != "":
-                # Set session context for persistent MCP sessions using Primeagent session ID
+                # Set session context for persistent MCP sessions using PrimeAgent session ID
                 session_context = self._get_session_context()
                 if session_context:
                     self.stdio_client.set_session_context(session_context)
@@ -1129,7 +1129,7 @@ class MCPToolsComponent(ComponentWithCache):
         return item_dict
 
     def _get_session_context(self) -> str | None:
-        """Get the Primeagent session ID for MCP session caching."""
+        """Get the PrimeAgent session ID for MCP session caching."""
         # Try to get session ID from the component's execution context
         if hasattr(self, "graph") and hasattr(self.graph, "session_id"):
             session_id = self.graph.session_id

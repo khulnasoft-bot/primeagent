@@ -228,18 +228,18 @@ class ProgressIndicator:
 
 
 def create_primeagent_progress(*, verbose: bool = False) -> ProgressIndicator:
-    """Create a progress indicator with predefined Primeagent initialization steps."""
+    """Create a progress indicator with predefined PrimeAgent initialization steps."""
     progress = ProgressIndicator(verbose=verbose)
 
     # Define the initialization steps matching the order in main.py
     steps = [
-        ("Initializing Primeagent", "Setting up basic configuration"),
+        ("Initializing PrimeAgent", "Setting up basic configuration"),
         ("Checking Environment", "Loading environment variables and settings"),
         ("Starting Core Services", "Initializing database and core services"),
         ("Connecting Database", "Setting up database connection and migrations"),
         ("Loading Components", "Caching component types and custom components"),
         ("Adding Starter Projects", "Creating or updating starter project templates"),
-        ("Launching Primeagent", "Starting server and final setup"),
+        ("Launching PrimeAgent", "Starting server and final setup"),
     ]
 
     for title, description in steps:
@@ -249,7 +249,7 @@ def create_primeagent_progress(*, verbose: bool = False) -> ProgressIndicator:
 
 
 def create_primeagent_shutdown_progress(*, verbose: bool = False, multiple_workers: bool = False) -> ProgressIndicator:
-    """Create a progress indicator with predefined Primeagent shutdown steps."""
+    """Create a progress indicator with predefined PrimeAgent shutdown steps."""
     progress = ProgressIndicator(verbose=verbose)
 
     # Define the shutdown steps in reverse order of initialization

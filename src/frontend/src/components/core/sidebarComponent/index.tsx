@@ -57,7 +57,7 @@ const SideBarButtonsComponent = ({ items }: SideBarButtonsComponentProps) => {
                     >
                       {item.icon}
                       {/* A div, not a span: the menu button truncates its last
-                          span child, which cut "Chaves de API do Primeagent". */}
+                          span child, which cut "Chaves de API do PrimeAgent". */}
                       <div className="min-w-0 break-words leading-tight">
                         {item.title}
                       </div>

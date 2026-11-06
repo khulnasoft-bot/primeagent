@@ -290,7 +290,7 @@ def test_openai_reasoning_instantiation_omits_temperature_and_preserves_max_toke
     """OpenAI reasoning models keep the caller's explicit output limit.
 
     ChatOpenAI normalizes ``max_tokens`` to ``max_completion_tokens`` for
-    reasoning models, so Primeagent must forward the configured cap instead of
+    reasoning models, so PrimeAgent must forward the configured cap instead of
     silently discarding it.
     """
     from wfx.base.models import unified_models as unified_models_module

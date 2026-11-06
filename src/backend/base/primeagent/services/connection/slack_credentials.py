@@ -1,6 +1,6 @@
 """Rules for manually entered Slack credentials, and the app-level token in particular.
 
-Slack issues three kinds of token and Primeagent stores two of them manually:
+Slack issues three kinds of token and PrimeAgent stores two of them manually:
 
 * a **bot token** (``xoxb-``), which the "as app" actions call the Web API with -
   on Desktop, where there is no bot OAuth, it is pasted in;
@@ -49,7 +49,7 @@ _CHECK_FAILED = "Slack could not check the credential. Try again."
 
 
 class ManualCredentialError(ValueError):
-    """A manually entered credential that Primeagent will not store."""
+    """A manually entered credential that PrimeAgent will not store."""
 
 
 async def check_slack_web_token(access_token: str) -> list[str]:
@@ -128,7 +128,7 @@ def prepare_manual_credential(payload: ConnectionCreate, *, context: str) -> Con
 
     if context == "hosted":
         msg = (
-            "Slack app-level tokens are for Socket Mode, which hosted Primeagent does not offer: a Slack app "
+            "Slack app-level tokens are for Socket Mode, which hosted PrimeAgent does not offer: a Slack app "
             "listed in the Slack Marketplace cannot use it. Hosted Slack triggers receive events through the "
             "Events API instead."
         )

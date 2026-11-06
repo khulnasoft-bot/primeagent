@@ -15,11 +15,11 @@ To turn on audit logging, do the following:
 
 1. Set `PRIMEAGENT_AUDIT_ENABLED=true` in your `.env` file or environment.
 
-2. Restart Primeagent.
+2. Restart PrimeAgent.
 
-Primeagent saves a flow or project change and its event in the same database transaction. If the event cannot be saved, the change is rolled back.
+PrimeAgent saves a flow or project change and its event in the same database transaction. If the event cannot be saved, the change is rolled back.
 
-To stop recording, set `PRIMEAGENT_AUDIT_ENABLED=false` and restart Primeagent. Events already stored remain, and you can still read them.
+To stop recording, set `PRIMEAGENT_AUDIT_ENABLED=false` and restart PrimeAgent. Events already stored remain, and you can still read them.
 
 ## Configure how long to store events
 
@@ -27,14 +27,14 @@ By default, events are stored for 90 days.
 Cleanup deletes according to the event's time.
 Deleting a flow, project, user, or API key does not delete its associated events.
 
-To store events for a different amount of time, set `PRIMEAGENT_AUDIT_RETENTION_DAYS` and restart Primeagent.
+To store events for a different amount of time, set `PRIMEAGENT_AUDIT_RETENTION_DAYS` and restart PrimeAgent.
 Set it to `0` to store events indefinitely.
 
 Cleanup runs at startup and according to the interval set in [`PRIMEAGENT_AUTHZ_AUDIT_CLEANUP_INTERVAL`](./authorization#configure-authorization-environment-variables).
 
 ## Leave actions out of the log
 
-To leave an action out of future events, set `PRIMEAGENT_AUDIT_EXCLUDE_EVENTS` to a comma-separated list of actions to leave out, and then restart Primeagent. Names match the `action` field, for example:
+To leave an action out of future events, set `PRIMEAGENT_AUDIT_EXCLUDE_EVENTS` to a comma-separated list of actions to leave out, and then restart PrimeAgent. Names match the `action` field, for example:
 
 | Entry            | What is left out               |
 | ---------------- | ------------------------------ |
@@ -138,7 +138,7 @@ To narrow a read, add query parameters.
 | `flow_id` or `project_id` | One resource. Use `flow_id` on the flow endpoint and `project_id` on the project endpoint |
 | `operation`               | `create`, `replace`, `patch`, or `delete`                                                 |
 | `result`                  | `succeeded` or `failed`                                                                   |
-| `user_id`                 | The Primeagent account the request ran as                                                 |
+| `user_id`                 | The PrimeAgent account the request ran as                                                 |
 | `actor_type`              | How the request authenticated: `user`, `api_key`, `service`, `system`, or `unknown`       |
 | `actor_id`                | The account or credential id                                                              |
 | `request_id`              | The id shared by events from one HTTP request                                             |

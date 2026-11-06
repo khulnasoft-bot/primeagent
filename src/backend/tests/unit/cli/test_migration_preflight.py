@@ -34,10 +34,10 @@ from wfx.services.settings.constants import DEFAULT_SUPERUSER, LEGACY_DEFAULT_SU
 if TYPE_CHECKING:
     from pathlib import Path
 
-# The test database is at this Primeagent's head, which moves with every migration; PARENT is older than it.
+# The test database is at this PrimeAgent's head, which moves with every migration; PARENT is older than it.
 HEAD = script_directory().get_current_head()
 PARENT = "9d7e2a6c4b81"  # pragma: allowlist secret
-# The alembic head of Primeagent 1.12.0.
+# The alembic head of PrimeAgent 1.12.0.
 PRIMEAGENT_1_12_0 = "a3f8b1c9d7e2"  # pragma: allowlist secret
 # The revision that c3e1d5a7f902, which adds user.retired_at, revises: the last one that deletes the default superuser.
 BEFORE_RETIRED_AT = "f9d3b7a5c201"  # pragma: allowlist secret
@@ -114,7 +114,7 @@ def _current_key_as_fernet() -> str:
 
 
 def _current_key_as_token_urlsafe() -> str:
-    """The configured key written as Primeagent generates one, secrets.token_urlsafe(32): 43 characters."""
+    """The configured key written as PrimeAgent generates one, secrets.token_urlsafe(32): 43 characters."""
     return _current_key_as_fernet().rstrip("=")
 
 
@@ -208,7 +208,7 @@ class TestSourceThatCannotBeRead:
 
 
 class TestTargetVersion:
-    """Admins know the Primeagent version their target image runs, not its schema revision."""
+    """Admins know the PrimeAgent version their target image runs, not its schema revision."""
 
     async def test_a_target_on_this_version_passes(self, safe_superuser):  # noqa: ARG002
         check = _check(await run_preflight(target_version=SOURCE_VERSION), "version")
@@ -241,7 +241,7 @@ class TestTargetVersion:
         check = _check(await run_preflight(target_version=mistyped), "version")
 
         assert check.status == "fail"
-        assert "is not a Primeagent version" in check.summary
+        assert "is not a PrimeAgent version" in check.summary
 
     async def test_a_revision_is_exact_so_it_wins_over_a_version(self, safe_superuser):  # noqa: ARG002
         check = _check(await run_preflight(target_revision=PARENT, target_version="99.0.0"), "version")
@@ -269,7 +269,7 @@ class TestTargetVersion:
 
         version = json.loads(result.stdout.splitlines()[0])["check"]
         assert (version["name"], version["status"]) == ("version", "fail")
-        assert "Primeagent 0.0.1" in version["summary"]
+        assert "PrimeAgent 0.0.1" in version["summary"]
 
 
 class TestDefaultSuperuser:
@@ -323,14 +323,14 @@ class TestDefaultSuperuser:
 
     @pytest.mark.parametrize("target_revision", [BEFORE_RETIRED_AT, "0123456789ab"])
     async def test_a_target_not_known_to_keep_the_account_is_refused(self, owning_default_superuser, target_revision):  # noqa: ARG002
-        # A schema from before user.retired_at, and a revision this Primeagent does not know.
+        # A schema from before user.retired_at, and a revision this PrimeAgent does not know.
         check = _check(await run_preflight(target_revision=target_revision), "default superuser")
 
         assert check.status == "fail"
         assert "last_login_at = now()" in check.problems[-1]
 
     async def test_a_target_version_at_least_this_one_keeps_the_account(self, owning_default_superuser):  # noqa: ARG002
-        # A target at this version or newer holds this Primeagent's migrations, the one that keeps the account included.
+        # A target at this version or newer holds this PrimeAgent's migrations, the one that keeps the account included.
         check = _check(await run_preflight(target_version=SOURCE_VERSION), "default superuser")
 
         assert check.status == "ok"
@@ -356,7 +356,7 @@ class TestDefaultSuperuser:
         safe_superuser,  # noqa: ARG002
         monkeypatch,
     ):
-        # AUTO_LOGIN signs everyone in as this account, and its password can be one that Primeagent made. The
+        # AUTO_LOGIN signs everyone in as this account, and its password can be one that PrimeAgent made. The
         # target keeps the account with the password it has.
         monkeypatch.setattr(get_settings_service().auth_settings, "AUTO_LOGIN", True)
         # No password is given to the command, so none is known.
@@ -491,7 +491,7 @@ class TestTargetKey:
 
     async def test_a_default_key_file_ending_in_a_newline_is_refused(self, safe_superuser):
         # A Secret created from the file with --from-file carries the newline to the target. With
-        # Primeagent's default key shape, the key with it no longer makes a Fernet key at all.
+        # PrimeAgent's default key shape, the key with it no longer makes a Fernet key at all.
         await _add(
             Variable(
                 name=f"KEY_{uuid.uuid4().hex[:6]}",

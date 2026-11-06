@@ -299,7 +299,7 @@ if TYPE_CHECKING:
 
 
 class AuthService(BaseAuthService):
-    """Default Primeagent authentication service (implements WFX BaseAuthService)."""
+    """Default PrimeAgent authentication service (implements WFX BaseAuthService)."""
 
     name = ServiceType.AUTH_SERVICE.value
 
@@ -935,7 +935,7 @@ class AuthService(BaseAuthService):
         }
 
     async def get_or_create_user_from_claims(self, claims: dict, db: AsyncSession) -> User:
-        """Return the local Primeagent user mapped to these external claims.
+        """Return the local PrimeAgent user mapped to these external claims.
 
         Looks up SSOUserProfile by (provider, sso_user_id). On hit, refreshes
         the email + last-login timestamps and returns the existing user. On

@@ -1,40 +1,40 @@
 ---
-title: Build flows and components with Primeagent Assistant
+title: Build flows and components with PrimeAgent Assistant
 slug: /primeagent-assistant
 ---
 
 import Icon from "@site/src/components/icon";
 
-**Primeagent Assistant** is an in-app virtual assistant pane accessible from the canvas toolbar.
+**PrimeAgent Assistant** is an in-app virtual assistant pane accessible from the canvas toolbar.
 
-It can answer questions about the application and help you get more out of Primeagent.
+It can answer questions about the application and help you get more out of PrimeAgent.
 
-**Primeagent Assistant** understands the structure of the Primeagent graph, so it can build complete flows or create individual components from natural language prompts.
+**PrimeAgent Assistant** understands the structure of the PrimeAgent graph, so it can build complete flows or create individual components from natural language prompts.
 
-Behind the scenes, **Primeagent Assistant** runs a built-in Primeagent flow on your Primeagent server each time you send a message.
+Behind the scenes, **PrimeAgent Assistant** runs a built-in PrimeAgent flow on your PrimeAgent server each time you send a message.
 This flow is distinct from the flow that is open in the canvas, and has its own language model.
-The language model in **Primeagent Assistant** only has the currently opened flow in your workspace for context.
-To give **Primeagent Assistant** context for a different flow, switch to that flow in your workspace, and open **Primeagent Assistant**.
+The language model in **PrimeAgent Assistant** only has the currently opened flow in your workspace for context.
+To give **PrimeAgent Assistant** context for a different flow, switch to that flow in your workspace, and open **PrimeAgent Assistant**.
 
 ## Prerequisites
 
-- Connect an LLM provider in the [Global model providers page](/components-models) for **Primeagent Assistant** to use
+- Connect an LLM provider in the [Global model providers page](/components-models) for **PrimeAgent Assistant** to use
 - Custom component creation must be enabled and permitted for your user role:
   - `PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS` must be `true` (default).
   - `PRIMEAGENT_CUSTOM_COMPONENT_ADMIN_ONLY` must be `false` (default) for non-superusers. For superusers, this option is irrelevant.
 
   For more information, see [Restrict custom component creation to superusers](/deployment-block-custom-components).
 
-## Create a custom component with Primeagent Assistant
+## Create a custom component with PrimeAgent Assistant
 
-In this example, you'll prompt **Primeagent Assistant** to create a custom component that validates and normalizes a list of URLs.
+In this example, you'll prompt **PrimeAgent Assistant** to create a custom component that validates and normalizes a list of URLs.
 
 You'll then iterate on the code based on the results in the **Playground**.
 
-1. In the canvas toolbar, click the <Icon name="Primeagent" aria-hidden="true"/> **Primeagent** icon.
-   The **Primeagent Assistant** pane opens.
-2. Optionally, ask `What can you help me with?` for a list of **Primeagent Assistant's** capabilities.
-3. Prompt **Primeagent Assistant** to generate a custom component. For example:
+1. In the canvas toolbar, click the <Icon name="PrimeAgent" aria-hidden="true"/> **PrimeAgent** icon.
+   The **PrimeAgent Assistant** pane opens.
+2. Optionally, ask `What can you help me with?` for a list of **PrimeAgent Assistant's** capabilities.
+3. Prompt **PrimeAgent Assistant** to generate a custom component. For example:
 
    ```
    Create a custom component URLTitleExtractor with:
@@ -44,7 +44,7 @@ You'll then iterate on the code based on the results in the **Playground**.
    clean docstring and typed methods.”
    ```
 
-4. **Primeagent Assistant** generates component code from your prompt. Because generation is model-driven, your code may differ from the example below.
+4. **PrimeAgent Assistant** generates component code from your prompt. Because generation is model-driven, your code may differ from the example below.
 
    <details closed>
 <summary>Python component code</summary>
@@ -123,7 +123,7 @@ You'll then iterate on the code based on the results in the **Playground**.
            request = Request(
                url,
                headers={
-                   "User-Agent": "Mozilla/5.0 (compatible; Primeagent URLTitleExtractor/1.0)"
+                   "User-Agent": "Mozilla/5.0 (compatible; PrimeAgent URLTitleExtractor/1.0)"
                },
            )
 
@@ -190,7 +190,7 @@ You'll then iterate on the code based on the results in the **Playground**.
 
    ![A custom URL Title Extractor component connected to a chat input and chat output](/img/lf-assistant-flow.png)
 
-6. Open the **Playground**, and tell Primeagent to check a list of URLs.
+6. Open the **Playground**, and tell PrimeAgent to check a list of URLs.
    For example:
    ```
    Check these links: https://prime.khulnasoft.com
@@ -203,15 +203,15 @@ You'll then iterate on the code based on the results in the **Playground**.
 
    | url                                                  | title                                                                                                                                  | status |
    | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-   | https://prime.khulnasoft.com                         | Primeagent \| Low-code AI builder for agentic and RAG applications                                                                     | 200    |
-   | https://github.com/khulnasoft-bot/primeagent         | GitHub - khulnasoft-bot/primeagent: Primeagent is a powerful tool for building and deploying AI-powered agents and workflows. - GitHub | 200    |
+   | https://prime.khulnasoft.com                         | PrimeAgent \| Low-code AI builder for agentic and RAG applications                                                                     | 200    |
+   | https://github.com/khulnasoft-bot/primeagent         | GitHub - khulnasoft-bot/primeagent: PrimeAgent is a powerful tool for building and deploying AI-powered agents and workflows. - GitHub | 200    |
    | https://python.org                                   | Welcome to Python.org                                                                                                                  | 200    |
    | https://this-domain-should-not-resolve-12345.invalid |                                                                                                                                        |        |
 
-8. To iterate further, tell **Primeagent Assistant** what you want.
+8. To iterate further, tell **PrimeAgent Assistant** what you want.
    For example, prompt it to `Update URLTitleExtractor to add max_urls (default 5) and skip duplicates.`.
 
-   **Primeagent Assistant** generates an updated **URLTitleExtractor** component (again, the exact code may differ from a previous run).
+   **PrimeAgent Assistant** generates an updated **URLTitleExtractor** component (again, the exact code may differ from a previous run).
 
 9. Replace the old component with the new component.
    Set **max_urls** to `3`.
@@ -230,33 +230,33 @@ You'll then iterate on the code based on the results in the **Playground**.
 
     | url                                          | title                                                                                                                                  | status |
     | -------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------ |
-    | https://prime.khulnasoft.com                 | Primeagent \| Low-code AI builder for agentic and RAG applications                                                                     | 200    |
-    | https://github.com/khulnasoft-bot/primeagent | GitHub - khulnasoft-bot/primeagent: Primeagent is a powerful tool for building and deploying AI-powered agents and workflows. - GitHub | 200    |
+    | https://prime.khulnasoft.com                 | PrimeAgent \| Low-code AI builder for agentic and RAG applications                                                                     | 200    |
+    | https://github.com/khulnasoft-bot/primeagent | GitHub - khulnasoft-bot/primeagent: PrimeAgent is a powerful tool for building and deploying AI-powered agents and workflows. - GitHub | 200    |
     | https://python.org                           | Welcome to Python.org                                                                                                                  | 200    |
 
-## Build an agent flow with Primeagent Assistant
+## Build an agent flow with PrimeAgent Assistant
 
 :::warning
-Building a flow reads and writes the entire Primeagent graph on every turn, which can use significantly more tokens than single-component generation.
+Building a flow reads and writes the entire PrimeAgent graph on every turn, which can use significantly more tokens than single-component generation.
 :::
 
-In addition to generating individual components, **Primeagent Assistant** can create a flow from a single prompt.
+In addition to generating individual components, **PrimeAgent Assistant** can create a flow from a single prompt.
 
-Continuing from the [Create a custom component with Primeagent Assistant](#create-a-custom-component-with-primeagent-assistant) example, ask **Primeagent Assistant** to build a simple agent flow that uses the **URLTitleExtractor** custom component as a tool.
+Continuing from the [Create a custom component with PrimeAgent Assistant](#create-a-custom-component-with-primeagent-assistant) example, ask **PrimeAgent Assistant** to build a simple agent flow that uses the **URLTitleExtractor** custom component as a tool.
 
-1. With the **URLTitleExtractor** component still on the canvas, open **Primeagent Assistant** and prompt it to build the agent flow:
+1. With the **URLTitleExtractor** component still on the canvas, open **PrimeAgent Assistant** and prompt it to build the agent flow:
 
    ```
    Build a simple agent flow using the URLTitleExtractor custom component as a tool.
    ```
 
-2. Primeagent Assistant presents a diagram of the flow it is proposing.
+2. PrimeAgent Assistant presents a diagram of the flow it is proposing.
    To approve, click **Add to Canvas**.
 
-   **Primeagent Assistant** adds an **Agent** component, connects the **URLTitleExtractor** to its **Tools** input, and connects **Chat Input** and **Chat Output** to complete the flow.
+   **PrimeAgent Assistant** adds an **Agent** component, connects the **URLTitleExtractor** to its **Tools** input, and connects **Chat Input** and **Chat Output** to complete the flow.
    Flow generation is model-driven, so the exact wiring may differ from this example.
 
-3. To iterate, describe changes to **Primeagent Assistant**, and then click **Replace canvas** to replace the entire flow currently on the canvas. For example:
+3. To iterate, describe changes to **PrimeAgent Assistant**, and then click **Replace canvas** to replace the entire flow currently on the canvas. For example:
    ```
    Connect the URLTitleExtractor component's Toolset port to the Agent's Tools port.
    ```
@@ -268,18 +268,18 @@ Continuing from the [Create a custom component with Primeagent Assistant](#creat
 
    The agent uses the **URLTitleExtractor** tool to fetch the page and return the title.
 
-5. **Primeagent Assistant** can further iterate on the flow, or answer questions about Primeagent.
-   For example, ask Primeagent Assistant `How do I send an API request to chat with this flow in Python?`
-   The response includes a request sourced from the Primeagent documentation that you can copy and paste into your application.
+5. **PrimeAgent Assistant** can further iterate on the flow, or answer questions about PrimeAgent.
+   For example, ask PrimeAgent Assistant `How do I send an API request to chat with this flow in Python?`
+   The response includes a request sourced from the PrimeAgent documentation that you can copy and paste into your application.
 
 ## Reference canvas components in your prompts
 
-Reference components and their fields directly in a **Primeagent Assistant** prompt using the `@` and `.` selectors.
+Reference components and their fields directly in a **PrimeAgent Assistant** prompt using the `@` and `.` selectors.
 
-In the **Primeagent Assistant** prompt input, enter `@` to list all available components, and then select a component to insert its reference.
+In the **PrimeAgent Assistant** prompt input, enter `@` to list all available components, and then select a component to insert its reference.
 To select a specific field within a component, enter `.` after the component.
 
-For example, to prompt **Primeagent Assistant** to update the system prompt field on an Agent component, enter the following:
+For example, to prompt **PrimeAgent Assistant** to update the system prompt field on an Agent component, enter the following:
 
 ```
 Update @Agent.System Prompt to always respond in bullet points.
@@ -289,4 +289,4 @@ Update @Agent.System Prompt to always respond in bullet points.
 
 - [Build flows](/concepts-flows)
 - [Custom components](/components-custom-components)
-- [Trigger flows with the Primeagent API](/concepts-publish)
+- [Trigger flows with the PrimeAgent API](/concepts-publish)

@@ -158,7 +158,7 @@ async def test_mcp_sse_get_endpoint_invalid_auth(client: AsyncClient):
 
 
 async def test_mcp_sse_get_binds_authenticated_user_to_transport(mock_user, mock_mcp_server):
-    """The SSE transport must record the authenticated Primeagent user as the session owner."""
+    """The SSE transport must record the authenticated PrimeAgent user as the session owner."""
     from primeagent.api.v1.mcp import handle_sse
     from starlette.requests import Request
 

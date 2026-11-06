@@ -13,12 +13,12 @@ module.exports = {
         {
           type: "doc",
           id: "Get-Started/about-primeagent",
-          label: "About Primeagent",
+          label: "About PrimeAgent",
         },
         {
           type: "doc",
           id: "Get-Started/get-started-installation",
-          label: "Install Primeagent",
+          label: "Install PrimeAgent",
         },
         {
           type: "doc",
@@ -64,7 +64,7 @@ module.exports = {
             {
               type: "doc",
               id: "Flows/concepts-publish",
-              label: "Trigger flows with the Primeagent API",
+              label: "Trigger flows with the PrimeAgent API",
             },
             {
               type: "doc",
@@ -91,7 +91,7 @@ module.exports = {
         {
           type: "doc",
           id: "Flows/primeagent-assistant",
-          label: "Build flows and components with Primeagent Assistant",
+          label: "Build flows and components with PrimeAgent Assistant",
         },
       ],
     },
@@ -204,7 +204,7 @@ module.exports = {
         {
           type: "doc",
           id: "Develop/data-types",
-          label: "Use Primeagent data types",
+          label: "Use PrimeAgent data types",
         },
         {
           type: "doc",
@@ -214,7 +214,7 @@ module.exports = {
         {
           type: "doc",
           id: "Develop/configuration-cli",
-          label: "Use the Primeagent CLI",
+          label: "Use the PrimeAgent CLI",
         },
       ],
     },
@@ -226,7 +226,7 @@ module.exports = {
         {
           type: "doc",
           id: "Deployment/deployment-overview",
-          label: "Primeagent deployment overview",
+          label: "PrimeAgent deployment overview",
         },
         {
           type: "doc",
@@ -236,12 +236,12 @@ module.exports = {
         {
           type: "doc",
           id: "Deployment/deployment-public-server",
-          label: "Deploy a public Primeagent server",
+          label: "Deploy a public PrimeAgent server",
         },
         {
           type: "doc",
           id: "Deployment/deployment-nginx-ssl",
-          label: "Deploy Primeagent with Nginx and SSL",
+          label: "Deploy PrimeAgent with Nginx and SSL",
         },
         {
           type: "doc",
@@ -256,12 +256,12 @@ module.exports = {
             {
               type: "doc",
               id: "Deployment/deployment-docker",
-              label: "Primeagent Docker images",
+              label: "PrimeAgent Docker images",
             },
             {
               type: "doc",
               id: "Deployment/docker-image-profiles",
-              label: "Choose a Primeagent image",
+              label: "Choose a PrimeAgent image",
             },
             {
               type: "doc",
@@ -271,7 +271,7 @@ module.exports = {
             {
               type: "doc",
               id: "Deployment/deployment-caddyfile",
-              label: "Deploy Primeagent on a remote server",
+              label: "Deploy PrimeAgent on a remote server",
             },
             {
               type: "category",
@@ -330,12 +330,12 @@ module.exports = {
         {
           type: "doc",
           id: "Deployment/deployment-multi-worker",
-          label: "Deploy Primeagent with multiple workers",
+          label: "Deploy PrimeAgent with multiple workers",
         },
         {
           type: "doc",
           id: "Deployment/deployment-trigger-listeners",
-          label: "Deploy Primeagent trigger listeners",
+          label: "Deploy PrimeAgent trigger listeners",
         },
         {
           type: "doc",
@@ -412,7 +412,7 @@ module.exports = {
         {
           type: "doc",
           id: "Wfx/wfx-compatibility",
-          label: "WFX and Primeagent version compatibility",
+          label: "WFX and PrimeAgent version compatibility",
         },
       ],
     },
@@ -627,7 +627,7 @@ module.exports = {
         {
           type: "doc",
           id: "API-Reference/api-reference-api-examples",
-          label: "Get started with the Primeagent API",
+          label: "Get started with the PrimeAgent API",
         },
         {
           type: "doc",
@@ -658,7 +658,7 @@ module.exports = {
         "API-Reference/api-governance-policy",
         {
           type: "link",
-          label: "Primeagent API specification",
+          label: "PrimeAgent API specification",
           href: "/api",
         },
       ],
@@ -704,7 +704,7 @@ module.exports = {
         {
           type: "doc",
           id: "Support/luna-for-primeagent",
-          label: "IBM Elite Support for Primeagent",
+          label: "IBM Elite Support for PrimeAgent",
         },
         {
           type: "doc",
@@ -730,7 +730,7 @@ module.exports = {
           </svg>
           <div class="sidebar-ad-text-container">
             <span class="sidebar-ad-text">Get started in minutes</span>
-            <span class="sidebar-ad-text sidebar-ad-text-gradient">Download Primeagent Desktop</span>
+            <span class="sidebar-ad-text sidebar-ad-text-gradient">Download PrimeAgent Desktop</span>
           </div>
         </a>
       `,

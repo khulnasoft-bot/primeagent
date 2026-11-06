@@ -32,7 +32,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# If PORT is already taken, Primeagent may bind to PORT+1 while this script still uses PORT for
+# If PORT is already taken, PrimeAgent may bind to PORT+1 while this script still uses PORT for
 # curl and examples — you then hit the wrong server (e.g. 403 on /api/v2/workflows without dev API).
 port_is_in_use() {
   local host="$1" port="$2"
@@ -74,13 +74,13 @@ if port_is_in_use "$HOST" "$PORT"; then
   echo "Port $REQUESTED_PORT was in use; using $PORT for this run (set PRIMEAGENT_PORT to pin a port)."
 fi
 
-echo "Starting Primeagent on http://$HOST:$PORT (developer API enabled for /api/v2/workflows)"
+echo "Starting PrimeAgent on http://$HOST:$PORT (developer API enabled for /api/v2/workflows)"
 # Set on the command line so the server process always sees it (macOS launcher/exec paths).
 PRIMEAGENT_DEVELOPER_API_ENABLED=true uv run primeagent run --backend-only --host "$HOST" --port "$PORT" >/tmp/primeagent-server.log 2>&1 &
 echo $! >/tmp/primeagent-server.pid
 
-echo "Waiting for Primeagent readiness (DB + services via /health_check)..."
-# /health can respond before the Primeagent app is fully up (uvicorn default).
+echo "Waiting for PrimeAgent readiness (DB + services via /health_check)..."
+# /health can respond before the PrimeAgent app is fully up (uvicorn default).
 for _ in {1..60}; do
   if curl -sf "http://$HOST:$PORT/health_check" >/dev/null; then
     break
@@ -89,7 +89,7 @@ for _ in {1..60}; do
 done
 
 if ! curl -sf "http://$HOST:$PORT/health_check" >/dev/null; then
-  echo "Primeagent did not become ready in time."
+  echo "PrimeAgent did not become ready in time."
   echo "See /tmp/primeagent-server.log for details."
   exit 1
 fi

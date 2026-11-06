@@ -17,7 +17,7 @@ from wfx.services.settings.auth import AuthSettings
 
 @pytest.fixture
 def primeagent_auth_service(tmp_path):
-    """Use Primeagent AuthService for encrypt/decrypt so tests get real Fernet behavior."""
+    """Use PrimeAgent AuthService for encrypt/decrypt so tests get real Fernet behavior."""
     settings = AuthSettings(CONFIG_DIR=str(tmp_path))
     settings.SECRET_KEY = SecretStr("unit-test-secret-for-encryption")
     settings_service = SimpleNamespace(
@@ -29,7 +29,7 @@ def primeagent_auth_service(tmp_path):
 
 @pytest.fixture(autouse=True)
 def use_primeagent_auth_for_encryption(primeagent_auth_service):
-    """Ensure utils use Primeagent AuthService (real encrypt/decrypt), not WFX stub."""
+    """Ensure utils use PrimeAgent AuthService (real encrypt/decrypt), not WFX stub."""
     with patch("primeagent.services.auth.utils.get_auth_service", return_value=primeagent_auth_service):
         yield
 

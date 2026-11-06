@@ -49,7 +49,7 @@ def _saved_flow_node(node_id: str, type_value: str) -> dict:
 
 
 def _saved_flow(*nodes: dict) -> dict:
-    """Wrap nodes in the canonical Primeagent flow envelope."""
+    """Wrap nodes in the canonical PrimeAgent flow envelope."""
     return {"data": {"nodes": list(nodes), "edges": []}}
 
 

@@ -208,7 +208,7 @@ class TestKnowledgeIngestionComponent(ComponentTestBaseWithClient):
         """A Vectorize cell typed as ``"true"`` contributes to page content instead of flat metadata."""
         data_df = DataFrame(
             {
-                "question": ["What is Primeagent?"],
+                "question": ["What is PrimeAgent?"],
                 "answer": ["A visual framework for building AI workflows"],
                 "category": ["general"],
                 "language": ["en"],
@@ -230,12 +230,12 @@ class TestKnowledgeIngestionComponent(ComponentTestBaseWithClient):
             "vectorized_columns": ["question", "answer"],
             "identifier_columns": ["question"],
         }
-        assert data_obj.data["text"] == "What is Primeagent? A visual framework for building AI workflows"
+        assert data_obj.data["text"] == "What is PrimeAgent? A visual framework for building AI workflows"
         assert "answer" not in data_obj.data
         assert data_obj.data["category"] == "general"
         assert data_obj.data["language"] == "en"
         # The identifier column alone keys the row.
-        assert data_obj.data["_id"] == hashlib.sha256(b"What is Primeagent?").hexdigest()
+        assert data_obj.data["_id"] == hashlib.sha256(b"What is PrimeAgent?").hexdigest()
 
     @patch("wfx.components.files_and_knowledge.knowledge.get_embeddings")
     async def test_new_kb_record_persists_boolean_column_flags(

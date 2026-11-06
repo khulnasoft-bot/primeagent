@@ -63,7 +63,7 @@ jobs:
           mkdir -p migration-test
           cd migration-test
 
-      - name: Install latest stable Primeagent with PostgreSQL
+      - name: Install latest stable PrimeAgent with PostgreSQL
         working-directory: migration-test
         run: |
           echo "Installing latest stable primeagent[postgresql]..."
@@ -72,7 +72,7 @@ jobs:
           uv pip install "primeagent[postgresql]"
 
           # Verify installation
-          python -c 'from importlib.metadata import version; print("Installed Primeagent version:", version("primeagent"))'
+          python -c 'from importlib.metadata import version; print("Installed PrimeAgent version:", version("primeagent"))'
 
       - name: Initialize database with stable version
         working-directory: migration-test
@@ -81,7 +81,7 @@ jobs:
         run: |
           source .venv/bin/activate
 
-          echo "Starting Primeagent to initialize database..."
+          echo "Starting PrimeAgent to initialize database..."
           # shellcheck disable=SC2016
           timeout 120 bash -c '
             python -m primeagent run --host 127.0.0.1 --port 7860 --backend-only &
@@ -92,7 +92,7 @@ jobs:
             kill $PRIMEAGENT_PID
             wait $PRIMEAGENT_PID 2>/dev/null || true
           ' || {
-            echo "Failed to start Primeagent stable version"
+            echo "Failed to start PrimeAgent stable version"
             exit 1
           }
 
@@ -105,7 +105,7 @@ jobs:
         run: |
           source .venv/bin/activate
 
-          # Start Primeagent briefly to create test data
+          # Start PrimeAgent briefly to create test data
           python -m primeagent run --host 127.0.0.1 --port 7860 --backend-only &
           PRIMEAGENT_PID=$!
 
@@ -151,7 +151,7 @@ jobs:
           fi
           echo "✅ Witness credential created successfully"
 
-          # Stop Primeagent
+          # Stop PrimeAgent
           kill $PRIMEAGENT_PID
           wait $PRIMEAGENT_PID 2>/dev/null || true
 
@@ -207,7 +207,7 @@ jobs:
           fi
 
           # Verify upgrade
-          python -c 'from importlib.metadata import version; print("Upgraded to Primeagent Nightly version:", version("primeagent"))'
+          python -c 'from importlib.metadata import version; print("Upgraded to PrimeAgent Nightly version:", version("primeagent"))'
 
       - name: Run migration and verify startup
         working-directory: migration-test
@@ -216,7 +216,7 @@ jobs:
         run: |
           source .venv/bin/activate
 
-          echo "Starting Primeagent nightly to run migrations..."
+          echo "Starting PrimeAgent nightly to run migrations..."
           # shellcheck disable=SC2016
           timeout 180 bash -c '
             python -m primeagent run --host 127.0.0.1 --port 7860 --backend-only > primeagent_nightly.log 2>&1 &
@@ -224,18 +224,18 @@ jobs:
 
             until curl -f http://127.0.0.1:7860/health_check 2>/dev/null; do
               if ! kill -0 $PRIMEAGENT_PID 2>/dev/null; then
-                echo "Primeagent process died during startup"
+                echo "PrimeAgent process died during startup"
                 cat primeagent_nightly.log
                 exit 1
               fi
               sleep 2
             done
 
-            echo "Primeagent nightly started successfully"
+            echo "PrimeAgent nightly started successfully"
             kill $PRIMEAGENT_PID
             wait $PRIMEAGENT_PID 2>/dev/null || true
           ' || {
-            echo "Failed to start Primeagent nightly version"
+            echo "Failed to start PrimeAgent nightly version"
             cat primeagent_nightly.log || true
             exit 1
           }
@@ -247,7 +247,7 @@ jobs:
         run: |
           source .venv/bin/activate
 
-          # Start Primeagent to query data
+          # Start PrimeAgent to query data
           python -m primeagent run --host 127.0.0.1 --port 7860 --backend-only &
           PRIMEAGENT_PID=$!
 
@@ -362,20 +362,20 @@ jobs:
             primeagent_postgres_data:
           EOF
 
-      - name: Start stable Primeagent with Docker Compose
+      - name: Start stable PrimeAgent with Docker Compose
         working-directory: docker-migration-test
         run: |
-          echo "Starting Primeagent stable version..."
+          echo "Starting PrimeAgent stable version..."
           docker compose up -d
 
-          echo "Waiting for Primeagent to be healthy..."
+          echo "Waiting for PrimeAgent to be healthy..."
           timeout 180 bash -c 'until docker compose exec -T primeagent curl -f http://localhost:7860/health_check 2>/dev/null; do sleep 5; done' || {
-            echo "Primeagent stable failed to start"
+            echo "PrimeAgent stable failed to start"
             docker compose logs
             exit 1
           }
 
-          echo "Primeagent stable is running"
+          echo "PrimeAgent stable is running"
 
       - name: Create witness flow via API
         working-directory: docker-migration-test
@@ -418,10 +418,10 @@ jobs:
           fi
           echo "✅ Witness credential created successfully"
 
-      - name: Stop stable Primeagent (keep PostgreSQL volume)
+      - name: Stop stable PrimeAgent (keep PostgreSQL volume)
         working-directory: docker-migration-test
         run: |
-          echo "Stopping Primeagent stable..."
+          echo "Stopping PrimeAgent stable..."
           docker compose stop primeagent
           docker compose rm -f primeagent
 
@@ -443,20 +443,20 @@ jobs:
 
           cat docker-compose.yml
 
-      - name: Start nightly Primeagent with same PostgreSQL volume
+      - name: Start nightly PrimeAgent with same PostgreSQL volume
         working-directory: docker-migration-test
         run: |
-          echo "Starting Primeagent nightly version..."
+          echo "Starting PrimeAgent nightly version..."
           docker compose up -d primeagent
 
-          echo "Waiting for Primeagent nightly to be healthy..."
+          echo "Waiting for PrimeAgent nightly to be healthy..."
           timeout 180 bash -c 'until docker compose exec -T primeagent curl -f http://localhost:7860/health_check 2>/dev/null; do sleep 5; done' || {
-            echo "Primeagent nightly failed to start"
+            echo "PrimeAgent nightly failed to start"
             docker compose logs primeagent
             exit 1
           }
 
-          echo "Primeagent nightly started successfully"
+          echo "PrimeAgent nightly started successfully"
 
       - name: Verify witness data persisted
         working-directory: docker-migration-test

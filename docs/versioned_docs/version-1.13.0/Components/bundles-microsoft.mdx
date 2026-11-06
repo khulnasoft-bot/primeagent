@@ -10,18 +10,18 @@ import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-ins
 
 <Icon name="Blocks" aria-hidden="true" />
 [**Bundles**](/components-bundle-components) contain custom components that
-support specific third-party integrations with Primeagent.
+support specific third-party integrations with PrimeAgent.
 
 This page describes the components available in the **Microsoft 365** bundle.
 Every component calls [Microsoft Graph](https://learn.microsoft.com/en-us/graph/overview) v1.0 with **delegated** permissions, acting as the signed-in user. Application (app-only) permissions are not used by any component in this bundle.
 
 ## Connect a Microsoft account
 
-Each component has a **Microsoft Connection** field that holds a portable connection handle such as `microsoft/work`. The handle is not a credential: it names a connection that the Primeagent server resolves to a short-lived Graph access token at run time, and it is safe to keep in an exported flow.
+Each component has a **Microsoft Connection** field that holds a portable connection handle such as `microsoft/work`. The handle is not a credential: it names a connection that the PrimeAgent server resolves to a short-lived Graph access token at run time, and it is safe to keep in an exported flow.
 
 Before a component can run:
 
-1. An operator registers a Microsoft Entra application with Primeagent. See [Configure Primeagent for Microsoft Entra](./entra-app-registration) and [Configure connection OAuth](./connection-oauth).
+1. An operator registers a Microsoft Entra application with PrimeAgent. See [Configure PrimeAgent for Microsoft Entra](./entra-app-registration) and [Configure connection OAuth](./connection-oauth).
 2. A user connects their Microsoft account in **Settings**, granting the delegated permissions the selected actions need. See [Connections](./connections).
 3. The user selects that connection in the component's **Microsoft Connection** field.
 
@@ -49,9 +49,9 @@ Add **Outlook: On Message**, **Outlook: On Calendar Event**, or **OneDrive or Sh
 | Outlook: On Calendar Event      | `Calendars.Read`                                                                           | Events in a rolling calendar window                         |
 | OneDrive or SharePoint: On File | `Files.Read`; add `Files.Read.All` and `Sites.Read.All` when **SharePoint Site ID** is set | Files in the owner's drive or selected site's default drive |
 
-In advanced **Delivery Mode**, `auto` chooses a Graph notification subscription when ingress is enabled and the OAuth registration advertises a public HTTPS callback; otherwise it uses Graph delta polling. Select `poll` to use a listener even when ingress is enabled, or `push` to require push configuration. Hosted deployments require push. Notifications only wake a delta scan; the Flow receives the changed item. Primeagent stores the item version and delta cursor together, renews subscriptions, and schedules backup scans after five minutes to recover missed notifications. Backlog and provider delays can extend this interval. Enabling starts from the current state, so existing items do not fire the Flow.
+In advanced **Delivery Mode**, `auto` chooses a Graph notification subscription when ingress is enabled and the OAuth registration advertises a public HTTPS callback; otherwise it uses Graph delta polling. Select `poll` to use a listener even when ingress is enabled, or `push` to require push configuration. Hosted deployments require push. Notifications only wake a delta scan; the Flow receives the changed item. PrimeAgent stores the item version and delta cursor together, renews subscriptions, and schedules backup scans after five minutes to recover missed notifications. Backlog and provider delays can extend this interval. Enabling starts from the current state, so existing items do not fire the Flow.
 
-The Graph subscription callback uses the public origin of the connection's OAuth registration. That registration must have an HTTPS redirect URI reachable by Graph. `GET /api/v1/triggers/{trigger_id}/ingress` shows the exact callback after saving a configured push source, before enabling it. If Graph expires a delta cursor, Primeagent compares a fresh snapshot with stored item versions before resuming.
+The Graph subscription callback uses the public origin of the connection's OAuth registration. That registration must have an HTTPS redirect URI reachable by Graph. `GET /api/v1/triggers/{trigger_id}/ingress` shows the exact callback after saving a configured push source, before enabling it. If Graph expires a delta cursor, PrimeAgent compares a fresh snapshot with stored item versions before resuming.
 
 ## Components
 
@@ -137,14 +137,14 @@ Fetches one file's metadata and content through `GET .../content`.
 
 **Max Bytes** must be positive and is capped at 25 MiB. The component checks one extra byte so **truncated** is true only when bytes were discarded.
 
-Graph answers a content request with a redirect to a short-lived, preauthenticated download URL. Primeagent follows that redirect without the access token and never returns, stores, or logs the URL, because the URL is itself a credential for anyone who holds it.
+Graph answers a content request with a redirect to a short-lived, preauthenticated download URL. PrimeAgent follows that redirect without the access token and never returns, stores, or logs the URL, because the URL is itself a credential for anyone who holds it.
 
 ## Knowledge base ingestion
 
 The same Microsoft connection also backs two knowledge-base ingestion sources,
 **OneDrive** and **SharePoint**. They appear in the knowledge base's connector
 picker and take the connection handle in their `connection` setting rather than
-a refresh token stored in a Primeagent variable.
+a refresh token stored in a PrimeAgent variable.
 
 | Setting                   | OneDrive                                   | SharePoint                            |
 | ------------------------- | ------------------------------------------ | ------------------------------------- |
@@ -160,7 +160,7 @@ Permissions follow the configuration: the signed-in user's own OneDrive needs
 site library needs `Sites.Read.All`.
 
 Ingestion runs in the background, detached from the request that started it, so
-Primeagent resolves the connection as a **non-interactive job owner**. A
+PrimeAgent resolves the connection as a **non-interactive job owner**. A
 connection that has not been marked as usable without an interactive user is
 refused before any Graph call is made, and the run fails with a
 connection-not-authorized error rather than silently ingesting nothing.

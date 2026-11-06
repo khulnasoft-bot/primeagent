@@ -1,4 +1,4 @@
 self-hosted-runner:
   labels:
     - khulnasoft-bot-arm64-40gb-ephemeral
-    - Primeagent-runner
+    - PrimeAgent-runner

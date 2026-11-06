@@ -16,7 +16,7 @@ KB sources adopt the contract in 1.13 or stay on their bring-your-own-refresh-to
 
 | # | Fact | Source | Verified on | Confidence |
 |---|------|--------|-------------|------------|
-| 1 | `OAuthConnectorBase(KBConnectorSource)` at `connector_base.py:140` resolves client id, client secret, and refresh token from three Primeagent variables and exchanges the refresh token itself; access tokens are cached in-process with a 60 s margin | repo, `src/wfx/src/wfx/base/knowledge_bases/ingestion_sources/connector_base.py` | 2026-09-01 | high |
+| 1 | `OAuthConnectorBase(KBConnectorSource)` at `connector_base.py:140` resolves client id, client secret, and refresh token from three PrimeAgent variables and exchanges the refresh token itself; access tokens are cached in-process with a 60 s margin | repo, `src/wfx/src/wfx/base/knowledge_bases/ingestion_sources/connector_base.py` | 2026-09-01 | high |
 | 2 | The module docstring records the deferral: "No shared OAuth plumbing here: Phase 3B+ adds a dedicated OAuthConnectorBase subclass with token-refresh logic once the first OAuth provider lands" | same file, lines 1-25 | 2026-09-01 | high |
 | 3 | `google_drive.py`, `onedrive.py`, `sharepoint.py`, `microsoft_graph.py` raise `NotImplementedError` and are not registered; `__init__.py` registers only `FILE_UPLOAD` and `FOLDER` | same directory | 2026-09-01 | high |
 | 4 | KB ingestion runs as a background job whose executing identity is the job owner, so a connection used by ingestion is resolved non-interactively | `scripts/ci/execution_principal_matrix.json` (workflow_hitl_v2 and deployments families) and `connection-contract.md` section 4 | 2026-09-01 | medium |

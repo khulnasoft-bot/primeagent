@@ -1,6 +1,6 @@
 """wfx-firecrawl: Firecrawl bundle.
 
-Distribution unit ``wfx-firecrawl``.  At runtime Primeagent's loader
+Distribution unit ``wfx-firecrawl``.  At runtime PrimeAgent's loader
 discovers ``extension.json`` shipped alongside this ``__init__.py`` and
 registers the bundle's components under the namespaced IDs
 ``ext:firecrawl:<Class>@official``.

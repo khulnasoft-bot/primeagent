@@ -139,11 +139,11 @@ export const useGetFolder: useQueryFunctionType<
 
 ### Important: Some "get" Hooks Use Mutation
 
-In the Primeagent codebase, some hooks named `use-get-*` (e.g., `useGetFlow`) are actually **mutation hooks** typed with `useMutationFunctionType`. This happens when the "get" operation is triggered imperatively (on demand) rather than declaratively (on mount/re-render). Check the actual type signature before following the query pattern — if a hook uses `mutate` from `UseRequestProcessor`, follow the Mutation Hook Structure below instead.
+In the PrimeAgent codebase, some hooks named `use-get-*` (e.g., `useGetFlow`) are actually **mutation hooks** typed with `useMutationFunctionType`. This happens when the "get" operation is triggered imperatively (on demand) rather than declaratively (on mount/re-render). Check the actual type signature before following the query pattern — if a hook uses `mutate` from `UseRequestProcessor`, follow the Mutation Hook Structure below instead.
 
 ### Query Hook with Store Updates
 
-Many Primeagent queries update Zustand stores as a side effect within the query function:
+Many PrimeAgent queries update Zustand stores as a side effect within the query function:
 
 ```typescript
 export const useGetGlobalVariables: useQueryFunctionType<
@@ -330,7 +330,7 @@ When adding new endpoints, add the constant to `URLs` first, then use `getURL()`
 
 ## Query Keys
 
-Query keys are arrays that uniquely identify cached data. Primeagent conventions:
+Query keys are arrays that uniquely identify cached data. PrimeAgent conventions:
 
 ```typescript
 // Hook name as key (no params)

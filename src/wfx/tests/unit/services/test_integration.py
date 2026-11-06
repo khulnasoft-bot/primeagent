@@ -71,7 +71,7 @@ class TestStandaloneWFX:
         assert settings.ready is True
 
 
-class TestWFXWithPrimeagentConfig:
+class TestWFXWithPrimeAgentConfig:
     """Test WFX with primeagent configuration."""
 
     @pytest.fixture

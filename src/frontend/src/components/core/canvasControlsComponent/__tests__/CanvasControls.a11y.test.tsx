@@ -138,7 +138,7 @@ describe("CanvasControls toolbar accessibility", () => {
       screen.getByTestId("canvas_controls_minimize_all"),
     ).toHaveAccessibleName("Minimize all");
     expect(screen.getByTestId("assistant-button")).toHaveAccessibleName(
-      "Primeagent Assistant",
+      "PrimeAgent Assistant",
     );
   });
 

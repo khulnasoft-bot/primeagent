@@ -30,7 +30,7 @@ LANGFUSE_FEEDBACK_SCORE_NAME = "user-feedback"
 
 
 def _normalize_boundary_messages(value: Any) -> Any:
-    """Replace Primeagent messages with their text while preserving container shape."""
+    """Replace PrimeAgent messages with their text while preserving container shape."""
     from wfx.schema.message import Message
 
     if isinstance(value, Message):
@@ -43,7 +43,7 @@ def _normalize_boundary_messages(value: Any) -> Any:
 
 
 def _serialize_component_boundary(component_output: Any) -> Any:
-    """Collapse a sole component output and normalize Primeagent messages to text."""
+    """Collapse a sole component output and normalize PrimeAgent messages to text."""
     value = (
         next(iter(component_output.values()))
         if isinstance(component_output, dict) and len(component_output) == 1
@@ -219,7 +219,7 @@ def delete_feedback_score(*, message_id: UUID | str) -> None:
     """Delete the Langfuse feedback score previously synced for a message.
 
     Used when a user clears their thumbs up/down so Langfuse stays in sync
-    with Primeagent's UI state. Callers must gate on tracing being enabled
+    with PrimeAgent's UI state. Callers must gate on tracing being enabled
     and Langfuse being configured.
     """
     client = _get_langfuse_client()
@@ -427,7 +427,7 @@ class LangFuseTracer(BaseTracer):
                 metadata={"flow_id": self.flow_id, "project_name": self.project_name},
             )
 
-            # ``trace.userId`` stays the authenticated Primeagent user so existing
+            # ``trace.userId`` stays the authenticated PrimeAgent user so existing
             # Langfuse consumers keep getting the same identity. When a caller
             # provides an override via ``tracing_user_id``, stamp it under
             # ``primeagent.tracing_user_id`` so it is still recoverable from trace

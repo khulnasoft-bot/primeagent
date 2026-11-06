@@ -313,7 +313,7 @@ def test_get_terminal_nodes_empty_graph():
     assert terminal_nodes == [], f"Expected empty list, got {terminal_nodes}"
 
 
-# TODO: Move to Primeagent tests
+# TODO: Move to PrimeAgent tests
 @pytest.mark.skip(reason="Temporarily disabled")
 def test_graph_set_with_valid_component():
     from wfx.components.langchain_utilities.tool_calling import ToolCallingAgentComponent

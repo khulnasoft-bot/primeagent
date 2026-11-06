@@ -8,7 +8,7 @@ import LoginPage from "../index";
 const mockLoginMutate = jest.fn();
 const mockCustomLoginSsoOptions = jest.fn((): React.ReactNode => null);
 
-jest.mock("@/assets/PrimeagentLogo.svg?react", () => ({
+jest.mock("@/assets/PrimeAgentLogo.svg?react", () => ({
   __esModule: true,
   default: (props: React.SVGProps<SVGSVGElement>) => <svg {...props} />,
 }));
@@ -107,7 +107,7 @@ describe("LoginPage accessibility", () => {
     const loginOptions = screen.getByTestId("custom-login-sso-options");
     const signUpLink = screen.getByRole("link", { name: /sign up/i });
 
-    expect(screen.getByText("Primeagent")).toBeInTheDocument();
+    expect(screen.getByText("PrimeAgent")).toBeInTheDocument();
     expect(screen.getByText(/don't have an account\?/i)).toBeInTheDocument();
     expect(
       signInButton.compareDocumentPosition(loginOptions) &

@@ -1,5 +1,5 @@
 /**
- * Test template for React components in Primeagent.
+ * Test template for React components in PrimeAgent.
  *
  * Usage:
  * 1. Copy this file to `__tests__/ComponentName.test.tsx`

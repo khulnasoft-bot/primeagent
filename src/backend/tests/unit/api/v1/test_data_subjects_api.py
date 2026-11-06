@@ -141,7 +141,7 @@ async def test_should_refuse_a_deletion_request_made_with_an_api_key(client: Asy
     response = await client.post("api/v1/users/me/deletion-request", headers={"x-api-key": key.json()["api_key"]})
 
     assert response.status_code == status.HTTP_403_FORBIDDEN
-    assert response.headers["X-Primeagent-Error-Code"] == "interactive_login_required"
+    assert response.headers["X-PrimeAgent-Error-Code"] == "interactive_login_required"
 
 
 @pytest.mark.usefixtures("feature_on")
@@ -299,7 +299,7 @@ async def test_should_reject_an_ambiguous_end_user_id_with_a_stable_code(
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
     assert response.json()["detail"]["code"] == "invalid_end_user_id"
-    assert response.headers["X-Primeagent-Error-Code"] == "invalid_end_user_id"
+    assert response.headers["X-PrimeAgent-Error-Code"] == "invalid_end_user_id"
 
 
 @pytest.mark.usefixtures("feature_on")

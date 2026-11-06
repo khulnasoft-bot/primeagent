@@ -34,7 +34,7 @@ class FaissVectorStoreComponent(LCVectorStoreComponent):
         StrInput(
             name="persist_directory",
             display_name="Persist Directory",
-            info="Path to save the FAISS index. It will be relative to where Primeagent is running.",
+            info="Path to save the FAISS index. It will be relative to where PrimeAgent is running.",
         ),
         *LCVectorStoreComponent.inputs,
         BoolInput(
@@ -68,7 +68,7 @@ class FaissVectorStoreComponent(LCVectorStoreComponent):
 
     @staticmethod
     def resolve_path(path: str) -> str:
-        """Resolve the path relative to the Primeagent root.
+        """Resolve the path relative to the PrimeAgent root.
 
         Args:
             path: The path to resolve

@@ -1,5 +1,5 @@
 import type { Route } from "@playwright/test";
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 
@@ -44,7 +44,7 @@ const stdioServerDetail = {
   env: { HOME: "/root" },
 };
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -66,7 +66,7 @@ async function disableAnimations(page: PrimeagentPage) {
  * mode/toolsCount. Both must resolve to the same rows or the merge in
  * `useGetMCPServers` flips counts back to null mid-scan.
  */
-async function mockServers(page: PrimeagentPage, servers: ServerRow[]) {
+async function mockServers(page: PrimeAgentPage, servers: ServerRow[]) {
   await page.route(/\/api\/v2\/mcp\/servers(\?.*)?$/, async (route: Route) => {
     const method = route.request().method();
 
@@ -84,7 +84,7 @@ async function mockServers(page: PrimeagentPage, servers: ServerRow[]) {
   });
 }
 
-async function mockServerDetail(page: PrimeagentPage) {
+async function mockServerDetail(page: PrimeAgentPage) {
   await page.route(
     /\/api\/v2\/mcp\/servers\/[^/?]+(\?.*)?$/,
     async (route: Route) => {
@@ -98,7 +98,7 @@ async function mockServerDetail(page: PrimeagentPage) {
 }
 
 async function openMcpServersRoute(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   servers = populatedServers,
 ) {
   await mockServerDetail(page);
@@ -118,13 +118,13 @@ async function openMcpServersRoute(
     .catch(() => {});
 }
 
-async function focusedTestId(page: PrimeagentPage) {
+async function focusedTestId(page: PrimeAgentPage) {
   return page.evaluate(
     () => document.activeElement?.getAttribute("data-testid") ?? "",
   );
 }
 
-async function openActionsMenu(page: PrimeagentPage, serverName: string) {
+async function openActionsMenu(page: PrimeAgentPage, serverName: string) {
   await page.getByTestId(`mcp-server-menu-button-${serverName}`).click();
   await expect(page.getByRole("menu")).toBeVisible({
     timeout: TIMEOUTS.standard,

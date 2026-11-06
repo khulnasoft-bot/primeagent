@@ -277,7 +277,7 @@ async def _ensure_can_administer_share(
     authz = get_authorization_service()
     if await authz.supports_cross_user_fetch() and await authz.is_enabled():
         # Why: in OSS, ``supports_cross_user_fetch()`` is False (see
-        # PrimeagentAuthorizationService), so this early-return is dead and the
+        # PrimeAgentAuthorizationService), so this early-return is dead and the
         # explicit 403 below is the floor. When an authorization plugin signals
         # cross-user fetch support, the plugin is the authoritative gate via
         # the ``ensure_share_permission()`` call that every share route makes

@@ -236,9 +236,9 @@ def get_lifespan(*, fix_migration=False, version=None):
 
         # Startup message
         if version:
-            await logger.adebug(f"Starting Primeagent v{version}...")
+            await logger.adebug(f"Starting PrimeAgent v{version}...")
         else:
-            await logger.adebug("Starting Primeagent...")
+            await logger.adebug("Starting PrimeAgent...")
 
         sync_flows_from_fs_task = None
         mcp_init_task = None
@@ -976,7 +976,7 @@ def get_lifespan(*, fix_migration=False, version=None):
 
                 # Step 4: Finalizing Shutdown
                 with shutdown_progress.step(4):
-                    await logger.adebug("Primeagent shutdown complete")
+                    await logger.adebug("PrimeAgent shutdown complete")
 
                 # Show completion summary and farewell
                 shutdown_progress.print_shutdown_summary()
@@ -1003,7 +1003,7 @@ def create_app():
         # is created in the listener process, so the two never converge again by
         # accident." Both prior trigger attempts converged here.
         msg = (
-            "This process is a Primeagent trigger listener and must not host the API. "
+            "This process is a PrimeAgent trigger listener and must not host the API. "
             "Run the API and 'primeagent listeners' as separate processes."
         )
         raise RuntimeError(msg)
@@ -1017,7 +1017,7 @@ def create_app():
     settings = get_settings_service().settings
 
     app = FastAPI(
-        title="Primeagent",
+        title="PrimeAgent",
         version=__version__,
         lifespan=lifespan,
         root_path=settings.root_path,
@@ -1429,7 +1429,7 @@ def setup_static_files(app: FastAPI, static_files_dir: Path) -> None:
 
 
 def get_static_files_dir():
-    """Get the static files directory relative to Primeagent's main.py file."""
+    """Get the static files directory relative to PrimeAgent's main.py file."""
     frontend_path = Path(__file__).parent
     return frontend_path / "frontend"
 

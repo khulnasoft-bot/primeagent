@@ -1,6 +1,6 @@
-"""Table class for wfx package - pandas DataFrame subclass for Primeagent data structures.
+"""Table class for wfx package - pandas DataFrame subclass for PrimeAgent data structures.
 
-This module provides the Table class (formerly DataFrame) as the base type for tabular data in Primeagent.
+This module provides the Table class (formerly DataFrame) as the base type for tabular data in PrimeAgent.
 DataFrame is maintained as an alias for backwards compatibility.
 """
 
@@ -19,11 +19,11 @@ if TYPE_CHECKING:
 class Table(pandas_DataFrame):
     """A pandas DataFrame subclass specialized for handling collections of JSON objects.
 
-    This is the base type for Primeagent tabular data structures, replacing the legacy DataFrame class.
+    This is the base type for PrimeAgent tabular data structures, replacing the legacy DataFrame class.
     DataFrame is maintained as an alias for backwards compatibility.
 
     This class extends pandas.DataFrame to provide seamless integration between
-    Primeagent's JSON objects and pandas' powerful data manipulation capabilities.
+    PrimeAgent's JSON objects and pandas' powerful data manipulation capabilities.
 
     Args:
         data: Input data in various formats:

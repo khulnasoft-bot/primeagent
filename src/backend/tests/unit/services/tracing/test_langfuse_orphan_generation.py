@@ -167,7 +167,7 @@ class TestRootRunReparentingHandler:
 
         The handler never recurses into the langfuse client.
 
-        Primeagent deep-copies flow/graph state (restore-point snapshots, working-flow
+        PrimeAgent deep-copies flow/graph state (restore-point snapshots, working-flow
         copies, component build). The real langfuse ``CallbackHandler`` / ``Langfuse``
         client is NOT deep-copyable — its singleton ``LangfuseResourceManager.__new__``
         is keyword-only, so ``copy.deepcopy`` (which calls ``cls.__new__(cls)`` with

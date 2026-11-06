@@ -1,6 +1,6 @@
 """Unit tests for the AG-UI translator.
 
-The translator consumes Primeagent ``EventManager`` events and emits AG-UI
+The translator consumes PrimeAgent ``EventManager`` events and emits AG-UI
 protocol events. These tests feed real ``EventManager`` event payloads and
 assert on the emitted AG-UI event objects. No mocks: the translator is a pure,
 stateful transformation with no I/O.
@@ -193,7 +193,7 @@ def test_error_boundary_closes_open_text_message():
 def test_interleaved_non_terminal_event_does_not_split_open_message():
     """A non-terminal event between tokens must not close the streamed message.
 
-    Primeagent's agent streams one message id for its whole response while other
+    PrimeAgent's agent streams one message id for its whole response while other
     events (build_start, add_message for other messages, log) interleave. Closing
     the message on those would split it into two START/END pairs reusing an
     already-ended id, which is malformed AG-UI.
@@ -217,7 +217,7 @@ def test_interleaved_non_terminal_event_does_not_split_open_message():
 def test_token_for_already_ended_message_id_is_dropped():
     """A ``token`` arriving after ``add_message`` ended that id must not re-open it.
 
-    Some Primeagent agents fire ``add_message`` with the final text first, which
+    Some PrimeAgent agents fire ``add_message`` with the final text first, which
     emits START/CONTENT/END for the id and records it in
     ``_emitted_text_message_ids``. Late tokens for the same id used to emit a
     fresh ``TextMessageStartEvent`` for an already-ended message id, which is
@@ -623,7 +623,7 @@ def test_reactivated_vertex_can_emit_inactive_again():
 def test_node_state_deltas_use_add_so_they_apply_without_vertices_sorted():
     """build_start/end_vertex must not depend on vertices_sorted seeding the node.
 
-    Per-node build events and vertices_sorted come from different Primeagent
+    Per-node build events and vertices_sorted come from different PrimeAgent
     execution paths that do not co-occur. start() establishes ``/nodes`` and node
     deltas use ``add`` on ``/nodes/{id}`` (create-or-replace), so the JSON Patch
     applies cleanly whether or not a STATE_SNAPSHOT seeded the node first.

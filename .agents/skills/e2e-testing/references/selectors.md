@@ -1,6 +1,6 @@
-# Primeagent E2E Selector Catalog
+# PrimeAgent E2E Selector Catalog
 
-This is the canonical reference for `data-testid` selectors used in Primeagent E2E tests. When adding new interactive elements, follow these naming conventions and add the element to this catalog.
+This is the canonical reference for `data-testid` selectors used in PrimeAgent E2E tests. When adding new interactive elements, follow these naming conventions and add the element to this catalog.
 
 ## Naming Convention
 

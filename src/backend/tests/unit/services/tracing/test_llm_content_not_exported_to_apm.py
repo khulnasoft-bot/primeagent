@@ -1,7 +1,7 @@
 """End-to-end check that a real LLM tracer cannot push prompt text to the operator's APM.
 
 Traceloop adopts an already-installed global tracer provider and appends its own span
-processor to it, so once Primeagent installs one for OTLP export, its gen_ai spans travel
+processor to it, so once PrimeAgent installs one for OTLP export, its gen_ai spans travel
 that path too. The vendor integration is deliberately left alone; the export filter is
 what holds the line. Runs in a subprocess because tracer providers are process-global.
 """

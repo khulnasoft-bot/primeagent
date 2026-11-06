@@ -13,11 +13,11 @@ from primeagent.agentic.helpers.input_sanitization import (
 
 
 class TestSanitizeInputCleanInputs:
-    """Tests that legitimate Primeagent questions pass sanitization."""
+    """Tests that legitimate PrimeAgent questions pass sanitization."""
 
     def test_should_pass_normal_primeagent_question(self):
-        """Normal Primeagent question should pass."""
-        result = sanitize_input("How do I create a component in Primeagent?")
+        """Normal PrimeAgent question should pass."""
+        result = sanitize_input("How do I create a component in PrimeAgent?")
         assert result.is_safe is True
         assert result.violation is None
 
@@ -44,12 +44,12 @@ class TestSanitizeInputCleanInputs:
 
     def test_should_pass_system_in_legitimate_context(self):
         """'system' in legitimate context should not trigger false positive."""
-        result = sanitize_input("How do I configure system settings in Primeagent?")
+        result = sanitize_input("How do I configure system settings in PrimeAgent?")
         assert result.is_safe is True
 
     def test_should_pass_portuguese_question(self):
-        """Portuguese Primeagent question should pass."""
-        result = sanitize_input("Como criar um fluxo no Primeagent?")
+        """Portuguese PrimeAgent question should pass."""
+        result = sanitize_input("Como criar um fluxo no PrimeAgent?")
         assert result.is_safe is True
 
 
@@ -172,8 +172,8 @@ class TestRefusalMessage:
     """Tests for the refusal message constant."""
 
     def test_refusal_message_mentions_primeagent(self):
-        """Refusal message should mention Primeagent to redirect the user."""
-        assert "Primeagent" in REFUSAL_MESSAGE
+        """Refusal message should mention PrimeAgent to redirect the user."""
+        assert "PrimeAgent" in REFUSAL_MESSAGE
 
     def test_refusal_message_is_not_empty(self):
         """Refusal message should not be empty."""

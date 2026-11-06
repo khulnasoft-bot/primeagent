@@ -22,7 +22,7 @@ export type FlowChange = {
   id: string;
   /** Component-level identity. Two changes sharing it cannot both be applied. */
   targetKey: string;
-  /** What `targetId` names. Kept as fields because a Primeagent edge id contains ":". */
+  /** What `targetId` names. Kept as fields because a PrimeAgent edge id contains ":". */
   targetKind: "node" | "edge";
   targetId: string;
   /** The template field a field change touched; absent for node, move and edge changes. */
@@ -389,7 +389,7 @@ export const applySelectedChanges = (
 
   for (const change of changes) {
     if (!selectedIds.has(change.id)) continue;
-    // Read the id from the change, never by splitting targetKey: a Primeagent edge
+    // Read the id from the change, never by splitting targetKey: a PrimeAgent edge
     // id embeds serialized handles and contains ":", so parsing truncated it and
     // the lookup missed — the edge was dropped with no error at all.
     const { targetKind, targetId } = change;

@@ -1,7 +1,7 @@
 """Sync the ``wfx`` runtime-dependency floor in every ``src/bundles/*`` package.
 
 After a ``make patch v=X.Y.Z`` version bump, each bundle's ``wfx`` dependency
-floor must track Primeagent/WFX's ``major.minor`` line: a bundle published from
+floor must track PrimeAgent/WFX's ``major.minor`` line: a bundle published from
 the X.Y release is built against that wfx's BUNDLE_API surface, so it must be
 guaranteed to resolve an wfx new enough to carry it.  Before the WFX 0.5.x ->
 1.10.0 realignment (#13176) the generated floor was a flat ``wfx>=0.5.0`` with
@@ -123,7 +123,7 @@ def ratchet_spec(existing: str, generated: str) -> str:
 
 
 def wfx_floor_spec(version: str) -> str:
-    """Return the bundle ``wfx`` dependency spec for a Primeagent/WFX version.
+    """Return the bundle ``wfx`` dependency spec for a PrimeAgent/WFX version.
 
     ``"1.11.0"`` -> ``"wfx>=1.11.0.dev0,<2.0.0"`` (floor at the minor line's
     first pre-release so the branch's own ``X.Y.0.devN`` nightlies resolve --
@@ -189,7 +189,7 @@ def main() -> None:
     Usage:
         sync_bundle_wfx_pin.py <version>
 
-    ``version`` is the Primeagent/WFX release version (e.g. ``1.10.0``).
+    ``version`` is the PrimeAgent/WFX release version (e.g. ``1.10.0``).
     """
     expected_args = 2
     if len(sys.argv) != expected_args:

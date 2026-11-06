@@ -1,10 +1,10 @@
-"""Schema mapping between Primeagent and Stepflow formats."""
+"""Schema mapping between PrimeAgent and Stepflow formats."""
 
 from typing import Any
 
 
 class SchemaMapper:
-    """Maps schemas between Primeagent and Stepflow formats."""
+    """Maps schemas between PrimeAgent and Stepflow formats."""
 
     def __init__(self):
         """Initialize schema mapper with type mappings."""
@@ -23,7 +23,7 @@ class SchemaMapper:
             "multiline": "string",
         }
 
-        # component_output_heuristics: Maps Primeagent component types to their expected
+        # component_output_heuristics: Maps PrimeAgent component types to their expected
         # output data types. This is used as a fallback when component output metadata
         # is not available in the node definition. For example, ChatInput components
         # typically output Message objects, while VectorStore components output
@@ -41,10 +41,10 @@ class SchemaMapper:
         }
 
     def extract_output_schema(self, node: dict[str, Any]) -> dict[str, Any]:
-        """Extract output schema from a Primeagent node.
+        """Extract output schema from a PrimeAgent node.
 
         Args:
-            node: Primeagent node object
+            node: PrimeAgent node object
 
         Returns:
             JSON schema for the node's output
@@ -71,10 +71,10 @@ class SchemaMapper:
         return {"type": "object", "properties": {"result": {"type": "object"}}}
 
     def extract_input_schema(self, node: dict[str, Any]) -> dict[str, Any]:
-        """Extract input schema from a Primeagent node template.
+        """Extract input schema from a PrimeAgent node template.
 
         Args:
-            node: Primeagent node object
+            node: PrimeAgent node object
 
         Returns:
             JSON schema for the node's inputs
@@ -126,7 +126,7 @@ class SchemaMapper:
         }
 
     def _convert_primeagent_outputs_to_schema(self, outputs: list[dict[str, Any]]) -> dict[str, Any]:
-        """Convert Primeagent outputs metadata to JSON schema."""
+        """Convert PrimeAgent outputs metadata to JSON schema."""
         if not outputs:
             return {"type": "object"}
 
@@ -138,10 +138,10 @@ class SchemaMapper:
         return self._convert_primeagent_types_to_schema(output_types)
 
     def _convert_primeagent_types_to_schema(self, primeagent_types: list[str]) -> dict[str, Any]:
-        """Convert Primeagent types to JSON schema.
+        """Convert PrimeAgent types to JSON schema.
 
         Args:
-            primeagent_types: List of Primeagent type names
+            primeagent_types: List of PrimeAgent type names
 
         Returns:
             JSON schema object

@@ -410,7 +410,7 @@
                 "trace_as_input": true,
                 "trace_as_metadata": true,
                 "type": "str",
-                "value": "Use the references above for style to write a new blog/tutorial about Primeagent and AI. Suggest non-covered topics."
+                "value": "Use the references above for style to write a new blog/tutorial about PrimeAgent and AI. Suggest non-covered topics."
               }
             }
           },

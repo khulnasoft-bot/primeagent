@@ -3,7 +3,7 @@ import { adjustScreenView } from "../../utils/adjust-screen-view";
 import { openBlankFlow } from "../../utils/flow/open-blank-flow";
 
 test(
-  "PrimeagentShortcuts",
+  "PrimeAgentShortcuts",
   { tag: ["@release", "@workspace"] },
   async ({ page }) => {
     await openBlankFlow(page);

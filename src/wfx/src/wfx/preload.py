@@ -81,7 +81,7 @@ def teardown_warm_services() -> None:
 
     Bundled wfx services are fork-safe no-ops, but a real ``wfx.services`` plugin may open a
     DB pool / cache socket / telemetry thread in ``__init__`` that every forked process would
-    then inherit live. Disposing here mirrors Primeagent's ``engine.dispose()`` before its fork.
+    then inherit live. Disposing here mirrors PrimeAgent's ``engine.dispose()`` before its fork.
 
     A teardown failure raises :class:`PrewarmError` rather than capture a half-disposed
     process into a fork. Don't call this on the ``--unsafe-run`` path, where live connections
@@ -130,7 +130,7 @@ def _tracing_disabled():
     """Force ``get_tracing_service()`` to return None for the duration.
 
     The graph and each component resolve the tracing service independently via the shared
-    wfx/Primeagent service manager, so blanking it at the manager is the only reliable way to
+    wfx/PrimeAgent service manager, so blanking it at the manager is the only reliable way to
     keep the warm-up run from tracing. Restores the prior value (or lazy-uncreated state).
     """
     from wfx.services.manager import get_service_manager
@@ -168,7 +168,7 @@ def _run_hermetic_warmup() -> None:
     graph = Graph(chat_input, chat_output)
     graph.prepare()
 
-    # Run with tracing disabled. wfx and Primeagent share one service manager, so in a Primeagent
+    # Run with tracing disabled. wfx and PrimeAgent share one service manager, so in a PrimeAgent
     # process the graph AND each component would otherwise resolve the real tracer and ship a
     # junk "prewarm" trace to a configured provider (LangSmith/Langfuse/...) — and open a
     # socket, breaking fork-safety. Blanking the service at the source makes every

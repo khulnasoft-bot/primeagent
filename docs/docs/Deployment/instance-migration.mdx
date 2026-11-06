@@ -1,16 +1,16 @@
 ---
-title: Migrate to a new Primeagent instance
+title: Migrate to a new PrimeAgent instance
 slug: /instance-migration
 ---
 
-The instance migration workflow moves users, flows, files, and knowledge bases from one Primeagent instance to another.
+The instance migration workflow moves users, flows, files, and knowledge bases from one PrimeAgent instance to another.
 Use it when moving to new infrastructure or from SQLite to PostgreSQL.
 
-This workflow is different from [database schema migrations](/database-migrations), which update an existing database when Primeagent starts.
+This workflow is different from [database schema migrations](/database-migrations), which update an existing database when PrimeAgent starts.
 
 Instance migration is disabled by default. To enable it, do the following:
 
-1. On the source instance, set the following environment variable, and then restart Primeagent:
+1. On the source instance, set the following environment variable, and then restart PrimeAgent:
 
    ```bash
    PRIMEAGENT_FEATURE_INSTANCE_MIGRATION=true
@@ -23,29 +23,29 @@ Instance migration is disabled by default. To enable it, do the following:
 
 Before starting, prepare the following:
 
-- Prepare a [target instance](/get-started-installation) with the _same or newer_ Primeagent version.
+- Prepare a [target instance](/get-started-installation) with the _same or newer_ PrimeAgent version.
 - If the source instance uses SQLite, provision an [empty PostgreSQL database](/configuration-custom-database).
 - If the source instance has local knowledge bases, enable the [pgvector extension in PostgreSQL](/knowledge#postgres-pgvector).
-- If the source instance uses PostgreSQL and has local knowledge bases, set `PGVECTOR_CONNECTION_STRING` on the source instance to that database, and then restart Primeagent before you start the migration. Enabling the extension alone leaves the knowledge base test and copy blocked with `pgvector_env_missing`.
+- If the source instance uses PostgreSQL and has local knowledge bases, set `PGVECTOR_CONNECTION_STRING` on the source instance to that database, and then restart PrimeAgent before you start the migration. Enabling the extension alone leaves the knowledge base test and copy blocked with `pgvector_env_missing`.
 - Create an [S3-compatible bucket and access keys](/concepts-file-management#configure-file-storage) if the source instance has locally stored files.
 - Locate the source instance's [`PRIMEAGENT_SECRET_KEY`](/api-keys-and-authentication#primeagent-secret-key).
 - Choose storage outside the source instance for [backups](/database-migrations#upgrade-primeagent-safely).
-- Schedule a maintenance window during which Primeagent can pause changes.
+- Schedule a maintenance window during which PrimeAgent can pause changes.
 
 Run the source instance with one worker during the migration.
 Destination passwords and keys are held only in that worker's memory.
 If the process restarts, enter them again.
 
-If the source instance uses PostgreSQL, stop every other Primeagent instance or replica that uses the same database before pausing changes.
+If the source instance uses PostgreSQL, stop every other PrimeAgent instance or replica that uses the same database before pausing changes.
 The migration pause applies only to the source instance where you enable it.
 
 ## Migrate the instance
 
-To migrate a Primeagent instance, do the following:
+To migrate a PrimeAgent instance, do the following:
 
 1. Sign in to the source instance as a superuser, and then select **Settings** > **Migration**.
 2. Click **Prepare** > **Check this instance**, and then do the following:
-   1. In **New instance's Primeagent version**, enter the version installed on the target instance, such as `1.13.0`.
+   1. In **New instance's PrimeAgent version**, enter the version installed on the target instance, such as `1.13.0`.
       Find the version in the target instance's image tag or installed package.
       The target instance version must be the _same as or newer_ than the source instance version.
    2. Click **Run the check**.
@@ -70,7 +70,7 @@ To migrate a Primeagent instance, do the following:
 
 5. To pause changes while data is copied, do the following:
    1. Click **Pause changes**, and then confirm you want to pause changes in the dialog.
-   2. If Primeagent lists active requests, jobs, or trigger listeners, wait for or stop them, and then click **Check again**.
+   2. If PrimeAgent lists active requests, jobs, or trigger listeners, wait for or stop them, and then click **Check again**.
       When the checks pass, **Pause changes** displays a green checkmark and the **Back up this instance** button becomes available.
       While changes are paused, users can sign in and view their work, but they can't run flows, edit, upload files, or sign up.
 6. To back up the source instance, click **Back up this instance** and do the following:
@@ -103,7 +103,7 @@ Either cancel the migration starting the target instance, or recover the source 
 
 ### Cancel before starting the target instance
 
-Before starting a target instance, you can cancel a migration by clicking **Turn changes back on** in the source Primeagent instance.
+Before starting a target instance, you can cancel a migration by clicking **Turn changes back on** in the source PrimeAgent instance.
 This resumes writes on the source instance without deleting its data.
 Any backup or copy already created won't include subsequent changes from the source instance.
 
@@ -119,7 +119,7 @@ Changes made on the target instance after the migration completes are lost when 
 
 ## Migration record path
 
-Primeagent stores migration progress in:
+PrimeAgent stores migration progress in:
 
 ```text
 PRIMEAGENT_CONFIG_DIR/migrations/migration.json

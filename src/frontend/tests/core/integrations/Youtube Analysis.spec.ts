@@ -33,7 +33,7 @@ class YouTubeCommentsComponent(Component):
 
     def get_video_comments(self) -> DataFrame:
         return DataFrame(pd.DataFrame([
-            {"author": "loopback-user", "text": "LOOPBACK_YOUTUBE_COMMENTS_USED Clear and useful Primeagent walkthrough", "like_count": 7},
+            {"author": "loopback-user", "text": "LOOPBACK_YOUTUBE_COMMENTS_USED Clear and useful PrimeAgent walkthrough", "like_count": 7},
             {"author": "fixture-user", "text": "The practical workflow example was helpful", "like_count": 4},
         ]))
 `;
@@ -58,7 +58,7 @@ class YouTubeTranscriptsComponent(Component):
     def youtube_transcript(self) -> Data:
         return Data(data={
             "marker": "LOOPBACK_YOUTUBE_TRANSCRIPT_USED",
-            "transcript": "A deterministic Primeagent workflow demonstration with practical component examples.",
+            "transcript": "A deterministic PrimeAgent workflow demonstration with practical component examples.",
             "video_url": self.url,
         })
 `;

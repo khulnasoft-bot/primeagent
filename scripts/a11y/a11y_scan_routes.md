@@ -1,4 +1,4 @@
-# Primeagent Accessibility Scan Route Manifest
+# PrimeAgent Accessibility Scan Route Manifest
 
 The canonical route list lives in:
 

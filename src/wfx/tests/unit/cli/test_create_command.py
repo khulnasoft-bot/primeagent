@@ -1,6 +1,6 @@
 """Unit tests for ``wfx create`` and the ``--example`` seeding in ``wfx init``.
 
-All tests run entirely in-process; no running Primeagent instance required.
+All tests run entirely in-process; no running PrimeAgent instance required.
 """
 
 from __future__ import annotations

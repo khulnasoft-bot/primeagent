@@ -62,9 +62,9 @@ import exampleJavascriptApiFilesDeleteFileV2 from "!!raw-loader!@site/docs/API-R
 import examplePythonApiFilesDeleteAllFilesV2 from "!!raw-loader!@site/docs/API-Reference/python-examples/api-files/delete-all-files-v2.py";
 import exampleJavascriptApiFilesDeleteAllFilesV2 from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-files/delete-all-files-v2.js";
 
-Use the `/files` endpoints to move files between your local machine and Primeagent.
+Use the `/files` endpoints to move files between your local machine and PrimeAgent.
 
-All `/files` endpoints (both `/v1/files` and `/v2/files`) require authentication with a Primeagent API key.
+All `/files` endpoints (both `/v1/files` and `/v2/files`) require authentication with a PrimeAgent API key.
 You can only access files that belong to your own user account, even as a superuser.
 
 ## Differences between `/v1/files` and `/v2/files`
@@ -75,8 +75,8 @@ There are two versions of the `/files` endpoints.
 
 - `/v2` files are organized by `user_id` instead of `flow_id`.
   This means files are owned by users, and they aren't attached to specific flows.
-  You can upload a file to Primeagent one time, and use it with multiple flows.
-- `/v2` files are tracked in the Primeagent database.
+  You can upload a file to PrimeAgent one time, and use it with multiple flows.
+- `/v2` files are tracked in the PrimeAgent database.
 - `/v2` supports bulk upload and delete.
 - `/v2` responses contain more descriptive metadata.
 
@@ -85,7 +85,7 @@ To send image files to your flows through the API, use [Upload image files (v1)]
 
 ## Files/V1 endpoints
 
-Use the `/files` endpoints to move files between your local machine and Primeagent.
+Use the `/files` endpoints to move files between your local machine and PrimeAgent.
 
 ### Upload file (v1)
 
@@ -124,7 +124,7 @@ Not all file types are supported.
 
 ### Upload image files (v1)
 
-Send image files to Primeagent to use them in flows.
+Send image files to PrimeAgent to use them in flows.
 
 The default file limit is 1024 MB.
 To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment variable](/environment-variables).
@@ -153,7 +153,7 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
    </TabItem>
 </Tabs>
 
-   A successful request returns the `file_path` for the image in the Primeagent file management system in the format `FLOW_ID/TIMESTAMP_FILENAME.TYPE`.
+   A successful request returns the `file_path` for the image in the PrimeAgent file management system in the format `FLOW_ID/TIMESTAMP_FILENAME.TYPE`.
    For example:
 
    ```json
@@ -289,10 +289,10 @@ Delete a specific file from a flow.
 
 ## Files/V2 endpoints
 
-Use the `/files` endpoints to move files between your local machine and Primeagent.
+Use the `/files` endpoints to move files between your local machine and PrimeAgent.
 
 The `/v2/files` endpoints can be authenticated by an API key or JWT.
-To create a Primeagent API key and export it as an environment variable, see [Get started with the Primeagent API](/api-reference-api-examples).
+To create a PrimeAgent API key and export it as an environment variable, see [Get started with the PrimeAgent API](/api-reference-api-examples).
 
 ### Upload file (v2)
 
@@ -369,7 +369,7 @@ The `/v2/files` endpoint can't send image files to flows.
 To send image files to your flows through the API, see [Upload image files (v1)](#upload-image-files-v1).
 :::
 
-This endpoint uploads files to your Primeagent server's file management system.
+This endpoint uploads files to your PrimeAgent server's file management system.
 To use an uploaded file in a flow, send the file path to a flow with a [**Read File** component](/read-file).
 
 The default file limit is 1024 MB. To configure this value, change the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment variable](/environment-variables).
@@ -416,7 +416,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
    ```
 
 2. To use this file in your flow, add a **Read File** component to your flow.
-   This component loads files into flows from your local machine or Primeagent file management.
+   This component loads files into flows from your local machine or PrimeAgent file management.
 
 3. Run the flow, passing the `path` to the `Read-File` component in the `tweaks` object:
 

@@ -1587,7 +1587,7 @@ async def execute_flow_with_validation_streaming(
                 current_input = VALIDATION_RETRY_TEMPLATE.format(
                     error=f"Security violations: {violations_str}. "
                     "Do NOT use dangerous functions like os.system, subprocess, exec, eval. "
-                    "Use Primeagent's built-in integrations instead.",
+                    "Use PrimeAgent's built-in integrations instead.",
                     code=code,
                 )
                 continue

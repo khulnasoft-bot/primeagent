@@ -1,4 +1,4 @@
-# Primeagent trigger listeners
+# PrimeAgent trigger listeners
 
 `primeagent listeners` is the process that holds outbound provider connections for
 Track B triggers: Slack Socket Mode, Microsoft Graph delta polling, Gmail
@@ -71,7 +71,7 @@ connections through the usual race. `/healthz` reports the `replicas` a process
 can see and the `fair_share` that entitles it to, which is how to tell a
 rebalance in progress from one that never started.
 
-Lease expiry is a Primeagent recovery bound, not proof that a dead process closed
+Lease expiry is a PrimeAgent recovery bound, not proof that a dead process closed
 its socket. Adapters are written to tolerate bounded overlap during handover.
 
 ## Operator settings
@@ -91,7 +91,7 @@ its socket. Adapters are written to tolerate bounded overlap during handover.
 
 ## Verifying an install before a provider is involved
 
-Primeagent ships one built-in adapter, `listener_selftest`, that emits a ledger
+PrimeAgent ships one built-in adapter, `listener_selftest`, that emits a ledger
 event on an interval without talking to any provider. It is there so an operator
 can prove the shape - process boots, lease is taken, adapter runs, event lands,
 SIGTERM stops it cleanly - before a single OAuth consent exists. Arm a trigger

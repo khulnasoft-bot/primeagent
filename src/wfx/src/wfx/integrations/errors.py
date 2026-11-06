@@ -298,7 +298,7 @@ class IntegrationNetworkError(IntegrationError):
     def __init__(self, *, reason: NetworkFailureReason, provider: str | None = None, host: str | None = None) -> None:
         hint = "Check this server's outbound network access, DNS, proxy, and TLS settings."
         super().__init__(
-            f"Primeagent could not reach {host or 'the provider'} ({_NETWORK_FAILURE_MESSAGES[reason]}). {hint}",
+            f"PrimeAgent could not reach {host or 'the provider'} ({_NETWORK_FAILURE_MESSAGES[reason]}). {hint}",
             hint=hint,
             provider=provider,
             # A transport timeout may follow a successful write, so blind retries

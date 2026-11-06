@@ -212,7 +212,7 @@ async def _api_key_scopes_require_plugin_enforcement() -> bool:
 
 
 async def should_apply_owner_override() -> bool:
-    """Return True when Primeagent should apply the built-in owner override."""
+    """Return True when PrimeAgent should apply the built-in owner override."""
     return not await _api_key_scopes_require_plugin_enforcement()
 
 

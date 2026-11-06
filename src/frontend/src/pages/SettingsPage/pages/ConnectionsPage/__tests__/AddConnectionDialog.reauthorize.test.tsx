@@ -364,7 +364,7 @@ describe("AddConnectionDialog re-authorize", () => {
         ),
       ).not.toBeInTheDocument();
       expect(screen.getByRole("status")).toHaveTextContent(
-        "Primeagent can no longer track the sign-in window.",
+        "PrimeAgent can no longer track the sign-in window.",
       );
       expect(screen.getByRole("status")).toHaveTextContent(
         "check the OAuth registration before trying again",
@@ -405,7 +405,7 @@ describe("AddConnectionDialog re-authorize", () => {
       if (state === "closed") popup.closed = true;
       act(() => jest.advanceTimersByTime(1000));
       expect(screen.getByRole("status")).toHaveTextContent(
-        "Primeagent can no longer track the sign-in window.",
+        "PrimeAgent can no longer track the sign-in window.",
       );
       expect(mockStartOAuth).toHaveBeenCalledTimes(1);
 
@@ -439,7 +439,7 @@ describe("AddConnectionDialog re-authorize", () => {
       act(() => jest.advanceTimersByTime(1000));
       if (closed) {
         expect(screen.getByRole("status")).toHaveTextContent(
-          "Primeagent can no longer track the sign-in window.",
+          "PrimeAgent can no longer track the sign-in window.",
         );
       }
       act(() => jest.advanceTimersByTime(10 * 60 * 1000 - 1000));

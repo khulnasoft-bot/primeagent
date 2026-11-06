@@ -16,7 +16,7 @@ html[data-theme="light"] :not(pre) > code {
 }
 
 /* =====================================================================
-   Primeagent custom code theme — CSS variables (dark/light switching).
+   PrimeAgent custom code theme — CSS variables (dark/light switching).
    ===================================================================== */
 :root,
 html[data-theme="dark"] {

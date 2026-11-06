@@ -1,14 +1,14 @@
 ---
 title: Instana
 slug: /observability-instana
-description: Export Primeagent traces and metrics to IBM Instana over OTLP, and verify the data actually landed.
+description: Export PrimeAgent traces and metrics to IBM Instana over OTLP, and verify the data actually landed.
 ---
 
-Instana accepts OpenTelemetry data over OTLP, so Primeagent exports to it with configuration only and no vendor code.
+Instana accepts OpenTelemetry data over OTLP, so PrimeAgent exports to it with configuration only and no vendor code.
 
-This page covers the Instana specifics. For what Primeagent exports, what it withholds, and how to control span volume, see [OpenTelemetry](./observability-opentelemetry.mdx) first.
+This page covers the Instana specifics. For what PrimeAgent exports, what it withholds, and how to control span volume, see [OpenTelemetry](./observability-opentelemetry.mdx) first.
 
-For the Traceloop-based integration, which captures LLM-level detail rather than Primeagent's own service telemetry, see [Instana with Traceloop](./integrations-instana-traceloop.mdx). The two are independent and can run together.
+For the Traceloop-based integration, which captures LLM-level detail rather than PrimeAgent's own service telemetry, see [Instana with Traceloop](./integrations-instana-traceloop.mdx). The two are independent and can run together.
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ If your tenant URL does not follow the `TENANT-COLOR.instana.io` pattern, it is 
 
 ## Configure environment variables
 
-Add the following to your Primeagent environment. Replace the placeholders:
+Add the following to your PrimeAgent environment. Replace the placeholders:
 
 ```text
 OTEL_EXPORTER_OTLP_ENDPOINT=https://otlp-COLOR-saas.instana.io:4318
@@ -52,7 +52,7 @@ Three of these are not optional in practice:
 
 If your tenant enforces tagging conventions, such as an application or environment tag, add them to `OTEL_RESOURCE_ATTRIBUTES`. Confirm with the tenant operator that the conventions are read from OTLP resource attributes, because in agent-based deployments they are configured in the agent's `configuration.yaml` instead and the two paths are not interchangeable.
 
-Restart Primeagent and run a flow to generate traffic.
+Restart PrimeAgent and run a flow to generate traffic.
 
 ## Verify the data landed
 
@@ -60,7 +60,7 @@ A `2xx` response on export is not evidence. Instana acknowledges the payload bef
 
 1. Confirm the service exists. In Instana, open **Applications** > **Services** and look for `primeagent`. If nothing appears, the host identity is the first thing to check.
 
-2. Retrieve a single run by its trace ID. Take a `trace_id` from any Primeagent log line, then use **Analytics** > **Traces** and filter on it. Finding the exact run you just executed is the evidence that the pipeline works end to end; a service that merely exists is not.
+2. Retrieve a single run by its trace ID. Take a `trace_id` from any PrimeAgent log line, then use **Analytics** > **Traces** and filter on it. Finding the exact run you just executed is the evidence that the pipeline works end to end; a service that merely exists is not.
 
    If the trace view is not available to your role, query the API instead, which needs only an API token:
 
@@ -73,7 +73,7 @@ A `2xx` response on export is not evidence. Instana acknowledges the payload bef
 
 3. Confirm metrics are arriving. Open the `primeagent` service and check that request rate and latency are populated, or query the metric by `service.name` in a custom dashboard.
 
-A failed run's `flow.execute` span arrives with `error.type` set to the exception class. The exception message is not exported. For the full list of what Primeagent withholds, see [OpenTelemetry](./observability-opentelemetry.mdx).
+A failed run's `flow.execute` span arrives with `error.type` set to the exception class. The exception message is not exported. For the full list of what PrimeAgent withholds, see [OpenTelemetry](./observability-opentelemetry.mdx).
 
 ## Troubleshooting
 
@@ -103,7 +103,7 @@ Run `wfx observability doctor` to confirm the endpoint accepts data with your co
 
 ### Your bill is higher than expected
 
-Database spans are roughly 80% of Primeagent's exported spans. Set `PRIMEAGENT_OTEL_DB_SPANS=false` to drop them, after reading the trade-off in [Control span volume](./observability-opentelemetry.mdx#control-span-volume).
+Database spans are roughly 80% of PrimeAgent's exported spans. Set `PRIMEAGENT_OTEL_DB_SPANS=false` to drop them, after reading the trade-off in [Control span volume](./observability-opentelemetry.mdx#control-span-volume).
 
 ## See also
 

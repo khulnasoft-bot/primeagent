@@ -6,7 +6,7 @@ from primeagent_stepflow.translation.stepflow_tweaks import (
     apply_stepflow_tweaks_to_dict,
     convert_tweaks_to_overrides,
 )
-from primeagent_stepflow.translation.translator import PrimeagentConverter
+from primeagent_stepflow.translation.translator import PrimeAgentConverter
 from tests.helpers.tweaks_builder import TweaksBuilder
 
 
@@ -66,7 +66,7 @@ class TestStepflowTweaks:
 
 
 class TestStepflowTweaksIntegration:
-    """Test integration with the full Primeagent conversion process."""
+    """Test integration with the full PrimeAgent conversion process."""
 
     @pytest.fixture
     def basic_prompting_flow_dict(self):
@@ -74,7 +74,7 @@ class TestStepflowTweaksIntegration:
         import json
         from pathlib import Path
 
-        converter = PrimeagentConverter()
+        converter = PrimeAgentConverter()
         fixture_path = Path(__file__).parent.parent / "fixtures" / "primeagent" / "basic_prompting.json"
 
         if fixture_path.exists():

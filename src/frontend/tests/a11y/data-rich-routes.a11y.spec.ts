@@ -1,8 +1,8 @@
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -18,13 +18,13 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function waitForNetworkToSettle(page: PrimeagentPage) {
+async function waitForNetworkToSettle(page: PrimeAgentPage) {
   await page
     .waitForLoadState("networkidle", { timeout: TIMEOUTS.medium })
     .catch(() => {});
 }
 
-async function openRoute(page: PrimeagentPage, path: string) {
+async function openRoute(page: PrimeAgentPage, path: string) {
   await awaitBootstrapTest(page, { skipModal: true });
   await page.goto(path);
   await disableAnimations(page);

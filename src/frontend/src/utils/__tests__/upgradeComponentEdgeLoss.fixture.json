@@ -887,7 +887,7 @@
           "beta": false,
           "conditional_paths": [],
           "custom_fields": {},
-          "description": "Ingest into or retrieve from a Primeagent knowledge base.",
+          "description": "Ingest into or retrieve from a PrimeAgent knowledge base.",
           "display_name": "Knowledge",
           "documentation": "",
           "edited": false,
@@ -2512,7 +2512,7 @@
                 "data": {
                   "node": {
                     "name": "create_knowledge_base",
-                    "description": "Create new knowledge in Primeagent.",
+                    "description": "Create new knowledge in PrimeAgent.",
                     "display_name": "Create new Knowledge Base",
                     "field_order": [
                       "01_new_kb_name",
@@ -2570,7 +2570,7 @@
                         "api_editable": false,
                         "input_types": ["Embeddings"],
                         "dynamic": false,
-                        "info": "Select the embedding model to use for this knowledge base. Primeagent uses the configured credentials for that model provider.",
+                        "info": "Select the embedding model to use for this knowledge base. PrimeAgent uses the configured credentials for that model provider.",
                         "refresh_button": true,
                         "title_case": false,
                         "track_in_telemetry": false,
@@ -2736,7 +2736,7 @@
             "_input_type": "IntInput"
           }
         },
-        "description": "Ingest into or retrieve from a Primeagent knowledge base.",
+        "description": "Ingest into or retrieve from a PrimeAgent knowledge base.",
         "icon": "database",
         "base_classes": ["JSON", "Table"],
         "display_name": "Knowledge",

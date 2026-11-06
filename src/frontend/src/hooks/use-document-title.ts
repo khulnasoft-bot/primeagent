@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-export const APP_NAME = "Primeagent";
+export const APP_NAME = "PrimeAgent";
 
 /**
  * Builds the tab title for a page. Titles that already carry the product name
- * (e.g. the "Primeagent API Keys" settings page) are used as-is so the tab does
- * not read "Primeagent API Keys | Primeagent".
+ * (e.g. the "PrimeAgent API Keys" settings page) are used as-is so the tab does
+ * not read "PrimeAgent API Keys | PrimeAgent".
  */
 export function formatDocumentTitle(title?: string | null): string {
   const pageTitle = title?.trim();

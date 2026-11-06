@@ -3,7 +3,7 @@
   "id": "wfx-toolguard",
   "version": "0.2.2",
   "name": "ToolGuard",
-  "description": "Primeagent Policies component powered by ToolGuard.",
+  "description": "PrimeAgent Policies component powered by ToolGuard.",
   "wfx": {
     "compat": ["1"]
   },

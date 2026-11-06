@@ -1,4 +1,4 @@
-"""Flow graph visualization utilities for Primeagent."""
+"""Flow graph visualization utilities for PrimeAgent."""
 
 from typing import TYPE_CHECKING, Any
 from uuid import UUID

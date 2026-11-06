@@ -669,7 +669,7 @@ def effective_mcp_config(
 def mcp_config_url(config: dict[str, Any]) -> object:
     """The address this config connects to, whichever shape it is written in.
 
-    A streamable-HTTP entry puts it at ``url``. The stdio entry Primeagent seeds for a
+    A streamable-HTTP entry puts it at ``url``. The stdio entry PrimeAgent seeds for a
     project puts it in ``args``, after the mcp-proxy flags, which is why reading
     ``url`` alone failed to recognise a sibling project configured that way.
     """

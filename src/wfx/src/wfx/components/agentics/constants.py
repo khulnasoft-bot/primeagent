@@ -54,12 +54,12 @@ AGENTICS_DOCS_URL = "https://prime.khulnasoft.com/docs/bundles-agentics"
 # No agentics-py release is co-installable with wfx: current releases pin langchain-core<1.0
 # (via langchain-huggingface) and crewai>=0.140 pins json-repair/tomli below wfx's floors. The
 # message must not tell users to install it: `pip install agentics-py` downgrades langchain-core
-# in place and breaks Primeagent.
+# in place and breaks PrimeAgent.
 ERROR_AGENTICS_NOT_INSTALLED = (
-    "The Agentics components are deprecated and can't run in this version of Primeagent. "
-    "They need the agentics-py SDK, and no agentics-py release is compatible with Primeagent's dependencies. "
+    "The Agentics components are deprecated and can't run in this version of PrimeAgent. "
+    "They need the agentics-py SDK, and no agentics-py release is compatible with PrimeAgent's dependencies. "
     "Don't install it into this environment with `pip install agentics-py` or `uv pip install agentics-py`: "
-    "it downgrades langchain-core and breaks Primeagent. "
+    "it downgrades langchain-core and breaks PrimeAgent. "
     f"For details, see {AGENTICS_DOCS_URL}."
 )
 ERROR_API_KEY_REQUIRED = "{provider} API key is required. Please configure it in your settings or provide it directly."

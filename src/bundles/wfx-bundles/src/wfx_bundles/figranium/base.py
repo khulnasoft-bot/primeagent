@@ -2,7 +2,7 @@
 
 Figranium is a self-hostable browser-automation server; every component takes the
 instance URL and an ``x-api-key`` credential, so the request path lives here.
-Outbound calls go through Primeagent's SSRF-protected httpx helpers: literal
+Outbound calls go through PrimeAgent's SSRF-protected httpx helpers: literal
 loopback hosts stay reachable for the common self-hosted setup, internal and
 cloud-metadata ranges are blocked while SSRF protection is enabled, and other
 private hosts can be allowlisted with ``PRIMEAGENT_SSRF_ALLOWED_HOSTS``.

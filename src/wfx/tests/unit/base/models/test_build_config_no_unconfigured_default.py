@@ -3,7 +3,7 @@
 Bug (LE-2168): on a fresh install, dropping a Language Model / Agent node filled the
 model field with ``options[0]`` — the first default model of the first enabled provider
 in alphabetical order. Providers are marked enabled purely because a credential exists
-(``skip_validation=True``), and Primeagent harvests ``GOOGLE_API_KEY`` / ``OPENAI_API_KEY``
+(``skip_validation=True``), and PrimeAgent harvests ``GOOGLE_API_KEY`` / ``OPENAI_API_KEY``
 / ``ANTHROPIC_API_KEY`` from the environment into global variables. So a key the user
 never entered anywhere silently produced a preselected model — Gemini when only Google
 was present, Claude when Anthropic sorted first.

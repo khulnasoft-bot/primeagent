@@ -101,7 +101,7 @@ ERROR_CODE_FEATURE_NOT_IN_TIER = "feature_not_in_tier"
 # Response header carrying the machine-readable code, matching the convention
 # already used by users.py (``superuser_required``, ``access_ceiling``) and
 # read by the admin CLI client.
-ERROR_CODE_HEADER = "X-Primeagent-Error-Code"
+ERROR_CODE_HEADER = "X-PrimeAgent-Error-Code"
 
 DENIED_STATUS_CODE = 403
 

@@ -1,5 +1,5 @@
 /**
- * The Primeagent Store tags query must not run when the store is off.
+ * The PrimeAgent Store tags query must not run when the store is off.
  *
  * `AppInitPage` calls `useGetTagsQuery` on every app boot, on every route, with no
  * regard for `ENABLE_PRIMEAGENT_STORE`. The backend proxies it to a third-party host,

@@ -3,7 +3,7 @@
   "id": "wfx-ollama",
   "version": "0.2.0",
   "name": "Ollama",
-  "description": "Ollama model components as a standalone Primeagent Extension Bundle.",
+  "description": "Ollama model components as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": [
       "1"

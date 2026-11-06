@@ -89,7 +89,7 @@ class TraceContext:
         self.run_id: UUID | None = run_id
         self.run_name: str | None = run_name
         self.project_name: str | None = project_name
-        # ``user_id`` is the authenticated Primeagent user and drives ``trace.userId``;
+        # ``user_id`` is the authenticated PrimeAgent user and drives ``trace.userId``;
         # ``tracing_user_id`` is an optional caller label providers surface separately.
         self.user_id: str | None = user_id
         self.tracing_user_id: str | None = tracing_user_id
@@ -192,7 +192,7 @@ class TracingService(Service):
         if self.deactivated:
             return
         langfuse_tracer = _get_langfuse_tracer()
-        # ``user_id`` carries the authenticated Primeagent user and drives ``trace.userId``;
+        # ``user_id`` carries the authenticated PrimeAgent user and drives ``trace.userId``;
         # ``tracing_user_id`` is the optional caller label LangFuseTracer stamps into metadata.
         trace_context.tracers["langfuse"] = langfuse_tracer(
             trace_name=trace_context.run_name,
@@ -284,7 +284,7 @@ class TracingService(Service):
         - start a worker for this trace context
         - initialize the tracers
 
-        ``user_id`` is the authenticated Primeagent user (e.g. API-key owner)
+        ``user_id`` is the authenticated PrimeAgent user (e.g. API-key owner)
         and drives ``trace.userId`` for tracing providers. ``tracing_user_id``
         is an optional caller-supplied label forwarded to providers, which
         surface it separately (e.g. LangFuseTracer stamps it into trace metadata
@@ -293,7 +293,7 @@ class TracingService(Service):
         if self.deactivated:
             return
         try:
-            project_name = project_name or os.getenv("LANGCHAIN_PROJECT", "Primeagent")
+            project_name = project_name or os.getenv("LANGCHAIN_PROJECT", "PrimeAgent")
             trace_context = TraceContext(
                 run_id,
                 run_name,
@@ -518,7 +518,7 @@ class TracingService(Service):
     @property
     def project_name(self):
         if self.deactivated:
-            return os.getenv("LANGCHAIN_PROJECT", "Primeagent")
+            return os.getenv("LANGCHAIN_PROJECT", "PrimeAgent")
         trace_context = trace_context_var.get()
         if trace_context is None:
             msg = "called project_name but no trace context found"

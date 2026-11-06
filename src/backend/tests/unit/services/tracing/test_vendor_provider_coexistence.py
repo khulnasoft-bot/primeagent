@@ -16,7 +16,7 @@ installed, and the vendor is still receiving its own traces.
 
 Two of the eight registered tracers are absent. Traceloop is the one vendor that does *not* hold
 this property, since it adopts whichever provider is global, and it has its own test file.
-``native`` writes to Primeagent's own database and imports no OpenTelemetry at all, so a case for
+``native`` writes to PrimeAgent's own database and imports no OpenTelemetry at all, so a case for
 it would pass without exercising anything.
 
 Each case runs in a subprocess: the global provider, and most of these vendors' clients, are

@@ -62,7 +62,7 @@ test(
     await openBlankFlow(page);
 
     await expect(page.getByTestId("playground-btn-flow")).toBeDisabled();
-    await expect(page.getByText("Primeagent Chat")).toBeHidden();
+    await expect(page.getByText("PrimeAgent Chat")).toBeHidden();
 
     await addComponentFromSidebar(page, {
       search: TEXTS.searchChatOutput,

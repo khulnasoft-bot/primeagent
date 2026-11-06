@@ -1,4 +1,4 @@
-"""Primeagent Extension System (foundation).
+"""PrimeAgent Extension System (foundation).
 
 Public surface for this milestone:
     - ``ExtensionManifest``, ``BundleRef``, ``WfxCompat`` -- Pydantic models for

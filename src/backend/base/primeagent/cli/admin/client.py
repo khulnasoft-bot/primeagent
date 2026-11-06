@@ -1,4 +1,4 @@
-"""HTTP client used by the Primeagent administration CLI."""
+"""HTTP client used by the PrimeAgent administration CLI."""
 
 from __future__ import annotations
 
@@ -39,7 +39,7 @@ class AdminClient:
         headers = {
             "Accept": "application/json",
             "X-API-Key": api_key,
-            "X-Primeagent-Operation-ID": operation_id,
+            "X-PrimeAgent-Operation-ID": operation_id,
         }
         self._client = httpx.Client(
             base_url=f"{url.rstrip('/')}/api/v1/",
@@ -66,7 +66,7 @@ class AdminClient:
                 detail = _safe_api_detail(detail_value)
             except ValueError:
                 detail = response.text or response.reason_phrase
-            error_code = response.headers.get("X-Primeagent-Error-Code")
+            error_code = response.headers.get("X-PrimeAgent-Error-Code")
             if (
                 response.status_code == httpx.codes.NOT_FOUND
                 and path.lstrip("/").startswith("authz/directory/")

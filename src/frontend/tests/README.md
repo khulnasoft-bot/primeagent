@@ -1,6 +1,6 @@
 # Frontend E2E tests
 
-Playwright end-to-end specs for the Primeagent UI. Run with `make tests_frontend`
+Playwright end-to-end specs for the PrimeAgent UI. Run with `make tests_frontend`
 (see the root `AGENTS.md`).
 
 ## Reuse shared helpers — don't hand-roll setup

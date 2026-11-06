@@ -1,6 +1,6 @@
 """The supervised listener process (TRG-3).
 
-``primeagent listeners`` is the Track B half of the triggers design: Primeagent
+``primeagent listeners`` is the Track B half of the triggers design: PrimeAgent
 dials out to a provider and holds the connection, so an instance with no public
 ingress still fires triggers. It is a separate process by decision, not by
 accident - see ``design/dedicated-integrations-triggers/decisions/process-model.md``.

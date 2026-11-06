@@ -232,7 +232,7 @@ def test_a_withheld_record_is_still_actionable():
 
 
 def test_error_type_is_the_root_cause_not_the_wrapper():
-    """Primeagent wraps aggressively, so the outermost class names our catch site, not the failure.
+    """PrimeAgent wraps aggressively, so the outermost class names our catch site, not the failure.
 
     Without this an operator cannot tell a rate limit from a bad request, which is most of what
     the withheld message used to tell them. Qualified per OTel's error.type, so the probe's own
@@ -487,7 +487,7 @@ def test_an_identifier_shaped_secret_on_a_foreign_exception_is_not_exported():
 def test_a_code_the_server_chose_is_not_exported(code):
     """The SDK copies `code` out of the response JSON, so a real SDK error is not a safe source.
 
-    Primeagent can be pointed at any OpenAI-compatible endpoint through OPENAI_BASE_URL, so a
+    PrimeAgent can be pointed at any OpenAI-compatible endpoint through OPENAI_BASE_URL, so a
     genuine openai.BadRequestError can carry whatever string that endpoint returned. Neither
     shape nor source separates that from a real code; only a fixed set of values does.
 

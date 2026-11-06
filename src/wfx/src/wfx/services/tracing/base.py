@@ -20,7 +20,7 @@ class BaseTracingService(Service, ABC):
     """Abstract base class for tracing services.
 
     Defines the minimal interface that all tracing service implementations
-    must provide, whether minimal (WFX) or full-featured (Primeagent).
+    must provide, whether minimal (WFX) or full-featured (PrimeAgent).
     """
 
     @abstractmethod
@@ -44,7 +44,7 @@ class BaseTracingService(Service, ABC):
         Args:
             run_id: Unique identifier for the run
             run_name: Name of the run
-            user_id: Authenticated Primeagent user identifier (optional)
+            user_id: Authenticated PrimeAgent user identifier (optional)
             session_id: Session identifier (optional)
             project_name: Project name (optional)
             flow_id: Flow identifier (optional)

@@ -1,4 +1,4 @@
-"""Fire a flow when a third-party system posts a signed request to Primeagent."""
+"""Fire a flow when a third-party system posts a signed request to PrimeAgent."""
 
 from __future__ import annotations
 

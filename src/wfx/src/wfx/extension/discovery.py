@@ -1,4 +1,4 @@
-"""Production-install discovery for the Primeagent Extension System.
+"""Production-install discovery for the PrimeAgent Extension System.
 
 This module owns the two production install sources for Modes A, B, and C:
 
@@ -343,7 +343,7 @@ def _pyproject_declares_extension(pyproject_path: Path) -> bool:
     try:
         section = _read_pyproject_extension(pyproject_path)
     except ValueError:
-        # Unparseable TOML: not specifically a Primeagent concern, treat as
+        # Unparseable TOML: not specifically a PrimeAgent concern, treat as
         # "not a manifest-shipping package" and keep scanning.
         return False
     except TypeError:

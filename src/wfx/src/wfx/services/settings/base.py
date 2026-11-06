@@ -1,4 +1,4 @@
-"""Composed ``Settings`` class for Primeagent.
+"""Composed ``Settings`` class for PrimeAgent.
 
 Fields live in per-group mixins under :mod:`wfx.services.settings.groups`.
 This module wires them together, configures env-var loading, and exposes the
@@ -102,7 +102,7 @@ class Settings(
     PathSettings,
     BaseSettings,
 ):
-    """Top-level Primeagent settings.
+    """Top-level PrimeAgent settings.
 
     Composed from per-group mixins. See module docstring for the inheritance
     order rationale.

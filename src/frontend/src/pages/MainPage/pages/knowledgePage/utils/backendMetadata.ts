@@ -41,7 +41,7 @@ export const getKnowledgeBaseBackendTarget = (
   }
 
   if (backendType === "chroma") return "Migration required";
-  if (backendType === "sqlite") return "Stored locally in Primeagent";
+  if (backendType === "sqlite") return "Stored locally in PrimeAgent";
 
   if (backendType === "opensearch") {
     const indexName = backendConfig.index_name;

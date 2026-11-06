@@ -1,4 +1,4 @@
-"""The Slack app manifests Primeagent publishes agree with everything that depends on them.
+"""The Slack app manifests PrimeAgent publishes agree with everything that depends on them.
 
 TRG-5's acceptance criterion: "documented scopes equal the app manifest". A
 customer creates their Slack app from ``docs/static/files/slack/*.json``, so the

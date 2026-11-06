@@ -3,23 +3,23 @@ title: Block custom components
 slug: /deployment-block-custom-components
 ---
 
-Custom components and the component code editor allow Primeagent users to create and execute Python code in the Primeagent runtime.
-While this freedom is a feature of Primeagent, in some deployments you might want to block the creation of custom Primeagent components to prevent arbitrary code execution.
+Custom components and the component code editor allow PrimeAgent users to create and execute Python code in the PrimeAgent runtime.
+While this freedom is a feature of PrimeAgent, in some deployments you might want to block the creation of custom PrimeAgent components to prevent arbitrary code execution.
 
-To block custom component creation on a Primeagent server, set the following [environment variable](/environment-variables):
+To block custom component creation on a PrimeAgent server, set the following [environment variable](/environment-variables):
 
 ```bash
 PRIMEAGENT_ALLOW_CUSTOM_COMPONENTS=false
 ```
 
-When set to `false`, Primeagent blocks creating custom components and changing code in the visual editor.
+When set to `false`, PrimeAgent blocks creating custom components and changing code in the visual editor.
 
-When unset or `true`, Primeagent allows custom code.
-Existing Primeagent installations will keep the default `true` behavior until you opt in to this restriction.
+When unset or `true`, PrimeAgent allows custom code.
+Existing PrimeAgent installations will keep the default `true` behavior until you opt in to this restriction.
 
 This environment variable is a beta feature, and should not be your only safeguard in production environments.
 
-In the event that Primeagent could execute untrusted or LLM-generated code, run Primeagent in an isolated and containerized execution environment.
+In the event that PrimeAgent could execute untrusted or LLM-generated code, run PrimeAgent in an isolated and containerized execution environment.
 
 ### Configure a custom component allow-list
 
@@ -35,7 +35,7 @@ This environment variable replaces the default index bundled with the `wfx` pack
 It does **not** import Python modules from a directory on disk.
 To allow-list custom components, use the `PRIMEAGENT_COMPONENTS_PATH` environment variable.
 
-If both environment variables are set, Primeagent builds one combined set of components from the custom index _and_ from `PRIMEAGENT_COMPONENTS_PATH`. If the same component category name exists in both, `PRIMEAGENT_COMPONENTS_PATH` replaces that whole category from the custom index.
+If both environment variables are set, PrimeAgent builds one combined set of components from the custom index _and_ from `PRIMEAGENT_COMPONENTS_PATH`. If the same component category name exists in both, `PRIMEAGENT_COMPONENTS_PATH` replaces that whole category from the custom index.
 
 For more information, see:
 

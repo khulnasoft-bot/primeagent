@@ -28,7 +28,7 @@ from uuid import UUID, uuid4
 from wfx.log.logger import logger
 from wfx.utils.env_var_security import safe_getenv
 
-# Who controls a resolved secret's value. A Primeagent variable is written by the
+# Who controls a resolved secret's value. A PrimeAgent variable is written by the
 # tenant through the UI/API; a process env var can only be set by whoever runs the
 # server. Destination policy for network backends turns on this distinction.
 SecretSource = Literal["variable", "environment", "missing"]
@@ -71,7 +71,7 @@ class BackendType(str, Enum):
     OPENSEARCH = "opensearch"
 
 
-# Keys Primeagent always writes into ``Document.metadata`` for every chunk.
+# Keys PrimeAgent always writes into ``Document.metadata`` for every chunk.
 # Kept here so every backend and helper agrees on the schema.
 METADATA_KEY_SOURCE = "source"
 METADATA_KEY_SOURCE_TYPE = "source_type"
@@ -138,7 +138,7 @@ class BaseVectorStoreBackend(ABC):
     Wraps a LangChain ``VectorStore``: subclasses provide
     ``_build_vector_store`` and override ``storage_size_bytes`` /
     ``teardown`` / ``iter_documents`` where the LangChain primitives don't
-    line up with what Primeagent needs.
+    line up with what PrimeAgent needs.
 
     Backends should be lightweight to construct; heavy resources (a Chroma
     persistent client, a MongoDB connection) are the backend's own concern
@@ -187,7 +187,7 @@ class BaseVectorStoreBackend(ABC):
             return None
 
     async def resolve_secret(self, variable_name: str) -> str | None:
-        """Look up ``variable_name`` through Primeagent's variable service.
+        """Look up ``variable_name`` through PrimeAgent's variable service.
 
         Thin wrapper over :meth:`resolve_secret_with_source` for the callers that
         only need the value. Returns ``None`` when neither source has a value;
@@ -203,12 +203,12 @@ class BaseVectorStoreBackend(ABC):
         Resolution order matches the connector ingestion sources
         (``connector_base.ConnectorIngestionSource.resolve_secret``):
 
-        1. Primeagent's ``variable_service`` scoped to ``self.user_id``.
+        1. PrimeAgent's ``variable_service`` scoped to ``self.user_id``.
         2. Process env var of the same name, only when ``fallback_to_env_var``
            is enabled, for deployments that skip the UI step.
 
         The provenance matters for values that become a *network destination*.
-        A Primeagent variable is written by the tenant through the UI/API, so a URL
+        A PrimeAgent variable is written by the tenant through the UI/API, so a URL
         from source ``"variable"`` is tenant-controlled. A process env var can only
         be set by whoever runs the server, so source ``"environment"`` is
         operator-controlled. ``destination_policy.enforce_kb_destination`` uses that
@@ -267,7 +267,7 @@ class BaseVectorStoreBackend(ABC):
         if not value:
             msg = (
                 f"Required credential variable {variable_name!r} is not "
-                "configured. Set it via Primeagent's variable settings or as "
+                "configured. Set it via PrimeAgent's variable settings or as "
                 "an environment variable on the server."
             )
             raise ValueError(msg)

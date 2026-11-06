@@ -376,7 +376,7 @@ def openapi_parameters(id_param: str, id_description: str) -> list[dict[str, Any
         many("operation", AuditOperation),
         many("event_type", AuditEventType),
         many("result", AuditResult),
-        param("user_id", "Exact Primeagent account.", {"type": "string", "format": "uuid"}),
+        param("user_id", "Exact PrimeAgent account.", {"type": "string", "format": "uuid"}),
         many("actor_type", AuditActorType),
         param("actor_id", "Exact authenticated principal or credential.", {"type": "string", "format": "uuid"}),
         param("acting_subject", "Exact represented-user subject.", {"type": "string"}),

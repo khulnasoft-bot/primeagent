@@ -1,7 +1,7 @@
 """wfx-ibm: IBM bundle (Db2 Vector Store, watsonx.ai LLM and embeddings, watsonx.data Presto and MCP).
 
 This package is the distribution unit ``wfx-ibm``.  At runtime
-Primeagent's loader discovers ``extension.json`` shipped alongside this
+PrimeAgent's loader discovers ``extension.json`` shipped alongside this
 ``__init__.py`` and registers the IBM components under the
 namespaced IDs:
 

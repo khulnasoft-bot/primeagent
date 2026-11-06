@@ -1,7 +1,7 @@
 """Tests for the agentic MCP server's authenticated-user binding.
 
 The flow/component tools must derive the acting user from the server-injected
-``PRIMEAGENT_AGENTIC_USER_ID`` env var (set by Primeagent at spawn from the request identity), NOT
+``PRIMEAGENT_AGENTIC_USER_ID`` env var (set by PrimeAgent at spawn from the request identity), NOT
 from a caller-supplied parameter. ``_bound_user_id`` fails closed when the env var is absent so a
 server spawned without a bound identity cannot read or write any user's flows.
 """

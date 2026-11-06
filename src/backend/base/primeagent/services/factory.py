@@ -77,7 +77,7 @@ def import_all_services_into_a_dict():
             service_name = ServiceType(service_type).value.replace("_service", "")
 
             # Shared services live in wfx so both the standalone runtime and
-            # the Primeagent application use the same contract and instance.
+            # the PrimeAgent application use the same contract and instance.
             if service_name == "connection_resolver":
                 module_name = "primeagent.services.connection.service"
             elif service_name in {"integration_policy", "mcp_composer", "model_provider_policy", "policy_bundle"}:

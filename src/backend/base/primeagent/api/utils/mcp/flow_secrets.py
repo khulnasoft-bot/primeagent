@@ -349,7 +349,7 @@ async def persist_and_strip_mcp_secrets(
 
     A secret carried inside ``args`` (the ``--headers`` triple that auto-install bakes in)
     is dropped rather than referenced, because variables are not resolved inside ``args``.
-    Under Primeagent the ``mcp_server`` row still serves it; under ``wfx serve`` it is gone.
+    Under PrimeAgent the ``mcp_server`` row still serves it; under ``wfx serve`` it is gone.
     """
     masked_targets: list[MCPSecretTarget] = []
     carried, variables = extract_and_strip_mcp_secrets(flow_data, masked_targets=masked_targets, flow_id=flow_id)

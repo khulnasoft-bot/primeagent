@@ -1,6 +1,6 @@
 # wfx-slack
 
-Slack Web API actions for Primeagent, backed by [connections](https://prime.khulnasoft.com/docs/connection-oauth).
+Slack Web API actions for PrimeAgent, backed by [connections](https://prime.khulnasoft.com/docs/connection-oauth).
 
 Seven components, split by executing identity:
 

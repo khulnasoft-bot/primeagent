@@ -11,7 +11,7 @@ flow build, both reproduced live against ``/api/v1/agentic/assist/stream``:
    assistant's own words. The captured spec below is verbatim from the
    reproduction.
 
-2. Two of the patterns are broad enough to block ordinary Primeagent requests
+2. Two of the patterns are broad enough to block ordinary PrimeAgent requests
    from a real user ("a component that will act as an orchestrator",
    "show instructions on how to fix each finding").
 """
@@ -23,7 +23,7 @@ from primeagent.agentic.helpers.input_sanitization import sanitize_input
 # Verbatim from the live reproduction: the spec the FlowBuilderAssistant sent to
 # the generate_component tool, which the injection regex rejected.
 AGENT_AUTHORED_SPEC = (
-    "Create a Primeagent custom component in English named PromptInjectionFlagger that takes a text "
+    "Create a PrimeAgent custom component in English named PromptInjectionFlagger that takes a text "
     "input and returns a structured result indicating whether the text appears to contain a "
     "prompt-injection attempt. It should analyze common prompt-injection patterns such as "
     "instructions to ignore previous instructions, reveal system prompts, override rules, "
@@ -57,7 +57,7 @@ class TestAgentAuthoredSpecIsTrusted:
 
 
 class TestInScopeUserRequestsAreNotBlocked:
-    """Ordinary Primeagent requests that the over-broad patterns used to reject."""
+    """Ordinary PrimeAgent requests that the over-broad patterns used to reject."""
 
     def test_should_pass_component_that_acts_as_an_orchestrator(self):
         result = sanitize_input(

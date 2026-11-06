@@ -20,13 +20,13 @@ class DatabaseSettings(BaseModel):
     (i.e. in the package directory)."""
 
     database_url: str | None = None
-    """Database URL for Primeagent. If not provided, Primeagent will use a SQLite database.
+    """Database URL for PrimeAgent. If not provided, PrimeAgent will use a SQLite database.
     The driver shall be an async one like `sqlite+aiosqlite` (`sqlite` and `postgresql`
     will be automatically converted to the async drivers `sqlite+aiosqlite` and
     `postgresql+psycopg` respectively)."""
 
     database_connection_retry: bool = False
-    """If True, Primeagent will retry to connect to the database if it fails."""
+    """If True, PrimeAgent will retry to connect to the database if it fails."""
 
     pool_size: int = 20
     """The number of connections to keep open in the connection pool.
@@ -42,7 +42,7 @@ class DatabaseSettings(BaseModel):
 
     migration_lock_namespace: str | None = None
     """Optional namespace identifier for PostgreSQL advisory lock during migrations.
-    If not provided, a hash of the database URL will be used. Useful when multiple Primeagent
+    If not provided, a hash of the database URL will be used. Useful when multiple PrimeAgent
     instances share the same database and need coordinated migration locking."""
 
     sqlite_pragmas: dict | None = {"synchronous": "NORMAL", "journal_mode": "WAL", "busy_timeout": 30000}

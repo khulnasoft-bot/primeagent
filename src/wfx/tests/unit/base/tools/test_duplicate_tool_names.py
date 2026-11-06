@@ -1,6 +1,6 @@
 """Same-type components wired as separate Agent tools must stay distinguishable.
 
-Reported failure (Primeagent 1.12.3, reproduced locally on 1.12.5): two
+Reported failure (PrimeAgent 1.12.3, reproduced locally on 1.12.5): two
 components of the same type, each configured differently and each wired as
 its own tool into one Agent's ``Tools`` input (e.g. two A2A Agent nodes
 pointing at two different remote agents), register under the *identical*

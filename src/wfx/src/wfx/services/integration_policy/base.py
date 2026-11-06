@@ -243,7 +243,7 @@ class BaseIntegrationPolicyService(Service, abc.ABC):
     def external_approved_integration_provider_ids(self) -> frozenset[str] | None:
         """Return the externally owned integration ceiling, if one is active.
 
-        ``None`` means Primeagent owns the persisted policy, so ``/policy-bundle``
+        ``None`` means PrimeAgent owns the persisted policy, so ``/policy-bundle``
         may write the integration fields. Any frozenset -- including an empty
         one -- marks the policy as externally managed and locks those writes,
         mirroring ``external_approved_provider_ids`` for model providers.

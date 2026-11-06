@@ -329,7 +329,7 @@ class TestSaveGeneratedIndex:
 
 
 @pytest.mark.asyncio
-class TestImportPrimeagentComponents:
+class TestImportPrimeAgentComponents:
     """Tests for import_primeagent_components() async function."""
 
     async def test_import_with_dev_mode(self, monkeypatch):

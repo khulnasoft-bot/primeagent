@@ -750,7 +750,7 @@ class TestOpenSearchSimilaritySearchFilterHandling:
     forwards ``filter=None`` (or an empty dict), every KB retrieval against
     OpenSearch would fail — silently looking like 'no results' to any
     component that swallows the error downstream. These tests guard the
-    canonical case Primeagent itself relies on at
+    canonical case PrimeAgent itself relies on at
     ``components/files_and_knowledge/retrieval.py``, which never passes a
     filter at all.
     """
@@ -836,7 +836,7 @@ class TestOpenSearchSSRFProtection:
     """The cluster URL is tenant-controlled, so the backend must not dial it blindly.
 
     Regression guard for the KB OpenSearch SSRF (CWE-918): the URL comes from a
-    per-user Primeagent variable whose value is stored verbatim, and
+    per-user PrimeAgent variable whose value is stored verbatim, and
     ``OpenSearch(hosts=[url]).info()`` otherwise fetches whatever host:port/path
     the tenant chose — including loopback, RFC1918, and the cloud-metadata
     address — even with ``PRIMEAGENT_SSRF_PROTECTION_ENABLED=true``. The backend

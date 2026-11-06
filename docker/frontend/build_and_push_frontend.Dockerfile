@@ -21,7 +21,7 @@ RUN cd /frontend && PUPPETEER_SKIP_DOWNLOAD=true npm install && npm run build
 FROM nginxinc/nginx-unprivileged:1.30.5-trixie-perl@sha256:c32bd26579a8472923fda50b3aea9aab95eab45e797783d5f3b964f102859ebd AS runtime
 
 LABEL org.opencontainers.image.title=primeagent-frontend
-LABEL org.opencontainers.image.authors=['Primeagent']
+LABEL org.opencontainers.image.authors=['PrimeAgent']
 LABEL org.opencontainers.image.licenses=MIT
 LABEL org.opencontainers.image.url=https://github.com/khulnasoft-bot/primeagent
 LABEL org.opencontainers.image.source=https://github.com/khulnasoft-bot/primeagent

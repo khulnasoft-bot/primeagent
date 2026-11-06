@@ -1,4 +1,4 @@
-"""Logical groupings of Primeagent settings.
+"""Logical groupings of PrimeAgent settings.
 
 Each module defines a ``BaseModel`` mixin that owns a cohesive subset of fields
 plus their intra-group validators. They are composed into the final

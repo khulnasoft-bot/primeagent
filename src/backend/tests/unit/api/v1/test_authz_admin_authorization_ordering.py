@@ -75,7 +75,7 @@ def test_malformed_body_from_non_superuser_is_403_not_422(module, method, path, 
 
     assert response.status_code == 403, response.text
     assert response.json() == {"detail": denial_detail}
-    assert response.headers["X-Primeagent-Error-Code"] == "administration_denied"
+    assert response.headers["X-PrimeAgent-Error-Code"] == "administration_denied"
 
 
 @pytest.mark.parametrize(("module", "method", "path", "body", "_denial_detail"), MALFORMED_BODY_ROUTES)

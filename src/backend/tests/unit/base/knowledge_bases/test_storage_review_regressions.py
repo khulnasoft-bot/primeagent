@@ -413,7 +413,7 @@ def test_denied_same_user_process_is_rechecked_for_exit(monkeypatch, exited):
 def test_denied_process_blocks_the_upgrade_only_when_it_runs_as_the_account(runs_as_the_account):
     # macOS leaves a setuid login process for each extra Terminal tab. It keeps the account as its real
     # user but runs as root, and its command line cannot be read. Only a process that runs as the account
-    # can be one of its Primeagent workers.
+    # can be one of its PrimeAgent workers.
     import psutil
 
     other = 0 if os.geteuid() else 1  # root, or another user when the tests run as root

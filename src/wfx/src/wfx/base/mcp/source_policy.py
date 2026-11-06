@@ -2,7 +2,7 @@
 
 Approved MCP launchers such as ``uvx`` and ``npx`` still install code before
 starting a server. Their registry/configuration controls therefore belong to
-Primeagent's execution boundary, not to tenant-authored server configuration.
+PrimeAgent's execution boundary, not to tenant-authored server configuration.
 This module keeps that command-aware policy small and dependency-free so it can
 be enforced both when the REST model is written and immediately before spawn.
 """
@@ -93,7 +93,7 @@ NPX_SAFE_BOOLEAN_FLAGS = frozenset(
 )
 
 # Explicit ``--package`` mode decouples installation from command selection, so
-# only package-owned executables verified by Primeagent may be selected. Packages
+# only package-owned executables verified by PrimeAgent may be selected. Packages
 # without an entry here remain usable through the safer direct ``npx PACKAGE``
 # form, where npx derives the executable from that package's metadata.
 NPX_SAFE_PACKAGE_ENTRYPOINTS: dict[str, frozenset[str]] = {
@@ -503,9 +503,9 @@ def _validate_npx_package_selection(args: list[str], allowed_packages: frozenset
 
 
 def _sdk_constraint_exemption() -> str | None:
-    """Return the requirement Primeagent itself injects as ``uvx --with``, if enabled.
+    """Return the requirement PrimeAgent itself injects as ``uvx --with``, if enabled.
 
-    Primeagent prepends ``--with <mcp_sdk_constraint>`` to every MCP server it launches
+    PrimeAgent prepends ``--with <mcp_sdk_constraint>`` to every MCP server it launches
     through uvx. Exempting that exact specifier keeps operator package allowlists
     working without every deployment adding ``mcp``; any other ``--with`` requirement
     is still validated against the allowlist.

@@ -6,7 +6,7 @@ slug: /jwt-authentication
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-Primeagent supports symmetric or asymmetric JSON Web Tokens (JWT) for user authentication and authorization.
+PrimeAgent supports symmetric or asymmetric JSON Web Tokens (JWT) for user authentication and authorization.
 
 JWT is an [open standard](https://tools.ietf.org/html/rfc7519) for securely transmitting information between parties as a JSON object.
 Use JWT to create credentials that automatically expire, enable stateless authentication without database storage, and work across distributed systems.
@@ -16,7 +16,7 @@ JWT authentication with the HS256 algorithm is enabled by default, but can be co
 <details closed>
 <summary>About the JWT structure and contents</summary>
 
-When a user logs in with their username and password at the `/api/v1/login` endpoint, Primeagent validates the credentials and creates a JWT token containing the user's identity and expiration time. This token is then used for subsequent API requests instead of sending credentials with each request.
+When a user logs in with their username and password at the `/api/v1/login` endpoint, PrimeAgent validates the credentials and creates a JWT token containing the user's identity and expiration time. This token is then used for subsequent API requests instead of sending credentials with each request.
 
 A JWT consists of three parts separated by dots (`.`):
 
@@ -35,7 +35,7 @@ You can paste this example JWT to decode the actual JSON data at [jwt.io](https:
 
 ## Configure JWT environment variables
 
-Configure JWT authentication in Primeagent using the following environment variables:
+Configure JWT authentication in PrimeAgent using the following environment variables:
 
 | Variable                                  | Description                                          | Default                  |
 | ----------------------------------------- | ---------------------------------------------------- | ------------------------ |
@@ -48,17 +48,17 @@ Configure JWT authentication in Primeagent using the following environment varia
 
 ## Configure signing algorithms
 
-Primeagent supports multiple signing algorithms and both symmetric (HS256) and asymmetric (RS256, RS512) JWTs.
+PrimeAgent supports multiple signing algorithms and both symmetric (HS256) and asymmetric (RS256, RS512) JWTs.
 
 Which method you choose depends upon your deployment's requirements.
 
 ### HS256 (Default)
 
 HS256 is the default JWT algorithm, with a good security level for single-server deployments.
-Primeagent automatically generates and persists a secret key.
-No configuration is necessary, but if you want to explicitly set it in the Primeagent `.env`, the default value is `PRIMEAGENT_ALGORITHM=HS256`.
+PrimeAgent automatically generates and persists a secret key.
+No configuration is necessary, but if you want to explicitly set it in the PrimeAgent `.env`, the default value is `PRIMEAGENT_ALGORITHM=HS256`.
 
-To generate a custom secure key instead of using the Primeagent-generated secret key, do the following:
+To generate a custom secure key instead of using the PrimeAgent-generated secret key, do the following:
 
 1. Generate a secure secret key with the Python secrets module or OpenSSL.
    The key must be at least 32 characters long.
@@ -87,8 +87,8 @@ The RS256 signing algorithm provides better security for production deployments 
 The private key signs tokens, and the public verifies them.
 The private key must be kept secret, while the public key can be safely shared.
 
-To automatically generate a private and public key pair and store it in the Primeagent [`PRIMEAGENT_CONFIG_DIR`](/logging), set `PRIMEAGENT_ALGORITHM="RS256"` in your Primeagent `.env`.
-When Primeagent starts, it will:
+To automatically generate a private and public key pair and store it in the PrimeAgent [`PRIMEAGENT_CONFIG_DIR`](/logging), set `PRIMEAGENT_ALGORITHM="RS256"` in your PrimeAgent `.env`.
+When PrimeAgent starts, it will:
 
 1. Check if RSA keys exist in the configuration directory.
 2. If not, generate a new 2048-bit RSA key pair.
@@ -105,7 +105,7 @@ MIIEvgIBADANBgkqhkiG9w0BAQEF...
 -----END PRIVATE KEY-----"
 ```
 
-To use a custom key pair, set both keys in your Primeagent `.env` file.
+To use a custom key pair, set both keys in your PrimeAgent `.env` file.
 
 ```bash
 PRIMEAGENT_ALGORITHM=RS256
@@ -143,8 +143,8 @@ RS512 uses the same RSA format of private and public keys as RS256, but uses the
 The private key signs tokens, and the public verifies them.
 The private key must be kept secret, while the public key can be safely shared.
 
-To automatically generate a private and public key pair and store it in the Primeagent [`PRIMEAGENT_CONFIG_DIR`](/logging), set `PRIMEAGENT_ALGORITHM="RS512"` in your Primeagent `.env`.
-When Primeagent starts, it does the following:
+To automatically generate a private and public key pair and store it in the PrimeAgent [`PRIMEAGENT_CONFIG_DIR`](/logging), set `PRIMEAGENT_ALGORITHM="RS512"` in your PrimeAgent `.env`.
+When PrimeAgent starts, it does the following:
 
 1. Check if RSA keys exist in the configuration directory.
 2. If not, generate a new 2048-bit RSA key pair.
@@ -161,7 +161,7 @@ MIIEvgIBADANBgkqhkiG9w0BAQEF...
 -----END PRIVATE KEY-----"
 ```
 
-To use a custom key pair, set both keys in your Primeagent `.env` file.
+To use a custom key pair, set both keys in your PrimeAgent `.env` file.
 
 ```bash
 PRIMEAGENT_ALGORITHM=RS512
@@ -201,7 +201,7 @@ Use Docker or Kubernetes with RS256 (asymmetric) for production deployments requ
 
 ### Docker with HS256
 
-1. Add the value for your JWT secret key to the Primeagent `.env` file.
+1. Add the value for your JWT secret key to the PrimeAgent `.env` file.
 
    ```bash
    JWT_SECRET_KEY=your-secret-key
@@ -226,7 +226,7 @@ Use Docker or Kubernetes with RS256 (asymmetric) for production deployments requ
 
 ### Docker with RS256
 
-To use Primeagent's automatically generated key pair, set the `RS256` signing algorithm in the Docker Compose file.
+To use PrimeAgent's automatically generated key pair, set the `RS256` signing algorithm in the Docker Compose file.
 
 ```yaml
 # docker-compose.yml
@@ -264,7 +264,7 @@ volumes:
 
 ### Kubernetes with RS256
 
-Store JWT keys as Kubernetes Secrets and reference them in your Primeagent deployment configuration.
+Store JWT keys as Kubernetes Secrets and reference them in your PrimeAgent deployment configuration.
 
 ```yaml
 # jwt-secret.yaml
@@ -315,7 +315,7 @@ spec:
 
 ## Configure token expiration
 
-To configure access and refresh token expiration times, set the values in the Primeagent `.env`.
+To configure access and refresh token expiration times, set the values in the PrimeAgent `.env`.
 
 ```bash
 PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS=3600  # 1 hour
@@ -332,8 +332,8 @@ This maintains the user's session without prompting for credentials again.
 
 ## See also
 
-- [Primeagent API keys and authentication](/api-keys-and-authentication)
+- [PrimeAgent API keys and authentication](/api-keys-and-authentication)
 - [JWT.io](https://jwt.io/)
 - [RFC 7519 specification](https://tools.ietf.org/html/rfc7519)
 - [OWASP JWT Security Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/JSON_Web_Token_for_Java_Cheat_Sheet.html)
-- [Primeagent Security Best Practices](/security)
+- [PrimeAgent Security Best Practices](/security)

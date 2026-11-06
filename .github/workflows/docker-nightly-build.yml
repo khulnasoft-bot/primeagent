@@ -105,7 +105,7 @@ jobs:
       matrix:
         include:
           - arch: amd64
-            runner: '["Primeagent-runner"]'
+            runner: '["PrimeAgent-runner"]'
           - arch: arm64
             runner: '["self-hosted","linux","ARM64","khulnasoft-bot-arm64-40gb-ephemeral"]'
     uses: ./.github/workflows/docker-nightly-build-arch.yml

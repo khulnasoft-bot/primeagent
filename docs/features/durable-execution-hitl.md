@@ -388,7 +388,7 @@ Bare `wfx serve` gains the same background + HITL contract without a database, b
 C4Context
   title System Context — Durable HITL
   Person(user, "User", "Approves/rejects a gated step")
-  System(primeagent, "Primeagent", "Flow execution platform")
+  System(primeagent, "PrimeAgent", "Flow execution platform")
   SystemDb(db, "Database", "checkpoint, job status, trace/span")
   Rel(user, primeagent, "Runs flow; answers Approve/Reject")
   Rel(primeagent, db, "Persists checkpoint + status + spans")

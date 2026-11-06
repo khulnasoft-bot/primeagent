@@ -172,7 +172,7 @@ describe("MemoryKnowledgeBaseSection", () => {
       />,
     );
     expect(
-      screen.getByText(/Stop all other Primeagent processes on this host/),
+      screen.getByText(/Stop all other PrimeAgent processes on this host/),
     ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /retry upgrade/i }),

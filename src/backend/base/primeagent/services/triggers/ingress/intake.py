@@ -114,7 +114,7 @@ async def _subscription_secrets(session: AsyncSession, row: Trigger) -> IngressS
     if subscription is None:
         return IngressSecrets()
     provider_state = subscription.provider_state or {}
-    # One column, two provider names for the same thing: the secret Primeagent
+    # One column, two provider names for the same thing: the secret PrimeAgent
     # minted when it created the subscription and compares on every delivery.
     # Microsoft calls it ``clientState``, Google calls it the channel token.
     return IngressSecrets(
@@ -131,7 +131,7 @@ async def resolve_target(session: AsyncSession, *, provider: str, public_id: str
     """Find the trigger this delivery names, or None. Never raises for "unknown".
 
     The provider in the path must match the trigger's kind. Without that check a
-    delivery signed by any provider Primeagent trusts could drive a trigger armed
+    delivery signed by any provider PrimeAgent trusts could drive a trigger armed
     against a different one, which is a confused-deputy hole the signature alone
     does not close.
     """

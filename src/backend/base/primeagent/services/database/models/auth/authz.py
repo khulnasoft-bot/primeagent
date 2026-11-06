@@ -146,7 +146,7 @@ class AuthzRoleAssignment(SQLModel, table=True):  # type: ignore[call-arg]
         sa_column=Column(sa.Uuid(), ForeignKey("user.id", ondelete="SET NULL"), nullable=True),
     )
     # SQLite ignores ``ON DELETE CASCADE`` unless ``PRAGMA foreign_keys=ON`` is
-    # issued on every connection, which Primeagent never does, so revoking an
+    # issued on every connection, which PrimeAgent never does, so revoking an
     # assignment on the default backend left its provenance rows orphaned.
     # Cascading through the ORM issues the child deletes on every backend.
     #

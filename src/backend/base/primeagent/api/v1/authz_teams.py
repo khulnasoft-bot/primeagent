@@ -57,7 +57,7 @@ router = APIRouter(prefix="/authz/teams", tags=["Authorization"])
 _LIST_MAX_LIMIT = 200
 _LIST_DEFAULT_LIMIT = 100
 _EXTERNALLY_MANAGED_DETAIL = "Externally managed memberships cannot be removed through the manual membership API"
-OperationId = Annotated[str | None, Header(alias="X-Primeagent-Operation-ID", max_length=128)]
+OperationId = Annotated[str | None, Header(alias="X-PrimeAgent-Operation-ID", max_length=128)]
 _LEGACY_SUPERUSER_DENIAL = "Superuser required to administer teams."
 
 
@@ -65,7 +65,7 @@ def _externally_managed_conflict() -> HTTPException:
     return HTTPException(
         status_code=status.HTTP_409_CONFLICT,
         detail=_EXTERNALLY_MANAGED_DETAIL,
-        headers={"X-Primeagent-Error-Code": "externally_managed"},
+        headers={"X-PrimeAgent-Error-Code": "externally_managed"},
     )
 
 
@@ -551,7 +551,7 @@ async def add_member(
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=exc.public_detail,
-            headers={"X-Primeagent-Error-Code": "access_ceiling"},
+            headers={"X-PrimeAgent-Error-Code": "access_ceiling"},
         ) from exc
     except IntegrityError as exc:
         await session.rollback()
@@ -664,7 +664,7 @@ async def remove_member(
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=exc.public_detail,
-            headers={"X-Primeagent-Error-Code": "access_ceiling"},
+            headers={"X-PrimeAgent-Error-Code": "access_ceiling"},
         ) from exc
     try:
         await remove_team_member_grant(

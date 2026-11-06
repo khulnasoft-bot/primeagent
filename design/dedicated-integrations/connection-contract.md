@@ -342,7 +342,7 @@ construction.**
   `credential-undecryptable` the call to action is reconnect, not connect.
 
 Rejected: plain `ValueError` strings (the current `OAuthConnectorBase` style, not machine-readable); reusing
-`wfx.services.auth.exceptions.TokenExpiredError` (it means the Primeagent session JWT); reusing the `ExtensionError`
+`wfx.services.auth.exceptions.TokenExpiredError` (it means the PrimeAgent session JWT); reusing the `ExtensionError`
 dataclass (not an `Exception`; loader-specific code namespace).
 
 ## 8. Capability metadata types shared with INT-3
@@ -489,7 +489,7 @@ identifiers.**
    isolate the encrypted envelope in `connection_secret` so metadata queries never load credential material.
 6. Artifact manifest schema decision: use version 4 when `required_connections` is non-empty.
 7. Desktop: the same `GET /api/v1/connections/{provider}/callback` on `localhost:7860` with a PKCE public client
-   that is Primeagent-owned by default and customer-owned as the override (`decisions/desktop-oauth-ownership.md`),
+   that is PrimeAgent-owned by default and customer-owned as the override (`decisions/desktop-oauth-ownership.md`),
    and the redirect allowlist (`127.0.0.1` loopback; Microsoft ignores the port when matching localhost redirects).
 8. Frontend export keeps handles.
 
@@ -500,7 +500,7 @@ identifiers.**
 2. Instance-connection policy: who provisions, and which flows or tenants may reference.
 3. Anonymous and public paths: hard deny versus policy-allowed flagged instance connections.
 4. Component-level audit for resolution denials (today `audit_decision` is route-only).
-5. Bring-your-own provider app registration per tenant versus the Primeagent-hosted app.
+5. Bring-your-own provider app registration per tenant versus the PrimeAgent-hosted app.
 6. Token residency and KMS expectations for the envelope.
 
 ### d. frontend owner

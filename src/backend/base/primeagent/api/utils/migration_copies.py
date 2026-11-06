@@ -1,6 +1,6 @@
 """What the copy steps of a migration run, and how a run that has ended is read.
 
-A copy is one of Primeagent's own commands. The migration endpoints start it and
+A copy is one of PrimeAgent's own commands. The migration endpoints start it and
 migration_runs keeps it going. What is here holds no state: the command and the
 environment of a step, what the migration record keeps of a run once it has ended,
 and why such a run does not complete its step.
@@ -53,7 +53,7 @@ DECISIONS: dict[str, dict[str, Any]] = {
 KEPT_EVENTS = ("report", "error", "decision_needed")
 # How many failed items of a report the record keeps. Every one of them is in the run's events.
 _ATTENTION_KEPT = 100
-# The server's own settings for Primeagent and for AWS say where this instance keeps its data, and a
+# The server's own settings for PrimeAgent and for AWS say where this instance keeps its data, and a
 # copy writes somewhere else. So a copy takes none of them, and is told by name the ones it needs.
 _OWN_SETTINGS = ("PRIMEAGENT_", "AWS_", "PGVECTOR_")
 # The settings that say which stores this server may dial. The first step checked this instance with them,
@@ -123,7 +123,7 @@ def copy_environment(step_id: str, source_env: dict[str, str], secrets: dict[str
 
 
 def foreign_environment(source_env: dict[str, str], *, keep: tuple[str, ...]) -> dict[str, str]:
-    """The server's environment without its own settings for Primeagent, AWS and pgvector, but for the ones named."""
+    """The server's environment without its own settings for PrimeAgent, AWS and pgvector, but for the ones named."""
     return {name: value for name, value in source_env.items() if name in keep or not name.startswith(_OWN_SETTINGS)}
 
 

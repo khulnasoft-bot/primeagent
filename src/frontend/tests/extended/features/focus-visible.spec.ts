@@ -1,5 +1,5 @@
 import type { Route, TestInfo } from "@playwright/test";
-import { expect, type PrimeagentPage, test } from "../../fixtures";
+import { expect, type PrimeAgentPage, test } from "../../fixtures";
 import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../../utils/constants/timeouts";
 
@@ -27,7 +27,7 @@ type FocusIndicator = {
 };
 
 async function getFocusIndicator(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
 ): Promise<FocusIndicator | null> {
   return page.evaluate(() => {
     const el = document.activeElement as HTMLElement | null;
@@ -83,7 +83,7 @@ function formatIndicator(indicator: FocusIndicator) {
 
 /** Asserts the active element has a perceivable indicator; attaches a screenshot for visual review. */
 async function expectFocusIndicator(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   label: string,
   testInfo: TestInfo,
 ) {
@@ -190,7 +190,7 @@ test(
  * keyboard-driven and `:focus-visible` matches. `colId` must be a column whose
  * cell click does not open a dialog.
  */
-async function keyboardFocusNextCell(page: PrimeagentPage, colId: string) {
+async function keyboardFocusNextCell(page: PrimeAgentPage, colId: string) {
   const cell = page.locator(`.ag-cell[col-id="${colId}"]`).first();
   await cell.waitFor({ timeout: TIMEOUTS.standard });
   await cell.click();

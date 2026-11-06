@@ -39,23 +39,23 @@ async def test_sends_segment_track_event() -> None:
     assert call.kwargs["json"]["properties"]["productCodeType"] == "WWPC"
     assert call.kwargs["json"]["properties"]["productPlanName"] == "opensource"
     assert call.kwargs["json"]["properties"]["productPlanType"] == "freemium"
-    assert call.kwargs["json"]["properties"]["productTitle"] == "Primeagent"
+    assert call.kwargs["json"]["properties"]["productTitle"] == "PrimeAgent"
     assert call.kwargs["json"]["properties"]["instanceId"] == "test-installation"
     assert call.kwargs["json"]["properties"]["subscriptionId"] == "test-installation"
     assert call.kwargs["json"]["properties"]["object"] == "exception"
-    assert call.kwargs["json"]["properties"]["processType"] == "Primeagent Exception"
+    assert call.kwargs["json"]["properties"]["processType"] == "PrimeAgent Exception"
     assert "timestamp" in call.kwargs["json"]
 
 
 @pytest.mark.parametrize(
     ("path", "expected"),
     [
-        (None, ("Started Process", "Primeagent", "version")),
-        ("run", ("Ran Process", "Primeagent Flow", "run")),
-        ("shutdown", ("Ended Process", "Primeagent", "shutdown")),
+        (None, ("Started Process", "PrimeAgent", "version")),
+        ("run", ("Ran Process", "PrimeAgent Flow", "run")),
+        ("shutdown", ("Ended Process", "PrimeAgent", "shutdown")),
         ("email", ("UI Interaction", None, "email")),
-        ("mcp_tool", ("Ran Process", "Primeagent MCP Tool", "mcp_tool")),
-        ("future_event", ("Ran Process", "Primeagent Future Event", "future_event")),
+        ("mcp_tool", ("Ran Process", "PrimeAgent MCP Tool", "mcp_tool")),
+        ("future_event", ("Ran Process", "PrimeAgent Future Event", "future_event")),
     ],
 )
 def test_maps_primeagent_events_to_ibm_common_schema(path, expected) -> None:
@@ -76,7 +76,7 @@ async def test_adds_ui_interaction_properties() -> None:
     assert body["properties"]["object"] == "email"
     assert body["properties"]["action"] == "registered"
     assert body["properties"]["name"] == "Email"
-    assert body["properties"]["namespace"] == "Primeagent"
+    assert body["properties"]["namespace"] == "PrimeAgent"
     assert "processType" not in body["properties"]
 
 

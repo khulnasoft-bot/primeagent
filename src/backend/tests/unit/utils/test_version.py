@@ -85,7 +85,7 @@ class TestGetVersionInfo:
 
         assert result["version"] == version
         assert result["main_version"] == "1.13.0"
-        assert result["package"] == ("Primeagent Nightly" if ".dev" in version else "Primeagent")
+        assert result["package"] == ("PrimeAgent Nightly" if ".dev" in version else "PrimeAgent")
 
     @patch("primeagent.utils.version.metadata")
     def test_get_version_info_primeagent_package(self, mock_metadata):
@@ -96,7 +96,7 @@ class TestGetVersionInfo:
 
         assert result["version"] == "1.0.0"
         assert result["main_version"] == "1.0.0"
-        assert result["package"] == "Primeagent"
+        assert result["package"] == "PrimeAgent"
 
     @patch("primeagent.utils.version.metadata")
     def test_get_version_info_primeagent_base_package(self, mock_metadata):
@@ -119,7 +119,7 @@ class TestGetVersionInfo:
         assert result["version"] == "1.0.0.dev123"
         assert result["main_version"] == "1.0.0"
         # A `.dev` version is labeled a nightly regardless of which package name resolved it.
-        assert result["package"] == "Primeagent Nightly"
+        assert result["package"] == "PrimeAgent Nightly"
 
     @patch("primeagent.utils.version.metadata")
     def test_get_version_info_nightly_package(self, mock_metadata):
@@ -141,7 +141,7 @@ class TestGetVersionInfo:
 
         assert result["version"] == "1.0.0.dev456"
         assert result["main_version"] == "1.0.0"
-        assert result["package"] == "Primeagent Nightly"
+        assert result["package"] == "PrimeAgent Nightly"
 
     @patch("primeagent.utils.version.metadata")
     def test_get_version_info_base_nightly_package(self, mock_metadata):
@@ -163,7 +163,7 @@ class TestGetVersionInfo:
 
         assert result["version"] == "1.0.0.a1"
         assert result["main_version"] == "1.0.0"
-        assert result["package"] == "Primeagent Nightly"
+        assert result["package"] == "PrimeAgent Nightly"
 
     @patch("primeagent.utils.version.metadata")
     def test_get_version_info_canonical_dev_is_nightly(self, mock_metadata):
@@ -187,7 +187,7 @@ class TestGetVersionInfo:
 
         assert result["version"] == "1.11.0.dev5"
         assert result["main_version"] == "1.11.0"
-        assert result["package"] == "Primeagent Nightly"
+        assert result["package"] == "PrimeAgent Nightly"
 
     @patch("primeagent.utils.version.metadata")
     def test_get_version_info_no_package_found(self, mock_metadata):
@@ -377,7 +377,7 @@ class TestGetVersionInfoFunction:
     @patch("primeagent.utils.version.VERSION_INFO")
     def test_get_version_info_returns_version_info(self, mock_version_info):
         """Test that get_version_info returns VERSION_INFO."""
-        mock_version_info = {"version": "1.0.0", "main_version": "1.0.0", "package": "Primeagent"}
+        mock_version_info = {"version": "1.0.0", "main_version": "1.0.0", "package": "PrimeAgent"}
 
         with patch("primeagent.utils.version.VERSION_INFO", mock_version_info):
             result = get_version_info()

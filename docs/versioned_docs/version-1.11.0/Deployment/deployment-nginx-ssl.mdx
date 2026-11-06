@@ -1,13 +1,13 @@
 ---
-title: Deploy Primeagent with Nginx and SSL
+title: Deploy PrimeAgent with Nginx and SSL
 slug: /deployment-nginx-ssl
 ---
 
 import Icon from "@site/src/components/icon";
 
-Deploy Primeagent on a Linux-based server using Nginx as a reverse proxy, Let's Encrypt for SSL certificates, and Certbot for automated certificate management.
+Deploy PrimeAgent on a Linux-based server using Nginx as a reverse proxy, Let's Encrypt for SSL certificates, and Certbot for automated certificate management.
 
-This setup encrypts all communications between users and your Primeagent server. SSL certificates ensure that sensitive data is protected from eavesdropping and tampering, and the automatic certificate management through Certbot eliminates the complexity of manual SSL configuration.
+This setup encrypts all communications between users and your PrimeAgent server. SSL certificates ensure that sensitive data is protected from eavesdropping and tampering, and the automatic certificate management through Certbot eliminates the complexity of manual SSL configuration.
 
 ## Prerequisites
 
@@ -67,9 +67,9 @@ This setup encrypts all communications between users and your Primeagent server.
           Swap usage:   0%                IPv4 address for eth0: 10.17.0.5
         ```
 
-## Install Primeagent on your server
+## Install PrimeAgent on your server
 
-To install Primeagent on your server, do the following:
+To install PrimeAgent on your server, do the following:
 
 1. Update system packages.
 
@@ -84,38 +84,38 @@ To install Primeagent on your server, do the following:
    ```
 
 3. Install uv to manage Python packages.
-   Primeagent recommends uv for faster installation.
+   PrimeAgent recommends uv for faster installation.
 
    ```bash
    pip install uv
    ```
 
-4. Create a virtual environment for Primeagent.
+4. Create a virtual environment for PrimeAgent.
 
    ```bash
    uv venv primeagent-venv
    source primeagent-venv/bin/activate
    ```
 
-5. Install Primeagent using uv.
+5. Install PrimeAgent using uv.
 
    ```bash
    uv pip install primeagent
    ```
 
-6. Optionally, start Primeagent.
+6. Optionally, start PrimeAgent.
 
    ```bash
    uv run primeagent run --host 127.0.0.1 --port 7860 &
    ```
 
    Test access at your `http://YOUR_PUBLIC_IP:7860`.
-   Since Primeagent is running on `localhost`, you should not be successful.
+   Since PrimeAgent is running on `localhost`, you should not be successful.
    In next steps, you will install Nginx as a reverse proxy to handle external access, and Certbot to configure SSL for secure HTTPS access.
 
 ## Install Nginx
 
-Nginx is a reverse proxy that receives external requests and forwards them to your Primeagent server. In addition to SSL termination, Nginx includes features for load balancing and security. For more information, see the [Nginx documentation](https://nginx.org/en/docs/).
+Nginx is a reverse proxy that receives external requests and forwards them to your PrimeAgent server. In addition to SSL termination, Nginx includes features for load balancing and security. For more information, see the [Nginx documentation](https://nginx.org/en/docs/).
 
 1. Install Nginx on your server.
 
@@ -155,7 +155,7 @@ Nginx is a reverse proxy that receives external requests and forwards them to yo
            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
            proxy_set_header X-Forwarded-Proto $scheme;
 
-           # WebSocket support for Primeagent
+           # WebSocket support for PrimeAgent
            proxy_http_version 1.1;
            proxy_set_header Upgrade $http_upgrade;
            proxy_set_header Connection "upgrade";
@@ -221,7 +221,7 @@ Install the Certbot client on your server to manage certificates, and install th
 
    When using `--nginx`, Certbot automatically injects the paths into your Nginx configuration as `ssl_certificate` and `ssl_certificate_key`.
 
-3. Start Primeagent from the virtual environment.
+3. Start PrimeAgent from the virtual environment.
 
    a. Activate the virtual environment.
 
@@ -229,7 +229,7 @@ Install the Certbot client on your server to manage certificates, and install th
    source primeagent-venv/bin/activate
    ```
 
-   b. Start Primeagent in the background.
+   b. Start PrimeAgent in the background.
 
    ```bash
    uv run primeagent run --host 127.0.0.1 --port 7860 &
@@ -242,5 +242,5 @@ Install the Certbot client on your server to manage certificates, and install th
 
 ## See also
 
-- [Deploy Primeagent on a remote server with Caddy](/deployment-caddyfile)
-- [Deploy Primeagent on Docker](/deployment-docker)
+- [Deploy PrimeAgent on a remote server with Caddy](/deployment-caddyfile)
+- [Deploy PrimeAgent on Docker](/deployment-docker)

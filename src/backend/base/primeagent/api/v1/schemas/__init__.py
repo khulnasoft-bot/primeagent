@@ -375,7 +375,7 @@ class SimplifiedAPIRequest(BaseModel):
         description=(
             "Optional end-user identifier forwarded to tracing providers (e.g. Langfuse) "
             "as the trace's user_id. Does not affect authentication or authorization — the "
-            "API key owner remains the effective Primeagent user."
+            "API key owner remains the effective PrimeAgent user."
         ),
     )
 

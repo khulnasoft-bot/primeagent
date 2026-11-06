@@ -9,7 +9,7 @@ import Icon from "@site/src/components/icon";
 import PartialGlobalModelProviders from "@site/docs/_partial-global-model-providers.mdx";
 
 Vector data is critical to AI applications.
-Primeagent provides several components to help you store and retrieve vector data in your flows, including embedding models, vector stores, and knowledge bases.
+PrimeAgent provides several components to help you store and retrieve vector data in your flows, including embedding models, vector stores, and knowledge bases.
 
 ## Embedding models
 
@@ -30,7 +30,7 @@ Alternatively, you can use [knowledge bases](#knowledge-bases), which include bu
 Vector store components read and write to vector databases.
 Typically, these components connect to remote databases, but some vector store components support local databases.
 
-As of Primeagent 1.12, most vector store bundles, including the **Chroma DB** component in the visual editor, are not in the default Primeagent installation.
+As of PrimeAgent 1.12, most vector store bundles, including the **Chroma DB** component in the visual editor, are not in the default PrimeAgent installation.
 Knowledge bases still use local Chroma storage in the default installation.
 You will have to install any additional vector store providers.
 FOr more information, see [Additional bundles](/extensions-bundle-list#additional-bundles).
@@ -136,13 +136,13 @@ Existing knowledge bases and memory bases continue to use the provider that was 
 #### Chroma (default)
 
 By default, knowledge bases use [ChromaDB](https://docs.trychroma.com/docs/overview/introduction) as a local vector store, with no additional setup required.
-Knowledge bases are stored local to your Primeagent instance.
+Knowledge bases are stored local to your PrimeAgent instance.
 The default storage location depends on your operating system and installation method:
 
-- **Primeagent Desktop**:
+- **PrimeAgent Desktop**:
   - **macOS**: `/Users/<username>/.primeagent/knowledge_bases`
-  - **Windows**: `C:\Users\<name>\AppData\Roaming\com.PrimeagentDesktop\knowledge_bases`
-- **Primeagent OSS**:
+  - **Windows**: `C:\Users\<name>\AppData\Roaming\com.PrimeAgentDesktop\knowledge_bases`
+- **PrimeAgent OSS**:
   - **macOS/Windows/Linux/WSL with `uv pip install`**: `<path_to_venv>/lib/python3.12/site-packages/primeagent/knowledge_bases` (Python version can vary. Knowledge bases aren't shared between virtual environments.)
   - **macOS/Windows/Linux/WSL with `git clone`**: `<path_to_clone>/src/backend/base/primeagent/knowledge_bases`
 
@@ -159,7 +159,7 @@ export PRIMEAGENT_KNOWLEDGE_BASES_DIR="/path/to/parent/directory"
 To use [Chroma Cloud](https://docs.trychroma.com/docs/overview/introduction) as a database provider, you need a Chroma Cloud account and an API key from Chroma Cloud.
 
 1. From your Chroma Cloud dashboard, copy your **API Key**, **Tenant**, and **Database** names.
-2. To connect Chroma Cloud to Primeagent, click **Settings**, and then click **DB Providers**.
+2. To connect Chroma Cloud to PrimeAgent, click **Settings**, and then click **DB Providers**.
 3. Select **Chroma Cloud**.
 4. Enter the following values:
 
@@ -170,14 +170,14 @@ To use [Chroma Cloud](https://docs.trychroma.com/docs/overview/introduction) as 
 
 5. Click **Save and Use Chroma Cloud**.
 
-   Optionally, click **Test Connection** to verify that Primeagent can reach your Chroma Cloud instance before saving.
+   Optionally, click **Test Connection** to verify that PrimeAgent can reach your Chroma Cloud instance before saving.
 
-   The Chroma Cloud database is now connected to Primeagent as a knowledge base provider.
+   The Chroma Cloud database is now connected to PrimeAgent as a knowledge base provider.
    To create a knowledge base using this provider, see [Create a knowledge base](#create-a-knowledge-base).
 
 #### OpenSearch
 
-To use OpenSearch as a database provider, you need a running OpenSearch cluster that is accessible to your Primeagent instance.
+To use OpenSearch as a database provider, you need a running OpenSearch cluster that is accessible to your PrimeAgent instance.
 This example uses an OpenSearch container running locally, but you can also use a remote OpenSearch instance.
 
 1. For this example, start a local OpenSearch container with security disabled. This allows you to connect without a username, password, or TLS. This configuration is for example purposes only; it _isn't_ recommended in production environments.
@@ -223,7 +223,7 @@ This example uses an OpenSearch container running locally, but you can also use 
 
    If you get no response or a connection error, the container might still be starting. Wait a few seconds and try again.
 
-3. To connect the OpenSearch database to Primeagent as a knowledge base, click **Settings**, and then click **DB Providers**.
+3. To connect the OpenSearch database to PrimeAgent as a knowledge base, click **Settings**, and then click **DB Providers**.
 4. Select **OpenSearch**.
 5. Enter the following values for the local OpenSearch container:
 
@@ -242,24 +242,24 @@ This example uses an OpenSearch container running locally, but you can also use 
 
 6. Click **Save and Use OpenSearch**.
 
-   Optionally, click **Test Connection** to verify that Primeagent can reach your OpenSearch cluster before saving.
+   Optionally, click **Test Connection** to verify that PrimeAgent can reach your OpenSearch cluster before saving.
 
-   The OpenSearch database is now connected to Primeagent as a knowledge base provider.
+   The OpenSearch database is now connected to PrimeAgent as a knowledge base provider.
 
 To create a knowledge base using this provider, see [Create a knowledge base](#create-a-knowledge-base).
 
 #### Postgres pgvector
 
-To use [Postgres with pgvector](https://github.com/pgvector/pgvector) as a database provider, you need a PostgreSQL database with the `vector` extension enabled, a connection role that has `CREATE` on the target schema, and the Primeagent `pgvector` optional dependency installed.
+To use [Postgres with pgvector](https://github.com/pgvector/pgvector) as a database provider, you need a PostgreSQL database with the `vector` extension enabled, a connection role that has `CREATE` on the target schema, and the PrimeAgent `pgvector` optional dependency installed.
 This example uses a Postgres container running locally, but you can also use a remote PostgreSQL instance that has pgvector installed.
 
 :::tip
 `PGVECTOR_CONNECTION_STRING` configures the vector store for knowledge bases and memory bases.
-It is separate from [`PRIMEAGENT_DATABASE_URL`](/configuration-custom-database), which configures Primeagent's application database for flows, users, and messages.
+It is separate from [`PRIMEAGENT_DATABASE_URL`](/configuration-custom-database), which configures PrimeAgent's application database for flows, users, and messages.
 You can point both at the same PostgreSQL server, or use different databases.
 :::
 
-1. Install the `pgvector` optional dependency in your Primeagent environment:
+1. Install the `pgvector` optional dependency in your PrimeAgent environment:
 
    ```bash
    uv pip install "primeagent[pgvector]"
@@ -279,11 +279,11 @@ You can point both at the same PostgreSQL server, or use different databases.
      pgvector/pgvector:pg16
    ```
 
-3. Enable the `vector` extension, and grant Primeagent's connection role `CREATE` on the target schema.
+3. Enable the `vector` extension, and grant PrimeAgent's connection role `CREATE` on the target schema.
 
-   Primeagent does not create the `vector` extension. If the extension is absent, knowledge-base and memory-base operations fail.
+   PrimeAgent does not create the `vector` extension. If the extension is absent, knowledge-base and memory-base operations fail.
 
-   To create the `vector` extension, connect to your Primeagent server as a superuser and run:
+   To create the `vector` extension, connect to your PrimeAgent server as a superuser and run:
 
    ```sql
    CREATE EXTENSION vector;
@@ -295,37 +295,37 @@ You can point both at the same PostgreSQL server, or use different databases.
    podman exec -it pgvector psql -U pgvector -d primeagent_vectors -c "CREATE EXTENSION vector;"
    ```
 
-   Primeagent creates one table per knowledge base on first ingest, so the role in `PGVECTOR_CONNECTION_STRING` needs `CREATE` on the target schema. For example:
+   PrimeAgent creates one table per knowledge base on first ingest, so the role in `PGVECTOR_CONNECTION_STRING` needs `CREATE` on the target schema. For example:
 
    ```sql
    GRANT CREATE ON SCHEMA public TO <role>;
    ```
 
-4. Set the `PGVECTOR_CONNECTION_STRING` environment variable to your Postgres connection string, and then start or restart Primeagent:
+4. Set the `PGVECTOR_CONNECTION_STRING` environment variable to your Postgres connection string, and then start or restart PrimeAgent:
 
    ```bash
    export PGVECTOR_CONNECTION_STRING="postgresql+psycopg://pgvector:pgvector@localhost:5432/primeagent_vectors"
    ```
 
-   You can also use a `postgresql://` URL. Primeagent normalizes it to the `psycopg` driver at runtime.
+   You can also use a `postgresql://` URL. PrimeAgent normalizes it to the `psycopg` driver at runtime.
 
    When `PGVECTOR_CONNECTION_STRING` is set, new knowledge bases and memory bases default to Postgres pgvector unless you select a different provider.
 
-5. To connect Postgres pgvector to Primeagent, click **Settings**, and then click **DB Providers**.
+5. To connect Postgres pgvector to PrimeAgent, click **Settings**, and then click **DB Providers**.
 6. Select **Postgres pgvector**.
 
    There are no credentials to enter in the UI. Postgres pgvector is configured from your server environment.
 
 7. Click **Use Postgres pgVector**.
 
-   Optionally, click **Test Connection** to verify that Primeagent can reach your Postgres instance before selecting it.
+   Optionally, click **Test Connection** to verify that PrimeAgent can reach your Postgres instance before selecting it.
 
-   The Postgres pgvector database is now connected to Primeagent as a knowledge base and memory base provider.
+   The Postgres pgvector database is now connected to PrimeAgent as a knowledge base and memory base provider.
    To create a knowledge base using this provider, see [Create a knowledge base](#create-a-knowledge-base).
    To create a memory base using this provider, see [Create a memory base](/memory-bases#create-a-memory-base).
 
 ## See also
 
 - [Manage memory bases](/memory-bases)
-- [Use Primeagent agents](/agents)
+- [Use PrimeAgent agents](/agents)
 - [Language model components](/components-models)

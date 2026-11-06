@@ -1,6 +1,6 @@
 """A2A client component: send a message to a remote A2A agent and return its reply.
 
-Primeagent can also be an A2A *server* (see the primeagent A2A routes); this is the other
+PrimeAgent can also be an A2A *server* (see the primeagent A2A routes); this is the other
 direction, letting a flow call out to any spec-compliant A2A agent via the a2a-sdk client.
 """
 

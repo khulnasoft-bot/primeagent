@@ -2048,7 +2048,7 @@ class TestUploadEndpoint:
 
     @pytest.fixture
     def full_export(self):
-        """Full Primeagent export JSON as exported from the UI (name/data/... at top level).
+        """Full PrimeAgent export JSON as exported from the UI (name/data/... at top level).
 
         This is what a user sends when they run:
             curl -X POST .../flows/upload/ -d @myflow.json
@@ -2063,7 +2063,7 @@ class TestUploadEndpoint:
             return json.load(f)
 
     def test_upload_full_export_as_body(self, app_with_empty_registry, full_export):
-        """Uploading a Primeagent export JSON directly as the body must succeed.
+        """Uploading a PrimeAgent export JSON directly as the body must succeed.
 
         Regression test: load_flow_from_json must be called with the full model dict
         (which has a top-level "data" key), not body.data alone (which is just the

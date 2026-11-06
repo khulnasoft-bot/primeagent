@@ -1,6 +1,6 @@
-"""Primeagent Assistant API router.
+"""PrimeAgent Assistant API router.
 
-This module provides the HTTP endpoints for the Primeagent Assistant.
+This module provides the HTTP endpoints for the PrimeAgent Assistant.
 All business logic is delegated to service modules.
 """
 
@@ -230,7 +230,7 @@ async def check_assistant_config(
     current_user: CurrentActiveUser,
     session: DbSession,
 ) -> dict:
-    """Check if the Primeagent Assistant is properly configured.
+    """Check if the PrimeAgent Assistant is properly configured.
 
     Returns available providers with their configured status and available models, plus
     ``enabled``: whether ``agentic_experience`` gates the assistant off. Provider config and
@@ -340,7 +340,7 @@ async def assist(
     current_user: CurrentActiveUser,
     session: DbSession,
 ) -> dict:
-    """Chat with the Primeagent Assistant."""
+    """Chat with the PrimeAgent Assistant."""
     flow = await _validate_flow_access(request.flow_id, current_user.id, session)
     with scoped_model_provider_policy_for_flow(
         flow,
@@ -377,7 +377,7 @@ async def assist_stream(
     current_user: CurrentActiveUser,
     session: DbSession,
 ) -> StreamingResponse:
-    """Chat with the Primeagent Assistant with streaming progress updates."""
+    """Chat with the PrimeAgent Assistant with streaming progress updates."""
     flow = await _validate_flow_access(request.flow_id, current_user.id, session)
     with scoped_model_provider_policy_for_flow(
         flow,

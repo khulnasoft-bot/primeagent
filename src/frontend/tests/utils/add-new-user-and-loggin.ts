@@ -2,9 +2,9 @@ import { expect } from "../fixtures";
 import { createActiveUserViaApi } from "./auth/manage-users-via-api";
 import { TEXTS } from "./constants/texts";
 import { waitForNewProjectButton } from "./flow/new-project-flow";
-import type { PrimeagentPage } from "./types";
+import type { PrimeAgentPage } from "./types";
 
-export const addNewUserAndLogin = async (page: PrimeagentPage) => {
+export const addNewUserAndLogin = async (page: PrimeAgentPage) => {
   await page.route("**/api/v1/auto_login", (route) => {
     route.fulfill({
       status: 403,

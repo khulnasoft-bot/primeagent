@@ -1,8 +1,8 @@
 """Streamable-HTTP transport for the ``primeagent-mcp`` (wfx) FastMCP server.
 
-Exposes the single Primeagent MCP toolkit — flow authoring, execution, and
+Exposes the single PrimeAgent MCP toolkit — flow authoring, execution, and
 ``run_assistant`` — at ``/api/v1/agentic/mcp`` so external MCP clients can
-reach the running Primeagent server without spawning a local stdio process.
+reach the running PrimeAgent server without spawning a local stdio process.
 
 The mounted server is ``wfx.mcp.server``: the same tool definitions the local
 ``wfx-mcp`` stdio bridge ships, so there is exactly one MCP toolkit. Every tool
@@ -29,7 +29,7 @@ from fastapi import APIRouter, HTTPException, Request, Response
 from mcp import types
 from mcp.server import Server
 from wfx.log.logger import logger
-from wfx.mcp.client import PrimeagentClient
+from wfx.mcp.client import PrimeAgentClient
 from wfx.mcp.server import client_scope
 from wfx.mcp.server import mcp as wfx_mcp
 
@@ -55,14 +55,14 @@ def _excluded_tools() -> frozenset[str]:
     return _HTTP_EXCLUDED_TOOLS | _AGENTIC_GATED_TOOLS
 
 
-current_loopback_client_ctx: ContextVar[PrimeagentClient | None] = ContextVar(
+current_loopback_client_ctx: ContextVar[PrimeAgentClient | None] = ContextVar(
     "current_loopback_client_ctx", default=None
 )
 
 server: Server = Server("primeagent-mcp")
 
 
-async def _loopback_client(request: Request) -> PrimeagentClient:
+async def _loopback_client(request: Request) -> PrimeAgentClient:
     """Build a REST client using the same credentials as MCP authentication.
 
     Tokens (Bearer, cookie, or external) take precedence over API keys, and
@@ -71,7 +71,7 @@ async def _loopback_client(request: Request) -> PrimeagentClient:
     """
     access_token = await oauth2_login(request)
     api_key = None if access_token else request.query_params.get("x-api-key") or request.headers.get("x-api-key")
-    return PrimeagentClient(
+    return PrimeAgentClient(
         server_url=str(request.base_url).rstrip("/"),
         api_key=api_key,
         access_token=access_token,
@@ -109,7 +109,7 @@ async def handle_call_tool(name: str, arguments: dict[str, Any]) -> Any:
         raise ValueError(msg)
     if name in _excluded_tools():
         msg = (
-            f"Tool '{name}' requires the Primeagent Assistant, which is disabled on this server "
+            f"Tool '{name}' requires the PrimeAgent Assistant, which is disabled on this server "
             "(PRIMEAGENT_AGENTIC_EXPERIENCE is not enabled). The other tools remain available."
         )
         raise ValueError(msg)

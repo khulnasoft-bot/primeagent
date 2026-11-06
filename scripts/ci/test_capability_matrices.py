@@ -620,7 +620,7 @@ def test_require_accepted_fails_on_draft_record(tmp_path: Path) -> None:
 
 
 def test_desktop_uses_primeagent_owned_public_clients() -> None:
-    """decisions/desktop-oauth-ownership.md: Desktop defaults to a Primeagent-owned PKCE public client."""
+    """decisions/desktop-oauth-ownership.md: Desktop defaults to a PrimeAgent-owned PKCE public client."""
     for provider in REQUIRED_PROVIDERS:
         matrix = _load(DESIGN_ROOT, provider)
         assert matrix["oauth_app_owner_by_context"]["desktop"] == "primeagent", provider

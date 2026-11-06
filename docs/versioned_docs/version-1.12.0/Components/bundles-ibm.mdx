@@ -14,7 +14,7 @@ import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-ins
 
 <Icon name="Blocks" aria-hidden="true" />
 [**Bundles**](/components-bundle-components) contain custom components that
-support specific third-party integrations with Primeagent.
+support specific third-party integrations with PrimeAgent.
 
 The **IBM** bundle provides access to IBM watsonx.ai models for text and embedding generation, IBM watsonx.data (Presto SQL and the watsonx.data remote MCP server), and an IBM Db2 Vector Store.
 These components require an IBM watsonx.ai deployment with API credentials, a watsonx.data instance, and/or a reachable IBM Db2 instance with the `ibm-db` driver.
@@ -186,7 +186,7 @@ The component uses the Presto DBAPI client (`presto-python-client`) over HTTPS. 
 
 The **IBM watsonx.data MCP** component gives an [**Agent** component](/agents) governed access to watsonx.data document libraries, document sets, and data assets through the [watsonx.data remote MCP server](https://www.ibm.com/docs/en/watsonxdata/premium/2.3.x?topic=agents-watsonxdata-remote-model-context-protocol-mcp-server). The server exposes `LIST_DOCUMENT_LIBRARY`, `QUERY_DOCUMENT_LIBRARY`, `LIST_DOCUMENT_SET`, `QUERY_DOCUMENT_SET`, `LIST_DATA_ASSETS`, and `QUERY_DATA_ASSETS` (natural-language queries over selected Presto tables).
 
-The component builds the `/api/v2/mcp/` endpoint from the instance URL, authenticates with a bearer token — or exchanges an IBM Cloud API key for one on each connection — and reuses Primeagent's MCP client engine. Turn on **Tool Mode** and connect the **Toolset** output to an Agent, or pick a **Tool** and use the **Response** output directly.
+The component builds the `/api/v2/mcp/` endpoint from the instance URL, authenticates with a bearer token — or exchanges an IBM Cloud API key for one on each connection — and reuses PrimeAgent's MCP client engine. Turn on **Tool Mode** and connect the **Toolset** output to an Agent, or pick a **Tool** and use the **Response** output directly.
 
 ### IBM watsonx.data MCP parameters
 
@@ -209,9 +209,9 @@ The component builds the `/api/v2/mcp/` endpoint from the instance URL, authenti
 | Toolset                                                     | [Tools](/data-types#tool)      | Output. Available when Tool Mode is on.                                                                         |
 | Response                                                    | [DataFrame](/data-types#table) | Output. Result of running the selected tool once.                                                               |
 
-### Use other watsonx.data services from Primeagent
+### Use other watsonx.data services from PrimeAgent
 
-watsonx.data also ships Milvus and OpenSearch, and existing Primeagent components connect to them directly:
+watsonx.data also ships Milvus and OpenSearch, and existing PrimeAgent components connect to them directly:
 
 - **Milvus** — use the [**Milvus** vector store component](/bundles-milvus) with the watsonx.data Milvus service URI and its token.
 - **OpenSearch** — use the [**OpenSearch** vector store component](/bundles-elastic#opensearch) with the watsonx.data OpenSearch endpoint.

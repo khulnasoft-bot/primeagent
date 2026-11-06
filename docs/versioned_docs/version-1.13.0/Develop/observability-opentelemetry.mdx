@@ -3,11 +3,11 @@ title: OpenTelemetry
 slug: /observability-opentelemetry
 ---
 
-Primeagent emits OpenTelemetry traces, metrics, and logs describing the health of the Primeagent service itself: request rate, error rate, duration, runtime health, and one span per flow run.
+PrimeAgent emits OpenTelemetry traces, metrics, and logs describing the health of the PrimeAgent service itself: request rate, error rate, duration, runtime health, and one span per flow run.
 
-This telemetry answers operator questions, such as which flows are failing, whether the service is slow, and where the time went. It is not LLM tracing. Primeagent deliberately withholds prompts, completions, and other flow payloads from this export. For prompt-level tracing, use one of the [monitoring integrations](/integrations-langfuse) instead.
+This telemetry answers operator questions, such as which flows are failing, whether the service is slow, and where the time went. It is not LLM tracing. PrimeAgent deliberately withholds prompts, completions, and other flow payloads from this export. For prompt-level tracing, use one of the [monitoring integrations](/integrations-langfuse) instead.
 
-Primeagent speaks plain OTLP, so any OpenTelemetry-compatible backend works, either directly or through an OpenTelemetry Collector.
+PrimeAgent speaks plain OTLP, so any OpenTelemetry-compatible backend works, either directly or through an OpenTelemetry Collector.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ Primeagent speaks plain OTLP, so any OpenTelemetry-compatible backend works, eit
   pip install "wfx[otel]"
   ```
 
-  If an OTLP endpoint is configured and the packages are missing, Primeagent logs a warning at startup rather than exporting nothing silently.
+  If an OTLP endpoint is configured and the packages are missing, PrimeAgent logs a warning at startup rather than exporting nothing silently.
 
 ## Configure environment variables
 
@@ -29,7 +29,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318
 OTEL_SERVICE_NAME=primeagent
 ```
 
-If no OTLP endpoint is set, Primeagent installs no providers and the export path stays inert.
+If no OTLP endpoint is set, PrimeAgent installs no providers and the export path stays inert.
 
 The standard OpenTelemetry SDK variables also apply. The following are the ones operators reach for most often:
 
@@ -41,13 +41,13 @@ The standard OpenTelemetry SDK variables also apply. The following are the ones 
 | `OTEL_TRACES_EXPORTER=none`           | Disables a single signal. The same pattern applies to `METRICS` and `LOGS`.     |
 | `OTEL_EXPORTER_OTLP_COMPRESSION=gzip` | Compresses payloads. Required by backends with a payload size cap.              |
 
-## What Primeagent exports
+## What PrimeAgent exports
 
 ### Traces
 
 | Span              | Emitted by                       | Carries                                                                                        |
 | ----------------- | -------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `flow.execute`    | Primeagent                       | `flow_id`, `run_id`, `session_id`, `protocol`, `status`, and `error.type` when the run fails   |
+| `flow.execute`    | PrimeAgent                       | `flow_id`, `run_id`, `session_id`, `protocol`, `status`, and `error.type` when the run fails   |
 | HTTP server spans | FastAPI and ASGI instrumentation | Route, method, status code                                                                     |
 | Database spans    | SQLAlchemy instrumentation       | `db.system`, `db.operation`, and `db.statement` with bound parameters left as `?` placeholders |
 
@@ -61,7 +61,7 @@ The `status` attribute is `ok`, `error`, `paused`, or `cancelled`. A run stopped
 
 - HTTP server metrics, including `http.server.request.duration`, which give you rate, errors, and duration.
 - Process metrics for this interpreter: CPU, memory, threads, open file descriptors, context switches, and garbage collection.
-- Primeagent's own gauges, such as `primeagent_event_loop_lag_seconds`.
+- PrimeAgent's own gauges, such as `primeagent_event_loop_lag_seconds`.
 
 Process metrics deliberately describe the process rather than the host. Under Kubernetes, host metrics would report the node, which is misleading next to a per-pod request rate, and your infrastructure agent already provides them.
 
@@ -69,7 +69,7 @@ Process metrics deliberately describe the process rather than the host. Under Ku
 
 If an OTLP endpoint is configured, log records at `INFO` and above are exported, and every record carries `trace_id` and `span_id` so you can pivot from a slow trace to the lines it produced.
 
-## What Primeagent does not export
+## What PrimeAgent does not export
 
 The export is an allowlist, not a filter applied after the fact. Spans from instrumentation that is not on the list, including every LLM tracing integration, are dropped on the way out.
 
@@ -85,7 +85,7 @@ Two settings widen this, and both warn when set:
 
 | Variable                          | Effect                                                                                                                                                                                                         |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PRIMEAGENT_OTEL_LOG_LEVEL=DEBUG` | Exports `DEBUG` records. Primeagent logs flow inputs and outputs at `DEBUG`, so this raises export volume. Prompt and completion **bodies** stay withheld unless `PRIMEAGENT_OTEL_LOG_BODIES=all` is also set. |
+| `PRIMEAGENT_OTEL_LOG_LEVEL=DEBUG` | Exports `DEBUG` records. PrimeAgent logs flow inputs and outputs at `DEBUG`, so this raises export volume. Prompt and completion **bodies** stay withheld unless `PRIMEAGENT_OTEL_LOG_BODIES=all` is also set. |
 | `PRIMEAGENT_OTEL_LOG_BODIES=all`  | Exports log message bodies, including completions, chat history, and provider error text. With `PRIMEAGENT_OTEL_LOG_LEVEL=DEBUG`, prompt and completion content reaches your backend.                          |
 
 ## Control span volume
@@ -116,7 +116,7 @@ A successful send is not proof that your backend kept the data. Some backends ac
 
 ## Migrating from the pre-1.0 metric names {#semconv-migration}
 
-Primeagent opts into the stable OpenTelemetry HTTP semantic conventions, because APMs key their HTTP dashboards and service maps off the stable names. Dashboards or alerts built on the older names need updating.
+PrimeAgent opts into the stable OpenTelemetry HTTP semantic conventions, because APMs key their HTTP dashboards and service maps off the stable names. Dashboards or alerts built on the older names need updating.
 
 | Before                                | After                                      |
 | ------------------------------------- | ------------------------------------------ |
@@ -133,7 +133,7 @@ To emit both generations while you migrate, set:
 OTEL_SEMCONV_STABILITY_OPT_IN=http/dup
 ```
 
-Primeagent only sets that variable when it is unset, so a value you provide always wins.
+PrimeAgent only sets that variable when it is unset, so a value you provide always wins.
 
 `http.route` is not part of that rename. It is a separate attribute that existed before and after, and it carries the templated path, such as `/api/v1/flows/{flow_id}`, so distinct flow IDs collapse into one time series rather than creating one per ID. If you were grouping by `http.target`, note that you get the concrete path and query rather than the template, which is a different cardinality.
 

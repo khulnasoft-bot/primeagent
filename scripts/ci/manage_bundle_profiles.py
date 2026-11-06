@@ -456,7 +456,7 @@ def parse_args() -> argparse.Namespace:
     requirements.add_argument(
         "--bundles-only",
         action="store_true",
-        help="omit the application requirement when the downstream build installs Primeagent from pinned source",
+        help="omit the application requirement when the downstream build installs PrimeAgent from pinned source",
     )
 
     verify = subparsers.add_parser("verify-installed", help="verify an installed image against a profile lock")

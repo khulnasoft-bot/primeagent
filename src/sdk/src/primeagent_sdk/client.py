@@ -1,4 +1,4 @@
-"""Sync HTTP client for the Primeagent REST API.
+"""Sync HTTP client for the PrimeAgent REST API.
 
 Preferred usage via the short alias::
 
@@ -19,7 +19,7 @@ import httpx
 
 # Re-export async client so that existing ``from primeagent_sdk.client import ...``
 # statements continue to work without changes.
-from primeagent_sdk._async_client import AsyncClient, AsyncPrimeagentClient
+from primeagent_sdk._async_client import AsyncClient, AsyncPrimeAgentClient
 from primeagent_sdk._client_common import _ClientCommon
 from primeagent_sdk._http import (
     _DEFAULT_TIMEOUT,
@@ -55,8 +55,8 @@ if TYPE_CHECKING:
 # ---------------------------------------------------------------------------
 
 
-class PrimeagentClient(_ClientCommon):
-    """Synchronous client for the Primeagent REST API.
+class PrimeAgentClient(_ClientCommon):
+    """Synchronous client for the PrimeAgent REST API.
 
     Prefer the short alias :data:`Client` for new code::
 
@@ -398,7 +398,7 @@ class PrimeagentClient(_ClientCommon):
 # Short alias  (preferred for new code)
 # ---------------------------------------------------------------------------
 
-#: Short alias for :class:`PrimeagentClient`.
+#: Short alias for :class:`PrimeAgentClient`.
 #:
 #: Example::
 #:
@@ -406,6 +406,6 @@ class PrimeagentClient(_ClientCommon):
 #:     client = Client("https://primeagent.example.com", api_key="...")
 #:     flows  = client.list_flows()
 #:     result = client.run_flow("my-endpoint", RunRequest(input_value="Hello"))
-Client = PrimeagentClient
+Client = PrimeAgentClient
 
-__all__ = ["AsyncClient", "AsyncPrimeagentClient", "Client", "PrimeagentClient"]
+__all__ = ["AsyncClient", "AsyncPrimeAgentClient", "Client", "PrimeAgentClient"]

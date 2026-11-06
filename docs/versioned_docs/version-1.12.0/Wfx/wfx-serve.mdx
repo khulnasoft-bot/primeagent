@@ -20,7 +20,7 @@ Both `wfx serve` and `wfx run` accept a `.json` flow file or a `.py` Python scri
 
 ## Start the server
 
-1. Generate a Primeagent API key.
+1. Generate a PrimeAgent API key.
 
    For WFX, generate a secure token locally:
 
@@ -28,7 +28,7 @@ Both `wfx serve` and `wfx run` accept a `.json` flow file or a `.py` Python scri
    uv run python -c "import secrets; print(secrets.token_urlsafe(32))"
    ```
 
-   This is different from creating an API key through the Primeagent UI or CLI, which stores the key in the Primeagent database. WFX only needs a secure token string to authenticate requests.
+   This is different from creating an API key through the PrimeAgent UI or CLI, which stores the key in the PrimeAgent database. WFX only needs a secure token string to authenticate requests.
 
 2. Set your environment variables. Use a `.env` file or export directly:
 

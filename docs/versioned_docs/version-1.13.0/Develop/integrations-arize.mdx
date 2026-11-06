@@ -8,31 +8,31 @@ import TabItem from "@theme/TabItem";
 
 [Arize AI](https://arize.com/?utm_source=primeagent-docs&utm_medium=partner&utm_campaign=partner-docs&utm_content=integrations-arize) provides observability and evaluation for LLM applications and AI agents using [OpenTelemetry](https://opentelemetry.io/) and [OpenInference](https://docs.arize.com/phoenix/reference/open-inference). Use [Arize AX](https://arize.com/products/ax/) for managed cloud or enterprise self-hosted production observability. Use [Arize Phoenix](https://arize.com/phoenix/) when you want an open-source option you can run locally or self-host.
 
-To enable Arize tracing, set the required Arize environment variables in your Primeagent deployment.
+To enable Arize tracing, set the required Arize environment variables in your PrimeAgent deployment.
 Arize begins monitoring and collecting telemetry data from your LLM applications automatically.
 
 For evaluation workflows that build on traces, see the [Arize agent evaluation guide](https://arize.com/guides/ai-agent-handbook/agent-evaluation/) and [LLM evaluation guide](https://arize.com/resources/llm-evaluation/).
 
 :::tip
-Instructions for integrating Primeagent and Arize are also available in the Arize documentation:
+Instructions for integrating PrimeAgent and Arize are also available in the Arize documentation:
 
-- [Primeagent tracing with Arize AX](https://arize.com/docs/ax/integrations/platforms/primeagent/primeagent-tracing)
-- [Primeagent tracing with Arize Phoenix](https://arize.com/docs/phoenix/integrations/platforms/primeagent/primeagent-tracing)
+- [PrimeAgent tracing with Arize AX](https://arize.com/docs/ax/integrations/platforms/primeagent/primeagent-tracing)
+- [PrimeAgent tracing with Arize Phoenix](https://arize.com/docs/phoenix/integrations/platforms/primeagent/primeagent-tracing)
   :::
 
 ## Prerequisites
 
 - If you are using [Arize AX](https://arize.com/products/ax/), you need an **Arize Space ID** and **Arize API Key**. Self-hosted deployments also need the base URL of their OTLP collector.
-- If you are using [Arize Phoenix](https://arize.com/phoenix/), you need a running Phoenix instance. Local Phoenix can run without authentication, but Primeagent requires a **Phoenix API key** for non-local endpoints.
+- If you are using [Arize Phoenix](https://arize.com/phoenix/), you need a running Phoenix instance. Local Phoenix can run without authentication, but PrimeAgent requires a **Phoenix API key** for non-local endpoints.
 
-## Connect Arize to Primeagent
+## Connect Arize to PrimeAgent
 
 <Tabs>
 <TabItem value="platform" label="Arize AX" default>
 
 1. In your [Arize AX dashboard](https://app.arize.com/), copy your **Space ID** and [**API Key (Ingestion Service Account Key)**](https://arize.com/docs/ax/security-and-settings/api-keys). For self-hosted AX, use your deployment's dashboard instead.
 
-2. In the root of your Primeagent application, edit your existing Primeagent `.env` file or create a new one.
+2. In the root of your PrimeAgent application, edit your existing PrimeAgent `.env` file or create a new one.
 
 3. Add `ARIZE_SPACE_ID` and `ARIZE_API_KEY` environment variables:
 
@@ -49,11 +49,11 @@ Instructions for integrating Primeagent and Arize are also available in the Ariz
    ARIZE_COLLECTOR_ENDPOINT=https://arize-otlp.example.com
    ```
 
-   Replace the example with your collector base URL. Don't include a trailing slash or `/v1`; Primeagent appends `/v1` to the endpoint.
+   Replace the example with your collector base URL. Don't include a trailing slash or `/v1`; PrimeAgent appends `/v1` to the endpoint.
 
    You don't need to specify the Arize project name if you're using Arize AX.
 
-4. Start your Primeagent application with your `.env` file:
+4. Start your PrimeAgent application with your `.env` file:
 
    ```bash
    uv run primeagent run --env-file .env
@@ -64,7 +64,7 @@ Instructions for integrating Primeagent and Arize are also available in the Ariz
 
 1. Start Phoenix locally or connect to your self-hosted Phoenix instance.
 
-2. In the root of your Primeagent application, edit your existing Primeagent `.env` file or create a new one.
+2. In the root of your PrimeAgent application, edit your existing PrimeAgent `.env` file or create a new one.
 
 3. Add your Phoenix endpoint. For local Phoenix, use:
 
@@ -72,13 +72,13 @@ Instructions for integrating Primeagent and Arize are also available in the Ariz
    PHOENIX_COLLECTOR_ENDPOINT=http://localhost:6006
    ```
 
-   For a remote Phoenix deployment, replace the endpoint with your instance's base URL. Primeagent also requires `PHOENIX_API_KEY` for non-local endpoints:
+   For a remote Phoenix deployment, replace the endpoint with your instance's base URL. PrimeAgent also requires `PHOENIX_API_KEY` for non-local endpoints:
 
    ```bash
    PHOENIX_API_KEY=API_KEY
    ```
 
-4. Start your Primeagent application with your `.env` file:
+4. Start your PrimeAgent application with your `.env` file:
 
    ```bash
    uv run primeagent run --env-file .env
@@ -89,12 +89,12 @@ Instructions for integrating Primeagent and Arize are also available in the Ariz
 
 ## Run a flow and view traces in Arize
 
-1.  In Primeagent, run a flow that has an LLM-driven component, such as an **Agent** component or any language model component.
+1.  In PrimeAgent, run a flow that has an LLM-driven component, such as an **Agent** component or any language model component.
     You must chat with the flow or trigger the LLM to produce traffic for Arize to trace.
 
         For example, you can create a flow with the **Simple Agent** template, add your OpenAI API key to the **Agent** component, and then click **Playground** to chat with the flow and generate traffic.
 
-2.  Open the project that receives your Primeagent traces.
+2.  Open the project that receives your PrimeAgent traces.
     For Arize AX, open your project dashboard in AX.
     For Phoenix, open the Phoenix project attached to your configured endpoint.
     Then wait for Arize to process the data.
@@ -104,10 +104,10 @@ Instructions for integrating Primeagent and Arize are also available in the Ariz
     In Arize AX, go to the **LLM Tracing** tab.
     In Phoenix, go to the project traces view.
 
-        Each Primeagent execution generates two traces in Arize:
+        Each PrimeAgent execution generates two traces in Arize:
 
         * The `AgentExecutor` trace is the Arize trace of LangChain's `AgentExecutor`.
-        * The `UUID` trace is the trace of the Primeagent components.
+        * The `UUID` trace is the trace of the PrimeAgent components.
 
 4.  To view traces, go to the **Traces** tab.
 

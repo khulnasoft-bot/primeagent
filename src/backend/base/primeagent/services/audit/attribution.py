@@ -1,6 +1,6 @@
 """Who an event is attributed to, derived from the credential and never the caller.
 
-A caller cannot supply any of these values. ``user_id`` is the Primeagent account the
+A caller cannot supply any of these values. ``user_id`` is the PrimeAgent account the
 request executes under, ``actor_type``/``actor_id`` the credential that
 authenticated it. The on-behalf-of pair is accepted only from a trusted Control
 Plane identity, which nothing in this module establishes, so it stays empty here.

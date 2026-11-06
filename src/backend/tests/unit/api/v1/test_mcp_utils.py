@@ -156,7 +156,7 @@ class TestExtractGlobalVariablesFromHeaders:
     and ``authorization`` should be captured under their lowercase names when
     (and only when) ``include_auth_headers=True`` is passed. The default
     behavior must remain backwards-compatible for non-MCP routes, where
-    ``x-api-key`` is Primeagent's own auth key and must not leak into the graph
+    ``x-api-key`` is PrimeAgent's own auth key and must not leak into the graph
     context.
     """
 
@@ -587,7 +587,7 @@ async def test_handle_call_tool_preserves_request_backed_secret_references_for_p
                                 ],
                                 "value": [
                                     {
-                                        "key": f"X-Primeagent-Global-Var-{variable_name}",
+                                        "key": f"X-PrimeAgent-Global-Var-{variable_name}",
                                         "value": variable_name,
                                         "__load_from_db_fields": {"value": True},
                                     }
@@ -644,12 +644,12 @@ async def test_handle_call_tool_keeps_unmatched_public_secret_references_scrubbe
                                 "table_schema": [{"name": "value", "type": "str", "load_from_db": True}],
                                 "value": [
                                     {
-                                        "key": "X-Primeagent-Global-Var-OWNER_ONLY_TABLE_TOKEN",
+                                        "key": "X-PrimeAgent-Global-Var-OWNER_ONLY_TABLE_TOKEN",
                                         "value": "OWNER_ONLY_TABLE_TOKEN",
                                         "__load_from_db_fields": {"value": True},
                                     },
                                     {
-                                        "key": "X-Primeagent-Global-Var-LITERAL_TOKEN",
+                                        "key": "X-PrimeAgent-Global-Var-LITERAL_TOKEN",
                                         "value": "LITERAL_TOKEN",
                                         "__load_from_db_fields": {"value": False},
                                     },
@@ -1273,7 +1273,7 @@ async def test_handle_call_tool_blocks_hitl_flow(monkeypatch):
 # every already-configured client.
 # ---------------------------------------------------------------------------
 
-_LONG_FLOW_NAME = "Portfolio Website Code Generator"  # 32 chars: a Primeagent starter template
+_LONG_FLOW_NAME = "Portfolio Website Code Generator"  # 32 chars: a PrimeAgent starter template
 
 
 def _tool_flow(name: str, *, flow_id: str = "flow-1", action_name: str | None = None) -> SimpleNamespace:

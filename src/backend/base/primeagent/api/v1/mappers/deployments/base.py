@@ -111,8 +111,8 @@ class DeploymentApiPayloads(DeploymentPayloadFields):
     """API-side payload schema registry for deployment providers.
 
     Ownership boundary:
-    Primeagent owns API slot population here because API payloads may include
-    Primeagent-specific references and reshaping requirements. Adapter-side
+    PrimeAgent owns API slot population here because API payloads may include
+    PrimeAgent-specific references and reshaping requirements. Adapter-side
     slot population is defined separately via ``DeploymentPayloadSchemas``.
     """
 
@@ -142,7 +142,7 @@ class BaseDeploymentMapper:
     """Per-provider mapper for deployment API payloads.
 
     Mapper vs adapter responsibilities:
-    - Mapper: API-boundary translation/validation (Primeagent schemas <-> adapter payloads).
+    - Mapper: API-boundary translation/validation (PrimeAgent schemas <-> adapter payloads).
     - Adapter: provider execution (network calls, provider semantics, side effects).
 
     Selection contract:
@@ -159,7 +159,7 @@ class BaseDeploymentMapper:
       responses), while payload-only shapers return provider dicts unchanged.
 
     Provider-specific mappers override only the methods that need
-    Primeagent-aware resolution or payload reshaping.
+    PrimeAgent-aware resolution or payload reshaping.
     """
 
     api_payloads: ClassVar[DeploymentApiPayloads] = DeploymentApiPayloads()

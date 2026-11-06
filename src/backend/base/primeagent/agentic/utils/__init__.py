@@ -1,4 +1,4 @@
-"""Utilities for agentic features in Primeagent."""
+"""Utilities for agentic features in PrimeAgent."""
 
 from primeagent.agentic.utils.template_search import (
     get_all_tags,

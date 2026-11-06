@@ -389,7 +389,7 @@ class TestDirectoryComponent(ComponentTestBaseWithoutClient):
     def test_directory_loads_bundled_wfx_components_outside_working_root(self, tmp_path, monkeypatch):
         """The installed wfx components dir loads even when the process runs from elsewhere.
 
-        Primeagent Desktop runs from its data dir, so the Assistant's read of the bundled
+        PrimeAgent Desktop runs from its data dir, so the Assistant's read of the bundled
         component sources sits outside the working root.
         """
         monkeypatch.chdir(tmp_path)

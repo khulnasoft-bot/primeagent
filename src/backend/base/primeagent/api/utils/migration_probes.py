@@ -99,7 +99,7 @@ def probe_database(address: str, source_address: str) -> dict[str, Any]:
             if name not in ours and not _KNOWLEDGE_BASE_TABLE.fullmatch(name)
         ]
         if strangers:
-            return _failed("db_not_empty", f"It holds tables that are not Primeagent's, such as {strangers[0]}.")
+            return _failed("db_not_empty", f"It holds tables that are not PrimeAgent's, such as {strangers[0]}.")
         source = sa.create_engine(_sync_sqlite_url(source_address))
         try:
             with source.connect() as own:
@@ -121,7 +121,7 @@ def probe_vectors(address: str) -> dict[str, Any]:
     def has_the_extension(target: sa.Connection) -> dict[str, Any] | None:
         if target.scalar(sa.text("SELECT 1 FROM pg_extension WHERE extname = 'vector'")):
             return _cannot_create(target)
-        # Primeagent never installs an extension, so one that is only available still has to be turned on.
+        # PrimeAgent never installs an extension, so one that is only available still has to be turned on.
         if target.scalar(sa.text("SELECT 1 FROM pg_available_extensions WHERE name = 'vector'")):
             return _failed("pgvector_missing", "Run CREATE EXTENSION vector; in this database, then test again.")
         return _failed("pgvector_missing", "This database server does not have the vector extension.")

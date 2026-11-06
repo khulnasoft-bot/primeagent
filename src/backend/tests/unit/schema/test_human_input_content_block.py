@@ -9,7 +9,7 @@ guards that drift for the HITL card.
 from __future__ import annotations
 
 import pytest
-from primeagent.schema.content_block import ContentBlock as PrimeagentContentBlock
+from primeagent.schema.content_block import ContentBlock as PrimeAgentContentBlock
 from wfx.schema.content_block import ContentBlock as WfxContentBlock
 
 _RAW = {
@@ -22,7 +22,7 @@ _RAW = {
 }
 
 
-@pytest.mark.parametrize("content_block_cls", [PrimeagentContentBlock, WfxContentBlock])
+@pytest.mark.parametrize("content_block_cls", [PrimeAgentContentBlock, WfxContentBlock])
 def test_human_input_content_validates_in_both_unions(content_block_cls):
     block = content_block_cls(title="Human input required", contents=[dict(_RAW)])
     content = block.contents[0]
@@ -31,7 +31,7 @@ def test_human_input_content_validates_in_both_unions(content_block_cls):
     assert content.options[0]["action_id"] == "approve"
 
 
-@pytest.mark.parametrize("content_block_cls", [PrimeagentContentBlock, WfxContentBlock])
+@pytest.mark.parametrize("content_block_cls", [PrimeAgentContentBlock, WfxContentBlock])
 def test_human_input_content_round_trips_through_json(content_block_cls):
     block = content_block_cls(title="Human input required", contents=[dict(_RAW)])
     restored = content_block_cls.model_validate(block.model_dump())

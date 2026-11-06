@@ -1,4 +1,4 @@
-"""Pydantic models mirroring the Primeagent REST API request/response shapes."""
+"""Pydantic models mirroring the PrimeAgent REST API request/response shapes."""
 
 from __future__ import annotations
 
@@ -45,7 +45,7 @@ class FlowUpdate(BaseModel):
 
 
 class Flow(BaseModel):
-    """A flow returned by the Primeagent API."""
+    """A flow returned by the PrimeAgent API."""
 
     id: UUID
     name: str
@@ -87,7 +87,7 @@ class ProjectUpdate(BaseModel):
 
 
 class Project(BaseModel):
-    """A project (folder) returned by the Primeagent API."""
+    """A project (folder) returned by the PrimeAgent API."""
 
     id: UUID
     name: str
@@ -142,7 +142,7 @@ class RunOutput(BaseModel):
         """
         for component_out in self.outputs:
             results = component_out.get("results", {})
-            # Standard Primeagent chat output: results -> message -> text
+            # Standard PrimeAgent chat output: results -> message -> text
             msg = results.get("message")
             if isinstance(msg, dict):
                 text = msg.get("text")
@@ -210,7 +210,7 @@ class RunResponse(BaseModel):
         """Return the first chat text output, or ``None``.
 
         Convenience alias for :meth:`first_text_output` using the naming
-        convention from the Primeagent V2 SDK::
+        convention from the PrimeAgent V2 SDK::
 
             text = response.get_chat_output()
         """
@@ -264,7 +264,7 @@ class RunResponse(BaseModel):
     def is_in_progress(self) -> bool:
         """Always ``False`` for V1 synchronous runs.
 
-        Included for API parity with :class:`BackgroundJob` and the Primeagent
+        Included for API parity with :class:`BackgroundJob` and the PrimeAgent
         V2 SDK (Janardan Singh Kavia, IBM Corp., Apache 2.0) so that callers
         can use a uniform status-check pattern across both sync and background
         execution paths.
@@ -280,7 +280,7 @@ class RunResponse(BaseModel):
 class StreamChunk(BaseModel):
     """A single event chunk from a streaming flow run.
 
-    Events emitted by the Primeagent backend:
+    Events emitted by the PrimeAgent backend:
 
     - ``token`` — incremental LLM token; ``data["chunk"]`` holds the text.
     - ``add_message`` — a complete message was added to the session.

@@ -1,4 +1,4 @@
-"""The Agentics components are deprecated because agentics-py can't be installed alongside Primeagent."""
+"""The Agentics components are deprecated because agentics-py can't be installed alongside PrimeAgent."""
 
 from __future__ import annotations
 
@@ -45,7 +45,7 @@ async def test_should_explain_the_missing_sdk_without_suggesting_an_install(monk
 
 @pytest.mark.unit
 def test_error_message_warns_against_installing_agentics_py_and_links_the_docs():
-    # Installing agentics-py into a Primeagent environment downgrades langchain-core and breaks Primeagent,
+    # Installing agentics-py into a PrimeAgent environment downgrades langchain-core and breaks PrimeAgent,
     # so the message must steer users away from it rather than toward it.
     assert "Don't install it" in ERROR_AGENTICS_NOT_INSTALLED
     assert "`pip install agentics-py`" in ERROR_AGENTICS_NOT_INSTALLED

@@ -1,5 +1,5 @@
 ---
-title: Troubleshoot Primeagent
+title: Troubleshoot PrimeAgent
 slug: /troubleshoot
 ---
 
@@ -7,11 +7,11 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import Icon from "@site/src/components/icon";
 
-This page provides troubleshooting advice for issues you might encounter when using Primeagent or contributing to Primeagent.
+This page provides troubleshooting advice for issues you might encounter when using PrimeAgent or contributing to PrimeAgent.
 
 ## Missing components
 
-As Primeagent development continues, components are often recategorized or deprecated for better alignment or to prepare for new components.
+As PrimeAgent development continues, components are often recategorized or deprecated for better alignment or to prepare for new components.
 
 If a component appears to be missing from the <Icon name="Component" aria-hidden="true" /> **Core components** and menus, try the following:
 
@@ -21,7 +21,7 @@ If a component appears to be missing from the <Icon name="Component" aria-hidden
 - Check the [Changelog](https://github.com/khulnasoft-bot/primeagent/releases/latest) for component changes in recent releases.
 - Make sure the component isn't already present in your flow if it is a single-use component.
 
-If you still cannot locate the component, see [Primeagent GitHub Issues and Discussions](/contributing-github-issues).
+If you still cannot locate the component, see [PrimeAgent GitHub Issues and Discussions](/contributing-github-issues).
 
 ## No input in the Playground
 
@@ -36,26 +36,26 @@ For more information, see [Test flows in the Playground](/concepts-playground).
 If you get an API key error when running a flow, try the following:
 
 - For all components that require credentials, make sure those components have a valid credential in the component's settings, such as the **API Key** field.
-- If you store your credentials in [Primeagent global variables](/configuration-global-variables), make sure you selected the correct global variable and that the variable contains a valid credential.
+- If you store your credentials in [PrimeAgent global variables](/configuration-global-variables), make sure you selected the correct global variable and that the variable contains a valid credential.
 - Make sure the provided credentials are active, have the required permissions, and, if applicable, have sufficient funds in the account to execute the required action. For example, model providers require credits to use their LLMs.
 
-## Primeagent installation issues
+## PrimeAgent installation issues
 
-The following issues can occur when installing Primeagent.
+The following issues can occur when installing PrimeAgent.
 
-### Primeagent installation freezes at pip dependency resolution
+### PrimeAgent installation freezes at pip dependency resolution
 
-Installing Primeagent OSS with `pip install primeagent` slowly fails with this error message:
+Installing PrimeAgent OSS with `pip install primeagent` slowly fails with this error message:
 
 ```text
 pip is looking at multiple versions of <<library>> to determine which version is compatible with other requirements. This could take a while.
 ```
 
-To work around this issue, install Primeagent with `uv` instead of `pip`, as explained in [Install and run the Primeagent OSS Python package](/get-started-installation#install-and-run-the-primeagent-oss-python-package).
+To work around this issue, install PrimeAgent with `uv` instead of `pip`, as explained in [Install and run the PrimeAgent OSS Python package](/get-started-installation#install-and-run-the-primeagent-oss-python-package).
 
 ### Linux installation fails to build required package
 
-When you try to install Primeagent OSS on Linux, installation fails because of outdated or missing packages:
+When you try to install PrimeAgent OSS on Linux, installation fails because of outdated or missing packages:
 
 ```bash
 Resolved 455 packages in 18.92s
@@ -64,14 +64,14 @@ Resolved 455 packages in 18.92s
   ╰─▶ Call to `setuptools.build_meta:__legacy__.build_wheel` failed (exit status: 1)
 ```
 
-To resolve this error, install the required build dependencies, and then retry the Primeagent installation:
+To resolve this error, install the required build dependencies, and then retry the PrimeAgent installation:
 
 ```bash
 sudo apt-get update
 sudo apt-get install build-essential python3-dev
 ```
 
-If upgrading your packages doesn't fix the issue, install `gcc` separately, and then retry the Primeagent installation:
+If upgrading your packages doesn't fix the issue, install `gcc` separately, and then retry the PrimeAgent installation:
 
 ```bash
 sudo apt-get install gcc
@@ -79,11 +79,11 @@ sudo apt-get install gcc
 
 ### Installation failure from `webrtcvad` package
 
-If you experience an error from the `webrtcvad` package, run `uv pip install webrtcvad-wheels` in your virtual environment, and then retry the Primeagent installation.
+If you experience an error from the `webrtcvad` package, run `uv pip install webrtcvad-wheels` in your virtual environment, and then retry the PrimeAgent installation.
 
 ### Protocol buffers (protoc) required for Intel-based Macs
 
-If you're installing Primeagent on an Intel-based Mac, you may encounter installation errors if Protocol Buffers Compiler (`protoc`) is not installed.
+If you're installing PrimeAgent on an Intel-based Mac, you may encounter installation errors if Protocol Buffers Compiler (`protoc`) is not installed.
 
 This requirement doesn't apply to Apple Silicon Macs on ARM64.
 
@@ -91,17 +91,17 @@ To resolve this issue, install `protoc` using `brew install protobuf`.
 
 For more information, including alternative installation methods, see the [Protocol buffers installation documentation](https://protobuf.dev/installation/).
 
-### C++ build tools required for Primeagent Desktop on Windows
+### C++ build tools required for PrimeAgent Desktop on Windows
 
-Microsoft Windows installations of Primeagent Desktop require a C++ compiler that may not be present on your system. If you receive a `C++ Build Tools Required!` error, follow the on-screen prompt to install Microsoft C++ Build Tools, or [install Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/).
+Microsoft Windows installations of PrimeAgent Desktop require a C++ compiler that may not be present on your system. If you receive a `C++ Build Tools Required!` error, follow the on-screen prompt to install Microsoft C++ Build Tools, or [install Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/).
 
-## Primeagent startup issues
+## PrimeAgent startup issues
 
-The following issues can occur when attempting to start Primeagent.
+The following issues can occur when attempting to start PrimeAgent.
 
 ### No `primeagent.__main__` module
 
-When you try to run Primeagent with the command `primeagent run`, you encounter the following error:
+When you try to run PrimeAgent with the command `primeagent run`, you encounter the following error:
 
 ```bash
 > No module named 'primeagent.__main__'
@@ -110,12 +110,12 @@ When you try to run Primeagent with the command `primeagent run`, you encounter 
 To resolve this issue, try the following:
 
 1. Run `uv run primeagent run` instead of `primeagent run`.
-2. If that doesn't work, reinstall the latest Primeagent version with `uv pip install primeagent -U`.
-3. If that doesn't work, reinstall Primeagent and its dependencies with `uv pip install primeagent --pre -U --force-reinstall`.
+2. If that doesn't work, reinstall the latest PrimeAgent version with `uv pip install primeagent -U`.
+3. If that doesn't work, reinstall PrimeAgent and its dependencies with `uv pip install primeagent --pre -U --force-reinstall`.
 
-### Primeagent runTraceback
+### PrimeAgent runTraceback
 
-When you try to run Primeagent using the command `primeagent run`, you encounter the following error:
+When you try to run PrimeAgent using the command `primeagent run`, you encounter the following error:
 
 ```bash
 > primeagent runTraceback (most recent call last): File ".../primeagent", line 5, in <module>  from primeagent.__main__ import mainModuleNotFoundError: No module named 'primeagent.__main__'
@@ -123,55 +123,55 @@ When you try to run Primeagent using the command `primeagent run`, you encounter
 
 There are two possible reasons for this error:
 
-- **Multiple Primeagent installations**: You installed Primeagent using `pip install primeagent` but you already had a previous version of Primeagent installed in your system. In this case, you might be running the wrong executable.
+- **Multiple PrimeAgent installations**: You installed PrimeAgent using `pip install primeagent` but you already had a previous version of PrimeAgent installed in your system. In this case, you might be running the wrong executable.
 
   To solve this issue, run the correct executable by running `python -m primeagent run` instead of `primeagent run`.
 
-  If that doesn't work, try uninstalling and reinstalling Primeagent with `uv pip install primeagent --pre -U`.
+  If that doesn't work, try uninstalling and reinstalling PrimeAgent with `uv pip install primeagent --pre -U`.
 
-- **Version conflict during installation**: Some version conflicts might have occurred during the installation process. To resolve this issue, reinstall Primeagent and its dependencies by running `python -m pip install primeagent --pre -U --force-reinstall`.
+- **Version conflict during installation**: Some version conflicts might have occurred during the installation process. To resolve this issue, reinstall PrimeAgent and its dependencies by running `python -m pip install primeagent --pre -U --force-reinstall`.
 
 ### Environment variables not available from terminal
 
-Environment variables set in your terminal aren't automatically available to GUI-based applications like Primeagent Desktop when launched through the Finder or the Start Menu.
-To set environment variables for Primeagent Desktop, see [Set environment variables for Primeagent Desktop](/environment-variables#set-environment-variables-for-primeagent-desktop).
+Environment variables set in your terminal aren't automatically available to GUI-based applications like PrimeAgent Desktop when launched through the Finder or the Start Menu.
+To set environment variables for PrimeAgent Desktop, see [Set environment variables for PrimeAgent Desktop](/environment-variables#set-environment-variables-for-primeagent-desktop).
 
-### Access Primeagent Desktop startup logs
+### Access PrimeAgent Desktop startup logs
 
-If you encounter issues with Primeagent Desktop, you might need to [access Primeagent Desktop startup logs](/logging#desktop-logs) for debugging.
+If you encounter issues with PrimeAgent Desktop, you might need to [access PrimeAgent Desktop startup logs](/logging#desktop-logs) for debugging.
 
 ### User not found or inactive when running multiple flows
 
-When running multiple local Primeagent OSS instances on different ports, such as `localhost:7860` and `localhost:7861`, you might see authentication errors in the logs.
+When running multiple local PrimeAgent OSS instances on different ports, such as `localhost:7860` and `localhost:7861`, you might see authentication errors in the logs.
 For example:
 
 ```text
 [07/22/25 10:57:07] INFO     2025-07-22 10:57:07 - INFO     - utils - User not found or inactive.
 ```
 
-To resolve this error, use separate browser instances or browser profiles to access each Primeagent instance.
+To resolve this error, use separate browser instances or browser profiles to access each PrimeAgent instance.
 
 ### Package is not installed
 
-In Primeagent OSS, you can follow the error message's instructions to install the missing dependency.
+In PrimeAgent OSS, you can follow the error message's instructions to install the missing dependency.
 
-To manage dependencies in Primeagent Desktop, see [Install custom dependencies in Primeagent Desktop](/install-custom-dependencies#primeagent-desktop).
+To manage dependencies in PrimeAgent Desktop, see [Install custom dependencies in PrimeAgent Desktop](/install-custom-dependencies#primeagent-desktop).
 
 ### PostgreSQL asyncpg driver compatibility issue
 
-The following error can occur when initializing Primeagent with a PostgreSQL database:
+The following error can occur when initializing PrimeAgent with a PostgreSQL database:
 
 ```text
 sqlalchemy.exc.DBAPIError: (sqlalchemy.dialects.postgresql.asyncpg.Error) <class 'asyncpg.exceptions.DataError'>: invalid input for query argument $7: datetime.datetime(2025, 10, 31, 14, 8, 5... (can't subtract offset-naive and offset-aware datetimes)
 ```
 
-This error occurs because `asyncpg` has stricter timezone handling than `psycopg2`, and is not fully compatible with Primeagent's current database schema.
+This error occurs because `asyncpg` has stricter timezone handling than `psycopg2`, and is not fully compatible with PrimeAgent's current database schema.
 
 To resolve this issue, remove `asyncpg` from your installation and use `psycopg2` instead.
 
 ### PostgreSQL version mismatch: `UNIQUE NULLS DISTINCT` syntax error
 
-The following error can occur when initializing Primeagent with a PostgreSQL database:
+The following error can occur when initializing PrimeAgent with a PostgreSQL database:
 
 ```text
 (psycopg.errors.SyntaxError) syntax error at or near "NULLS"
@@ -179,39 +179,39 @@ LINE 13:  CONSTRAINT file_name_user_id_key UNIQUE NULLS DISTINCT (nam...
 ```
 
 This occurs when you're using a PostgreSQL version prior to version 15.
-These versions don't support the `UNIQUE NULLS DISTINCT` syntax used by Primeagent's database schema.
-Primeagent requires PostgreSQL 15 or higher when configured to use PostgreSQL.
+These versions don't support the `UNIQUE NULLS DISTINCT` syntax used by PrimeAgent's database schema.
+PrimeAgent requires PostgreSQL 15 or higher when configured to use PostgreSQL.
 
-To resolve this issue, upgrade your PostgreSQL instance to version 15 or higher, and then restart Primeagent.
+To resolve this issue, upgrade your PostgreSQL instance to version 15 or higher, and then restart PrimeAgent.
 
 ### An API key must be passed as query or header
 
-The following error can occur when attempting to sign up on the Primeagent sign in page: `An API key must be passed as query or header`.
+The following error can occur when attempting to sign up on the PrimeAgent sign in page: `An API key must be passed as query or header`.
 
 This means that `PRIMEAGENT_AUTO_LOGIN` is set to `false`, and only superusers can create and activate non-superuser accounts.
-Therefore, you are locked out of this Primeagent instance.
+Therefore, you are locked out of this PrimeAgent instance.
 
 If you aren't an administrator, then a superuser must create and activate a non-superuser account before you can sign in.
 
-If you are the administrator, sign in with a superuser account, or restart Primeagent with `PRIMEAGENT_AUTO_LOGIN=true`.
+If you are the administrator, sign in with a superuser account, or restart PrimeAgent with `PRIMEAGENT_AUTO_LOGIN=true`.
 
-For more information, see [Start Primeagent Server with authentication enabled](/api-keys-and-authentication#start-a-primeagent-server-with-authentication-enabled).
+For more information, see [Start PrimeAgent Server with authentication enabled](/api-keys-and-authentication#start-a-primeagent-server-with-authentication-enabled).
 
-## Primeagent upgrade issues
+## PrimeAgent upgrade issues
 
-The following issues can occur when upgrading your Primeagent version.
+The following issues can occur when upgrading your PrimeAgent version.
 
-For information about managing Primeagent versions, see [Install Primeagent](/get-started-installation).
+For information about managing PrimeAgent versions, see [Install PrimeAgent](/get-started-installation).
 
 ### Something went wrong running migrations
 
-The following error can occur during Primeagent upgrades when the new version can't override `primeagent-pre.db` in the Primeagent cache folder:
+The following error can occur during PrimeAgent upgrades when the new version can't override `primeagent-pre.db` in the PrimeAgent cache folder:
 
 ```bash
 > Something went wrong running migrations. Please, run 'primeagent migration --fix'
 ```
 
-To resolve this error, clear the cache by deleting the contents of your Primeagent cache folder.
+To resolve this error, clear the cache by deleting the contents of your PrimeAgent cache folder.
 The filepath depends on your operating system, installation type, and configuration options.
 For more information and default filepaths, see [Memory management options](/memory).
 
@@ -220,14 +220,14 @@ Clearing the cache erases your settings.
 If you want to retain your settings files, create a backup of those files before clearing the cache folder.
 :::
 
-### Primeagent Desktop says it is running the latest version, but it is actually behind
+### PrimeAgent Desktop says it is running the latest version, but it is actually behind
 
-If you are running Primeagent Desktop version 1.4.2 or earlier, the UI might incorrectly report that you are on the latest version when a newer version is available.
+If you are running PrimeAgent Desktop version 1.4.2 or earlier, the UI might incorrectly report that you are on the latest version when a newer version is available.
 
 This happens because the automatic update feature in the UI was introduced in version 1.4.2.
 Earlier versions can't automatically detect or apply updates.
 
-To resolve this issue, uninstall Primeagent Desktop, and then [download and install the latest version of Primeagent Desktop](https://prime.khulnasoft.com/desktop).
+To resolve this issue, uninstall PrimeAgent Desktop, and then [download and install the latest version of PrimeAgent Desktop](https://prime.khulnasoft.com/desktop).
 
 ### 422 error when freezing components after upgrading Pydantic/FastAPI dependencies
 
@@ -235,31 +235,31 @@ If you locally upgrade your Pydantic and FastAPI dependencies, you may encounter
 
 This error occurs due to changes in how request bodies are handled in newer versions of these dependencies.
 
-If you're experiencing this issue, update your Primeagent installation to version 1.6.5 or later, which includes a fix for this issue.
+If you're experiencing this issue, update your PrimeAgent installation to version 1.6.5 or later, which includes a fix for this issue.
 
 ```bash
 uv pip install primeagent -U
 ```
 
-## Primeagent uninstall issues
+## PrimeAgent uninstall issues
 
-The following issues can occur when uninstalling Primeagent.
+The following issues can occur when uninstalling PrimeAgent.
 
-### Dot directory isn't deleted when uninstalling Primeagent Desktop on macOS
+### Dot directory isn't deleted when uninstalling PrimeAgent Desktop on macOS
 
-On macOS, uninstalling Primeagent Desktop deletes the `.app` file but doesn't delete files in `~/.primeagent`, which includes files generated during usage like cache and settings.
+On macOS, uninstalling PrimeAgent Desktop deletes the `.app` file but doesn't delete files in `~/.primeagent`, which includes files generated during usage like cache and settings.
 
-If you reinstall Primeagent Desktop, it starts with the existing data from the previous installation.
+If you reinstall PrimeAgent Desktop, it starts with the existing data from the previous installation.
 
-To fully remove a Primeagent Desktop macOS installation, you must also delete `~/.primeagent`:
+To fully remove a PrimeAgent Desktop macOS installation, you must also delete `~/.primeagent`:
 
     ```bash
     rm -rf .primeagent
     ```
 
-## Primeagent MCP issues {#mcp}
+## PrimeAgent MCP issues {#mcp}
 
-The following issues can occur when using Primeagent as an MCP server or client.
+The following issues can occur when using PrimeAgent as an MCP server or client.
 
 ### Default project MCP server only works when authentication is None
 
@@ -289,7 +289,7 @@ Your `args` array must include `"--headers"`, `"x-api-key"`, and your key value.
 }
 ```
 
-For more information, see [Connect clients to your Primeagent MCP server](/mcp-server#connect-clients-to-use-the-servers-actions).
+For more information, see [Connect clients to your PrimeAgent MCP server](/mcp-server#connect-clients-to-use-the-servers-actions).
 
 ### Claude for Desktop doesn't use MCP server tools correctly
 
@@ -299,7 +299,7 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
 
    To find your `npx` path, run `which npx`.
 
-2. In your `claude_desktop_config.json` file, add the path to your Primeagent MCP server configuration, as shown in the following examples.
+2. In your `claude_desktop_config.json` file, add the path to your PrimeAgent MCP server configuration, as shown in the following examples.
 
    <Tabs>
 <TabItem value="uvx" label="uvx" default>
@@ -347,26 +347,26 @@ This is a known issue when using MCP Tools with browser navigation actions, such
 This issue occurs because the MCP server runs from a Python process, which prevents it from opening browser windows in WSL or Windows.
 
 To work around this issue, use the standalone MCP server approach documented in the [Playwright MCP repository](https://github.com/microsoft/playwright-mcp?tab=readme-ov-file#standalone-mcp-server).
-After the server is up and running, you can add it as an HTTP/SSE server in Primeagent.
+After the server is up and running, you can add it as an HTTP/SSE server in PrimeAgent.
 
 For other browser navigation tools, see the provider's documentation for specific troubleshooting guidance.
 
 ### "No tools or prompts connected" on MCP servers in mixed Windows/WSL environments
 
-If you encounter "No tools or prompts connected" errors or connection failures when using Primeagent Desktop as an MCP server with clients running in different environments, such as Primeagent on a Windows host and an MCP client in WSL, this is due to network isolation between Windows and WSL environments.
+If you encounter "No tools or prompts connected" errors or connection failures when using PrimeAgent Desktop as an MCP server with clients running in different environments, such as PrimeAgent on a Windows host and an MCP client in WSL, this is due to network isolation between Windows and WSL environments.
 
-WSL cannot directly access Windows localhost services, and Primeagent running on a Windows host is not accessible from WSL clients at `localhost:7860`.
+WSL cannot directly access Windows localhost services, and PrimeAgent running on a Windows host is not accessible from WSL clients at `localhost:7860`.
 
 To work around this issue, run the server and host in the same operating environment.
 
-Alternatively, configure Primeagent Desktop to accept connections from WSL at the default Windows IP address of `10.255.255.254:7860` instead of `localhost`.
+Alternatively, configure PrimeAgent Desktop to accept connections from WSL at the default Windows IP address of `10.255.255.254:7860` instead of `localhost`.
 
 ### MCP Tools component loses Tool Mode option after upgrading flows {#mcp-tools-component-loses-tool-mode-option-after-upgrading-flows}
 
 If you upgrade an existing flow that uses the [**MCP Tools** component](/mcp-tools) in **Tool Mode**, the component might lose its **Tool Mode** setting after upgrading the flow.
 This can break flows that rely on the component's **Tool Mode** to expose MCP tools to agents.
 
-If you experience this when upgrading a flow that you created in Primeagent version 1.7.1 or earlier, do the following:
+If you experience this when upgrading a flow that you created in PrimeAgent version 1.7.1 or earlier, do the following:
 
 1. Select the **MCP Tools** component in your flow.
 2. Click <Icon name="Code" aria-hidden="true"/> **Code** to open the component's code editor.
@@ -387,9 +387,9 @@ For more information, see [Tokenization errors due to chunk size](/split-text#ch
 
 ## Document processing errors in Docker containers
 
-If you're running Primeagent in a Docker container, you might encounter errors when using components that handle files or images, such as the [**Read File** component](/read-file) or [**Docling** components](/bundles-docling). To resolve these errors, you might need to install additional system dependencies.
+If you're running PrimeAgent in a Docker container, you might encounter errors when using components that handle files or images, such as the [**Read File** component](/read-file) or [**Docling** components](/bundles-docling). To resolve these errors, you might need to install additional system dependencies.
 
-When running Primeagent in a Linux-based Docker container, Docling requires system libraries that aren't included in the base Docker image. If you see errors related to document or image processing, add the following to your Dockerfile:
+When running PrimeAgent in a Linux-based Docker container, Docling requires system libraries that aren't included in the base Docker image. If you see errors related to document or image processing, add the following to your Dockerfile:
 
 ```dockerfile
 RUN apt-get update && apt-get install -y libgl1 libglib2.0-0
@@ -397,17 +397,17 @@ RUN apt-get update && apt-get install -y libgl1 libglib2.0-0
 
 These dependencies are required by Docling for document processing operations.
 
-For more information about customizing Docker images, see [Customize the Primeagent Docker image with your own code](/deployment-docker#customize-the-primeagent-docker-image).
+For more information about customizing Docker images, see [Customize the PrimeAgent Docker image with your own code](/deployment-docker#customize-the-primeagent-docker-image).
 
 ## Custom components and integrations issues
 
-For troubleshooting advice for a third-party integration, see the information about that integration in the Primeagent documentation and the provider's documentation.
+For troubleshooting advice for a third-party integration, see the information about that integration in the PrimeAgent documentation and the provider's documentation.
 
 If you are building a custom component, see [Error handling and logging for custom Python components](/components-custom-components#error-handling-and-logging).
 
 ### Custom components not appearing in the visual editor
 
-If your custom components are not appearing in the Primeagent visual editor, try the following troubleshooting steps:
+If your custom components are not appearing in the PrimeAgent visual editor, try the following troubleshooting steps:
 
 1.  Ensure your components follow the [required directory structure](https://prime.khulnasoft.com/docs/components-custom-components#directory-structure-requirements).
 
@@ -432,5 +432,5 @@ If you continue to experience issues, please [report them on GitHub](https://git
 
 ## See also
 
-- [Primeagent GitHub Issues and Discussions](/contributing-github-issues)
-- [Primeagent telemetry](/contributing-telemetry)
+- [PrimeAgent GitHub Issues and Discussions](/contributing-github-issues)
+- [PrimeAgent telemetry](/contributing-telemetry)

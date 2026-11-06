@@ -82,7 +82,7 @@ describe("Where your data goes", () => {
     // What the admin enters stays in one worker's memory, which another worker cannot read.
     expect(
       screen.getByText(
-        /Run Primeagent with one worker during the move, or another worker won't have them\./,
+        /Run PrimeAgent with one worker during the move, or another worker won't have them\./,
       ),
     ).toBeInTheDocument();
   });
@@ -112,7 +112,7 @@ describe("Where your data goes", () => {
     );
 
     expect(screen.getByRole("alert")).toHaveTextContent(
-      "Primeagent keeps passwords and keys only in memory and no longer has them. If Primeagent runs more than one worker, restart it with one worker. Then enter them again.",
+      "PrimeAgent keeps passwords and keys only in memory and no longer has them. If PrimeAgent runs more than one worker, restart it with one worker. Then enter them again.",
     );
   });
 
@@ -339,7 +339,7 @@ describe("Where your data goes", () => {
     [
       "pgvector_package_missing",
       "This server has no pgvector package. Install primeagent[pgvector].",
-      "This Primeagent server doesn't have the pgvector package. Install it, restart Primeagent, then test again.",
+      "This PrimeAgent server doesn't have the pgvector package. Install it, restart PrimeAgent, then test again.",
     ],
   ])(
     "says under Knowledge bases why they can't be copied there: %s",
@@ -419,7 +419,7 @@ describe("Where your data goes", () => {
     // The note above it says where the knowledge bases go, so the refusal is what to do, and no more.
     const refusal = screen.getByRole("alert");
     expect(refusal.firstElementChild).toHaveTextContent(
-      /^Set PGVECTOR_CONNECTION_STRING on this server to that database and restart Primeagent, then test again\.$/,
+      /^Set PGVECTOR_CONNECTION_STRING on this server to that database and restart PrimeAgent, then test again\.$/,
     );
     expect(refusal).toHaveTextContent("PGVECTOR_CONNECTION_STRING is not set");
   });
@@ -1830,7 +1830,7 @@ describe("Copy the database", () => {
   it.each([
     [
       "secrets_missing",
-      "Primeagent no longer holds the passwords and keys of the new instance. If it runs more than one worker, restart it with one worker. Then enter them again in 'Where your data goes'.",
+      "PrimeAgent no longer holds the passwords and keys of the new instance. If it runs more than one worker, restart it with one worker. Then enter them again in 'Where your data goes'.",
     ],
     ["run_active", "Another step is running. Wait for it to finish."],
     // A step above opened again in another tab, and this page has not read that yet.
@@ -2598,7 +2598,7 @@ describe("Copy knowledge bases and files", () => {
       .map((item) => item.textContent);
     expect(lines).toEqual([
       "cat.txt (u-1)The bucket already holds a different file with this name. Nothing is overwritten.",
-      "a\\b.txt (u-1)This file's stored name has a backslash or \"..\" in it, which Primeagent's file storage refuses, so it can't be copied.",
+      "a\\b.txt (u-1)This file's stored name has a backslash or \"..\" in it, which PrimeAgent's file storage refuses, so it can't be copied.",
       "gone.txt (u-1)Nothing is stored for this name, so there is nothing to copy. It will show as missing.",
       "big.bin (u-1)Can't write to the bucket. Check 'Where your data goes', then try again.Details, big.binSlowDown",
     ]);
@@ -2724,7 +2724,7 @@ describe("Copy knowledge bases and files", () => {
       screen.getByText(/^This instance uses PostgreSQL, so it switches/),
     ).toBeInTheDocument();
     const line =
-      "This instance already uses PostgreSQL, so its knowledge bases are copied to the store this server reads them from. Set PGVECTOR_CONNECTION_STRING on this server to that database and restart Primeagent, then copy again.";
+      "This instance already uses PostgreSQL, so its knowledge bases are copied to the store this server reads them from. Set PGVECTOR_CONNECTION_STRING on this server to that database and restart PrimeAgent, then copy again.";
 
     // Nothing ran, and the step says why it will not.
     expect(screen.getByRole("alert")).toHaveTextContent(line);
@@ -3954,7 +3954,7 @@ describe("Check the copy", () => {
       screen.getByRole("button", { name: "Check the copy" }),
     );
     expect(await screen.findByRole("alert")).toHaveTextContent(
-      "Primeagent no longer holds the passwords and keys of the new instance. If it runs more than one worker, restart it with one worker. Then enter them again in 'Where your data goes'.",
+      "PrimeAgent no longer holds the passwords and keys of the new instance. If it runs more than one worker, restart it with one worker. Then enter them again in 'Where your data goes'.",
     );
     unmount();
 

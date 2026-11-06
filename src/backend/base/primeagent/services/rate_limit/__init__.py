@@ -1,4 +1,4 @@
-"""Rate limiting service for Primeagent API endpoints.
+"""Rate limiting service for PrimeAgent API endpoints.
 
 This module provides rate limiting functionality using SlowAPI to protect
 against brute force attacks and abuse. It supports both IP-based and custom

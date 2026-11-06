@@ -147,14 +147,14 @@ ENV BASH_ENV="" \
 # a fresh named volume at /app/primeagent, Docker copies this directory's ownership
 # and permissions into the new volume, so the in-container uid=1000 user can
 # write secret_key, profile_pictures, etc. Without this, the volume is created
-# as root:root and Primeagent crashes during startup with PermissionError on
+# as root:root and PrimeAgent crashes during startup with PermissionError on
 # /app/primeagent/secret_key. See https://github.com/khulnasoft-bot/primeagent/issues/10437
 RUN mkdir -p /app/data /app/primeagent \
     && chown -R 1000:0 /app/data /app/primeagent \
     && chmod -R g+rwX /app/data /app/primeagent
 
 LABEL org.opencontainers.image.title=primeagent
-LABEL org.opencontainers.image.authors=['Primeagent']
+LABEL org.opencontainers.image.authors=['PrimeAgent']
 LABEL org.opencontainers.image.licenses=MIT
 LABEL org.opencontainers.image.url=https://github.com/khulnasoft-bot/primeagent
 LABEL org.opencontainers.image.source=https://github.com/khulnasoft-bot/primeagent

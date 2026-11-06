@@ -23,6 +23,6 @@ export function getHealthCheckUrl(): string {
   return HEALTH_CHECK_URL || "/health";
 }
 
-export const PrimeagentButtonRedirectTarget = () => {
+export const PrimeAgentButtonRedirectTarget = () => {
   return "https://prime.khulnasoft.com";
 };

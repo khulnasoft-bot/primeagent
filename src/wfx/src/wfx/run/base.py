@@ -1,4 +1,4 @@
-"""Core run functionality for executing Primeagent graphs."""
+"""Core run functionality for executing PrimeAgent graphs."""
 
 import json
 import re
@@ -225,9 +225,9 @@ async def run_flow(
     upgrade_flow: str | None = None,
     human_input: bool | None = None,
 ) -> dict:
-    """Execute a Primeagent graph script or JSON flow and return the result.
+    """Execute a PrimeAgent graph script or JSON flow and return the result.
 
-    This function analyzes and executes either a Python script containing a Primeagent graph,
+    This function analyzes and executes either a Python script containing a PrimeAgent graph,
     a JSON flow file, inline JSON, or JSON from stdin, returning the result as a dict.
 
     Args:

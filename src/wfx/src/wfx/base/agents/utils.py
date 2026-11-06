@@ -247,10 +247,10 @@ def resolve_agent_verbose() -> bool:
 
     When ``verbose`` is truthy, ``AgentExecutor`` attaches a ``StdOutCallbackHandler``
     that writes ``> Entering new ... chain`` / ``> Finished chain.`` lines straight to
-    **stdout** via ``print()`` -- bypassing Primeagent's logging system entirely (no log
+    **stdout** via ``print()`` -- bypassing PrimeAgent's logging system entirely (no log
     level, no formatting). That output is pure noise in container/Kubernetes/OpenShift
     deployments where stdout is harvested as logs, and the same agent steps are already
-    surfaced through Primeagent's own event stream (the "Agent Steps" content blocks).
+    surfaced through PrimeAgent's own event stream (the "Agent Steps" content blocks).
 
     The markers are therefore **off by default** and gated behind LangChain's own
     ``LANGCHAIN_VERBOSE`` environment variable -- the conventional switch for this

@@ -680,7 +680,7 @@ class FileSystemToolComponent(Component):
         treat all of those as "anonymous" — the isolation mode decides what to
         do with that information.
 
-        Why we filter ``"none"`` / ``"null"``: Primeagent's ``PlaceholderGraph``
+        Why we filter ``"none"`` / ``"null"``: PrimeAgent's ``PlaceholderGraph``
         stringifies a missing user as ``"None"`` rather than the Python
         ``None`` value, so a naive truthiness check would mistake "no user" for
         a real user named "None" and create a spurious shared namespace.
@@ -808,7 +808,7 @@ class FileSystemToolComponent(Component):
                 f"Cannot create shared workspace at {shared_root}: "
                 f"{exc.strerror or exc}. "
                 f"Check that PRIMEAGENT_FS_TOOL_BASE_DIR ({config.base_dir}) is writable "
-                f"by the Primeagent process user."
+                f"by the PrimeAgent process user."
             )
             raise PermissionError(msg) from exc
 
@@ -845,7 +845,7 @@ class FileSystemToolComponent(Component):
                 f"Cannot create user namespace at {user_root}: "
                 f"{exc.strerror or exc}. "
                 f"Check that PRIMEAGENT_FS_TOOL_BASE_DIR ({config.base_dir}) is writable "
-                f"by the Primeagent process user."
+                f"by the PrimeAgent process user."
             )
             raise PermissionError(msg) from exc
 

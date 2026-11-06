@@ -1,7 +1,7 @@
 import * as Form from "@radix-ui/react-form";
 import { type FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import PrimeagentLogo from "@/assets/PrimeagentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
 import ShadTooltip from "@/components/common/shadTooltipComponent";
 import InputComponent from "@/components/core/parameterRenderComponent/components/inputComponent";
 import { extractApiErrorMessage } from "@/controllers/API/helpers/extract-api-error-message";
@@ -143,7 +143,7 @@ export default function SignUp(): JSX.Element {
       <main className="relative z-10 flex min-h-svh w-full flex-col items-center justify-center px-6 py-10">
         <div className="flex w-full max-w-[420px] flex-col items-center gap-8">
           <div className="flex items-center gap-2">
-            <PrimeagentLogo
+            <PrimeAgentLogo
               title={t("common.primeagentLogo")}
               className="h-12 w-12 text-foreground"
             />

@@ -1,4 +1,4 @@
-"""Standalone Stepflow component server for Primeagent integration.
+"""Standalone Stepflow component server for PrimeAgent integration.
 
 Run with: python -m primeagent_stepflow.worker
 """
@@ -21,7 +21,7 @@ core_executor = CoreExecutor()
 
 @server.component(name="custom_code")
 async def custom_code_component(input_data: dict[str, Any], context: StepflowContext) -> dict[str, Any]:
-    """Execute a Primeagent custom code component."""
+    """Execute a PrimeAgent custom code component."""
     return await custom_code_executor.execute(input_data, context)
 
 
@@ -31,18 +31,18 @@ async def core_component(
     context: StepflowContext,
     component: str,
 ) -> dict[str, Any]:
-    """Execute a known core Primeagent component by module path."""
+    """Execute a known core PrimeAgent component by module path."""
     return await core_executor.execute(component, input_data, context)
 
 
 @server.component(name="component_tool")
 async def component_tool_component(input_data: dict[str, Any], context: StepflowContext) -> dict[str, Any]:
-    """Create tool wrappers from Primeagent components."""
+    """Create tool wrappers from PrimeAgent components."""
     return await component_tool_executor(input_data, context)
 
 
 def main():
-    """Main entry point for the Primeagent component server.
+    """Main entry point for the PrimeAgent component server.
 
     Logging is automatically configured by the SDK via setup_observability().
     Configure via environment variables:
@@ -73,7 +73,7 @@ def main():
         asyncio.run(teardown_services())
         asyncio.run(initialize_services())
 
-    parser = argparse.ArgumentParser(description="Primeagent Stepflow Component Server")
+    parser = argparse.ArgumentParser(description="PrimeAgent Stepflow Component Server")
     parser.add_argument(
         "--tasks-url",
         type=str,

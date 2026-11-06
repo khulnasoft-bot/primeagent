@@ -1,8 +1,8 @@
-"""Gunicorn master preload hook for Primeagent.
+"""Gunicorn master preload hook for PrimeAgent.
 
 When ``PRIMEAGENT_GUNICORN_PRELOAD=true`` (which flips gunicorn's
 ``preload_app`` option), this module runs the fork-safe parts of
-Primeagent's startup in the master process so that worker processes
+PrimeAgent's startup in the master process so that worker processes
 inherit the result via copy-on-write. The dominant memory wins are:
 
 - Python modules imported from custom-component bundles.
@@ -317,7 +317,7 @@ async def _run_master_preload() -> None:
 
 
 def preload_master() -> None:
-    """Run one-time Primeagent initialization in the gunicorn master before workers are forked.
+    """Run one-time PrimeAgent initialization in the gunicorn master before workers are forked.
 
     Safe to call more than once: subsequent calls are no-ops.
     If preload fails for any reason, this function logs the failure and

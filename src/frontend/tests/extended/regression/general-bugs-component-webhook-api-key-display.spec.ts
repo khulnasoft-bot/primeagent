@@ -4,7 +4,7 @@ import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 import { TEXTS } from "../../utils/constants/texts";
 import { openBlankFlow } from "../../utils/flow/open-blank-flow";
 import { waitForFlowEditorReady } from "../../utils/flow/wait-for-flow-editor-ready";
-import { loginPrimeagent } from "../../utils/login-primeagent";
+import { loginPrimeAgent } from "../../utils/login-primeagent";
 import {
   addParameterToNode,
   closeParametersPanel,
@@ -44,7 +44,7 @@ test(
       });
     });
 
-    await loginPrimeagent(page);
+    await loginPrimeAgent(page);
 
     await awaitBootstrapTest(page, { skipGoto: true });
 

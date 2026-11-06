@@ -265,7 +265,7 @@ describe("dbProviderConstants", () => {
 
     describe("when the server resolves OpenSearch as the default backend", () => {
       // OpenSearch-only deployment: OPENSEARCH_URL is an env var, so there are
-      // no Primeagent variables for the UI to find.
+      // no PrimeAgent variables for the UI to find.
       it("defaults to OpenSearch instead of assuming pgVector", () => {
         expect(getActiveDBProvider([], localUnavailable, "opensearch")).toBe(
           "opensearch",

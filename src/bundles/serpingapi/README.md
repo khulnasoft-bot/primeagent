@@ -1,6 +1,6 @@
 # wfx-serpingapi
 
-Serping API Google SERP web-search component as a standalone Primeagent Extension Bundle.
+Serping API Google SERP web-search component as a standalone PrimeAgent Extension Bundle.
 
 The bundle ships a single component, `SerpingApiSearchComponent`, which runs
 a web search through the [Serping API](https://serpingapi.com) and returns
@@ -16,7 +16,7 @@ pip install wfx-serpingapi
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point. After install, restart your Primeagent server; the
+entry-point. After install, restart your PrimeAgent server; the
 `SerpingApiSearchComponent` will appear in the palette's **Bundles** section
 under **Serping API**.
 

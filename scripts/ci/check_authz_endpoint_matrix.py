@@ -15,7 +15,7 @@ API_ROOT = REPO_ROOT / "src" / "backend" / "base" / "primeagent"
 HTTP_METHODS = {"get", "post", "put", "patch", "delete", "websocket"}
 ACCESS_MODES = {"authenticated", "conditional", "deprecated", "provider_signed", "public"}
 #: ``provider_signed`` is the unauthenticated ingress class (TRG-4): the caller
-#: is a provider proving itself with its own signing scheme, never a Primeagent
+#: is a provider proving itself with its own signing scheme, never a PrimeAgent
 #: user. Two pairings are enforced so the word cannot be used to wave an
 #: ordinary route past review:
 #:

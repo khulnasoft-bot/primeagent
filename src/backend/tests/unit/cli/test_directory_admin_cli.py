@@ -324,7 +324,7 @@ def test_directory_client_preserves_typed_resource_and_access_errors(status, det
     def handler(request):
         assert request.url.path.endswith("/authz/directory/connection")
         return httpx.Response(
-            status, json={"detail": detail}, headers={"X-Primeagent-Error-Code": code} if code else {}
+            status, json={"detail": detail}, headers={"X-PrimeAgent-Error-Code": code} if code else {}
         )
 
     with (

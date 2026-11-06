@@ -29,13 +29,13 @@ console = Console()
 _ENVIRONMENTS_YAML = """\
 # .wfx/environments.yaml
 #
-# Configure your Primeagent instances here.
+# Configure your PrimeAgent instances here.
 # Safe to commit — API keys are NEVER stored in this file.
 # The api_key_env value is the NAME of an environment variable that holds
 # the actual API key; set that variable in your shell or CI secrets.
 #
 # Quick start:
-#   1. Open Primeagent → Settings → API Keys → Create a new key
+#   1. Open PrimeAgent → Settings → API Keys → Create a new key
 #   2. export PRIMEAGENT_LOCAL_API_KEY=<your key>
 #   3. wfx export --env local --flow-id <uuid> --output-dir flows/
 
@@ -57,7 +57,7 @@ defaults:
 """
 
 _TEST_FLOWS_PY = '''\
-"""Integration tests for Primeagent flows.
+"""Integration tests for PrimeAgent flows.
 
 Run against a local instance (started with ``wfx serve``):
 
@@ -85,14 +85,14 @@ def test_flow_responds(flow_runner):
 @pytest.mark.integration
 def test_flow_output_quality(flow_runner):
     """Example: assert on the content of the response."""
-    result = flow_runner("my-flow-endpoint", "What is Primeagent?")
+    result = flow_runner("my-flow-endpoint", "What is PrimeAgent?")
     text = result.first_text_output()
     assert text is not None
     assert len(text) > 20, f"Response seems too short: {text!r}"
 '''
 
 _GITIGNORE = """\
-# Primeagent credentials -- never commit API keys
+# PrimeAgent credentials -- never commit API keys
 # (primeagent-environments.toml may contain literal keys; .wfx/environments.yaml is safe to commit)
 primeagent-environments.toml
 """
@@ -249,7 +249,7 @@ def init_command(
     if example:
         console.print("  3. [bold]wfx validate flows/hello-world.json[/bold]  (check the starter flow)")
         console.print("  4. [bold]wfx serve flows/hello-world.json[/bold]     (run it locally)")
-        console.print("  5. [bold]wfx push --dir flows/ --env local[/bold]    (deploy to Primeagent)")
+        console.print("  5. [bold]wfx push --dir flows/ --env local[/bold]    (deploy to PrimeAgent)")
     else:
         console.print("  3. [bold]wfx create my-flow --template hello-world[/bold]")
         console.print("  4. [bold]wfx push --dir flows/ --env local[/bold]")

@@ -966,7 +966,7 @@ def _command_line(run_id: str) -> str:
 def _nowhere(secrets: list[str], command: str, responses: list, config_dir: Path, server_log, caplog, capfd) -> None:
     """Assert that no secret is on the command line, in a response, in a file under CONFIG_DIR or in a log.
 
-    CONFIG_DIR holds the record, and the status and the events of every run. It is also where Primeagent
+    CONFIG_DIR holds the record, and the status and the events of every run. It is also where PrimeAgent
     keeps this instance's key, in a file that any command given the key writes again.
     """
     printed = capfd.readouterr()
@@ -1345,7 +1345,7 @@ async def test_a_knowledge_base_that_cannot_be_copied_blocks_the_step_until_the_
     await _knowledge_base(user, "handbook", 5)
     # Vectors that are not unit length rank differently under the destination's metric, so the copy asks first.
     notes = await _knowledge_base(user, "notes", 5, unit_length=False)
-    # A knowledge base in a store this Primeagent has no backend for cannot be read, so it cannot be copied.
+    # A knowledge base in a store this PrimeAgent has no backend for cannot be read, so it cannot be copied.
     elsewhere = uuid4()
     await _add(KnowledgeBaseRecord(id=elsewhere, user_id=user, name="elsewhere", backend_type="astra"))
     # Nor is one whose store holds fewer chunks than its row says. The command leaves that for someone to look at.

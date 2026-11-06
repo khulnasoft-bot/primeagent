@@ -1,7 +1,7 @@
 import i18n from "@/i18n";
 import type { AssistantSuggestion } from "./assistant-panel.types";
 
-export const ASSISTANT_TITLE = "Primeagent Assistant";
+export const ASSISTANT_TITLE = "PrimeAgent Assistant";
 
 export const ASSISTANT_SESSION_STORAGE_KEY_PREFIX =
   "primeagent-assistant-session-";
@@ -39,6 +39,6 @@ export const ASSISTANT_SUGGESTIONS: AssistantSuggestion[] = [
   {
     id: "answer-questions",
     icon: "Sparkles",
-    text: "Answer questions about Primeagent",
+    text: "Answer questions about PrimeAgent",
   },
 ];

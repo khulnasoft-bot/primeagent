@@ -182,11 +182,11 @@ def test_upgrade_rewrites_seeded_rows_and_is_idempotent(migration):
 
 
 def test_upgrade_converges_packaged_flow_to_committed_fix(migration):
-    """A row seeded with the pre-fix PrimeagentAssistant snapshot converges to the shipped fix."""
+    """A row seeded with the pre-fix PrimeAgentAssistant snapshot converges to the shipped fix."""
     import json
 
     flows_dir = Path(primeagent.__file__).parent / "agentic" / "flows"
-    fixed = json.loads((flows_dir / "PrimeagentAssistant.json").read_text())
+    fixed = json.loads((flows_dir / "PrimeAgentAssistant.json").read_text())
     fixed_data = fixed["data"]
 
     # Reconstruct the pre-fix row by reversing the shipped rewrite on every Agent node.
@@ -203,7 +203,7 @@ def test_upgrade_converges_packaged_flow_to_committed_fix(migration):
         nd["node"]["template"]["code"]["value"] = old_code
         nd["node"]["metadata"]["code_hash"] = hashlib.sha256(old_code.encode()).hexdigest()[:12]
         reversed_any = True
-    assert reversed_any, "PrimeagentAssistant.json has no Agent node — test needs updating"
+    assert reversed_any, "PrimeAgentAssistant.json has no Agent node — test needs updating"
 
     engine, flow = _make_flow_table()
     with engine.begin() as conn:

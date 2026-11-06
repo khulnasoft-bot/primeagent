@@ -5,7 +5,7 @@ files. Safe-by-default via ``allowed_roots`` — the caller must declare
 which directories are permitted, and the resolved folder path must be
 inside one of them (no symlink traversal out).
 
-Intended for Primeagent Desktop and self-hosted deployments where the
+Intended for PrimeAgent Desktop and self-hosted deployments where the
 operator can reason about which directories the service can read. In
 multi-tenant cloud the allow-list should be configured to an empty
 list (or per-tenant roots) so arbitrary-path access is refused.

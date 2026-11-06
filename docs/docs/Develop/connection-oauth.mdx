@@ -3,7 +3,7 @@ title: Configure connection OAuth
 slug: /connection-oauth
 ---
 
-Primeagent's connection broker authorizes Google, Microsoft, and Slack registrations,
+PrimeAgent's connection broker authorizes Google, Microsoft, and Slack registrations,
 stores tokens in encrypted connection records, and refreshes them in the worker that
 uses them. Configure registrations on the backend instance before connecting an account.
 
@@ -53,7 +53,7 @@ No provider registration is enabled without explicit configuration.
 For Desktop, set the context to `desktop`, configure a `public` client, and use the exact
 loopback callback, for example `http://localhost:7860/api/v1/connections/oauth/google/callback`.
 Public registrations cannot contain a client secret or private key, and consent for a
-public client always uses PKCE. A Desktop distribution can provision Primeagent-owned client
+public client always uses PKCE. A Desktop distribution can provision PrimeAgent-owned client
 IDs with `owner: "primeagent"`; customer-owned registrations use the same configuration format
 and remain available as the override for tenants that require their own registration.
 Register and configure the actual client IDs before shipping. The broker does not provide
@@ -95,13 +95,13 @@ same URL on port `7895`, or one using `localhost` instead of `127.0.0.1`.
 
 If Google shows `invalid_client`, check that the registration's `client_id` matches
 the intended Google Cloud OAuth client. Apply corrected registration settings to
-every Primeagent worker and restart the deployment before choosing **Try Again**.
+every PrimeAgent worker and restart the deployment before choosing **Try Again**.
 Retrying without changing the registration repeats the same error.
 
-Google's error page can isolate its popup from Primeagent, so Primeagent can no longer
+Google's error page can isolate its popup from PrimeAgent, so PrimeAgent can no longer
 track the window even while it remains open. The dialog reports that loss of
 tracking and keeps checking for the server's authorization result until the sign-in
-link expires. Inspect the provider window for the actual error. Primeagent cannot
+link expires. Inspect the provider window for the actual error. PrimeAgent cannot
 read its contents, and loss of tracking does not mean you closed the window.
 
 ## Customer-owned Microsoft registration
@@ -127,7 +127,7 @@ See Microsoft's [authorization code flow](https://learn.microsoft.com/en-us/entr
 [certificate credential format](https://learn.microsoft.com/en-us/entra/identity-platform/certificate-credentials).
 
 Microsoft does not expose a standard per-grant token revocation endpoint for this flow.
-Primeagent removes local credentials and returns `provider_revocation: "unsupported"`.
+PrimeAgent removes local credentials and returns `provider_revocation: "unsupported"`.
 An administrator or user must remove the app's consent in Entra when upstream revocation
 is required; already-issued access tokens follow Microsoft's lifetime and revocation rules.
 
@@ -154,7 +154,7 @@ See Slack's [installation guide](https://docs.slack.dev/authentication/installin
 
 ## Consent and revocation check
 
-Use the browser logged in to the configured Primeagent origin. The existing connections
+Use the browser logged in to the configured PrimeAgent origin. The existing connections
 API creates metadata first; use `executing_identity.identity: "user_delegated"` for
 Google, Microsoft, and Slack user connections, or `"bot"` for Slack bot connections.
 Instance-owned connections require a superuser. Tokens are not part of these requests.
@@ -236,13 +236,13 @@ be recalled locally; subsequent connection resolution fails after revoke.
 
 The backend removes callback query strings from its access-log request scope. Configure
 reverse proxies and external request tracing to omit callback query strings as well, because
-those systems observe requests before Primeagent does. Avoid capturing browser callback URLs
+those systems observe requests before PrimeAgent does. Avoid capturing browser callback URLs
 in screenshots or support logs.
 
 ## Executing identity per entry point (INT-6)
 
 A connection resolves under the identity of the run that needs it, not under whoever happens to be
-authenticated. Every Primeagent entry point stamps that identity on the graph before it executes, and the
+authenticated. Every PrimeAgent entry point stamps that identity on the graph before it executes, and the
 resolver enforces the rule below. A graph that reaches a component without one resolves nothing, so a
 misconfigured or unrecognized path fails closed rather than borrowing someone else's credential.
 
@@ -284,10 +284,10 @@ credentials, 429 for a rate limit). The error's own sentence, which names the co
 only to the flow's owner; delegated and anonymous callers get a generic message alongside the same code, so
 a client can still show the right call to action without learning which account the owner connected.
 
-Google Workspace actions report `network-error` when the Primeagent server cannot communicate with the
+Google Workspace actions report `network-error` when the PrimeAgent server cannot communicate with the
 Google API because of a timeout, DNS lookup failure, refused connection, unreachable network, or TLS
 failure. The message includes the API hostname and guidance to check the server's outbound network
-access. These failures return HTTP 504 for a timeout or 502 for other transport failures. Primeagent does
+access. These failures return HTTP 504 for a timeout or 502 for other transport failures. PrimeAgent does
 not automatically retry them because a timed-out write may already have reached Google. An actual HTTP 5xx
 response still reports `provider-unavailable` (except 501, which reports `action-unsupported`).
 Google Workspace socket operations use a 10-second timeout. This is not a total action deadline or an
@@ -306,7 +306,7 @@ The [Microsoft 365 bundle](./bundles-microsoft) resolves its connections through
 `provider: "microsoft"` registration configured above. Its components hold a
 portable handle such as `microsoft/work`, never a token.
 
-[Configure Primeagent for Microsoft Entra](./entra-app-registration) walks through
+[Configure PrimeAgent for Microsoft Entra](./entra-app-registration) walks through
 the server registration and the **Settings** connection. Create the application
 itself in Microsoft Entra. Two constraints are worth repeating here.
 
@@ -321,7 +321,7 @@ Entra never echoes `offline_access` in a token response, so requiring it per
 action would fail every Microsoft resolution.
 
 Only customer-owned single-tenant registrations are configurable today, since
-this broker uses a fixed-tenant authority. A Primeagent-owned multitenant
+this broker uses a fixed-tenant authority. A PrimeAgent-owned multitenant
 application, which also needs Entra publisher verification, is a follow-up.
 
 {/_ INT-12 (LE-2470): appended section. Keep additions to this page as new
@@ -419,7 +419,7 @@ operator to supply the right token type.
 
 ## Headless connection resolution
 
-- [Resolve connections in headless WFX](./wfx-connections), for hosts that resolve the same connection references without Primeagent's database.
+- [Resolve connections in headless WFX](./wfx-connections), for hosts that resolve the same connection references without PrimeAgent's database.
 
 ## Google Workspace action scopes
 
@@ -480,7 +480,7 @@ test consent in a sandbox tenant, does not establish consent in the production t
 - **Google:** A Workspace administrator controls which applications may access the
   organization's data and can mark an app Trusted, Limited, or Blocked; a Limited or
   Blocked app cannot complete consent for the affected services regardless of the
-  Primeagent configuration. See
+  PrimeAgent configuration. See
   [Control which apps access Google Workspace data](https://knowledge.workspace.google.com/admin/apps/control-which-apps-access-google-workspace-data).
 - **Microsoft:** Tenant user-consent settings can restrict consent to verified
   publishers and low-impact permissions, or disable it entirely, in which case each
@@ -513,7 +513,7 @@ The Connections page distinguishes confirmed provider revocation from local cred
 For Microsoft's `unsupported`, remove the app's consent in Entra as
 described in [Revocation](./entra-app-registration#revocation).
 
-`revoked` reports token revocation, not a complete uninstall. Primeagent sends only the
+`revoked` reports token revocation, not a complete uninstall. PrimeAgent sends only the
 stored access token to Slack's `auth.revoke`, which revokes that token without
 uninstalling the app; if the app uses token rotation, the installation survives and can
 still issue new tokens. To end the installation itself, remove the app from the
@@ -541,7 +541,7 @@ A flow stores the connection handle, never the credential. Exporting a flow keep
 connection field as its portable handle, such as `google/work`; no token, account
 identity, or granted scope set is included.
 
-Importing a flow preserves its nodes and connection fields unchanged. Primeagent never
+Importing a flow preserves its nodes and connection fields unchanged. PrimeAgent never
 substitutes a different provider, action, or connection on import or at run time. If the
 target deployment has no connection with the referenced handle, the run fails with
 `connection-unresolved`. If one exists but the executing identity may not use it, the

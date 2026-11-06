@@ -1,9 +1,9 @@
 # wfx-vllm
 
-[vLLM](https://docs.vllm.ai/) as a first-class Primeagent model provider, packaged
+[vLLM](https://docs.vllm.ai/) as a first-class PrimeAgent model provider, packaged
 as a standalone Extension Bundle.
 
-Registers a **vLLM** model provider that appears in Primeagent's unified model
+Registers a **vLLM** model provider that appears in PrimeAgent's unified model
 picker alongside the built-in providers. vLLM serves an OpenAI-compatible HTTP
 API, so the provider reuses the `ChatOpenAI` / `OpenAIEmbeddings` classes and
 discovers the served models live from the server's `/v1/models` endpoint — the
@@ -11,8 +11,8 @@ same model is therefore offered in both the **Language Model** and **Embedding
 Model** contexts.
 
 Unlike a component bundle, this ships **no component**: it contributes a
-provider through the `providers[]` block in `extension.json`, which Primeagent's
-provider registry merges into the unified model system. It edits no Primeagent
+provider through the `providers[]` block in `extension.json`, which PrimeAgent's
+provider registry merges into the unified model system. It edits no PrimeAgent
 core files.
 
 ## Configure
@@ -32,7 +32,7 @@ pip install wfx-vllm
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point. Restart your Primeagent server and select **vLLM** in any Language
+entry-point. Restart your PrimeAgent server and select **vLLM** in any Language
 Model or Embedding Model field.
 
 ## Develop
@@ -48,4 +48,4 @@ wfx extension validate src/wfx_vllm
 Inherits the original vLLM provider contributed in
 [#13910](https://github.com/khulnasoft-bot/primeagent/pull/13910) by
 **Yash Pareek** (@pareek-ml). This bundle reconstructs that work on the
-provider-registry extension point so it ships without editing Primeagent core.
+provider-registry extension point so it ships without editing PrimeAgent core.

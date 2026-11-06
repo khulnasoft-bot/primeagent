@@ -33,8 +33,8 @@ from wfx.base.mcp.source_policy import (
 if TYPE_CHECKING:
     from collections.abc import Collection
 
-# Env var through which Primeagent binds the agentic MCP server to an authenticated user's id.
-# Primeagent injects it at spawn time from the request identity; it is in DANGEROUS_ENV_VARS so a
+# Env var through which PrimeAgent binds the agentic MCP server to an authenticated user's id.
+# PrimeAgent injects it at spawn time from the request identity; it is in DANGEROUS_ENV_VARS so a
 # tenant-authored stdio config cannot set it. The agentic MCP tools read it and fail closed when
 # it is absent. Single source of truth for both the injector (wfx.base.mcp.util.update_tools) and
 # the reader (primeagent.agentic.mcp.server).
@@ -178,8 +178,8 @@ DANGEROUS_ENV_VARS = frozenset(
         # -- Windows: ``cmd`` is an allowed wrapper, and these redirect what it resolves --
         "comspec",
         "psmodulepath",
-        # -- Primeagent-internal trust binding: the agentic MCP server reads the owning user's id
-        #    from this env var. It must be injected by Primeagent at spawn time from the
+        # -- PrimeAgent-internal trust binding: the agentic MCP server reads the owning user's id
+        #    from this env var. It must be injected by PrimeAgent at spawn time from the
         #    authenticated identity, never supplied through a tenant-authored stdio config
         #    (which would let a tenant read/write another tenant's flows). Block it here so a
         #    tenant config that tries to set it is rejected before the server is spawned.
@@ -344,7 +344,7 @@ SHELL_WRAPPERS = frozenset({"cmd", "sh", "bash"})
 SHELL_EXEC_FLAGS = frozenset({"-c", "/c"})
 MAX_SHELL_WRAPPER_DEPTH = 4
 
-# Python modules owned by Primeagent whose server identity is rebound from the authenticated
+# Python modules owned by PrimeAgent whose server identity is rebound from the authenticated
 # request in ``update_tools``. No tenant-selected script/module is allowed in interpreter-
 # hardened mode.
 HARDENED_ALLOWED_PYTHON_MODULES = frozenset({"primeagent.agentic.mcp", "primeagent.agentic.mcp.server"})
@@ -646,7 +646,7 @@ def validate_mcp_stdio_config(
         allowed_packages: exact package identities that ``npx``/``uvx`` may execute.
             ``None`` reads ``PRIMEAGENT_MCP_SERVER_ALLOWED_PACKAGES``; when neither is set,
             legacy single-tenant package-runner behavior is preserved.
-        interpreter_hardening: restrict Python/Node entrypoints to Primeagent's authenticated
+        interpreter_hardening: restrict Python/Node entrypoints to PrimeAgent's authenticated
             internal agentic MCP module. ``None`` reads
             ``PRIMEAGENT_MCP_SERVER_INTERPRETER_HARDENING``; the default is disabled for
             legacy single-tenant compatibility.

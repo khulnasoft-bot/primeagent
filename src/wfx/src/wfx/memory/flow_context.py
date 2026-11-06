@@ -1,6 +1,6 @@
 """Ambient flow and owner scope for chat-memory retrieval.
 
-Primeagent executes the *frozen* component ``code`` embedded in each saved flow, not the installed
+PrimeAgent executes the *frozen* component ``code`` embedded in each saved flow, not the installed
 library version (see ``wfx.interface.initialize.loading.instantiate_class`` ->
 ``eval_custom_component_code``). A flow saved before PR #13087 therefore carries the old
 ``MemoryComponent.retrieve_messages`` that calls ``aget_messages`` WITHOUT ``flow_id`` and leaks

@@ -32,19 +32,19 @@
     {
       "scope": "https://www.googleapis.com/auth/gmail.readonly",
       "decision": "avoid",
-      "rationale": "Release owner decision 2026-09-01 (decisions/google-restricted-scopes.md Option B): the Primeagent-owned hosted app requests no restricted scope in 1.13. gmail.readonly is the narrowest scope that supports users.messages.list with a q filter plus users.messages.get for bodies; gmail.metadata is restricted as well and cannot be used with q, so it is not a narrower alternative for search.",
+      "rationale": "Release owner decision 2026-09-01 (decisions/google-restricted-scopes.md Option B): the PrimeAgent-owned hosted app requests no restricted scope in 1.13. gmail.readonly is the narrowest scope that supports users.messages.list with a q filter plus users.messages.get for bodies; gmail.metadata is restricted as well and cannot be used with q, so it is not a narrower alternative for search.",
       "decision_record": "decisions/google-restricted-scopes.md"
     },
     {
       "scope": "https://www.googleapis.com/auth/drive.readonly",
       "decision": "avoid",
-      "rationale": "Release owner decision 2026-09-01 (decisions/google-restricted-scopes.md Option B): the Primeagent-owned hosted app requests no restricted scope in 1.13. drive.readonly is needed to fetch files the app did not create and the user did not pick; drive.file (non-sensitive) is the alternative and limits fetch to app-created or user-picked files.",
+      "rationale": "Release owner decision 2026-09-01 (decisions/google-restricted-scopes.md Option B): the PrimeAgent-owned hosted app requests no restricted scope in 1.13. drive.readonly is needed to fetch files the app did not create and the user did not pick; drive.file (non-sensitive) is the alternative and limits fetch to app-created or user-picked files.",
       "decision_record": "decisions/google-restricted-scopes.md"
     },
     {
       "scope": "https://www.googleapis.com/auth/drive.metadata.readonly",
       "decision": "avoid",
-      "rationale": "Release owner decision 2026-09-01 (decisions/google-restricted-scopes.md Option B): the Primeagent-owned hosted app requests no restricted scope in 1.13. Listing arbitrary Drive files needs a metadata scope beyond drive.file; drive.file-only listing returns only files the app created or the user opened with it.",
+      "rationale": "Release owner decision 2026-09-01 (decisions/google-restricted-scopes.md Option B): the PrimeAgent-owned hosted app requests no restricted scope in 1.13. Listing arbitrary Drive files needs a metadata scope beyond drive.file; drive.file-only listing returns only files the app created or the user opened with it.",
       "decision_record": "decisions/google-restricted-scopes.md"
     }
   ],
@@ -214,7 +214,7 @@
       "lead_time": "2-3 business days"
     },
     "google-sensitive-scope-verification": {
-      "description": "Google review of each requested sensitive scope with a written justification and a demonstration video. Required for the Primeagent-owned External hosted app. A self-managed customer whose project uses the Internal user type is exempt; a self-managed External project must complete it itself.",
+      "description": "Google review of each requested sensitive scope with a written justification and a demonstration video. Required for the PrimeAgent-owned External hosted app. A self-managed customer whose project uses the Internal user type is exempt; a self-managed External project must complete it itself.",
       "source": "google-sensitive-scope-verification",
       "blocking_for_contexts": [
         "hosted"
@@ -222,7 +222,7 @@
       "lead_time": "3-5 business days"
     },
     "google-casa": {
-      "description": "Cloud Application Security Assessment under the App Defense Alliance framework by a Google-empanelled assessor, mandatory when restricted-scope data is accessed from or through a third-party server (a hosted Primeagent backend is one). Annual reverification within 12 months of the Letter of Assessment. Internal user type projects are exempt from verification; app verification is still required for domain-wide installations that use restricted or sensitive scopes.",
+      "description": "Cloud Application Security Assessment under the App Defense Alliance framework by a Google-empanelled assessor, mandatory when restricted-scope data is accessed from or through a third-party server (a hosted PrimeAgent backend is one). Annual reverification within 12 months of the Letter of Assessment. Internal user type projects are exempt from verification; app verification is still required for domain-wide installations that use restricted or sensitive scopes.",
       "source": "google-restricted-scope-verification",
       "blocking_for_contexts": [
         "hosted"

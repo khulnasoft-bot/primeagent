@@ -3,7 +3,7 @@
   "id": "wfx-empiriolabs",
   "version": "0.2.0",
   "name": "EmpirioLabs",
-  "description": "EmpirioLabs components (OpenAI-compatible chat models and image generation) as a standalone Primeagent Extension Bundle.",
+  "description": "EmpirioLabs components (OpenAI-compatible chat models and image generation) as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

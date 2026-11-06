@@ -162,7 +162,7 @@ class APIRequestComponent(Component):
                     "description": "Header value",
                 },
             ],
-            value=[{"key": "User-Agent", "value": "Primeagent/1.0"}],
+            value=[{"key": "User-Agent", "value": "PrimeAgent/1.0"}],
             advanced=True,
             input_types=["Data", "JSON"],
             real_time_refresh=True,

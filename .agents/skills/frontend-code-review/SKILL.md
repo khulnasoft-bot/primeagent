@@ -1,6 +1,6 @@
 ---
 name: frontend-code-review
-description: "Review frontend code (.tsx, .ts, .js files) for quality, performance, and correctness against Primeagent's frontend conventions. Supports pending-change reviews and file-targeted reviews."
+description: "Review frontend code (.tsx, .ts, .js files) for quality, performance, and correctness against PrimeAgent's frontend conventions. Supports pending-change reviews and file-targeted reviews."
 ---
 
 # Frontend Code Review
@@ -30,13 +30,13 @@ Notes when using this skill:
 
 - Always include actionable fixes or suggestions (including possible code snippets).
 - Use `File:Line` references when a file path and line numbers are available; otherwise, use the most specific identifier you can.
-- The Primeagent frontend uses React 19, TypeScript 5.4, Vite 7 with SWC, Zustand for state management, TanStack React Query for server state, @xyflow/react v12 for graph visualization, Radix UI + shadcn-ui components, Tailwind CSS v3, and Biome for linting/formatting.
+- The PrimeAgent frontend uses React 19, TypeScript 5.4, Vite 7 with SWC, Zustand for state management, TanStack React Query for server state, @xyflow/react v12 for graph visualization, Radix UI + shadcn-ui components, Tailwind CSS v3, and Biome for linting/formatting.
 
 ## Checklist
 
 - **Code quality**: For any reviewed file, follow [references/code-quality.md](references/code-quality.md) to check styling conventions, TypeScript usage, Biome compliance, and component patterns.
 - **Performance**: If the review scope involves React components, hooks, Zustand stores, React Query usage, or @xyflow/react node rendering, follow [references/performance.md](references/performance.md) to check for re-render issues, memoization, and data flow patterns.
-- **Business logic**: If the review scope involves custom nodes (GenericNode), flow state, API calls, the component system, global variables, or the inspection panel, follow [references/business-logic.md](references/business-logic.md) to check for Primeagent-specific correctness.
+- **Business logic**: If the review scope involves custom nodes (GenericNode), flow state, API calls, the component system, global variables, or the inspection panel, follow [references/business-logic.md](references/business-logic.md) to check for PrimeAgent-specific correctness.
 - **i18n**: If the diff adds or changes user-facing text (labels, buttons, tooltips, modals, toasts, errors, placeholders, aria-labels), follow the [frontend-i18n skill](../frontend-i18n/SKILL.md): no hardcoded UI strings — everything through `t(...)` — and every new key present in **all** locale files (`src/frontend/src/locales/*.json`).
 
 ## General Review Rules

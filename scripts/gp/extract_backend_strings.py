@@ -1,4 +1,4 @@
-"""Extract translatable strings from Primeagent component classes.
+"""Extract translatable strings from PrimeAgent component classes.
 
 Walks two component sources, reads class-level display_name/description and
 field-level display_names directly from component class definitions (no

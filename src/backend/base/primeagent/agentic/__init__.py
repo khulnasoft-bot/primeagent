@@ -1,1 +1,1 @@
-"""Agentic experience module for Primeagent."""
+"""Agentic experience module for PrimeAgent."""

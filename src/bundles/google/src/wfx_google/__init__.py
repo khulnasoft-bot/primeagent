@@ -1,4 +1,4 @@
-"""Google and Gemini components for Primeagent."""
+"""Google and Gemini components for PrimeAgent."""
 
 from wfx_google.components.google import (
     BigQueryExecutorComponent,

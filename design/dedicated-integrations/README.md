@@ -25,7 +25,7 @@ these files are the historical record the checker keeps guarding.
 | 7 | Re-issued estimate | `estimate.md` | none | re-issued 2026-09-01, amended 2026-09-02 and 2026-09-04: 51.75 engineer-weeks under the confirmed decisions (INT-9 restored to 1.13); 2026-09-09 UX additions require owner sizing before gate close |
 | + | KB OAuth connector adoption decision (added by the release owner) | `decisions/kb-oauth-connector-adoption.md` | none | accepted: adopt in 1.13 (release owner overrode the gate's defer recommendation); +1.5 engineer-weeks |
 | + | Palette naming next to Composio components (added by the release owner) | `decisions/palette-naming.md` | none | accepted: 'Product: Verb Object' names, new Microsoft 365 and Slack groups, Composio unchanged |
-| + | Desktop OAuth registration ownership (added by the release owner, 2026-09-02) | `decisions/desktop-oauth-ownership.md` | none | accepted: Primeagent-owned public clients on Desktop, customer-owned registrations remain the override; +0.25 engineer-weeks |
+| + | Desktop OAuth registration ownership (added by the release owner, 2026-09-02) | `decisions/desktop-oauth-ownership.md` | none | accepted: PrimeAgent-owned public clients on Desktop, customer-owned registrations remain the override; +0.25 engineer-weeks |
 | + | GA-swap procedure, SDK/REST to pinned MCP (INT-9, release owner decision 2026-09-04) | `ga-swap-procedure.md` | exercised by `src/wfx/tests/unit/base/mcp/test_ga_swap_procedure.py` | accepted: INT-9 ships the pinned engine and this procedure in 1.13; the Slack adoption still waits on the dated `tools/list` capture |
 | + | Instance-connection referenceability (added during INT-6, 2026-09-05) | `decisions/instance-connection-referenceability.md` | none | proposed, pending recorded owner approval: any non-anonymous principal may resolve an instance row in 1.13; narrowing goes through a policy hook, no `referenceable` column; no estimate delta |
 
@@ -89,10 +89,10 @@ schema/capability_matrix.schema.json   JSON Schema for one provider matrix; its 
 matrices/<provider>.json           one capability matrix per wave-1 provider
 decisions/TEMPLATE.md              decision-record template; the checker parses the Status line and requires a "## Decision" heading
 decisions/substrate-*.md           official MCP vs SDK/REST per provider
-decisions/google-restricted-scopes.md   CASA-or-avoid for the Primeagent-owned hosted Google app, one subsection per restricted scope
+decisions/google-restricted-scopes.md   CASA-or-avoid for the PrimeAgent-owned hosted Google app, one subsection per restricted scope
 decisions/kb-oauth-connector-adoption.md   (Phase 6)
 decisions/palette-naming.md        (Phase 6)
-decisions/desktop-oauth-ownership.md   Desktop registrations: Primeagent-owned public clients by default, customer-owned override (2026-09-02)
+decisions/desktop-oauth-ownership.md   Desktop registrations: PrimeAgent-owned public clients by default, customer-owned override (2026-09-02)
 decisions/broad-content-read.md    proposed controls for broad content grants across providers
 cross-provider-capabilities.md    product differences and deployment portability requirements
 connection-contract.md             (Phase 5) INT-2 design for sign-off
@@ -122,7 +122,7 @@ Per action:
 
 | Field | Meaning |
 |---|---|
-| `action_id` | Stable Primeagent-owned id, `<provider>.<product>.<verb>`; becomes the manifest capability id in INT-3 |
+| `action_id` | Stable PrimeAgent-owned id, `<provider>.<product>.<verb>`; becomes the manifest capability id in INT-3 |
 | `component_class` | Proposed `*Component` class name; bare names must stay unique across bundles |
 | `decision` | `include` (ships in wave 1), `exclude` (will not ship), `defer` (undecided or later wave) |
 | `rationale`, `confidence`, `open_questions` | Why; how sure; what must be verified. `low` confidence requires open questions |

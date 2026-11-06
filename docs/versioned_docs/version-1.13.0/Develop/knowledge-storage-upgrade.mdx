@@ -3,21 +3,21 @@ title: Upgrade Knowledge and Memory storage
 slug: /knowledge-storage-upgrade
 ---
 
-Primeagent 1.13 stores local knowledge bases and memory bases in SQLite.
-If those stores were local Chroma databases, Primeagent copies them the first time you start Primeagent 1.13.
+PrimeAgent 1.13 stores local knowledge bases and memory bases in SQLite.
+If those stores were local Chroma databases, PrimeAgent copies them the first time you start PrimeAgent 1.13.
 The copy uses the vectors already on disk, and does not call your embedding provider.
 
-If you use local Chroma knowledge bases or memory bases, complete the prerequisites and then follow the steps in [Upgrade one Primeagent instance](#upgrade-one-primeagent-instance).
+If you use local Chroma knowledge bases or memory bases, complete the prerequisites and then follow the steps in [Upgrade one PrimeAgent instance](#upgrade-one-primeagent-instance).
 
 If you use OpenSearch or Postgres pgvector, you don't need to upgrade, as those vector stores will continue using the same providers.
 
-Chroma Cloud is retired in Primeagent 1.13 and doesn't reconnect automatically.
+Chroma Cloud is retired in PrimeAgent 1.13 and doesn't reconnect automatically.
 If you use Chroma Cloud, follow the steps in [This remote Chroma store must be migrated](/troubleshoot#remote-source-requires-migration).
 
 If a flow uses a **Chroma** or **Local DB** component, you must replace the components.
 Follow the steps in [Replace retired components](#replace-retired-components).
 
-A new Primeagent installation doesn't require an upgrade.
+A new PrimeAgent installation doesn't require an upgrade.
 
 ### Replace retired components {#replace-retired-components}
 
@@ -30,7 +30,7 @@ To replace the components, do the following:
 
 ## Configure storage migration
 
-`PRIMEAGENT_KNOWLEDGE_BASE_AUTO_MIGRATE` defaults to `true` and starts supported local Chroma migrations when Primeagent starts.
+`PRIMEAGENT_KNOWLEDGE_BASE_AUTO_MIGRATE` defaults to `true` and starts supported local Chroma migrations when PrimeAgent starts.
 Set it to `false` when multiple hosts share Knowledge Bases or when you want to migrate to pgvector or OpenSearch instead.
 
 `PRIMEAGENT_KB_DISK_RECONCILE_ENABLED` defaults to `false`.
@@ -40,32 +40,32 @@ For defaults and related storage settings, see [Knowledge Base storage and local
 
 ## Prerequisites {#prerequisites}
 
-Complete this list before you change Primeagent versions. The copy starts on the first start of 1.13, so these have to be true before that start.
+Complete this list before you change PrimeAgent versions. The copy starts on the first start of 1.13, so these have to be true before that start.
 
-1. Back up the Primeagent application database, and keep that backup until you have checked the upgraded bases. See [Database migrations](./database-migrations.mdx). This backup is what you use to return to 1.12.
+1. Back up the PrimeAgent application database, and keep that backup until you have checked the upgraded bases. See [Database migrations](./database-migrations.mdx). This backup is what you use to return to 1.12.
 2. Back up the knowledge base directory, and keep that backup with the database backup. The default directory is `~/.primeagent/knowledge_bases`. If you set `PRIMEAGENT_KNOWLEDGE_BASES_DIR`, back up that path instead.
 3. Free about four times the disk space of each local Chroma store. The copy needs that room while it runs.
-4. Plan to run one Primeagent process during the copy. Stop every other Primeagent process, including old 1.12 workers, before you start 1.13.
+4. Plan to run one PrimeAgent process during the copy. Stop every other PrimeAgent process, including old 1.12 workers, before you start 1.13.
 5. Confirm the knowledge base directory is on a local disk. A shared or network filesystem does not qualify. A Docker Desktop bind mount that reports `fuse.grpcfuse` does not qualify either. Move that data to a local named volume first. VirtioFS mounts, including `fakeowner`, do qualify.
 6. Confirm your platform publishes a sqlite-vec wheel. Python 3.14 on Windows ARM64 does not.
 
 :::warning
-Primeagent writes its own database file while the copy runs. That file is created after the 1.13 schema upgrade, so it cannot be used to return to 1.12. Keep the backup from step 1.
+PrimeAgent writes its own database file while the copy runs. That file is created after the 1.13 schema upgrade, so it cannot be used to return to 1.12. Keep the backup from step 1.
 :::
 
 If more than one host must serve the same knowledge bases, skip the automatic copy. Move those stores to [pgvector or OpenSearch](/knowledge#configure-vector-database-providers), and set `PRIMEAGENT_KNOWLEDGE_BASE_AUTO_MIGRATE=false` before you start 1.13. Local SQLite stays on one host after the copy.
 
 You are ready to upgrade when every item above is done.
 
-## Upgrade one Primeagent instance {#upgrade-one-primeagent-instance}
+## Upgrade one PrimeAgent instance {#upgrade-one-primeagent-instance}
 
-Use these steps when one Primeagent process owns the data and the [prerequisites](#prerequisites) are done.
+Use these steps when one PrimeAgent process owns the data and the [prerequisites](#prerequisites) are done.
 
-1. Stop the running Primeagent process.
-2. Upgrade the Primeagent package or container image to 1.13.
-3. Start Primeagent.
-4. Open Primeagent. A notice in the corner says **Upgrading your data**.
-5. Select **View upgrade progress**. Each base is listed there. You can keep using the rest of Primeagent while the list is running.
+1. Stop the running PrimeAgent process.
+2. Upgrade the PrimeAgent package or container image to 1.13.
+3. Start PrimeAgent.
+4. Open PrimeAgent. A notice in the corner says **Upgrading your data**.
+5. Select **View upgrade progress**. Each base is listed there. You can keep using the rest of PrimeAgent while the list is running.
 6. Wait for each base to finish. The notice moves through **Waiting to upgrade**, **Backing up your data**, **Reading existing vectors**, **Copying your data**, and **Verifying the upgrade**.
 7. Confirm each base shows **Ready** on the knowledge bases page. The corner notice is gone.
 8. Run a flow that uses an upgraded base.
@@ -73,17 +73,17 @@ Use these steps when one Primeagent process owns the data and the [prerequisites
 
 A base that is still in the progress list does not show **Ready**. A flow that uses it stops with:
 
-> This knowledge or memory base is upgrading automatically. Wait for the upgrade to finish, then try again. Progress is shown in Primeagent.
+> This knowledge or memory base is upgrading automatically. Wait for the upgrade to finish, then try again. Progress is shown in PrimeAgent.
 
 Wait for step 7, then run the flow again.
 
-If you stop Primeagent during the copy, start it again. The copy continues from where it stopped. Repeat from step 4.
+If you stop PrimeAgent during the copy, start it again. The copy continues from where it stopped. Repeat from step 4.
 
 After the copy, search is exact. When two results used to tie, their order can change.
 
 ## If a knowledge base fails
 
-If a **Storage upgrade needs attention** error message appears, it means Primeagent could not finish copying that knowledge base or memory base. The original files stay in the knowledge base directory.
+If a **Storage upgrade needs attention** error message appears, it means PrimeAgent could not finish copying that knowledge base or memory base. The original files stay in the knowledge base directory.
 
 To troubleshoot, click **View upgrade progress** and match the error message to the error messages in [Knowledge base storage upgrade](/troubleshoot#knowledge-base-storage-upgrade).
 

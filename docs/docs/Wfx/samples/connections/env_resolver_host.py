@@ -1,4 +1,4 @@
-"""Environment-backed connection resolution for a host without Primeagent's database.
+"""Environment-backed connection resolution for a host without PrimeAgent's database.
 
 ``EnvConnectionResolver`` ships with WFX and is the resolver every headless
 runtime gets when no other one is configured, so an environment-backed host

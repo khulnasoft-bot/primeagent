@@ -1,4 +1,4 @@
-"""MCP Composer must connect to the pod-local Primeagent, not the advertised gateway.
+"""MCP Composer must connect to the pod-local PrimeAgent, not the advertised gateway.
 
 ``PRIMEAGENT_MCP_BASE_URL`` names the address *clients* should reach. The composer is a
 subprocess of this very process and registers the project endpoint as an upstream member

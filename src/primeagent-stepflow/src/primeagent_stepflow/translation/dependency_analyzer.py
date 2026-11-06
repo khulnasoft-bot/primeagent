@@ -1,16 +1,16 @@
-"""Dependency analysis for Primeagent workflows."""
+"""Dependency analysis for PrimeAgent workflows."""
 
 from typing import Any
 
 
 class DependencyAnalyzer:
-    """Analyzes Primeagent edges to build step dependency graphs."""
+    """Analyzes PrimeAgent edges to build step dependency graphs."""
 
     def build_dependency_graph(self, edges: list[dict[str, Any]]) -> dict[str, list[str]]:
-        """Build a dependency graph from Primeagent edges.
+        """Build a dependency graph from PrimeAgent edges.
 
         Args:
-            edges: List of Primeagent edge objects
+            edges: List of PrimeAgent edge objects
 
         Returns:
             Dict mapping step IDs to their dependencies

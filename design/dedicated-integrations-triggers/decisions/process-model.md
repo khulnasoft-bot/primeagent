@@ -85,7 +85,7 @@ dispatcher is disabled or unavailable, committed events wait in the ledger until
 Lease semantics, one lease per provider connection in `trigger_listener_lease`: TTL 30 s, heartbeat 10 s, reconcile
 poll 5 s, failover within two TTLs of an unclean death, claim and renew through the guarded-`UPDATE` idiom of fact 4
 so SQLite and PostgreSQL behave the same. A replica that loses its lease cancels its adapter tasks. These intervals
-are Primeagent recovery targets, not Slack timeout guarantees; expiry cannot prove that the old process or socket has
+are PrimeAgent recovery targets, not Slack timeout guarantees; expiry cannot prove that the old process or socket has
 stopped. The handover protocol must account for that overlap. Process isolation is selected for supervision and
 independent scaling, not because Slack requires exactly one physical socket.
 
@@ -112,7 +112,7 @@ readiness (database probe, leases held, no renew failure within the last TTL).
 - Enterprise needs no registration of its own: the listener process runs the same `wfx.toml` service discovery as
   the API, so EE service overrides apply unchanged.
 - Desktop Track B is real but single-user: the subprocess dies with the app, which is acceptable because Desktop
-  triggers only fire while Primeagent is open. The frontend says so.
+  triggers only fire while PrimeAgent is open. The frontend says so.
 
 ## Re-open trigger
 

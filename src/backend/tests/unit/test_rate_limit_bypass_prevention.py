@@ -39,7 +39,7 @@ def test_direct_uvicorn_forwarded_allow_ips(trust_proxy, expected):
     ],
 )
 def test_gunicorn_worker_forwarded_allow_ips(trust_proxy, expected):
-    """PrimeagentUvicornWorker.init_process must update BOTH self.cfg and self.config.
+    """PrimeAgentUvicornWorker.init_process must update BOTH self.cfg and self.config.
 
     UvicornWorker.__init__ snapshots cfg.forwarded_allow_ips into self.config before
     init_process runs.  Only patching cfg is insufficient — ProxyHeadersMiddleware
@@ -47,7 +47,7 @@ def test_gunicorn_worker_forwarded_allow_ips(trust_proxy, expected):
     """
     from unittest.mock import MagicMock, patch
 
-    from primeagent.server import PrimeagentUvicornWorker
+    from primeagent.server import PrimeAgentUvicornWorker
 
     mock_settings = MagicMock()
     mock_settings.rate_limit_trust_proxy = trust_proxy
@@ -55,7 +55,7 @@ def test_gunicorn_worker_forwarded_allow_ips(trust_proxy, expected):
     mock_service.settings = mock_settings
 
     # Bypass __init__ so we don't need a real gunicorn environment.
-    worker = object.__new__(PrimeagentUvicornWorker)
+    worker = object.__new__(PrimeAgentUvicornWorker)
     worker.cfg = MagicMock()
     worker.config = MagicMock()  # uvicorn Config, already snapshotted by __init__
 

@@ -6,7 +6,7 @@ hardening in :mod:`wfx.utils.python_repl_security` is best-effort defense in
 depth, not a security boundary. This package adds an opt-in execution backend
 that routes that code into a dedicated microVM per execution, so a malicious
 payload lands in a throwaway VM (read-only rootfs, no network by default)
-instead of the Primeagent server process.
+instead of the PrimeAgent server process.
 
 Operator contract:
 

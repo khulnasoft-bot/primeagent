@@ -7,71 +7,71 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import Icon from "@site/src/components/icon";
 
-This page documents Primeagent's built-in authentication, including user accounts, Primeagent API keys, and the environment variables that control access to your server.
-To connect Primeagent to an external identity provider or SSO system, see [SSO and external authentication](./external-authentication).
+This page documents PrimeAgent's built-in authentication, including user accounts, PrimeAgent API keys, and the environment variables that control access to your server.
+To connect PrimeAgent to an external identity provider or SSO system, see [SSO and external authentication](./external-authentication).
 
 :::warning
-Never expose Primeagent ports directly to the internet without proper security measures.
-Set `PRIMEAGENT_AUTO_LOGIN=False`, use a non-default `PRIMEAGENT_SECRET_KEY`, and deploy your Primeagent server behind a reverse proxy with authentication enabled.
-For more information, see [Start a Primeagent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled).
+Never expose PrimeAgent ports directly to the internet without proper security measures.
+Set `PRIMEAGENT_AUTO_LOGIN=False`, use a non-default `PRIMEAGENT_SECRET_KEY`, and deploy your PrimeAgent server behind a reverse proxy with authentication enabled.
+For more information, see [Start a PrimeAgent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled).
 :::
 
-Authentication credentials help prevent unauthorized access to your Primeagent server, flows, and services connected through components.
+Authentication credentials help prevent unauthorized access to your PrimeAgent server, flows, and services connected through components.
 
-There are three types of credentials that you use in Primeagent:
+There are three types of credentials that you use in PrimeAgent:
 
-- [Primeagent API keys](#primeagent-api-keys): For authentication with the Primeagent API and authorizing server-side Primeagent actions like running flows and uploading files.
-- [Component API keys](#component-api-keys): For authentication between Primeagent and a service connected through a component, such as a model provider or third-party API.
-- [Authentication environment variables](#authentication-environment-variables): These environment variables configure how Primeagent handles user authentication and authorization.
+- [PrimeAgent API keys](#primeagent-api-keys): For authentication with the PrimeAgent API and authorizing server-side PrimeAgent actions like running flows and uploading files.
+- [Component API keys](#component-api-keys): For authentication between PrimeAgent and a service connected through a component, such as a model provider or third-party API.
+- [Authentication environment variables](#authentication-environment-variables): These environment variables configure how PrimeAgent handles user authentication and authorization.
 
-## Primeagent API keys {#primeagent-api-keys}
+## PrimeAgent API keys {#primeagent-api-keys}
 
-You can use Primeagent API keys to interact with Primeagent programmatically.
+You can use PrimeAgent API keys to interact with PrimeAgent programmatically.
 
-By default, most Primeagent API endpoints, such as `/v1/run/$FLOW_ID`, require authentication with a Primeagent API key.
+By default, most PrimeAgent API endpoints, such as `/v1/run/$FLOW_ID`, require authentication with a PrimeAgent API key.
 
-Primeagent validates API keys against keys stored in the database, but you can configure Primeagent to validate API keys against an environment variable instead.
+PrimeAgent validates API keys against keys stored in the database, but you can configure PrimeAgent to validate API keys against an environment variable instead.
 For more information, see [`PRIMEAGENT_API_KEY_SOURCE`](#primeagent-api-key-source).
 
 Webhook endpoints require API key authentication by default. To disable authentication for webhook endpoints, use the [`PRIMEAGENT_WEBHOOK_AUTH_ENABLE`](/webhook#require-authentication-for-webhooks) environment variable.
-To configure authentication for Primeagent MCP servers, see [Use Primeagent as an MCP server](/mcp-server).
+To configure authentication for PrimeAgent MCP servers, see [Use PrimeAgent as an MCP server](/mcp-server).
 
-### Primeagent API key permissions
+### PrimeAgent API key permissions
 
-A Primeagent API key adopts the privileges of the user who created it.
-This means that API keys you create have the same permissions and access that you do, including access to your flows, components, and Primeagent database.
-A Primeagent API key cannot be used to access resources outside of your own Primeagent server.
+A PrimeAgent API key adopts the privileges of the user who created it.
+This means that API keys you create have the same permissions and access that you do, including access to your flows, components, and PrimeAgent database.
+A PrimeAgent API key cannot be used to access resources outside of your own PrimeAgent server.
 
-In single-user environments, you are always a superuser, and your Primeagent API keys always have superuser privileges.
+In single-user environments, you are always a superuser, and your PrimeAgent API keys always have superuser privileges.
 
 In multi-user environments, users who aren't superusers cannot use their API keys to access other users' resources.
 Superusers can only run their own flows, and cannot run flows owned by other users.
-You must [start your Primeagent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled) to allow superusers to manage users and create non-superuser accounts.
+You must [start your PrimeAgent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled) to allow superusers to manage users and create non-superuser accounts.
 
-### Create a Primeagent API key
+### Create a PrimeAgent API key
 
-You can generate a Primeagent API key in your Primeagent **Settings** or with the Primeagent CLI.
+You can generate a PrimeAgent API key in your PrimeAgent **Settings** or with the PrimeAgent CLI.
 
-The CLI option is required if your Primeagent server is running in `--backend-only` mode.
+The CLI option is required if your PrimeAgent server is running in `--backend-only` mode.
 
 <Tabs>
-<TabItem value="settings" label="Primeagent Settings" default>
+<TabItem value="settings" label="PrimeAgent Settings" default>
 
-1. In the Primeagent header, click your profile icon, and then select **Settings**.
-2. Click **Primeagent API Keys**, and then click **Add New**.
+1. In the PrimeAgent header, click your profile icon, and then select **Settings**.
+2. Click **PrimeAgent API Keys**, and then click **Add New**.
 3. Name your key, and then click **Create API Key**.
 4. Copy the API key and store it securely.
 
 </TabItem>
-<TabItem value="Primeagent CLI" label="Primeagent CLI">
+<TabItem value="PrimeAgent CLI" label="PrimeAgent CLI">
 
-If you're serving your flow with `--backend-only=true`, you can't create API keys in your Primeagent **Settings** because the frontend isn't running.
-In this case, you must create API keys with the Primeagent CLI.
+If you're serving your flow with `--backend-only=true`, you can't create API keys in your PrimeAgent **Settings** because the frontend isn't running.
+In this case, you must create API keys with the PrimeAgent CLI.
 
-1. Recommended: [Start your Primeagent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled).
+1. Recommended: [Start your PrimeAgent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled).
 
-   The Primeagent team recommends enabling authentication for security reasons to prevent unauthorized creation of API keys and superusers, especially in production environments.
-   If authentication isn't enabled (`PRIMEAGENT_AUTO_LOGIN=True`), all users are effectively superusers, and they can create API keys with the Primeagent CLI.
+   The PrimeAgent team recommends enabling authentication for security reasons to prevent unauthorized creation of API keys and superusers, especially in production environments.
+   If authentication isn't enabled (`PRIMEAGENT_AUTO_LOGIN=True`), all users are effectively superusers, and they can create API keys with the PrimeAgent CLI.
 
 2. Create an API key with [`primeagent api-key`](/configuration-cli#primeagent-api-key):
 
@@ -79,14 +79,14 @@ In this case, you must create API keys with the Primeagent CLI.
    uv run primeagent api-key
    ```
 
-   All API keys created with the Primeagent CLI have superuser privileges because the command requires superuser authentication, and Primeagent API keys adopt the privileges of the user who created them.
+   All API keys created with the PrimeAgent CLI have superuser privileges because the command requires superuser authentication, and PrimeAgent API keys adopt the privileges of the user who created them.
 
 </TabItem>
 </Tabs>
 
-### Use a Primeagent API key
+### Use a PrimeAgent API key
 
-To authenticate Primeagent API requests, pass your Primeagent API key an `x-api-key` header or query parameter.
+To authenticate PrimeAgent API requests, pass your PrimeAgent API key an `x-api-key` header or query parameter.
 
 <Tabs>
 <TabItem value="header" label="HTTP header" default>
@@ -112,21 +112,21 @@ curl -X POST \
 </TabItem>
 </Tabs>
 
-For more information about forming Primeagent API requests, see [Get started with the Primeagent API](/api-reference-api-examples) and [Trigger flows with the Primeagent API](/concepts-publish).
+For more information about forming PrimeAgent API requests, see [Get started with the PrimeAgent API](/api-reference-api-examples) and [Trigger flows with the PrimeAgent API](/concepts-publish).
 
 ### Track API key usage
 
-By default, Primeagent tracks API key usage through `total_uses` and `last_used_at` records in your [Primeagent database](/memory).
+By default, PrimeAgent tracks API key usage through `total_uses` and `last_used_at` records in your [PrimeAgent database](/memory).
 
-To disable API key tracking, set `PRIMEAGENT_DISABLE_TRACK_APIKEY_USAGE=True` in your [Primeagent environment variables](/environment-variables).
+To disable API key tracking, set `PRIMEAGENT_DISABLE_TRACK_APIKEY_USAGE=True` in your [PrimeAgent environment variables](/environment-variables).
 This can help avoid database contention during periods of high concurrency.
 
 ### Revoke an API key
 
 To revoke and delete an API key, do the following:
 
-1. In the Primeagent header, click your profile icon, and then select **Settings**.
-2. Click **Primeagent API Keys**.
+1. In the PrimeAgent header, click your profile icon, and then select **Settings**.
+2. Click **PrimeAgent API Keys**.
 3. Select the keys you want to delete, and then click <Icon name="Trash2" aria-hidden="true"/> **Delete**.
 
 This action immediately invalidates the key and prevents it from being used again.
@@ -134,24 +134,24 @@ This action immediately invalidates the key and prevents it from being used agai
 ## Component API keys {#component-api-keys}
 
 Component API keys authorize access to external services that are called by components in your flows, such as model providers, databases, or third-party APIs.
-These aren't Primeagent API keys or general application credentials.
+These aren't PrimeAgent API keys or general application credentials.
 
-In Primeagent, you can store component API keys in global variables in your **Settings** or import them from your runtime environment.
+In PrimeAgent, you can store component API keys in global variables in your **Settings** or import them from your runtime environment.
 For more information, see [Global variables](/configuration-global-variables).
 
 You create and manage component API keys within the service provider's platform.
-Primeagent only stores the encrypted key value or a secure reference to a key stored elsewhere; it doesn't manage the actual credentials at the source.
-This means that deleting a global variable from Primeagent doesn't delete or invalidate the actual API key in the service provider's system.
+PrimeAgent only stores the encrypted key value or a secure reference to a key stored elsewhere; it doesn't manage the actual credentials at the source.
+This means that deleting a global variable from PrimeAgent doesn't delete or invalidate the actual API key in the service provider's system.
 You must delete or rotate component API keys directly using the service provider's interface or API.
 
-For added security, you can set `PRIMEAGENT_REMOVE_API_KEYS=True` to omit API keys and tokens from flow data in your [Primeagent database](/memory).
+For added security, you can set `PRIMEAGENT_REMOVE_API_KEYS=True` to omit API keys and tokens from flow data in your [PrimeAgent database](/memory).
 Additionally, when [exporting flows](/concepts-flows-import), you can choose to omit API keys from the exported flow JSON.
 
 ## Authentication environment variables
 
 This section describes the available authentication configuration variables.
 
-You can use the [`.env.example`](https://github.com/khulnasoft-bot/primeagent/blob/main/.env.example) file in the Primeagent repository as a template for your own `.env` file.
+You can use the [`.env.example`](https://github.com/khulnasoft-bot/primeagent/blob/main/.env.example) file in the PrimeAgent repository as a template for your own `.env` file.
 
 For JWT token signing configuration, including algorithm selection and key management, see [Configure JWT token signing](#configure-jwt-token-signing).
 
@@ -159,15 +159,15 @@ For JWT token signing configuration, including algorithm selection and key manag
 
 This variable controls whether the visual editor uses automatic login or requires users to sign in.
 
-- If `PRIMEAGENT_AUTO_LOGIN=False`, automatic login is disabled. Users must sign in to the visual editor, authenticate as a superuser to run certain Primeagent CLI commands, and use a Primeagent API key for Primeagent API requests.
+- If `PRIMEAGENT_AUTO_LOGIN=False`, automatic login is disabled. Users must sign in to the visual editor, authenticate as a superuser to run certain PrimeAgent CLI commands, and use a PrimeAgent API key for PrimeAgent API requests.
   You must explicitly set [`PRIMEAGENT_SUPERUSER_PASSWORD`](#primeagent-superuser) before startup. Set [`PRIMEAGENT_SUPERUSER`](#primeagent-superuser) only if you want to override the default superuser username (`primeagent`).
 
-- If `PRIMEAGENT_AUTO_LOGIN=True`, the visual editor automatically signs in all users as the configured superuser, and Primeagent uses that username with a configured or generated bootstrap password.
-  All users share the same visual editor environment without password protection, and they can run Primeagent CLI commands as superusers.
-  API requests still require a Primeagent API key unless you also set [`PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN`](#primeagent-skip-auth-auto-login) to `true`.
+- If `PRIMEAGENT_AUTO_LOGIN=True`, the visual editor automatically signs in all users as the configured superuser, and PrimeAgent uses that username with a configured or generated bootstrap password.
+  All users share the same visual editor environment without password protection, and they can run PrimeAgent CLI commands as superusers.
+  API requests still require a PrimeAgent API key unless you also set [`PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN`](#primeagent-skip-auth-auto-login) to `true`.
 
-The Primeagent application default is `True`.
-Official Primeagent Docker images set `false`. For more information, see [Docker image defaults](/deployment-docker#docker-image-security-defaults).
+The PrimeAgent application default is `True`.
+Official PrimeAgent Docker images set `false`. For more information, see [Docker image defaults](/deployment-docker#docker-image-security-defaults).
 
 #### PRIMEAGENT_SKIP_AUTH_AUTO_LOGIN {#primeagent-skip-auth-auto-login}
 
@@ -177,13 +177,13 @@ This variable will be removed in a future release.
 
 ### PRIMEAGENT_ENABLE_SUPERUSER_CLI {#primeagent-enable-superuser-cli}
 
-Controls the availability of the `primeagent superuser` command in the Primeagent CLI.
+Controls the availability of the `primeagent superuser` command in the PrimeAgent CLI.
 The default is `true`, but `false` is recommended to prevent unrestricted superuser creation.
 For more information, see [`primeagent superuser`](/configuration-cli#primeagent-superuser).
 
 ### PRIMEAGENT_SUPERUSER and PRIMEAGENT_SUPERUSER_PASSWORD {#primeagent-superuser}
 
-These variables specify the username and password for the Primeagent server's superuser.
+These variables specify the username and password for the PrimeAgent server's superuser.
 
 ```text
 PRIMEAGENT_SUPERUSER=administrator
@@ -192,18 +192,18 @@ PRIMEAGENT_SUPERUSER_PASSWORD=securepassword
 
 `PRIMEAGENT_SUPERUSER_PASSWORD` is required if `PRIMEAGENT_AUTO_LOGIN=False`. `PRIMEAGENT_SUPERUSER` is optional and defaults to `primeagent`.
 `PRIMEAGENT_SUPERUSER_PASSWORD` can't use the legacy default value `primeagent`; startup fails closed instead.
-When `PRIMEAGENT_AUTO_LOGIN=True`, `PRIMEAGENT_SUPERUSER` selects the auto-login account username and `PRIMEAGENT_SUPERUSER_PASSWORD` is optional. If the password isn't set, Primeagent generates an unknown bootstrap password for the auto-login account.
+When `PRIMEAGENT_AUTO_LOGIN=True`, `PRIMEAGENT_SUPERUSER` selects the auto-login account username and `PRIMEAGENT_SUPERUSER_PASSWORD` is optional. If the password isn't set, PrimeAgent generates an unknown bootstrap password for the auto-login account.
 
-When you [start a Primeagent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled), if the required password is _not_ set, then startup fails instead of creating a default password.
-These defaults don't apply when using the Primeagent CLI command [`primeagent superuser`](/configuration-cli#primeagent-superuser).
+When you [start a PrimeAgent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled), if the required password is _not_ set, then startup fails instead of creating a default password.
+These defaults don't apply when using the PrimeAgent CLI command [`primeagent superuser`](/configuration-cli#primeagent-superuser).
 
 ### PRIMEAGENT_SECRET_KEY {#primeagent-secret-key}
 
 This environment variable stores a secret key used for encrypting sensitive data like API keys and for JWT signing when using the HS256 algorithm.
-Primeagent uses the [Fernet](https://pypi.org/project/cryptography/) library for secret key encryption.
+PrimeAgent uses the [Fernet](https://pypi.org/project/cryptography/) library for secret key encryption.
 For JWT-specific configuration, see [Configure JWT token signing](#configure-jwt-token-signing).
 
-If no secret key is provided, Primeagent automatically generates one.
+If no secret key is provided, PrimeAgent automatically generates one.
 
 However, you should generate and explicitly set your own key in production environments.
 This is particularly important for multi-instance deployments like Kubernetes to ensure consistent encryption across instances.
@@ -257,7 +257,7 @@ To generate a secret encryption key for `PRIMEAGENT_SECRET_KEY`, do the followin
     PRIMEAGENT_SECRET_KEY=dBuu...2kM2_fb
     ```
 
-    If you're running Primeagent on Docker, reference the `PRIMEAGENT_SECRET_KEY` from your `.env` file in the `docker-compose.yml` file like this:
+    If you're running PrimeAgent on Docker, reference the `PRIMEAGENT_SECRET_KEY` from your `.env` file in the `docker-compose.yml` file like this:
 
         ```yaml
         environment:
@@ -267,9 +267,9 @@ To generate a secret encryption key for `PRIMEAGENT_SECRET_KEY`, do the followin
 #### Rotate the secret key {#rotating-the-secret-key}
 
 Rotate `PRIMEAGENT_SECRET_KEY` if the key might have been compromised and as part of your routine credential management practices.
-Primeagent provides a migration script that re-encrypts stored credentials and other sensitive data with a new key so you can rotate without losing access.
+PrimeAgent provides a migration script that re-encrypts stored credentials and other sensitive data with a new key so you can rotate without losing access.
 
-For more information, see [Secret Key Rotation](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md#secret-key-rotation) in the Primeagent Security Policy.
+For more information, see [Secret Key Rotation](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md#secret-key-rotation) in the PrimeAgent Security Policy.
 
 ### PRIMEAGENT_NEW_USER_IS_ACTIVE {#primeagent-new-user-is-active}
 
@@ -283,8 +283,8 @@ When `PRIMEAGENT_NEW_USER_IS_ACTIVE=True`, new accounts are automatically activa
 PRIMEAGENT_NEW_USER_IS_ACTIVE=False
 ```
 
-Only superusers can manage user accounts for a Primeagent server through the [Users API](/api-users).
-For more information, see [Start a Primeagent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled).
+Only superusers can manage user accounts for a PrimeAgent server through the [Users API](/api-users).
+For more information, see [Start a PrimeAgent server with authentication enabled](#start-a-primeagent-server-with-authentication-enabled).
 
 ### PRIMEAGENT_ENABLE_SIGNUP {#primeagent-enable-signup}
 
@@ -292,7 +292,7 @@ This variable controls whether public self-registration is allowed at the `POST 
 
 | Value            | Description                                                                                                |
 | ---------------- | ---------------------------------------------------------------------------------------------------------- |
-| `True` (default) | Anyone can create a new Primeagent account by calling the registration endpoint directly.                  |
+| `True` (default) | Anyone can create a new PrimeAgent account by calling the registration endpoint directly.                  |
 | `False`          | Public registration is disabled. Only superusers can create new accounts with the [Users API](/api-users). |
 
 Self-registration is always disabled when `PRIMEAGENT_AUTO_LOGIN=True`, because single-user mode has no multi-account concept.
@@ -300,31 +300,31 @@ Superusers can create accounts regardless of this setting.
 
 ### PRIMEAGENT_API_KEY_SOURCE {#primeagent-api-key-source}
 
-This variable controls how Primeagent validates API keys.
+This variable controls how PrimeAgent validates API keys.
 
 | Value          | Description                                                                                                                                                                                                                     |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `db` (default) | Validates API keys against [Primeagent API keys](#primeagent-api-keys) stored in the database. This is the standard behavior where users create and manage API keys through the Primeagent UI or CLI.                           |
+| `db` (default) | Validates API keys against [PrimeAgent API keys](#primeagent-api-keys) stored in the database. This is the standard behavior where users create and manage API keys through the PrimeAgent UI or CLI.                           |
 | `env`          | Validates API keys against the `PRIMEAGENT_API_KEY` environment variable. Useful for Kubernetes deployments, CI/CD pipelines, or any environment where you want to inject a pre-defined API key without database configuration. |
 
-By default, Primeagent validates the `x-api-key` header against the Primeagent database with `PRIMEAGENT_API_KEY_SOURCE=db`.
-When using database-based validation, you can create multiple keys with per-user permissions, track usage, and manage keys through the Primeagent UI or CLI.
+By default, PrimeAgent validates the `x-api-key` header against the PrimeAgent database with `PRIMEAGENT_API_KEY_SOURCE=db`.
+When using database-based validation, you can create multiple keys with per-user permissions, track usage, and manage keys through the PrimeAgent UI or CLI.
 
-When `PRIMEAGENT_API_KEY_SOURCE=env`, Primeagent validates the `x-api-key` header against the value of the `PRIMEAGENT_API_KEY` environment variable.
-This means Primeagent runs securely in stateless environments, such as with WFX or Kubernetes secrets.
+When `PRIMEAGENT_API_KEY_SOURCE=env`, PrimeAgent validates the `x-api-key` header against the value of the `PRIMEAGENT_API_KEY` environment variable.
+This means PrimeAgent runs securely in stateless environments, such as with WFX or Kubernetes secrets.
 
 When `PRIMEAGENT_API_KEY_SOURCE=env`, only a single API key can be used for the deployment. All authenticated requests use the same API key, and successful authentication grants superuser privileges.
-This mode is designed for single-tenant deployments or automated systems, not multi-user environments where different users need different access levels. To rotate your keys, update the environment variable and restart the Primeagent server.
+This mode is designed for single-tenant deployments or automated systems, not multi-user environments where different users need different access levels. To rotate your keys, update the environment variable and restart the PrimeAgent server.
 
 To enable environment-based API key validation:
 
-1. In the Primeagent `.env` file, set the API key source to `env`:
+1. In the PrimeAgent `.env` file, set the API key source to `env`:
 
    ```text
    PRIMEAGENT_API_KEY_SOURCE=env
    ```
 
-2. In the Primeagent `.env` file, set the API key value:
+2. In the PrimeAgent `.env` file, set the API key value:
 
    ```text
    PRIMEAGENT_API_KEY=your-secure-api-key
@@ -359,7 +359,7 @@ To configure an environment-based API key in a Kubernetes Secret, do the followi
      api-key: "YOUR_API_KEY"
    ```
 
-   Replace `YOUR_API_KEY` with the `PRIMEAGENT_API_KEY` value from the Primeagent `.env` file.
+   Replace `YOUR_API_KEY` with the `PRIMEAGENT_API_KEY` value from the PrimeAgent `.env` file.
 
 2. Reference the `primeagent-api-key` Secret in your Kubernetes deployment:
 
@@ -391,13 +391,13 @@ To configure an environment-based API key in a Kubernetes Secret, do the followi
 
 To configure an environment-based API key in Docker Compose, do the following:
 
-1. Set the API key in your Primeagent `.env` file.
+1. Set the API key in your PrimeAgent `.env` file.
 
    ```text
    PRIMEAGENT_API_KEY=your-secure-api-key
    ```
 
-   Replace `YOUR_API_KEY` with your actual Primeagent API key value.
+   Replace `YOUR_API_KEY` with your actual PrimeAgent API key value.
 
 2. Create or update your `docker-compose.yml` file to set `PRIMEAGENT_API_KEY_SOURCE=env` and reference the `PRIMEAGENT_API_KEY`.
 
@@ -416,7 +416,7 @@ To configure an environment-based API key in Docker Compose, do the following:
 
 ### PRIMEAGENT*CORS*\* {#cors-configuration-for-authentication}
 
-Cross-Origin Resource Sharing (CORS) configuration controls how authentication credentials are handled when your Primeagent frontend and backend are served from different origins.
+Cross-Origin Resource Sharing (CORS) configuration controls how authentication credentials are handled when your PrimeAgent frontend and backend are served from different origins.
 The following `PRIMEAGENT_CORS_*` environment variables are available:
 
 | Variable                            | Format                 | Default | Description                                                                                                            |
@@ -436,7 +436,7 @@ PRIMEAGENT_CORS_ALLOW_METHODS=*
 ```
 
 :::danger
-Primeagent's default CORS settings can be a security risk in production environments because any website can make requests to your Primeagent API, and any website can include credentials in cross-origin requests, including authentication cookies and authorization headers.
+PrimeAgent's default CORS settings can be a security risk in production environments because any website can make requests to your PrimeAgent API, and any website can include credentials in cross-origin requests, including authentication cookies and authorization headers.
 
 In production deployments, specify exact origins in `PRIMEAGENT_CORS_ORIGINS`.
 You can also specify allowed headers and methods, if needed.
@@ -471,7 +471,7 @@ Set both `PRIMEAGENT_ACCESS_SECURE` and `PRIMEAGENT_REFRESH_SECURE` to `True` fo
 
 ### Anonymous public-flow authorization
 
-Anonymous public-flow links are direct-link capabilities, not discovery grants. Primeagent accepts a canonical `PUBLIC` authorization share and preserves existing links derived from `Flow.access_type=PUBLIC` or an A2A folder with `auth_type=none`. Public shares never appear in general flow or shared-with-me listings.
+Anonymous public-flow links are direct-link capabilities, not discovery grants. PrimeAgent accepts a canonical `PUBLIC` authorization share and preserves existing links derived from `Flow.access_type=PUBLIC` or an A2A folder with `auth_type=none`. Public shares never appear in general flow or shared-with-me listings.
 
 A canonical `PUBLIC` share takes precedence over both compatibility grants. For flows, the shares API accepts only `permission_level=execute` at `PUBLIC` scope; execution includes the scrubbed direct-link read needed to load the playground. The API rejects `read`, `write`, and `admin` because there is no read-only, writable, or administrative anonymous flow surface. Deleting the share row removes the canonical grant and any still-set legacy setting becomes the effective grant again, so revoke access entirely by clearing the legacy setting as well.
 
@@ -484,14 +484,14 @@ For A2A, `auth_type=none` applies this contract to both the direct agent card an
 ### PRIMEAGENT*RATE_LIMIT*\* {#login-rate-limiting}
 
 The following environment variables configure IP-based rate limiting to protect against brute-force attacks on the `/login` endpoint and abuse of public flow endpoints.
-When the limit is exceeded, Primeagent returns HTTP 429 with a `Retry-After: 60` header.
+When the limit is exceeded, PrimeAgent returns HTTP 429 with a `Retry-After: 60` header.
 
 | Variable                                       | Format  | Default     | Description                                                                                                                                                                                                                                                                                              |
 | ---------------------------------------------- | ------- | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `PRIMEAGENT_RATE_LIMIT_ENABLED`                | Boolean | `True`      | Enable rate limiting on the `/login` and `/api/v2/workflows/public` endpoints. Set to False to disable those limits (not recommended in production).                                                                                                                                                     |
 | `PRIMEAGENT_RATE_LIMIT_PER_MINUTE`             | Integer | `5`         | Maximum number of login attempts allowed per minute from a single IP address.                                                                                                                                                                                                                            |
 | `PRIMEAGENT_RATE_LIMIT_STORAGE_URI`            | String  | `memory://` | Storage backend for rate limit counters. Use `memory://` for single-server deployments or `redis://host:port` for multi-server deployments where the limit should be shared across instances.                                                                                                            |
-| `PRIMEAGENT_RATE_LIMIT_TRUST_PROXY`            | Boolean | `False`     | When `true`, Primeagent reads the client IP from the rightmost `X-Forwarded-For` header entry instead of the direct connection IP. Enable only when Primeagent is behind a trusted reverse proxy or load balancer. Do not enable if users can reach Primeagent directly, as this allows header spoofing. |
+| `PRIMEAGENT_RATE_LIMIT_TRUST_PROXY`            | Boolean | `False`     | When `true`, PrimeAgent reads the client IP from the rightmost `X-Forwarded-For` header entry instead of the direct connection IP. Enable only when PrimeAgent is behind a trusted reverse proxy or load balancer. Do not enable if users can reach PrimeAgent directly, as this allows header spoofing. |
 | `PRIMEAGENT_PUBLIC_FLOW_RATE_LIMIT_PER_MINUTE` | Integer | `20`        | Maximum number of unauthenticated public-flow runs allowed per minute from a single IP address. Public flows consume resources under an isolated anonymous principal, so they are rate-limited separately from the `/login` endpoint.                                                                    |
 
 ### PRIMEAGENT*SSRF*_ and PRIMEAGENT*CONNECTOR_SSRF*_ {#ssrf-protection}
@@ -551,22 +551,22 @@ This variable controls whether API key authentication is required for webhook en
 
 | Variable                         | Format  | Default | Description                                                                                                                                                                                                                                                                |
 | -------------------------------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PRIMEAGENT_WEBHOOK_AUTH_ENABLE` | Boolean | `True`  | When `True`, webhook endpoints require API key authentication and validate that the authenticated user owns the flow being executed. When `False`, no Primeagent API key is required and all requests to the webhook endpoint are treated as being sent by the flow owner. |
+| `PRIMEAGENT_WEBHOOK_AUTH_ENABLE` | Boolean | `True`  | When `True`, webhook endpoints require API key authentication and validate that the authenticated user owns the flow being executed. When `False`, no PrimeAgent API key is required and all requests to the webhook endpoint are treated as being sent by the flow owner. |
 
 By default, webhooks require API key authentication with `PRIMEAGENT_WEBHOOK_AUTH_ENABLE=True`.
 
-To allow webhooks to run without authentication (not recommended; use only in trusted environments), in your Primeagent `.env` file, set `PRIMEAGENT_WEBHOOK_AUTH_ENABLE=False`.
+To allow webhooks to run without authentication (not recommended; use only in trusted environments), in your PrimeAgent `.env` file, set `PRIMEAGENT_WEBHOOK_AUTH_ENABLE=False`.
 
-When webhook authentication is enabled, you must provide a Primeagent API key with each webhook request as an HTTP header or query parameter. For more information, see [Require authentication for webhooks](/webhook#require-authentication-for-webhooks).
+When webhook authentication is enabled, you must provide a PrimeAgent API key with each webhook request as an HTTP header or query parameter. For more information, see [Require authentication for webhooks](/webhook#require-authentication-for-webhooks).
 
 ## Configure JWT token signing {#configure-jwt-token-signing}
 
-Primeagent issues short-lived JSON Web Tokens (JWTs) when a user logs in. The default HS256 algorithm works for most deployments. Switch to RS256 or RS512 for production deployments that require asymmetric keys or need to share the public key with other services.
+PrimeAgent issues short-lived JSON Web Tokens (JWTs) when a user logs in. The default HS256 algorithm works for most deployments. Switch to RS256 or RS512 for production deployments that require asymmetric keys or need to share the public key with other services.
 
 <details closed>
 <summary>About the JWT structure and contents</summary>
 
-When a user logs in at the `/api/v1/login` endpoint, Primeagent validates the credentials and creates a JWT containing the user's identity and expiration time. This token is then used for subsequent API requests instead of sending credentials with each request.
+When a user logs in at the `/api/v1/login` endpoint, PrimeAgent validates the credentials and creates a JWT containing the user's identity and expiration time. This token is then used for subsequent API requests instead of sending credentials with each request.
 
 A JWT consists of three parts separated by dots (`.`):
 
@@ -595,7 +595,7 @@ The following environment variables control JWT signing. `PRIMEAGENT_SECRET_KEY`
 ### HS256 (default)
 
 HS256 is the default JWT algorithm, suitable for single-server deployments.
-Primeagent automatically generates and persists a secret key via `PRIMEAGENT_SECRET_KEY`.
+PrimeAgent automatically generates and persists a secret key via `PRIMEAGENT_SECRET_KEY`.
 No configuration is necessary beyond what is already covered in the [`PRIMEAGENT_SECRET_KEY`](#primeagent-secret-key) section above.
 
 To explicitly set the algorithm in your `.env`:
@@ -609,7 +609,7 @@ PRIMEAGENT_SECRET_KEY="your-custom-secret-key"
 
 RS256 uses an RSA private/public key pair. The private key signs tokens; the public key verifies them. Use RS256 for production deployments or multi-instance setups where you want to share the public key with other services.
 
-To automatically generate a key pair, set the algorithm and Primeagent creates and persists the keys in [`PRIMEAGENT_CONFIG_DIR`](/logging) on startup:
+To automatically generate a key pair, set the algorithm and PrimeAgent creates and persists the keys in [`PRIMEAGENT_CONFIG_DIR`](/logging) on startup:
 
 ```bash
 PRIMEAGENT_ALGORITHM=RS256
@@ -760,24 +760,24 @@ PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS=3600    # 1 hour
 PRIMEAGENT_REFRESH_TOKEN_EXPIRE_SECONDS=604800 # 7 days
 ```
 
-## Start a Primeagent server with authentication enabled {#start-a-primeagent-server-with-authentication-enabled}
+## Start a PrimeAgent server with authentication enabled {#start-a-primeagent-server-with-authentication-enabled}
 
-This section shows you how to use the [authentication environment variables](/api-keys-and-authentication#authentication-environment-variables) to deploy a Primeagent server with authentication enabled.
+This section shows you how to use the [authentication environment variables](/api-keys-and-authentication#authentication-environment-variables) to deploy a PrimeAgent server with authentication enabled.
 This involves disabling automatic login, setting superuser credentials, and generating a secret encryption key.
 
-This configuration is recommended for any deployment where Primeagent is exposed to a shared or public network, or where multiple users access the same Primeagent server.
+This configuration is recommended for any deployment where PrimeAgent is exposed to a shared or public network, or where multiple users access the same PrimeAgent server.
 
 :::tip Docker images
-Official Primeagent Docker images already set `PRIMEAGENT_AUTO_LOGIN=false`.
+Official PrimeAgent Docker images already set `PRIMEAGENT_AUTO_LOGIN=false`.
 You still must set `PRIMEAGENT_SUPERUSER_PASSWORD` (and optionally `PRIMEAGENT_SUPERUSER`) before the container can start.
 For more information, see [Docker image defaults](/deployment-docker#docker-image-security-defaults).
 :::
 
-With authentication enabled, all users must sign in to the visual editor with valid credentials, and API requests require authentication with a Primeagent API key.
-Sign in as a superuser to [create a Primeagent API key](#create-a-primeagent-api-key) with superuser privileges.
+With authentication enabled, all users must sign in to the visual editor with valid credentials, and API requests require authentication with a PrimeAgent API key.
+Sign in as a superuser to [create a PrimeAgent API key](#create-a-primeagent-api-key) with superuser privileges.
 User management is through the [Users API](/api-users), not the visual editor.
 
-### Start the Primeagent server
+### Start the PrimeAgent server
 
 1. Create a `.env` file with the following variables:
 
@@ -804,7 +804,7 @@ User management is through the [Users API](/api-users), not the visual editor.
 
 3. Recommended: Generate and set a `PRIMEAGENT_SECRET_KEY` for encrypting sensitive data.
 
-   If you don't set a secret key, Primeagent generates one automatically, but this isn't recommended for production environments.
+   If you don't set a secret key, PrimeAgent generates one automatically, but this isn't recommended for production environments.
 
    For instructions on generating and setting a secret key, see [`PRIMEAGENT_SECRET_KEY`](#primeagent-secret-key).
 
@@ -820,13 +820,13 @@ User management is through the [Users API](/api-users), not the visual editor.
    PRIMEAGENT_ENABLE_SUPERUSER_CLI=False
    ```
 
-5. Start Primeagent with the configuration from your `.env` file:
+5. Start PrimeAgent with the configuration from your `.env` file:
 
    ```text
    uv run primeagent run --env-file .env
    ```
 
-   Starting Primeagent with this `.env` file creates or uses the configured superuser.
+   Starting PrimeAgent with this `.env` file creates or uses the configured superuser.
    If `PRIMEAGENT_SUPERUSER_PASSWORD` isn't set, startup fails instead of creating a default password.
 
 6. Verify the server is running. The default location is `http://localhost:7860`.
@@ -835,7 +835,7 @@ Next, add users with the Users API so they can collaborate on flows.
 
 ### Manage users as an administrator
 
-As of Primeagent 1.12, Primeagent OSS has no **Admin Page** in the visual editor.
+As of PrimeAgent 1.12, PrimeAgent OSS has no **Admin Page** in the visual editor.
 Superusers add, activate, list, and delete users, set **Superuser**, and set other users' passwords with `PATCH /api/v1/users/{id}`. For more information, see [Users endpoints](/api-users).
 
 1. To complete your first-time login as a superuser, navigate to `http://localhost:7860/login`.
@@ -845,8 +845,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
 2. Log in with the password you set in `PRIMEAGENT_SUPERUSER_PASSWORD` and the username from `PRIMEAGENT_SUPERUSER`.
    If you did not set `PRIMEAGENT_SUPERUSER`, the username is `primeagent`.
 
-3. [Create a Primeagent API key](#create-a-primeagent-api-key) while signed in as the superuser.
-   User-management requests require a Primeagent API key in the `x-api-key` header.
+3. [Create a PrimeAgent API key](#create-a-primeagent-api-key) while signed in as the superuser.
+   User-management requests require a PrimeAgent API key in the `x-api-key` header.
 
 4. Create a user:
 
@@ -990,11 +990,11 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
 6. Send the username and password to the user.
    The superuser sets the initial password when creating the account.
 
-7. To test the new user's access, sign out of Primeagent, and then sign in at `/login` with the new user's credentials.
+7. To test the new user's access, sign out of PrimeAgent, and then sign in at `/login` with the new user's credentials.
    A non-superuser can use the visual editor and cannot call the Users API to manage other accounts.
 
 ## See also
 
-- [Primeagent environment variables](/environment-variables)
+- [PrimeAgent environment variables](/environment-variables)
 - [Users endpoints](/api-users)
-- [Primeagent Security Policy](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md) — reporting vulnerabilities, security configuration, and [secret key rotation](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md#secret-key-rotation)
+- [PrimeAgent Security Policy](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md) — reporting vulnerabilities, security configuration, and [secret key rotation](https://github.com/khulnasoft-bot/primeagent/blob/main/SECURITY.md#secret-key-rotation)

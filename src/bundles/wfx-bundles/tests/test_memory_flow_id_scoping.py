@@ -3,7 +3,7 @@
 Regression test for https://github.com/khulnasoft-bot/primeagent/issues/13059
 
 Before the fix, ``MemoryComponent.retrieve_messages`` called
-``aget_messages`` without ``flow_id``. Because the Primeagent playground assigns
+``aget_messages`` without ``flow_id``. Because the PrimeAgent playground assigns
 default session names (e.g. "New Session 0") that are not unique across flows,
 this caused chat history from Flow A to leak into Flow B whenever both used
 the same session name. The Agent component is affected because it delegates

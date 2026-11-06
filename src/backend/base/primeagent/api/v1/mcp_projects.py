@@ -158,10 +158,10 @@ async def verify_project_auth(
                     return project_user
         raise HTTPException(status_code=404, detail="Project owner not found")
 
-    # OAuth projects must present a valid API key at the Primeagent transport endpoint: network-level
+    # OAuth projects must present a valid API key at the PrimeAgent transport endpoint: network-level
     # trust (loopback / same-host proxy) is unsafe because it cannot distinguish the local MCP
     # Composer subprocess from another loopback peer behind a reverse proxy or sidecar. The
-    # composer-to-Primeagent hop should be authenticated explicitly once mcp-composer can forward
+    # composer-to-PrimeAgent hop should be authenticated explicitly once mcp-composer can forward
     # a project-scoped backend credential; until then, direct backend access requires a key.
     requires_api_key = (not auth_settings and not settings_service.auth_settings.AUTO_LOGIN) or (
         project_auth_type in {"apikey", "oauth"}
@@ -994,10 +994,10 @@ async def install_mcp_config(
             legacy_sse_url = await get_project_sse_url(project_id)
             command = "uvx"
             args = [*mcp_sdk_constraint_args(), "mcp-proxy"]
-            # Check if we need to add Primeagent API key headers
+            # Check if we need to add PrimeAgent API key headers
             # Necessary only when Project API Key Authentication is enabled
 
-            # Generate a Primeagent API key for auto-install if needed
+            # Generate a PrimeAgent API key for auto-install if needed
             # Only add API key headers for projects with "apikey" auth type (not "none" or OAuth)
 
             if should_generate_api_key:
@@ -1056,7 +1056,7 @@ async def install_mcp_config(
         if "mcpServers" not in existing_config:
             existing_config["mcpServers"] = {}
 
-        # Remove stale entries that point to the same Primeagent URLs (e.g. after the project is renamed)
+        # Remove stale entries that point to the same PrimeAgent URLs (e.g. after the project is renamed)
         existing_config, removed_servers = remove_server_by_urls(existing_config, connection_urls)
 
         if removed_servers:
@@ -1373,7 +1373,7 @@ async def get_config_path(client: str) -> Path:
 
 
 def _entry_targets_other_project(server_config: dict[str, Any], project_id: UUID) -> bool:
-    """Return whether a client config entry points at a different Primeagent project's MCP endpoint.
+    """Return whether a client config entry points at a different PrimeAgent project's MCP endpoint.
 
     Entries that reference no project URL (e.g. an MCP Composer entry) are not treated as taken, so a
     reinstall after an auth-mode switch still replaces them instead of adding a duplicate.
@@ -1643,7 +1643,7 @@ async def register_project_with_composer(project: Folder):
 
         settings = get_settings_service().settings
         if not settings.host or not settings.port:
-            error_msg = "Primeagent host and port must be set in settings to register project with MCP Composer"
+            error_msg = "PrimeAgent host and port must be set in settings to register project with MCP Composer"
             raise ValueError(error_msg)
 
         if not project.id:
@@ -1822,7 +1822,7 @@ async def get_or_start_mcp_composer(auth_config: dict, project_name: str, projec
     # Prepare current auth config for comparison
     settings = get_settings_service().settings
     if not settings.host or not settings.port:
-        error_msg = "Primeagent host and port must be set in settings to register project with MCP Composer"
+        error_msg = "PrimeAgent host and port must be set in settings to register project with MCP Composer"
         raise ValueError(error_msg)
 
     streamable_http_url = await get_project_local_streamable_http_url(project_id)

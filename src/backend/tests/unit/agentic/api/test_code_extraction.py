@@ -303,7 +303,7 @@ class TestValidateComponentCode:
     """Tests for validate_component_code function."""
 
     def test_validates_valid_component(self):
-        """Should validate correct Primeagent component code."""
+        """Should validate correct PrimeAgent component code."""
         result = validate_component_code(VALID_COMPONENT_CODE)
 
         assert result.is_valid is True
@@ -327,7 +327,7 @@ class TestValidateComponentCode:
         assert result.error is not None
 
     def test_fails_for_non_component_code(self):
-        """Should fail validation for code that's not a Primeagent component."""
+        """Should fail validation for code that's not a PrimeAgent component."""
         non_component_code = """def hello():
     return "hello"
 """
@@ -411,7 +411,7 @@ This component takes an input and returns a greeting message."""
         """Should handle responses with lots of explanatory text."""
         llm_response = f"""I apologize for the previous rate limit error. Let me try again.
 
-Based on your request, I'll create a custom Primeagent component that performs sentiment analysis.
+Based on your request, I'll create a custom PrimeAgent component that performs sentiment analysis.
 This component will:
 1. Take text input
 2. Process it through a sentiment analyzer

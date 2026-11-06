@@ -34,7 +34,7 @@ VALIDATION_UI_DELAY_SECONDS = 0.3
 # tokens, enough to convey shape (node/edge graph) without dumping field-level
 # detail. ``flow_to_spec_summary`` already runs first; this is the safety net.
 MAX_CANVAS_SUMMARY_CHARS = 2000
-PRIMEAGENT_ASSISTANT_FLOW = "PrimeagentAssistant.json"
+PRIMEAGENT_ASSISTANT_FLOW = "PrimeAgentAssistant.json"
 FLOW_BUILDER_ASSISTANT_FLOW = "flow_builder_assistant"
 TRANSLATION_FLOW = "translation_flow.py"
 
@@ -58,9 +58,9 @@ EDIT_CONTINUATION_INPUT = (
 )
 
 OFF_TOPIC_REFUSAL_MESSAGE = (
-    "I appreciate your interest, but I'm the Primeagent Assistant and can only help with "
-    "Primeagent-related topics such as building components, creating flows, configuring "
-    "deployments, and troubleshooting issues. Could you rephrase your question about Primeagent?"
+    "I appreciate your interest, but I'm the PrimeAgent Assistant and can only help with "
+    "PrimeAgent-related topics such as building components, creating flows, configuring "
+    "deployments, and troubleshooting issues. Could you rephrase your question about PrimeAgent?"
 )
 
 VALIDATION_RETRY_TEMPLATE = """The previous component code has an error. Please fix it.
@@ -99,7 +99,7 @@ ERROR:
 ORIGINAL REQUEST:
 {original_input}
 
-Respond with a complete, valid Primeagent component as a Python class extending Component, \
+Respond with a complete, valid PrimeAgent component as a Python class extending Component, \
 inside a single ```python code block. Do not emit raw tool calls or partial JSON."""
 
 NO_ACTION_RETRY_TEMPLATE = """Your previous reply did not change the canvas. You only described \

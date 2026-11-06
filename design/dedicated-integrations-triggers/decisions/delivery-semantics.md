@@ -141,7 +141,7 @@ its size.
 
 ## Re-open trigger
 
-- A provider ships an ordered, exactly-once delivery Primeagent can honour end to end, or
+- A provider ships an ordered, exactly-once delivery PrimeAgent can honour end to end, or
 - the 7-day replay window proves wrong in the soak (either too short for a real recovery or too expensive to retain),
   or
 - `Job.dedupe_key` gains a database unique index, which would let the dispatcher lean on it for the submit step.

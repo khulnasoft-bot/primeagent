@@ -1,4 +1,4 @@
-"""Unit test for custom code execution in isolation (with real Primeagent code)."""
+"""Unit test for custom code execution in isolation (with real PrimeAgent code)."""
 
 from typing import Any
 from unittest.mock import AsyncMock
@@ -12,7 +12,7 @@ from primeagent_stepflow.worker.custom_code_executor import (
 
 
 class TestCustomCodeExecutor:
-    """Test CustomCodeExecutor functionality with real Primeagent component code."""
+    """Test CustomCodeExecutor functionality with real PrimeAgent component code."""
 
     @pytest.fixture
     def executor(self):
@@ -78,7 +78,7 @@ class SimpleTestComponent(Component):
 
     @pytest.fixture
     def chat_input_component_blob(self):
-        """Real ChatInput component blob data from Primeagent."""
+        """Real ChatInput component blob data from PrimeAgent."""
         return {
             "code": '''
 from primeagent.base.io.chat import ChatComponent
@@ -194,7 +194,7 @@ class ChatInput(ChatComponent):
 
         # Verify the processed result
         result_data = result["result"]
-        # Primeagent Message: result data is nested in ["result"] field
+        # PrimeAgent Message: result data is nested in ["result"] field
         message_data = result_data["result"] if "result" in result_data else result_data
         assert "text" in message_data
         assert message_data["text"] == "Processed: Hello World"
@@ -229,8 +229,8 @@ class ChatInput(ChatComponent):
         assert "result" in result
         result_data = result["result"]
 
-        # Should have Primeagent Message structure
-        # Handle nested result structure from Primeagent Messages
+        # Should have PrimeAgent Message structure
+        # Handle nested result structure from PrimeAgent Messages
         message_data = result_data["result"] if "result" in result_data else result_data
         assert "text" in message_data
         assert message_data["text"] == "What is Python?"
@@ -261,7 +261,7 @@ class ChatInput(ChatComponent):
 
         # Should use template default
         result_data = result["result"]
-        # Handle nested result structure from Primeagent Messages
+        # Handle nested result structure from PrimeAgent Messages
         message_data = result_data["result"] if "result" in result_data else result_data
         assert message_data["text"] == "Processed: Default Text"
 
@@ -288,7 +288,7 @@ class ChatInput(ChatComponent):
 
         # Should use runtime value, not template default
         result_data = result["result"]
-        # Handle nested result structure from Primeagent Messages
+        # Handle nested result structure from PrimeAgent Messages
         message_data = result_data["result"] if "result" in result_data else result_data
         assert message_data["text"] == "Processed: Runtime Override"
 
@@ -535,12 +535,12 @@ class DataFrameComponent(Component):
 
 
 class TestCustomCodeExecutorIntegration:
-    """Integration tests with mock Primeagent imports."""
+    """Integration tests with mock PrimeAgent imports."""
 
     @pytest.fixture
     def executor_with_mocks(self):
-        """Create CustomCodeExecutor with mocked Primeagent imports."""
-        # We'll test this without real Primeagent imports to avoid dependency issues
+        """Create CustomCodeExecutor with mocked PrimeAgent imports."""
+        # We'll test this without real PrimeAgent imports to avoid dependency issues
         return CustomCodeExecutor()
 
     # Registry fixture removed - no longer needed after eliminating test registry
@@ -548,9 +548,9 @@ class TestCustomCodeExecutorIntegration:
     @pytest.fixture
     def converter(self):
         """Create converter instance."""
-        from primeagent_stepflow.translation.translator import PrimeagentConverter
+        from primeagent_stepflow.translation.translator import PrimeAgentConverter
 
-        return PrimeagentConverter()
+        return PrimeAgentConverter()
 
     @pytest.mark.asyncio
     async def test_component_parameter_preparation(self, executor_with_mocks: CustomCodeExecutor):
@@ -594,8 +594,8 @@ class TestCustomCodeExecutorIntegration:
         assert params["extra_field"] == "extra_value"
 
 
-class TestCustomCodeExecutorWithRealPrimeagentComponents:
-    """Test CustomCodeExecutor with real converted Primeagent workflow components."""
+class TestCustomCodeExecutorWithRealPrimeAgentComponents:
+    """Test CustomCodeExecutor with real converted PrimeAgent workflow components."""
 
     @pytest.fixture
     def executor(self):
@@ -613,9 +613,9 @@ class TestCustomCodeExecutorWithRealPrimeagentComponents:
     @pytest.fixture
     def converter(self):
         """Create converter instance."""
-        from primeagent_stepflow.translation.translator import PrimeagentConverter
+        from primeagent_stepflow.translation.translator import PrimeAgentConverter
 
-        return PrimeagentConverter()
+        return PrimeAgentConverter()
 
     @pytest.mark.asyncio
     async def test_execute_converted_workflow_components(self, executor: CustomCodeExecutor, mock_context, converter):
@@ -937,7 +937,7 @@ class EnhancedTestComponent(Component):
     ):
         """Test LanguageModelComponent receives string when Message passed.
 
-        This test verifies the fix for Primeagent 1.6.4+ wfx components that
+        This test verifies the fix for PrimeAgent 1.6.4+ wfx components that
         expect string values for MultilineInput fields, not Message objects.
         """
         nodes = basic_prompting_flow["data"]["nodes"]
@@ -1053,7 +1053,7 @@ class EnhancedTestComponent(Component):
     ):
         """Test ChatInput component with Message object passed to string field.
 
-        This is a specific test for the Primeagent 1.6.4+ fix where Message objects
+        This is a specific test for the PrimeAgent 1.6.4+ fix where Message objects
         need to be converted to strings when passed to MultilineInput fields.
         """
         # Create blob data

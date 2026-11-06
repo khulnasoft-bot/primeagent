@@ -1,25 +1,25 @@
 ---
-title: Primeagent release notes
+title: PrimeAgent release notes
 slug: /release-notes
 ---
 
 import Icon from "@site/src/components/icon";
 import McpIcon from "@site/static/logos/mcp-icon.svg";
 
-This page summarizes significant changes to Primeagent in each release.
+This page summarizes significant changes to PrimeAgent in each release.
 For all changes, see the [Changelog](https://github.com/khulnasoft-bot/primeagent/releases/latest).
 
-Due to strict SemVer requirements, Primeagent Desktop can have different patch versions than the core Primeagent OSS Python package, but the major and minor versions are aligned.
+Due to strict SemVer requirements, PrimeAgent Desktop can have different patch versions than the core PrimeAgent OSS Python package, but the major and minor versions are aligned.
 
 ## Prepare to upgrade
 
 :::warning
-Whenever possible, the Primeagent team recommends installing new Primeagent versions in a new virtual environment or VM before upgrading your primary installation.
+Whenever possible, the PrimeAgent team recommends installing new PrimeAgent versions in a new virtual environment or VM before upgrading your primary installation.
 This allows you to [import flows](/concepts-flows-import#import-a-flow) from your existing installation and test them in the new version without disrupting your existing installation.
 In the event of breaking changes or bugs, your existing installation is preserved in a stable state.
 :::
 
-To avoid the impact of potential breaking changes and test new versions, the Primeagent team recommends the following upgrade process:
+To avoid the impact of potential breaking changes and test new versions, the PrimeAgent team recommends the following upgrade process:
 
 1. Recommended: [Export your projects](/api-projects#export-a-project) to create backups of your flows:
 
@@ -34,9 +34,9 @@ To avoid the impact of potential breaking changes and test new versions, the Pri
 
 2. Install the new version:
 
-   - **Primeagent OSS Python package**: Install the new version in a new virtual environment. For instructions, see [Install and run the Primeagent OSS Python package](/get-started-installation#install-and-run-the-primeagent-oss-python-package).
-   - **Primeagent Docker image**: Run the new image in a separate container, or upgrade your existing image. For more information, see [Upgrade the Primeagent Docker image](/deployment-docker#upgrade-the-primeagent-docker-image).
-   - **Primeagent Desktop**: To upgrade in place, open Primeagent Desktop, and then click **Upgrade Available** in the Primeagent header. If you want to isolate the new version, you must install Primeagent Desktop on a separate physical or virtual machine, and then [import your flows](/concepts-flows-import) to the new installation.
+   - **PrimeAgent OSS Python package**: Install the new version in a new virtual environment. For instructions, see [Install and run the PrimeAgent OSS Python package](/get-started-installation#install-and-run-the-primeagent-oss-python-package).
+   - **PrimeAgent Docker image**: Run the new image in a separate container, or upgrade your existing image. For more information, see [Upgrade the PrimeAgent Docker image](/deployment-docker#upgrade-the-primeagent-docker-image).
+   - **PrimeAgent Desktop**: To upgrade in place, open PrimeAgent Desktop, and then click **Upgrade Available** in the PrimeAgent header. If you want to isolate the new version, you must install PrimeAgent Desktop on a separate physical or virtual machine, and then [import your flows](/concepts-flows-import) to the new installation.
 
 3. [Import your flows](/concepts-flows-import) to test them in the new version, [upgrading components](/concepts-components#component-versions) as needed.
 
@@ -82,7 +82,7 @@ Highlights of this release include the following changes. For all changes, see t
 
 - `primeagent-base` is now the minimal install
 
-  Primeagent 1.12 makes `primeagent-base` a complete, version-aligned installation of the Primeagent application.
+  PrimeAgent 1.12 makes `primeagent-base` a complete, version-aligned installation of the PrimeAgent application.
   Replace any `primeagent-base~=0.x` pins with `primeagent-base~=1.12.0` pins.
 
 - Ongoing breaking change: bundle separation
@@ -93,14 +93,14 @@ Highlights of this release include the following changes. For all changes, see t
   Saved flows continue to operate as expected, and existing component class names remain compatible.
   If a required provider package is not installed, the component is visible in the visual editor, but the flow won't build or run until you install the package.
 
-  Primeagent displays an error that names the missing package, so you can install it.
+  PrimeAgent displays an error that names the missing package, so you can install it.
   To install a package, such as Exa, run `uv pip install wfx-exa` in your virtual environment.
 
   For more information, see [Additional bundles](extensions-bundle-list#additional-bundles).
 
 - Admin Page removed
 
-  Primeagent OSS no longer includes an **Admin Page**.
+  PrimeAgent OSS no longer includes an **Admin Page**.
   The `/admin` route, the account-menu **Admin Page** link, and the user-management page are gone.
   Superusers can no longer manage users or passwords in the visual editor.
 
@@ -113,13 +113,13 @@ Highlights of this release include the following changes. For all changes, see t
 
 - OpenTelemetry export
 
-  Primeagent can export health traces, metrics, and logs over OTLP to your own backend.
+  PrimeAgent can export health traces, metrics, and logs over OTLP to your own backend.
 
   For more information, see [OpenTelemetry](./observability-opentelemetry), [New Relic](./observability-new-relic), and [Instana](./observability-instana).
 
 - Python Interpreter microVM sandbox
 
-  Set `PRIMEAGENT_SANDBOX_BACKEND=exec-sandbox` to run the [**Python Interpreter** component](/python-interpreter) in a dedicated [QEMU microVM](https://www.qemu.org/docs/master/system/i386/microvm.html) instead of in the Primeagent server process.
+  Set `PRIMEAGENT_SANDBOX_BACKEND=exec-sandbox` to run the [**Python Interpreter** component](/python-interpreter) in a dedicated [QEMU microVM](https://www.qemu.org/docs/master/system/i386/microvm.html) instead of in the PrimeAgent server process.
   The microVM is not included in a default `uv pip install primeagent` installation.
   To install it, run `uv pip install 'primeagent[sandbox]'`.
 
@@ -127,7 +127,7 @@ Highlights of this release include the following changes. For all changes, see t
 
 - Production preflight checks
 
-  Set `PRIMEAGENT_DEPLOYMENT_PROFILE=prod` to probe your Primeagent deployment before any workers start.
+  Set `PRIMEAGENT_DEPLOYMENT_PROFILE=prod` to probe your PrimeAgent deployment before any workers start.
   The default remains `dev`, which skips prod checks.
 
   For more information, see [Production preflight checks](/deployment-prod-best-practices#production-preflight).

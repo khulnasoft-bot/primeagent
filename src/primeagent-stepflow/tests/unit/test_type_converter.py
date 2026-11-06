@@ -355,26 +355,26 @@ class TestOutputTreeWalker:
 
     @pytest.mark.asyncio
     async def test_primeagent_types_still_work(self):
-        """Test that existing Primeagent type serialization still works."""
+        """Test that existing PrimeAgent type serialization still works."""
         try:
             from primeagent.schema.message import Message
 
             message = Message(text="test message")
 
             from primeagent_stepflow.worker.handlers import (
-                PrimeagentTypeOutputHandler,
+                PrimeAgentTypeOutputHandler,
             )
 
-            handlers = [PrimeagentTypeOutputHandler(), BaseModelOutputHandler()]
+            handlers = [PrimeAgentTypeOutputHandler(), BaseModelOutputHandler()]
             serialized = await self.executor._apply_output_handlers(message, handlers)
 
-            # Should have Primeagent type metadata, not BaseModel metadata
+            # Should have PrimeAgent type metadata, not BaseModel metadata
             assert "__primeagent_type__" in serialized
             assert serialized["__primeagent_type__"] == "Message"
 
         except ImportError:
-            # Skip if Primeagent not available
-            pytest.skip("Primeagent not available for testing")
+            # Skip if PrimeAgent not available
+            pytest.skip("PrimeAgent not available for testing")
 
     @pytest.mark.asyncio
     async def test_real_openai_embeddings_serialization(self):

@@ -1,5 +1,5 @@
 ---
-title: Primeagent CLI
+title: PrimeAgent CLI
 slug: /configuration-cli
 ---
 
@@ -7,24 +7,24 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import Icon from "@site/src/components/icon";
 
-The Primeagent command line interface is the main interface for managing and running the Primeagent server.
+The PrimeAgent command line interface is the main interface for managing and running the PrimeAgent server.
 
-The Primeagent CLI is automatically installed when you [install the Primeagent package](/get-started-installation).
-It isn't available for Primeagent Desktop.
+The PrimeAgent CLI is automatically installed when you [install the PrimeAgent package](/get-started-installation).
+It isn't available for PrimeAgent Desktop.
 
 ## How to use the CLI
 
-The Primeagent CLI can be invoked in several ways, depending on your installation method and environment.
+The PrimeAgent CLI can be invoked in several ways, depending on your installation method and environment.
 
-The recommended approach is to run the CLI with `uv run` from within a virtual environment where Primeagent is installed.
+The recommended approach is to run the CLI with `uv run` from within a virtual environment where PrimeAgent is installed.
 
-For example, to start Primeagent on the default port, run the following command:
+For example, to start PrimeAgent on the default port, run the following command:
 
     ```bash
     uv run primeagent run
     ```
 
-If Primeagent is installed globally or added to your PATH, you can execute the CLI directly with `primeagent`.
+If PrimeAgent is installed globally or added to your PATH, you can execute the CLI directly with `primeagent`.
 
     ```bash
     primeagent run
@@ -32,16 +32,16 @@ If Primeagent is installed globally or added to your PATH, you can execute the C
 
 ## Precedence
 
-Primeagent CLI options override the values of [environment variables](/environment-variables) set in your terminal or primary `.env` file.
+PrimeAgent CLI options override the values of [environment variables](/environment-variables) set in your terminal or primary `.env` file.
 
-For example, if you have `PRIMEAGENT_PORT=7860` defined as an environment variable, and you run the CLI with `--port 7880`, then Primeagent sets the port to `7880` because the CLI option overrides the environment variable.
+For example, if you have `PRIMEAGENT_PORT=7860` defined as an environment variable, and you run the CLI with `--port 7880`, then PrimeAgent sets the port to `7880` because the CLI option overrides the environment variable.
 
 This also applies to Boolean environment variables.
 For example, if you set `PRIMEAGENT_REMOVE_API_KEYS=True` in your `.env` file, you can change it to `False` at runtime by running the CLI with `--no-remove-api-keys`.
 
-## Primeagent CLI options
+## PrimeAgent CLI options
 
-All Primeagent CLI commands support options that modify the command's behavior or set environment variables.
+All PrimeAgent CLI commands support options that modify the command's behavior or set environment variables.
 
 To set values for options, you can use either of the following syntax styles:
 
@@ -88,7 +88,7 @@ In the following command references, default values for Booleans include both th
 
 ### Universal options
 
-The following options are available for all Primeagent CLI commands:
+The following options are available for all PrimeAgent CLI commands:
 
 - `--version`, `-v`: Show the version and exit.
 - `--install-completion`: Install auto-completion for the current shell.
@@ -122,10 +122,10 @@ primeagent
 
 ### primeagent api-key {#primeagent-api-key}
 
-Creates a Primeagent API key.
+Creates a PrimeAgent API key.
 
 You must be a superuser to create API keys with the CLI.
-For more information, see [Primeagent API keys](/api-keys-and-authentication#primeagent-api-keys).
+For more information, see [PrimeAgent API keys](/api-keys-and-authentication#primeagent-api-keys).
 
 <Tabs groupId="Invocation">
   <TabItem value="uv (recommended)" label="uv (recommended)" default>
@@ -152,12 +152,12 @@ primeagent api-key
 
 ### primeagent copy-db
 
-Copies the Primeagent database files from the cache directory to the current Primeagent installation directory, which is the directory containing `__main__.py`.
+Copies the PrimeAgent database files from the cache directory to the current PrimeAgent installation directory, which is the directory containing `__main__.py`.
 You can find the copy target directory by running `which primeagent`.
 
 The following files are copied if they exist in the cache directory:
 
-- `primeagent.db`: The main Primeagent database, stored in the user cache directory
+- `primeagent.db`: The main PrimeAgent database, stored in the user cache directory
 - `primeagent-pre.db`: The pre-release database, if it exists
 
 <Tabs groupId="Invocation">
@@ -179,7 +179,7 @@ primeagent copy-db
 
 ### primeagent migration
 
-Manages Primeagent database schema changes using [Alembic](https://alembic.sqlalchemy.org/en/latest/), a database migration tool for SQLAlchemy.
+Manages PrimeAgent database schema changes using [Alembic](https://alembic.sqlalchemy.org/en/latest/), a database migration tool for SQLAlchemy.
 
 The `migration` command has two modes:
 
@@ -232,7 +232,7 @@ primeagent migration --fix
 
 ### primeagent run {#primeagent-run}
 
-Starts the Primeagent server.
+Starts the PrimeAgent server.
 
 <Tabs groupId="Invocation">
   <TabItem value="uv (recommended)" label="uv (recommended)" default>
@@ -253,40 +253,40 @@ primeagent run [OPTIONS]
 
 #### Options
 
-This command supports some common and non-sensitive configuration options for your Primeagent server.
+This command supports some common and non-sensitive configuration options for your PrimeAgent server.
 Other options must be set in the `.env` or your terminal.
-For more information Primeagent configuration options, see [Primeagent environment variables](/environment-variables).
+For more information PrimeAgent configuration options, see [PrimeAgent environment variables](/environment-variables).
 
 | Option                       | Default                        | Type    | Description                                                                                                                                                                                                                                  |
 | ---------------------------- | ------------------------------ | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--auto-saving`              | `--auto-saving` (true)         | Boolean | Whether to enable flow auto-saving in the visual editor. Use `--no-auto-saving` to disable flow auto-saving.                                                                                                                                 |
 | `--auto-saving-interval`     | `1000`                         | Integer | The interval for flow auto-saving in milliseconds.                                                                                                                                                                                           |
-| `--backend-only`             | `--no-backend-only` (false)    | Boolean | Whether to run Primeagent's backend service only (no frontend). Omit or use `--no-backend-only` to start both the frontend and backend. See [Start Primeagent in headless mode](#start-primeagent-in-headless-mode).                         |
+| `--backend-only`             | `--no-backend-only` (false)    | Boolean | Whether to run PrimeAgent's backend service only (no frontend). Omit or use `--no-backend-only` to start both the frontend and backend. See [Start PrimeAgent in headless mode](#start-primeagent-in-headless-mode).                         |
 | `--cache`                    | `async`                        | String  | The type of [cache storage](/memory) to use. One of `async`, `redis`, `memory`, or `disk`.                                                                                                                                                   |
 | `--components-path`          | Not set                        | String  | The path to the directory containing your custom components.                                                                                                                                                                                 |
 | `--dev`                      | `--no-dev` (false)             | Boolean | Whether to run in development mode (may contain bugs).                                                                                                                                                                                       |
-| `--env-file`                 | Not set                        | String  | The path to the `.env` file containing Primeagent environment variables. See [Start Primeagent with a specific .env file](#start-primeagent-with-a-specific-env-file).                                                                       |
-| `--frontend-path`            | Not set                        | String  | The path to the frontend directory containing build files. This is only used when [contributing to the Primeagent codebase](/contributing-how-to-contribute) or developing a custom Primeagent image that includes customized frontend code. |
-| `--health-check-max-retries` | `5`                            | Integer | The maximum number of retries for your Primeagent server's health check.                                                                                                                                                                     |
-| `--host`                     | `localhost`                    | String  | The host on which the Primeagent server will run.                                                                                                                                                                                            |
-| `--log-file`                 | `logs/primeagent.log`          | String  | The path to the log file for Primeagent.                                                                                                                                                                                                     |
+| `--env-file`                 | Not set                        | String  | The path to the `.env` file containing PrimeAgent environment variables. See [Start PrimeAgent with a specific .env file](#start-primeagent-with-a-specific-env-file).                                                                       |
+| `--frontend-path`            | Not set                        | String  | The path to the frontend directory containing build files. This is only used when [contributing to the PrimeAgent codebase](/contributing-how-to-contribute) or developing a custom PrimeAgent image that includes customized frontend code. |
+| `--health-check-max-retries` | `5`                            | Integer | The maximum number of retries for your PrimeAgent server's health check.                                                                                                                                                                     |
+| `--host`                     | `localhost`                    | String  | The host on which the PrimeAgent server will run.                                                                                                                                                                                            |
+| `--log-file`                 | `logs/primeagent.log`          | String  | The path to the log file for PrimeAgent.                                                                                                                                                                                                     |
 | `--log-level`                | `critical`                     | String  | The logging level as one of `debug`, `info`, `warning`, `error`, or `critical`.                                                                                                                                                              |
 | `--log-rotation`             | Not set                        | String  | The log rotation interval, either a time duration or file size.                                                                                                                                                                              |
 | `--max-file-size-upload`     | `1024`                         | Integer | The maximum size in megabytes for file uploads.                                                                                                                                                                                              |
-| `--open-browser`             | `--no-open-browser` (false)    | Boolean | Whether to open the system web browser on startup. Use `--open-browser` to open the system's default web browser when Primeagent starts.                                                                                                     |
-| `--port`                     | `7860`                         | Integer | The port on which the Primeagent server will run. The server automatically selects a free port if the specified port is in use.                                                                                                              |
-| `--remove-api-keys`          | `--no-remove-api-keys` (false) | Boolean | Whether to remove API keys and tokens from flows saved in the Primeagent database.                                                                                                                                                           |
+| `--open-browser`             | `--no-open-browser` (false)    | Boolean | Whether to open the system web browser on startup. Use `--open-browser` to open the system's default web browser when PrimeAgent starts.                                                                                                     |
+| `--port`                     | `7860`                         | Integer | The port on which the PrimeAgent server will run. The server automatically selects a free port if the specified port is in use.                                                                                                              |
+| `--remove-api-keys`          | `--no-remove-api-keys` (false) | Boolean | Whether to remove API keys and tokens from flows saved in the PrimeAgent database.                                                                                                                                                           |
 | `--ssl-cert-file-path`       | Not set                        | String  | The path to the SSL certificate file on the local system for SSL-encrypted connections.                                                                                                                                                      |
 | `--ssl-key-file-path`        | Not set                        | String  | The path to the SSL key file on the local system for SSL-encrypted connections.                                                                                                                                                              |
-| `--worker-timeout`           | `300`                          | Integer | The Primeagent server worker timeout in seconds.                                                                                                                                                                                             |
-| `--workers`                  | `1`                            | Integer | The number of Primeagent server worker processes.                                                                                                                                                                                            |
+| `--worker-timeout`           | `300`                          | Integer | The PrimeAgent server worker timeout in seconds.                                                                                                                                                                                             |
+| `--workers`                  | `1`                            | Integer | The number of PrimeAgent server worker processes.                                                                                                                                                                                            |
 
-#### Start Primeagent with a specific .env file {#start-primeagent-with-a-specific-env-file}
+#### Start PrimeAgent with a specific .env file {#start-primeagent-with-a-specific-env-file}
 
-The `--env-file` option starts Primeagent using the configuration defined in the given `.env` file.
+The `--env-file` option starts PrimeAgent using the configuration defined in the given `.env` file.
 Additional options appended to this command override the values in the `.env` file if there are duplicates.
 
-If `--env-file` is omitted or doesn't include all required variables, Primeagent uses the default values for those variables.
+If `--env-file` is omitted or doesn't include all required variables, PrimeAgent uses the default values for those variables.
 
 <Tabs groupId="Invocation">
   <TabItem value="uv (recommended)" label="uv (recommended)" default>
@@ -305,10 +305,10 @@ primeagent run --env-file PATH/TO/PRIMEAGENT/.env
   </TabItem>
 </Tabs>
 
-#### Start Primeagent in headless mode {#start-primeagent-in-headless-mode}
+#### Start PrimeAgent in headless mode {#start-primeagent-in-headless-mode}
 
-The `--backend-only` option starts Primeagent's backend service only.
-This headless mode has no frontend (visual editor), and you can only access the server programmatically with the Primeagent API and CLI.
+The `--backend-only` option starts PrimeAgent's backend service only.
+This headless mode has no frontend (visual editor), and you can only access the server programmatically with the PrimeAgent API and CLI.
 
 <Tabs groupId="Invocation">
   <TabItem value="uv (recommended)" label="uv (recommended)" default>
@@ -366,4 +366,4 @@ The `primeagent superuser` command is controlled by the [`PRIMEAGENT_ENABLE_SUPE
 - **`PRIMEAGENT_ENABLE_SUPERUSER_CLI=False` (recommended)**: Disables the `primeagent superuser` command.
   For security reasons, this is recommended to prevent unauthorized superuser creation, especially in production environments.
 
-To disable the `primeagent superuser` command, you must set `PRIMEAGENT_ENABLE_SUPERUSER_CLI=False` in your Primeagent `.env` file, and then [start Primeagent with your `.env` file](#start-primeagent-with-a-specific-env-file).
+To disable the `primeagent superuser` command, you must set `PRIMEAGENT_ENABLE_SUPERUSER_CLI=False` in your PrimeAgent `.env` file, and then [start PrimeAgent with your `.env` file](#start-primeagent-with-a-specific-env-file).

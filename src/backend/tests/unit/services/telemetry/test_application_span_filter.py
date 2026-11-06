@@ -1,6 +1,6 @@
 """LLM trace content must never reach the operator's APM.
 
-Primeagent installs a global tracer provider, so the LLM tracing integrations end up
+PrimeAgent installs a global tracer provider, so the LLM tracing integrations end up
 exporting through it. The export path filters to application instrumentation only; these
 tests pin that boundary from the APM side, without touching the vendor integrations.
 """

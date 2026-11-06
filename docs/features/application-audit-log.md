@@ -1,11 +1,11 @@
 # Application Audit Log
 
-Primeagent records one append-only event for each audited operation on a Flow or a
+PrimeAgent records one append-only event for each audited operation on a Flow or a
 Project: who attempted it, which resource, when, how it ended, and a bounded,
 safe description of what the operation wrote. An event describes an operation;
 it is never a copy of resource state.
 
-Contract: _IBM-Primeagent: Audit Log Data & API Contracts_ (2026-09-11). The
+Contract: _IBM-PrimeAgent: Audit Log Data & API Contracts_ (2026-09-11). The
 Control Plane consumes Project events to build its Deployment audit feed; Flow
 events serve the Authoring Plane.
 
@@ -20,7 +20,7 @@ Off by default (`PRIMEAGENT_AUDIT_ENABLED=false`).
 | Result          | `succeeded` or `failed`.                                                                |
 | Action          | The permission checked, such as `project:write`.                                        |
 | Operation       | The mutation shape attempted: `create`, `replace`, `patch`, `delete`.                   |
-| Account         | `user_id`: the Primeagent account the request executes under.                           |
+| Account         | `user_id`: the PrimeAgent account the request executes under.                           |
 | Actor           | `actor_type`/`actor_id`: the credential that authenticated the request.                 |
 | Acting identity | `acting_issuer`/`acting_subject`: the end user a trusted Control Plane acts for.        |
 | Details         | Resource-owned, versioned JSON validated before it is stored.                           |

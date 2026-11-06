@@ -21,9 +21,9 @@ DANGEROUS_CALLS: dict[str, str] = {
     "__import__": "Use of __import__() is forbidden in components",
     "globals": "Use of globals() is forbidden in components",
     "locals": "Use of locals() is forbidden in components",
-    # Raw file access — components must use Primeagent's File components,
+    # Raw file access — components must use PrimeAgent's File components,
     # not open arbitrary paths (e.g. /etc/passwd, SSH keys).
-    "open": "Use of open() is forbidden in components — use Primeagent's File components",
+    "open": "Use of open() is forbidden in components — use PrimeAgent's File components",
     "breakpoint": "Use of breakpoint() is forbidden in components",
 }
 
@@ -109,10 +109,10 @@ def _is_blocked_attribute(attr: str | None) -> bool:
 
 # Non-call attribute *reads* that are forbidden: (module, attr, message).
 # Secret/env exfiltration is the concrete threat — components must use
-# Primeagent's variable/secret service, never raw process env.
+# PrimeAgent's variable/secret service, never raw process env.
 DANGEROUS_ATTRIBUTE_READS: list[tuple[str, str, str]] = [
-    ("os", "environ", "os.environ is forbidden — use Primeagent's variable/secret service"),
-    ("os", "environb", "os.environb is forbidden. Use Primeagent's variable/secret service"),
+    ("os", "environ", "os.environ is forbidden — use PrimeAgent's variable/secret service"),
+    ("os", "environb", "os.environb is forbidden. Use PrimeAgent's variable/secret service"),
     ("gc", "garbage", "gc.garbage is forbidden in components (server object recovery)"),
     ("os.path", "os", "os.path.os is forbidden in components"),
     ("sys", "modules", "sys.modules is forbidden in components"),
@@ -177,7 +177,7 @@ DANGEROUS_ATTR_CALLS: list[tuple[str, str, str]] = [
     ("asyncio", "create_subprocess_shell", "asyncio.create_subprocess_shell() is forbidden"),
     ("asyncio.subprocess", "create_subprocess_exec", "asyncio.subprocess.create_subprocess_exec() is forbidden"),
     ("asyncio.subprocess", "create_subprocess_shell", "asyncio.subprocess.create_subprocess_shell() is forbidden"),
-    ("os", "system", "os.system() is forbidden — use Primeagent's built-in integrations"),
+    ("os", "system", "os.system() is forbidden — use PrimeAgent's built-in integrations"),
     ("os", "popen", "os.popen() is forbidden"),
     ("os", "execl", "os.execl() is forbidden"),
     ("os", "execle", "os.execle() is forbidden"),
@@ -203,8 +203,8 @@ DANGEROUS_ATTR_CALLS: list[tuple[str, str, str]] = [
     ("os", "kill", "os.kill() is forbidden — process signaling"),
     ("os", "killpg", "os.killpg() is forbidden — process group signaling"),
     ("os", "startfile", "os.startfile() is forbidden"),
-    ("os", "open", "os.open() is forbidden in components — use Primeagent's File components"),
-    ("os", "write", "os.write() is forbidden in components — use Primeagent's File components"),
+    ("os", "open", "os.open() is forbidden in components — use PrimeAgent's File components"),
+    ("os", "write", "os.write() is forbidden in components — use PrimeAgent's File components"),
     ("os", "remove", "os.remove() is forbidden in components"),
     ("os", "rmdir", "os.rmdir() is forbidden in components"),
     ("os", "unlink", "os.unlink() is forbidden in components"),
@@ -216,9 +216,9 @@ DANGEROUS_ATTR_CALLS: list[tuple[str, str, str]] = [
     # File-descriptor redirection wires a socket to a shell (reverse shell).
     ("os", "dup2", "os.dup2() is forbidden in components"),
     ("os", "dup", "os.dup() is forbidden in components"),
-    ("os", "getenv", "os.getenv() is forbidden — use Primeagent's variable/secret service"),
-    ("os", "getenvb", "os.getenvb() is forbidden. Use Primeagent's variable/secret service"),
-    ("os", "get_exec_path", "os.get_exec_path() is forbidden. Use Primeagent's variable/secret service"),
+    ("os", "getenv", "os.getenv() is forbidden — use PrimeAgent's variable/secret service"),
+    ("os", "getenvb", "os.getenvb() is forbidden. Use PrimeAgent's variable/secret service"),
+    ("os", "get_exec_path", "os.get_exec_path() is forbidden. Use PrimeAgent's variable/secret service"),
     ("os", "putenv", "os.putenv() is forbidden in components"),
     ("shutil", "rmtree", "shutil.rmtree() is forbidden"),
     ("shutil", "move", "shutil.move() is forbidden in components"),
@@ -237,16 +237,16 @@ DANGEROUS_ATTR_CALLS: list[tuple[str, str, str]] = [
     # Raw file access through stdlib equivalents of the blocked bare open().
     # io.StringIO/BytesIO and codecs.encode/decode stay allowed; only the
     # filesystem entry points are forbidden.
-    ("io", "open", "io.open() is forbidden in components — use Primeagent's File components"),
-    ("io", "open_code", "io.open_code() is forbidden in components — use Primeagent's File components"),
-    ("codecs", "open", "codecs.open() is forbidden in components — use Primeagent's File components"),
+    ("io", "open", "io.open() is forbidden in components — use PrimeAgent's File components"),
+    ("io", "open_code", "io.open_code() is forbidden in components — use PrimeAgent's File components"),
+    ("codecs", "open", "codecs.open() is forbidden in components — use PrimeAgent's File components"),
     # FileIO is the raw constructor behind open(): io.FileIO(path) opens the file
     # directly - read, write or append - without going through open(). Its
     # buffered/text wrappers (BufferedReader, TextIOWrapper, ...) take an
     # already-open raw object rather than a path, so blocking the constructor
     # closes those routes too. StringIO/BytesIO touch no filesystem and stay
     # allowed, as do codecs.encode/decode.
-    ("io", "FileIO", "io.FileIO() is forbidden in components — use Primeagent's File components"),
+    ("io", "FileIO", "io.FileIO() is forbidden in components — use PrimeAgent's File components"),
     # PyYAML unsafe deserialization entry points (``!!python/object*`` tags).
     ("yaml", "unsafe_load", "yaml.unsafe_load() is forbidden — use yaml.safe_load()"),
     ("yaml", "unsafe_load_all", "yaml.unsafe_load_all() is forbidden — use yaml.safe_load_all()"),
@@ -361,7 +361,7 @@ DANGEROUS_IMPORTS: set[str] = {
     # write_text / open / unlink / ...). Path objects are constructed from
     # call results, so member-level rules cannot relate them back to the
     # module; the whole module is blocked, same as shutil. Components must
-    # use Primeagent's File components for file access.
+    # use PrimeAgent's File components for file access.
     "pathlib",
 }
 

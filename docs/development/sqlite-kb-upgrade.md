@@ -75,7 +75,7 @@ independently and reconciles pending log operations. Index metadata is decoded
 as inert data, never through `pickle.load` or a native HNSW loader. Real fixtures
 cover Python Chroma 0.5.23 and Rust Chroma 1.5.9.
 
-The single-worker preflight checks for other Primeagent entry points, orchestrator
+The single-worker preflight checks for other PrimeAgent entry points, orchestrator
 configuration and the storage filesystem. It preserves routing metadata and a
 SQLite application backup when applicable. PostgreSQL app databases need their
 usual deployment backup, and the base's routing metadata is retained locally.
@@ -125,7 +125,7 @@ python -m primeagent.services.knowledge_base_storage.maintenance \
 `previous-workers.json` is the controller's JSON array of
 `{"pid": 123, "created": 1234567890.0}` identities. The verifier does not terminate
 processes. It rejects still-running registered workers and other matching
-Primeagent workers, creates and verifies a consistent application-database backup,
+PrimeAgent workers, creates and verifies a consistent application-database backup,
 and fingerprints the complete legacy source trees. The receipt is private to
 the application account and bound to the host, database and storage root.
 The service manager must keep the old supervisor stopped throughout upgrade.
@@ -216,7 +216,7 @@ environment to a supported destination. The managed controller does not bypass
 the bundled reader's format or resource limits.
 
 Migration needs no model calls or network access. Air-gapped deployments need
-only the normal Primeagent packages or image and their application dependencies.
+only the normal PrimeAgent packages or image and their application dependencies.
 There is no Docker/cosign helper, offline helper kit or helper release tag gate.
 Application release inventories, cross-platform native-runtime checks and final
 artifact security scans remain required. The original scanner findings must
@@ -238,7 +238,7 @@ those nodes with a validated Knowledge binding after migrating their data.
 Core Knowledge starter flows use the updated component. An optional starter
 that required standalone Chroma was retired.
 
-Saved flows also retain component Python source. Before evaluating it, Primeagent
+Saved flows also retain component Python source. Before evaluating it, PrimeAgent
 recognizes an inventory of shipped Knowledge, Memory, Chroma, LocalDB and ALTK
 sources by their complete semantic AST fingerprint and resolves those to the
 current component classes. Matching preserves literal values and extra
@@ -262,7 +262,7 @@ both Chroma packages absent. Bundled-reader tests use real source fixtures and
 compare records after import, including negative tests for malformed index data
 and stored executable metadata.
 The existing release-tier inventory gate also checks every installed distribution
-for the retired SDKs, including transitive packages outside Primeagent's own tiers.
+for the retired SDKs, including transitive packages outside PrimeAgent's own tiers.
 
 The native runtime workflow covers Python 3.10–3.14 on Linux x64/ARM64, macOS
 Intel/ARM64 and Windows x64. This wheel matrix does not qualify the separate

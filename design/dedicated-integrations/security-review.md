@@ -159,7 +159,7 @@ Fix, following the INT-14-04 precedent:
 
 Found in QA of the INT-8 Connections UI. `Connection.owner_id` declares
 `ForeignKey("user.id", ondelete="CASCADE")`, and `connection_secret` and `connection_oauth` cascade
-from the connection (the OAuth row also from `user.id`), but SQLite enforces none of that: Primeagent
+from the connection (the OAuth row also from `user.id`), but SQLite enforces none of that: PrimeAgent
 never issues `PRAGMA foreign_keys=ON`. On the default backend, `DELETE /api/v1/users/{id}` left
 the user's connection rows, their encrypted credential envelopes, and any consent the user had left
 pending. PostgreSQL enforced the declared cascade and was not affected. This is the gap #15124

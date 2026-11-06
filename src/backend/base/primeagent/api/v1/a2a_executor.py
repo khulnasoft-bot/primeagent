@@ -1,4 +1,4 @@
-"""Protocol-pure A2A AgentExecutor for Primeagent flows.
+"""Protocol-pure A2A AgentExecutor for PrimeAgent flows.
 
 Deliberately free of primeagent imports (only the a2a SDK, ``wfx.schema.workflow``,
 and stdlib) so it can move to wfx when the A2A protocol layer is extracted. The
@@ -148,7 +148,7 @@ def _give_up_later(task_id: str, place: _Place) -> None:
 
 
 class FlowAgentExecutor(AgentExecutor):
-    """Runs a Primeagent flow for one A2A ``message/send`` and reports a terminal Task."""
+    """Runs a PrimeAgent flow for one A2A ``message/send`` and reports a terminal Task."""
 
     def __init__(self, run_flow: RunFlow, resume_flow: ResumeFlow) -> None:
         self._run_flow = run_flow

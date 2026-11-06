@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import PrimeagentLogo from "@/assets/PrimeagentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
 import type { LoadingComponentProps } from "../../../types/components";
 
 export default function LoadingComponent({
@@ -8,7 +8,7 @@ export default function LoadingComponent({
   const { t } = useTranslation();
   return (
     <div role="status" className="flex flex-col items-center justify-center">
-      <PrimeagentLogo
+      <PrimeAgentLogo
         aria-hidden="true"
         title={t("common.primeagentLogo")}
         className="animate-pulse text-primary"

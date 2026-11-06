@@ -1,4 +1,4 @@
-"""pytest plugin providing fixtures for integration-testing Primeagent flows.
+"""pytest plugin providing fixtures for integration-testing PrimeAgent flows.
 
 Install with the ``testing`` extra::
 
@@ -20,8 +20,8 @@ command line or via environment variables::
 Usage inside a test file::
 
     def test_my_rag_flow(flow_runner):
-        response = flow_runner("rag-endpoint", "What is Primeagent?")
-        assert "Primeagent" in response.first_text_output()
+        response = flow_runner("rag-endpoint", "What is PrimeAgent?")
+        assert "PrimeAgent" in response.first_text_output()
 
     async def test_my_async_flow(async_flow_runner):
         response = await async_flow_runner("rag-endpoint", "Hello")
@@ -53,8 +53,8 @@ if TYPE_CHECKING:
 
 
 def pytest_addoption(parser: pytest.Parser) -> None:
-    """Register Primeagent-specific CLI options."""
-    group = parser.getgroup("primeagent", "Primeagent integration testing options")
+    """Register PrimeAgent-specific CLI options."""
+    group = parser.getgroup("primeagent", "PrimeAgent integration testing options")
     options = {
         "--primeagent-env": {
             "dest": "primeagent_env",
@@ -66,13 +66,13 @@ def pytest_addoption(parser: pytest.Parser) -> None:
             "dest": "primeagent_url",
             "default": None,
             "metavar": "URL",
-            "help": "Base URL of the Primeagent instance (overrides --primeagent-env).",
+            "help": "Base URL of the PrimeAgent instance (overrides --primeagent-env).",
         },
         "--primeagent-api-key": {
             "dest": "primeagent_api_key",
             "default": None,
             "metavar": "KEY",
-            "help": "API key for the Primeagent instance (overrides environment config).",
+            "help": "API key for the PrimeAgent instance (overrides environment config).",
         },
         "--primeagent-environments-file": {
             "dest": "primeagent_environments_file",
@@ -130,7 +130,7 @@ def _env_file(request: pytest.FixtureRequest) -> str | None:
 
 
 _SKIP_MSG = (
-    "No Primeagent connection configured. Pass --primeagent-url <URL> or "
+    "No PrimeAgent connection configured. Pass --primeagent-url <URL> or "
     "--primeagent-env <NAME> to enable integration tests."
 )
 
@@ -295,8 +295,8 @@ def flow_runner(primeagent_client: Client) -> FlowRunner:
     Example::
 
         def test_rag_flow(flow_runner):
-            response = flow_runner("rag-endpoint", "What is Primeagent?")
-            assert "Primeagent" in response.first_text_output()
+            response = flow_runner("rag-endpoint", "What is PrimeAgent?")
+            assert "PrimeAgent" in response.first_text_output()
     """
     return FlowRunner(primeagent_client)
 
@@ -308,7 +308,7 @@ def async_flow_runner(async_primeagent_client: AsyncClient) -> AsyncFlowRunner:
     Example::
 
         async def test_rag_flow(async_flow_runner):
-            response = await async_flow_runner("rag-endpoint", "What is Primeagent?")
-            assert "Primeagent" in response.first_text_output()
+            response = await async_flow_runner("rag-endpoint", "What is PrimeAgent?")
+            assert "PrimeAgent" in response.first_text_output()
     """
     return AsyncFlowRunner(async_primeagent_client)

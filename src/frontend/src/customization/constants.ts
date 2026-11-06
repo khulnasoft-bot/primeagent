@@ -1,4 +1,4 @@
-//Primeagent Desktop Base URL
+//PrimeAgent Desktop Base URL
 export const baseURL = "";
 
 export const customDefaultShortcuts = [

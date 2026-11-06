@@ -14,7 +14,7 @@
 #   --skip-*    Use --skip-components, --skip-edge-types, or --skip-required-inputs
 #               to suppress individual check categories.
 
-name: Validate Primeagent Flows
+name: Validate PrimeAgent Flows
 
 on:
   pull_request:

@@ -215,7 +215,7 @@ class TestLangfuseTracerFunctionality:
         mock_langfuse["root_span"].update_trace.assert_called()
 
     def test_trace_user_id_uses_auth_user_when_no_tracing_override(self, mock_langfuse):
-        """``trace.userId`` should be the authenticated Primeagent user (pre-#9505 behavior)."""
+        """``trace.userId`` should be the authenticated PrimeAgent user (pre-#9505 behavior)."""
         from primeagent.services.tracing.langfuse import LangFuseTracer
 
         LangFuseTracer(
@@ -237,7 +237,7 @@ class TestLangfuseTracerFunctionality:
 
         Regression for GitHub issue #9505 / PR #13266 review: external Langfuse
         consumers depend on ``trace.userId`` continuing to mean the authenticated
-        Primeagent user. The caller-supplied override surfaces as
+        PrimeAgent user. The caller-supplied override surfaces as
         ``metadata.primeagent.tracing_user_id`` instead.
         """
         from primeagent.services.tracing.langfuse import LangFuseTracer
@@ -332,13 +332,13 @@ class TestLangfuseTracerFunctionality:
 
         component_inputs = {
             "Config (config-id)": {"model": "test-model"},
-            "Chat Input (chat-input-id)": {"input_value": "What is Primeagent?", "sender": "User"},
+            "Chat Input (chat-input-id)": {"input_value": "What is PrimeAgent?", "sender": "User"},
             "Prompt (prompt-id)": {"template": "Answer the user"},
         }
         component_outputs = {
-            "Chat Input (chat-input-id)": {"message": Message(text="What is Primeagent?")},
+            "Chat Input (chat-input-id)": {"message": Message(text="What is PrimeAgent?")},
             "Agent (agent-id)": {"response": Message(text="An intermediate response")},
-            "Chat Output (chat-output-id)": {"message": Message(text="Primeagent is a visual workflow builder.")},
+            "Chat Output (chat-output-id)": {"message": Message(text="PrimeAgent is a visual workflow builder.")},
             "Audit Sink (audit-id)": {"record": {"status": "stored"}},
         }
         tracer.add_trace(
@@ -352,7 +352,7 @@ class TestLangfuseTracerFunctionality:
             trace_id="chat-output-id",
             trace_name="Chat Output (chat-output-id)",
             trace_type="chain",
-            inputs={"input_value": "Primeagent is a visual workflow builder."},
+            inputs={"input_value": "PrimeAgent is a visual workflow builder."},
             vertex=MagicMock(is_input=False, is_output=True),
         )
         tracer.end(
@@ -366,8 +366,8 @@ class TestLangfuseTracerFunctionality:
         assert root_update["output"] == serialize(component_outputs)
 
         trace_update = mock_langfuse["root_span"].update_trace.call_args.kwargs
-        assert trace_update["input"] == {"input": "What is Primeagent?"}
-        assert trace_update["output"] == {"output": "Primeagent is a visual workflow builder."}
+        assert trace_update["input"] == {"input": "What is PrimeAgent?"}
+        assert trace_update["output"] == {"output": "PrimeAgent is a visual workflow builder."}
         assert trace_update["metadata"] == {"final": True}
         mock_langfuse["root_span"].end.assert_called_once()
 

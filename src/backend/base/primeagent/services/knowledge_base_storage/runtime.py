@@ -214,11 +214,11 @@ def storage_unavailable_message(state: str) -> str:
     if state == "migrating":
         return (
             "This knowledge or memory base is upgrading automatically. Wait for the upgrade to "
-            "finish, then try again. Progress is shown in Primeagent."
+            "finish, then try again. Progress is shown in PrimeAgent."
         )
     return (
         "This knowledge or memory base needs a storage upgrade. Your original data is "
-        "preserved. Open the upgrade notice in Primeagent, or contact your administrator."
+        "preserved. Open the upgrade notice in PrimeAgent, or contact your administrator."
     )
 
 

@@ -1,4 +1,4 @@
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { adjustScreenView } from "../utils/adjust-screen-view";
 import { TID } from "../utils/constants/testIds";
 import { TEXTS } from "../utils/constants/texts";
@@ -6,7 +6,7 @@ import { TIMEOUTS } from "../utils/constants/timeouts";
 import { addComponentFromSidebar } from "../utils/flow/add-component-from-sidebar";
 import { openParametersPanel } from "../utils/open-advanced-options";
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -22,7 +22,7 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function hideComponentSidebar(page: PrimeagentPage) {
+async function hideComponentSidebar(page: PrimeAgentPage) {
   const style = await page.addStyleTag({
     content: '[data-testid="shad-sidebar"] { display: none !important; }',
   });
@@ -30,7 +30,7 @@ async function hideComponentSidebar(page: PrimeagentPage) {
   return style;
 }
 
-async function openBlankFlowForA11y(page: PrimeagentPage) {
+async function openBlankFlowForA11y(page: PrimeAgentPage) {
   await page.goto("/");
   await expect(page.getByTestId(TID.mainpageTitle)).toBeVisible({
     timeout: TIMEOUTS.standard,

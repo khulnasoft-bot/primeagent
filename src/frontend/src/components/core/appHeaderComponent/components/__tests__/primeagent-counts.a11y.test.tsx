@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { PrimeagentCounts } from "../primeagent-counts";
+import { PrimeAgentCounts } from "../primeagent-counts";
 
 const mockRefreshStars = jest.fn();
 const mockRefreshDiscordCount = jest.fn();
@@ -47,10 +47,10 @@ jest.mock("@/shared/components/caseComponent", () => ({
   }) => (condition ? <>{children}</> : null),
 }));
 
-describe("PrimeagentCounts accessibility", () => {
+describe("PrimeAgentCounts accessibility", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    render(<PrimeagentCounts />);
+    render(<PrimeAgentCounts />);
   });
 
   it("should_expose_github_button_with_accessible_name", () => {

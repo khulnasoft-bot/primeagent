@@ -1,6 +1,6 @@
 # wfx-serply
 
-Serply SERP API web-search component as a standalone Primeagent Extension Bundle.
+Serply SERP API web-search component as a standalone PrimeAgent Extension Bundle.
 
 The bundle ships a single component, `SerplySearchComponent`, which runs a
 web search through [Serply](https://serply.io) and returns the organic Google
@@ -15,7 +15,7 @@ pip install wfx-serply
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point. After install, restart your Primeagent server; the
+entry-point. After install, restart your PrimeAgent server; the
 `SerplySearchComponent` will appear in the palette's **Bundles** section
 under **Serply**.
 

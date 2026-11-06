@@ -1,6 +1,6 @@
 ---
 name: ibm-a11y-level1-audit
-description: Perform a scoped IBM Equal Access Level 1 compliance audit of a chosen Primeagent frontend surface (routes, components, or a PR) and produce a findings report mapped to WCAG/IBM Level 1 criteria. Default behavior is audit and report only — fixes are applied only when the user explicitly asks for remediation in the same request. Use when the user asks for an IBM Level 1 audit, a Level 1 compliance report, or to find/report Level 1 WCAG issues on a specific surface. For scanning a batch of routes without a report, see ibm-a11y-route-scan. For scanning and fixing an entire PR/branch end-to-end by default, see ibm-a11y-pr-remediation.
+description: Perform a scoped IBM Equal Access Level 1 compliance audit of a chosen PrimeAgent frontend surface (routes, components, or a PR) and produce a findings report mapped to WCAG/IBM Level 1 criteria. Default behavior is audit and report only — fixes are applied only when the user explicitly asks for remediation in the same request. Use when the user asks for an IBM Level 1 audit, a Level 1 compliance report, or to find/report Level 1 WCAG issues on a specific surface. For scanning a batch of routes without a report, see ibm-a11y-route-scan. For scanning and fixing an entire PR/branch end-to-end by default, see ibm-a11y-pr-remediation.
 ---
 
 # IBM Accessibility Level 1 Audit
@@ -21,7 +21,7 @@ This skill's default deliverable is a **report**, not a diff. If the user wants 
 ## Sources of truth
 
 1. **Level 1 criteria (engineering guide):** [references/ibm-level1-criteria.md](references/ibm-level1-criteria.md) — full checklist, deferred L2/L3 list, common failures, implementation patterns.
-2. **Primeagent captured IBM Level 1 filter:** `src/frontend/tests/a11y/ibm-able-level-1-requirements.md` — 21 requirements from the IBM Able UI Level 1 filter. Prefer the engineering guide when the two disagree on pace; still map findings to both IDs when useful.
+2. **PrimeAgent captured IBM Level 1 filter:** `src/frontend/tests/a11y/ibm-able-level-1-requirements.md` — 21 requirements from the IBM Able UI Level 1 filter. Prefer the engineering guide when the two disagree on pace; still map findings to both IDs when useful.
 3. **Verification hosts:** `src/frontend/tests/a11y/` — Playwright specs, baselines, README. Confirm this path exists before claiming coverage.
 
 ## Workflow
@@ -99,7 +99,7 @@ Required sections: Summary, Scope, Findings table, Fixes applied / proposed, Ver
 Only continue past the report if the user's request explicitly asked for fixes alongside the audit. Otherwise stop after step 4.
 
 - Prefer semantic HTML over ARIA.
-- Follow Primeagent patterns in `ibm-a11y-testing-guide` (AG Grid, Radix `asChild`, focus restore, icon-only `aria-label`).
+- Follow PrimeAgent patterns in `ibm-a11y-testing-guide` (AG Grid, Radix `asChild`, focus restore, icon-only `aria-label`).
 - Route new UI strings / `aria-label`s through `frontend-i18n`.
 - Do **not** silently disable scans. Use IBM baselines under `src/frontend/tests/a11y/baselines/` only for documented framework debt (see `ibm-a11y-testing-guide`).
 - Keep fixes minimal; do not refactor unrelated UI.

@@ -1,4 +1,4 @@
-"""IBM Db2 Vector Store Component for Primeagent."""
+"""IBM Db2 Vector Store Component for PrimeAgent."""
 
 import contextlib
 from pathlib import Path

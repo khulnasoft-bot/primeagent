@@ -1,6 +1,6 @@
 """Report where an instance disagrees with itself.
 
-Primeagent keeps state in the database and in places that are not the database:
+PrimeAgent keeps state in the database and in places that are not the database:
 encrypted columns that only the configured secret key opens, file bytes in the
 storage backend, vectors in each knowledge base's store, and a compiled Casbin
 policy. Nothing checks that those agree, and when they don't, nothing raises until
@@ -97,7 +97,7 @@ async def check_instance(on_check: Callable[[CheckResult], None] | None = None) 
         schema = await check_schema(session)
         add(schema)
         if schema.status != "ok":
-            # The other checks read through this Primeagent's models, which on another
+            # The other checks read through this PrimeAgent's models, which on another
             # schema would misread rows or fail on a missing column.
             await session.rollback()
             return report
@@ -113,7 +113,7 @@ async def check_instance(on_check: Callable[[CheckResult], None] | None = None) 
 
 
 async def check_schema(session: AsyncSession) -> CheckResult:
-    """Is the database at the schema this Primeagent reads?
+    """Is the database at the schema this PrimeAgent reads?
 
     Nothing here migrates it: a check that upgraded the schema first would report
     on a database that is no longer the one it was pointed at.
@@ -144,8 +144,8 @@ async def check_schema(session: AsyncSession) -> CheckResult:
     return CheckResult(
         "schema",
         "fail",
-        f"database is at {found} and this Primeagent reads {', '.join(sorted(heads))}; run the check with "
-        "the Primeagent version that last ran against this database",
+        f"database is at {found} and this PrimeAgent reads {', '.join(sorted(heads))}; run the check with "
+        "the PrimeAgent version that last ran against this database",
     )
 
 
@@ -168,7 +168,7 @@ async def recorded_revisions(session: AsyncSession) -> set[str]:
 
 
 def script_directory():
-    """This Primeagent's migration scripts, to read the revision it expects."""
+    """This PrimeAgent's migration scripts, to read the revision it expects."""
     import pathlib
 
     from alembic.config import Config
@@ -439,8 +439,8 @@ async def _check_knowledge_bases(
     storage_summary = []
     if upgrading:
         storage_summary.append(
-            f"{len(upgrading)} of {active} knowledge bases have not finished the storage upgrade this Primeagent "
-            "reads them through; start this Primeagent version once with a single worker and wait for "
+            f"{len(upgrading)} of {active} knowledge bases have not finished the storage upgrade this PrimeAgent "
+            "reads them through; start this PrimeAgent version once with a single worker and wait for "
             "/healthz?require_storage_ready=true, or retry them from /api/v1/knowledge-base-storage/status. "
             "Chroma Cloud stores have no upgrade path: migrate them to a pgvector or OpenSearch store"
         )

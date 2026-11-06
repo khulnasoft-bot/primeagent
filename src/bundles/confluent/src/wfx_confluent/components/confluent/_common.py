@@ -4,7 +4,7 @@ Small, dependency-free utilities used by every component in the bundle:
 endpoint templating for the Confluent Cloud regional services, Basic-auth
 header construction, Kafka client configuration for Confluent Cloud
 (SASL_SSL / PLAIN with an API key + secret), and SSRF gating of every
-tenant-supplied host through Primeagent's connector policy.
+tenant-supplied host through PrimeAgent's connector policy.
 """
 
 from __future__ import annotations

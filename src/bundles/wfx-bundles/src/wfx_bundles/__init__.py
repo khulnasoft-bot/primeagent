@@ -1,4 +1,4 @@
-"""wfx-bundles: the manifest-less metapackage of Primeagent's long-tail providers.
+"""wfx-bundles: the manifest-less metapackage of PrimeAgent's long-tail providers.
 
 This package is a bare namespace marker.  Each immediate subdirectory is one
 provider bundle, discovered at runtime by wfx's ``wfx.bundles`` entry-point

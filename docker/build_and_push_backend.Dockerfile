@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 # Keep this syntax directive! It's used to enable Docker BuildKit
 #
-# Backend-only Primeagent image
+# Backend-only PrimeAgent image
 # - No frontend code or assets
 # - No Playwright
 
@@ -47,7 +47,7 @@ ENV VIRTUAL_ENV="/app/.venv"
 
 # Install the runnable base with PostgreSQL. ``complete`` is retained as an
 # empty 1.12 compatibility alias. Provider extensions are intentionally absent;
-# use a Primeagent application image or install the required extension packages.
+# use a PrimeAgent application image or install the required extension packages.
 RUN --mount=type=cache,target=/root/.cache/uv \
     uv pip install \
         ./src/sdk \
@@ -105,7 +105,7 @@ ENV BASH_ENV="" \
 # compose file) with the non-root user as owner, so a fresh named volume mounted
 # at /app/primeagent inherits the correct ownership/permissions and the in-container
 # uid=1000 user can write secret_key, profile_pictures, etc. Without this, the
-# volume would be initialized as root:root and Primeagent would crash with
+# volume would be initialized as root:root and PrimeAgent would crash with
 # PermissionError on /app/primeagent/secret_key (issue #10437).
 # Note: .venv is already owned by 1000:0 via COPY --chown above, so no recursive chown needed
 RUN mkdir -p /app/data /app/primeagent \
@@ -114,7 +114,7 @@ RUN mkdir -p /app/data /app/primeagent \
     && chown 1000:0 /app
 
 LABEL org.opencontainers.image.title=primeagent-backend
-LABEL org.opencontainers.image.authors=['Primeagent']
+LABEL org.opencontainers.image.authors=['PrimeAgent']
 LABEL org.opencontainers.image.licenses=MIT
 LABEL org.opencontainers.image.url=https://github.com/khulnasoft-bot/primeagent
 LABEL org.opencontainers.image.source=https://github.com/khulnasoft-bot/primeagent

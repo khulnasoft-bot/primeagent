@@ -90,7 +90,7 @@ class ErasureAccepted(BaseModel):
 
 
 class EndUserMatch(BaseModel):
-    """An end-user id Primeagent has sessions for, to pick from when recording a request."""
+    """An end-user id PrimeAgent has sessions for, to pick from when recording a request."""
 
     end_user_id: str
     messages: int

@@ -15,7 +15,7 @@ from wfx.services.manager import ServiceManager
 
 
 def test_v2_sync_and_stream_chat_flow_keep_noop_database(monkeypatch):
-    """DB-less serve runs must not create Primeagent persistence between chat vertices."""
+    """DB-less serve runs must not create PrimeAgent persistence between chat vertices."""
     from wfx.services import manager as manager_module
 
     service_manager = ServiceManager()

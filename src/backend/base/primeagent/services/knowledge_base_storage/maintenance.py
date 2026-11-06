@@ -172,7 +172,7 @@ def _legacy_process(process: psutil.Process) -> bool:
             return False
         try:
             # A setuid program, such as the login process macOS keeps for each extra Terminal tab, has the
-            # account as its real user but runs as root. It cannot be one of the account's Primeagent workers.
+            # account as its real user but runs as root. It cannot be one of the account's PrimeAgent workers.
             if process.uids().effective != os.geteuid():
                 return False
         except (AttributeError, psutil.NoSuchProcess, psutil.AccessDenied):
@@ -240,7 +240,7 @@ def _process_matches(identity: dict) -> bool:
 
 
 def remaining_legacy_workers(*, excluded_pids: set[int] | None = None) -> list[int]:
-    """Report actual unselected Primeagent entry points before and after downtime."""
+    """Report actual unselected PrimeAgent entry points before and after downtime."""
     excluded = {os.getpid(), *(excluded_pids or set())}
     return [
         process.pid for process in psutil.process_iter() if process.pid not in excluded and _legacy_process(process)
@@ -261,7 +261,7 @@ def create_receipt(*, root: Path, database: Path, receipt: Path, previous_worker
         msg = "The deployment manager must stop all previous workers first"
         raise MaintenanceRequiredError(msg)
     if remaining := remaining_legacy_workers():
-        msg = f"Primeagent workers remain (PIDs {remaining}). Use their deployment manager to stop them"
+        msg = f"PrimeAgent workers remain (PIDs {remaining}). Use their deployment manager to stop them"
         raise MaintenanceRequiredError(msg)
     receipt.parent.mkdir(mode=0o700, parents=True, exist_ok=True)
     if receipt.exists() or receipt.is_symlink():

@@ -1,6 +1,6 @@
 """Tier-1 static validation of a built flow (zero LLM tokens).
 
-Reuses Primeagent's existing CLI validator
+Reuses PrimeAgent's existing CLI validator
 (``wfx.cli.validation.core.validate_flow_file`` →
 STRUCTURAL → COMPONENTS → EDGE_TYPES → REQUIRED_INPUTS) instead of
 reinventing it. The validator is file-based, so this serializes the

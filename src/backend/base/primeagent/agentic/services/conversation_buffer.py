@@ -1,4 +1,4 @@
-"""Per-session conversation memory for the Primeagent Assistant.
+"""Per-session conversation memory for the PrimeAgent Assistant.
 
 The frontend has no concept of conversation history at the request level —
 each ``/api/v1/agentic/assist/stream`` call sends only ``input_value`` and a

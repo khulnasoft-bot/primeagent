@@ -104,9 +104,9 @@ def resolve_connection(
     resolved_key = resolved_key or environment.get("PRIMEAGENT_API_KEY")
 
     if not resolved_url:
-        msg = "Primeagent URL is required; use --url, select a profile, or set PRIMEAGENT_URL"
+        msg = "PrimeAgent URL is required; use --url, select a profile, or set PRIMEAGENT_URL"
         raise ConnectionConfigurationError(msg)
     if not resolved_key:
-        msg = "Primeagent API key is required; use --api-key, select a profile, or set PRIMEAGENT_API_KEY"
+        msg = "PrimeAgent API key is required; use --api-key, select a profile, or set PRIMEAGENT_API_KEY"
         raise ConnectionConfigurationError(msg)
     return AdminConnection(url=resolved_url.rstrip("/"), api_key=resolved_key)

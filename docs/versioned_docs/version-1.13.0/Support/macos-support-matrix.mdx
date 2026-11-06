@@ -3,25 +3,25 @@ title: macOS support
 slug: /macos-support
 ---
 
-Primeagent runs on Apple Silicon and Intel Macs.
+PrimeAgent runs on Apple Silicon and Intel Macs.
 Local features that depend on PyTorch are available on Apple Silicon only.
-PyTorch publishes no wheels for Intel Macs, so Primeagent skips those extras there.
+PyTorch publishes no wheels for Intel Macs, so PrimeAgent skips those extras there.
 
 ## Quick reference
 
 | Feature                  | Apple Silicon | Intel Mac     |
 | ------------------------ | ------------- | ------------- |
-| Core Primeagent          | Supported     | Supported     |
+| Core PrimeAgent          | Supported     | Supported     |
 | PyTorch-based components | Supported     | Not available |
 | Metal GPU acceleration   | Supported     | Not available |
 | Native OCR               | Supported     | Supported     |
 
 ## Python versions
 
-Primeagent supports Python 3.10 through 3.14 on both Apple Silicon and Intel Macs.
+PrimeAgent supports Python 3.10 through 3.14 on both Apple Silicon and Intel Macs.
 
-On every Intel Mac, including Python 3.10 through 3.12, Primeagent skips extras that depend on PyTorch.
-PyTorch 2.2.2 was the last release with Intel Mac wheels, and Primeagent does not install that release.
+On every Intel Mac, including Python 3.10 through 3.12, PrimeAgent skips extras that depend on PyTorch.
+PyTorch 2.2.2 was the last release with Intel Mac wheels, and PrimeAgent does not install that release.
 
 ## What works on both
 
@@ -38,7 +38,7 @@ These features work on Apple Silicon and Intel Macs:
 
 ## Apple Silicon only
 
-Primeagent skips these extras on Intel Macs:
+PrimeAgent skips these extras on Intel Macs:
 
 - **HuggingFace Transformers**, for local models. The HuggingFace Inference API still works from an Intel Mac.
 - **EasyOCR**
@@ -57,7 +57,7 @@ Installing it on an Intel Mac fails when the installer tries to download PyTorch
 To use models from an Intel Mac:
 
 1. Call an API provider, such as OpenAI, Cohere, Anthropic, or the HuggingFace Inference API.
-2. Run Primeagent on a machine where PyTorch installs, and call that instance from the Intel Mac.
+2. Run PrimeAgent on a machine where PyTorch installs, and call that instance from the Intel Mac.
 3. For some workloads, run the Apple Silicon container image under Rosetta 2:
 
    ```bash
@@ -68,7 +68,7 @@ To use models from an Intel Mac:
 
 ## Installation
 
-On Apple Silicon, install Primeagent with the usual command:
+On Apple Silicon, install PrimeAgent with the usual command:
 
 ```bash
 uv pip install primeagent

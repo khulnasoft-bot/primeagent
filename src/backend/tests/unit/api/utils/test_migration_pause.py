@@ -580,7 +580,7 @@ def test_every_get_route_says_whether_it_changes_the_instance():
     deployments.include_router(deployment_router)
     served: dict[str, bool] = {}
     for route in iter_route_contexts([*create_app().routes, *deployments.routes]):
-        # Only what Primeagent's own code serves is asked about. The API docs are FastAPI's, and a route that a
+        # Only what PrimeAgent's own code serves is asked about. The API docs are FastAPI's, and a route that a
         # plugin mounts is the plugin's to answer for.
         ours = getattr(route.endpoint, "__module__", "").startswith(("primeagent.", "wfx."))
         if ours and (route.methods or set()) & {"GET", "HEAD"}:

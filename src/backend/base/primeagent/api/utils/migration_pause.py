@@ -48,7 +48,7 @@ try:
     import fcntl
 except ImportError:  # Windows
     # ponytail: without flock only this worker's changes are counted, so a pause there can begin
-    # while another worker still writes. Use msvcrt.locking if Primeagent runs several workers on Windows.
+    # while another worker still writes. Use msvcrt.locking if PrimeAgent runs several workers on Windows.
     fcntl = None
 
 if TYPE_CHECKING:

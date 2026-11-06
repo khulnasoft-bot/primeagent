@@ -2,7 +2,7 @@
   "kind": "calendar#event",
   "id": "event-primeagent-sync",
   "status": "confirmed",
-  "summary": "Primeagent sync",
+  "summary": "PrimeAgent sync",
   "location": "Remote",
   "start": {"dateTime": "2026-09-10T14:00:00Z"},
   "end": {"dateTime": "2026-09-10T15:00:00Z"},

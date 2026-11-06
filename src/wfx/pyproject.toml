@@ -1,7 +1,7 @@
 [project]
 name = "wfx"
 version = "1.13.0"
-description = "Primeagent Executor - A lightweight CLI tool for executing and serving Primeagent AI flows"
+description = "PrimeAgent Executor - A lightweight CLI tool for executing and serving PrimeAgent AI flows"
 readme = "README.md"
 authors = [
     { name = "Gabriel Luiz Freitas Almeida", email = "gabriel@khulnasoft.com" }

@@ -42,7 +42,7 @@ PLACEHOLDER_PATTERN = re.compile(r"^\{\{\s*[A-Za-z_][A-Za-z0-9_\-]*\s*\}\}$")
 # bearer tokens) and must be encrypted at rest in the mcp_server table.
 MCP_SECRET_CONFIG_MAPS = ("env", "headers")
 
-# A Primeagent project's own MCP endpoint, as ``_build_project_url`` composes it in
+# A PrimeAgent project's own MCP endpoint, as ``_build_project_url`` composes it in
 # ``primeagent.api.utils.mcp.config_utils``. Anchored at the start and matched against the
 # parsed *path* only: searching the raw URL let a query string carry the shape, so
 # ``https://elsewhere.example/?next=/api/v1/mcp/project/<id>/x`` read as one of our own
@@ -79,7 +79,7 @@ def _is_variable_reference(value: str) -> bool:
 
 
 def project_id_from_mcp_url(url: object) -> str | None:
-    """The Primeagent project a server URL points at, or None when it points elsewhere.
+    """The PrimeAgent project a server URL points at, or None when it points elsewhere.
 
     This is what separates the two kinds of MCP server a flow can call. An external one
     belongs to somebody else, so its credential has to be supplied where the flow runs.

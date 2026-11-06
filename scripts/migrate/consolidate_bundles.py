@@ -90,7 +90,7 @@ PROVIDER_DEPS: dict[str, list[str]] = {
     "groq": ["langchain-groq~=1.1.1"],
     "mistral": ["langchain-mistralai~=1.1.1"],
     # "ollama" graduated to the standalone wfx-ollama bundle so it is
-    # available in every default Primeagent install.
+    # available in every default PrimeAgent install.
     "perplexity": ["langchain-perplexity>=1.0.0,<2.0.0"],
     "sambanova": ["langchain-sambanova~=1.0.0"],
     # --- tranche 2: tools / memory / data ---
@@ -114,7 +114,7 @@ PROVIDER_DEPS: dict[str, list[str]] = {
     # where a component imports it directly (otherwise wrapper-transitive).
     "aiml": ["langchain-openai>=1.1.6", "openai>=1.68.2,<3.0.0"],
     # "azure" graduated to the standalone wfx-azure bundle so Azure AI
-    # Foundry is available in every default Primeagent install.
+    # Foundry is available in every default PrimeAgent install.
     "cometapi": ["langchain-openai>=1.1.6", "requests>=2.32.0"],
     "deepseek": ["langchain-openai>=1.1.6", "openai>=1.68.2,<3.0.0", "requests>=2.32.0"],
     # NOTE: the component drives LiteLLM-served endpoints through the OpenAI
@@ -145,7 +145,7 @@ PROVIDER_DEPS: dict[str, list[str]] = {
     "figranium": [],  # httpx REST only (wfx core); new in 1.13.0, never lived under wfx.components
     # --- tranche 7: google family + agent SDKs (markers preserved from base) ---
     # "google" graduated to the standalone wfx-google bundle so Gemini is
-    # available in every default Primeagent install.
+    # available in every default PrimeAgent install.
     "vertexai": ["langchain-google-vertexai>=3.2.0"],
     "altk": [],  # Retired in 1.13.0. Keep saved-node and extra compatibility.
     "codeagents": [
@@ -203,7 +203,7 @@ TORCH_EXTRAS = frozenset({"cuga", "codeagents"})
 
 # Deprecated aliases for providers that graduated to standalone bundles. They
 # remain installable for compatibility but are intentionally excluded from the
-# generated aggregate extras because Primeagent already installs them directly.
+# generated aggregate extras because PrimeAgent already installs them directly.
 COMPATIBILITY_EXTRAS = {
     "azure": ["wfx-azure>=0.1.0,<1.0.0"],
     "google": ["wfx-google>=0.2.5,<1.0.0"],

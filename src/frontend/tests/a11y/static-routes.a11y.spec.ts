@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import type { AriaRole } from "@playwright/test";
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 
@@ -49,7 +49,7 @@ function namePattern(name: string) {
   return new RegExp(name, "i");
 }
 
-function locatorForReadyCheck(page: PrimeagentPage, check: ReadyCheck) {
+function locatorForReadyCheck(page: PrimeAgentPage, check: ReadyCheck) {
   if (check.testId) {
     return page.getByTestId(check.testId);
   }
@@ -64,7 +64,7 @@ function locatorForReadyCheck(page: PrimeagentPage, check: ReadyCheck) {
   );
 }
 
-async function expectReadyCheck(page: PrimeagentPage, check: ReadyCheck) {
+async function expectReadyCheck(page: PrimeAgentPage, check: ReadyCheck) {
   if (check.oneOf) {
     const locator = check.oneOf
       .map((candidate) => locatorForReadyCheck(page, candidate))
@@ -83,7 +83,7 @@ async function expectReadyCheck(page: PrimeagentPage, check: ReadyCheck) {
   await expect(locator).toBeVisible({ timeout: TIMEOUTS.standard });
 }
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -99,7 +99,7 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function waitForRouteToSettle(page: PrimeagentPage, route: StaticRoute) {
+async function waitForRouteToSettle(page: PrimeAgentPage, route: StaticRoute) {
   if (route.requiresMainContent) {
     await awaitBootstrapTest(page, { skipModal: true });
   }

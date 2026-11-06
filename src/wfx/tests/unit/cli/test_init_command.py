@@ -1,6 +1,6 @@
 """Unit tests for ``wfx init`` — init_command and helpers.
 
-All tests run entirely in-process; no running Primeagent instance required.
+All tests run entirely in-process; no running PrimeAgent instance required.
 Filesystem operations use ``tmp_path`` so every test gets a fresh sandbox.
 """
 

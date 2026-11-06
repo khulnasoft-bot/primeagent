@@ -1,6 +1,6 @@
 # Architecture Boundaries
 
-Primeagent is a runnable base application, a curated distribution, an executor
+PrimeAgent is a runnable base application, a curated distribution, an executor
 SDK, standalone extensions, and one frontend. Dependencies point in one
 direction. Most "off-narrative" code is a boundary violation. Read this before
 adding a new file.

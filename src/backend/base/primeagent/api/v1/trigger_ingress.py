@@ -1,6 +1,6 @@
 """The unauthenticated provider ingress route.
 
-This is the only route in Primeagent that accepts a write from a caller with no
+This is the only route in PrimeAgent that accepts a write from a caller with no
 session, no API key, and no user - so the whole file is written to be read by
 somebody deciding whether to expose it. What happens, in order:
 

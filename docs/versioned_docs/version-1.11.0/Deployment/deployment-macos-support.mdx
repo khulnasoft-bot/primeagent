@@ -6,13 +6,13 @@ slug: /deployment-macos-support
 
 # macOS Support Matrix
 
-Primeagent supports both Apple Silicon (ARM64) and Intel (x86_64) Macs, but with different feature availability due to hardware capabilities and upstream dependency support.
+PrimeAgent supports both Apple Silicon (ARM64) and Intel (x86_64) Macs, but with different feature availability due to hardware capabilities and upstream dependency support.
 
 ## Quick Reference
 
 | Feature Category     | Apple Silicon (M1/M2/M3) | Intel (x86_64)         |
 | -------------------- | ------------------------ | ---------------------- |
-| **Core Primeagent**  | ✅ Full support          | ✅ Full support        |
+| **Core PrimeAgent**  | ✅ Full support          | ✅ Full support        |
 | **ML/AI Components** | ✅ Full support          | ❌ Limited/Unavailable |
 | **GPU Acceleration** | ✅ Metal support         | ❌ Not available       |
 | **Native OCR**       | ✅ Full support          | ✅ Full support        |
@@ -68,7 +68,7 @@ Intel Macs lack the specialized hardware that makes ML workloads performant:
 
 ### For Apple Silicon Users
 
-Install Primeagent normally with all features:
+Install PrimeAgent normally with all features:
 
 ```bash
 pip install primeagent
@@ -121,8 +121,8 @@ Instead of local models, use API-based services:
 
 Run ML workloads on a remote server:
 
-- Deploy Primeagent on a cloud instance with GPU support
-- Use the Primeagent API to connect from your Intel Mac
+- Deploy PrimeAgent on a cloud instance with GPU support
+- Use the PrimeAgent API to connect from your Intel Mac
 - Keep the UI/development on your Mac, inference in the cloud
 
 ### 3. Docker with Rosetta 2
@@ -145,7 +145,7 @@ Apple and the broader ecosystem are phasing out Intel Mac support:
 - **2024:** PyTorch dropped Intel Mac support
 - **2026-2027:** Expected end of macOS updates for Intel Macs
 
-Primeagent will continue to support core functionality on Intel Macs as long as Python and essential dependencies remain available, but ML features will remain Apple Silicon exclusive.
+PrimeAgent will continue to support core functionality on Intel Macs as long as Python and essential dependencies remain available, but ML features will remain Apple Silicon exclusive.
 
 ### Recommended Migration Path
 
@@ -162,7 +162,7 @@ If you rely on ML features, consider upgrading to Apple Silicon hardware:
 If you see errors about missing packages on Intel Mac:
 
 1. **Expected behavior** - ML packages are intentionally excluded
-2. **Solution** - Use core Primeagent features or API-based alternatives
+2. **Solution** - Use core PrimeAgent features or API-based alternatives
 3. **Verify architecture:**
    ```bash
    python -c "import platform; print(platform.machine())"
@@ -171,7 +171,7 @@ If you see errors about missing packages on Intel Mac:
 
 ### Performance Issues
 
-If Primeagent feels slow on Intel Mac:
+If PrimeAgent feels slow on Intel Mac:
 
 1. Ensure you're not trying to run ML workloads locally
 2. Use API-based providers for embeddings/completions

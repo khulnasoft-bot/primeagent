@@ -1,6 +1,6 @@
 """wfx-oracle: Oracle Database bundle.
 
-Distribution unit ``wfx-oracle``.  At runtime Primeagent's loader
+Distribution unit ``wfx-oracle``.  At runtime PrimeAgent's loader
 discovers ``extension.json`` shipped alongside this ``__init__.py`` and
 registers the bundle's components under the namespaced IDs
 ``ext:oracle:<Class>@official``.

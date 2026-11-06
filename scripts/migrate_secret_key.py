@@ -12,7 +12,7 @@ The keys are never printed. The output identifies the new key by a fingerprint,
 the first 12 hex characters of the SHA-256 of the key.
 
 Migrated database fields:
-- user.store_api_key: Primeagent Store API keys
+- user.store_api_key: PrimeAgent Store API keys
 - variable.value: All encrypted variable values
 - folder.auth_settings: MCP oauth_client_secret and api_key fields
 - sso_config.client_secret_encrypted: SSO/OIDC client secrets
@@ -23,7 +23,7 @@ Migrated database fields:
 - mcp_server.config: secret values in the env and headers maps, and the
   --headers values in args
 
-Run it with Primeagent stopped, no background jobs queued and no OAuth connection
+Run it with PrimeAgent stopped, no background jobs queued and no OAuth connection
 flows in progress. Queued jobs' request overrides and pending OAuth verifiers are
 also encrypted under the key, are short-lived, and are not rotated.
 
@@ -90,12 +90,12 @@ SSO_BASE64URL_ALPHABET = frozenset("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqr
 
 
 def get_default_config_dir() -> Path:
-    """Get the default Primeagent config directory using platformdirs."""
+    """Get the default PrimeAgent config directory using platformdirs."""
     return Path(user_cache_dir("primeagent", "primeagent"))
 
 
 def get_config_dir() -> Path:
-    """Get the Primeagent config directory from environment or default."""
+    """Get the PrimeAgent config directory from environment or default."""
     config_dir = os.environ.get("PRIMEAGENT_CONFIG_DIR")
     if config_dir:
         return Path(config_dir)
@@ -454,11 +454,11 @@ def get_default_database_url(config_dir: Path) -> str | None:
 
 
 def warn_env_secret_key(new_key: str | None = None, key_file: Path | None = None) -> None:
-    """Primeagent uses PRIMEAGENT_SECRET_KEY over the key file and writes it back over the file on start."""
+    """PrimeAgent uses PRIMEAGENT_SECRET_KEY over the key file and writes it back over the file on start."""
     print("\n" + "!" * 50)
-    print("PRIMEAGENT_SECRET_KEY is set in this environment. Primeagent uses it instead of")
+    print("PRIMEAGENT_SECRET_KEY is set in this environment. PrimeAgent uses it instead of")
     print("the secret_key file and writes it back over that file on start. Set it to the")
-    print("new key before starting Primeagent, or every rotated secret decrypts to empty.")
+    print("new key before starting PrimeAgent, or every rotated secret decrypts to empty.")
     if new_key:
         print(f"\n  Set PRIMEAGENT_SECRET_KEY to the contents of {key_file}")
         print(f"  (key fingerprint: {key_fingerprint(new_key)})")
@@ -496,7 +496,7 @@ def migrate(
     """Run the secret key migration.
 
     Args:
-        config_dir: Path to Primeagent config directory containing secret_key file.
+        config_dir: Path to PrimeAgent config directory containing secret_key file.
         database_url: SQLAlchemy database connection URL.
         old_key: Current secret key. If None, reads from config_dir/secret_key.
         new_key: New secret key. If None, generates a secure random key.
@@ -780,7 +780,7 @@ def migrate(
             pending_file.replace(secret_file)
         except OSError as e:
             print(f"\nERROR: The database is now encrypted with the new key, but saving the key failed: {e}")
-            print(f"The new key is in {pending_file}. Move it to {secret_file} before starting Primeagent.")
+            print(f"The new key is in {pending_file}. Move it to {secret_file} before starting PrimeAgent.")
             sys.exit(1)
         print(f"{step + 2}. Saved new secret key to: {secret_file}")
     else:
@@ -799,10 +799,10 @@ def migrate(
         print(f"\nBackup key location: {config_dir}/secret_key.backup.*")
         print("\nNext steps:")
         print(
-            "1. If Primeagent gets PRIMEAGENT_SECRET_KEY (environment, .env file, secret store), set it to the new key:"
+            "1. If PrimeAgent gets PRIMEAGENT_SECRET_KEY (environment, .env file, secret store), set it to the new key:"
         )
         print(f"   the contents of {secret_file}")
-        print("2. Start Primeagent and verify everything works")
+        print("2. Start PrimeAgent and verify everything works")
         print("3. Users must log in again (JWT sessions invalidated)")
         print("4. Once verified, you may delete the backup key file")
         if os.environ.get("PRIMEAGENT_SECRET_KEY"):
@@ -818,7 +818,7 @@ def main():
     default_config = get_config_dir()
 
     parser = argparse.ArgumentParser(
-        description="Migrate Primeagent encrypted data to a new secret key",
+        description="Migrate PrimeAgent encrypted data to a new secret key",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -838,7 +838,7 @@ Environment variables, used when the matching option is not given:
   PRIMEAGENT_MIGRATION_TARGET_URL  Database URL. Use it for a URL that holds a password.
   PRIMEAGENT_OLD_SECRET_KEY        Current secret key
   PRIMEAGENT_NEW_SECRET_KEY        New secret key
-  PRIMEAGENT_CONFIG_DIR            Primeagent config directory
+  PRIMEAGENT_CONFIG_DIR            PrimeAgent config directory
 PRIMEAGENT_DATABASE_URL is not read.
         """,
     )
@@ -853,7 +853,7 @@ PRIMEAGENT_DATABASE_URL is not read.
         type=Path,
         default=default_config,
         metavar="PATH",
-        help=f"Primeagent config directory (default: {default_config})",
+        help=f"PrimeAgent config directory (default: {default_config})",
     )
     parser.add_argument(
         "--database-url",

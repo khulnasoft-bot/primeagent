@@ -22,7 +22,7 @@ def _version_callback(value: bool) -> None:
 
 app = typer.Typer(
     name="wfx",
-    help="wfx - Primeagent Executor",
+    help="wfx - PrimeAgent Executor",
     add_completion=False,
 )
 
@@ -38,7 +38,7 @@ def _app_callback(
         callback=_version_callback,
     ),
 ) -> None:
-    """Wfx - Primeagent Executor."""
+    """Wfx - PrimeAgent Executor."""
 
 
 # Register command groups (order determines help-panel ordering)

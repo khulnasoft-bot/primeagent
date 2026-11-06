@@ -1,7 +1,7 @@
 [project]
 name = "wfx-bundles"
 version = "1.2.4"
-description = "Primeagent's long-tail provider bundles as a single manifest-less metapackage (the langchain-community model)."
+description = "PrimeAgent's long-tail provider bundles as a single manifest-less metapackage (the langchain-community model)."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = { text = "MIT" }

@@ -128,7 +128,7 @@ def test_admin_client_sends_api_key_and_operation_id_and_paginates() -> None:
     assert len(users) == 205
     assert len(requests) == 2
     assert all(request.headers["X-API-Key"] == "secret-key" for request in requests)
-    assert all(request.headers["X-Primeagent-Operation-ID"] == "cli-test-operation" for request in requests)
+    assert all(request.headers["X-PrimeAgent-Operation-ID"] == "cli-test-operation" for request in requests)
     assert requests[0].url.path == "/api/v1/users/"
     assert requests[0].url.params["limit"] == "200"
 
@@ -412,7 +412,7 @@ def test_connection_configuration_failures_use_usage_exit_code_for_multistep_com
     for command in commands:
         result = runner.invoke(app, command)
         assert result.exit_code == 2, result.output
-        assert "Primeagent URL is required" in result.output
+        assert "PrimeAgent URL is required" in result.output
 
 
 def test_diff_uses_exit_three_when_drift_exists(monkeypatch, tmp_path: Path) -> None:

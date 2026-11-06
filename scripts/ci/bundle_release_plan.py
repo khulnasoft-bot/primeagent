@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # ruff: noqa: EM101, EM102, PERF401, PIE810, PLR2004, S603, S607, TC003, TRY003, TRY300
-"""Plan, validate, restamp, publish, and verify Primeagent bundle releases.
+"""Plan, validate, restamp, publish, and verify PrimeAgent bundle releases.
 
 The bundle packages have their own versions, but their release metadata spans
-each bundle's pyproject/manifest, Primeagent's dependency floors, and uv.lock.
+each bundle's pyproject/manifest, PrimeAgent's dependency floors, and uv.lock.
 This module keeps those fields on one source-of-truth plan and makes PyPI
 retries content-aware: an existing version is reused only when its wheel
 content matches the artifact built by the current run.
@@ -664,7 +664,7 @@ def _metadata_errors(bundle: BundleInfo, base_dir: Path = BASE_DIR) -> list[str]
     root_requirements = _root_requirements(bundle.name, base_dir)
     if not root_requirements:
         errors.append(
-            f"{bundle.name} {bundle.version}: no Primeagent dependency range found in pyproject.toml; "
+            f"{bundle.name} {bundle.version}: no PrimeAgent dependency range found in pyproject.toml; "
             f"add {bundle.name}>={bundle.version},<{parse_version(bundle.version)[0] + 1}.0.0"
         )
     for requirement in root_requirements:
@@ -672,7 +672,7 @@ def _metadata_errors(bundle: BundleInfo, base_dir: Path = BASE_DIR) -> list[str]
         minimum, upper = _minimum_and_upper(specifier)
         if minimum != bundle.version or upper is None:
             errors.append(
-                f"{bundle.name} {bundle.version}: expected a bounded Primeagent floor >={bundle.version} in "
+                f"{bundle.name} {bundle.version}: expected a bounded PrimeAgent floor >={bundle.version} in "
                 f"{requirement!r}, observed {specifier or '<none>'}; run bundle_release_plan.py update"
             )
 
@@ -1182,7 +1182,7 @@ def observe_artifact(artifact: WheelArtifact, client: IndexClient) -> ArtifactOb
         action="fail",
         observed_digests=tuple(observed),
         remediation=(
-            f"bump {artifact.package} above {artifact.version}, update its Primeagent dependency floor and uv.lock, "
+            f"bump {artifact.package} above {artifact.version}, update its PrimeAgent dependency floor and uv.lock, "
             "then rebuild; PyPI versions are immutable"
         ),
     )

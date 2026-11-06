@@ -71,7 +71,7 @@ class TestIntentRoutingRealLLM:
             api_key_var=_KEY,
             context=context,
         )
-        assert result.intent != "off_topic", f"Primeagent-related request misrouted to off_topic ({result.intent})"
+        assert result.intent != "off_topic", f"PrimeAgent-related request misrouted to off_topic ({result.intent})"
 
     async def test_genuinely_off_topic_still_off_topic(self):
         # Guard: the WS-1 changes must not over-correct real off-topic asks.

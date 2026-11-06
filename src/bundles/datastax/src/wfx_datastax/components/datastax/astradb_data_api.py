@@ -1,6 +1,6 @@
 """Astra DB Data API component.
 
-A thin, modern Primeagent component that exposes the full document-based
+A thin, modern PrimeAgent component that exposes the full document-based
 Data API surface of DataStax Astra DB using **only** the ``astrapy`` SDK.
 
 The component inherits :class:`wfx_datastax.base.astradb_base.AstraDBBaseComponent`
@@ -73,7 +73,7 @@ ALL_OPERATIONS: tuple[str, ...] = (
 )
 
 # Per-operation icons surfaced in the operation dropdown. Icon names mirror
-# those used elsewhere in Primeagent for a consistent look.
+# those used elsewhere in PrimeAgent for a consistent look.
 OPERATION_ICONS: dict[str, str] = {
     OP_FIND: "Search",
     OP_FIND_ONE: "SearchCheck",

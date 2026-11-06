@@ -40,18 +40,18 @@ _GUIDANCE = {
         "Your original data is preserved."
     ),
     "automatic_upgrade_disabled": (
-        "Enable PRIMEAGENT_KNOWLEDGE_BASE_AUTO_MIGRATE and restart Primeagent to upgrade local data."
+        "Enable PRIMEAGENT_KNOWLEDGE_BASE_AUTO_MIGRATE and restart PrimeAgent to upgrade local data."
     ),
     "single_host_required": (
-        "Stop all old instances, then run one Primeagent worker on the host with the original "
+        "Stop all old instances, then run one PrimeAgent worker on the host with the original "
         "local data. Distributed deployments need administrator recovery."
     ),
     "legacy_workers_running": (
-        "Stop all other Primeagent processes on this host, then retry the upgrade. "
+        "Stop all other PrimeAgent processes on this host, then retry the upgrade. "
         "This includes instances using different databases or knowledge directories."
     ),
     "local_filesystem_required": (
-        "Copy the original data to a local filesystem and run one Primeagent worker there. "
+        "Copy the original data to a local filesystem and run one PrimeAgent worker there. "
         "Shared filesystems require administrator recovery."
     ),
     "remote_source_requires_migration": "Migrate the remote collection to a configured pgVector or OpenSearch store.",

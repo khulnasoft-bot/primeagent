@@ -1,6 +1,6 @@
-"""Unit tests for PrimeagentType input/output handlers and DataFrame output handler.
+"""Unit tests for PrimeAgentType input/output handlers and DataFrame output handler.
 
-Tests serialization (output) and deserialization (input) of Primeagent
+Tests serialization (output) and deserialization (input) of PrimeAgent
 Message, Data, and DataFrame types, including round-trip tests.
 """
 
@@ -14,18 +14,18 @@ from wfx.schema.message import Message
 
 from primeagent_stepflow.worker.handlers import (
     DataFrameOutputHandler,
-    PrimeagentTypeInputHandler,
-    PrimeagentTypeOutputHandler,
+    PrimeAgentTypeInputHandler,
+    PrimeAgentTypeOutputHandler,
 )
 
 # ---------------------------------------------------------------------------
-# PrimeagentTypeOutputHandler — matches()
+# PrimeAgentTypeOutputHandler — matches()
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeOutputHandlerMatches:
+class TestPrimeAgentTypeOutputHandlerMatches:
     def setup_method(self):
-        self.handler = PrimeagentTypeOutputHandler()
+        self.handler = PrimeAgentTypeOutputHandler()
 
     def test_matches_message(self):
         assert self.handler.matches(value=Message(text="hi")) is True
@@ -51,13 +51,13 @@ class TestPrimeagentTypeOutputHandlerMatches:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentTypeOutputHandler — process()
+# PrimeAgentTypeOutputHandler — process()
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeOutputHandlerProcess:
+class TestPrimeAgentTypeOutputHandlerProcess:
     def setup_method(self):
-        self.handler = PrimeagentTypeOutputHandler()
+        self.handler = PrimeAgentTypeOutputHandler()
 
     @pytest.mark.asyncio
     async def test_serialize_message(self):
@@ -214,13 +214,13 @@ class TestDataFrameOutputHandlerProcess:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentTypeInputHandler — matches()
+# PrimeAgentTypeInputHandler — matches()
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeInputHandlerMatches:
+class TestPrimeAgentTypeInputHandlerMatches:
     def setup_method(self):
-        self.handler = PrimeagentTypeInputHandler()
+        self.handler = PrimeAgentTypeInputHandler()
 
     def test_matches_dict_with_marker(self):
         value = {"__primeagent_type__": "Message", "text": "hi"}
@@ -259,13 +259,13 @@ class TestPrimeagentTypeInputHandlerMatches:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentTypeInputHandler — prepare() (Message)
+# PrimeAgentTypeInputHandler — prepare() (Message)
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeInputHandlerMessage:
+class TestPrimeAgentTypeInputHandlerMessage:
     def setup_method(self):
-        self.handler = PrimeagentTypeInputHandler()
+        self.handler = PrimeAgentTypeInputHandler()
 
     @pytest.mark.asyncio
     async def test_deserialize_message(self):
@@ -304,13 +304,13 @@ class TestPrimeagentTypeInputHandlerMessage:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentTypeInputHandler — prepare() (Data)
+# PrimeAgentTypeInputHandler — prepare() (Data)
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeInputHandlerData:
+class TestPrimeAgentTypeInputHandlerData:
     def setup_method(self):
-        self.handler = PrimeagentTypeInputHandler()
+        self.handler = PrimeAgentTypeInputHandler()
 
     @pytest.mark.asyncio
     async def test_deserialize_data(self):
@@ -336,13 +336,13 @@ class TestPrimeagentTypeInputHandlerData:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentTypeInputHandler — prepare() (DataFrame)
+# PrimeAgentTypeInputHandler — prepare() (DataFrame)
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeInputHandlerDataFrame:
+class TestPrimeAgentTypeInputHandlerDataFrame:
     def setup_method(self):
-        self.handler = PrimeagentTypeInputHandler()
+        self.handler = PrimeAgentTypeInputHandler()
 
     @pytest.mark.asyncio
     async def test_deserialize_dataframe(self):
@@ -399,13 +399,13 @@ class TestPrimeagentTypeInputHandlerDataFrame:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentTypeInputHandler — prepare() (list handling)
+# PrimeAgentTypeInputHandler — prepare() (list handling)
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeInputHandlerLists:
+class TestPrimeAgentTypeInputHandlerLists:
     def setup_method(self):
-        self.handler = PrimeagentTypeInputHandler()
+        self.handler = PrimeAgentTypeInputHandler()
 
     @pytest.mark.asyncio
     async def test_deserialize_list_of_messages(self):
@@ -467,13 +467,13 @@ class TestPrimeagentTypeInputHandlerLists:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentTypeInputHandler — unknown / edge cases
+# PrimeAgentTypeInputHandler — unknown / edge cases
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeInputHandlerEdgeCases:
+class TestPrimeAgentTypeInputHandlerEdgeCases:
     def setup_method(self):
-        self.handler = PrimeagentTypeInputHandler()
+        self.handler = PrimeAgentTypeInputHandler()
 
     @pytest.mark.asyncio
     async def test_unknown_primeagent_type_returns_dict(self):
@@ -500,10 +500,10 @@ class TestPrimeagentTypeInputHandlerEdgeCases:
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentTypeRoundTrip:
+class TestPrimeAgentTypeRoundTrip:
     def setup_method(self):
-        self.output_handler = PrimeagentTypeOutputHandler()
-        self.input_handler = PrimeagentTypeInputHandler()
+        self.output_handler = PrimeAgentTypeOutputHandler()
+        self.input_handler = PrimeAgentTypeInputHandler()
 
     @pytest.mark.asyncio
     async def test_message_round_trip(self):
@@ -561,11 +561,11 @@ class TestPrimeagentTypeRoundTrip:
 
 class TestDataFrameRoundTrip:
     """Round-trip tests for DataFrame: serialize with DataFrameOutputHandler,
-    deserialize with PrimeagentTypeInputHandler."""
+    deserialize with PrimeAgentTypeInputHandler."""
 
     def setup_method(self):
         self.output_handler = DataFrameOutputHandler()
-        self.input_handler = PrimeagentTypeInputHandler()
+        self.input_handler = PrimeAgentTypeInputHandler()
 
     @pytest.mark.asyncio
     async def test_dataframe_round_trip(self):
@@ -606,13 +606,13 @@ class TestPandasDataFrameRoundTrip:
     """Round-trip tests for plain pandas DataFrames (issue #673).
 
     Components compiled from flow JSON blobs may produce plain pandas
-    DataFrames instead of wfx DataFrames, depending on the Primeagent
+    DataFrames instead of wfx DataFrames, depending on the PrimeAgent
     version that exported the flow.
     """
 
     def setup_method(self):
         self.output_handler = DataFrameOutputHandler()
-        self.input_handler = PrimeagentTypeInputHandler()
+        self.input_handler = PrimeAgentTypeInputHandler()
 
     @pytest.mark.asyncio
     async def test_pandas_dataframe_round_trip(self):

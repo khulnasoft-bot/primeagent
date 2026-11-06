@@ -71,7 +71,7 @@ if TYPE_CHECKING:
     from opentelemetry.sdk.trace import TracerProvider
     from opentelemetry.trace import Link, Span, SpanContext
 
-# The tracer name Primeagent's own application spans are emitted under. Deliberately not
+# The tracer name PrimeAgent's own application spans are emitted under. Deliberately not
 # "primeagent": the LLM tracer integrations already take a tracer under that name, and their
 # spans carry flow inputs and outputs. The export filter allowlists this exact string, so a
 # span emitted under any other name never reaches the operator's APM.
@@ -820,7 +820,7 @@ if _OTEL_AVAILABLE:
         """State the log boundary in the operator's own log stream, at boot.
 
         Documentation does not reach the person writing the Helm values, and this is the signal
-        with the residual exposure worth knowing about: the body filter covers what Primeagent
+        with the residual exposure worth knowing about: the body filter covers what PrimeAgent
         exports over OTLP, and nothing else. Container stdout and the rotating log file still
         carry every message in full, so a sidecar log shipper reaches the same backend by a route
         this process never sees. That is a deployment choice, and it is only a deliberate one if
@@ -1092,7 +1092,7 @@ def bootstrap_application_telemetry(*, prometheus_enabled: bool = False) -> Appl
 def instrument_database(engine: object) -> None:
     """Instrument a SQLAlchemy engine, so a slow request can be attributed to its queries.
 
-    Takes the engine rather than instrumenting globally. Primeagent's engine is an AsyncEngine and
+    Takes the engine rather than instrumenting globally. PrimeAgent's engine is an AsyncEngine and
     the instrumentor patches the sync engine underneath it; a global ``instrument()`` with no
     engine attaches to pool events only, which produces a connect span per checkout and no query
     spans at all. Verified against a live backend: 13 connect spans and zero db.statement for one

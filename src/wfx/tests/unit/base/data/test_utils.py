@@ -146,7 +146,7 @@ class TestParseTextFileToDataS3Mode:
     """Regression tests for issue #13798.
 
     When S3 storage is configured, reading a real local file (e.g. the bundled
-    wfx components directory the Primeagent Assistant scans) must still read from
+    wfx components directory the PrimeAgent Assistant scans) must still read from
     disk instead of being forced through the S3 key parser.
     """
 

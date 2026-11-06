@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import CustomHeaderLogo from "../custom-header-logo";
 
-jest.mock("@/assets/PrimeagentLogo.svg?react", () => ({
+jest.mock("@/assets/PrimeAgentLogo.svg?react", () => ({
   __esModule: true,
   default: ({ className, ...props }: { className?: string }) => (
     <svg data-testid="primeagent-logo" className={className} {...props} />
@@ -9,7 +9,7 @@ jest.mock("@/assets/PrimeagentLogo.svg?react", () => ({
 }));
 
 describe("CustomHeaderLogo", () => {
-  it("renders the Primeagent logo by default", () => {
+  it("renders the PrimeAgent logo by default", () => {
     const { getByTestId } = render(<CustomHeaderLogo />);
 
     expect(getByTestId("primeagent-logo")).toBeInTheDocument();

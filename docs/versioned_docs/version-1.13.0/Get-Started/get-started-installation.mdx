@@ -1,5 +1,5 @@
 ---
-title: Install Primeagent
+title: Install PrimeAgent
 slug: /get-started-installation
 ---
 
@@ -10,12 +10,12 @@ import Card from "@site/src/components/Card";
 import Icon from "@site/src/components/icon";
 import PartialAutoLoginDefaults from "@site/docs/_partial-auto-login-defaults.mdx";
 
-Primeagent can be installed in multiple ways. Choose an option below to jump to the steps.
+PrimeAgent can be installed in multiple ways. Choose an option below to jump to the steps.
 
 <Cards cols={2}>
   <Card
     icon={<Icon name="Monitor" size={20} />}
-    title="Primeagent Desktop (recommended)"
+    title="PrimeAgent Desktop (recommended)"
     href="#install-and-run-primeagent-desktop"
   >
     Standalone app with dependency management and simple upgrades.
@@ -25,7 +25,7 @@ Primeagent can be installed in multiple ways. Choose an option below to jump to 
     title="Docker"
     href="#install-and-run-primeagent-docker"
   >
-    Run Primeagent in a container in isolation.
+    Run PrimeAgent in a container in isolation.
   </Card>
   <Card
     icon={<Icon name="Package" size={20} />}
@@ -39,54 +39,54 @@ Primeagent can be installed in multiple ways. Choose an option below to jump to 
     title="Install from source"
     href="/contributing-how-to-contribute#install-primeagent-from-source"
   >
-    Contribute to Primeagent or work from a local clone.
+    Contribute to PrimeAgent or work from a local clone.
   </Card>
 </Cards>
 
-## Install and run Primeagent Desktop {#install-and-run-primeagent-desktop}
+## Install and run PrimeAgent Desktop {#install-and-run-primeagent-desktop}
 
-Primeagent Desktop is a desktop version of Primeagent that simplifies dependency management and upgrades.
-However, some features aren't available for Primeagent Desktop, such as the **Shareable Playground** and **Voice Mode**.
+PrimeAgent Desktop is a desktop version of PrimeAgent that simplifies dependency management and upgrades.
+However, some features aren't available for PrimeAgent Desktop, such as the **Shareable Playground** and **Voice Mode**.
 
 <Tabs>
 <TabItem value="macos" label="macOS" default>
 
-Primeagent Desktop requires macOS 13 or later.
+PrimeAgent Desktop requires macOS 13 or later.
 
-1. Navigate to [Primeagent Desktop](https://www.prime.khulnasoft.com/desktop).
-2. Click **Download Primeagent**, enter your contact information, and then click **Download**.
-3. Mount and install the Primeagent application.
-4. When the installation completes, open the Primeagent application, and then create your first flow with the [Quickstart](/get-started-quickstart).
+1. Navigate to [PrimeAgent Desktop](https://www.prime.khulnasoft.com/desktop).
+2. Click **Download PrimeAgent**, enter your contact information, and then click **Download**.
+3. Mount and install the PrimeAgent application.
+4. When the installation completes, open the PrimeAgent application, and then create your first flow with the [Quickstart](/get-started-quickstart).
 
 </TabItem>
 <TabItem value="Windows" label="Windows">
 
-1. Navigate to [Primeagent Desktop](https://www.prime.khulnasoft.com/desktop).
-2. Click **Download Primeagent**, enter your contact information, and then click **Download**.
+1. Navigate to [PrimeAgent Desktop](https://www.prime.khulnasoft.com/desktop).
+2. Click **Download PrimeAgent**, enter your contact information, and then click **Download**.
 3. Open the **File Explorer**, and then navigate to **Downloads**.
-4. Double-click the downloaded `.msi` file, and then use the install wizard to install Primeagent Desktop.
+4. Double-click the downloaded `.msi` file, and then use the install wizard to install PrimeAgent Desktop.
 
    :::tip
-   Windows installations of Primeagent Desktop require a C++ compiler that may not be present on your system. If you receive a `C++ Build Tools Required!` error, follow the on-screen prompt to install Microsoft C++ Build Tools, or [install Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/).
+   Windows installations of PrimeAgent Desktop require a C++ compiler that may not be present on your system. If you receive a `C++ Build Tools Required!` error, follow the on-screen prompt to install Microsoft C++ Build Tools, or [install Microsoft Visual Studio](https://visualstudio.microsoft.com/downloads/).
    :::
 
-5. When the installation completes, open the Primeagent application, and then create your first flow with the [Quickstart](/get-started-quickstart).
+5. When the installation completes, open the PrimeAgent application, and then create your first flow with the [Quickstart](/get-started-quickstart).
 
 </TabItem>
 </Tabs>
 
 For upgrade information, see the [Release notes](/release-notes).
 
-To manage dependencies in Primeagent Desktop, see [Install custom dependencies in Primeagent Desktop](/install-custom-dependencies#primeagent-desktop).
+To manage dependencies in PrimeAgent Desktop, see [Install custom dependencies in PrimeAgent Desktop](/install-custom-dependencies#primeagent-desktop).
 
-## Install and run Primeagent with Docker {#install-and-run-primeagent-docker}
+## Install and run PrimeAgent with Docker {#install-and-run-primeagent-docker}
 
-You can use the Primeagent Docker image to start a Primeagent container.
-For more information, see [Deploy Primeagent on Docker](/deployment-docker).
+You can use the PrimeAgent Docker image to start a PrimeAgent container.
+For more information, see [Deploy PrimeAgent on Docker](/deployment-docker).
 
 1. Install and start [Docker](https://docs.docker.com/).
 
-2. Pull the latest [Primeagent Docker image](https://hub.docker.com/r/khulnasoft/primeagent) and start it:
+2. Pull the latest [PrimeAgent Docker image](https://hub.docker.com/r/khulnasoft/primeagent) and start it:
 
    ```bash
    docker run -p 7860:7860 \
@@ -95,15 +95,15 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
      khulnasoft/primeagent:latest
    ```
 
-   Replace `SUPERUSER_PASSWORD` with a strong password for the Primeagent superuser.
+   Replace `SUPERUSER_PASSWORD` with a strong password for the PrimeAgent superuser.
 
    <PartialAutoLoginDefaults />
 
-3. To access Primeagent, navigate to `http://localhost:7860/`.
+3. To access PrimeAgent, navigate to `http://localhost:7860/`.
 
 4. Create your first flow with the [Quickstart](/get-started-quickstart).
 
-## Install and run the Primeagent OSS Python package {#install-and-run-the-primeagent-oss-python-package}
+## Install and run the PrimeAgent OSS Python package {#install-and-run-the-primeagent-oss-python-package}
 
 1.  Make sure you have the required dependencies and infrastructure:
 
@@ -120,7 +120,7 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
     <details>
 <summary>Need help with virtual environments?</summary>
 
-    Virtual environments ensure Primeagent is installed in an isolated, fresh environment.
+    Virtual environments ensure PrimeAgent is installed in an isolated, fresh environment.
     To create a new virtual environment, do the following.
 
         <Tabs>
@@ -190,13 +190,13 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
 
     </details>
 
-3.  In your virtual environment, install Primeagent:
+3.  In your virtual environment, install PrimeAgent:
 
     ```bash
     uv pip install primeagent
     ```
 
-    This installs the runnable Primeagent application and its curated provider
+    This installs the runnable PrimeAgent application and its curated provider
     extensions. To install the same UI and API without provider extensions,
     install `primeagent-base` instead:
 
@@ -204,10 +204,10 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
     uv pip install primeagent-base
     ```
 
-    Both packages use the `primeagent` command. In Primeagent 1.12,
+    Both packages use the `primeagent` command. In PrimeAgent 1.12,
     `primeagent-base` does not provide a `primeagent-base` executable.
 
-4.  Set `PRIMEAGENT_SUPERUSER_PASSWORD` to a strong password, then start Primeagent.
+4.  Set `PRIMEAGENT_SUPERUSER_PASSWORD` to a strong password, then start PrimeAgent.
 
     If the password is exported in your environment:
 
@@ -221,32 +221,32 @@ For more information, see [Deploy Primeagent on Docker](/deployment-docker).
     uv run primeagent run --env-file .env
     ```
 
-    It can take a few minutes for Primeagent to start.
+    It can take a few minutes for PrimeAgent to start.
 
     <PartialAutoLoginDefaults />
 
-5.  To confirm that a local Primeagent instance is running, navigate to the default Primeagent URL `http://127.0.0.1:7860`.
+5.  To confirm that a local PrimeAgent instance is running, navigate to the default PrimeAgent URL `http://127.0.0.1:7860`.
 
 6.  Create your first flow with the [Quickstart](/get-started-quickstart).
 
-### Manage the Primeagent OSS version
+### Manage the PrimeAgent OSS version
 
-To upgrade Primeagent to the latest version, run `uv pip install primeagent -U`.
-However, the Primeagent team recommends taking steps to backup your existing installation before you upgrade Primeagent.
+To upgrade PrimeAgent to the latest version, run `uv pip install primeagent -U`.
+However, the PrimeAgent team recommends taking steps to backup your existing installation before you upgrade PrimeAgent.
 For more information, see [Prepare to upgrade](/release-notes#prepare-to-upgrade).
 
-To install a specific version of the Primeagent package, add the required version to the command, such as `uv pip install primeagent==1.4.22`.
+To install a specific version of the PrimeAgent package, add the required version to the command, such as `uv pip install primeagent==1.4.22`.
 
-To reinstall Primeagent and all of its dependencies, run `uv pip install primeagent --force-reinstall`.
+To reinstall PrimeAgent and all of its dependencies, run `uv pip install primeagent --force-reinstall`.
 
 :::warning Upgrading from an auto-login installation
-Primeagent 1.13 disables auto-login by default.
+PrimeAgent 1.13 disables auto-login by default.
 Before you upgrade an installation that signs in automatically, [prepare the existing account for password sign-in](/api-keys-and-authentication#upgrade-from-auto-login).
 If you already upgraded and can't sign in, see [Recover access after upgrading](/api-keys-and-authentication#recover-access-after-upgrading).
-Don't delete or reinstall Primeagent to regain access, because that can permanently remove your flows.
+Don't delete or reinstall PrimeAgent to regain access, because that can permanently remove your flows.
 :::
 
-:::note Primeagent 1.12 package migration
+:::note PrimeAgent 1.12 package migration
 The new runnable `primeagent-base` package starts at version `1.12.0` and stays
 version-aligned with `primeagent`. Requirements such as
 `primeagent-base~=0.12` remain on the previous package line and don't select the
@@ -257,4 +257,4 @@ version-aligned with `primeagent`. Requirements such as
 
 - [Quickstart](/get-started-quickstart): Build and run your first flow in minutes.
 - [Build flows](/concepts-flows): Learn about building flows.
-- [Troubleshoot Primeagent](/troubleshoot): Get help with common Primeagent install and startup issues.
+- [Troubleshoot PrimeAgent](/troubleshoot): Get help with common PrimeAgent install and startup issues.

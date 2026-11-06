@@ -1,4 +1,4 @@
-"""Level 1 structural validation checks for Primeagent flow JSON.
+"""Level 1 structural validation checks for PrimeAgent flow JSON.
 
 Includes JSON shape validation, node/edge structure checks, orphaned and
 unused node detection, and version mismatch warnings.
@@ -251,18 +251,18 @@ def _check_unused_nodes(flow: dict[str, Any], result: ValidationResult) -> None:
 
 
 def _check_version_mismatch(flow: dict[str, Any], result: ValidationResult) -> None:
-    """Warn when nodes were built with a different Primeagent version.
+    """Warn when nodes were built with a different PrimeAgent version.
 
     Each unique ``lf_version`` embedded in the node metadata that differs from
-    the currently installed Primeagent version triggers a single warning covering
-    all affected nodes.  If Primeagent is not installed the check is skipped
+    the currently installed PrimeAgent version triggers a single warning covering
+    all affected nodes.  If PrimeAgent is not installed the check is skipped
     silently (wfx can run standalone).
     """
     from wfx.cli.validation.core import _get_lf_version
 
     installed = _get_lf_version()
     if installed is None:
-        return  # Primeagent not installed; skip silently
+        return  # PrimeAgent not installed; skip silently
 
     nodes: list[dict[str, Any]] = [n for n in flow.get("data", {}).get("nodes", []) if isinstance(n, dict)]
 
@@ -284,7 +284,7 @@ def _check_version_mismatch(flow: dict[str, Any], result: ValidationResult) -> N
                 node_id=None,
                 node_name=None,
                 message=(
-                    f"{count} component(s) built with Primeagent {built_version} "
+                    f"{count} component(s) built with PrimeAgent {built_version} "
                     f"(installed: {installed}) -- re-export recommended. "
                     f"Affected: {sample}"
                 ),

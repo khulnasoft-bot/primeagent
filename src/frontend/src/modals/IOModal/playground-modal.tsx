@@ -1,4 +1,4 @@
-//import PrimeagentLogoColor from "@/assets/PrimeagentLogocolor.svg?react";
+//import PrimeAgentLogoColor from "@/assets/PrimeAgentLogocolor.svg?react";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -10,11 +10,11 @@ import { useGetSessionsFromFlowQuery } from "@/controllers/API/queries/messages/
 import { ENABLE_PUBLISH } from "@/customization/feature-flags";
 import { track } from "@/customization/utils/analytics";
 import { customOpenNewTab } from "@/customization/utils/custom-open-new-tab";
-import { PrimeagentButtonRedirectTarget } from "@/customization/utils/urls";
+import { PrimeAgentButtonRedirectTarget } from "@/customization/utils/urls";
 import { isAuthenticatedPlayground } from "@/modals/IOModal/helpers/playground-auth";
 import { useUtilityStore } from "@/stores/utilityStore";
 import { swatchColors } from "@/utils/styleUtils";
-import PrimeagentLogoColor from "../../assets/PrimeagentLogoColor.svg?react";
+import PrimeAgentLogoColor from "../../assets/PrimeAgentLogoColor.svg?react";
 import IconComponent from "../../components/common/genericIconComponent";
 import ShadTooltip from "../../components/common/shadTooltipComponent";
 import { Button } from "../../components/ui/button";
@@ -310,9 +310,9 @@ export default function IOModal({
 
   const showPublishOptions = playgroundPage && ENABLE_PUBLISH;
 
-  const PrimeagentButtonClick = () => {
-    track("PrimeagentButtonClick");
-    customOpenNewTab(PrimeagentButtonRedirectTarget());
+  const PrimeAgentButtonClick = () => {
+    track("PrimeAgentButtonClick");
+    customOpenNewTab(PrimeAgentButtonRedirectTarget());
   };
 
   const swatchIndex =
@@ -446,13 +446,13 @@ export default function IOModal({
                       <ThemeButtons />
                     </div>
                     <Button
-                      onClick={PrimeagentButtonClick}
+                      onClick={PrimeAgentButtonClick}
                       variant="primary"
                       className="w-full !rounded-xl shadow-lg"
                     >
-                      <PrimeagentLogoColor aria-hidden="true" />
+                      <PrimeAgentLogoColor aria-hidden="true" />
                       <div className="text-sm">
-                        {t("modal.io.builtWithPrimeagent")}
+                        {t("modal.io.builtWithPrimeAgent")}
                       </div>
                     </Button>
                   </div>
@@ -464,15 +464,15 @@ export default function IOModal({
                 <ShadTooltip
                   styleClasses="z-50"
                   side="right"
-                  content={t("modal.io.builtWithPrimeagentTooltip")}
+                  content={t("modal.io.builtWithPrimeAgentTooltip")}
                 >
                   <Button
                     variant="primary"
                     className="h-12 w-12 !rounded-xl !p-4 shadow-lg"
-                    onClick={PrimeagentButtonClick}
-                    aria-label={t("modal.io.builtWithPrimeagent")}
+                    onClick={PrimeAgentButtonClick}
+                    aria-label={t("modal.io.builtWithPrimeAgent")}
                   >
-                    <PrimeagentLogoColor
+                    <PrimeAgentLogoColor
                       className="h-[18px] w-[18px] scale-150"
                       aria-hidden="true"
                     />

@@ -49,7 +49,7 @@ from primeagent.services.authorization.listing import (
     visible_id_prefilter,
     visible_scope_prefilter,
 )
-from primeagent.services.authorization.service import PrimeagentAuthorizationService
+from primeagent.services.authorization.service import PrimeAgentAuthorizationService
 
 __all__ = [
     "AuditPersistenceError",
@@ -58,7 +58,7 @@ __all__ = [
     "FileAction",
     "FlowAction",
     "KnowledgeBaseAction",
-    "PrimeagentAuthorizationService",
+    "PrimeAgentAuthorizationService",
     "ProjectAction",
     "ProviderAccountAction",
     "ShareAction",

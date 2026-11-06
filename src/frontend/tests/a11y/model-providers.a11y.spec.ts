@@ -2,7 +2,7 @@ import type { Route } from "@playwright/test";
 import { expect, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
-import type { PrimeagentPage } from "../utils/types";
+import type { PrimeAgentPage } from "../utils/types";
 
 interface MockModel {
   model_name: string;
@@ -129,7 +129,7 @@ const defaultGlobalVariables: MockGlobalVariable[] = [
   },
 ];
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -146,7 +146,7 @@ async function disableAnimations(page: PrimeagentPage) {
 }
 
 async function mockProviderCatalog(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   {
     providers = defaultProviders,
     providerVariables = defaultProviderVariables,
@@ -189,7 +189,7 @@ async function mockProviderCatalog(
 }
 
 async function mockValidateProvider(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   result: { valid: boolean; error?: string | null },
 ) {
   await page.route(
@@ -203,7 +203,7 @@ async function mockValidateProvider(
 }
 
 async function mockGlobalVariables(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   initial: MockGlobalVariable[] = defaultGlobalVariables,
 ) {
   let currentVariables = [...initial];
@@ -263,7 +263,7 @@ async function mockGlobalVariables(
   });
 }
 
-async function openModelProvidersRoute(page: PrimeagentPage) {
+async function openModelProvidersRoute(page: PrimeAgentPage) {
   await awaitBootstrapTest(page, { skipModal: true });
   await page.goto("/settings/model-providers");
   await disableAnimations(page);

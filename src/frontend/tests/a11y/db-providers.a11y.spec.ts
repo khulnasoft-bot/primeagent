@@ -1,5 +1,5 @@
 import type { Route } from "@playwright/test";
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 
@@ -87,7 +87,7 @@ const openSearchConfiguredVariables: GlobalVariableFixture[] = [
   },
 ];
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -104,7 +104,7 @@ async function disableAnimations(page: PrimeagentPage) {
 }
 
 async function mockGlobalVariables(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   variables: GlobalVariableFixture[],
   writeBehavior: WriteBehavior = {},
 ) {
@@ -159,7 +159,7 @@ async function mockGlobalVariables(
 }
 
 async function mockTestConnection(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   behavior: TestConnectionBehavior,
 ) {
   await page.route(
@@ -176,7 +176,7 @@ async function mockTestConnection(
 }
 
 async function openDbProvidersRoute(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   variables: GlobalVariableFixture[] = emptyVariables,
   writeBehavior: WriteBehavior = {},
 ) {

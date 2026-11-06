@@ -62,7 +62,7 @@ async def _call_public_tool(
 @pytest.mark.parametrize(
     ("variable_name", "header_name"),
     [
-        ("CALLER_TOKEN", "X-Primeagent-Global-Var-CALLER_TOKEN"),
+        ("CALLER_TOKEN", "X-PrimeAgent-Global-Var-CALLER_TOKEN"),
         ("x-api-key", "x-api-key"),
         ("authorization", "Authorization"),
     ],
@@ -118,7 +118,7 @@ async def test_public_mcp_request_variables_keep_plain_bindings(monkeypatch, flo
         template["api_key"] = {"name": "api_key", "password": True, "load_from_db": True, "value": "CALLER_TOKEN"}
     flow = Flow(id=uuid4(), name="Public tool", user_id=uuid4(), folder_id=uuid4(), data=_flow_data(template))
     request_variables = extract_global_variables_from_headers(
-        {"Authorization": "Bearer client-token", "X-Primeagent-Global-Var-CALLER_TOKEN": "caller-only-value"},
+        {"Authorization": "Bearer client-token", "X-PrimeAgent-Global-Var-CALLER_TOKEN": "caller-only-value"},
         include_auth_headers=True,
     )
 

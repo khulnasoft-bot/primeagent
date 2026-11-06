@@ -1,6 +1,6 @@
 # Test Generation Checklist
 
-Verify each item before submitting test code for Primeagent frontend.
+Verify each item before submitting test code for PrimeAgent frontend.
 
 ## Pre-Writing
 

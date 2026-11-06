@@ -12,10 +12,10 @@ legacy reference shapes are mapped:
        slot vocabulary changed.
     3. ``bare_class_name`` -- the unqualified class name (``OpenAIEmbeddings``).
        Added only if the class name is globally unique across every Bundle in
-       this Primeagent release; CI guards this with
+       this PrimeAgent release; CI guards this with
        ``scripts/migrate/check_bare_names.py``.
 
-The table is a single JSON file at a canonical in-repo path.  Every Primeagent
+The table is a single JSON file at a canonical in-repo path.  Every PrimeAgent
 release adds entries; **no entry is ever removed**.  CI rejects removals so a
 flow saved years ago against a long-extracted bundle still loads.
 
@@ -99,7 +99,7 @@ class MigrationEntry(BaseModel):
     populated; the other two are ``None``.  This is enforced by the
     ``_exactly_one_legacy_form`` validator below.
 
-    ``added_in`` records the Primeagent release that introduced the entry.  It
+    ``added_in`` records the PrimeAgent release that introduced the entry.  It
     is informational at runtime but the CI append-only check (see
     ``scripts/migrate/check_migration_append_only.py``) uses it to attribute
     surprise removals to a specific release window.
@@ -130,7 +130,7 @@ class MigrationEntry(BaseModel):
     )
     added_in: StrictStr = Field(
         ...,
-        description="Primeagent release that added this entry (informational; CI uses it for removal-attribution).",
+        description="PrimeAgent release that added this entry (informational; CI uses it for removal-attribution).",
     )
 
     @field_validator("bare_class_name")
@@ -256,7 +256,7 @@ class AmbiguousBareName(BaseModel):
     )
     added_in: StrictStr | None = Field(
         default=None,
-        description="Primeagent version that introduced this ambiguity entry.",
+        description="PrimeAgent version that introduced this ambiguity entry.",
     )
 
     @field_validator("name")
@@ -331,7 +331,7 @@ class MigrationTable(BaseModel):
         if value != MIGRATION_SCHEMA_VERSION:
             msg = (
                 f"Unsupported migration table schema_version {value}; "
-                f"this Primeagent expects {MIGRATION_SCHEMA_VERSION}."
+                f"this PrimeAgent expects {MIGRATION_SCHEMA_VERSION}."
             )
             raise ValueError(msg)
         return value

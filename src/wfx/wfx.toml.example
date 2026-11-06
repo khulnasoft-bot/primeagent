@@ -1,6 +1,6 @@
-# Primeagent Service Configuration
+# PrimeAgent Service Configuration
 #
-# This file tells WFX to use Primeagent's full-featured service implementations
+# This file tells WFX to use PrimeAgent's full-featured service implementations
 # instead of the minimal/noop services built into WFX.
 #
 # Usage:
@@ -12,7 +12,7 @@
 #   - wfx serve (when run from primeagent project)
 
 [services]
-# Core Services - Full-featured Primeagent implementations
+# Core Services - Full-featured PrimeAgent implementations
 database_service = "primeagent.services.database.service:DatabaseService"
 storage_service = "primeagent.services.storage.local:LocalStorageService"
 cache_service = "primeagent.services.cache.service:ThreadingInMemoryCache"

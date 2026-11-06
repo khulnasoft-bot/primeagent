@@ -1,4 +1,4 @@
-# Frontend-specific Makefile for Primeagent
+# Frontend-specific Makefile for PrimeAgent
 # This file contains all frontend-related targets
 
 # Variables

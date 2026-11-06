@@ -31,7 +31,7 @@ Two consequences worth stating plainly, because both are easy to get wrong:
   every saved node, which is exactly the schema change the procedure forbids. A pinned single-action component sets
   the tool from its pin and builds the arguments from its own declared inputs.
 - **The provider's argument names are not the flow's field names.** The pinned input schema is provider-shaped; the
-  saved flow is Primeagent-shaped. The mapping between them lives in the component, and it is the component author's
+  saved flow is PrimeAgent-shaped. The mapping between them lives in the component, and it is the component author's
   job to keep the flow-facing names identical across the swap even when the provider's differ.
 
 ## Procedure
@@ -202,7 +202,7 @@ output, so running it before and after the swap is the live half of the equivale
 Google-specific facts the capture must settle before that PR is written: that the GA Calendar server's
 `tools/list` for a `calendar.events.readonly` grant includes an events-listing tool (fact 3 records the Gmail and
 Drive scope sets, not Calendar's); whether the server accepts the access token INT-5's broker mints for the
-Primeagent-owned OAuth client as a Bearer, since the preview servers have users bring their own Google Cloud OAuth
+PrimeAgent-owned OAuth client as a Bearer, since the preview servers have users bring their own Google Cloud OAuth
 client (fact 3); and whether its argument and result schemas carry `timeMin`/`timeMax`, `q`, `singleEvents`,
 `orderBy`, paging and sync tokens, and the calendar time zone. If any flow-facing input or output cannot be mapped
 without a new field, the swap does not preserve the saved-flow schema and stops at step 2.

@@ -329,7 +329,7 @@ class CodeActAgentSmolagentsComponent(ToolCallingAgentComponent):
             stream_gen = actual_agent.stream_invoke(input_text)
 
             # Process events using asyncio.to_thread to avoid blocking
-            # This is critical for real-time updates in Primeagent
+            # This is critical for real-time updates in PrimeAgent
             while True:
                 try:
                     # Get next event in a non-blocking way
@@ -618,7 +618,7 @@ class CodeActAgentSmolagentsComponent(ToolCallingAgentComponent):
             # If a single tool was provided, wrap it in a list
             tools = [tools]
 
-        # Filter out invalid tools (empty strings, None, whitespace) that Primeagent might pass
+        # Filter out invalid tools (empty strings, None, whitespace) that PrimeAgent might pass
         # when no tools are connected. This prevents errors when tools input is left empty.
         if tools:
             tools = [t for t in tools if t and not (isinstance(t, str) and not t.strip())]

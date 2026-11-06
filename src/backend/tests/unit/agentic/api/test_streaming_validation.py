@@ -315,7 +315,7 @@ class TestStreamingValidationFlow:
     @pytest.mark.asyncio
     async def test_no_code_in_response_returns_as_is(self):
         """When response has no code (question intent), should return without validation."""
-        text_only_response = {"result": "Primeagent is a visual flow builder for LLM applications."}
+        text_only_response = {"result": "PrimeAgent is a visual flow builder for LLM applications."}
 
         with (
             patch(

@@ -3,7 +3,7 @@
 Wraps an :class:`asyncio.Task` so callers can start a flow run and poll or
 await it without blocking the event loop.  Mirrors the ``BackgroundJob`` API
 from khulnasoft-bot/sdk PR #1 (Janardan Singh Kavia, IBM Corp., Apache 2.0)
-adapted for the Primeagent V1 ``/api/v1/run/{id}`` endpoint.
+adapted for the PrimeAgent V1 ``/api/v1/run/{id}`` endpoint.
 
 Typical usage::
 
@@ -25,16 +25,16 @@ import asyncio
 import contextlib
 from typing import TYPE_CHECKING
 
-from primeagent_sdk.exceptions import PrimeagentTimeoutError
+from primeagent_sdk.exceptions import PrimeAgentTimeoutError
 
 if TYPE_CHECKING:
     from primeagent_sdk.models import RunResponse
 
 
 class BackgroundJob:
-    """Non-blocking handle for an in-flight :meth:`AsyncPrimeagentClient.run` call.
+    """Non-blocking handle for an in-flight :meth:`AsyncPrimeAgentClient.run` call.
 
-    Returned by :meth:`AsyncPrimeagentClient.run_background`.  The underlying
+    Returned by :meth:`AsyncPrimeAgentClient.run_background`.  The underlying
     network request runs in an :class:`asyncio.Task` so the caller's event
     loop remains free.
 
@@ -74,14 +74,14 @@ class BackgroundJob:
 
         Args:
             timeout: Maximum seconds to wait.  ``None`` (default) means wait
-                     indefinitely.  Raises :exc:`PrimeagentTimeoutError` on
+                     indefinitely.  Raises :exc:`PrimeAgentTimeoutError` on
                      expiry.
 
         Returns:
             The :class:`RunResponse` from the completed flow run.
 
         Raises:
-            PrimeagentTimeoutError: If *timeout* elapses before the run finishes.
+            PrimeAgentTimeoutError: If *timeout* elapses before the run finishes.
             Exception: Any exception raised by the underlying flow run is
                 re-raised as-is.
         """
@@ -93,7 +93,7 @@ class BackgroundJob:
                 "The run is still in flight — call wait_for_completion() again "
                 "or cancel() to abort."
             )
-            raise PrimeagentTimeoutError(msg) from exc
+            raise PrimeAgentTimeoutError(msg) from exc
 
     async def cancel(self) -> bool:
         """Request cancellation of the background task.

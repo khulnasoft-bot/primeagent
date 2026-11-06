@@ -472,7 +472,7 @@ class TestGraphExecution:
     async def test_execute_graph_does_not_overwrite_hardcoded_session_id(self):
         """Hardcoded session_id on a Memory component (set in flow JSON) wins over the request value.
 
-        Mirrors Primeagent's playground precedence in ``build_graph_from_data``.
+        Mirrors PrimeAgent's playground precedence in ``build_graph_from_data``.
         """
 
         async def mock_async_start(inputs, **kwargs):  # noqa: ARG001

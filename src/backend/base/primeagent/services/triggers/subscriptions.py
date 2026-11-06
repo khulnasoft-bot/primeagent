@@ -1,7 +1,7 @@
 """Provider-side subscriptions, and the leased job that keeps them alive.
 
 A push trigger only works while the provider still has a live subscription
-pointing at Primeagent, and every wave-1 provider expires them fast: Microsoft
+pointing at PrimeAgent, and every wave-1 provider expires them fast: Microsoft
 Graph mail and calendar last seven days, rich notifications one day, files
 thirty; Google channels and Gmail watches last seven. Nothing renews itself, so
 a trigger that is not renewed ahead of expiry simply stops firing, silently.
@@ -158,7 +158,7 @@ async def _revoke_remote(session: AsyncSession, row: TriggerSubscription) -> Non
     With no registered revoker - OSS today, before TRG-6 - this is a no-op and
     the remote object is left to expire on the provider's own schedule. That is
     a real gap and it is named here rather than hidden: the local row is retired
-    regardless, so Primeagent stops acting on the subscription immediately, but
+    regardless, so PrimeAgent stops acting on the subscription immediately, but
     the provider may keep delivering until its TTL runs out.
     """
     if row.provider in {"microsoft", "google"}:
@@ -325,7 +325,7 @@ async def revoke_unusable_connections(session: AsyncSession) -> int:
     for subscription, _connection in (await session.exec(statement)).all():
         # Best effort only: the credential this call would need is the one the
         # owner just revoked, so it will usually fail. The local row is retired
-        # regardless, which is what stops Primeagent acting on it.
+        # regardless, which is what stops PrimeAgent acting on it.
         await _revoke_remote(session, subscription)
         subscription.state = TriggerSubscriptionState.EXPIRED.value
         subscription.renew_after = None

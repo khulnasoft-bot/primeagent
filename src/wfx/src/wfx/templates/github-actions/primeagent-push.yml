@@ -1,7 +1,7 @@
 # primeagent-push.yml
 #
 # PURPOSE
-#   Deploy (upsert) all flows to a remote Primeagent instance whenever
+#   Deploy (upsert) all flows to a remote PrimeAgent instance whenever
 #   flow files are merged to main.  Uses stable flow IDs so re-running
 #   this workflow always converges to the same state.
 #
@@ -23,7 +23,7 @@
 #   The workflow triggers automatically on merges to main that touch
 #   flows/ and can also be triggered manually from the Actions tab.
 
-name: Deploy Primeagent Flows
+name: Deploy PrimeAgent Flows
 
 on:
   push:

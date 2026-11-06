@@ -13,12 +13,12 @@
         {
           "type": "doc",
           "id": "Get-Started/about-primeagent",
-          "label": "About Primeagent"
+          "label": "About PrimeAgent"
         },
         {
           "type": "doc",
           "id": "Get-Started/get-started-installation",
-          "label": "Install Primeagent"
+          "label": "Install PrimeAgent"
         },
         {
           "type": "doc",
@@ -64,7 +64,7 @@
             {
               "type": "doc",
               "id": "Flows/concepts-publish",
-              "label": "Trigger flows with the Primeagent API"
+              "label": "Trigger flows with the PrimeAgent API"
             },
             {
               "type": "doc",
@@ -91,7 +91,7 @@
         {
           "type": "doc",
           "id": "Flows/primeagent-assistant",
-          "label": "Build flows and components with Primeagent Assistant"
+          "label": "Build flows and components with PrimeAgent Assistant"
         }
       ]
     },
@@ -204,7 +204,7 @@
         {
           "type": "doc",
           "id": "Develop/data-types",
-          "label": "Use Primeagent data types"
+          "label": "Use PrimeAgent data types"
         },
         {
           "type": "doc",
@@ -214,7 +214,7 @@
         {
           "type": "doc",
           "id": "Develop/configuration-cli",
-          "label": "Use the Primeagent CLI"
+          "label": "Use the PrimeAgent CLI"
         }
       ]
     },
@@ -226,7 +226,7 @@
         {
           "type": "doc",
           "id": "Deployment/deployment-overview",
-          "label": "Primeagent deployment overview"
+          "label": "PrimeAgent deployment overview"
         },
         {
           "type": "doc",
@@ -236,12 +236,12 @@
         {
           "type": "doc",
           "id": "Deployment/deployment-public-server",
-          "label": "Deploy a public Primeagent server"
+          "label": "Deploy a public PrimeAgent server"
         },
         {
           "type": "doc",
           "id": "Deployment/deployment-nginx-ssl",
-          "label": "Deploy Primeagent with Nginx and SSL"
+          "label": "Deploy PrimeAgent with Nginx and SSL"
         },
         {
           "type": "doc",
@@ -256,12 +256,12 @@
             {
               "type": "doc",
               "id": "Deployment/deployment-docker",
-              "label": "Primeagent Docker images"
+              "label": "PrimeAgent Docker images"
             },
             {
               "type": "doc",
               "id": "Deployment/docker-image-profiles",
-              "label": "Choose a Primeagent image"
+              "label": "Choose a PrimeAgent image"
             },
             {
               "type": "doc",
@@ -271,7 +271,7 @@
             {
               "type": "doc",
               "id": "Deployment/deployment-caddyfile",
-              "label": "Deploy Primeagent on a remote server"
+              "label": "Deploy PrimeAgent on a remote server"
             },
             {
               "type": "category",
@@ -330,12 +330,12 @@
         {
           "type": "doc",
           "id": "Deployment/deployment-multi-worker",
-          "label": "Deploy Primeagent with multiple workers"
+          "label": "Deploy PrimeAgent with multiple workers"
         },
         {
           "type": "doc",
           "id": "Deployment/deployment-trigger-listeners",
-          "label": "Deploy Primeagent trigger listeners"
+          "label": "Deploy PrimeAgent trigger listeners"
         },
         {
           "type": "doc",
@@ -412,7 +412,7 @@
         {
           "type": "doc",
           "id": "Wfx/wfx-compatibility",
-          "label": "WFX and Primeagent version compatibility"
+          "label": "WFX and PrimeAgent version compatibility"
         }
       ]
     },
@@ -630,7 +630,7 @@
         {
           "type": "doc",
           "id": "API-Reference/api-reference-api-examples",
-          "label": "Get started with the Primeagent API"
+          "label": "Get started with the PrimeAgent API"
         },
         {
           "type": "doc",
@@ -661,7 +661,7 @@
         "API-Reference/api-governance-policy",
         {
           "type": "link",
-          "label": "Primeagent API specification",
+          "label": "PrimeAgent API specification",
           "href": "/api"
         }
       ]
@@ -707,7 +707,7 @@
         {
           "type": "doc",
           "id": "Support/luna-for-primeagent",
-          "label": "IBM Elite Support for Primeagent"
+          "label": "IBM Elite Support for PrimeAgent"
         },
         {
           "type": "doc",
@@ -719,7 +719,7 @@
     {
       "type": "html",
       "className": "sidebar-ad",
-      "value": "\n        <a href=\"https://www.prime.khulnasoft.com/desktop\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"menu__link\">\n          <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n            <g clip-path=\"url(#clip0_1645_37)\">\n              <path d=\"M12 17H20C21.1046 17 22 16.1046 22 15V13M12 17H4C2.89543 17 2 16.1046 2 15V5C2 3.89543 2.89543 3 4 3H10M12 17V21M8 21H12M12 21H16M11.75 10.2917H13.2083L16.125 7.375H17.5833L20.5 4.45833H21.9583M16.125 11.75H17.5833L20.5 8.83333H21.9583M11.75 5.91667H13.2083L16.125 3H17.5833\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            </g>\n            <defs>\n              <clipPath id=\"clip0_1645_37\">\n                <rect width=\"24\" height=\"24\" fill=\"white\"/>\n              </clipPath>\n            </defs>\n          </svg>\n          <div class=\"sidebar-ad-text-container\">\n            <span class=\"sidebar-ad-text\">Get started in minutes</span>\n            <span class=\"sidebar-ad-text sidebar-ad-text-gradient\">Download Primeagent Desktop</span>\n          </div>\n        </a>\n      "
+      "value": "\n        <a href=\"https://www.prime.khulnasoft.com/desktop\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"menu__link\">\n          <svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\" aria-hidden=\"true\">\n            <g clip-path=\"url(#clip0_1645_37)\">\n              <path d=\"M12 17H20C21.1046 17 22 16.1046 22 15V13M12 17H4C2.89543 17 2 16.1046 2 15V5C2 3.89543 2.89543 3 4 3H10M12 17V21M8 21H12M12 21H16M11.75 10.2917H13.2083L16.125 7.375H17.5833L20.5 4.45833H21.9583M16.125 11.75H17.5833L20.5 8.83333H21.9583M11.75 5.91667H13.2083L16.125 3H17.5833\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n            </g>\n            <defs>\n              <clipPath id=\"clip0_1645_37\">\n                <rect width=\"24\" height=\"24\" fill=\"white\"/>\n              </clipPath>\n            </defs>\n          </svg>\n          <div class=\"sidebar-ad-text-container\">\n            <span class=\"sidebar-ad-text\">Get started in minutes</span>\n            <span class=\"sidebar-ad-text sidebar-ad-text-gradient\">Download PrimeAgent Desktop</span>\n          </div>\n        </a>\n      "
     }
   ]
 }

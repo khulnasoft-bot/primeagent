@@ -67,11 +67,11 @@ def _erase_worker():
 
 
 router = APIRouter(tags=["Users"], prefix="/users")
-OperationId = Annotated[str | None, Header(alias="X-Primeagent-Operation-ID", max_length=128)]
+OperationId = Annotated[str | None, Header(alias="X-PrimeAgent-Operation-ID", max_length=128)]
 _LEGACY_SUPERUSER_DENIAL = "The user doesn't have enough privileges"
 _PERMISSION_DENIED = "Permission denied"
-_SUPERUSER_REQUIRED_HEADERS = {"X-Primeagent-Error-Code": "superuser_required"}
-_ACCESS_CEILING_HEADERS = {"X-Primeagent-Error-Code": "access_ceiling"}
+_SUPERUSER_REQUIRED_HEADERS = {"X-PrimeAgent-Error-Code": "superuser_required"}
+_ACCESS_CEILING_HEADERS = {"X-PrimeAgent-Error-Code": "access_ceiling"}
 PASSWORD_RESET_ATTEMPTS_PER_MINUTE = 5
 
 
@@ -145,7 +145,7 @@ async def _ensure_local_credentials_allowed(
     raise HTTPException(
         status_code=409,
         detail="This user's credentials are managed by an external identity provider.",
-        headers={"X-Primeagent-Error-Code": "external_credentials_managed"},
+        headers={"X-PrimeAgent-Error-Code": "external_credentials_managed"},
     )
 
 
@@ -157,7 +157,7 @@ async def _require_user_administrator_dependency(
         raise HTTPException(
             status_code=403,
             detail=_LEGACY_SUPERUSER_DENIAL,
-            headers={"X-Primeagent-Error-Code": "administration_denied"},
+            headers={"X-PrimeAgent-Error-Code": "administration_denied"},
         )
     await _require_user_administrator(
         current_user,
@@ -664,7 +664,7 @@ async def reset_password(
         raise HTTPException(
             status_code=403,
             detail="Sign in interactively to change your password",
-            headers={"X-Primeagent-Error-Code": "interactive_login_required"},
+            headers={"X-PrimeAgent-Error-Code": "interactive_login_required"},
         )
     check_rate_limit(
         request,
@@ -811,7 +811,7 @@ async def delete_user(
         raise HTTPException(
             status_code=int(exc.status_code),
             detail={"code": exc.code, "message": exc.message, **exc.details},
-            headers={"X-Primeagent-Error-Code": exc.code},
+            headers={"X-PrimeAgent-Error-Code": exc.code},
         ) from exc
     await session.commit()
     _erase_worker().notify()

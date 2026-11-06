@@ -6,7 +6,7 @@ user's own model -- so a local unaligned provider (Ollama, any OpenAI-compatible
 both supported) left no guardrail at all. These tests pin the floor: pure regex, no model,
 no network.
 
-They also pin what it must NOT do. Primeagent users legitimately build moderation flows, so a
+They also pin what it must NOT do. PrimeAgent users legitimately build moderation flows, so a
 component that classifies hate speech has to stay buildable; blocking on topic words instead
 of actual slurs would break that, and a filter with false positives gets turned off.
 """
@@ -91,5 +91,5 @@ def test_should_need_no_configuration():
 
 
 def test_refusal_message_names_the_assistant_and_offers_a_way_forward():
-    assert "Primeagent Assistant" in REFUSAL_MESSAGE
+    assert "PrimeAgent Assistant" in REFUSAL_MESSAGE
     assert "build" in REFUSAL_MESSAGE

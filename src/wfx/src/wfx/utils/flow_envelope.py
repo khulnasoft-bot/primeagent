@@ -1,6 +1,6 @@
 """Outer-envelope handling for flow JSON — the single source of truth.
 
-Exported Primeagent flows wrap the graph in an envelope::
+Exported PrimeAgent flows wrap the graph in an envelope::
 
     {"name": ..., "description": ..., "data": {"nodes": [...], "edges": [...]}}
 

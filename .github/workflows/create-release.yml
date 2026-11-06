@@ -41,7 +41,7 @@ jobs:
         env:
           RELEASE_TAG: v${{ inputs.version }}
         run: |
-          git config user.name "Primeagent Release Bot"
+          git config user.name "PrimeAgent Release Bot"
           git config user.email "bot-releases@khulnasoft.com"
           sha=$(uv run --no-project python scripts/ci/release_auth_defaults.py tag "$RELEASE_TAG")
           echo "sha=$sha" >> "$GITHUB_OUTPUT"

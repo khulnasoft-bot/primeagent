@@ -1,4 +1,4 @@
-"""MCP utilities for Primeagent."""
+"""MCP utilities for PrimeAgent."""
 
 from primeagent.api.utils.mcp.config_utils import (
     auto_configure_starter_projects_mcp,

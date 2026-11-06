@@ -217,7 +217,7 @@ class TestReadFileBytes:
     async def test_should_read_existing_local_file_when_storage_type_is_s3(self, tmp_path):
         """Regression for #13798: a real local file must be read from disk under S3 mode.
 
-        The Primeagent Assistant injects an absolute local path (the installed wfx
+        The PrimeAgent Assistant injects an absolute local path (the installed wfx
         components dir) into a Directory node. That path is not an S3 key, so the
         S3 reader must fall back to a local read instead of raising
         "Invalid S3 path format".

@@ -28,7 +28,7 @@ from primeagent.services.cache.base import (
 _redis_cache_experimental_warning_lock = threading.Lock()
 _redis_cache_experimental_warning_emitted = False
 
-# File (inside the Primeagent config dir) holding the dedicated secret used to
+# File (inside the PrimeAgent config dir) holding the dedicated secret used to
 # sign Redis cache payloads. Kept separate from the auth ``secret_key`` file so
 # that disclosure of SECRET_KEY alone does not let an attacker forge cache
 # integrity tags (H1-3982189).

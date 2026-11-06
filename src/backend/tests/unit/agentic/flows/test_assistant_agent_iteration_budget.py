@@ -25,7 +25,7 @@ ceiling, not a target: turns that finish sooner spend the same tokens as before.
 import json
 from pathlib import Path
 
-FLOW_PATH = Path(__file__).parents[4] / "base" / "primeagent" / "agentic" / "flows" / "PrimeagentAssistant.json"
+FLOW_PATH = Path(__file__).parents[4] / "base" / "primeagent" / "agentic" / "flows" / "PrimeAgentAssistant.json"
 PY_FLOW_PATH = Path(__file__).parents[4] / "base" / "primeagent" / "agentic" / "flows" / "flow_builder_assistant.py"
 
 ASSISTANT_ITERATION_BUDGET = 100
@@ -35,7 +35,7 @@ def test_should_pin_json_agents_at_the_assistant_budget():
     data = json.loads(FLOW_PATH.read_text(encoding="utf-8"))
     agents = [n["data"] for n in data["data"]["nodes"] if n.get("data", {}).get("type") == "Agent"]
 
-    assert agents, "PrimeagentAssistant.json must contain Agent nodes"
+    assert agents, "PrimeAgentAssistant.json must contain Agent nodes"
     for agent in agents:
         configured = agent["node"]["template"]["max_iterations"]["value"]
         assert configured == ASSISTANT_ITERATION_BUDGET, (

@@ -65,7 +65,7 @@ class TestGeneratedCodeIsGuarded:
         assert scan_code_security(code).is_safe is True
 
     def test_should_still_allow_moderation_components(self):
-        """Primeagent users build moderation tooling; blocking it would be a false positive."""
+        """PrimeAgent users build moderation tooling; blocking it would be a false positive."""
         code = (
             "from wfx.custom import Component\n\n\n"
             "class HateSpeechClassifier(Component):\n"
@@ -99,7 +99,7 @@ class TestOutputIsGuarded:
 class TestSystemPromptCarriesThePolicy:
     def test_should_state_the_content_policy(self):
         flow = json.loads(
-            Path("src/backend/base/primeagent/agentic/flows/PrimeagentAssistant.json").read_text(encoding="utf-8")
+            Path("src/backend/base/primeagent/agentic/flows/PrimeAgentAssistant.json").read_text(encoding="utf-8")
         )
         prompts = [
             field["value"]

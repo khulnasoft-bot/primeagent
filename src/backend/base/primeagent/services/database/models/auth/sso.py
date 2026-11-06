@@ -1,7 +1,7 @@
 """SSO plugin tables.
 
 These tables are used by the SSO plugin for identity and provider configuration.
-Migrations are managed by Primeagent (OSS); the plugin must not create or
+Migrations are managed by PrimeAgent (OSS); the plugin must not create or
 migrate these tables.
 
 Plugins must use these tables via the models exported from
@@ -116,7 +116,7 @@ class OIDCProviderSettings(BaseModel):
 class LegacyProviderSettings(BaseModel):
     """Read-compatible settings for disabled legacy SAML and LDAP rows.
 
-    Primeagent does not currently execute these protocols through this typed
+    PrimeAgent does not currently execute these protocols through this typed
     contract. Keeping their migrated values loadable avoids making an upgrade
     destructive; enabled legacy rows still fail closed below.
     """

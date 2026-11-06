@@ -544,7 +544,7 @@ class TestConnect:
         """Re-adding connections to a real UI-saved flow must not grow the edge list.
 
         Regression against an actual UI-exported fixture. UI-saved edges
-        from older Primeagent versions use the `xy-edge__` id prefix
+        from older PrimeAgent versions use the `xy-edge__` id prefix
         instead of `reactflow__edge-`, so dedup must be structural
         (source, target, handle name, handle fieldName) rather than by
         edge id.
@@ -609,7 +609,7 @@ class TestConnect:
 
 
 # Registries dedicated to tool-mode behavior tests. They use the same
-# pattern as real Primeagent components: tool_mode=True on an INPUT, plain
+# pattern as real PrimeAgent components: tool_mode=True on an INPUT, plain
 # data/message outputs. The shapes mirror what the API returns from /all
 # for components like FirecrawlScrapeApi, WebSearchTool, etc.
 
@@ -871,7 +871,7 @@ class TestConnectComponentAsTool:
         src_node = next(n for n in flow["data"]["nodes"] if n["data"]["id"] == source)
         tool_output = next(o for o in src_node["data"]["node"]["outputs"] if o["name"] == "component_as_tool")
 
-        # Required keys present in every real Primeagent tool output entry.
+        # Required keys present in every real PrimeAgent tool output entry.
         required_keys = {
             "allows_loop",
             "cache",
@@ -1326,7 +1326,7 @@ class TestCustomStringifyExtended:
         assert _custom_stringify("hello") == '"hello"'
 
     def test_scaped_round_trips_handle_format(self):
-        """A source handle dict should produce a string that matches Primeagent's format."""
+        """A source handle dict should produce a string that matches PrimeAgent's format."""
         handle = {
             "dataType": "ChatInput",
             "id": "ChatInput-abc12",

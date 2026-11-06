@@ -1,8 +1,8 @@
 """Pydantic models for the v0 Extension manifest schema.
 
-A Primeagent Extension is the distribution unit that gets pip-installed. It
+A PrimeAgent Extension is the distribution unit that gets pip-installed. It
 ships Bundles (named groups of components) and/or model providers, plus a
-manifest at the distribution root. The manifest tells Primeagent:
+manifest at the distribution root. The manifest tells PrimeAgent:
 
     - which Bundles to register (``bundles``),
     - what component-base-class API surface the Bundle was built against
@@ -349,7 +349,7 @@ class ProviderManifestEntry(BaseModel):
         pattern=_PROVIDER_ID_RE.pattern,
         description=(
             "Stable machine identity used by policy, e.g. 'openai' or 'acme.watsonx'. "
-            "Omit only for legacy manifests; Primeagent then derives an ID from name."
+            "Omit only for legacy manifests; PrimeAgent then derives an ID from name."
         ),
     )
     display_name: StrictStr | None = Field(
@@ -415,7 +415,7 @@ class ProviderManifestEntry(BaseModel):
         min_length=1,
         description=(
             "Dotted-path callable 'module:attr' returning a flat list of static model metadata rows. "
-            "Primeagent stamps provider ownership and validates model identities."
+            "PrimeAgent stamps provider ownership and validates model identities."
         ),
     )
 
@@ -531,7 +531,7 @@ class IntegrationManifestRef(BaseModel):
 
 
 class ExtensionManifest(BaseModel):
-    """The v0 Primeagent Extension manifest.
+    """The v0 PrimeAgent Extension manifest.
 
     Required fields:
         - id, version, name, bundles, wfx
@@ -571,7 +571,7 @@ class ExtensionManifest(BaseModel):
         ...,
         min_length=1,
         max_length=200,
-        description="Human-readable display name shown in Primeagent.",
+        description="Human-readable display name shown in PrimeAgent.",
     )
     description: StrictStr | None = Field(
         default=None,
@@ -598,7 +598,7 @@ class ExtensionManifest(BaseModel):
         default_factory=list,
         description=(
             "Model providers contributed by this extension. Each is merged into "
-            "Primeagent's unified model-provider tables (MODEL_PROVIDER_METADATA, the "
+            "PrimeAgent's unified model-provider tables (MODEL_PROVIDER_METADATA, the "
             "class-import registries, LIVE_MODEL_PROVIDERS) at load time, so a "
             "provider bundle adds a provider without editing core wfx."
         ),

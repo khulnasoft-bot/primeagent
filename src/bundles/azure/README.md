@@ -1,7 +1,7 @@
 # wfx-azure
 
 Azure OpenAI components and Azure AI Foundry runtime support as a standalone
-Primeagent Extension Bundle.
+PrimeAgent Extension Bundle.
 
 ## Install
 
@@ -24,5 +24,5 @@ uv run wfx extension validate src/bundles/azure/src/wfx_azure
 ```
 
 The bundle graduated from the manifest-less `wfx-bundles[azure]` provider in
-Primeagent 1.12. Its bundle and class names are unchanged, so existing saved
+PrimeAgent 1.12. Its bundle and class names are unchanged, so existing saved
 flows retain their canonical IDs.

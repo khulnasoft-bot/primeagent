@@ -9,7 +9,7 @@ import Icon from "@site/src/components/icon";
 import PartialGlobalModelProviders from "@site/docs/_partial-global-model-providers.mdx";
 
 Vector data is critical to AI applications.
-Primeagent provides several components to help you store and retrieve vector data in your flows, including embedding models, vector stores, and knowledge bases.
+PrimeAgent provides several components to help you store and retrieve vector data in your flows, including embedding models, vector stores, and knowledge bases.
 
 ## Embedding models
 
@@ -58,13 +58,13 @@ Each database is stored in a separate directory that contains the following:
 - **Metadata files**: Configuration and embedding model information.
 - **Source data**: The original data used to create the knowledge base.
 
-Knowledge bases are stored local to your Primeagent instance.
+Knowledge bases are stored local to your PrimeAgent instance.
 The default storage location depends on your operating system and installation method:
 
-- **Primeagent Desktop**:
+- **PrimeAgent Desktop**:
   - **macOS**: `/Users/<username>/.primeagent/knowledge_bases`
-  - **Windows**: `C:\Users\<name>\AppData\Roaming\com.PrimeagentDesktop\knowledge_bases`
-- **Primeagent OSS**:
+  - **Windows**: `C:\Users\<name>\AppData\Roaming\com.PrimeAgentDesktop\knowledge_bases`
+- **PrimeAgent OSS**:
   - **macOS/Windows/Linux/WSL with `uv pip install`**: `<path_to_venv>/lib/python3.12/site-packages/primeagent/knowledge_bases` (Python version can vary. Knowledge bases aren't shared between virtual environments.)
   - **macOS/Windows/Linux/WSL with `git clone`**: `<path_to_clone>/src/backend/base/primeagent/knowledge_bases`
 
@@ -127,5 +127,5 @@ For more information on using knowledge bases in a flow, see the [**Knowledge Ba
 
 ## See also
 
-- [Use Primeagent agents](/agents)
+- [Use PrimeAgent agents](/agents)
 - [Language model components](/components-models)

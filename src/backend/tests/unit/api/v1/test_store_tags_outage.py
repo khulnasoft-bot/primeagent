@@ -1,4 +1,4 @@
-"""A Primeagent Store outage must not surface as a server fault.
+"""A PrimeAgent Store outage must not surface as a server fault.
 
 ``GET /api/v1/store/tags`` proxies a third-party service. Every route in
 ``store.py`` funnels an unreachable upstream into a bare ``except Exception`` and

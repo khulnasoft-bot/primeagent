@@ -156,7 +156,7 @@ _MAX_REPLACEMENT_RECEIPTS_PER_PROJECT = 10
 REPLACEMENT_OPERATION_NOT_FOUND = "Replacement operation not found"
 _DEPLOYMENT_PROJECT_SLUG_RE = re.compile(r"^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?$")
 # Machine-readable error codes for the replacement endpoints, carried on the
-# X-Primeagent-Error-Code response header — the convention creation_hooks.py and
+# X-PrimeAgent-Error-Code response header — the convention creation_hooks.py and
 # users.py already use — alongside the unchanged plain-text `detail`.
 _REPLACEMENT_PROJECT_NOT_FOUND_CODE = "replacement_project_not_found"
 _REPLACEMENT_RECEIPT_EXPIRED_CODE = "replacement_receipt_expired"
@@ -2254,7 +2254,7 @@ async def delete_project(
             not_found_detail="Project not found",
         ) from exc
 
-    # Prevent deletion of projects managed by Primeagent. The ownerless Starter
+    # Prevent deletion of projects managed by PrimeAgent. The ownerless Starter
     # Project is also a stable authorization boundary for bundled examples.
     is_system_starter = project.name == STARTER_FOLDER_NAME and project.user_id is None
     if project.name == ASSISTANT_FOLDER_NAME or is_system_starter:

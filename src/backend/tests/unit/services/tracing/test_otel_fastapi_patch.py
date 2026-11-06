@@ -129,7 +129,7 @@ def test_instrumented_method_mismatch_does_not_500(method):
 
 
 def _build_app_with_path_params() -> FastAPI:
-    """Mirror Primeagent's shape: a router with path params, lazily included under /api/v1."""
+    """Mirror PrimeAgent's shape: a router with path params, lazily included under /api/v1."""
     router = APIRouter(prefix="/v1")
 
     @router.get("/flows/{flow_id}")
@@ -150,7 +150,7 @@ def test_route_label_is_templated_not_the_raw_path():
     """The identifier must not survive into the route label.
 
     Under the stable HTTP semantic conventions this value becomes ``http.route``, which is a
-    metric label. Returning the raw path would mint one metric series per flow id. Primeagent
+    metric label. Returning the raw path would mint one metric series per flow id. PrimeAgent
     mounts every API route under a lazily-included router, so this is the common path.
     """
     app = _build_app_with_path_params()

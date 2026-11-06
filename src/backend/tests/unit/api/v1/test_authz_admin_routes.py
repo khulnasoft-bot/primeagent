@@ -1052,7 +1052,7 @@ async def test_create_assignment_enforces_plugin_access_ceiling(stub_authz):
         )
 
     assert exc_info.value.status_code == 409
-    assert exc_info.value.headers == {"X-Primeagent-Error-Code": "access_ceiling"}
+    assert exc_info.value.headers == {"X-PrimeAgent-Error-Code": "access_ceiling"}
     assert session.committed == 0
     assert authz.staged_mutations == []
 
@@ -1548,7 +1548,7 @@ async def test_idp_team_membership_cannot_be_removed(stub_authz):
 
     assert excinfo.value.status_code == 409
     assert excinfo.value.detail == "Externally managed memberships cannot be removed through the manual membership API"
-    assert excinfo.value.headers == {"X-Primeagent-Error-Code": "externally_managed"}
+    assert excinfo.value.headers == {"X-PrimeAgent-Error-Code": "externally_managed"}
     assert session.deleted == []
 
 

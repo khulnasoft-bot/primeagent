@@ -21,7 +21,7 @@ class _FakeRealDbService:
     """Stand-in for any non-noop DatabaseService implementation."""
 
 
-class TestHasPrimeagentDbBackend:
+class TestHasPrimeAgentDbBackend:
     def test_returns_false_when_primeagent_not_importable(self, monkeypatch):
         monkeypatch.setattr("wfx.utils.primeagent_utils.has_primeagent_memory", lambda: False)
         assert has_primeagent_db_backend() is False

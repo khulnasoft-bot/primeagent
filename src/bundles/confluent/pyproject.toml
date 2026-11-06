@@ -1,7 +1,7 @@
 [project]
 name = "wfx-confluent"
 version = "0.2.0"
-description = "IBM Confluent components (Kafka producer/consumer, Tableflow Iceberg reader, Real-Time Context Engine MCP tools) as a standalone Primeagent Extension Bundle."
+description = "IBM Confluent components (Kafka producer/consumer, Tableflow Iceberg reader, Real-Time Context Engine MCP tools) as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = { text = "MIT" }

@@ -1,4 +1,4 @@
-"""Tests for PrimeagentClient's X-PRIMEAGENT-GLOBAL-VAR-* environment pass-through.
+"""Tests for PrimeAgentClient's X-PRIMEAGENT-GLOBAL-VAR-* environment pass-through.
 
 ``wfx-mcp`` is a stdio MCP server, so a client config can only reach it through
 ``env`` -- there is no ``headers`` field for a subprocess. These tests pin the one
@@ -10,7 +10,7 @@ from functools import partial
 
 import httpx
 import pytest
-from wfx.mcp.client import PrimeagentClient
+from wfx.mcp.client import PrimeAgentClient
 
 
 @pytest.fixture
@@ -28,7 +28,7 @@ class TestGlobalVarHeaders:
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-TENANT_ID", "tenant-42")
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-REGION", "eu-west-1")
 
-        headers = PrimeagentClient(server_url="http://localhost:7860")._headers()
+        headers = PrimeAgentClient(server_url="http://localhost:7860")._headers()
 
         assert headers["X-PRIMEAGENT-GLOBAL-VAR-TENANT_ID"] == "tenant-42"
         assert headers["X-PRIMEAGENT-GLOBAL-VAR-REGION"] == "eu-west-1"
@@ -43,7 +43,7 @@ class TestGlobalVarHeaders:
         env.setenv("UV_INDEX_URL", "https://internal/simple")
         env.setenv("AWS_SECRET_ACCESS_KEY", "nope")  # pragma: allowlist secret
 
-        headers = PrimeagentClient(server_url="http://localhost:7860")._headers()
+        headers = PrimeAgentClient(server_url="http://localhost:7860")._headers()
 
         assert headers == {"Content-Type": "application/json", "x-api-key": "sk-secret"}
 
@@ -51,14 +51,14 @@ class TestGlobalVarHeaders:
         """An empty placeholder must not override a stored global variable."""
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-TENANT_ID", "")
 
-        headers = PrimeagentClient(server_url="http://localhost:7860")._headers()
+        headers = PrimeAgentClient(server_url="http://localhost:7860")._headers()
 
         assert "X-PRIMEAGENT-GLOBAL-VAR-TENANT_ID" not in headers
 
     def test_auth_headers_are_preserved(self, env):
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-TENANT_ID", "tenant-42")
 
-        client = PrimeagentClient(
+        client = PrimeAgentClient(
             server_url="http://localhost:7860",
             api_key="sk-test",  # pragma: allowlist secret
             access_token="test-token",  # noqa: S106  # pragma: allowlist secret
@@ -70,16 +70,16 @@ class TestGlobalVarHeaders:
         assert headers["Authorization"] == "Bearer test-token"
         assert headers["X-PRIMEAGENT-GLOBAL-VAR-TENANT_ID"] == "tenant-42"
 
-    @pytest.mark.parametrize("name", ["x-primeagent-global-var-tenant_id", "X-Primeagent-Global-Var-Tenant_ID"])
+    @pytest.mark.parametrize("name", ["x-primeagent-global-var-tenant_id", "X-PrimeAgent-Global-Var-Tenant_ID"])
     def test_prefix_match_is_case_insensitive(self, env, name):
         """Clients and shells disagree on env var casing.
 
-        The header name is sent as written, which is fine because Primeagent lowercases
+        The header name is sent as written, which is fine because PrimeAgent lowercases
         before matching.
         """
         env.setenv(name, "tenant-value")
 
-        headers = PrimeagentClient(server_url="http://localhost:7860")._headers()
+        headers = PrimeAgentClient(server_url="http://localhost:7860")._headers()
 
         assert headers[name] == "tenant-value"
 
@@ -91,16 +91,16 @@ class TestGlobalVarHeaders:
         """
         env.setenv("PRIMEAGENT_API_KEY", "from-env")  # pragma: allowlist secret
 
-        client = PrimeagentClient(server_url="http://localhost:7860", api_key="from-arg")  # pragma: allowlist secret
+        client = PrimeAgentClient(server_url="http://localhost:7860", api_key="from-arg")  # pragma: allowlist secret
 
         assert client._headers()["x-api-key"] == "from-arg"  # pragma: allowlist secret
 
     def test_variables_are_snapshotted_per_client(self, env):
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-ENVIRONMENT", "staging")
-        staging_client = PrimeagentClient(server_url="http://localhost:7860")
+        staging_client = PrimeAgentClient(server_url="http://localhost:7860")
 
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-ENVIRONMENT", "production")
-        production_client = PrimeagentClient(server_url="http://localhost:7860")
+        production_client = PrimeAgentClient(server_url="http://localhost:7860")
 
         assert staging_client._headers()["X-PRIMEAGENT-GLOBAL-VAR-ENVIRONMENT"] == "staging"
         assert production_client._headers()["X-PRIMEAGENT-GLOBAL-VAR-ENVIRONMENT"] == "production"
@@ -110,7 +110,7 @@ class TestGlobalVarHeaders:
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-ENVIRONMENT", "staging")
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-EMPTY", "")
         env.setenv("AWS_SECRET_ACCESS_KEY", "unrelated-secret")  # pragma: allowlist secret
-        client = PrimeagentClient(server_url="http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
+        client = PrimeAgentClient(server_url="http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
         requests = []
 
         def handle_request(request: httpx.Request) -> httpx.Response:
@@ -152,7 +152,7 @@ class TestGlobalVarHeaderSafety:
         env.setenv(name, value)
 
         with pytest.raises(ValueError, match="Global variable override names") as exc_info:
-            PrimeagentClient(server_url="http://primeagent.test")
+            PrimeAgentClient(server_url="http://primeagent.test")
 
         assert name not in str(exc_info.value)
         assert value not in str(exc_info.value)
@@ -164,7 +164,7 @@ class TestGlobalVarHeaderSafety:
         env.setenv("X-PRIMEAGENT-GLOBAL-VAR-API_KEY", value)
 
         with pytest.raises(ValueError, match="Global variable override values") as exc_info:
-            PrimeagentClient(server_url="http://primeagent.test")
+            PrimeAgentClient(server_url="http://primeagent.test")
 
         assert value not in str(exc_info.value)
         assert "secret" not in str(exc_info.value)
@@ -190,7 +190,7 @@ class TestGlobalVarHeaderSafety:
             return httpx.Response(200, json={"result": "ok"})
 
         env.setattr(httpx, "AsyncClient", partial(httpx.AsyncClient, transport=httpx.MockTransport(handle_request)))
-        client = PrimeagentClient(server_url="http://primeagent.test")
+        client = PrimeAgentClient(server_url="http://primeagent.test")
 
         async def send_request():
             if stream:
@@ -198,7 +198,7 @@ class TestGlobalVarHeaderSafety:
             return await client.post("/run/flow")
 
         try:
-            with pytest.raises(RuntimeError, match="outside the Primeagent server origin") as exc_info:
+            with pytest.raises(RuntimeError, match="outside the PrimeAgent server origin") as exc_info:
                 await send_request()
         finally:
             await client.close()
@@ -222,7 +222,7 @@ class TestGlobalVarHeaderSafety:
             return httpx.Response(200, json={"result": "ok"})
 
         env.setattr(httpx, "AsyncClient", partial(httpx.AsyncClient, transport=httpx.MockTransport(handle_request)))
-        client = PrimeagentClient(server_url="http://primeagent.test", access_token="test-token")  # noqa: S106  # pragma: allowlist secret
+        client = PrimeAgentClient(server_url="http://primeagent.test", access_token="test-token")  # noqa: S106  # pragma: allowlist secret
         try:
             assert await client.post("/run/flow") == {"result": "ok"}
         finally:
@@ -240,7 +240,7 @@ class TestGlobalVarHeaderSafety:
             return httpx.Response(200, json={"result": "ok"})
 
         env.setattr(httpx, "AsyncClient", partial(httpx.AsyncClient, transport=httpx.MockTransport(handle_request)))
-        client = PrimeagentClient(server_url="http://primeagent.test")
+        client = PrimeAgentClient(server_url="http://primeagent.test")
         try:
             assert await client.post("/run/flow") == {"result": "ok"}
         finally:

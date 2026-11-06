@@ -8,11 +8,11 @@ import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-ins
 
 <Icon name="Blocks" aria-hidden="true" />
 [**Bundles**](/components-bundle-components) contain custom components that
-support specific third-party integrations with Primeagent.
+support specific third-party integrations with PrimeAgent.
 
 This page describes the components that are available in the **Slack** bundle.
 
-Every Slack component runs on the [Slack Web API](https://docs.slack.dev/reference/methods/) and takes its credential from a Primeagent [connection](./connections) rather than from a token pasted into the flow.
+Every Slack component runs on the [Slack Web API](https://docs.slack.dev/reference/methods/) and takes its credential from a PrimeAgent [connection](./connections) rather than from a token pasted into the flow.
 
 <GraduatedBundleInstall packageName="slack" />
 
@@ -29,13 +29,13 @@ Slack user scopes and bot scopes share names — `chat:write` is both a User Tok
 
 A headless connection supplied through `LF_CONNECTION__SLACK__<NAME>` has no recorded identity, so its token must carry a recognizable Slack prefix; a token without one is refused.
 
-Primeagent Desktop cannot install a bot through Slack sign-in, because Slack desktop redirects use PKCE and [may not request bot scopes](https://docs.slack.dev/authentication/using-pkce/). On Desktop, install your own Slack app to the workspace, copy its **Bot User OAuth Token** (`xoxb-`), and add it under **Settings** > **Connections** > **Add connection** > **Paste a token**.
+PrimeAgent Desktop cannot install a bot through Slack sign-in, because Slack desktop redirects use PKCE and [may not request bot scopes](https://docs.slack.dev/authentication/using-pkce/). On Desktop, install your own Slack app to the workspace, copy its **Bot User OAuth Token** (`xoxb-`), and add it under **Settings** > **Connections** > **Add connection** > **Paste a token**.
 
-Primeagent checks pasted bot tokens with Slack before saving and records the scopes Slack reports. **Check credential** checks the token with Slack again. If Slack rejects a pasted bot token during a check or a flow run, the connection becomes expired and unhealthy. App-level Socket Mode tokens (`xapp-`) are checked only by the listener when it opens a socket, so their credential health remains unknown in Settings.
+PrimeAgent checks pasted bot tokens with Slack before saving and records the scopes Slack reports. **Check credential** checks the token with Slack again. If Slack rejects a pasted bot token during a check or a flow run, the connection becomes expired and unhealthy. App-level Socket Mode tokens (`xapp-`) are checked only by the listener when it opens a socket, so their credential health remains unknown in Settings.
 
 ## Prerequisites
 
-- A Slack app installed in the target workspace, and a Primeagent connection for it. See [Connections](./connections) to connect the account, and [Configure connection OAuth](./connection-oauth) for the registration steps, the redirect URLs, and the per-action scope tables.
+- A Slack app installed in the target workspace, and a PrimeAgent connection for it. See [Connections](./connections) to connect the account, and [Configure connection OAuth](./connection-oauth) for the registration steps, the redirect URLs, and the per-action scope tables.
 - For bot components, the app's bot user must be a member of the channel it acts on.
 
 ## Slack: Search (as user)
@@ -111,16 +111,16 @@ Outputs the members as `Data` objects and a `Pagination` `Data` with `next_curso
 
 A trigger runs its flow when something happens in Slack. Add one to a flow, choose its Slack connection, save the flow, and then enable the trigger.
 
-### How events reach Primeagent
+### How events reach PrimeAgent
 
-Slack delivers events in two ways. Primeagent picks one from the connection you choose on the trigger, so the flow never names a transport, and the same flow runs unchanged on hosted Primeagent, a self-managed instance, and Desktop:
+Slack delivers events in two ways. PrimeAgent picks one from the connection you choose on the trigger, so the flow never names a transport, and the same flow runs unchanged on hosted PrimeAgent, a self-managed instance, and Desktop:
 
 | Connection on the trigger                              | Transport                                                                                                   | Where it works                                         |
 | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| A Slack app installation (**Sign in with Slack**, bot) | [Events API](https://docs.slack.dev/apis/events-api/): Slack posts each event to your Primeagent over HTTPS | Hosted, and self-managed instances Slack can reach     |
-| An app-level token (**Paste a token**, `xapp-`)        | [Socket Mode](https://docs.slack.dev/apis/socket-mode/): Primeagent opens a WebSocket to Slack and holds it | Self-managed instances Slack cannot reach, and Desktop |
+| A Slack app installation (**Sign in with Slack**, bot) | [Events API](https://docs.slack.dev/apis/events-api/): Slack posts each event to your PrimeAgent over HTTPS | Hosted, and self-managed instances Slack can reach     |
+| An app-level token (**Paste a token**, `xapp-`)        | [Socket Mode](https://docs.slack.dev/apis/socket-mode/): PrimeAgent opens a WebSocket to Slack and holds it | Self-managed instances Slack cannot reach, and Desktop |
 
-Hosted Primeagent uses the Events API only: its Slack app is listed in the Slack Marketplace, and Marketplace apps cannot use Socket Mode. Desktop uses Socket Mode only, because Slack has no way to reach a computer. If you choose a connection the deployment cannot use, the trigger says why and stays unarmed.
+Hosted PrimeAgent uses the Events API only: its Slack app is listed in the Slack Marketplace, and Marketplace apps cannot use Socket Mode. Desktop uses Socket Mode only, because Slack has no way to reach a computer. If you choose a connection the deployment cannot use, the trigger says why and stays unarmed.
 
 Both transports hand the flow the same data for the same event, and a Slack event runs its flow once even when Slack retries the delivery.
 
@@ -176,7 +176,7 @@ To reply in the thread, pass `channel_id` and `thread_ts` (or `ts`, for a top-le
 
 Create the app from one of these manifests (**Create New App** > **From a manifest**), and then replace the placeholders:
 
-- [Events API manifest](/files/slack/primeagent-slack-app-events-api.json): replace `PRIMEAGENT_HOST` with your Primeagent's public host, and `REGISTRATION_ID` with the name of the app's registration in `PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS`.
+- [Events API manifest](/files/slack/primeagent-slack-app-events-api.json): replace `PRIMEAGENT_HOST` with your PrimeAgent's public host, and `REGISTRATION_ID` with the name of the app's registration in `PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS`.
 - [Socket Mode manifest](/files/slack/primeagent-slack-app-socket-mode.json): no URL is needed.
 
 Both manifests subscribe the bot to `message.channels`, `message.groups`, `message.im`, `message.mpim`, `app_mention`, `reaction_added`, and `reaction_removed`, and request these bot scopes, which also cover the **as app** actions:
@@ -217,8 +217,8 @@ A trigger on the Events API also needs the scopes for what it listens to: a mess
    }
    ```
 
-2. Under **Event Subscriptions**, set the **Request URL** to `https://PRIMEAGENT_HOST/api/v1/triggers/ingress/slack/apps/slack-app`, where the last segment is the registration name. Slack verifies the URL immediately; Primeagent answers as soon as the registration is configured, before any trigger exists.
-3. In Primeagent, add a Slack connection with **Sign in with Slack** and the bot identity, and choose it on the trigger.
+2. Under **Event Subscriptions**, set the **Request URL** to `https://PRIMEAGENT_HOST/api/v1/triggers/ingress/slack/apps/slack-app`, where the last segment is the registration name. Slack verifies the URL immediately; PrimeAgent answers as soon as the registration is configured, before any trigger exists.
+3. In PrimeAgent, add a Slack connection with **Sign in with Slack** and the bot identity, and choose it on the trigger.
 
 One Request URL serves every workspace the app is installed in. Each event reaches only the triggers whose connection is an installation in that workspace. Triggers can't use an org-wide Enterprise Grid installation, which belongs to no single workspace. Install the app to a workspace instead.
 
@@ -226,13 +226,13 @@ One Request URL serves every workspace the app is installed in. Each event reach
 
 1. Under **Basic Information** > **App-Level Tokens**, generate a token with the `connections:write` scope.
 2. Under **Install App**, install the app to your workspace and invite it to the channels it should hear.
-3. In Primeagent, go to **Settings** > **Connections** > **Add connection**, choose Slack and **Paste a token**, and paste the app-level token (`xapp-`). To reply from the flow, add the **Bot User OAuth Token** (`xoxb-`) the same way, as a second connection.
+3. In PrimeAgent, go to **Settings** > **Connections** > **Add connection**, choose Slack and **Paste a token**, and paste the app-level token (`xapp-`). To reply from the flow, add the **Bot User OAuth Token** (`xoxb-`) the same way, as a second connection.
 4. Choose the app-level token connection on the trigger.
 
-An app-level token only opens Socket Mode connections. Primeagent uses it only in the [trigger listener process](../Deployment/deployment-trigger-listeners.mdx), never in a flow, so choosing it on an action component fails. Socket Mode isn't available on hosted Primeagent.
+An app-level token only opens Socket Mode connections. PrimeAgent uses it only in the [trigger listener process](../Deployment/deployment-trigger-listeners.mdx), never in a flow, so choosing it on an action component fails. Socket Mode isn't available on hosted PrimeAgent.
 
 :::important
-An app-level token is the app's whole event stream: every workspace the app is installed in, every conversation it can see. When several people on one Primeagent instance each add a token for the same Slack app, Primeagent delivers each of the app's events to all of their Socket Mode triggers, because Slack spreads an app's events across every open connection. Give an app-level token only to people who may read everything the app can see.
+An app-level token is the app's whole event stream: every workspace the app is installed in, every conversation it can see. When several people on one PrimeAgent instance each add a token for the same Slack app, PrimeAgent delivers each of the app's events to all of their Socket Mode triggers, because Slack spreads an app's events across every open connection. Give an app-level token only to people who may read everything the app can see.
 :::
 
 #### Allow background runs
@@ -251,9 +251,9 @@ A trigger runs its flow with no one signed in. The connection on the trigger, an
 
 ## Errors
 
-Slack reports application-level failures as `HTTP 200` with `{"ok": false, ...}`. The bundle translates those into Primeagent's integration error codes, so the canvas shows an actionable message instead of a generic provider outage:
+Slack reports application-level failures as `HTTP 200` with `{"ok": false, ...}`. The bundle translates those into PrimeAgent's integration error codes, so the canvas shows an actionable message instead of a generic provider outage:
 
-| Slack error                                                                                        | Primeagent error            | What to do                                                                                         |
+| Slack error                                                                                        | PrimeAgent error            | What to do                                                                                         |
 | -------------------------------------------------------------------------------------------------- | --------------------------- | -------------------------------------------------------------------------------------------------- |
 | `invalid_auth`, `token_expired`, `token_revoked`, `account_inactive`, `not_authed`                 | `auth-expired`              | Reconnect the connection.                                                                          |
 | `missing_scope`                                                                                    | `scope-missing`             | Grant the listed scopes and reconnect.                                                             |

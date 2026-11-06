@@ -298,7 +298,7 @@ def test_uses_real_distributions_by_default(tmp_path: Path) -> None:
     """When ``skip`` is omitted, the filter consults the real environment.
 
     The default value calls into ``importlib.metadata.distributions``;
-    Primeagent itself does not ship an extension manifest today, but if a
+    PrimeAgent itself does not ship an extension manifest today, but if a
     transitive test-only dep ever does, ``kept`` / ``skipped`` could pick
     up additional entries we don't control. Robust assertion: pin the
     synthetic ``ep``'s placement (kept, not skipped) without requiring the

@@ -471,7 +471,7 @@ def _discover_shimmed_component_dirs(search_paths: list[str]) -> set[str]:
 def _discover_component_skip_dirs(search_paths: list[str]) -> set[str]:
     """Top-level ``wfx.components`` subdirs that contain no palette components.
 
-    Besides bundle provider shims, Primeagent keeps a few package-rename shims
+    Besides bundle provider shims, PrimeAgent keeps a few package-rename shims
     solely for import compatibility (for example ``knowledge_bases`` ->
     ``files_and_knowledge``). They must stay importable, but the component
     discovery walk should not treat them as palette categories.
@@ -656,7 +656,7 @@ async def import_primeagent_components(
     settings_service: Optional["SettingsService"] = None,
     telemetry_service: Any | None = None,
 ) -> dict[str, dict[str, Any]]:
-    """Asynchronously discovers and loads all built-in Primeagent components.
+    """Asynchronously discovers and loads all built-in PrimeAgent components.
 
     Loading Strategy:
     - Production mode: Load from prebuilt index -> cache -> build dynamically (with caching)
@@ -878,7 +878,7 @@ def _components_path_extension_paths(settings_service: "SettingsService") -> lis
 
     Each entry in components_path is treated as a parent directory whose
     immediate subfolders are inline bundles at the @extra slot. The base
-    Primeagent components path is excluded (it is not an inline-bundle root).
+    PrimeAgent components path is excluded (it is not an inline-bundle root).
 
     Comparison against ``BASE_COMPONENTS_PATH`` resolves both sides so a
     trailing slash, ``./`` prefix, or symlink does not slip the base
@@ -1587,7 +1587,7 @@ async def get_and_cache_all_types_dict(
 ) -> dict[str, Any]:
     """Retrieves and caches the complete dictionary of component types and templates.
 
-    Supports both full and partial (lazy) loading. If the cache is empty, loads built-in Primeagent
+    Supports both full and partial (lazy) loading. If the cache is empty, loads built-in PrimeAgent
     components and either fully loads all components or loads only their metadata, depending on the
     lazy loading setting. Merges built-in, custom, and Extension-System components into the cache
     and returns the resulting dictionary.

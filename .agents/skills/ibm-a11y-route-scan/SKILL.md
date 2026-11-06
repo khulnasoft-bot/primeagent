@@ -1,11 +1,11 @@
 ---
 name: ibm-a11y-route-scan
-description: Batch-scan Primeagent frontend routes for accessibility issues using the Python IBM Equal Access scanner (scripts/a11y/a11y_scan.py) and produce JSON/Markdown/HTML reports. Scans the default-loaded state of each route only (use explicit state files for modals). Use when asked to scan one or more routes, produce an accessibility report for pages, or batch-check static routes. Reports findings only — does not fix code, run Playwright/axe tests, or perform a formal Level 1 audit; see ibm-a11y-testing-guide, ibm-a11y-level1-audit, and ibm-a11y-pr-remediation for those.
+description: Batch-scan PrimeAgent frontend routes for accessibility issues using the Python IBM Equal Access scanner (scripts/a11y/a11y_scan.py) and produce JSON/Markdown/HTML reports. Scans the default-loaded state of each route only (use explicit state files for modals). Use when asked to scan one or more routes, produce an accessibility report for pages, or batch-check static routes. Reports findings only — does not fix code, run Playwright/axe tests, or perform a formal Level 1 audit; see ibm-a11y-testing-guide, ibm-a11y-level1-audit, and ibm-a11y-pr-remediation for those.
 ---
 
 # IBM Route Scanner
 
-Use this skill when asked to scan Primeagent frontend pages for accessibility issues with the local Python scanner. This skill only reports — it does not modify code. For test-writing guidance, formal audits, or PR-wide fixes, see `ibm-a11y-testing-guide`, `ibm-a11y-level1-audit`, and `ibm-a11y-pr-remediation`.
+Use this skill when asked to scan PrimeAgent frontend pages for accessibility issues with the local Python scanner. This skill only reports — it does not modify code. For test-writing guidance, formal audits, or PR-wide fixes, see `ibm-a11y-testing-guide`, `ibm-a11y-level1-audit`, and `ibm-a11y-pr-remediation`.
 
 ## Scanner
 

@@ -452,7 +452,7 @@ def test_the_address_book_wins_over_a_stale_inline_config():
 
 
 def test_a_sibling_configured_as_stdio_is_still_recognised():
-    """Primeagent seeds its own projects in the mcp-proxy shape, url buried in `args`.
+    """PrimeAgent seeds its own projects in the mcp-proxy shape, url buried in `args`.
 
     Reading `config["url"]` alone saw nothing there, so such a server was classified
     external and the deploy tried to carry a subprocess command to the target.

@@ -1,7 +1,7 @@
 """wfx-exa: Exa Search bundle.
 
 This package is the distribution unit ``wfx-exa``.  At runtime
-Primeagent's loader discovers ``extension.json`` shipped alongside this
+PrimeAgent's loader discovers ``extension.json`` shipped alongside this
 ``__init__.py`` and registers ``ExaSearchToolkit`` under the namespaced
 ID ``ext:exa:ExaSearchToolkit@official``.
 

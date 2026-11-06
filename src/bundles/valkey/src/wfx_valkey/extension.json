@@ -3,7 +3,7 @@
   "id": "wfx-valkey",
   "version": "0.2.0",
   "name": "Valkey",
-  "description": "Valkey component(s) as a standalone Primeagent Extension Bundle.",
+  "description": "Valkey component(s) as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

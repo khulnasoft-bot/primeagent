@@ -2476,7 +2476,7 @@
         "type": "object"
       },
       "EndUserMatch": {
-        "description": "An end-user id Primeagent has sessions for, to pick from when recording a request.",
+        "description": "An end-user id PrimeAgent has sessions for, to pick from when recording a request.",
         "properties": {
           "end_user_id": {
             "title": "End User Id",
@@ -7405,7 +7405,7 @@
                 "type": "null"
               }
             ],
-            "description": "Optional end-user identifier forwarded to tracing providers (e.g. Langfuse) as the trace's user_id. Does not affect authentication or authorization — the API key owner remains the effective Primeagent user.",
+            "description": "Optional end-user identifier forwarded to tracing providers (e.g. Langfuse) as the trace's user_id. Does not affect authentication or authorization — the API key owner remains the effective PrimeAgent user.",
             "title": "User Id"
           }
         },
@@ -9898,7 +9898,7 @@
     }
   },
   "info": {
-    "title": "Primeagent",
+    "title": "PrimeAgent",
     "version": "1.13.0"
   },
   "openapi": "3.1.0",
@@ -10227,7 +10227,7 @@
             }
           },
           {
-            "description": "Exact Primeagent account.",
+            "description": "Exact PrimeAgent account.",
             "in": "query",
             "name": "user_id",
             "required": false,
@@ -10475,7 +10475,7 @@
             }
           },
           {
-            "description": "Exact Primeagent account.",
+            "description": "Exact PrimeAgent account.",
             "in": "query",
             "name": "user_id",
             "required": false,
@@ -10701,7 +10701,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -10713,7 +10713,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -10763,7 +10763,7 @@
         "parameters": [
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -10775,7 +10775,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -10843,7 +10843,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -10855,7 +10855,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -11028,7 +11028,7 @@
         "parameters": [
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -11040,7 +11040,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -11108,7 +11108,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -11120,7 +11120,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -11219,7 +11219,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -11231,7 +11231,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -11408,7 +11408,7 @@
         "parameters": [
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -11420,7 +11420,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -11487,7 +11487,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -11499,7 +11499,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -11597,7 +11597,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -11609,7 +11609,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -11754,7 +11754,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -11766,7 +11766,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -11843,7 +11843,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -11855,7 +11855,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -13388,7 +13388,7 @@
     },
     "/api/v1/data-subjects/find": {
       "post": {
-        "description": "Count what Primeagent holds about a subject, without creating a request.",
+        "description": "Count what PrimeAgent holds about a subject, without creating a request.",
         "operationId": "find_subject_api_v1_data_subjects_find_post",
         "requestBody": {
           "content": {
@@ -13756,7 +13756,7 @@
     },
     "/api/v1/data-subjects/requests/{request_id}/export": {
       "get": {
-        "description": "Download what Primeagent holds about the subject, while the request is still open.",
+        "description": "Download what PrimeAgent holds about the subject, while the request is still open.",
         "operationId": "export_request_api_v1_data_subjects_requests__request_id__export_get",
         "parameters": [
           {
@@ -14705,7 +14705,7 @@
             }
           },
           {
-            "description": "Exact Primeagent account.",
+            "description": "Exact PrimeAgent account.",
             "in": "query",
             "name": "user_id",
             "required": false,
@@ -18392,7 +18392,7 @@
             }
           },
           {
-            "description": "Exact Primeagent account.",
+            "description": "Exact PrimeAgent account.",
             "in": "query",
             "name": "user_id",
             "required": false,
@@ -19119,7 +19119,7 @@
     },
     "/api/v1/responses": {
       "post": {
-        "description": "Create a response using OpenAI Responses API format.\n\nThis endpoint accepts a flow_id in the model parameter and processes\nthe input through the specified Primeagent flow.\n\nArgs:\n    request: OpenAI Responses API request with model (flow_id) and input\n    background_tasks: FastAPI background task manager\n    api_key_user: Authenticated user from API key\n    http_request: The incoming HTTP request\n    telemetry_service: Telemetry service for logging\n\nReturns:\n    OpenAI-compatible response or streaming response\n\nRaises:\n    HTTPException: For validation errors or flow execution issues",
+        "description": "Create a response using OpenAI Responses API format.\n\nThis endpoint accepts a flow_id in the model parameter and processes\nthe input through the specified PrimeAgent flow.\n\nArgs:\n    request: OpenAI Responses API request with model (flow_id) and input\n    background_tasks: FastAPI background task manager\n    api_key_user: Authenticated user from API key\n    http_request: The incoming HTTP request\n    telemetry_service: Telemetry service for logging\n\nReturns:\n    OpenAI-compatible response or streaming response\n\nRaises:\n    HTTPException: For validation errors or flow execution issues",
         "operationId": "create_response_api_v1_responses_post",
         "requestBody": {
           "content": {
@@ -20304,7 +20304,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -20316,7 +20316,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -20362,7 +20362,7 @@
         "parameters": [
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -20374,7 +20374,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -20576,7 +20576,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -20588,7 +20588,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -20646,7 +20646,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -20658,7 +20658,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],
@@ -20714,7 +20714,7 @@
           },
           {
             "in": "header",
-            "name": "X-Primeagent-Operation-ID",
+            "name": "X-PrimeAgent-Operation-ID",
             "required": false,
             "schema": {
               "anyOf": [
@@ -20726,7 +20726,7 @@
                   "type": "null"
                 }
               ],
-              "title": "X-Primeagent-Operation-Id"
+              "title": "X-PrimeAgent-Operation-Id"
             }
           }
         ],

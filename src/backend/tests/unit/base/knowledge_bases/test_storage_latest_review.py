@@ -140,7 +140,7 @@ async def test_failure_diagnostic_retains_phase_and_class_without_sensitive_payl
 
 @pytest.mark.parametrize("controlled", [True, False])
 def test_preflight_excludes_only_current_listener_children(tmp_path, monkeypatch, controlled):
-    """A current listener is safe, but unrelated child Primeagent servers remain writers."""
+    """A current listener is safe, but unrelated child PrimeAgent servers remain writers."""
     from primeagent.services.triggers.listeners.subprocess_host import listener_command
 
     command = list(listener_command()) if controlled else ["primeagent", "run"]

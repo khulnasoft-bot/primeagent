@@ -336,7 +336,7 @@ class WatsonxOrchestrateDeploymentMapper(BaseDeploymentMapper):
             slot=WXO_ADAPTER_PAYLOAD_SCHEMAS.deployment_create_result,
             slot_name="deployment_create_result",
             raw=result.provider_result,
-            operation="creating the deployment row in Primeagent",
+            operation="creating the deployment row in PrimeAgent",
         )
         return Deployment(
             user_id=user_id,
@@ -362,7 +362,7 @@ class WatsonxOrchestrateDeploymentMapper(BaseDeploymentMapper):
             slot=WXO_ADAPTER_PAYLOAD_SCHEMAS.deployment_item_data,
             slot_name="deployment_item_data",
             raw=existing_provider_resource.provider_data,
-            operation="reading deployment metadata from provider when attempting to track the resource in Primeagent",
+            operation="reading deployment metadata from provider when attempting to track the resource in PrimeAgent",
         )
         return Deployment(
             user_id=user_id,
@@ -958,7 +958,7 @@ class WatsonxOrchestrateDeploymentMapper(BaseDeploymentMapper):
         if update_slot is None:
             return None
         # TODO: Reintroduce a non-unique Deployment.name column for provider technical names
-        # and include it here so rollback can restore wxO `name` from Primeagent's stored metadata.
+        # and include it here so rollback can restore wxO `name` from PrimeAgent's stored metadata.
         provider_payload = update_slot.apply(
             {
                 "put_tools": existing_tool_ids,

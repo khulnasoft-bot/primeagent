@@ -955,7 +955,7 @@ class TestDatabaseURLValidation:
         ):
             validate_database_url_for_ssrf(uri)
 
-    @pytest.mark.parametrize("certificate", ["sha1:0123456789abcdef", "subject:Primeagent Client"])
+    @pytest.mark.parametrize("certificate", ["sha1:0123456789abcdef", "subject:PrimeAgent Client"])
     def test_odbc_certificate_store_selectors_allowed_when_local_files_restricted(self, certificate):
         """Non-file ClientCertificate forms do not access the local filesystem."""
         query = urlencode({"driver": "ODBC Driver 18", "ClientCertificate": certificate})
@@ -970,7 +970,7 @@ class TestDatabaseURLValidation:
         ):
             validate_database_url_for_ssrf(
                 "mssql+pyodbc://db.example.com/app?driver=ODBC+Driver+18"
-                "&TrustServerCertificate=yes&Application+Name=Primeagent"
+                "&TrustServerCertificate=yes&Application+Name=PrimeAgent"
             )
 
     def test_missing_host_blocked(self):

@@ -1,4 +1,4 @@
-# Primeagent trigger listeners (TRG-3), as their own Compose service.
+# PrimeAgent trigger listeners (TRG-3), as their own Compose service.
 #
 # Track B triggers - Slack Socket Mode, Microsoft Graph delta polling, Gmail
 # Pub/Sub pull - need a process that holds outbound connections. That process
@@ -6,7 +6,7 @@
 # autoscaled on its own schedule, so hosting connections there either duplicates
 # or drops them.
 #
-# Run this alongside your existing Primeagent stack:
+# Run this alongside your existing PrimeAgent stack:
 #
 #   docker compose -f docker-compose.yml -f deploy/listeners/docker-compose.listeners.yml up -d
 #

@@ -1,7 +1,7 @@
 {
   "uid": "primeagent-prod-logs",
-  "title": "Primeagent Logs",
-  "description": "Structured logs from Primeagent and wfx: tracebacks, PII redaction, service labels, stdlib intercept, trace correlation.",
+  "title": "PrimeAgent Logs",
+  "description": "Structured logs from PrimeAgent and wfx: tracebacks, PII redaction, service labels, stdlib intercept, trace correlation.",
   "tags": ["primeagent", "wfx", "structured-logs"],
   "timezone": "browser",
   "schemaVersion": 39,

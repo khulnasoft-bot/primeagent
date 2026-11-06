@@ -640,13 +640,13 @@ class TestEntryPointLoadingIsAtomic:
 
 
 class TestPluginRegistrationFailuresAreNotFatal:
-    """A broken plugin must leave Primeagent able to start."""
+    """A broken plugin must leave PrimeAgent able to start."""
 
     def test_a_plugin_named_none_is_refused_instead_of_crashing(self, monkeypatch, entry_points):
         """`none` is reserved, and register_sandbox_backend raises ValueError on it.
 
         Unguarded, that ValueError propagates out of the settings validator and
-        Primeagent does not start -- the opposite of what _load_entry_points
+        PrimeAgent does not start -- the opposite of what _load_entry_points
         documents.
         """
         entry_points(_FakeEntryPoint("none", lambda: _StubBackend))

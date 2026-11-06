@@ -24,7 +24,7 @@
 
 ### Summary
 
-This feature provides automatic event loop configuration for Windows systems running Primeagent with PostgreSQL databases, resolving incompatibility between psycopg (PostgreSQL async driver) and Windows' default ProactorEventLoop.
+This feature provides automatic event loop configuration for Windows systems running PrimeAgent with PostgreSQL databases, resolving incompatibility between psycopg (PostgreSQL async driver) and Windows' default ProactorEventLoop.
 
 ### Business Context
 
@@ -86,7 +86,7 @@ Platform Infrastructure - Database Connectivity Layer
 ### Feature: Automatic Event Loop Configuration for Windows PostgreSQL
 
 **As a** Windows user  
-**I want** Primeagent to automatically configure the correct event loop  
+**I want** PrimeAgent to automatically configure the correct event loop  
 **So that** I can use PostgreSQL without encountering startup errors
 
 ### Background
@@ -190,11 +190,11 @@ Create a centralized helper function `configure_windows_postgres_event_loop()` t
 
 #### Context
 
-The event loop must be configured before any async operations or database imports. Primeagent has multiple entry points: package import, launcher, main module, and service initialization.
+The event loop must be configured before any async operations or database imports. PrimeAgent has multiple entry points: package import, launcher, main module, and service initialization.
 
 #### Decision
 
-Apply configuration at all critical entry points to ensure coverage regardless of how Primeagent is started:
+Apply configuration at all critical entry points to ensure coverage regardless of how PrimeAgent is started:
 
 - `__init__.py` - Package initialization
 - `primeagent_launcher.py` - CLI launcher
@@ -341,7 +341,7 @@ False  # Configuration not needed or already configured
 
 ### 8.3 Rollback Plan
 
-1. Revert to previous version of Primeagent
+1. Revert to previous version of PrimeAgent
 2. Windows + PostgreSQL users must manually set event loop via environment configuration
 3. Or use SQLite as temporary workaround
 
@@ -364,8 +364,8 @@ False  # Configuration not needed or already configured
 C4Context
   title System Context diagram for Windows PostgreSQL Event Loop Fix
 
-  Person(dev, "Developer", "Windows user running Primeagent")
-  System(primeagent, "Primeagent", "AI application development platform")
+  Person(dev, "Developer", "Windows user running PrimeAgent")
+  System(primeagent, "PrimeAgent", "AI application development platform")
   System_Ext(postgres, "PostgreSQL", "Database server")
   System_Ext(sqlite, "SQLite", "File-based database")
 

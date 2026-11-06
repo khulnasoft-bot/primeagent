@@ -4,7 +4,7 @@ Never run in CI: .github/workflows/cross-bundle-test.yml deselects
 ``api_key_required``, and every test here also self-skips when its environment
 variables are absent.
 
-Run it by hand against a workspace where a Primeagent Slack app is installed:
+Run it by hand against a workspace where a PrimeAgent Slack app is installed:
 
 ```bash
 export PRIMEAGENT_SLACK_LIVE_USER_TOKEN=xoxp-...
@@ -106,7 +106,7 @@ async def test_send_read_and_canvas_as_user(monkeypatch: pytest.MonkeyPatch) -> 
         token,
         "user_delegated",
         channel=channel,
-        text="Primeagent wfx-slack live suite: send as user",
+        text="PrimeAgent wfx-slack live suite: send as user",
     )
     message = await sender.build_message()
     assert message.data["ts"]
@@ -127,7 +127,7 @@ async def test_send_read_and_canvas_as_user(monkeypatch: pytest.MonkeyPatch) -> 
         SlackCanvasComponent,
         token,
         "user_delegated",
-        title="Primeagent wfx-slack live suite",
+        title="PrimeAgent wfx-slack live suite",
         markdown="# live suite\n\ncreated by the wfx-slack opt-in tests",
         channel_id=channel,
     )
@@ -144,7 +144,7 @@ async def test_post_react_and_list_members_as_app(monkeypatch: pytest.MonkeyPatc
         token,
         "bot",
         channel=channel,
-        text="Primeagent wfx-slack live suite: post as app",
+        text="PrimeAgent wfx-slack live suite: post as app",
     )
     message = await poster.build_message()
     assert message.data["ts"]

@@ -9,16 +9,16 @@ class UploadError(Exception):
 
 
 def upload(file_path: str, host: str, flow_id: str, api_key: str | None = None):
-    """Upload a file to Primeagent and return the file path.
+    """Upload a file to PrimeAgent and return the file path.
 
-    The upload endpoint now requires authentication (see Primeagent
+    The upload endpoint now requires authentication (see PrimeAgent
     PR #12831).  Callers must supply an API key via ``api_key`` or by
     setting the ``PRIMEAGENT_API_KEY`` environment variable; otherwise the
     server will reject the request with 401/403.
 
     Args:
         file_path (str): The path to the file to be uploaded.
-        host (str): The host URL of Primeagent.
+        host (str): The host URL of PrimeAgent.
         flow_id (UUID): The ID of the flow to which the file belongs.
         api_key (str | None): API key sent as ``x-api-key``.  If None,
             falls back to the ``PRIMEAGENT_API_KEY`` environment variable.
@@ -53,12 +53,12 @@ def upload_file(
     tweaks: dict | None = None,
     api_key: str | None = None,
 ):
-    """Upload a file to Primeagent and return the file path.
+    """Upload a file to PrimeAgent and return the file path.
 
     Args:
         file_path (str): The path to the file to be uploaded.
-        host (str): The host URL of Primeagent.
-        port (int): The port number of Primeagent.
+        host (str): The host URL of PrimeAgent.
+        port (int): The port number of PrimeAgent.
         flow_id (UUID): The ID of the flow to which the file belongs.
         components (str): List of component IDs or names that need the file.
         tweaks (dict): A dictionary of tweaks to be applied to the file.

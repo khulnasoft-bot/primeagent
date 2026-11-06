@@ -1,7 +1,7 @@
 [project]
 name = "wfx-google"
 version = "0.3.5"
-description = "Google and Gemini components as a standalone Primeagent Extension Bundle."
+description = "Google and Gemini components as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = { text = "MIT" }
@@ -12,7 +12,7 @@ keywords = ["primeagent", "wfx", "extension", "bundle", "google", "gemini"]
 
 # Runtime deps: wfx (the BUNDLE_API surface) plus every third-party package
 # imported by the Google components. Keep these dependencies with the bundle
-# so a default Primeagent install can discover and build Gemini models without
+# so a default PrimeAgent install can discover and build Gemini models without
 # relying on the opt-in wfx-bundles metapackage.
 dependencies = [
     # Requires the shared IntegrationNetworkError added for 1.13.0.

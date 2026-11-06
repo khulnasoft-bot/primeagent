@@ -140,11 +140,11 @@ class TestExceptionTelemetry:
         assert body["properties"]["productCodeType"] == "WWPC"
         assert body["properties"]["productPlanName"] == "opensource"
         assert body["properties"]["productPlanType"] == "freemium"
-        assert body["properties"]["productTitle"] == "Primeagent"
+        assert body["properties"]["productTitle"] == "PrimeAgent"
         assert body["properties"]["instanceId"] == "test-installation"
         assert body["properties"]["subscriptionId"] == "test-installation"
         assert body["properties"]["object"] == "exception"
-        assert body["properties"]["processType"] == "Primeagent Exception"
+        assert body["properties"]["processType"] == "PrimeAgent Exception"
         assert "timestamp" in body
 
     @pytest.mark.asyncio

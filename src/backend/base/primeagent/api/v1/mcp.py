@@ -30,7 +30,7 @@ def _ensure_mcp_root_model_ready(model: type[pydantic.BaseModel], root_type: Any
     """Rebuild an MCP RootModel only when Pydantic left it incomplete.
 
     Pydantic 2.14.0a1 can lose the generic root annotation when MCP is first
-    imported through Primeagent's router stack. Complete models, including those
+    imported through PrimeAgent's router stack. Complete models, including those
     built by stable Pydantic releases, return without mutation.
     """
     if model.__pydantic_complete__ and not force:
@@ -148,10 +148,10 @@ sse = SseServerTransport("/api/v1/mcp/")
 
 
 def _bind_mcp_transport_user(request: Request, current_user: CurrentActiveMCPUser) -> None:
-    """Expose the authenticated Primeagent principal to the MCP transport.
+    """Expose the authenticated PrimeAgent principal to the MCP transport.
 
     The SSE transport binds each session to ``scope["user"]`` and requires the
-    same principal on subsequent message requests. Primeagent performs its own
+    same principal on subsequent message requests. PrimeAgent performs its own
     authentication, so adapt the resolved user to the identity type expected by
     the transport instead of leaving both requests anonymous at the ASGI layer.
     """

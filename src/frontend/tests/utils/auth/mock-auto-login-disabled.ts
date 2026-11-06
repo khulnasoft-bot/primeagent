@@ -1,4 +1,4 @@
-import type { PrimeagentPage } from "../types";
+import type { PrimeAgentPage } from "../types";
 
 /**
  * Stub the /api/v1/auto_login endpoint so the app falls back to manual
@@ -10,7 +10,7 @@ import type { PrimeagentPage } from "../types";
  * for the mainpage_title).
  */
 export async function mockAutoLoginDisabled(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
 ): Promise<void> {
   await page.route("**/api/v1/auto_login", (route) => {
     route.fulfill({

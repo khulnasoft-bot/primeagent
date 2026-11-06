@@ -27,7 +27,7 @@ jest.mock("../../helpers/messages", () => ({
 }));
 
 jest.mock("../../assistant-panel.constants", () => ({
-  getAssistantPlaceholder: () => "Ask me anything about Primeagent...",
+  getAssistantPlaceholder: () => "Ask me anything about PrimeAgent...",
 }));
 
 const MODEL = {

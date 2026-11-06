@@ -1622,7 +1622,7 @@ async def test_a_destination_at_another_revision_is_not_read_and_the_check_says_
     monkeypatch.delenv("PGVECTOR_CONNECTION_STRING", raising=False)
     headers = logged_in_headers_super_user
     await _moved(client, headers, config_dir, scratch_database)
-    # What a newer Primeagent does to a database it is started on, when somebody started one there too early.
+    # What a newer PrimeAgent does to a database it is started on, when somebody started one there too early.
     _sql(scratch_database, "UPDATE alembic_version SET version_num = 'f00dfeedf00d'")
 
     run_id = await _start(client, headers, CHECK)
@@ -1631,11 +1631,11 @@ async def test_a_destination_at_another_revision_is_not_read_and_the_check_says_
     assert [event["event"] for event in events] == ["check", "report", "end"]
     migration = await _migration(client, headers)
     kept = migration["record"]["steps"][CHECK]
-    # This Primeagent reads no table of another version, so the schema is the one check that ran.
+    # This PrimeAgent reads no table of another version, so the schema is the one check that ran.
     assert [(row["name"], row["there"]["status"], row["same"]) for row in kept["report"]["checks"]] == [
         ("schema", "fail", False)
     ]
-    assert kept["report"]["checks"][0]["there"]["summary"].startswith("database is at f00dfeedf00d and this Primeagent")
+    assert kept["report"]["checks"][0]["there"]["summary"].startswith("database is at f00dfeedf00d and this PrimeAgent")
     assert (kept["status"], kept["report"]["ok"], _states(migration)[CHECK]) == (
         "done",
         False,

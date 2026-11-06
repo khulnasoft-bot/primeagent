@@ -1,6 +1,6 @@
 # wfx-arxiv
 
-arXiv search component as a standalone Primeagent Extension Bundle.
+arXiv search component as a standalone PrimeAgent Extension Bundle.
 
 This is the second-pilot port that validates
 [`src/bundles/PORTING.md`](../PORTING.md) — the documented recipe for
@@ -15,7 +15,7 @@ pip install wfx-arxiv
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point.  After install, restart your Primeagent server; the
+entry-point.  After install, restart your PrimeAgent server; the
 `ArXivComponent` will appear in the palette under the `arxiv` bundle
 group.
 

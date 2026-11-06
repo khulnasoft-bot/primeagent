@@ -1,7 +1,7 @@
-"""A simple chat flow example for Primeagent.
+"""A simple chat flow example for PrimeAgent.
 
 This script demonstrates how to set up a basic conversational flow using
-Primeagent's ChatInput and ChatOutput components.
+PrimeAgent's ChatInput and ChatOutput components.
 
 Features:
 - Configures logging to 'primeagent.log' at INFO level
@@ -11,7 +11,7 @@ Features:
 Usage:
     python simple_chat.py
 
-You can use this script as a template for building more complex conversational flows in Primeagent.
+You can use this script as a template for building more complex conversational flows in PrimeAgent.
 """
 
 from pathlib import Path

@@ -3,7 +3,7 @@ import { useAutoSelectModel } from "../useAutoSelectModel";
 
 /**
  * LE-2168: a fresh Language Model / Agent node pre-selected `flatOptions[0]`.
- * Providers count as enabled as soon as a credential exists — Primeagent harvests
+ * Providers count as enabled as soon as a credential exists — PrimeAgent harvests
  * GOOGLE_API_KEY / OPENAI_API_KEY / ANTHROPIC_API_KEY from the environment and
  * never validates them — so an empty field advertised a provider the user never
  * set up (Gemini when only Google was present, Claude when Anthropic sorted first).

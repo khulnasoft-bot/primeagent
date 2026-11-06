@@ -1,6 +1,6 @@
 """Unit tests for wfx status -- status_command and helpers.
 
-All tests run entirely in-process; no real Primeagent instance or SDK required.
+All tests run entirely in-process; no real PrimeAgent instance or SDK required.
 The SDK is replaced via patch so only the status logic (file collection, hash
 comparison, table rendering, exit-code rules) is exercised.
 """
@@ -47,8 +47,8 @@ _FLOW_DICT_2: dict = {
 # ---------------------------------------------------------------------------
 
 
-class _FakePrimeagentNotFoundError(Exception):
-    """Stand-in for primeagent_sdk.exceptions.PrimeagentNotFoundError in unit tests."""
+class _FakePrimeAgentNotFoundError(Exception):
+    """Stand-in for primeagent_sdk.exceptions.PrimeAgentNotFoundError in unit tests."""
 
 
 # ---------------------------------------------------------------------------
@@ -116,7 +116,7 @@ def _make_sdk_triple(
     if client_mock is None:
         client_mock = _make_client_mock()
     client_cls = MagicMock(return_value=client_mock)
-    return _identity_normalize, _json_flow_to_json, client_cls, _FakePrimeagentNotFoundError
+    return _identity_normalize, _json_flow_to_json, client_cls, _FakePrimeAgentNotFoundError
 
 
 class _CloseAwareClient:
@@ -552,7 +552,7 @@ class TestStatusCommandSynced:
         p = _write_flow(tmp_path, "flow.json")
         remote = _fake_remote_flow(flow_dict=_FLOW_DICT)
         client = _CloseAwareClient(remote)
-        triple = _identity_normalize, _json_flow_to_json, MagicMock(return_value=client), _FakePrimeagentNotFoundError
+        triple = _identity_normalize, _json_flow_to_json, MagicMock(return_value=client), _FakePrimeAgentNotFoundError
 
         _run_status([str(p)], sdk_triple=triple)
 
@@ -606,9 +606,9 @@ class TestStatusCommandAhead:
 
 class TestStatusCommandNew:
     def test_not_found_on_remote_gives_new_status(self, tmp_path):
-        """Remote raises PrimeagentNotFoundError → status 'new' → exits 1."""
+        """Remote raises PrimeAgentNotFoundError → status 'new' → exits 1."""
         p = _write_flow(tmp_path, "flow.json")
-        client = _make_client_mock(get_flow_side_effect=_FakePrimeagentNotFoundError("not found"))
+        client = _make_client_mock(get_flow_side_effect=_FakePrimeAgentNotFoundError("not found"))
         triple = _make_sdk_triple(client)
 
         with pytest.raises(typer.Exit) as exc_info:
@@ -619,7 +619,7 @@ class TestStatusCommandNew:
         """When flow is new (not found), no model_dump call is made."""
         p = _write_flow(tmp_path, "flow.json")
         remote = _fake_remote_flow(flow_dict=_FLOW_DICT)
-        client = _make_client_mock(get_flow_side_effect=_FakePrimeagentNotFoundError("not found"))
+        client = _make_client_mock(get_flow_side_effect=_FakePrimeAgentNotFoundError("not found"))
         triple = _make_sdk_triple(client)
 
         with pytest.raises(typer.Exit):

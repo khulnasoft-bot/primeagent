@@ -1,7 +1,7 @@
 """Which Slack transport a trigger runs on, decided from its connection.
 
 A Slack trigger node names a connection by its portable handle
-(``slack/<name>``) and nothing else, so one flow JSON runs on hosted Primeagent,
+(``slack/<name>``) and nothing else, so one flow JSON runs on hosted PrimeAgent,
 a self-managed instance and Desktop. The transport follows from what that name
 resolves to on *this* instance, for *this* flow owner:
 
@@ -109,7 +109,7 @@ async def resolve_arming(
     if is_app_token_connection(row):
         if context == "hosted":
             msg = (
-                "Hosted Primeagent receives Slack events through the Events API; Socket Mode is not available "
+                "Hosted PrimeAgent receives Slack events through the Events API; Socket Mode is not available "
                 "because a Slack Marketplace app cannot use it. Choose a Slack app installation instead of an "
                 "app-level token connection."
             )
@@ -118,7 +118,7 @@ async def resolve_arming(
 
     if context == "desktop":
         msg = (
-            "Primeagent Desktop receives Slack events over Socket Mode: Slack cannot deliver Events API requests to "
+            "PrimeAgent Desktop receives Slack events over Socket Mode: Slack cannot deliver Events API requests to "
             "a computer without a public address. Create an app-level token connection for your Slack app "
             "(Basic Information > App-Level Tokens, with the connections:write scope) and choose it here."
         )

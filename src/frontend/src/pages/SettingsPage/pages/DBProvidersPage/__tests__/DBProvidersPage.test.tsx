@@ -80,7 +80,7 @@ const STRINGS: Record<string, string> = {
   "settings.dbProviders.comingSoonDescription":
     "This provider is stubbed in the Knowledge Base backend registry and will become configurable after the provider implementation is wired through end-to-end.",
   "settings.dbProviders.sqliteDescription":
-    "SQLite stores vectors on disk next to Primeagent and is enabled by default. Selecting it here makes it the default provider for new Knowledge Bases.",
+    "SQLite stores vectors on disk next to PrimeAgent and is enabled by default. Selecting it here makes it the default provider for new Knowledge Bases.",
   "settings.dbProviders.sqliteSelected": "SQLite selected",
   "settings.dbProviders.useSQLite": "Use SQLite",
   "settings.dbProviders.save": "Save",

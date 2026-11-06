@@ -8,11 +8,11 @@ from http import HTTPStatus
 import httpx
 
 from primeagent_sdk.exceptions import (
-    PrimeagentAuthError,
-    PrimeagentConnectionError,
-    PrimeagentHTTPError,
-    PrimeagentNotFoundError,
-    PrimeagentValidationError,
+    PrimeAgentAuthError,
+    PrimeAgentConnectionError,
+    PrimeAgentHTTPError,
+    PrimeAgentNotFoundError,
+    PrimeAgentValidationError,
 )
 
 _logger = logging.getLogger("primeagent_sdk.client")
@@ -24,12 +24,12 @@ _HTTP_201_CREATED = HTTPStatus.CREATED.value
 def _raise_for_status_code(status: int, detail: str) -> None:
     """Raise a typed SDK exception for the given HTTP status code and detail."""
     if status in (HTTPStatus.UNAUTHORIZED, HTTPStatus.FORBIDDEN):
-        raise PrimeagentAuthError(status, detail)
+        raise PrimeAgentAuthError(status, detail)
     if status == HTTPStatus.NOT_FOUND:
-        raise PrimeagentNotFoundError(status, detail)
+        raise PrimeAgentNotFoundError(status, detail)
     if status == HTTPStatus.UNPROCESSABLE_ENTITY:
-        raise PrimeagentValidationError(status, detail)
-    raise PrimeagentHTTPError(status, detail)
+        raise PrimeAgentValidationError(status, detail)
+    raise PrimeAgentHTTPError(status, detail)
 
 
 def _raise_for_status(response: httpx.Response) -> None:
@@ -50,6 +50,6 @@ def _build_headers(api_key: str | None) -> dict[str, str]:
     return headers
 
 
-def _connection_error(base_url: str, exc: Exception) -> PrimeagentConnectionError:
-    msg = f"Could not connect to Primeagent at {base_url}: {exc}"
-    return PrimeagentConnectionError(msg)
+def _connection_error(base_url: str, exc: Exception) -> PrimeAgentConnectionError:
+    msg = f"Could not connect to PrimeAgent at {base_url}: {exc}"
+    return PrimeAgentConnectionError(msg)

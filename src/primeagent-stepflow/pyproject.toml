@@ -1,11 +1,11 @@
 [project]
 name = "primeagent-stepflow"
 version = "0.1.0"
-description = "Stepflow execution backend for Primeagent"
+description = "Stepflow execution backend for PrimeAgent"
 readme = "README.md"
 license = {text = "Apache-2.0"}
 authors = [
-    {name = "Primeagent Contributors"}
+    {name = "PrimeAgent Contributors"}
 ]
 requires-python = ">=3.10,<3.15"
 keywords = [
@@ -90,5 +90,5 @@ addopts = [
 markers = [
     "slow: marks tests as slow",
     "integration: marks tests as integration tests",
-    "real_execution: marks tests that use real Primeagent component execution",
+    "real_execution: marks tests that use real PrimeAgent component execution",
 ]

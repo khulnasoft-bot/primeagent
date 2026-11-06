@@ -4,12 +4,12 @@ from wfx.serialization.constants import MAX_ITEMS_LENGTH, MAX_TEXT_LENGTH
 
 
 class UiSettings(BaseModel):
-    """Frontend, auto-save, display limits, and (legacy) Primeagent Store integration."""
+    """Frontend, auto-save, display limits, and (legacy) PrimeAgent Store integration."""
 
     auto_saving: bool = True
-    """If set to True, Primeagent will auto save flows."""
+    """If set to True, PrimeAgent will auto save flows."""
     auto_saving_interval: int = 5000
-    """The interval in ms at which Primeagent will auto save flows.
+    """The interval in ms at which PrimeAgent will auto save flows.
 
     Every save rewrites the whole graph, so this is the window in which two
     people editing one flow can diverge without either being told. Raised from
@@ -54,7 +54,7 @@ class UiSettings(BaseModel):
     hide_starter_projects: bool = False
     """If set to True, hides starter projects from the UI (does not affect database seeding)."""
 
-    # Primeagent Store (legacy)
+    # PrimeAgent Store (legacy)
     store: bool | None = True
     store_url: str | None = "https://api.primeagent.store"
     download_webhook_url: str | None = "https://api.primeagent.store/flows/trigger/ec611a61-8460-4438-b187-a4f65e5559d4"

@@ -12,7 +12,7 @@ import { TIMEOUTS } from "../../utils/constants/timeouts";
  *   while a modal is open (a nested `<main>` breaks landmark navigation).
  *
  * Before the app-shell fix all three fail: every route rendered the generic
- * "Primeagent" title, `lang` stayed `en` for every locale, and the templates
+ * "PrimeAgent" title, `lang` stayed `en` for every locale, and the templates
  * modal added a second `<main>` on top of the page's own.
  */
 
@@ -27,19 +27,19 @@ import { TIMEOUTS } from "../../utils/constants/timeouts";
  * header tab, which the Deployments test below covers.
  */
 const ROUTE_TITLES = [
-  { path: "/flows", title: "Flows | Primeagent" },
-  { path: "/mcp", title: "MCP Server | Primeagent" },
-  { path: "/assets/files", title: "Files | Primeagent" },
-  { path: "/assets/knowledge-bases", title: "Knowledge | Primeagent" },
-  { path: "/settings/general", title: "General | Primeagent" },
+  { path: "/flows", title: "Flows | PrimeAgent" },
+  { path: "/mcp", title: "MCP Server | PrimeAgent" },
+  { path: "/assets/files", title: "Files | PrimeAgent" },
+  { path: "/assets/knowledge-bases", title: "Knowledge | PrimeAgent" },
+  { path: "/settings/general", title: "General | PrimeAgent" },
   {
     path: "/settings/global-variables",
-    title: "Global Variables | Primeagent",
+    title: "Global Variables | PrimeAgent",
   },
-  { path: "/settings/api-keys", title: "Primeagent API Keys" },
-  { path: "/settings/mcp-servers", title: "MCP Servers | Primeagent" },
-  { path: "/settings/shortcuts", title: "Shortcuts | Primeagent" },
-  { path: "/settings/messages", title: "Messages | Primeagent" },
+  { path: "/settings/api-keys", title: "PrimeAgent API Keys" },
+  { path: "/settings/mcp-servers", title: "MCP Servers | PrimeAgent" },
+  { path: "/settings/shortcuts", title: "Shortcuts | PrimeAgent" },
+  { path: "/settings/messages", title: "Messages | PrimeAgent" },
 ] as const;
 
 test(
@@ -75,19 +75,19 @@ test(
   async ({ page }) => {
     await awaitBootstrapTest(page, { skipModal: true });
     await page.goto("/flows");
-    await expect(page).toHaveTitle("Flows | Primeagent", {
+    await expect(page).toHaveTitle("Flows | PrimeAgent", {
       timeout: TIMEOUTS.standard,
     });
 
     // Flows and Deployments share /flows; only the header tab differs.
     await page.getByTestId("deployments-btn").click();
     await expect(page).toHaveURL(/\/flows\/?$/);
-    await expect(page).toHaveTitle("Deployments | Primeagent", {
+    await expect(page).toHaveTitle("Deployments | PrimeAgent", {
       timeout: TIMEOUTS.standard,
     });
 
     await page.getByTestId("flows-btn").click();
-    await expect(page).toHaveTitle("Flows | Primeagent", {
+    await expect(page).toHaveTitle("Flows | PrimeAgent", {
       timeout: TIMEOUTS.standard,
     });
   },
@@ -108,7 +108,7 @@ test(
     await expect(async () => {
       const flowName = (await page.getByTestId("flow_name").innerText()).trim();
       expect(flowName.length).toBeGreaterThan(0);
-      await expect(page).toHaveTitle(`${flowName} | Primeagent`, {
+      await expect(page).toHaveTitle(`${flowName} | PrimeAgent`, {
         timeout: 2000,
       });
     }).toPass({ timeout: TIMEOUTS.standard });

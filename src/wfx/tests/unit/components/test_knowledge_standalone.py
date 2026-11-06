@@ -20,5 +20,5 @@ async def test_retrieval_requires_a_user_before_opening_application_services():
 async def test_retrieval_requires_primeagent_application_services():
     component = KnowledgeBaseComponent(knowledge_base="saved_knowledge", _user_id=uuid4())
 
-    with pytest.raises(RuntimeError, match="requires Primeagent's application services"):
+    with pytest.raises(RuntimeError, match="requires PrimeAgent's application services"):
         await component.retrieve_data()
