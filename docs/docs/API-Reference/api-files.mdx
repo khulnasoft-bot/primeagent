@@ -132,26 +132,26 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
 1. Attach the image to a `POST /v1/files/upload/$FLOW_ID` request with `--form` (`-F`) and the file path:
 
    <Tabs>
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    <CodeBlock language="python">
      {examplePythonApiFilesUploadImageFilesV1}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="JavaScript" label="JavaScript">
+   <TabItem value="JavaScript" label="JavaScript">
 
    <CodeBlock language="javascript">
      {exampleJavascriptApiFilesUploadImageFilesV1}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    <CodeBlock language="bash">{exampleApiFilesUploadImageFilesV1}</CodeBlock>
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    A successful request returns the `file_path` for the image in the PrimeAgent file management system in the format `FLOW_ID/TIMESTAMP_FILENAME.TYPE`.
    For example:
@@ -169,26 +169,26 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
    In this case, the file path is specified in `tweaks`.
 
    <Tabs>
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    <CodeBlock language="python">
      {examplePythonApiFilesUploadImageFilesV12}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="JavaScript" label="JavaScript">
+   <TabItem value="JavaScript" label="JavaScript">
 
    <CodeBlock language="javascript">
      {exampleJavascriptApiFilesUploadImageFilesV12}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    <CodeBlock language="bash">{exampleApiFilesUploadImageFilesV12}</CodeBlock>
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    :::tip
    For help with tweaks, expose fields in the component [**Parameters** panel](/concepts-publish#input-schema), and then click **Share** > **API access** to copy snippets with the required component IDs.
