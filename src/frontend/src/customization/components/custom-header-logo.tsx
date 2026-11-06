@@ -1,4 +1,4 @@
-import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeagentLogo.svg?react";
 
 /**
  * Seam for the mark inside the header's home button.

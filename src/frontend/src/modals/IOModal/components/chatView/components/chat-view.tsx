@@ -1,7 +1,7 @@
 import { memo, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StickToBottom } from "use-stick-to-bottom";
-import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeagentLogo.svg?react";
 import { SafariScrollFix } from "@/components/common/safari-scroll-fix";
 import { TextEffectPerChar } from "@/components/ui/textAnimation";
 import CustomChatInput from "@/customization/components/custom-chat-input";

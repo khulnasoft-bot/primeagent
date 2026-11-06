@@ -14,7 +14,7 @@ import { PrimeAgentButtonRedirectTarget } from "@/customization/utils/urls";
 import { isAuthenticatedPlayground } from "@/modals/IOModal/helpers/playground-auth";
 import { useUtilityStore } from "@/stores/utilityStore";
 import { swatchColors } from "@/utils/styleUtils";
-import PrimeAgentLogoColor from "../../assets/PrimeAgentLogoColor.svg?react";
+import PrimeAgentLogoColor from "../../assets/PrimeagentLogoColor.svg?react";
 import IconComponent from "../../components/common/genericIconComponent";
 import ShadTooltip from "../../components/common/shadTooltipComponent";
 import { Button } from "../../components/ui/button";

@@ -7,7 +7,7 @@ import SignUp from "../index";
 const mockAddUserMutate = jest.fn();
 const mockNavigate = jest.fn();
 
-jest.mock("@/assets/PrimeAgentLogo.svg?react", () => ({
+jest.mock("@/assets/PrimeagentLogo.svg?react", () => ({
   __esModule: true,
   default: (props: React.SVGProps<SVGSVGElement>) => <svg {...props} />,
 }));

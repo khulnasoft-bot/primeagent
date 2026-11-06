@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import CustomHeaderLogo from "../custom-header-logo";
 
-jest.mock("@/assets/PrimeAgentLogo.svg?react", () => ({
+jest.mock("@/assets/PrimeagentLogo.svg?react", () => ({
   __esModule: true,
   default: ({ className, ...props }: { className?: string }) => (
     <svg data-testid="primeagent-logo" className={className} {...props} />

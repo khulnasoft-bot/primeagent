@@ -1,4 +1,4 @@
-import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeagentLogo.svg?react";
 
 export default function LogoIcon() {
   return (

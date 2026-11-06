@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeagentLogo.svg?react";
 import IconComponent, {
   ForwardedIconComponent,
 } from "@/components/common/genericIconComponent";

@@ -2,7 +2,7 @@ import * as Form from "@radix-ui/react-form";
 import { useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeagentLogo.svg?react";
 import { extractApiErrorMessage } from "@/controllers/API/helpers/extract-api-error-message";
 import { useLoginUser } from "@/controllers/API/queries/auth";
 import { CustomLink } from "@/customization/components/custom-link";

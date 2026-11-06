@@ -9,7 +9,7 @@ import IOModal from "../playground-modal";
 // panel) is mocked out so the suite doesn't have to model the full
 // store/query surface those subtrees depend on.
 
-jest.mock("@/assets/PrimeAgentLogoColor.svg?react", () => ({
+jest.mock("@/assets/PrimeagentLogoColor.svg?react", () => ({
   __esModule: true,
   // Forward props (aria-hidden in particular) so the fix is actually testable.
   default: (props: React.SVGProps<SVGSVGElement>) => (

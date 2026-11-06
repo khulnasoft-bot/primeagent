@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeagentLogo.svg?react";
 import type { LoadingComponentProps } from "../../../types/components";
 
 export default function LoadingComponent({

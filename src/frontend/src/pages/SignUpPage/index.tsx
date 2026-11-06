@@ -1,7 +1,7 @@
 import * as Form from "@radix-ui/react-form";
 import { type FormEvent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeagentLogo.svg?react";
 import ShadTooltip from "@/components/common/shadTooltipComponent";
 import InputComponent from "@/components/core/parameterRenderComponent/components/inputComponent";
 import { extractApiErrorMessage } from "@/controllers/API/helpers/extract-api-error-message";

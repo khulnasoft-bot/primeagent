@@ -8,7 +8,7 @@ import LoginPage from "../index";
 const mockLoginMutate = jest.fn();
 const mockCustomLoginSsoOptions = jest.fn((): React.ReactNode => null);
 
-jest.mock("@/assets/PrimeAgentLogo.svg?react", () => ({
+jest.mock("@/assets/PrimeagentLogo.svg?react", () => ({
   __esModule: true,
   default: (props: React.SVGProps<SVGSVGElement>) => <svg {...props} />,
 }));

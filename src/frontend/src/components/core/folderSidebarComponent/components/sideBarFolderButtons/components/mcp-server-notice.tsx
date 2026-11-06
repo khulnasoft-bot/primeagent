@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import MCPPrimeAgent from "@/assets/MCPPrimeAgent.png";
+import MCPPrimeAgent from "@/assets/MCPPrimeagent.png";
 import ForwardedIconComponent from "@/components/common/genericIconComponent";
 import { Button } from "@/components/ui/button";
 import { useCustomNavigate } from "@/customization/hooks/use-custom-navigate";

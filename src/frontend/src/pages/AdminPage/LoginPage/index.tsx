@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import PrimeAgentLogo from "@/assets/PrimeAgentLogo.svg?react";
+import PrimeAgentLogo from "@/assets/PrimeagentLogo.svg?react";
 import { useLoginUser } from "@/controllers/API/queries/auth";
 import { useDocumentTitle } from "@/hooks/use-document-title";
 import { Button } from "../../../components/ui/button";

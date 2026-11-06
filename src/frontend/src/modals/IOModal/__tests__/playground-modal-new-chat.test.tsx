@@ -14,7 +14,7 @@ import IOModal from "../playground-modal";
 // stubbed: the chat view exposes which session is visible and which id the
 // next message is sent under, and the sidebar exposes the new-chat action.
 
-jest.mock("@/assets/PrimeAgentLogoColor.svg?react", () => ({
+jest.mock("@/assets/PrimeagentLogoColor.svg?react", () => ({
   __esModule: true,
   default: () => <svg />,
 }));
