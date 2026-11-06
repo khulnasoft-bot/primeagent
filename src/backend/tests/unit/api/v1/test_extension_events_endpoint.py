@@ -47,7 +47,7 @@ async def test_keyspace_query_param_is_rejected_with_typed_422(monkeypatch: pyte
     assert detail["location"] == "query.keyspace"
     assert detail["content"] == "user:bob-id"
     assert detail["hint"]
-    assert detail["ref_url"] == "https://docs.prime.khulnasoft.com/extensions/errors"
+    assert detail["ref_url"] == "https://prime.khulnasoft.com/docs/extensions/errors"
     sentinel_svc.since.assert_not_called()
 
 

@@ -23,7 +23,9 @@ import { openStarterProject } from "../../utils/flow/open-starter-project";
 
 test(
   "decorative canvas SVGs are not exposed as unnamed graphics",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await openStarterProject(page, "Basic Prompting");
 
@@ -52,7 +54,9 @@ test(
 
 test(
   "every edge keeps its accessible name and tab stop",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await openStarterProject(page, "Basic Prompting");
 

@@ -22,7 +22,9 @@ const CASES = [
 
 test(
   "two nodes sharing a field name must not produce duplicate DOM ids",
-  { tag: ["@release", "@components", "@workspace"] },
+  {
+    tag: ["@release", "@components", "@workspace"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page, { skipModal: true });
 

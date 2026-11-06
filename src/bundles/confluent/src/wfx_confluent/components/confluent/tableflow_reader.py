@@ -47,7 +47,7 @@ class ConfluentTableflowReaderComponent(Component):
         "Read a Kafka topic that Tableflow has materialized as an Apache Iceberg table (via the "
         "Tableflow Iceberg REST catalog) into a DataFrame, with a row filter, projection, and limit."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-confluent"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-confluent"
     icon = "Confluent"
     name = "ConfluentTableflowReader"
     metadata = {"keywords": ["confluent", "tableflow", "iceberg", "kafka", "lakehouse", "streamhouse", "ibm"]}

@@ -12,7 +12,9 @@ import { zoomOut } from "../../utils/zoom-out";
 
 test(
   "user must be able to stop a building",
-  { tag: ["@release", "@workspace", "@api"] },
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
     await page.getByTestId("blank-flow").click();
@@ -114,7 +116,7 @@ import time
 class CustomComponent(Component):
     display_name = "Custom Component"
     description = "Use as a template to create your own component."
-    documentation: str = "https://docs.prime.khulnasoft.com/components-custom-components"
+    documentation: str = "https://prime.khulnasoft.com/docs/components-custom-components"
     icon = "custom_components"
     name = "CustomComponent"
 

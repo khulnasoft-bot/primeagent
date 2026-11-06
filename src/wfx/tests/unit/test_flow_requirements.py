@@ -688,7 +688,7 @@ class TestStarterProjects:
         return json.loads(path.read_text(encoding="utf-8"))
 
     def test_basic_prompting_includes_wfx(self, basic_prompting_flow):
-        """Basic Prompting (ships with no pre-selected model) should still need wfx.
+        """Basic Prompting (ships with no preselected model) should still need wfx.
 
         Starter projects intentionally ship with an empty ``ModelInput`` value
         so the importing user's configured provider is used.  As a result no

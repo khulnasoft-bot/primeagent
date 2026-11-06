@@ -372,7 +372,7 @@ describe("AddConnectionDialog re-authorize", () => {
       expect(screen.getByTestId("connection-try-again")).toBeEnabled();
       expect(screen.getByRole("link", { name: "Setup guide" })).toHaveAttribute(
         "href",
-        "https://docs.prime.khulnasoft.com/connection-oauth#customer-owned-google-registration",
+        "https://prime.khulnasoft.com/docs/connection-oauth#customer-owned-google-registration",
       );
       expect(popup.close).not.toHaveBeenCalled();
       expect(mockStartOAuth).toHaveBeenCalledTimes(1);

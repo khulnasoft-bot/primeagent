@@ -33,7 +33,7 @@ class AgenerateComponent(BaseAgenticComponent):
         "Generate mock data for user defined schema. If a dataframe is provided, "
         "the component will generate similar rows."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-agentics"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-agentics"
     icon = "Agentics"
     legacy = True
 

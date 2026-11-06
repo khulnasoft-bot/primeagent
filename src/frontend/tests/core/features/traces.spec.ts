@@ -5,8 +5,9 @@ import { TEXTS } from "../../utils/constants/texts";
 
 test(
   "should able to see and interact with Traces",
-  { tag: ["@release", "@workspace", "@api"] },
-
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 
@@ -67,8 +68,9 @@ test(
 
 test.skip(
   "should able to see traces after running a flow",
-  { tag: ["@release", "@workspace", "@api"] },
-
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

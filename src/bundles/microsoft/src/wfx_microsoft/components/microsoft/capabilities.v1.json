@@ -3,7 +3,7 @@
   "provider_id": "microsoft",
   "display_name": "Microsoft 365",
   "icon": "Microsoft",
-  "docs_url": "https://docs.prime.khulnasoft.com/bundles-microsoft",
+  "docs_url": "https://prime.khulnasoft.com/docs/bundles-microsoft",
   "auth_profiles": [
     {
       "id": "user",

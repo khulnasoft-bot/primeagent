@@ -117,7 +117,7 @@ MARKDOWN_DELIMITER_CELL = re.compile(r":?-+:?")
 class OperationsComponent(Component):
     display_name = "Data Operations"
     description = "Perform operations on Text, JSON, and Tables from a single component."
-    documentation: str = "https://docs.prime.khulnasoft.com/components-processing#operations"
+    documentation: str = "https://prime.khulnasoft.com/docs/components-processing#operations"
     icon = "wand-sparkles"
     name = "Operations"
     metadata = {

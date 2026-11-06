@@ -331,7 +331,7 @@ class A2AAgentComponent(Component):
         "Call an A2A (Agent-to-Agent) agent and return its reply. Pick an agent flow in this "
         "project, or point at a remote agent by its URL."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/a2a-server"
+    documentation: str = "https://prime.khulnasoft.com/docs/a2a-server"
     icon = "bot"
     name = "A2AAgent"
 

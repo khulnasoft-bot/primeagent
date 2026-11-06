@@ -232,7 +232,7 @@ describe("MemoryKnowledgeBaseSection", () => {
     expect(link).toBeInTheDocument();
     expect(link).toHaveAttribute(
       "href",
-      "https://docs.prime.khulnasoft.com/memory-bases",
+      "https://prime.khulnasoft.com/docs/memory-bases",
     );
     expect(link).toHaveAttribute("target", "_blank");
   });
@@ -249,7 +249,7 @@ describe("MemoryKnowledgeBaseSection", () => {
     const links = screen.getAllByRole("link", { name: /read the docs/i });
     expect(links[0]).toHaveAttribute(
       "href",
-      "https://docs.prime.khulnasoft.com/memory-bases",
+      "https://prime.khulnasoft.com/docs/memory-bases",
     );
     expect(links[0]).toHaveAttribute("target", "_blank");
   });

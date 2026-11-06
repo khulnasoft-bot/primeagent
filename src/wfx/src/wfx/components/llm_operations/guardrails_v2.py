@@ -1152,7 +1152,7 @@ class GuardrailsV2Component(GuardrailsComponent):
     display_name = "Guardrails"
     description = "Check text for unsafe or sensitive content."
     icon = "shield-check"
-    documentation = "https://docs.prime.khulnasoft.com/guardrails"
+    documentation = "https://prime.khulnasoft.com/docs/guardrails"
     name = "GuardrailValidatorV2"
     legacy = False
     replacement = None

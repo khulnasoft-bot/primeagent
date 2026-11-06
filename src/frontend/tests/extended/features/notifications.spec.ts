@@ -55,7 +55,9 @@ const openFlowForNotifications = async (page: Page) => {
 
 test(
   "User should be able to interact notifications tab",
-  { tag: ["@release"] },
+  {
+    tag: ["@release"],
+  },
   async ({ page }) => {
     await openFlowForNotifications(page);
 

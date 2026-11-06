@@ -18,7 +18,7 @@ from primeagent.schema.message import Message
 class CustomComponent(Component):
     display_name = "Custom Component"
     description = "Use as a template to create your own component."
-    documentation: str = "https://docs.prime.khulnasoft.com/components-custom-components"
+    documentation: str = "https://prime.khulnasoft.com/docs/components-custom-components"
     icon = "custom_components"
     name = "CustomComponent"
 
@@ -38,7 +38,9 @@ class CustomComponent(Component):
 
 test(
   "User must be able to stop building from inside Playground",
-  { tag: ["@release", "@api"] },
+  {
+    tag: ["@release", "@api"],
+  },
   async ({ page }) => {
     await openBlankFlow(page);
 

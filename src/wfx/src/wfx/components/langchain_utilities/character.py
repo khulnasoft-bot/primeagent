@@ -10,7 +10,7 @@ from wfx.utils.util import unescape_string
 class CharacterTextSplitterComponent(LCTextSplitterComponent):
     display_name = "Character Text Splitter"
     description = "Split text by number of characters."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-langchain"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-langchain"
     name = "CharacterTextSplitter"
     icon = "LangChain"
 

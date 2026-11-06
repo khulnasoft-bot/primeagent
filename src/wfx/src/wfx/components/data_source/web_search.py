@@ -34,7 +34,7 @@ LIMIT_DEFAULTS = {
 class WebSearchComponent(Component):
     display_name = "Web Search"
     description = "Search the web, news, or RSS feeds."
-    documentation: str = "https://docs.prime.khulnasoft.com/web-search"
+    documentation: str = "https://prime.khulnasoft.com/docs/web-search"
     icon = "search"
     name = "UnifiedWebSearch"
 

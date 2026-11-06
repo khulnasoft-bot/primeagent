@@ -23,7 +23,7 @@ class SlackOnMessageTriggerComponent(SlackTriggerComponent):
         "Run this flow when someone posts in Slack: in a channel, a private channel, a direct message or a "
         "group DM, or when they mention the app."
     )
-    documentation = "https://docs.prime.khulnasoft.com/bundles-slack#slack-on-message"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-slack#slack-on-message"
     name = "SlackOnMessageTrigger"
 
     trigger_kind = "slack.message"

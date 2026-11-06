@@ -48,7 +48,7 @@ class ConfluentKafkaConsumerComponent(Component):
         "Read a bounded batch of records from Kafka topics on Confluent Cloud or Confluent Platform "
         "into a DataFrame (one row per record). Stops at the message limit or the timeout."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-confluent"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-confluent"
     icon = "Confluent"
     name = "ConfluentKafkaConsumer"
     metadata = {"keywords": ["confluent", "kafka", "consumer", "subscribe", "topic", "streaming", "ibm"]}

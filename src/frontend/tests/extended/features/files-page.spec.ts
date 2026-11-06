@@ -63,7 +63,9 @@ async function runAndWaitForUploads(
 
 test(
   "should navigate to files page and show empty state",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     await openFilesPage(page);
 
@@ -78,7 +80,9 @@ test(
 
 test(
   "should upload file using upload button",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     const fileName = generateRandomFilename();
     const testFilePath = path.join(__dirname, "../../assets/test-file.txt");
@@ -109,7 +113,9 @@ test(
 
 test(
   "should upload file using drag and drop",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     const fileName = generateRandomFilename();
 
@@ -149,7 +155,9 @@ test(
 
 test(
   "should upload multiple files with different types",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     const fileNames = {
       txt: generateRandomFilename(),
@@ -205,7 +213,9 @@ test(
 
 test(
   "should search uploaded files",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     const fileNames = {
       txt: generateRandomFilename(),
@@ -280,7 +290,9 @@ test(
 
 test(
   "should handle bulk actions for multiple files",
-  { tag: ["@release", "@components"] },
+  {
+    tag: ["@release", "@components"],
+  },
   async ({ page }) => {
     const fileNames = {
       txt: generateRandomFilename(),

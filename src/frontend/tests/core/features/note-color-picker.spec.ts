@@ -9,7 +9,9 @@ test.beforeEach(async ({ page }, testInfo) => {
 
 test(
   "user should be able to change note colors using the color picker",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 
@@ -111,7 +113,9 @@ test(
 
 test(
   "user should be able to use custom color picker for notes",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

@@ -5,7 +5,9 @@ import { extractAndCleanCode } from "../../utils/extract-and-clean-code";
 
 test(
   "user should interact with tab component",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ context, page }) => {
     await awaitBootstrapTest(page);
 

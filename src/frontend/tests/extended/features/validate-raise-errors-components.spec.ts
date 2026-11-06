@@ -6,7 +6,9 @@ import { openBlankFlow } from "../../utils/flow/open-blank-flow";
 
 test(
   "user should be able to see errors on popups when raise an error",
-  { tag: ["@release", "@workspace", "@components"] },
+  {
+    tag: ["@release", "@workspace", "@components"],
+  },
   async ({ page }) => {
     const customComponentCodeWithRaiseErrorMessage = `
 # from primeagent.field_typing import Data
@@ -17,7 +19,7 @@ from primeagent.schema import Data
 class CustomComponent(Component):
     display_name = "Custom Component"
     description = "Use as a template to create your own component."
-    documentation: str = "https://docs.prime.khulnasoft.com/components-custom-components"
+    documentation: str = "https://prime.khulnasoft.com/docs/components-custom-components"
     icon = "code"
     name = "CustomComponent"
 

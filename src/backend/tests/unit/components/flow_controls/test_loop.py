@@ -125,7 +125,7 @@ def loop_flow():
     """Complete loop flow that processes multiple URLs through a loop."""
     # Create URL component to fetch content from multiple sources
     url_component = URLComponent()
-    url_component.set(urls=["https://docs.prime.khulnasoft.com/"])
+    url_component.set(urls=["https://prime.khulnasoft.com/docs/"])
 
     # Create SplitText component to chunk the content
     split_text_component = SplitTextComponent()

@@ -7,8 +7,9 @@ import { TEXTS } from "../../utils/constants/texts";
 // TODO: Need to review the voice assistant vs text to voice
 test.skip(
   "should able to see and interact with voice assistant",
-  { tag: ["@release", "@workspace", "@api"] },
-
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     await page.route("**/api/v1/config", (route) => {
       route.fulfill({
@@ -76,7 +77,9 @@ test.skip(
 
 test.skip(
   "user should not be able to see voice button if voice mode is not available",
-  { tag: ["@release", "@workspace", "@api"] },
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     await page.route("**/api/v1/config", (route) => {
       route.fulfill({
@@ -106,7 +109,9 @@ test.skip(
 
 test.skip(
   "user should be able to see voice button if voice mode is available",
-  { tag: ["@release", "@workspace", "@api"] },
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     await page.route("**/api/v1/config", (route) => {
       route.fulfill({

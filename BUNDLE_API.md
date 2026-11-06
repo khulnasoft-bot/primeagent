@@ -837,7 +837,7 @@ Manifest precedence, entry-point ordering, and public signatures are unchanged;
 - **`ExtensionError.ref_url` / CLI ``see:`` no longer carry per-code anchors.**
   Auto-derived ``ref_url`` values (and the rendered ``see:`` line) now point
   to the single extension-error guidance page
-  (``https://docs.prime.khulnasoft.com/extensions/errors``) instead of
+  (``https://prime.khulnasoft.com/docs/extensions/errors``) instead of
   ``…/extensions/errors#<code>``.  The ``code``, ``message``, ``location``,
   ``content``, and ``hint`` fields are unchanged; only the docs link shape
   changed.  Callers that deep-linked on ``ref_url`` suffix should read

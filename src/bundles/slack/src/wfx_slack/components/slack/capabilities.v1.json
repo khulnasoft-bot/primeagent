@@ -3,7 +3,7 @@
   "provider_id": "slack",
   "display_name": "Slack",
   "icon": "Slack",
-  "docs_url": "https://docs.prime.khulnasoft.com/bundles-slack",
+  "docs_url": "https://prime.khulnasoft.com/docs/bundles-slack",
   "auth_profiles": [
     {
       "id": "slack-user-oauth",

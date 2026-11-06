@@ -12,7 +12,9 @@ const QUARTERS = ["first", "second", "third", "fourth"];
 QUARTERS.forEach((label, quarter) => {
   test(
     `user should be able to use the ${label} quarter of starter projects without any outdated components on the flow`,
-    { tag: ["@release", "@components"] },
+    {
+      tag: ["@release", "@components"],
+    },
     async ({ page }) => {
       test.skip(
         process.platform === "win32",
@@ -30,7 +32,9 @@ QUARTERS.forEach((label, quarter) => {
       // timeout on every iteration. The toBeVisible() below already
       // auto-waits for actual readiness.
       await expect(page.getByTestId("text_card_container").first()).toBeVisible(
-        { timeout: 20000 },
+        {
+          timeout: 20000,
+        },
       );
 
       const numberOfTemplates = await page

@@ -4,7 +4,9 @@ import { navigateSettingsPages } from "../../utils/go-to-settings";
 
 test(
   "should scroll the provider list so every provider can be reached",
-  { tag: ["@release", "@components", "@workspace"] },
+  {
+    tag: ["@release", "@components", "@workspace"],
+  },
   async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 680 });
     await awaitBootstrapTest(page, { skipModal: true });

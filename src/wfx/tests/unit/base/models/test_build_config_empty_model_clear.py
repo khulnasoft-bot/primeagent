@@ -11,7 +11,7 @@ actually executes, silently, billed to the wrong provider account.
 LE-2168 narrowed it again: a bare initial load (``field_name=None``, a freshly
 dropped node or a reopened flow) no longer falls back to ``options[0]`` either,
 because an unvalidated credential harvested from the environment is enough to
-mark a provider enabled, so the fallback pre-selected a provider the user never
+mark a provider enabled, so the fallback preselected a provider the user never
 set up. Only the user's stored ``__default_language_model__`` fills there. A
 user-triggered update such as entering an api_key still fills, and so does the
 replacement of a selection that filters or provider policy just took away.

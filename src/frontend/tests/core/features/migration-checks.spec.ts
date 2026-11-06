@@ -4,7 +4,9 @@ import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 
 test(
   "a superuser can check this instance before moving it to a new instance",
-  { tag: ["@release", "@workspace", "@api"] },
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page, { skipModal: true });
 

@@ -663,14 +663,14 @@ def test_an_unrecognised_body_policy_fails_closed():
         ("http://localhost:4318", "http://localhost:4318"),
         # urlsplit strips tab/CR/LF per WHATWG, which would rejoin whatever followed one of them
         # into the path and write it verbatim to the one exported scope.
-        ("https://otlp.example.com/v1/logs\nInjected: sekrit", "<unparseable endpoint>"),
-        ("https://otlp.example.com/v1/logs\rInjected: sekrit", "<unparseable endpoint>"),
+        ("https://otlp.example.com/v1/logs\nInjected: sekrit", "<unparsable endpoint>"),
+        ("https://otlp.example.com/v1/logs\rInjected: sekrit", "<unparsable endpoint>"),
         # No authority: urlsplit treats these as opaque and parks the whole value in `path`, so
         # a typo that drops the slashes would otherwise have printed the secret verbatim.
-        ("https:sekrit", "<unparseable endpoint>"),
-        ("mailto:sekrit@otlp.example.com", "<unparseable endpoint>"),
-        ("sekrit", "<unparseable endpoint>"),
-        ("", "<unparseable endpoint>"),
+        ("https:sekrit", "<unparsable endpoint>"),
+        ("mailto:sekrit@otlp.example.com", "<unparsable endpoint>"),
+        ("sekrit", "<unparsable endpoint>"),
+        ("", "<unparsable endpoint>"),
     ],
 )
 def test_the_startup_line_reports_an_endpoint_without_its_credentials(endpoint: str, expected: str):

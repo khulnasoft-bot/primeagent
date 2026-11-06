@@ -10,8 +10,9 @@ import {
 
 test(
   "user must see on handle click the possibility connections",
-  { tag: ["@release", "@components", "@api"] },
-
+  {
+    tag: ["@release", "@components", "@api"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

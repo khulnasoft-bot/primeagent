@@ -97,7 +97,7 @@ export function MemoryDetailsHeader({
             <TooltipContent className="max-w-xs">
               <p>{t("memory.autoCaptureTooltip")}</p>
               <a
-                href="https://docs.prime.khulnasoft.com/memory-bases"
+                href="https://prime.khulnasoft.com/docs/memory-bases"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-1 flex items-center gap-1 text-xs text-primary underline"

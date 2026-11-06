@@ -8,7 +8,9 @@ import { openAddMcpServerModal } from "../../utils/open-add-mcp-server-modal";
 
 test(
   "user should be able to manage MCP server tools and configuration",
-  { tag: ["@release", "@workspace", "@components"] },
+  {
+    tag: ["@release", "@workspace", "@components"],
+  },
   async ({ page }) => {
     await openBlankFlow(page);
     await addComponentFromSidebar(page, {
@@ -98,7 +100,9 @@ test(
     await page.locator(".ag-row").first().locator(".ag-cell").first().click();
 
     await expect(page.locator('[data-testid="input_update_name"]')).toBeVisible(
-      { timeout: 10000 },
+      {
+        timeout: 10000,
+      },
     );
 
     await page.getByTestId("input_update_name").fill("mcp test name");
@@ -215,7 +219,7 @@ test(
     await expect(page.getByText("setup guide")).toBeVisible();
     await expect(page.getByText("setup guide")).toHaveAttribute(
       "href",
-      "https://docs.prime.khulnasoft.com/mcp-server#connect-clients-to-use-the-servers-actions",
+      "https://prime.khulnasoft.com/docs/mcp-server#connect-clients-to-use-the-servers-actions",
     );
 
     // Create a new flow with MCP component

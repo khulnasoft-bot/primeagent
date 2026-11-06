@@ -1085,7 +1085,7 @@ def test_cmd_payload_control_chars_raise_the_security_error_type(args):
     """A cmd payload denial must arrive as MCPStdioSecurityError, like every other denial.
 
     ``parse_mcp_shell_wrapper`` is reached before the argument metacharacter scan and signals
-    shell control characters (and unparseable quoting) with a bare ``ValueError``. The
+    shell control characters (and unparsable quoting) with a bare ``ValueError``. The
     equivalent ``sh -c 'uvx mcp-proxy && calc'`` denial comes back as ``MCPStdioSecurityError``,
     so without the conversion the exception type depended on which shell the caller named.
     """

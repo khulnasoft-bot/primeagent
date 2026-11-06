@@ -203,7 +203,7 @@ def _component_source(options: InitOptions) -> str:
     return f'''"""Auto-generated component for the {options.display_name} extension.
 
 Replace ``build`` with your real logic.  See the Primeagent Component docs
-at https://docs.prime.khulnasoft.com/components for input/output options.
+at https://prime.khulnasoft.com/docs/components for input/output options.
 """
 
 from __future__ import annotations

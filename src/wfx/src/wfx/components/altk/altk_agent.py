@@ -73,7 +73,7 @@ class ALTKAgentComponent(ALTKBaseAgentComponent):
 
     display_name: str = "ALTK Agent"
     description: str = "ALTK was retired in Primeagent 1.13.0. Replace this node with the Agent component."
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-altk"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-altk"
     icon = "zap"
     beta = True
     name = "ALTK Agent"

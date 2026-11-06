@@ -746,7 +746,7 @@ def validate_mcp_stdio_config(
                 # argument ("sh -c 'id > /tmp/x'"), and splitting that here would let the gate
                 # inspect only the first token instead of the full command string.
                 # ``parse_mcp_shell_wrapper`` rejects shell control characters in the cmd
-                # payload (and unparseable quoting) with a bare ValueError. This function's
+                # payload (and unparsable quoting) with a bare ValueError. This function's
                 # contract is MCPStdioSecurityError for every policy denial, so convert it
                 # here the same way the source-policy call above does -- otherwise a
                 # ``cmd /c "uvx x && calc"`` denial escapes as a different exception type

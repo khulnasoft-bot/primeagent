@@ -87,7 +87,9 @@ async function sendMessage(page: Page, text: string) {
 test.describe("A2A Agent tab", () => {
   test(
     "shows the tab for every flow and gates serving on chat I/O",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await awaitBootstrapTest(page, { skipModal: true });
 
@@ -115,7 +117,9 @@ test.describe("A2A Agent tab", () => {
 
   test(
     "previews and publishes the agent card",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await awaitBootstrapTest(page, { skipModal: true });
       const flowId = await seedFlow(page, ECHO_FLOW, {
@@ -151,7 +155,9 @@ test.describe("A2A Agent tab", () => {
 
   test(
     "runs a multi-turn conversation over the live endpoint",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await awaitBootstrapTest(page, { skipModal: true });
       const flowId = await seedFlow(page, ECHO_FLOW, {
@@ -179,7 +185,9 @@ test.describe("A2A Agent tab", () => {
 
   test(
     "pauses on input-required and resumes to completed",
-    { tag: ["@release", "@api"] },
+    {
+      tag: ["@release", "@api"],
+    },
     async ({ page }) => {
       await awaitBootstrapTest(page, { skipModal: true });
       const flowId = await seedFlow(page, HUMAN_INPUT_FLOW, {

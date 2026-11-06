@@ -24,7 +24,7 @@ CUSTOM_COMPONENT_EXECUTION_WARNING = (
     "components run). PRIMEAGENT_SANDBOX_BACKEND does not substitute for either lockdown: it "
     "isolates the Python Interpreter and legacy Python REPL components, not custom-component "
     "code, which is compiled and executed in the server process. "
-    "See https://docs.prime.khulnasoft.com/deployment-block-custom-components#multi-user-code-execution"
+    "See https://prime.khulnasoft.com/docs/deployment-block-custom-components#multi-user-code-execution"
 )
 
 

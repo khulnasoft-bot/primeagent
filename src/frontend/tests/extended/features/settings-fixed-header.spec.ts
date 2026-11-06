@@ -4,7 +4,9 @@ import { navigateSettingsPages } from "../../utils/go-to-settings";
 
 test(
   "should keep the Settings header and menu in place while the content scrolls",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 600 });
     await awaitBootstrapTest(page, { skipModal: true });

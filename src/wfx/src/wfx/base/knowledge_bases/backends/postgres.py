@@ -150,7 +150,7 @@ def _parse_vector_dim(type_str: str | None) -> int | None:
 def _parse_pgvector_version(raw: str | None) -> tuple[int, ...] | None:
     """Parse a pgvector ``extversion`` string (e.g. ``"0.8.0"``) into a tuple.
 
-    Returns ``None`` when the value is missing or unparseable, so callers treat
+    Returns ``None`` when the value is missing or unparsable, so callers treat
     an unknown version conservatively (assume the older behavior).
     """
     match = re.match(r"(\d+)(?:\.(\d+))?(?:\.(\d+))?", str(raw or ""))

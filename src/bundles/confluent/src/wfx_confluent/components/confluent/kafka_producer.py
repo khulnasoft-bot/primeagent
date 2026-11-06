@@ -27,7 +27,7 @@ class ConfluentKafkaProducerComponent(Component):
         "Publish a Message, Data, or every row of a DataFrame to a Kafka topic on Confluent "
         "Cloud or Confluent Platform, and return the delivery report."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-confluent"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-confluent"
     icon = "Confluent"
     name = "ConfluentKafkaProducer"
     metadata = {"keywords": ["confluent", "kafka", "producer", "publish", "topic", "streaming", "ibm"]}

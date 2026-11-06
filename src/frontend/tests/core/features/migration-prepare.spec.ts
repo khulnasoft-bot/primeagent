@@ -9,7 +9,9 @@ import {
 
 test(
   "an admin says where the data goes and proves the new instance holds this instance's key",
-  { tag: ["@release", "@workspace", "@api"] },
+  {
+    tag: ["@release", "@workspace", "@api"],
+  },
   async ({ page }) => {
     test.skip(Boolean(NO_DESTINATION), NO_DESTINATION);
     await awaitBootstrapTest(page, { skipModal: true });

@@ -58,7 +58,7 @@ const NoInputView: React.FC<NoInputViewProps> = ({
                 <a
                   className="underline underline-offset-4"
                   target="_blank"
-                  href="https://docs.prime.khulnasoft.com/components-io#chat-input"
+                  href="https://prime.khulnasoft.com/docs/components-io#chat-input"
                   rel="noopener noreferrer"
                 />
               ),

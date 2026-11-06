@@ -3,7 +3,7 @@
   "provider_id": "google",
   "display_name": "Google Workspace",
   "icon": "Google",
-  "docs_url": "https://docs.prime.khulnasoft.com/bundles-google",
+  "docs_url": "https://prime.khulnasoft.com/docs/bundles-google",
   "auth_profiles": [
     {
       "id": "user",

@@ -28,12 +28,12 @@ describe("connection setup guidance", () => {
   it.each([
     [
       "google",
-      "https://docs.prime.khulnasoft.com/connection-oauth#customer-owned-google-registration",
+      "https://prime.khulnasoft.com/docs/connection-oauth#customer-owned-google-registration",
     ],
-    ["microsoft", "https://docs.prime.khulnasoft.com/entra-app-registration"],
+    ["microsoft", "https://prime.khulnasoft.com/docs/entra-app-registration"],
     [
       "slack",
-      "https://docs.prime.khulnasoft.com/connection-oauth#customer-owned-slack-registration",
+      "https://prime.khulnasoft.com/docs/connection-oauth#customer-owned-slack-registration",
     ],
   ])(
     "links %s to its setup guide even when a registration exists",
@@ -87,7 +87,7 @@ describe("connection setup guidance", () => {
     render(help("slack", true, true));
     expect(screen.getByRole("link", { name: "Setup guide" })).toHaveAttribute(
       "href",
-      "https://docs.prime.khulnasoft.com/bundles-slack#two-executing-identities",
+      "https://prime.khulnasoft.com/docs/bundles-slack#two-executing-identities",
     );
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
     expect(

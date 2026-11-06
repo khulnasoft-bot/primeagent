@@ -16,7 +16,7 @@ class LanguageModelComponent(LCModelComponent):
     model_provider_policy_mode = "delegate"
     display_name = "Language Model"
     description = "Runs a language model given a specified provider."
-    documentation: str = "https://docs.prime.khulnasoft.com/components-models"
+    documentation: str = "https://prime.khulnasoft.com/docs/components-models"
     icon = "brain-circuit"
     category = "models"
 

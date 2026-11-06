@@ -22,7 +22,7 @@ from wfx.utils.constants import (
 class ChatOutput(ChatComponent):
     display_name = "Chat Output"
     description = "Display a chat message in the Playground."
-    documentation: str = "https://docs.prime.khulnasoft.com/chat-input-and-output"
+    documentation: str = "https://prime.khulnasoft.com/docs/chat-input-and-output"
     icon = "MessagesSquare"
     name = "ChatOutput"
     minimized = True

@@ -45,7 +45,7 @@ all = [
 
 [project.urls]
 Homepage = "https://github.com/khulnasoft-bot/primeagent"
-Documentation = "https://docs.prime.khulnasoft.com/bundles-docling"
+Documentation = "https://prime.khulnasoft.com/docs/bundles-docling"
 Repository = "https://github.com/khulnasoft-bot/primeagent"
 
 [project.entry-points."primeagent.extensions"]

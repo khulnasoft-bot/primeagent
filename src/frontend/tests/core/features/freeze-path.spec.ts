@@ -7,7 +7,9 @@ import {
 
 test(
   "user must be able to freeze a deterministic input-to-output path",
-  { tag: ["@release", "@workspace", "@components"] },
+  {
+    tag: ["@release", "@workspace", "@components"],
+  },
   async ({ page }) => {
     await createTextInputOutputFlow(page);
 

@@ -144,7 +144,7 @@ def _parse_csv_to_data(text: str) -> JSON:
 class TypeConverterComponent(Component):
     display_name = "Type Convert"
     description = "Convert between different types (Message, JSON, Table)"
-    documentation: str = "https://docs.prime.khulnasoft.com/type-convert"
+    documentation: str = "https://prime.khulnasoft.com/docs/type-convert"
     icon = "repeat"
 
     inputs = [

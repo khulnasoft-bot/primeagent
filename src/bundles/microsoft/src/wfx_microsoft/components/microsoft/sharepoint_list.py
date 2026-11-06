@@ -22,7 +22,7 @@ class SharePointListComponent(MicrosoftGraphComponent):
 
     display_name = "SharePoint/OneDrive: List Items"
     description = "List files and folders the connected user can read."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-microsoft"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-microsoft"
     name = "SharePointListItems"
     capability_id = "microsoft.files.list"
 

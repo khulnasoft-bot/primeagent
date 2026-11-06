@@ -40,7 +40,7 @@ class OutlookSendComponent(MicrosoftGraphComponent):
 
     display_name = "Outlook: Send Mail"
     description = "Send an email as the connected Microsoft 365 user."
-    documentation = "https://docs.prime.khulnasoft.com/bundles-microsoft"
+    documentation = "https://prime.khulnasoft.com/docs/bundles-microsoft"
     name = "OutlookSendMail"
     capability_id = "microsoft.outlook.send"
 
