@@ -55,6 +55,9 @@ type FlowConflictStoreType = {
   resumeFlow: (flowId: string) => void;
 };
 
+// Cap on abandoned flow IDs to bound memory across long sessions.
+const MAX_ABANDONED_FLOWS = 100;
+
 export const useFlowConflictStore = create<FlowConflictStoreType>(
   (set, get) => ({
     conflict: null,
@@ -92,11 +95,19 @@ export const useFlowConflictStore = create<FlowConflictStoreType>(
         return { abandonedFlowIds: next };
       }),
     abandonFlow: (flowId) =>
-      set((state) => ({
-        conflict: null,
-        dialogOpen: false,
-        abandonedFlowIds: new Set(state.abandonedFlowIds).add(flowId),
-      })),
+      set((state) => {
+        const next = new Set(state.abandonedFlowIds).add(flowId);
+        if (next.size > MAX_ABANDONED_FLOWS) {
+          // Drop the oldest abandoned id (Set preserves insertion order).
+          const first = next.values().next().value as string;
+          next.delete(first);
+        }
+        return {
+          conflict: null,
+          dialogOpen: false,
+          abandonedFlowIds: next,
+        };
+      }),
   }),
 );
 

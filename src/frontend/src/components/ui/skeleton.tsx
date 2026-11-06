@@ -1,15 +1,16 @@
 import { cn } from "../../utils/utils";
+import { memo, type HTMLAttributes } from "react";
 
-function Skeleton({
+const Skeleton = memo(function Skeleton({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn("animate-pulse rounded-md bg-border", className)}
       {...props}
     />
   );
-}
+});
 
 export { Skeleton };

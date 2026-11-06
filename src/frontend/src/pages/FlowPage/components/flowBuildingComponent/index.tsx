@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -22,21 +23,31 @@ import {
 
 export default function FlowBuildingComponent() {
   const { t } = useTranslation();
-  const isBuilding = useFlowStore((state) => state.isBuilding);
-  const flowBuildStatus = useFlowStore((state) => state.flowBuildStatus);
-  const buildInfo = useFlowStore((state) => state.buildInfo);
+  const {
+    isBuilding,
+    flowBuildStatus,
+    buildInfo,
+    setBuildInfo,
+    stopBuilding,
+    pastBuildFlowParams,
+    buildFlow,
+  } = useFlowStore(
+    useShallow((state) => ({
+      isBuilding: state.isBuilding,
+      flowBuildStatus: state.flowBuildStatus,
+      buildInfo: state.buildInfo,
+      setBuildInfo: state.setBuildInfo,
+      stopBuilding: state.stopBuilding,
+      pastBuildFlowParams: state.pastBuildFlowParams,
+      buildFlow: state.buildFlow,
+    })),
+  );
   const errorButtonsRef = useRef<HTMLDivElement>(null);
   const stopButtonRef = useRef<HTMLDivElement>(null);
-  const setBuildInfo = useFlowStore((state) => state.setBuildInfo);
   const [duration, setDuration] = useState(0);
   const [dismissed, setDismissed] = useState(false);
-  const stopBuilding = useFlowStore((state) => state.stopBuilding);
   const prevIsBuilding = useRef(isBuilding);
   const startTimeRef = useRef<number | null>(null);
-  const pastBuildFlowParams = useFlowStore(
-    (state) => state.pastBuildFlowParams,
-  );
-  const buildFlow = useFlowStore((state) => state.buildFlow);
   const statusBuilding = useMemo(
     () =>
       Object.entries(flowBuildStatus)
@@ -60,7 +71,7 @@ export default function FlowBuildingComponent() {
     if (isBuilding && startTimeRef.current !== null) {
       intervalId = setInterval(() => {
         setDuration(Date.now() - startTimeRef.current!);
-      }, 10);
+      }, 100);
     }
 
     if (!isBuilding && prevIsBuilding.current) {

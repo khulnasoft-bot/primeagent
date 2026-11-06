@@ -56,7 +56,6 @@ export function isAuthMaintenanceURL(url: string | undefined): boolean {
 function ApiInterceptor() {
   const autoLogin = useAuthStore((state) => state.autoLogin);
   const setErrorData = useAlertStore((state) => state.setErrorData);
-  const accessToken = useAuthStore((state) => state.accessToken);
   const authenticationErrorCount = useAuthStore(
     (state) => state.authenticationErrorCount,
   );
@@ -245,7 +244,7 @@ function ApiInterceptor() {
       api.interceptors.request.eject(requestInterceptor);
       unregister();
     };
-  }, [accessToken, setErrorData, customHeaders, autoLogin]);
+  }, [setErrorData, customHeaders, autoLogin]);
 
   function checkErrorCount(): boolean {
     if (isLoginPage) return false;

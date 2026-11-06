@@ -72,7 +72,7 @@ interface FlowSidebarComponentProps {
   setShowLegacy?: (value: boolean) => void;
 }
 
-export function FlowSidebarComponent({ isLoading }: FlowSidebarComponentProps) {
+const FlowSidebarComponentImpl = ({ isLoading }: FlowSidebarComponentProps) => {
   const { t } = useTranslation();
   const rawData = useTypesStore((state) => state.data);
   const catalogGovernanceEnabled = useUtilityStore(
@@ -612,17 +612,32 @@ export function FlowSidebarComponent({ isLoading }: FlowSidebarComponentProps) {
       </div>
     </Sidebar>
   );
-}
+};
 
-FlowSidebarComponent.displayName = "FlowSidebarComponent";
+FlowSidebarComponentImpl.displayName = "FlowSidebarComponent";
 
-export default memo(
-  FlowSidebarComponent,
+export const FlowSidebarComponent = memo(
+  FlowSidebarComponentImpl,
   (
     prevProps: FlowSidebarComponentProps,
     nextProps: FlowSidebarComponentProps,
   ) => {
     return (
+      prevProps.isLoading === nextProps.isLoading &&
+      prevProps.showLegacy === nextProps.showLegacy &&
+      prevProps.setShowLegacy === nextProps.setShowLegacy
+    );
+  },
+);
+
+export default memo(
+  FlowSidebarComponentImpl,
+  (
+    prevProps: FlowSidebarComponentProps,
+    nextProps: FlowSidebarComponentProps,
+  ) => {
+    return (
+      prevProps.isLoading === nextProps.isLoading &&
       prevProps.showLegacy === nextProps.showLegacy &&
       prevProps.setShowLegacy === nextProps.setShowLegacy
     );

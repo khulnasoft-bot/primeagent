@@ -94,159 +94,163 @@ function assignRef<T>(ref: React.Ref<T> | undefined, value: T | null) {
   (ref as React.MutableRefObject<T | null>).current = value;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant,
-      unstyled,
-      size,
-      loading,
-      type,
-      disabled,
-      asChild = false,
-      children,
-      ignoreTitleCase = false,
-      shouldScale = true,
-      onClick,
-      onKeyDown,
-      ...props
-    },
-    ref,
-  ) => {
-    // ElementType avoids Slot|"button" intersecting child props with i18n's
-    // ReactI18NextChildren (Record<string, unknown>), which breaks the loading branch.
-    const Comp: React.ElementType = asChild ? Slot : "button";
-    let newChildren: React.ReactNode = children as React.ReactNode;
-    if (typeof children === "string") {
-      newChildren = ignoreTitleCase ? children : toTitleCase(children);
-    }
-    const shouldScaleButton =
-      props["aria-haspopup"] !== "dialog" || shouldScale;
-    // Native `disabled` drops focus to <body>. While loading, keep the control
-    // focusable with aria-disabled so keyboard users retain place and aria-busy
-    // can be announced on the focused element (WCAG 2.4.3 / 4.1.2).
-    // Call sites often pass `disabled={… || isLoading}` alongside `loading` —
-    // loading wins so focus is retained even when those props overlap.
-    const isBusy = Boolean(loading);
-    const blockActivation = Boolean(disabled) || isBusy;
-    const nativeDisabled = Boolean(disabled) && !isBusy;
-
-    const localRef = React.useRef<HTMLButtonElement | null>(null);
-    const retainFocusRef = React.useRef(false);
-
-    const setRefs = React.useCallback(
-      (node: HTMLButtonElement | null) => {
-        localRef.current = node;
-        assignRef(ref, node);
+const Button = React.memo(
+  React.forwardRef<HTMLButtonElement, ButtonProps>(
+    (
+      {
+        className,
+        variant,
+        unstyled,
+        size,
+        loading,
+        type,
+        disabled,
+        asChild = false,
+        children,
+        ignoreTitleCase = false,
+        shouldScale = true,
+        onClick,
+        onKeyDown,
+        ...props
       },
-      [ref],
-    );
-
-    const markRetainFocus = () => {
-      retainFocusRef.current = true;
-    };
-
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-      if (blockActivation) {
-        event.preventDefault();
-        return;
+      ref,
+    ) => {
+      // ElementType avoids Slot|"button" intersecting child props with i18n's
+      // ReactI18NextChildren (Record<string, unknown>), which breaks the loading branch.
+      const Comp: React.ElementType = asChild ? Slot : "button";
+      let newChildren: React.ReactNode = children as React.ReactNode;
+      if (typeof children === "string") {
+        newChildren = ignoreTitleCase ? children : toTitleCase(children);
       }
-      markRetainFocus();
-      onClick?.(event);
-    };
+      const shouldScaleButton =
+        props["aria-haspopup"] !== "dialog" || shouldScale;
+      // Native `disabled` drops focus to <body>. While loading, keep the control
+      // focusable with aria-disabled so keyboard users retain place and aria-busy
+      // can be announced on the focused element (WCAG 2.4.3 / 4.1.2).
+      // Call sites often pass `disabled={… || isLoading}` alongside `loading` —
+      // loading wins so focus is retained even when those props overlap.
+      const isBusy = Boolean(loading);
+      const blockActivation = Boolean(disabled) || isBusy;
+      const nativeDisabled = Boolean(disabled) && !isBusy;
 
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-      if (
-        blockActivation &&
-        (event.key === "Enter" || event.key === " " || event.key === "Spacebar")
-      ) {
-        event.preventDefault();
-        return;
-      }
-      if (
-        event.key === "Enter" ||
-        event.key === " " ||
-        event.key === "Spacebar"
-      ) {
+      const localRef = React.useRef<HTMLButtonElement | null>(null);
+      const retainFocusRef = React.useRef(false);
+
+      const setRefs = React.useCallback(
+        (node: HTMLButtonElement | null) => {
+          localRef.current = node;
+          assignRef(ref, node);
+        },
+        [ref],
+      );
+
+      const markRetainFocus = () => {
+        retainFocusRef.current = true;
+      };
+
+      const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (blockActivation) {
+          event.preventDefault();
+          return;
+        }
         markRetainFocus();
-      }
-      onKeyDown?.(event);
-    };
+        onClick?.(event);
+      };
 
-    // Re-assert focus across busy transitions. Child swaps (spinner) or
-    // overlapping disabled props can still drop focus even with aria-disabled.
-    React.useLayoutEffect(() => {
-      if (!retainFocusRef.current) return;
-      const node = localRef.current;
-      if (!node) return;
+      const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+        if (
+          blockActivation &&
+          (event.key === "Enter" ||
+            event.key === " " ||
+            event.key === "Spacebar")
+        ) {
+          event.preventDefault();
+          return;
+        }
+        if (
+          event.key === "Enter" ||
+          event.key === " " ||
+          event.key === "Spacebar"
+        ) {
+          markRetainFocus();
+        }
+        onKeyDown?.(event);
+      };
 
-      if (isBusy) {
-        if (document.activeElement !== node) {
+      // Re-assert focus across busy transitions. Child swaps (spinner) or
+      // overlapping disabled props can still drop focus even with aria-disabled.
+      React.useLayoutEffect(() => {
+        if (!retainFocusRef.current) return;
+        const node = localRef.current;
+        if (!node) return;
+
+        if (isBusy) {
+          if (document.activeElement !== node) {
+            node.focus({ preventScroll: true });
+          }
+          return;
+        }
+
+        if (
+          document.activeElement === document.body ||
+          document.activeElement === null
+        ) {
           node.focus({ preventScroll: true });
         }
-        return;
-      }
+        retainFocusRef.current = false;
+      }, [isBusy]);
 
-      if (
-        document.activeElement === document.body ||
-        document.activeElement === null
-      ) {
-        node.focus({ preventScroll: true });
-      }
-      retainFocusRef.current = false;
-    }, [isBusy]);
-
-    return (
-      <>
-        <Comp
-          className={
-            !unstyled
-              ? cn(
-                  buttonVariants({ variant, size, className }),
-                  shouldScaleButton && "active:scale-[0.97]",
-                )
-              : cn(className)
-          }
-          {...(asChild ? {} : { type: type || "button" })}
-          ref={setRefs}
-          {...props}
-          disabled={nativeDisabled || undefined}
-          aria-disabled={isBusy || undefined}
-          aria-busy={isBusy || undefined}
-          onClick={handleClick}
-          onKeyDown={handleKeyDown}
-        >
-          {loading ? (
-            <span className="relative flex items-center justify-center">
-              {/* Reserve layout width; hide from a11y so the name comes from sr-only. */}
-              <span
-                aria-hidden="true"
-                className={cn(
-                  className,
-                  "invisible flex items-center justify-center gap-2 !p-0",
-                )}
-              >
-                {newChildren}
+      return (
+        <>
+          <Comp
+            className={
+              !unstyled
+                ? cn(
+                    buttonVariants({ variant, size, className }),
+                    shouldScaleButton && "active:scale-[0.97]",
+                  )
+                : cn(className)
+            }
+            {...(asChild ? {} : { type: type || "button" })}
+            ref={setRefs}
+            {...props}
+            disabled={nativeDisabled || undefined}
+            aria-disabled={isBusy || undefined}
+            aria-busy={isBusy || undefined}
+            onClick={handleClick}
+            onKeyDown={handleKeyDown}
+          >
+            {loading ? (
+              <span className="relative flex items-center justify-center">
+                {/* Reserve layout width; hide from a11y so the name comes from sr-only. */}
+                <span
+                  aria-hidden="true"
+                  className={cn(
+                    className,
+                    "invisible flex items-center justify-center gap-2 !p-0",
+                  )}
+                >
+                  {newChildren}
+                </span>
+                <span className="sr-only">{newChildren}</span>
+                <span
+                  aria-hidden="true"
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <ForwardedIconComponent
+                    name={"Loader2"}
+                    className={"h-full w-full animate-spin"}
+                  />
+                </span>
               </span>
-              <span className="sr-only">{newChildren}</span>
-              <span
-                aria-hidden="true"
-                className="absolute inset-0 flex items-center justify-center"
-              >
-                <ForwardedIconComponent
-                  name={"Loader2"}
-                  className={"h-full w-full animate-spin"}
-                />
-              </span>
-            </span>
-          ) : (
-            newChildren
-          )}
-        </Comp>
-      </>
-    );
-  },
+            ) : (
+              newChildren
+            )}
+          </Comp>
+        </>
+      );
+    },
+  ),
 );
 Button.displayName = "Button";
 

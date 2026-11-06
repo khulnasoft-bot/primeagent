@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import ForwardedIconComponent from "@/components/common/genericIconComponent";
@@ -27,243 +27,252 @@ import { useGetTemplateStyle } from "../../utils/get-template-style";
 import { timeElapsed } from "../../utils/time-elapse";
 import DropdownComponent from "../dropdown";
 
-const ListComponent = ({
-  flowData,
-  selected,
-  setSelected,
-  shiftPressed,
-}: {
-  flowData: FlowType;
-  selected: boolean;
-  setSelected: (selected: boolean) => void;
-  shiftPressed: boolean;
-}) => {
-  const { t } = useTranslation();
-  const navigate = useCustomNavigate();
-  const [openDelete, setOpenDelete] = useState(false);
-  const setSuccessData = useAlertStore((state) => state.setSuccessData);
-  const { deleteFlow } = useDeleteFlow();
-  const setErrorData = useAlertStore((state) => state.setErrorData);
-  const { folderId } = useParams();
-  const [openSettings, setOpenSettings] = useState(false);
-  const [openExportModal, setOpenExportModal] = useState(false);
-  const isComponent = flowData.is_component ?? false;
+const ListComponent = memo(
+  ({
+    flowData,
+    selected,
+    setSelected,
+    shiftPressed,
+  }: {
+    flowData: FlowType;
+    selected: boolean;
+    setSelected: (selected: boolean) => void;
+    shiftPressed: boolean;
+  }) => {
+    const { t } = useTranslation();
+    const navigate = useCustomNavigate();
+    const [openDelete, setOpenDelete] = useState(false);
+    const setSuccessData = useAlertStore((state) => state.setSuccessData);
+    const { deleteFlow } = useDeleteFlow();
+    const setErrorData = useAlertStore((state) => state.setErrorData);
+    const { folderId } = useParams();
+    const [openSettings, setOpenSettings] = useState(false);
+    const [openExportModal, setOpenExportModal] = useState(false);
+    const isComponent = flowData.is_component ?? false;
 
-  const { getIcon } = useGetTemplateStyle(flowData);
+    const { getIcon } = useGetTemplateStyle(flowData);
 
-  const editFlowLink = `/flow/${flowData.id}${folderId ? `/folder/${folderId}` : ""}`;
+    const editFlowLink = `/flow/${flowData.id}${folderId ? `/folder/${folderId}` : ""}`;
 
-  const handleClick = async () => {
-    if (shiftPressed) {
-      setSelected(!selected);
-    } else {
-      if (!isComponent) {
-        navigate(editFlowLink);
+    const handleClick = async () => {
+      if (shiftPressed) {
+        setSelected(!selected);
+      } else {
+        if (!isComponent) {
+          navigate(editFlowLink);
+        }
       }
-    }
-  };
+    };
 
-  const handleDelete = () => {
-    deleteFlow({ id: [flowData.id] })
-      .then(() => {
+    const handleDelete = () => {
+      deleteFlow({ id: [flowData.id] })
+        .then(() => {
+          setSuccessData({
+            title: t("flow.deletedSuccessfully"),
+          });
+        })
+        .catch((err) => {
+          setErrorData({
+            title: t("flow.errorDeleting"),
+            list: [t("flow.errorDeletingRetry")],
+          });
+        });
+    };
+
+    const { can } = usePermissions();
+    // Moving a flow into another folder mutates its folder_id → gate on write.
+    const canMove = can(flowData.id, "write");
+
+    const { onDragStart } = useDragStart(flowData);
+
+    const descriptionModal = useDescriptionModal(
+      [flowData?.id],
+      flowData.is_component ? "component" : "flow",
+    );
+
+    const swatchIndex =
+      (flowData.gradient && !isNaN(parseInt(flowData.gradient))
+        ? parseInt(flowData.gradient)
+        : getNumberFromString(flowData.gradient ?? flowData.id)) %
+      swatchColors.length;
+
+    const handleExport = () => {
+      if (flowData.is_component) {
+        downloadFlow(flowData, flowData.name, flowData.description);
         setSuccessData({
-          title: t("flow.deletedSuccessfully"),
+          title: t("success.flowExported", { name: flowData.name }),
         });
-      })
-      .catch((err) => {
-        setErrorData({
-          title: t("flow.errorDeleting"),
-          list: [t("flow.errorDeletingRetry")],
-        });
-      });
-  };
+      } else {
+        setOpenExportModal(true);
+      }
+    };
 
-  const { can } = usePermissions();
-  // Moving a flow into another folder mutates its folder_id → gate on write.
-  const canMove = can(flowData.id, "write");
+    const [icon, setIcon] = useState<string>("");
+    const flowNameId = `flow-name-${flowData.id}`;
+    const openActionLabelId = `flow-open-action-${flowData.id}`;
 
-  const { onDragStart } = useDragStart(flowData);
+    useEffect(() => {
+      getIcon().then(setIcon);
+    }, [getIcon]);
 
-  const descriptionModal = useDescriptionModal(
-    [flowData?.id],
-    flowData.is_component ? "component" : "flow",
-  );
-
-  const swatchIndex =
-    (flowData.gradient && !isNaN(parseInt(flowData.gradient))
-      ? parseInt(flowData.gradient)
-      : getNumberFromString(flowData.gradient ?? flowData.id)) %
-    swatchColors.length;
-
-  const handleExport = () => {
-    if (flowData.is_component) {
-      downloadFlow(flowData, flowData.name, flowData.description);
-      setSuccessData({
-        title: t("success.flowExported", { name: flowData.name }),
-      });
-    } else {
-      setOpenExportModal(true);
-    }
-  };
-
-  const [icon, setIcon] = useState<string>("");
-  const flowNameId = `flow-name-${flowData.id}`;
-  const openActionLabelId = `flow-open-action-${flowData.id}`;
-
-  useEffect(() => {
-    getIcon().then(setIcon);
-  }, [getIcon]);
-
-  return (
-    <>
-      <Card
-        key={flowData.id}
-        draggable={canMove}
-        onDragStart={onDragStart}
-        className={`relative flex flex-row bg-background ${
-          isComponent ? "cursor-default" : "cursor-pointer"
-        } group justify-between rounded-lg border-none px-4 py-3 shadow-none hover:bg-muted`}
-        data-testid="list-card"
-      >
-        {!isComponent && (
-          <>
-            <button
-              type="button"
-              className="absolute inset-0 z-0 rounded-lg focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2"
-              onClick={handleClick}
-              aria-labelledby={`${openActionLabelId} ${flowNameId}`}
-              data-testid="list-card-open-button"
-            />
-            <span id={openActionLabelId} className="sr-only">
-              {t("flows.openFlow")}
-            </span>
-          </>
-        )}
-        <div
-          className={`flex min-w-0 ${
+    return (
+      <>
+        <Card
+          key={flowData.id}
+          draggable={canMove}
+          onDragStart={onDragStart}
+          className={`relative flex flex-row bg-background ${
             isComponent ? "cursor-default" : "cursor-pointer"
-          } pointer-events-none relative z-10 items-center gap-4`}
+          } group justify-between rounded-lg border-none px-4 py-3 shadow-none hover:bg-muted`}
+          data-testid="list-card"
         >
-          <div className="group/checkbox pointer-events-auto relative flex items-center">
-            <div
-              className={cn(
-                "z-20 flex w-0 items-center transition-all duration-300",
-                selected && "w-10",
-                "group-focus-within/checkbox:w-10",
-              )}
-            >
-              <Checkbox
-                checked={selected}
-                onCheckedChange={(checked) => setSelected(checked as boolean)}
-                onClick={(e) => e.stopPropagation()}
-                className={cn(
-                  "ml-2 transition-opacity",
-                  !selected &&
-                    "opacity-0 group-hover/checkbox:opacity-100 group-focus-within/checkbox:opacity-100",
-                )}
-                data-testid={`checkbox-${flowData.id}`}
-                aria-label={t("flows.selectFlow", { name: flowData.name })}
+          {!isComponent && (
+            <>
+              <button
+                type="button"
+                className="absolute inset-0 z-0 rounded-lg focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-2"
+                onClick={handleClick}
+                aria-labelledby={`${openActionLabelId} ${flowNameId}`}
+                data-testid="list-card-open-button"
               />
-            </div>
-            <div
-              className={cn(
-                `item-center flex justify-center rounded-lg p-1.5 transition-opacity duration-200`,
-                swatchColors[swatchIndex],
-                selected
-                  ? "duration-300"
-                  : "group-hover/checkbox:pointer-events-none group-hover/checkbox:opacity-0",
-              )}
-            >
-              <ForwardedIconComponent
-                name={flowData?.icon || icon}
-                aria-hidden="true"
-                className="flex h-5 w-5 items-center justify-center"
-              />
-            </div>
-          </div>
-
-          <div className="flex min-w-0 flex-col justify-start">
-            <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+              <span id={openActionLabelId} className="sr-only">
+                {t("flows.openFlow")}
+              </span>
+            </>
+          )}
+          <div
+            className={`flex min-w-0 ${
+              isComponent ? "cursor-default" : "cursor-pointer"
+            } pointer-events-none relative z-10 items-center gap-4`}
+          >
+            <div className="group/checkbox pointer-events-auto relative flex items-center">
               <div
-                className="flex min-w-0 flex-shrink truncate text-sm font-semibold"
-                data-testid={`flow-name-div`}
+                className={cn(
+                  "z-20 flex w-0 items-center transition-all duration-300",
+                  selected && "w-10",
+                  "group-focus-within/checkbox:w-10",
+                )}
               >
-                <span
-                  className="truncate"
-                  data-testid={flowNameId}
-                  id={flowNameId}
-                >
-                  {flowData.name}
-                </span>
+                <Checkbox
+                  checked={selected}
+                  onCheckedChange={(checked) => setSelected(checked as boolean)}
+                  onClick={(e) => e.stopPropagation()}
+                  className={cn(
+                    "ml-2 transition-opacity",
+                    !selected &&
+                      "opacity-0 group-hover/checkbox:opacity-100 group-focus-within/checkbox:opacity-100",
+                  )}
+                  data-testid={`checkbox-${flowData.id}`}
+                  aria-label={t("flows.selectFlow", { name: flowData.name })}
+                />
               </div>
-              <div className="flex min-w-0 flex-shrink text-xs text-muted-foreground">
-                <span className="truncate">
-                  {t("mainPage.editedAgo", {
-                    time: timeElapsed(flowData.updated_at, t),
-                  })}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="pointer-events-none relative z-10 ml-5 flex items-center gap-2">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="iconMd"
-                data-testid="home-dropdown-menu"
-                className="pointer-events-auto group"
-                aria-label={t("flows.moreOptions", { name: flowData.name })}
+              <div
+                className={cn(
+                  `item-center flex justify-center rounded-lg p-1.5 transition-opacity duration-200`,
+                  swatchColors[swatchIndex],
+                  selected
+                    ? "duration-300"
+                    : "group-hover/checkbox:pointer-events-none group-hover/checkbox:opacity-0",
+                )}
               >
                 <ForwardedIconComponent
-                  name="Ellipsis"
+                  name={flowData?.icon || icon}
                   aria-hidden="true"
-                  className="h-5 w-5 text-muted-foreground group-hover:text-foreground"
+                  className="flex h-5 w-5 items-center justify-center"
                 />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className="w-[185px]"
-              sideOffset={5}
-              side="bottom"
-            >
-              <DropdownComponent
-                flowData={flowData}
-                setOpenDelete={setOpenDelete}
-                handleExport={handleExport}
-                handleEdit={() => {
-                  setOpenSettings(true);
-                }}
-              />
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </Card>
-      {openDelete && (
-        <DeleteConfirmationModal
-          open={openDelete}
-          setOpen={setOpenDelete}
-          onConfirm={handleDelete}
-          description={descriptionModal}
-          note={
-            !flowData.is_component ? t("deleteModal.noteMessageHistory") : ""
-          }
+              </div>
+            </div>
+
+            <div className="flex min-w-0 flex-col justify-start">
+              <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
+                <div
+                  className="flex min-w-0 flex-shrink truncate text-sm font-semibold"
+                  data-testid={`flow-name-div`}
+                >
+                  <span
+                    className="truncate"
+                    data-testid={flowNameId}
+                    id={flowNameId}
+                  >
+                    {flowData.name}
+                  </span>
+                </div>
+                <div className="flex min-w-0 flex-shrink text-xs text-muted-foreground">
+                  <span className="truncate">
+                    {t("mainPage.editedAgo", {
+                      time: timeElapsed(flowData.updated_at, t),
+                    })}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="pointer-events-none relative z-10 ml-5 flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="iconMd"
+                  data-testid="home-dropdown-menu"
+                  className="pointer-events-auto group"
+                  aria-label={t("flows.moreOptions", { name: flowData.name })}
+                >
+                  <ForwardedIconComponent
+                    name="Ellipsis"
+                    aria-hidden="true"
+                    className="h-5 w-5 text-muted-foreground group-hover:text-foreground"
+                  />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className="w-[185px]"
+                sideOffset={5}
+                side="bottom"
+              >
+                <DropdownComponent
+                  flowData={flowData}
+                  setOpenDelete={setOpenDelete}
+                  handleExport={handleExport}
+                  handleEdit={() => {
+                    setOpenSettings(true);
+                  }}
+                />
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </Card>
+        {openDelete && (
+          <DeleteConfirmationModal
+            open={openDelete}
+            setOpen={setOpenDelete}
+            onConfirm={handleDelete}
+            description={descriptionModal}
+            note={
+              !flowData.is_component ? t("deleteModal.noteMessageHistory") : ""
+            }
+          />
+        )}
+        <ExportModal
+          open={openExportModal}
+          setOpen={setOpenExportModal}
+          flowData={flowData}
         />
-      )}
-      <ExportModal
-        open={openExportModal}
-        setOpen={setOpenExportModal}
-        flowData={flowData}
-      />
-      <FlowSettingsModal
-        open={openSettings}
-        setOpen={setOpenSettings}
-        flowData={flowData}
-      />
-    </>
-  );
-};
+        <FlowSettingsModal
+          open={openSettings}
+          setOpen={setOpenSettings}
+          flowData={flowData}
+        />
+      </>
+    );
+  },
+  // Only re-render when the flow data or selection actually changes. Ignore
+  // the setSelected callback reference so parent re-renders don't cascade
+  // into every card.
+  (prev, next) =>
+    prev.flowData.id === next.flowData.id &&
+    prev.selected === next.selected &&
+    prev.shiftPressed === next.shiftPressed,
+);
 
 export default ListComponent;

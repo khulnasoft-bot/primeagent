@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import "@xyflow/react/dist/style.css";
+import { useEffect, useMemo, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useTranslation } from "react-i18next";
 import { useBlocker, useParams } from "react-router-dom";
+import { useShallow } from "zustand/react/shallow";
 import { AssistantPanel } from "@/components/core/assistantPanel";
 import { FlowPageSlidingContainerContent } from "@/components/core/playgroundComponent/sliding-container/components/flow-page-sliding-container";
 import { SidebarProvider, useSidebar } from "@/components/ui/sidebar";
@@ -100,9 +102,12 @@ export default function FlowPage({ view }: { view?: boolean }): JSX.Element {
 
   useDocumentTitle(currentSavedFlow?.name);
 
-  const changesNotSaved =
-    customStringify(currentFlow) !== customStringify(currentSavedFlow) &&
-    (currentFlow?.data?.nodes?.length ?? 0) > 0;
+  const changesNotSaved = useMemo(
+    () =>
+      customStringify(currentFlow) !== customStringify(currentSavedFlow) &&
+      (currentFlow?.data?.nodes?.length ?? 0) > 0,
+    [currentFlow, currentSavedFlow],
+  );
 
   const isBuilding = useFlowStore((state) => state.isBuilding);
   const blocker = useBlocker(changesNotSaved || isBuilding);
@@ -112,13 +117,16 @@ export default function FlowPage({ view }: { view?: boolean }): JSX.Element {
   const saveFlow = useSaveFlow();
 
   const flows = useFlowsManagerStore((state) => state.flows);
-  const currentFlowId = useFlowsManagerStore((state) => state.currentFlowId);
+  const { currentFlowId, autoSaving } = useFlowsManagerStore(
+    useShallow((state) => ({
+      currentFlowId: state.currentFlowId,
+      autoSaving: state.autoSaving,
+    })),
+  );
 
   // Restore the Human Input awaiting-input badge after a reload (LE-1603 reconnect).
   useRestoreCanvasHitl(currentFlowId);
-
   const updatedAt = currentSavedFlow?.updated_at;
-  const autoSaving = useFlowsManagerStore((state) => state.autoSaving);
   const stopBuilding = useFlowStore((state) => state.stopBuilding);
 
   const { mutateAsync: getFlow } = useGetFlow();
@@ -225,11 +233,15 @@ export default function FlowPage({ view }: { view?: boolean }): JSX.Element {
   // completely hidden — the welcome paints its own faux rail and any flash
   // of the real expanded sidebar is jarring on first paint.
   const isWelcomeOpen = useFlowBuilderWelcomeStore((state) => state.isOpen);
-  const isSlidingContainerOpen = usePlaygroundStore((state) => state.isOpen);
+  const { isOpen: isSlidingContainerOpen, isFullscreen } = usePlaygroundStore(
+    useShallow((state) => ({
+      isOpen: state.isOpen,
+      isFullscreen: state.isFullscreen,
+    })),
+  );
   const setSlidingContainerOpen = usePlaygroundStore(
     (state) => state.setIsOpen,
   );
-  const isFullscreen = usePlaygroundStore((state) => state.isFullscreen);
   const setIsFullscreen = usePlaygroundStore((state) => state.setIsFullscreen);
   const inputs = useFlowStore((state) => state.inputs);
   const outputs = useFlowStore((state) => state.outputs);

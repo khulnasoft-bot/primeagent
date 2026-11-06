@@ -231,6 +231,8 @@ export default function Page({
   const position = useRef({ x: 0, y: 0 });
   const [lastSelection, setLastSelection] =
     useState<OnSelectionChangeParams | null>(null);
+  const lastSelectionRef = useRef(lastSelection);
+  lastSelectionRef.current = lastSelection;
   const currentFlowId = useFlowsManagerStore((state) => state.currentFlowId);
   const isPermissionReadOnly = useIsFlowReadOnly(currentFlowResourceId);
 
@@ -380,10 +382,12 @@ export default function Page({
     if (effectiveLocked) return;
     takeSnapshot();
     const edgesState = useFlowStore.getState().edges;
-    if (validateSelection(lastSelection!, edgesState).length === 0) {
+    const selection = lastSelectionRef.current;
+    if (!selection) return;
+    if (validateSelection(selection, edgesState).length === 0) {
       const clonedNodes = cloneDeep(useFlowStore.getState().nodes);
       const clonedEdges = cloneDeep(edgesState);
-      const clonedSelection = cloneDeep(lastSelection);
+      const clonedSelection = cloneDeep(selection);
       updateIds({ nodes: clonedNodes, edges: clonedEdges }, clonedSelection!);
       const { newFlow } = generateFlow(
         clonedSelection!,
@@ -406,10 +410,10 @@ export default function Page({
     } else {
       setErrorData({
         title: t("errors.invalidSelection"),
-        list: validateSelection(lastSelection!, edgesState),
+        list: validateSelection(selection, edgesState),
       });
     }
-  }, [effectiveLocked, lastSelection, setNodes, setErrorData, takeSnapshot, t]);
+  }, [effectiveLocked, setNodes, setErrorData, takeSnapshot, t]);
 
   useEffect(() => {
     const handleMouseMove = (event) => {
@@ -421,7 +425,7 @@ export default function Page({
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [lastCopiedSelection, lastSelection, takeSnapshot, selectionMenuVisible]);
+  }, []);
 
   const { isFetching } = useGetBuildsQuery({ flowId: currentFlowId });
 
@@ -445,136 +449,176 @@ export default function Page({
     };
   }, [autoSaveFlow]);
 
-  function handleUndo(e: KeyboardEvent) {
-    if (isPreviewActive || effectiveLocked) return;
-    if (!isWrappedWithClass(e, "noflow")) {
-      e.preventDefault();
-      (e as unknown as Event).stopImmediatePropagation();
-      undo();
-    }
-  }
-
-  function handleRedo(e: KeyboardEvent) {
-    if (isPreviewActive || effectiveLocked) return;
-    if (!isWrappedWithClass(e, "noflow")) {
-      e.preventDefault();
-      (e as unknown as Event).stopImmediatePropagation();
-      redo();
-    }
-  }
-
-  function handleGroup(e: KeyboardEvent) {
-    if (isPreviewActive || effectiveLocked) return;
-    if (selectionMenuVisible) {
-      e.preventDefault();
-      (e as unknown as Event).stopImmediatePropagation();
-      handleGroupNode();
-    }
-  }
-
-  function handleDuplicate(e: KeyboardEvent) {
-    if (isPreviewActive || effectiveLocked) return;
-    e.preventDefault();
-    e.stopPropagation();
-    (e as unknown as Event).stopImmediatePropagation();
-    const selectedNode = nodes.filter((obj) => obj.selected);
-    if (selectedNode.length > 0) {
-      // Snapshot before pasting so the duplication is its own history entry.
-      // Without this, undo falls back to the previous snapshot (e.g. a drag's
-      // pre-move state) and reverts both the duplication and the prior action.
-      takeSnapshot();
-      paste(
-        { nodes: selectedNode, edges: [] },
-        {
-          x: position.current.x,
-          y: position.current.y,
-        },
-      );
-    }
-  }
-
-  function handleCopy(e: KeyboardEvent) {
-    const multipleSelection = lastSelection?.nodes
-      ? lastSelection?.nodes.length > 0
-      : false;
-    const hasTextSelection =
-      (window.getSelection()?.toString().length ?? 0) > 0;
-
-    if (
-      !isWrappedWithClass(e, "noflow") &&
-      !hasTextSelection &&
-      (isWrappedWithClass(e, "react-flow__node") || multipleSelection)
-    ) {
-      e.preventDefault();
-      (e as unknown as Event).stopImmediatePropagation();
-      if (lastSelection) {
-        setLastCopiedSelection(_.cloneDeep(lastSelection));
+  const handleUndo = useCallback(
+    (e: KeyboardEvent) => {
+      if (isPreviewActive || effectiveLocked) return;
+      if (!isWrappedWithClass(e, "noflow")) {
+        e.preventDefault();
+        (e as unknown as Event).stopImmediatePropagation();
+        undo();
       }
-    }
-  }
+    },
+    [isPreviewActive, effectiveLocked, undo],
+  );
 
-  function handleCut(e: KeyboardEvent) {
-    if (isPreviewActive || effectiveLocked) return;
-    if (!isWrappedWithClass(e, "noflow")) {
-      e.preventDefault();
-      (e as unknown as Event).stopImmediatePropagation();
-      if (window.getSelection()?.toString().length === 0 && lastSelection) {
-        setLastCopiedSelection(_.cloneDeep(lastSelection), true);
+  const handleRedo = useCallback(
+    (e: KeyboardEvent) => {
+      if (isPreviewActive || effectiveLocked) return;
+      if (!isWrappedWithClass(e, "noflow")) {
+        e.preventDefault();
+        (e as unknown as Event).stopImmediatePropagation();
+        redo();
       }
-    }
-  }
+    },
+    [isPreviewActive, effectiveLocked, redo],
+  );
 
-  function handlePaste(e: KeyboardEvent) {
-    if (isPreviewActive || effectiveLocked) return;
-    if (!isWrappedWithClass(e, "noflow")) {
+  const handleGroup = useCallback(
+    (e: KeyboardEvent) => {
+      if (isPreviewActive || effectiveLocked) return;
+      if (selectionMenuVisible) {
+        e.preventDefault();
+        (e as unknown as Event).stopImmediatePropagation();
+        handleGroupNode();
+      }
+    },
+    [isPreviewActive, effectiveLocked, selectionMenuVisible, handleGroupNode],
+  );
+
+  const handleDuplicate = useCallback(
+    (e: KeyboardEvent) => {
+      if (isPreviewActive || effectiveLocked) return;
       e.preventDefault();
+      e.stopPropagation();
       (e as unknown as Event).stopImmediatePropagation();
-      if (
-        window.getSelection()?.toString().length === 0 &&
-        lastCopiedSelection
-      ) {
+      const selectedNode = nodes.filter((obj) => obj.selected);
+      if (selectedNode.length > 0) {
         takeSnapshot();
-        paste(lastCopiedSelection, {
-          x: position.current.x,
-          y: position.current.y,
-        });
+        paste(
+          { nodes: selectedNode, edges: [] },
+          {
+            x: position.current.x,
+            y: position.current.y,
+          },
+        );
       }
-    }
-  }
+    },
+    [isPreviewActive, effectiveLocked, nodes, takeSnapshot, paste],
+  );
 
-  function handleDelete(e: KeyboardEvent) {
-    if (isPreviewActive) return;
-    if (effectiveLocked) return;
-    if (!isWrappedWithClass(e, "nodelete") && lastSelection) {
-      e.preventDefault();
-      (e as unknown as Event).stopImmediatePropagation();
-      takeSnapshot();
-      if (lastSelection.edges?.length) {
-        track("Component Connection Deleted");
+  const handleCopy = useCallback(
+    (e: KeyboardEvent) => {
+      const multipleSelection = lastSelection?.nodes
+        ? lastSelection?.nodes.length > 0
+        : false;
+      const hasTextSelection =
+        (window.getSelection()?.toString().length ?? 0) > 0;
+
+      if (
+        !isWrappedWithClass(e, "noflow") &&
+        !hasTextSelection &&
+        (isWrappedWithClass(e, "react-flow__node") || multipleSelection)
+      ) {
+        e.preventDefault();
+        (e as unknown as Event).stopImmediatePropagation();
+        if (lastSelection) {
+          setLastCopiedSelection(_.cloneDeep(lastSelection));
+        }
       }
-      if (lastSelection.nodes?.length) {
-        lastSelection.nodes.forEach((n) => {
-          track("Component Deleted", { componentType: n.data.type });
-        });
+    },
+    [lastSelection, setLastCopiedSelection],
+  );
+
+  const handleCut = useCallback(
+    (e: KeyboardEvent) => {
+      if (isPreviewActive || effectiveLocked) return;
+      if (!isWrappedWithClass(e, "noflow")) {
+        e.preventDefault();
+        (e as unknown as Event).stopImmediatePropagation();
+        if (window.getSelection()?.toString().length === 0 && lastSelection) {
+          setLastCopiedSelection(_.cloneDeep(lastSelection), true);
+        }
       }
-      deleteNode(lastSelection.nodes.map((node) => node.id));
-      deleteEdge(lastSelection.edges.map((edge) => edge.id));
-    }
-  }
+    },
+    [isPreviewActive, effectiveLocked, lastSelection, setLastCopiedSelection],
+  );
 
-  function handleEscape(e: KeyboardEvent) {
-    if (e.key === "Escape") {
-      setRightClickedNodeId(null);
-    }
-  }
+  const handlePaste = useCallback(
+    (e: KeyboardEvent) => {
+      if (isPreviewActive || effectiveLocked) return;
+      if (!isWrappedWithClass(e, "noflow")) {
+        e.preventDefault();
+        (e as unknown as Event).stopImmediatePropagation();
+        if (
+          window.getSelection()?.toString().length === 0 &&
+          lastCopiedSelection
+        ) {
+          takeSnapshot();
+          paste(lastCopiedSelection, {
+            x: position.current.x,
+            y: position.current.y,
+          });
+        }
+      }
+    },
+    [
+      isPreviewActive,
+      effectiveLocked,
+      lastCopiedSelection,
+      takeSnapshot,
+      paste,
+    ],
+  );
 
-  function handleDownload(e: KeyboardEvent) {
-    if (!isWrappedWithClass(e, "noflow")) {
-      e.preventDefault();
-      (e as unknown as Event).stopImmediatePropagation();
-      setOpenExportModal(true);
-    }
-  }
+  const handleDelete = useCallback(
+    (e: KeyboardEvent) => {
+      if (isPreviewActive) return;
+      if (effectiveLocked) return;
+      if (!isWrappedWithClass(e, "nodelete") && lastSelection) {
+        e.preventDefault();
+        (e as unknown as Event).stopImmediatePropagation();
+        takeSnapshot();
+        if (lastSelection.edges?.length) {
+          track("Component Connection Deleted");
+        }
+        if (lastSelection.nodes?.length) {
+          lastSelection.nodes.forEach((n) => {
+            track("Component Deleted", { componentType: n.data.type });
+          });
+        }
+        deleteNode(lastSelection.nodes.map((node) => node.id));
+        deleteEdge(lastSelection.edges.map((edge) => edge.id));
+      }
+    },
+    [
+      isPreviewActive,
+      effectiveLocked,
+      lastSelection,
+      takeSnapshot,
+      deleteNode,
+      deleteEdge,
+    ],
+  );
+
+  const handleEscape = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setRightClickedNodeId(null);
+      }
+    },
+    [setRightClickedNodeId],
+  );
+
+  const handleDownload = useCallback(
+    (e: KeyboardEvent) => {
+      if (!isWrappedWithClass(e, "noflow")) {
+        e.preventDefault();
+        (e as unknown as Event).stopImmediatePropagation();
+        setOpenExportModal(true);
+      }
+    },
+    [setOpenExportModal],
+  );
 
   const undoAction = useShortcutsStore((state) => state.undo);
   const redoAction = useShortcutsStore((state) => state.redo);
@@ -628,11 +672,12 @@ export default function Page({
   const onNodeDrag: OnNodeDrag = useCallback(
     (_, node) => {
       if (helperLineEnabled) {
-        const currentHelperLines = getHelperLines(node, nodes);
+        const currentNodes = useFlowStore.getState().nodes;
+        const currentHelperLines = getHelperLines(node, currentNodes);
         setHelperLines(currentHelperLines);
       }
     },
-    [helperLineEnabled, nodes],
+    [helperLineEnabled],
   );
 
   const onNodeDragStart: OnNodeDrag = useCallback(
@@ -650,20 +695,13 @@ export default function Page({
     (_, node) => {
       // 👇 make moving the canvas undoable
       autoSaveFlow();
-      updateCurrentFlow({ nodes });
+      updateCurrentFlow({ nodes: useFlowStore.getState().nodes });
       setPositionDictionary({});
       setIsDragging(false);
       isPointerDragRef.current = false;
       setHelperLines({});
     },
-    [
-      takeSnapshot,
-      autoSaveFlow,
-      nodes,
-      edges,
-      reactFlowInstance,
-      setPositionDictionary,
-    ],
+    [takeSnapshot, autoSaveFlow, setPositionDictionary],
   );
 
   const onNodesChangeWithHelperLines = useCallback(
@@ -683,7 +721,8 @@ export default function Page({
           isDragging
         ) {
           const nodeId = change.id as string;
-          const draggedNode = nodes.find((n) => n.id === nodeId);
+          const currentNodes = useFlowStore.getState().nodes;
+          const draggedNode = currentNodes.find((n) => n.id === nodeId);
 
           if (draggedNode && change.position) {
             const updatedNode = {
@@ -691,7 +730,7 @@ export default function Page({
               position: change.position,
             };
 
-            const snapPosition = getSnapPosition(updatedNode, nodes);
+            const snapPosition = getSnapPosition(updatedNode, currentNodes);
 
             // Only snap if we're actively dragging
             if (change.dragging) {
@@ -720,7 +759,7 @@ export default function Page({
 
       onNodesChange(modifiedChanges);
     },
-    [onNodesChange, nodes, isDragging, helperLineEnabled],
+    [onNodesChange, isDragging, helperLineEnabled],
   );
 
   // Arrow-key node moves (keyboard a11y) don't pass through the drag
@@ -906,25 +945,31 @@ export default function Page({
     setRightClickedNodeId(null);
   }, [setFilterEdge, setFilterComponent, setRightClickedNodeId]);
 
-  const handleEdgeClick = (event, edge) => {
-    if (effectiveLocked) {
-      event.preventDefault();
-      event.stopPropagation();
-      return;
-    }
-    const color =
-      nodeColorsName[edge?.data?.sourceHandle?.output_types[0]] || "cyan";
+  const handleEdgeClick = useCallback(
+    (event, edge) => {
+      if (effectiveLocked) {
+        event.preventDefault();
+        event.stopPropagation();
+        return;
+      }
+      const color =
+        nodeColorsName[edge?.data?.sourceHandle?.output_types[0]] || "cyan";
 
-    const accentColor = `hsl(var(--datatype-${color}))`;
-    reactFlowWrapper.current?.style.setProperty("--selected", accentColor);
-  };
+      const accentColor = `hsl(var(--datatype-${color}))`;
+      reactFlowWrapper.current?.style.setProperty("--selected", accentColor);
+    },
+    [effectiveLocked],
+  );
 
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (effectiveLocked) {
-      e.preventDefault();
-      e.stopPropagation();
-    }
-  };
+  const handleKeyDown = useCallback(
+    (e: KeyboardEvent) => {
+      if (effectiveLocked) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    },
+    [effectiveLocked],
+  );
 
   // Listen for a global event to start the add-note flow from outside components.
   // Immediately places the note above the toolbar so the user can drag it right away.

@@ -67,7 +67,13 @@ import { useTweaksStore } from "./tweaksStore";
 import { useTypesStore } from "./typesStore";
 import { useUtilityStore } from "./utilityStore";
 
-// Tracks in-progress node update operations (e.g. validateComponentCode calls).
+// Maximum build pool entries retained per node to bound memory during long
+// build sessions (each entry carries full vertex data + logs).
+const MAX_FLOW_POOL_NODES = 50;
+const MAX_FLOW_POOL_ENTRIES_PER_NODE = 20;
+
+// Maximum build status entries retained (one per node that has been built).
+const MAX_BUILD_STATUS_ENTRIES = 200;
 // buildFlow awaits these so "Run" doesn't race against a pending "Update".
 const pendingNodeUpdates = new Map<
   string,
@@ -255,11 +261,21 @@ const useFlowStore = create<FlowStoreType>((set, get) => ({
   addDataToFlowPool: (data: VertexBuildTypeAPI, nodeId: string) => {
     const prevPool = get().flowPool;
     const prevEntries = prevPool[nodeId];
-    const newFlowPool = {
+    const updatedEntries = prevEntries
+      ? [...prevEntries, data].slice(-MAX_FLOW_POOL_ENTRIES_PER_NODE)
+      : [data];
+    // Drop the oldest node entry when over the node cap.
+    const nodeIds = Object.keys(prevPool);
+    let trimmedPool = {
       ...prevPool,
-      [nodeId]: prevEntries ? [...prevEntries, data] : [data],
+      [nodeId]: updatedEntries,
     };
-    get().setFlowPool(newFlowPool);
+    if (!prevPool[nodeId] && nodeIds.length >= MAX_FLOW_POOL_NODES) {
+      const oldest = nodeIds[0];
+      const { [oldest]: _removed, ...rest } = trimmedPool;
+      trimmedPool = rest;
+    }
+    get().setFlowPool(trimmedPool);
   },
   appendLogToFlowPool: (
     nodeId: string,
@@ -1223,7 +1239,8 @@ const useFlowStore = create<FlowStoreType>((set, get) => ({
     });
   },
   updateBuildStatus: (nodeIdList: string[], status: BuildStatus) => {
-    const newFlowBuildStatus = { ...get().flowBuildStatus };
+    const current = get().flowBuildStatus;
+    const newFlowBuildStatus = { ...current };
     nodeIdList.forEach((id) => {
       newFlowBuildStatus[id] = {
         status,
@@ -1233,6 +1250,14 @@ const useFlowStore = create<FlowStoreType>((set, get) => ({
         newFlowBuildStatus[id].timestamp = timestamp_string;
       }
     });
+    // Cap total entries: drop oldest keys when over the limit.
+    const keys = Object.keys(newFlowBuildStatus);
+    if (keys.length > MAX_BUILD_STATUS_ENTRIES) {
+      const toRemove = keys.slice(0, keys.length - MAX_BUILD_STATUS_ENTRIES);
+      for (const k of toRemove) {
+        delete newFlowBuildStatus[k];
+      }
+    }
     set({ flowBuildStatus: newFlowBuildStatus });
   },
   revertBuiltStatusFromBuilding: () => {
