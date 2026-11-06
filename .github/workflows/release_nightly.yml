@@ -66,7 +66,7 @@ jobs:
       - name: "Setup Environment"
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: ${{ env.PYTHON_VERSION }}
@@ -173,7 +173,7 @@ jobs:
       - name: "Setup Environment"
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: ${{ env.PYTHON_VERSION }}
@@ -283,7 +283,7 @@ jobs:
       - name: "Setup Environment"
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: ${{ env.PYTHON_VERSION }}
@@ -436,7 +436,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish WFX to PyPI
@@ -465,7 +465,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish SDK to PyPI
@@ -494,7 +494,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish base to PyPI
@@ -524,7 +524,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish bundle dependencies to PyPI
@@ -665,7 +665,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Wait for direct base and bundle dependencies on PyPI
@@ -788,7 +788,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish to PyPI

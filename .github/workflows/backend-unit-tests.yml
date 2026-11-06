@@ -111,7 +111,7 @@ jobs:
           node-version: '22'
       - uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: uv.lock
           python-version: ${{ matrix.python-version }}
@@ -190,7 +190,7 @@ jobs:
           path: results
       - uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           python-version: '3.13'
       - name: Summarize and validate complete timings
         run: |

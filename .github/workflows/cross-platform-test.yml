@@ -53,7 +53,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -239,7 +239,7 @@ jobs:
       - name: Setup UV
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           ignore-empty-workdir: true
 
@@ -523,7 +523,7 @@ jobs:
       - name: Setup UV
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           ignore-empty-workdir: true
 
@@ -891,7 +891,7 @@ jobs:
       - name: Setup UV
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.14"
 

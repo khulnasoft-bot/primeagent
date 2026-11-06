@@ -289,7 +289,7 @@ jobs:
         if: ${{ inputs.pre_release }}
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -464,7 +464,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -518,7 +518,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -569,7 +569,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -620,7 +620,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -706,7 +706,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -776,7 +776,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -902,7 +902,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.12"
@@ -1086,7 +1086,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.12"
@@ -1296,7 +1296,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: true
           cache-dependency-glob: "uv.lock"
           python-version: "3.13"
@@ -1473,7 +1473,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish base to PyPI
@@ -1512,7 +1512,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish bundles to PyPI
@@ -1568,7 +1568,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish main to PyPI
@@ -1604,7 +1604,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish SDK to PyPI
@@ -1637,7 +1637,7 @@ jobs:
       - name: Setup Environment
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
           python-version: "3.13"
       - name: Publish WFX to PyPI

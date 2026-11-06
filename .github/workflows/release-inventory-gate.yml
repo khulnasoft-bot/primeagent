@@ -96,7 +96,7 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
 
       - name: Download SDK wheel
@@ -203,7 +203,7 @@ jobs:
       - name: Set up uv
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
           enable-cache: false
 
       - name: Download SDK wheel

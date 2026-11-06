@@ -48,7 +48,7 @@ jobs:
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
-          version: latest-known
+          version: latest
 
       - name: Export Python deps for Mend
         run: |
