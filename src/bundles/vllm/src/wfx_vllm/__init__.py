@@ -7,6 +7,5 @@ system. vLLM is OpenAI-compatible, so the provider reuses ``ChatOpenAI`` /
 ``OpenAIEmbeddings`` and discovers models live from the server's ``/v1/models``
 endpoint (see :mod:`wfx_vllm.discovery`).
 
-Inherits the original vLLM provider contributed in
-https://github.com/khulnasoft-bot/primeagent/pull/13910 by Yash Pareek.
+Inherits the original vLLM provider contributed by Yash Pareek.
 """

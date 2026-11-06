@@ -65,4 +65,3 @@ wfx extension validate src/wfx_openai_compatible
 Resolves the feature request in
 [#12839](https://github.com/khulnasoft-bot/primeagent/issues/12839). Follows the
 provider-bundle pattern established by `wfx-vllm`
-([#13919](https://github.com/khulnasoft-bot/primeagent/pull/13919)).

@@ -58,9 +58,9 @@ What 1.13 owes this initiative, and nothing more:
 | One gap found while writing this gate: the contract assigns the `connection_resolution` matrix dimension and its checker vocabulary to INT-4 and INT-5, and neither open pull request delivers it | `../dedicated-integrations/connection-contract.md` section 11 | filed against 1.13 and picked up by INT-6, which now owns the dimension; TRG-2 adds family rows only |
 
 Exit criterion 7 asks for this table to be checked against the **merged** INT-2
-([#14919](https://github.com/khulnasoft-bot/primeagent/pull/14919)), INT-5
-([#14935](https://github.com/khulnasoft-bot/primeagent/pull/14935)) and INT-6
-([#14946](https://github.com/khulnasoft-bot/primeagent/pull/14946)) pull requests. All three remain open as of 2026-09-10,
+[#14919], INT-5
+[#14935] and INT-6
+[#14946] pull requests. All three remain open as of 2026-09-10,
 so the criterion stays open with the gap above recorded. Before marking criterion 7 done, the reviewing owners
 must record the merged commit for each PR, the reviewed boundary obligations and test evidence, and the disposition
 of each gap here. The checker requires dated completion of criterion 7; it does not query GitHub or establish

@@ -1,4 +1,4 @@
-"""Regression tests for https://github.com/khulnasoft-bot/primeagent/pull/12908.
+"""Regression tests.
 
 Original repro: a CREDENTIAL-typed global variable routed into a non-password
 input field (e.g. TextInputComponent.input_value, a MultilineInput) leaked the

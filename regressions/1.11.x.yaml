@@ -10,7 +10,6 @@ entries:
   first_bad_version: 1.11.0
   last_known_good_version: 1.10.x
   resolved_in_version: 1.11.2
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/14354
   workaround: Set PRIMEAGENT_CONFIG_DIR to a writable path such as /app/primeagent, or upgrade to 1.11.2.
 
 - id: GH-14523
@@ -20,7 +19,6 @@ entries:
   first_bad_version: 1.11.0
   last_known_good_version: 1.10.3
   resolved_in_version: 1.12.0
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/14523
   workaround: Wait a few seconds after the page loads, then click again.
 
 - id: GH-14227
@@ -30,7 +28,6 @@ entries:
   first_bad_version: 1.11.0
   last_known_good_version: 1.10.3
   resolved_in_version: 1.11.2
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/14247
   workaround: none
 
 - id: GH-14455
@@ -40,7 +37,6 @@ entries:
   first_bad_version: 1.11.1
   last_known_good_version: 1.11.0
   resolved_in_version: 1.12.0
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/14527
   workaround: Open each affected flow and update the drifted component so its stored code matches the built-in one.
 
 - id: GH-14536
@@ -50,7 +46,6 @@ entries:
   first_bad_version: 1.11.1
   last_known_good_version: 1.11.0
   resolved_in_version: 1.11.4
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/14545
   workaround: none
 
 - id: GH-14791
@@ -59,5 +54,4 @@ entries:
   area: components
   first_bad_version: unknown
   last_known_good_version: 1.8.0
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/14793
   workaround: none

@@ -10,7 +10,6 @@ entries:
   first_bad_version: 1.8.x
   last_known_good_version: 1.7.3
   resolved_in_version: 1.10.0
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/12877
   workaround: none
 
 - id: GH-12731
@@ -20,7 +19,6 @@ entries:
   first_bad_version: 1.9.0
   last_known_good_version: 1.8.4
   resolved_in_version: 1.9.1
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/12833
   workaround: none
 
 - id: GH-12732
@@ -30,7 +28,6 @@ entries:
   first_bad_version: 1.9.0
   last_known_good_version: unknown
   resolved_in_version: 1.8.2
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/12242
   workaround: Duplicate of an issue originally fixed in 1.8.2.
 
 - id: GH-13059
@@ -40,7 +37,6 @@ entries:
   first_bad_version: 1.9.2
   last_known_good_version: unknown
   resolved_in_version: 1.10.0
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/13087
   workaround: Give each flow a distinct session name instead of keeping the default "New Session 0".
 
 - id: GH-14253
@@ -50,7 +46,6 @@ entries:
   first_bad_version: 1.9.1
   last_known_good_version: 1.9.0
   resolved_in_version: 1.12.0
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/14253
   workaround: none
 
 - id: GH-12665
@@ -60,7 +55,6 @@ entries:
   first_bad_version: unknown
   last_known_good_version: unknown
   resolved_in_version: 1.10.0
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/12900
   workaround: none
 
 - id: GH-12824
@@ -70,7 +64,6 @@ entries:
   first_bad_version: 1.9.0
   last_known_good_version: 1.8.3
   resolved_in_version: 1.9.2
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/12876
   workaround: none
 
 - id: GH-13318
@@ -80,5 +73,4 @@ entries:
   first_bad_version: 1.9.1
   last_known_good_version: 1.9.0
   resolved_in_version: 1.10.1
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/13346
   workaround: none

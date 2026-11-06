@@ -45,7 +45,6 @@ wfx extension validate src/wfx_vllm
 
 ## Credit
 
-Inherits the original vLLM provider contributed in
-[#13910](https://github.com/khulnasoft-bot/primeagent/pull/13910) by
+Inherits the original vLLM provider contributed by
 **Yash Pareek** (@pareek-ml). This bundle reconstructs that work on the
 provider-registry extension point so it ships without editing PrimeAgent core.

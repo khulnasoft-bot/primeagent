@@ -18,7 +18,6 @@ entries:
   first_bad_version: unknown
   last_known_good_version: unknown
   resolved_in_version: 1.12.0
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/14256
   workaround: none
 
 - id: GH-15006
@@ -28,7 +27,6 @@ entries:
   first_bad_version: 1.12.1
   last_known_good_version: 1.12.0
   resolved_in_version: 1.12.2
-  fix_pr: https://github.com/khulnasoft-bot/primeagent/pull/15007
   workaround: none
 
 - id: GH-15261

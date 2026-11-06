@@ -1,7 +1,6 @@
 """Unit tests for the wfx-vllm bundle's live discovery and credential validation.
 
-Adapted from the original vLLM provider tests in
-https://github.com/khulnasoft-bot/primeagent/pull/13910 by Yash Pareek, retargeted at
+Adapted from the original vLLM provider tests by Yash Pareek, retargeted at
 the bundle's standalone ``wfx_vllm.discovery`` module.
 
 Covers:
