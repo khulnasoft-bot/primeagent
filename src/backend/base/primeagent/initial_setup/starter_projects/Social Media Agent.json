@@ -719,7 +719,7 @@
             "legacy": false,
             "lf_version": "1.10.0",
             "metadata": {
-              "code_hash": "920d67e9ec15",
+              "code_hash": "3af4518df574",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
@@ -1754,7 +1754,7 @@
             "icon": "layout-template",
             "legacy": false,
             "metadata": {
-              "code_hash": "821723b66a77",
+              "code_hash": "19008d908cc1",
               "component_class_name": "URLComponent",
               "dependencies": {
                 "dependencies": [

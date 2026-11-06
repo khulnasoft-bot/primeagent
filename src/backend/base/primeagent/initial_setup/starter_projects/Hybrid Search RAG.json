@@ -261,7 +261,7 @@
             "legacy": false,
             "lf_version": "1.10.1rc3",
             "metadata": {
-              "code_hash": "336e445d03c2",
+              "code_hash": "e2e7445aa1e1",
               "component_class_name": "FileComponent",
               "dependencies": {
                 "dependencies": [
@@ -1252,7 +1252,7 @@
             "last_updated": "2026-06-25T19:23:56.879Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "8cb973b917e6",
+              "code_hash": "72ead0600fc0",
               "component_class_name": "AstraDBVectorStoreComponent",
               "dependencies": {
                 "dependencies": [
@@ -2512,7 +2512,7 @@
             "legacy": false,
             "lf_version": "1.10.1rc3",
             "metadata": {
-              "code_hash": "920d67e9ec15",
+              "code_hash": "3af4518df574",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
@@ -3274,7 +3274,7 @@
             "last_updated": "2026-06-25T19:23:56.881Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "8cb973b917e6",
+              "code_hash": "72ead0600fc0",
               "component_class_name": "AstraDBVectorStoreComponent",
               "dependencies": {
                 "dependencies": [

@@ -244,7 +244,7 @@
             "last_updated": "2026-06-25T19:55:06.184Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "920d67e9ec15",
+              "code_hash": "3af4518df574",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
@@ -989,7 +989,7 @@
             "last_updated": "2026-06-25T19:55:06.189Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "920d67e9ec15",
+              "code_hash": "3af4518df574",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
@@ -2220,7 +2220,7 @@
             "last_updated": "2026-06-25T19:55:06.211Z",
             "legacy": false,
             "metadata": {
-              "code_hash": "920d67e9ec15",
+              "code_hash": "3af4518df574",
               "component_class_name": "AgentComponent",
               "dependencies": {
                 "dependencies": [
