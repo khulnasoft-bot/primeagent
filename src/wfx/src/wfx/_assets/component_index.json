@@ -2989,7 +2989,7 @@
           "icon": "Globe",
           "legacy": false,
           "metadata": {
-            "code_hash": "8ef3aa44a3d8",
+            "code_hash": "f6c5a74f6b40",
             "component_class_name": "APIRequestComponent",
             "dependencies": {
               "dependencies": [
@@ -3741,7 +3741,7 @@
           "icon": "database",
           "legacy": false,
           "metadata": {
-            "code_hash": "4cc20d482438",
+            "code_hash": "e5831f9b8802",
             "component_class_name": "MockDataGeneratorComponent",
             "dependencies": {
               "dependencies": [
@@ -4448,7 +4448,7 @@
           "icon": "layout-template",
           "legacy": false,
           "metadata": {
-            "code_hash": "821723b66a77",
+            "code_hash": "19008d908cc1",
             "component_class_name": "URLComponent",
             "dependencies": {
               "dependencies": [
@@ -5469,7 +5469,7 @@
           "icon": "folder",
           "legacy": true,
           "metadata": {
-            "code_hash": "f709f89a0a90",
+            "code_hash": "faba9d63fe17",
             "component_class_name": "DirectoryComponent",
             "dependencies": {
               "dependencies": [
@@ -5766,7 +5766,7 @@
           "icon": "file-text",
           "legacy": false,
           "metadata": {
-            "code_hash": "336e445d03c2",
+            "code_hash": "e2e7445aa1e1",
             "component_class_name": "FileComponent",
             "dependencies": {
               "dependencies": [
@@ -6501,7 +6501,7 @@
           "icon": "folder",
           "legacy": false,
           "metadata": {
-            "code_hash": "f45edb396b36",
+            "code_hash": "503af0c2e430",
             "component_class_name": "FileSystemToolComponent",
             "dependencies": {
               "dependencies": [
@@ -6662,7 +6662,7 @@
           "icon": "database",
           "legacy": false,
           "metadata": {
-            "code_hash": "19faa0deea79",
+            "code_hash": "6ac4f2a7e9e5",
             "component_class_name": "KnowledgeComponent",
             "dependencies": {
               "dependencies": [
@@ -7733,7 +7733,7 @@
           "icon": "upload",
           "legacy": true,
           "metadata": {
-            "code_hash": "8419183413a9",
+            "code_hash": "9670befe6ae5",
             "component_class_name": "KnowledgeIngestionComponent",
             "dependencies": {
               "dependencies": [
@@ -8463,7 +8463,7 @@
           "icon": "file-text",
           "legacy": false,
           "metadata": {
-            "code_hash": "f48d736b1728",
+            "code_hash": "aa1dbf3269e0",
             "component_class_name": "SaveToFileComponent",
             "dependencies": {
               "dependencies": [
@@ -9128,7 +9128,7 @@
           "icon": "file-search",
           "legacy": false,
           "metadata": {
-            "code_hash": "050a9211ceb1",
+            "code_hash": "a6a9d8e0180f",
             "component_class_name": "FileDescriptionGeneratorComponent",
             "dependencies": {
               "dependencies": [
@@ -19439,7 +19439,7 @@
           "icon": "git-branch",
           "legacy": false,
           "metadata": {
-            "code_hash": "3e1316ce55fc",
+            "code_hash": "8fcbabea4d0c",
             "component_class_name": "LLMSelectorComponent",
             "dependencies": {
               "dependencies": [
@@ -20609,7 +20609,7 @@
           "icon": "bot",
           "legacy": false,
           "metadata": {
-            "code_hash": "01da06b7c369",
+            "code_hash": "89dc631b9282",
             "component_class_name": "A2AAgentComponent",
             "dependencies": {
               "dependencies": [
@@ -20880,7 +20880,7 @@
           "icon": "bot",
           "legacy": false,
           "metadata": {
-            "code_hash": "920d67e9ec15",
+            "code_hash": "3af4518df574",
             "component_class_name": "AgentComponent",
             "dependencies": {
               "dependencies": [
@@ -22361,7 +22361,7 @@
           "icon": "Mcp",
           "legacy": false,
           "metadata": {
-            "code_hash": "17cd38416fb3",
+            "code_hash": "20a0eb927474",
             "component_class_name": "MCPToolsComponent",
             "dependencies": {
               "dependencies": [
@@ -22621,7 +22621,7 @@
           "icon": "message-square-more",
           "legacy": false,
           "metadata": {
-            "code_hash": "b4e7877c0632",
+            "code_hash": "c6cb448bb4af",
             "component_class_name": "MemoryComponent",
             "dependencies": {
               "dependencies": [
@@ -25865,7 +25865,7 @@
           "icon": "wand-sparkles",
           "legacy": false,
           "metadata": {
-            "code_hash": "390683d46627",
+            "code_hash": "f4c32a0fb1b9",
             "component_class_name": "OperationsComponent",
             "dependencies": {
               "dependencies": [
@@ -28449,7 +28449,7 @@
           "icon": "message-square-text",
           "legacy": true,
           "metadata": {
-            "code_hash": "048565fdd164",
+            "code_hash": "7ef7ddf55088",
             "component_class_name": "MessageStoreComponent",
             "dependencies": {
               "dependencies": [
@@ -31732,7 +31732,7 @@
           "icon": "Webhook",
           "legacy": false,
           "metadata": {
-            "code_hash": "9324f0d438f4",
+            "code_hash": "cd94901c9b2c",
             "component_class_name": "InboundWebhookTriggerComponent",
             "dependencies": {
               "dependencies": [
@@ -32518,6 +32518,6 @@
     "num_components": 130,
     "num_modules": 17
   },
-  "sha256": "90da41cba5629113438f70fa4c82623d1c0a70c766b671ab5932c1126202cb43",
+  "sha256": "b75a68c0176fa7a535c2aa25fcc0dbfbc210751b0f8d400f709f37aa0686e4fa",
   "version": "1.13.0"
 }
