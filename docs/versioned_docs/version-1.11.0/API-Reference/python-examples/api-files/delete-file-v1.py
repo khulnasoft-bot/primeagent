@@ -2,9 +2,7 @@ import os
 
 import requests
 
-url = (
-    f"{os.getenv('PRIMEAGENT_URL', '')}/api/v1/files/delete/{os.getenv('FLOW_ID', '')}/2024-12-30_15-19-43_your_file.txt"
-)
+url = f"{os.getenv('PRIMEAGENT_URL', '')}/api/v1/files/delete/{os.getenv('FLOW_ID', '')}/2024-12-30_15-19-43_your_file.txt"
 
 headers = {
     "accept": "application/json",
