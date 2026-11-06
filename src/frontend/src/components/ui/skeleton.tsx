@@ -1,5 +1,5 @@
+import { type HTMLAttributes, memo } from "react";
 import { cn } from "../../utils/utils";
-import { memo, type HTMLAttributes } from "react";
 
 const Skeleton = memo(function Skeleton({
   className,

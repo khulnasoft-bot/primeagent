@@ -25,6 +25,7 @@ import { AppAuthenticatedPage } from "./pages/AppAuthenticatedPage";
 import { AppInitPage } from "./pages/AppInitPage";
 import { AppWrapperPage } from "./pages/AppWrapperPage";
 import LoginPage from "./pages/LoginPage";
+
 const FlowPage = lazy(() => import("./pages/FlowPage"));
 const FilesPage = lazy(() => import("./pages/MainPage/pages/filesPage"));
 const HomePage = lazy(() => import("./pages/MainPage/pages/homePage"));

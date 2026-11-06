@@ -9,7 +9,11 @@ export async function customPollBuildEvents(
   buildResults: Array<boolean>,
   callbacks: {
     onBuildStart?: (idList: VertexLayerElementType[]) => void;
-    onBuildUpdate?: (data: any, status: BuildStatus, buildId: string) => void;
+    onBuildUpdate?: (
+      data: unknown,
+      status: BuildStatus,
+      buildId: string,
+    ) => void;
     onBuildComplete?: (allNodesValid: boolean) => void;
     onBuildError?: (
       title: string,
