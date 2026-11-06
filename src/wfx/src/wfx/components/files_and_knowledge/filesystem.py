@@ -901,7 +901,7 @@ class FileSystemToolComponent(Component):
         # reaches a path expression, so the join below is always relative.
         raw = PurePath(path)
         if raw.is_absolute() or ".." in raw.parts:
-            msg = f"Invalid path: {path}"
+            msg = f"Path escapes workspace boundary: {path}"
             raise PermissionError(msg)
         candidate = (root_resolved / path).resolve()
         if not candidate.is_relative_to(root_resolved):
