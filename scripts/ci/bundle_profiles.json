@@ -117,6 +117,14 @@
           ]
         },
         {
+          "distribution": "wfx-rea",
+          "extras": [],
+          "version": ">=0.1.0,<1.0.0",
+          "providers": [
+            "wfx-rea"
+          ]
+        },
+        {
           "distribution": "wfx-vllm",
           "extras": [],
           "version": ">=0.2.0,<1.0.0",

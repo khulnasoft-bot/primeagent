@@ -143,6 +143,16 @@
       "resolved_version": "0.2.0"
     },
     {
+      "distribution": "wfx-rea",
+      "extras": [],
+      "providers": [
+        "wfx-rea"
+      ],
+      "requested": ">=0.1.0,<1.0.0",
+      "requirement": "wfx-rea==0.1.0",
+      "resolved_version": "0.1.0"
+    },
+    {
       "distribution": "wfx-slack",
       "extras": [],
       "providers": [
@@ -180,7 +190,7 @@
     "https://pypi.org/simple"
   ],
   "profile": "enterprise-hardened",
-  "profile_digest": "sha256:8dbd34b8f37d2c2f",
+  "profile_digest": "sha256:7eba333c87420512",
   "providers": [
     "wfx-amazon",
     "wfx-anthropic",
@@ -195,6 +205,7 @@
     "wfx-openai",
     "wfx-openai-compatible",
     "wfx-oracle",
+    "wfx-rea",
     "wfx-slack",
     "wfx-toolguard",
     "wfx-vllm"
