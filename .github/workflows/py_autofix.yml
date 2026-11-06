@@ -7,14 +7,14 @@ on:
       - "scripts/build_component_index.py"
     types: [opened, synchronize, reopened, labeled]
 
-# autofix-ci/action uploads a diff artifact and the autofix.ci GitHub App applies
-# it with its own credentials, so no job here needs write access to the repo.
+# autofix-ci/action uploads a diff artifact and the autofix.ci GitHub App
+# applies it with its own credentials, so no job here needs write access to
+# the repo.
 permissions:
   contents: read
 
 env:
   PYTHON_VERSION: "3.13"
-
 
 jobs:
   lint:
@@ -22,7 +22,14 @@ jobs:
     if: github.event.action != 'labeled' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          # Full history so we can diff the PR branch against its merge base
+          # and only touch files this PR changed.
+          fetch-depth: 0
+
       - name: "Setup Environment"
         uses: astral-sh/setup-uv@v7
         with:
@@ -31,8 +38,34 @@ jobs:
           cache-dependency-glob: "uv.lock"
           python-version: ${{ env.PYTHON_VERSION }}
           prune-cache: false
-      - run: uv run ruff check --fix-only .
-      - run: uv run ruff format . --config pyproject.toml
+
+      - name: Lint and format changed Python files
+        run: |
+          # Only lint/format files this PR changed (diff against the merge base
+          # with its target branch) so we don't reformat the whole repo and
+          # create noisy diffs on every PR.
+          BASE_REF="${{ github.base_ref || 'main' }}"
+          MERGE_BASE=$(git merge-base HEAD "origin/$BASE_REF")
+
+          CHANGED_FILES=$(git diff --name-only --diff-filter=ACMR \
+            "$MERGE_BASE"...HEAD \
+            | grep -E '\.py$' \
+            || true)
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No Python files changed in this PR — skipping ruff."
+            exit 0
+          fi
+
+          echo "=== Files to lint/format ==="
+          echo "$CHANGED_FILES"
+
+          # NUL-delimit so paths containing spaces aren't split by xargs.
+          printf '%s\n' "$CHANGED_FILES" | tr '\n' '\0' \
+            | xargs -0 uv run ruff check --fix-only
+          printf '%s\n' "$CHANGED_FILES" | tr '\n' '\0' \
+            | xargs -0 uv run ruff format
+
       - uses: autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a
 
 
