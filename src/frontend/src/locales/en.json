@@ -306,7 +306,7 @@
   "misc.timeoutErrorDesc": "Server is busy.",
   "misc.fsErrorText": "Please ensure your file has one of the following extensions:",
   "auth.loginTitle": "Sign in to Primeagent",
-  "auth.signupTitle": "Sign up for Primeagent",
+  "auth.signupTitle": "Sign up for PrimeAgent",
   "auth.usernameLabel": "Username",
   "auth.usernamePlaceholder": "Username",
   "auth.usernameRequired": "Please enter your username",
