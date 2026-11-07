@@ -44,31 +44,31 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
 1. Send a POST request to the `/build/$FLOW_ID/flow` endpoint:
 
    <Tabs>
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    <CodeBlock language="python">
      {examplePythonApiBuildBuildFlowAndStreamEvents}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="JavaScript" label="JavaScript">
+   <TabItem value="JavaScript" label="JavaScript">
 
    <CodeBlock language="javascript">
      {exampleJavascriptApiBuildBuildFlowAndStreamEvents}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    <CodeBlock language="bash">
      {exampleApiBuildBuildFlowAndStreamEvents}
    </CodeBlock>
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    <details>
-<summary>Result</summary>
+   <summary>Result</summary>
 
    <CodeBlock language="json">
      {resultApiBuildResultBuildFlowAndStreamEvents}
@@ -79,31 +79,31 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
 2. After receiving a job ID from the build endpoint, use the `/build/$JOB_ID/events` endpoint to stream the execution results:
 
    <Tabs>
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    <CodeBlock language="python">
      {examplePythonApiBuildBuildFlowAndStreamEvents2}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="JavaScript" label="JavaScript">
+   <TabItem value="JavaScript" label="JavaScript">
 
    <CodeBlock language="javascript">
      {exampleJavascriptApiBuildBuildFlowAndStreamEvents2}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    <CodeBlock language="bash">
      {exampleApiBuildBuildFlowAndStreamEvents2}
    </CodeBlock>
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    <details>
-<summary>Result</summary>
+   <summary>Result</summary>
 
    <CodeBlock language="json">
      {resultApiBuildResultBuildFlowAndStreamEvents2}

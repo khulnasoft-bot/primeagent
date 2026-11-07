@@ -67,7 +67,7 @@ An uninitialized bundle returns `503`.
 3. Read the current policy bundle, and copy `revision`.
 
    <Tabs>
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    ```python
    import os
@@ -86,7 +86,7 @@ An uninitialized bundle returns `503`.
    ```
 
    </TabItem>
-<TabItem value="JavaScript" label="JavaScript">
+   <TabItem value="JavaScript" label="JavaScript">
 
    ```javascript
    const url = `${process.env.PRIMEAGENT_URL}/api/v1/policy-bundle`;
@@ -106,7 +106,7 @@ An uninitialized bundle returns `503`.
    ```
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    ```bash
    curl -X GET \
@@ -116,10 +116,10 @@ An uninitialized bundle returns `503`.
    ```
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    <details>
-<summary>Result</summary>
+   <summary>Result</summary>
 
    ```json
    {
@@ -151,7 +151,7 @@ An uninitialized bundle returns `503`.
    Send `[]` for a list you want unrestricted.
 
    <Tabs>
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    ```python
    import os
@@ -184,7 +184,7 @@ An uninitialized bundle returns `503`.
    ```
 
    </TabItem>
-<TabItem value="JavaScript" label="JavaScript">
+   <TabItem value="JavaScript" label="JavaScript">
 
    ```javascript
    const base = process.env.PRIMEAGENT_URL;
@@ -220,7 +220,7 @@ An uninitialized bundle returns `503`.
    ```
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    ```bash
    curl -X PUT \
@@ -239,7 +239,7 @@ An uninitialized bundle returns `503`.
    ```
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    If another user updated the policy first, the `PUT` returns `409`.
    Repeat from step 3 with an updated `revision` number.

@@ -166,7 +166,7 @@ To resolve this error, do the following:
 2. Based on the output, install `uv` or add it to your PATH:
 
    <Tabs>
-<TabItem value="not-installed" label="uv is not installed (command not found)" default>
+   <TabItem value="not-installed" label="uv is not installed (command not found)" default>
 
    Install `uv` using one of the following methods:
 
@@ -184,7 +184,7 @@ To resolve this error, do the following:
      ```
 
    </TabItem>
-<TabItem value="not-found" label="uv is installed but not found by PrimeAgent Desktop">
+   <TabItem value="not-found" label="uv is installed but not found by PrimeAgent Desktop">
 
    Add `uv` to your PATH so PrimeAgent Desktop can locate it:
 
@@ -195,7 +195,7 @@ To resolve this error, do the following:
    - macOS or Linux: Add `~/.local/bin` to your PATH in `~/.bashrc` or `~/.zshrc`.
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
 3. Restart PrimeAgent Desktop.
 
@@ -281,21 +281,21 @@ If you reinstall PrimeAgent after uninstalling, any data you didn't delete will 
 2. To remove the PrimeAgent data directory, which contains your flows, settings, and cache, run:
 
    <Tabs>
-<TabItem value="mac-linux" label="macOS / Linux" default>
+   <TabItem value="mac-linux" label="macOS / Linux" default>
 
    ```bash
    rm -rf ~/.primeagent
    ```
 
    </TabItem>
-<TabItem value="windows" label="Windows">
+   <TabItem value="windows" label="Windows">
 
    ```powershell
    Remove-Item -Recurse -Force "$env:USERPROFILE\.primeagent"
    ```
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
 ### Uninstall PrimeAgent Desktop
 
@@ -838,7 +838,7 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
 2. In your `claude_desktop_config.json` file, add the path to your PrimeAgent MCP server configuration, as shown in the following examples.
 
    <Tabs>
-<TabItem value="uvx" label="uvx" default>
+   <TabItem value="uvx" label="uvx" default>
 
    ```json
    {
@@ -855,7 +855,7 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
    ```
 
    </TabItem>
-<TabItem value="npx" label="npx">
+   <TabItem value="npx" label="npx">
 
    ```json
    {
@@ -874,7 +874,7 @@ If Claude for Desktop doesn't use your server's tools correctly, try explicitly 
    ```
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
 ### MCP browser-based flows don't open a browser on Windows
 

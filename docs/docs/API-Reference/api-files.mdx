@@ -380,28 +380,28 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
    This is the same step described in [Upload file (v2)](#upload-file-v2), but since you need the filename to upload to your flow, it is included here.
 
    <Tabs>
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    <CodeBlock language="python">
      {examplePythonApiFilesSendFilesToYourFlowsV2}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="JavaScript" label="JavaScript">
+   <TabItem value="JavaScript" label="JavaScript">
 
    <CodeBlock language="javascript">
      {exampleJavascriptApiFilesSendFilesToYourFlowsV2}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    <CodeBlock language="bash">
      {exampleApiFilesSendFilesToYourFlowsV2}
    </CodeBlock>
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    The file is uploaded in the format `USER_ID/FILE_ID.FILE_EXTENSION`, and the API returns metadata about the uploaded file:
 
@@ -421,28 +421,28 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
 3. Run the flow, passing the `path` to the `Read-File` component in the `tweaks` object:
 
    <Tabs>
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    <CodeBlock language="python">
      {examplePythonApiFilesSendFilesToYourFlowsV22}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="JavaScript" label="JavaScript">
+   <TabItem value="JavaScript" label="JavaScript">
 
    <CodeBlock language="javascript">
      {exampleJavascriptApiFilesSendFilesToYourFlowsV22}
    </CodeBlock>
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    <CodeBlock language="bash">
      {exampleApiFilesSendFilesToYourFlowsV22}
    </CodeBlock>
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    To get the `Read-File` component's ID, call the [Read flow](/api-flows#read-flow) endpoint or inspect the component in the visual editor.
 

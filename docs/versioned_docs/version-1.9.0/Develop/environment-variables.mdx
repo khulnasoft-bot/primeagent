@@ -81,7 +81,7 @@ If it detects a supported environment variable, then it automatically adopts the
 3. Define [PrimeAgent environment variables](#supported-variables) in the `.env` file.
 
    <details>
-<summary>Example: .env</summary>
+   <summary>Example: .env</summary>
 
    ```text
    DO_NOT_TRACK=True
@@ -125,14 +125,14 @@ If it detects a supported environment variable, then it automatically adopts the
 5. Start PrimeAgent with your `.env` file:
 
    <Tabs>
-<TabItem value="local" label="Local" default>
+   <TabItem value="local" label="Local" default>
 
    ```bash
    uv run primeagent run --env-file .env
    ```
 
    </TabItem>
-<TabItem value="docker" label="Docker">
+   <TabItem value="docker" label="Docker">
 
    ```bash
    docker run -it --rm \
@@ -142,7 +142,7 @@ If it detects a supported environment variable, then it automatically adopts the
    ```
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    If your `.env` file isn't in the same directory, provide the path to your `.env` file.
 
