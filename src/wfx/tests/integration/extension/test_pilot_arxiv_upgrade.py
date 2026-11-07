@@ -5,7 +5,7 @@ Together the two suites exercise the porting recipe documented in
 ``src/bundles/PORTING.md`` end-to-end.
 
 Verifies the save/upgrade/load contract for flows referencing
-``ArXivComponent`` from the pre-extraction Primeagent:
+``ArXivComponent`` from the pre-extraction PrimeAgent:
 
     1. A saved flow uses the legacy bare class name ``ArXivComponent``.
     2. The migration table rewrites it to the canonical post-Phase-A
@@ -53,7 +53,7 @@ def _saved_flow_node(node_id: str, type_value: str) -> dict:
 
 
 def _saved_flow(*nodes: dict) -> dict:
-    """Wrap nodes in the canonical Primeagent flow envelope."""
+    """Wrap nodes in the canonical PrimeAgent flow envelope."""
     return {"data": {"nodes": list(nodes), "edges": []}}
 
 

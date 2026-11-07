@@ -78,7 +78,7 @@ def build_schema() -> dict[str, Any]:
     )
     schema["$schema"] = JSON_SCHEMA_DIALECT
     schema["$id"] = EXTENSION_SCHEMA_URL
-    schema["title"] = "Primeagent Extension Manifest (v1)"
+    schema["title"] = "PrimeAgent Extension Manifest (v1)"
 
     deferred_names = _public_deferred_names()
     deferred_docs: dict[str, str] = {}
@@ -96,12 +96,12 @@ def build_schema() -> dict[str, Any]:
     schema["x-deferred-fields"] = deferred_docs
 
     schema["description"] = (
-        "Schema for the v0 Primeagent Extension manifest. "
+        "Schema for the v0 PrimeAgent Extension manifest. "
         "Reserved field names that are deferred to a future milestone "
         "are absent from this schema and are listed under ``x-deferred-fields``; "
         "manifests that set them are rejected via ``additionalProperties: false``. "
-        "See https://docs.prime.khulnasoft.com/extensions-manifest for the field-by-field reference "
-        "and https://docs.prime.khulnasoft.com/extensions-author-guide for the author's guide."
+        "See https://prime.khulnasoft.com/docs/extensions-manifest for the field-by-field reference "
+        "and https://prime.khulnasoft.com/docs/extensions-author-guide for the author's guide."
     )
     return schema
 

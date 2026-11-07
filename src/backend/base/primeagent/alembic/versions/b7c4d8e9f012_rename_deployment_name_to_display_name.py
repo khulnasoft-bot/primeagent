@@ -6,7 +6,7 @@ Create Date: 2026-05-08 00:00:00.000000
 
 Phase: EXPAND + CONTRACT
 
-Renames the Primeagent-owned deployment label column from ``name`` to
+Renames the PrimeAgent-owned deployment label column from ``name`` to
 ``display_name`` and removes the provider-scoped uniqueness constraint on
 that label. ``resource_key`` remains the provider-scoped deployment identity.
 

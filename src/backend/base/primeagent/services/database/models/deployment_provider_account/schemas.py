@@ -9,11 +9,11 @@ from enum import Enum
 
 
 class DeploymentProviderKey(str, Enum):
-    """Deployment provider identifiers recognised by Primeagent.
+    """Deployment provider identifiers recognised by PrimeAgent.
 
     Each member value must match the adapter registry key used by
     ``get_deployment_adapter(adapter_key)`` in WFX and the corresponding
-    mapper registration in the Primeagent mapper registry.
+    mapper registration in the PrimeAgent mapper registry.
     """
 
     WATSONX_ORCHESTRATE = "watsonx-orchestrate"

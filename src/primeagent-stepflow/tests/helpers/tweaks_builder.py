@@ -15,7 +15,7 @@
 """Test utilities for building tweaks with environment variable support.
 
 This module provides testing-specific utilities for creating tweaks for
-Primeagent component testing. It handles environment variables, pytest
+PrimeAgent component testing. It handles environment variables, pytest
 integration, and common test scenarios.
 
 This is separate from the production stepflow_tweaks.py to keep the
@@ -48,7 +48,7 @@ class TweaksBuilder:
         """Add a direct value tweak for a component field.
 
         Args:
-            component_id: Primeagent component ID (e.g., "LanguageModelComponent-abc123")
+            component_id: PrimeAgent component ID (e.g., "LanguageModelComponent-abc123")
             field_name: Field name to tweak (e.g., "api_key", "temperature")
             value: Value to set for the field
 
@@ -65,7 +65,7 @@ class TweaksBuilder:
         """Add a tweak from an environment variable.
 
         Args:
-            component_id: Primeagent component ID (e.g., "LanguageModelComponent-abc123")
+            component_id: PrimeAgent component ID (e.g., "LanguageModelComponent-abc123")
             field_name: Field name to tweak (e.g., "api_key", "temperature")
             env_var: Environment variable name (e.g., "OPENAI_API_KEY")
 
@@ -92,7 +92,7 @@ class TweaksBuilder:
         """Add common AstraDB component tweaks.
 
         Args:
-            component_id: Primeagent component ID
+            component_id: PrimeAgent component ID
             token_env: Environment variable for application token
             endpoint_env: Environment variable for API endpoint
             **kwargs: Additional direct tweaks (e.g., database_name="test_db")
@@ -157,7 +157,7 @@ def create_openai_test_tweaks(*component_ids: str) -> dict[str, dict[str, Any]]:
     """Create tweaks for multiple OpenAI components.
 
     Args:
-        *component_ids: Primeagent component IDs that use OpenAI API key
+        *component_ids: PrimeAgent component IDs that use OpenAI API key
 
     Returns:
         Tweaks dictionary for use with stepflow workflows
@@ -172,7 +172,7 @@ def create_astradb_test_tweaks(*component_ids: str, **overrides: Any) -> dict[st
     """Create tweaks for multiple AstraDB components.
 
     Args:
-        *component_ids: Primeagent component IDs that use AstraDB
+        *component_ids: PrimeAgent component IDs that use AstraDB
         **overrides: Override default values (e.g., database_name="custom_db")
 
     Returns:

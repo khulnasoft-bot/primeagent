@@ -1,4 +1,4 @@
-"""wfx login -- validate credentials against a remote Primeagent instance.
+"""wfx login -- validate credentials against a remote PrimeAgent instance.
 
 Tests whether the configured URL and API key are reachable and accepted,
 then prints a summary with guidance on how to fix any problems.
@@ -73,16 +73,16 @@ def _probe_connection(client: Any, sdk: Any) -> tuple[bool, str, int]:
     try:
         flows = client.list_flows(page=1, size=1)
         return True, "OK", len(flows)
-    except sdk.PrimeagentAuthError:
+    except sdk.PrimeAgentAuthError:
         return False, "auth", 0
-    except sdk.PrimeagentConnectionError as exc:
+    except sdk.PrimeAgentConnectionError as exc:
         return False, f"connection:{exc}", 0
-    except sdk.PrimeagentHTTPError as exc:
+    except sdk.PrimeAgentHTTPError as exc:
         return False, f"http:{exc}", 0
     except Exception as exc:  # noqa: BLE001
         # A Pydantic ValidationError means the HTTP request completed and was
         # authenticated (auth is fine) but the SDK's schema doesn't match the
-        # local Primeagent version exactly.  Treat this as a successful probe.
+        # local PrimeAgent version exactly.  Treat this as a successful probe.
         if "ValidationError" in type(exc).__qualname__:
             return True, "OK", 0
         return False, f"error:{exc}", 0
@@ -150,13 +150,13 @@ def login_command(
             err_console.print()
             err_console.print("[bold]How to fix:[/bold]")
             if key_env_name:
-                err_console.print("  1. Open Primeagent → Settings → API Keys → Create a new key")
+                err_console.print("  1. Open PrimeAgent → Settings → API Keys → Create a new key")
                 err_console.print(f"  2. [bold]export {key_env_name}=<your-new-key>[/bold]")
             elif env_cfg.name not in ("__inline__", "__env__"):
-                err_console.print("  1. Open Primeagent → Settings → API Keys → Create a new key")
+                err_console.print("  1. Open PrimeAgent → Settings → API Keys → Create a new key")
                 err_console.print("  2. Pass [bold]--api-key <key>[/bold] or configure api_key_env in your YAML")
             else:
-                err_console.print("  1. Open Primeagent → Settings → API Keys → Create a new key")
+                err_console.print("  1. Open PrimeAgent → Settings → API Keys → Create a new key")
                 err_console.print("  2. Pass [bold]--api-key <key>[/bold]")
             raise typer.Exit(1)
 
@@ -166,7 +166,7 @@ def login_command(
             err_console.print(f"  URL: {env_cfg.url}")
             err_console.print()
             err_console.print("[bold]How to fix:[/bold]")
-            err_console.print("  • Make sure your Primeagent instance is running")
+            err_console.print("  • Make sure your PrimeAgent instance is running")
             err_console.print("  • Check the URL in your .wfx/environments.yaml")
             err_console.print(
                 "  • If running locally: [bold]primeagent run[/bold] or [bold]wfx serve <flow.json>[/bold]"

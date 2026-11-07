@@ -11,7 +11,7 @@ from wfx.utils.util import unescape_string
 class SplitTextComponent(Component):
     display_name: str = "Split Text"
     description: str = "Split text into chunks based on specified criteria."
-    documentation: str = "https://docs.prime.khulnasoft.com/split-text"
+    documentation: str = "https://prime.khulnasoft.com/docs/split-text"
     icon = "scissors-line-dashed"
     name = "SplitText"
 
@@ -129,9 +129,10 @@ class SplitTextComponent(Component):
             # Convert string 'False'/'True' to boolean
             keep_sep = self.keep_separator
             if isinstance(keep_sep, str):
-                if keep_sep.lower() == "false":
+                keep_sep = keep_sep.lower()
+                if keep_sep == "false":
                     keep_sep = False
-                elif keep_sep.lower() == "true":
+                elif keep_sep == "true":
                     keep_sep = True
                 # 'start' and 'end' are kept as strings
 

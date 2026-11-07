@@ -16,6 +16,7 @@ from functools import wraps
 from pathlib import Path
 from typing import Any
 
+from wfx.base.mcp.uvx import mcp_sdk_constraint_args
 from wfx.log.logger import logger
 from wfx.services.base import Service
 from wfx.services.deps import get_settings_service
@@ -87,7 +88,7 @@ class MCPComposerService(Service):
         self._port_to_project: dict[int, str] = {}  # Track which project is using which port
         self._pid_to_project: dict[int, str] = {}  # Track which PID belongs to which project
         self._last_errors: dict[str, str] = {}  # Track last error message per project for UI display
-        self._backend_auth_tokens: dict[str, str] = {}  # project_id -> internal Composer-to-Primeagent token
+        self._backend_auth_tokens: dict[str, str] = {}  # project_id -> internal Composer-to-PrimeAgent token
 
     def get_last_error(self, project_id: str) -> str | None:
         """Get the last error message for a project, if any."""
@@ -102,13 +103,13 @@ class MCPComposerService(Service):
         self._last_errors.pop(project_id, None)
 
     def get_or_create_backend_auth_token(self, project_id: str) -> str:
-        """Return the internal token used by MCP Composer to call Primeagent's MCP endpoint."""
+        """Return the internal token used by MCP Composer to call PrimeAgent's MCP endpoint."""
         if project_id not in self._backend_auth_tokens:
             self._backend_auth_tokens[project_id] = secrets.token_urlsafe(32)
         return self._backend_auth_tokens[project_id]
 
     def validate_backend_auth_token(self, project_id: str, token: str | None) -> bool:
-        """Validate an internal Composer-to-Primeagent token for a project."""
+        """Validate an internal Composer-to-PrimeAgent token for a project."""
         expected_token = self._backend_auth_tokens.get(project_id)
         if not expected_token or not token:
             return False
@@ -748,7 +749,7 @@ class MCPComposerService(Service):
             else:
                 # Port is in use by unknown process - don't kill it (security concern)
                 await logger.aerror(
-                    f"Port {port} is in use by an unknown process (not owned by Primeagent). "
+                    f"Port {port} is in use by an unknown process (not owned by PrimeAgent). "
                     f"Will not kill external application for security reasons."
                 )
                 port_error_msg = (
@@ -848,7 +849,7 @@ class MCPComposerService(Service):
         *,
         legacy_sse_url: str | None = None,
     ) -> list[dict[str, Any]]:
-        """Build mcp-composer member-server config with internal Primeagent auth headers."""
+        """Build mcp-composer member-server config with internal PrimeAgent auth headers."""
         backend_token = self.get_or_create_backend_auth_token(project_id)
         headers = {COMPOSER_BACKEND_AUTH_HEADER: backend_token}
         streamable_id = f"{project_id}-streamable"
@@ -918,7 +919,7 @@ class MCPComposerService(Service):
     def _normalize_oauth_callback_aliases(cls, auth_config: dict[str, Any] | None) -> dict[str, Any]:
         """Normalize OAuth callback aliases to a canonical full callback URL value.
 
-        `oauth_callback_url` is the canonical field name in Primeagent. For compatibility,
+        `oauth_callback_url` is the canonical field name in PrimeAgent. For compatibility,
         we also accept `oauth_callback_path` and mirror the effective value to both keys so
         comparisons and subprocess env var mapping stay consistent.
         """
@@ -1068,7 +1069,7 @@ class MCPComposerService(Service):
 
         Args:
             project_id: The project ID
-            streamable_http_url: Streamable HTTP endpoint for the remote Primeagent MCP server
+            streamable_http_url: Streamable HTTP endpoint for the remote PrimeAgent MCP server
             auth_config: Authentication configuration
             max_retries: Maximum number of retry attempts (default: 3)
             max_startup_checks: Number of checks per retry attempt (default: 40)
@@ -1132,7 +1133,7 @@ class MCPComposerService(Service):
 
         Args:
             project_id: The project ID
-            streamable_http_url: Streamable HTTP endpoint for the remote Primeagent MCP server
+            streamable_http_url: Streamable HTTP endpoint for the remote PrimeAgent MCP server
             auth_config: Authentication configuration
             max_retries: Maximum number of retry attempts (default: 3)
             max_startup_checks: Number of checks per retry attempt (default: 40)
@@ -1365,6 +1366,7 @@ class MCPComposerService(Service):
 
         cmd = [
             "uvx",
+            *mcp_sdk_constraint_args(),
             f"mcp-composer{settings.mcp_composer_version}",
             "--port",
             str(port),

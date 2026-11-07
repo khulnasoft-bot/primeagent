@@ -1,7 +1,7 @@
 """Expand compact flow format to full flow format.
 
 This module provides functionality to expand a minimal/compact flow format
-(used by AI agents) into the full flow format expected by Primeagent.
+(used by AI agents) into the full flow format expected by PrimeAgent.
 """
 
 from __future__ import annotations
@@ -256,7 +256,7 @@ def expand_compact_flow(
         all_types_dict: The component types dictionary from component_cache
 
     Returns:
-        Full flow data structure ready for Primeagent UI
+        Full flow data structure ready for PrimeAgent UI
 
     Example compact input:
         {

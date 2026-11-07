@@ -21,7 +21,7 @@ Before you start, confirm the component is a good fit:
 - [ ] The provider directory `src/wfx/src/wfx/components/<provider>/` exists
       and contains one or more `Component` subclasses.
 - [ ] Imports from `wfx.*` only (no `from primeagent...`); the bundle is
-      installed against the public `BUNDLE_API` surface, not Primeagent internals.
+      installed against the public `BUNDLE_API` surface, not PrimeAgent internals.
       Check with: `grep -r "from primeagent" src/wfx/src/wfx/components/<provider>/`
 - [ ] No deactivated / legacy duplicate exists under `src/wfx/src/wfx/components/deactivated/<provider>/`.
 - [ ] The runtime dependencies the component pulls in (e.g. `langchain-community`,
@@ -68,7 +68,7 @@ Copy [`src/bundles/duckduckgo/pyproject.toml`](duckduckgo/pyproject.toml) and
 substitute names + the runtime-dep block. The non-obvious bits:
 
 - `dependencies` lists every runtime dep the component imports. Floor `wfx`
-  at the current Primeagent/WFX `major.minor` line and cap below the next `wfx`
+  at the current PrimeAgent/WFX `major.minor` line and cap below the next `wfx`
   major — e.g. `"wfx>=1.10.0,<2.0.0"`. You normally don't hand-write this:
   `port_bundle.py` fills it in from `src/wfx/pyproject.toml` at port time, and
   `make patch` re-syncs every existing bundle via
@@ -185,7 +185,7 @@ Three edits — all mechanical:
 # 1. Add to [project] dependencies (regular dep so `pip install primeagent`
 #    still pulls the component in -- no user-visible change at install time).
 dependencies = [
-    "primeagent-base[complete]>=0.10.0",
+    "primeagent-base~=1.12.0",
     "wfx-duckduckgo>=0.1.0",
     "wfx-<bundle>>=0.1.0",                 # <-- add this line
 ]
@@ -365,24 +365,53 @@ uv run wfx extension dev src/bundles/<bundle>
 #   - Right-click the <bundle> header -> Reload. No errors.
 ```
 
+### Release-plan and version changes
+
+Any releasable change under `src/bundles/<bundle>/src/` or to the bundle's
+`pyproject.toml` requires a distribution-version increase. Generate the same
+plan CI reviews without changing files:
+
+```bash
+python scripts/ci/bundle_release_plan.py plan \
+  --base-ref origin/release-1.11.0 \
+  --check \
+  --output bundle-release-plan.json
+```
+
+To apply the plan, use the update command instead of editing version fields by
+hand. It bumps affected bundles by one patch by default, synchronizes their
+`extension.json` versions and WFX ranges, raises every matching PrimeAgent
+dependency floor, and regenerates `uv.lock` as one rollback-safe operation:
+
+```bash
+python scripts/ci/bundle_release_plan.py update \
+  --base-ref origin/release-1.11.0 \
+  --output bundle-release-plan.json
+```
+
+Use `--bump minor` or an explicit `--version wfx-<bundle>=X.Y.Z` when a patch
+bump is not appropriate. Release workflows upload the version/artifact plans
+for review and refuse to reuse an existing PyPI version unless its normalized
+wheel content matches the wheel built by the current run. Every bundle pins
+the same exact Hatchling build backend so unchanged sources reproduce the
+immutable published wheel metadata; update that pin only as an explicit,
+repo-wide release migration.
+
 ---
 
 ## 8. Docker images (only if shipping a new bundle to the runtime image)
 
-The four `docker/build_and_push*.Dockerfile` images already `COPY
-./src/bundles` into the build context, so a new bundle directory is
-picked up automatically by the workspace `uv sync`. The two **non**-uv-sync
-Dockerfiles need an extra line:
+The shared [`docker/build_and_push.Dockerfile`](../../docker/build_and_push.Dockerfile)
+copies `src/bundles` into the build context. A curated bundle added to the root
+dependencies is picked up by the `full` target's workspace sync. The `base`
+target intentionally does not install provider extensions.
 
 - [`docker/build_and_push_backend.Dockerfile`](../../docker/build_and_push_backend.Dockerfile):
   add `./src/bundles/<bundle>` to the explicit `uv pip install` line.
-- [`docker/build_and_push_base.Dockerfile`](../../docker/build_and_push_base.Dockerfile):
-  add a `uv pip install --no-deps /app/src/bundles/<bundle>` step after
-  the workspace sync, alongside the bundle's runtime deps if they aren't
-  already in the base lock.
 
-If your bundle has no extras and its deps are already in
-`primeagent-base[complete]`, the `--no-deps` install is enough.
+Do not add provider extensions to the base target. Validate that the full image
+discovers the bundle and that the base image's distribution inventory remains
+unchanged.
 
 ---
 
@@ -401,7 +430,7 @@ If your bundle has no extras and its deps are already in
   empty dict and the bundle never enters the registry.
 - **Migration entries missing**: saved flows still validate, but the
   palette can't render the legacy node — the user sees a "component not
-  found" toast. The four-entry block in step 4 covers every shape Primeagent
+  found" toast. The four-entry block in step 4 covers every shape PrimeAgent
   has serialized in the past.
 
 ---

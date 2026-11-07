@@ -7,7 +7,7 @@ Local (default)
     result back to disk (or stdout).  No network connection required.
 
 Remote (--env / --flow-id / --project-id)
-    Pull flows directly from a running Primeagent instance using the
+    Pull flows directly from a running PrimeAgent instance using the
     ``primeagent-sdk`` HTTP client, normalize them, and write to disk.
 
 Examples:
@@ -101,7 +101,7 @@ def export_command(
     }
 
     # ------------------------------------------------------------------
-    # Remote mode: pull from a live Primeagent instance
+    # Remote mode: pull from a live PrimeAgent instance
     # ------------------------------------------------------------------
     if flow_id or project_id:
         if not env and not target:

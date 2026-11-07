@@ -6,9 +6,9 @@ import re
 
 logger = logging.getLogger(__name__)
 
-PYTHON_CODE_BLOCK_PATTERN = r"```python\s*([\s\S]*?)```"
+PYTHON_CODE_BLOCK_PATTERN = r"```python\s*([\s\S]*?)(?:\r\n|\n|\r)```"
 FLOW_JSON_BLOCK_PATTERN = r"```flow_json\s*([\s\S]*?)```"
-GENERIC_CODE_BLOCK_PATTERN = r"```\s*([\s\S]*?)```"
+GENERIC_CODE_BLOCK_PATTERN = r"```\s*([\s\S]*?)(?:\r\n|\n|\r)```"
 UNCLOSED_PYTHON_BLOCK_PATTERN = r"```python\s*([\s\S]*)$"
 UNCLOSED_GENERIC_BLOCK_PATTERN = r"```\s*([\s\S]*)$"
 ANY_CODE_BLOCK_PATTERN = r"```[\s\S]*?```|```[\s\S]*$"
@@ -18,7 +18,7 @@ def extract_python_code(text: str) -> str | None:
     """Extract Python code from markdown code blocks.
 
     Handles both closed (```python ... ```) and unclosed blocks.
-    Returns the first code block that appears to be a Primeagent component.
+    Returns the first code block that appears to be a PrimeAgent component.
     """
     matches = _find_code_blocks(text)
     if not matches:
@@ -45,14 +45,14 @@ def _find_unclosed_code_block(text: str) -> list[str]:
     for pattern in [UNCLOSED_PYTHON_BLOCK_PATTERN, UNCLOSED_GENERIC_BLOCK_PATTERN]:
         match = re.search(pattern, text, re.IGNORECASE)
         if match:
-            code = match.group(1).rstrip("`").strip()
+            code = match.group(1).strip()
             return [code] if code else []
 
     return []
 
 
 def _find_component_code(matches: list[str]) -> str | None:
-    """Find the first match that looks like a Primeagent component."""
+    """Find the first match that looks like a PrimeAgent component."""
     for match in matches:
         if "class " in match and "Component" in match:
             return match.strip()

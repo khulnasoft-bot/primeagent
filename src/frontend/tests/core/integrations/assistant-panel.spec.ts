@@ -1,10 +1,10 @@
 import { expect, test } from "../../fixtures";
-import { skipIfMissing } from "../../utils/env/skip-if-missing";
 import { openStarterProject } from "../../utils/flow/open-starter-project";
+import { mockAssistant } from "../../utils/mock-assistant";
 
 test.describe("Assistant Panel UI", { tag: ["@release"] }, () => {
   test("should open and close from canvas controls", async ({ page }) => {
-    skipIfMissing.openAiKey();
+    await mockAssistant(page);
     await openStarterProject(page, "Basic Prompting");
 
     // Panel should not be visible initially
@@ -15,7 +15,7 @@ test.describe("Assistant Panel UI", { tag: ["@release"] }, () => {
     await expect(page.getByTestId("assistant-panel")).toBeVisible();
 
     // Verify core UI elements
-    await expect(page.getByText("Primeagent Assistant")).toBeVisible();
+    await expect(page.getByText("PrimeAgent Assistant")).toBeVisible();
     await expect(page.getByTestId("assistant-input-textarea")).toBeVisible();
     await expect(page.getByTestId("assistant-model-selector")).toBeVisible();
     await expect(page.getByTestId("assistant-new-session")).toBeDisabled();

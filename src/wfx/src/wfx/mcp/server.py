@@ -1,6 +1,6 @@
-"""FastMCP server exposing Primeagent operations as MCP tools.
+"""FastMCP server exposing PrimeAgent operations as MCP tools.
 
-Connects to a running Primeagent server via REST API. Flow data is never
+Connects to a running PrimeAgent server via REST API. Flow data is never
 cached — every mutating tool does GET -> modify -> PATCH. The component
 registry is cached on first access.
 
@@ -12,6 +12,7 @@ from __future__ import annotations
 import contextlib
 import contextvars
 import copy
+import os
 import re
 from contextlib import asynccontextmanager
 from typing import TYPE_CHECKING, Any
@@ -21,6 +22,7 @@ if TYPE_CHECKING:
 
 from mcp.server.fastmcp import Context, FastMCP
 
+from wfx.base.mcp.pydantic_compat import ensure_fastmcp_settings_ready
 from wfx.graph.flow_builder import (
     add_component as fb_add_component,
 )
@@ -32,6 +34,7 @@ from wfx.graph.flow_builder import (
 )
 from wfx.graph.flow_builder import (
     empty_flow,
+    ensure_tool_mode_supported,
     layout_flow,
     needs_server_update,
     parse_flow_spec,
@@ -59,7 +62,7 @@ from wfx.graph.flow_builder import (
 )
 from wfx.graph.flow_builder.spec import validate_spec_references
 from wfx.log.logger import logger
-from wfx.mcp.client import PrimeagentClient
+from wfx.mcp.client import PrimeAgentClient
 from wfx.mcp.registry import (
     describe_component as reg_describe,
 )
@@ -67,13 +70,14 @@ from wfx.mcp.registry import (
     load_registry,
     search_registry,
 )
+from wfx.services.deps import get_settings_service
 from wfx.services.telemetry import MCPToolPayload, TelemetryService
 
 # Session state. Module-level singletons for stdio (single agent), with
 # contextvars overlay for SSE (multiple concurrent agents).
-_client_var: contextvars.ContextVar[PrimeagentClient | None] = contextvars.ContextVar("_client", default=None)
+_client_var: contextvars.ContextVar[PrimeAgentClient | None] = contextvars.ContextVar("_client", default=None)
 _registry_var: contextvars.ContextVar[dict[str, dict] | None] = contextvars.ContextVar("_registry", default=None)
-_shared_client: PrimeagentClient | None = None
+_shared_client: PrimeAgentClient | None = None
 _shared_registry: dict[str, dict] | None = None
 _telemetry: TelemetryService | None = None
 
@@ -82,7 +86,12 @@ _telemetry: TelemetryService | None = None
 async def _telemetry_lifespan(_server: FastMCP) -> AsyncIterator[dict]:
     """Start/stop the telemetry service with the MCP server lifecycle."""
     global _telemetry  # noqa: PLW0603
-    svc = TelemetryService()
+    settings = get_settings_service().settings
+    svc = TelemetryService(
+        base_url=os.environ.get("PRIMEAGENT_SEGMENT_API_URL") or settings.segment_api_url,
+        write_key=os.environ.get("PRIMEAGENT_SEGMENT_WRITE_KEY") or settings.segment_write_key,
+        do_not_track=settings.do_not_track or os.environ.get("DO_NOT_TRACK", "false").lower() in {"1", "true"},
+    )
     svc.start()
     _telemetry = svc
     try:
@@ -92,10 +101,11 @@ async def _telemetry_lifespan(_server: FastMCP) -> AsyncIterator[dict]:
         _telemetry = None
 
 
+ensure_fastmcp_settings_ready()
 mcp = FastMCP(
     "primeagent-mcp",
     instructions=(
-        "Primeagent MCP server -- build and run AI flows on a Primeagent instance.\n"
+        "PrimeAgent MCP server -- build and run AI flows on a PrimeAgent instance.\n"
         "\n"
         "Typical workflow:\n"
         "  1. login (or set PRIMEAGENT_API_KEY env var)\n"
@@ -115,18 +125,18 @@ mcp = FastMCP(
 )
 
 
-def _get_client() -> PrimeagentClient:
+def _get_client() -> PrimeAgentClient:
     # Try contextvar first (SSE sessions), fall back to shared (stdio)
     client = _client_var.get()
     if client is not None:
         return client
     global _shared_client  # noqa: PLW0603
     if _shared_client is None:
-        _shared_client = PrimeagentClient()
+        _shared_client = PrimeAgentClient()
     return _shared_client
 
 
-def _set_client(client: PrimeagentClient) -> None:
+def _set_client(client: PrimeAgentClient) -> None:
     global _shared_client, _shared_registry  # noqa: PLW0603
     _client_var.set(client)
     # Invalidate the shared registry when the client changes, since the
@@ -134,6 +144,21 @@ def _set_client(client: PrimeagentClient) -> None:
     if _shared_client is not client:
         _shared_registry = None
     _shared_client = client
+
+
+@contextlib.contextmanager
+def client_scope(client: PrimeAgentClient):
+    """Bind ``client`` for the current async context only (host mounts).
+
+    Unlike ``_set_client`` this never touches the shared stdio client, so an
+    HTTP mount can serve concurrent callers with per-request credentials
+    without cross-contaminating sessions.
+    """
+    token = _client_var.set(client)
+    try:
+        yield client
+    finally:
+        _client_var.reset(token)
 
 
 async def _get_registry() -> dict[str, dict]:
@@ -224,13 +249,13 @@ def _extract_vertex_error(build_data: dict[str, Any]) -> str:
 @mcp.tool()
 @_tracked
 async def login(username: str, password: str, server_url: str | None = None) -> dict[str, str]:
-    """Authenticate with a Primeagent server. Call this first.
+    """Authenticate with a PrimeAgent server. Call this first.
 
     Credentials are stored and reused for all subsequent calls.
 
     Args:
-        username: Primeagent username.
-        password: Primeagent password.
+        username: PrimeAgent username.
+        password: PrimeAgent password.
         server_url: Server URL (defaults to PRIMEAGENT_SERVER_URL env var or http://localhost:7860).
     """
     # Only close the client owned by this session (contextvar). The shared
@@ -239,7 +264,7 @@ async def login(username: str, password: str, server_url: str | None = None) -> 
     old_client = _client_var.get()
     if old_client is not None:
         await old_client.close()
-    client = PrimeagentClient(server_url=server_url)
+    client = PrimeAgentClient(server_url=server_url)
     _set_client(client)
     # Clear only this session's cached registry; leave _shared_registry
     # intact so other sessions are not disrupted.
@@ -721,6 +746,11 @@ async def configure_component(
         field_def = template.get(key) if isinstance(template.get(key), dict) else None
         field_type = field_def.get("type") if field_def else None
         value = _coerce_param_value(raw_value, field_type)
+        # Values supplied through this tool are literals. Do not leave a field
+        # in global-variable mode, where the runtime would interpret a literal
+        # secret (for example ``sk-...``) as the name of a stored variable.
+        if field_def is not None and "load_from_db" in field_def:
+            field_def["load_from_db"] = False
         if needs_server_update(template, key):
             # Handle tool_mode specially
             if key == "tool_mode":
@@ -745,6 +775,11 @@ async def configure_component(
                 # Set value in template before sending
                 if key in template and isinstance(template[key], dict):
                     template[key]["value"] = value
+                    # A value explicitly supplied to this tool is a literal.
+                    # Preserve component defaults, but do not let the refresh
+                    # endpoint resolve this value as a global-variable name.
+                    if "load_from_db" in template[key]:
+                        template[key]["load_from_db"] = False
                 else:
                     template[key] = {"value": value}
                 code = template.get("code", {}).get("value", "")
@@ -956,13 +991,22 @@ async def connect_components(
     """
     flow = await _get_flow(flow_id)
 
-    # Auto-enable tool_mode when connecting via component_as_tool
+    # Auto-enable tool_mode when connecting via component_as_tool.
+    registry: dict[str, dict] | None = None
     if source_output == "component_as_tool":
+        registry = await _get_registry()
+        # Validate FIRST, against the local copy: this used to PATCH tool_mode=True
+        # onto the source before validating, so a component that cannot produce a
+        # toolset output was left in a dead tool mode after the edge was rejected.
+        ensure_tool_mode_supported(flow, source_id, registry)
+        # The flip itself stays server-side. /custom_component/update rebuilds the
+        # node via Component.run_and_validate_update_outputs, which is what inserts
+        # the toolset metadata field (tools_metadata) into the template — a local
+        # flip sets tool_mode and the output but cannot synthesize that field.
         await configure_component(flow_id, source_id, {"tool_mode": True})
-        # Re-fetch flow after tool_mode update changed the template
         flow = await _get_flow(flow_id)
 
-    fb_add_connection(flow, source_id, source_output, target_id, target_input)
+    fb_add_connection(flow, source_id, source_output, target_id, target_input, registry=registry)
     layout_flow(flow)
     await _patch_flow(flow_id, flow)
     await _get_client().post_event(flow_id, "connection_added", f"Connected {source_id} to {target_id}")
@@ -1533,6 +1577,104 @@ def _resolve_refs(value: Any, results: list[Any]) -> Any:
     if isinstance(value, list):
         return [_resolve_refs(v, results) for v in value]
     return value
+
+
+def _assistant_progress_forwarder(ctx: Context | None):
+    """Bridge assistant ``progress`` SSE events to MCP progress/log notifications.
+
+    Best-effort on purpose: clients without progress support just ignore the
+    notifications, and a failed send must never break the tool call.
+    """
+    if ctx is None:
+        return None
+    step_count = 0
+
+    async def forward(event: dict[str, Any]) -> None:
+        nonlocal step_count
+        step_count += 1
+        message = str(event.get("message") or event.get("step") or "working")
+        try:
+            request_context = ctx.request_context
+            progress_token = request_context.meta.progressToken if request_context.meta else None
+            if progress_token is not None:
+                # Not ctx.report_progress: it omits related_request_id, which the
+                # stateless streamable-http transport needs to route onto the request stream.
+                await request_context.session.send_progress_notification(
+                    progress_token=progress_token,
+                    progress=float(step_count),
+                    message=message,
+                    related_request_id=ctx.request_id,
+                )
+            await ctx.info(message)
+        except Exception as exc:  # noqa: BLE001
+            logger.debug("Could not forward assistant progress to the MCP client: %s", exc)
+
+    return forward
+
+
+@mcp.tool()
+@_tracked
+async def run_assistant(
+    instruction: str,
+    flow_id: str | None = None,
+    provider: str | None = None,
+    model_name: str | None = None,
+    session_id: str | None = None,
+    ctx: Context | None = None,
+) -> dict[str, Any]:
+    """Ask the PrimeAgent Assistant to build, edit, or explain a flow.
+
+    The assistant runs server-side with its full agent loop (component search,
+    flow build, canvas edits); this tool consumes it through the REST API with
+    the caller's own credentials, so identity needs no extra argument. Any
+    resulting canvas change is persisted to the flow and immediately visible
+    in the PrimeAgent UI.
+
+    Args:
+        instruction: Natural-language request, e.g. "Build a flow with a Chat
+            Input connected to a Chat Output". Max 2000 characters.
+        flow_id: Optional id of an existing flow to edit. When omitted, a new
+            flow is created first and the assistant works on it.
+        provider: Optional model provider (e.g. "OpenAI", "Ollama"). Defaults
+            to the first configured provider on the server.
+        model_name: Optional model on that provider.
+        session_id: Optional conversation id to keep multi-turn context.
+        ctx: Injected MCP context; each assistant progress step is forwarded
+            to the caller as an MCP progress notification and info log.
+
+    Returns:
+        Dictionary with ``result`` (the assistant's reply), ``flow_id``,
+        ``link`` (relative UI link), and any fields the assistant reports
+        (``flow_changed``, ``session_id``, ``provider``, ``model_name``).
+    """
+    client = _get_client()
+    forward = _assistant_progress_forwarder(ctx)
+    optional = {"flow_id": flow_id, "provider": provider, "model_name": model_name, "session_id": session_id}
+    payload: dict[str, Any] = {"instruction": instruction, **{k: v for k, v in optional.items() if v}}
+
+    complete: dict[str, Any] | None = None
+    # ``/assist/run`` (not ``/assist/stream``): the headless route APPLIES the canvas
+    # changes. The stream route leaves them as a proposal for a UI card to approve,
+    # which a non-interactive MCP caller has no way to accept — the edit would be lost.
+    async for event in client.stream_post("/agentic/assist/run", json_data=payload, timeout=600.0):
+        kind = event.get("event")
+        if kind == "progress" and forward is not None:
+            await forward(event)
+        elif kind == "error":
+            detail = event.get("message") or "Assistant run failed"
+            raise RuntimeError(str(detail))
+        elif kind == "complete":
+            complete = event.get("data") or {}
+
+    if complete is None:
+        # A truncated stream would otherwise return a success-shaped empty result.
+        msg = "Assistant stream ended without a complete event"
+        raise RuntimeError(msg)
+
+    result: dict[str, Any] = dict(complete)
+    result.setdefault("result", "")
+    result.setdefault("link", f"/flow/{result.get('flow_id')}")
+    return result
 
 
 @mcp.tool()

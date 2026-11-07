@@ -34,7 +34,7 @@ from wfx.utils.ssrf_protection import (
     is_ssrf_protection_enabled,
     validate_and_resolve_url,
 )
-from wfx.utils.ssrf_transport import create_ssrf_protected_client
+from wfx.utils.ssrf_transport import create_ssrf_protected_client, pin_host_for_url
 
 # Define fields for each mode
 MODE_FIELDS = {
@@ -76,7 +76,7 @@ DEFAULT_SCHEME_PORTS = {"http": 80, "https": 443}
 class APIRequestComponent(Component):
     display_name = "API Request"
     description = "Make HTTP requests using URL or cURL commands."
-    documentation: str = "https://docs.prime.khulnasoft.com/api-request"
+    documentation: str = "https://prime.khulnasoft.com/docs/api-request"
     icon = "Globe"
     name = "APIRequest"
 
@@ -162,7 +162,7 @@ class APIRequestComponent(Component):
                     "description": "Header value",
                 },
             ],
-            value=[{"key": "User-Agent", "value": "Primeagent/1.0"}],
+            value=[{"key": "User-Agent", "value": "PrimeAgent/1.0"}],
             advanced=True,
             input_types=["Data", "JSON"],
             real_time_refresh=True,
@@ -442,7 +442,7 @@ class APIRequestComponent(Component):
         else:
             try:
                 result = response.json()
-            except json.JSONDecodeError:
+            except (json.JSONDecodeError, UnicodeDecodeError):
                 self.log("Failed to decode JSON response")
                 result = response.text.encode("utf-8")
 
@@ -621,9 +621,11 @@ class APIRequestComponent(Component):
             hostname extraction failure).
         """
         if is_ssrf_protection_enabled() and validated_ips:
-            # Extract hostname from the URL so the custom transport can pin it while
-            # preserving the Host header for virtual hosting / TLS SNI.
-            hostname = urlparse(url).hostname
+            # Extract the host in the IDNA/punycode form httpx connects with, so the
+            # custom transport can pin it while preserving the Host header for virtual
+            # hosting / TLS SNI. A Unicode hostname here would miss the pin at connect
+            # time for IDN hosts.
+            hostname = pin_host_for_url(url)
             if hostname:
                 # The custom transport tries validated IPs in order (dual-stack / LB).
                 return create_ssrf_protected_client(hostname=hostname, validated_ips=validated_ips)

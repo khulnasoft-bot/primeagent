@@ -6,7 +6,7 @@ import contextvars
 import json
 import os
 import re
-from pathlib import Path, PureWindowsPath
+from pathlib import Path, PurePath, PureWindowsPath
 from typing import TYPE_CHECKING
 
 from langchain_core.tools import StructuredTool
@@ -160,8 +160,11 @@ _WINDOWS_FORBIDDEN_CHARS = frozenset('<>"|?*')
 #   * literals — exact basename match (e.g. `.env`, `.netrc`)
 #   * prefixes — basename startswith (e.g. `id_rsa`, `id_rsa.pub`, `id_ed25519`)
 #   * suffixes — basename endswith (e.g. `cert.pem`, `private.key`)
-#   * fragments — any DIRECTORY component equals the fragment (e.g. `.ssh/`,
-#     `.aws/config`); the basename itself is not matched against fragments.
+#   * fragments — any path component equals the fragment, including the
+#     basename (e.g. `.ssh/`, `.aws/config`, or a bare `.ssh` request). Matching
+#     the basename too prevents requesting a protected directory directly (which
+#     would leak its existence) and stops a `**/*` glob from returning the
+#     protected directory entry itself even when its children are filtered.
 _DENY_BASENAME_LITERALS = frozenset({".env", ".netrc", ".pgpass", ".htpasswd", "authorized_keys"})
 _DENY_BASENAME_PREFIXES = ("id_rsa", "id_dsa", "id_ecdsa", "id_ed25519", "credentials")
 _DENY_BASENAME_SUFFIXES = (".pem", ".key", ".pfx", ".p12")
@@ -174,6 +177,8 @@ def _check_deny_list(path: str) -> str | None:
         return None
     *directories, basename = parts
     folded = basename.casefold()
+    if folded in _DENY_PATH_FRAGMENTS:
+        return f"Access to {basename!r} is denied: name matches a protected directory"
     if (
         folded in _DENY_BASENAME_LITERALS
         or folded.startswith(_DENY_BASENAME_PREFIXES)
@@ -190,7 +195,7 @@ def _looks_binary(head: bytes) -> bool:
     return b"\x00" in head
 
 
-def _check_hardlink(candidate: Path) -> str | None:
+def _check_hardlink(candidate: Path, root: Path) -> str | None:
     """Return an error string when ``candidate`` is a multi-hardlink file.
 
     Why we refuse multi-hardlink files: an attacker with write access to a
@@ -205,9 +210,17 @@ def _check_hardlink(candidate: Path) -> str | None:
     them would refuse every nested path. Symlinks fall through to the
     boundary check and the no-follow helpers. Non-existent paths return
     ``None`` — creation is handled by the O_NOFOLLOW write helper.
+
+    Defense-in-depth: ``candidate`` is already resolved and
+    containment-checked by ``_validate_path``, but we re-normalize and
+    re-verify containment here so this helper is safe to invoke from any
+    context before touching the filesystem.
     """
+    normalized = Path(os.path.realpath(candidate))
+    if not normalized.is_relative_to(root):
+        return f"Path escapes workspace boundary: {candidate}"
     try:
-        st = os.lstat(candidate)
+        st = os.lstat(normalized)
     except FileNotFoundError:
         return None
     except OSError as exc:
@@ -436,7 +449,7 @@ class FileSystemToolComponent(Component):
 
         auto_login = self._resolve_auto_login()
         user_id = self._resolve_user_id()
-        if auto_login:
+        if self._uses_shared_workspace():
             mode = "shared"
         elif user_id:
             mode = "isolated"
@@ -667,7 +680,7 @@ class FileSystemToolComponent(Component):
         treat all of those as "anonymous" — the isolation mode decides what to
         do with that information.
 
-        Why we filter ``"none"`` / ``"null"``: Primeagent's ``PlaceholderGraph``
+        Why we filter ``"none"`` / ``"null"``: PrimeAgent's ``PlaceholderGraph``
         stringifies a missing user as ``"None"`` rather than the Python
         ``None`` value, so a naive truthiness check would mistake "no user" for
         a real user named "None" and create a spurious shared namespace.
@@ -680,8 +693,14 @@ class FileSystemToolComponent(Component):
         pinned = _pinned_user_id_var.get()
         if pinned is not None:
             return pinned
-        candidates: list[object | None] = [getattr(self, "_user_id", None)]
         graph = getattr(self, "graph", None)
+        candidates: list[object | None] = []
+        # Serving-plane: an identified end user owns the files they write during their session, so
+        # their id wins the sandbox namespace over the executing service account. None on editor /
+        # anonymous / feature-off runs -> falls through to the SID exactly as before (strict BC).
+        if graph is not None:
+            candidates.append(getattr(graph, "end_user_id", None))
+        candidates.append(getattr(self, "_user_id", None))
         if graph is not None:
             candidates.append(getattr(graph, "user_id", None))
 
@@ -722,12 +741,31 @@ class FileSystemToolComponent(Component):
         except AttributeError:
             return True
 
+    def _uses_shared_workspace(self) -> bool:
+        """Keep standalone synthetic identities stable without relaxing user isolation."""
+        if getattr(self, "_force_isolation", False):
+            return False
+        if self._resolve_auto_login():
+            return True
+        graph = getattr(self, "graph", None)
+        principal = getattr(graph, "execution_principal", None)
+        generated_user = getattr(graph, "_headless_filesystem_user_id", None)
+        return bool(
+            generated_user
+            and principal is not None
+            and principal.kind == "headless_operator"
+            and principal.family == "wfx_headless"
+            and not getattr(graph, "end_user_id", None)
+            and generated_user == graph.user_id == self._resolve_user_id()
+        )
+
     def _validate_root(self) -> Path:
         """Resolve and authorize the effective sandbox root.
 
         Dispatch:
           - ``_force_isolation=True``    → <BASE>/users/<hash(user_id)>/<sub_path>
           - AUTO_LOGIN=True              → <BASE>/shared/<sub_path>
+          - standalone synthetic user    → <BASE>/shared/<sub_path>
           - AUTO_LOGIN=False + user_id   → <BASE>/users/<hash(user_id)>/<sub_path>
           - any mode with no user_id     → PermissionError (caught by callers)
 
@@ -746,7 +784,7 @@ class FileSystemToolComponent(Component):
                 raise PermissionError(msg)
             return self._isolated_user_root(config=config, user_id=user_id)
 
-        if self._resolve_auto_login():
+        if self._uses_shared_workspace():
             return self._shared_root(config=config)
 
         user_id = self._resolve_user_id()
@@ -770,7 +808,7 @@ class FileSystemToolComponent(Component):
                 f"Cannot create shared workspace at {shared_root}: "
                 f"{exc.strerror or exc}. "
                 f"Check that PRIMEAGENT_FS_TOOL_BASE_DIR ({config.base_dir}) is writable "
-                f"by the Primeagent process user."
+                f"by the PrimeAgent process user."
             )
             raise PermissionError(msg) from exc
 
@@ -807,7 +845,7 @@ class FileSystemToolComponent(Component):
                 f"Cannot create user namespace at {user_root}: "
                 f"{exc.strerror or exc}. "
                 f"Check that PRIMEAGENT_FS_TOOL_BASE_DIR ({config.base_dir}) is writable "
-                f"by the Primeagent process user."
+                f"by the PrimeAgent process user."
             )
             raise PermissionError(msg) from exc
 
@@ -859,6 +897,12 @@ class FileSystemToolComponent(Component):
         if deny_error := _check_deny_list(path):
             raise PermissionError(deny_error)
         root_resolved = self._validate_root()
+        # Reject absolute paths and `..` traversal before user-controlled data
+        # reaches a path expression, so the join below is always relative.
+        raw = PurePath(path)
+        if raw.is_absolute() or ".." in raw.parts:
+            msg = f"Path escapes workspace boundary: {path}"
+            raise PermissionError(msg)
         candidate = (root_resolved / path).resolve()
         if not candidate.is_relative_to(root_resolved):
             msg = f"Path escapes workspace boundary: {path}"
@@ -867,7 +911,7 @@ class FileSystemToolComponent(Component):
         # alias a denied target that `.resolve()` has already followed.
         if deny_error := _check_deny_list(str(candidate.relative_to(root_resolved))):
             raise PermissionError(deny_error)
-        if hardlink_error := _check_hardlink(candidate):
+        if hardlink_error := _check_hardlink(candidate, root_resolved):
             raise PermissionError(hardlink_error)
         return candidate
 

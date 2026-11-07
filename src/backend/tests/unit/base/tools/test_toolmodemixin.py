@@ -26,8 +26,8 @@ from wfx.schema import Data
 
 class AllInputsComponent(Component):
     display_name = "All Inputs Component"
-    description = "A component with all input types available in Primeagent."
-    documentation: str = "http://docs.prime.khulnasoft.com/components/all_inputs"
+    description = "A component with all input types available in PrimeAgent."
+    documentation: str = "http://prime.khulnasoft.com/docs/components/all_inputs"
     icon = "code"
     name = "AllInputsComponent"
 
@@ -163,7 +163,7 @@ def test_component_inputs_toolkit():
 def test_table_input_preserves_list_dict():
     """Test that TableInput with tool_mode=True preserves all dicts in a list.
 
-    Regression test for: https://github.com/khulnasoft/primeagent/issues/12062
+    Regression test for: https://github.com/khulnasoft-bot/primeagent/issues/12062
     """
     component = AllInputsComponent()
 

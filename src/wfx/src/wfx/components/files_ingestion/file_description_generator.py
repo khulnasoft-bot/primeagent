@@ -2,7 +2,7 @@
 
 Takes file data from a Read File component, runs the full ingestion pipeline
 (docling convert -> markdown shorten -> LLM describe) in a subprocess to avoid
-memory issues, and outputs Data objects suitable for feeding into any Primeagent
+memory issues, and outputs Data objects suitable for feeding into any PrimeAgent
 vector store component.
 """
 
@@ -158,9 +158,15 @@ class FileDescriptionGeneratorComponent(Component):
                 config = json.loads(sys.stdin.read())
                 logger.info("Subprocess started, %d file(s)", len(config["file_paths"]))
 
-                from OpenDsStar.ingestion.docling_based_ingestion.docling_description_builder import (
-                    DoclingDescriptionBuilder,
-                )
+                try:
+                    from OpenDsStar.ingestion.docling_based_ingestion.docling_description_builder import (
+                        DoclingDescriptionBuilder,
+                    )
+                except ImportError as exc:
+                    raise ImportError(
+                        "File Description Generator requires a separate manual installation of OpenDsStar. "
+                        "Run: uv pip install 'OpenDsStar==1.0.26' 'langchain-litellm==0.5.1'"
+                    ) from exc
                 from wfx.base.data.docling_utils import _deserialize_pydantic_model
 
                 llm = _deserialize_pydantic_model(config["llm_config"])

@@ -12,11 +12,11 @@ from wfx.schema import DataFrame
 class NewsSearchComponent(Component):
     display_name = "News Search"
     description = "Searches Google News via RSS. Returns clean article data."
-    documentation: str = "https://docs.prime.khulnasoft.com/web-search"
+    documentation: str = "https://prime.khulnasoft.com/docs/web-search"
     icon = "newspaper"
     name = "NewsSearch"
     legacy = True
-    replacement = "data.WebSearch"
+    replacement = ["data_source.UnifiedWebSearch"]
 
     inputs = [
         MessageTextInput(

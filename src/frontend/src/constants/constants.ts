@@ -1,11 +1,15 @@
 // src/constants/constants.ts
 
 import {
+  BASENAME,
   BASE_URL_API as CUSTOM_BASE_URL_API,
   BASE_URL_API_V2 as CUSTOM_BASE_URL_API_V2,
 } from "../customization/config-constants";
 import { customDefaultShortcuts } from "../customization/constants";
 import type { languageMap } from "../types/components";
+
+declare const __PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS__: string | number;
+declare const __PRIMEAGENT_AUTO_LOGIN__: string | boolean;
 
 export const DEFAULT_SESSION_NAME = "Default Session";
 export const NEW_SESSION_NAME = "New Session";
@@ -13,17 +17,14 @@ export const SLIDING_TRANSITION_MS = 300;
 
 const getEnvVar = <T = string | undefined>(
   key: string,
+  viteValue: T | undefined,
   defaultValue?: T,
 ): T | undefined => {
-  if (typeof process !== "undefined" && process.env) {
-    return (process.env[key] as T) ?? defaultValue;
-  }
-  try {
-    const value = new Function(`return import.meta.env?.${key}`)() as T;
-    return value ?? defaultValue;
-  } catch {
-    return defaultValue;
-  }
+  const processValue =
+    typeof process !== "undefined" && process.env
+      ? (process.env[key] as T | undefined)
+      : undefined;
+  return processValue ?? viteValue ?? defaultValue;
 };
 
 /**
@@ -168,7 +169,7 @@ export const EDIT_DIALOG_SUBTITLE =
  * @constant
  */
 export const CODE_PROMPT_DIALOG_SUBTITLE =
-  "Edit your Python code snippet. Refer to the Primeagent documentation for more information on how to write your own component.";
+  "Edit your Python code snippet. Refer to the PrimeAgent documentation for more information on how to write your own component.";
 
 export const CODE_DICT_DIALOG_SUBTITLE =
   "Customize your dictionary, adding or editing key-value pairs as needed. Supports adding new objects {} or arrays [].";
@@ -267,13 +268,13 @@ export const DESCRIPTIONS: string[] = [
   "Your Hub for Text Generation.",
   "Promptly Ingenious!",
   "Building Linguistic Labyrinths.",
-  "Primeagent: Create, Chain, Communicate.",
+  "PrimeAgent: Create, Chain, Communicate.",
   "Connect the Dots, Craft Language.",
   "Interactive Language Weaving.",
   "Generate, Innovate, Communicate.",
   "Conversation Catalyst Engine.",
   "Language Chainlink Master.",
-  "Design Dialogues with Primeagent.",
+  "Design Dialogues with PrimeAgent.",
   "Nurture NLP Nodes Here.",
   "Conversational Cartography Unlocked.",
   "Design, Develop, Dialogize.",
@@ -590,21 +591,6 @@ export const OPENRAG_FOLDER = "OpenRAG";
 
 export const MAX_MCP_SERVER_NAME_LENGTH = 30;
 
-/**
- * Header text for admin page
- * @constant
- *
- */
-export const ADMIN_HEADER_TITLE = "Admin Page";
-
-/**
- * Header description for admin page
- * @constant
- *
- */
-export const ADMIN_HEADER_DESCRIPTION =
-  "Navigate through this section to efficiently oversee all application users. From here, you can seamlessly manage user accounts.";
-
 export const BASE_URL_API = CUSTOM_BASE_URL_API || "/api/v1/";
 
 export const BASE_URL_API_V2 = CUSTOM_BASE_URL_API_V2 || "/api/v2/";
@@ -637,6 +623,7 @@ export const CONTROL_INPUT_STATE = {
 };
 
 export const CONTROL_PATCH_USER_STATE = {
+  currentPassword: "",
   password: "",
   cnfPassword: "",
   profilePicture: "",
@@ -668,7 +655,7 @@ export const TIMEOUT_ERROR_DESCRIPION = "Server is busy.";
 export const SIGN_UP_SUCCESS = "Account created! Await admin activation. ";
 
 export const API_PAGE_PARAGRAPH =
-  "Your secret Primeagent API keys are listed below. Do not share your API key with others, or expose it in the browser or other client-side code.";
+  "Your secret PrimeAgent API keys are listed below. Do not share your API key with others, or expose it in the browser or other client-side code.";
 
 export const API_PAGE_USER_KEYS =
   "This user does not have any keys assigned at the moment.";
@@ -694,11 +681,14 @@ export const PRIMEAGENT_SUPPORTED_TYPES = new Set([
   "slider",
   "tab",
   "sortableList",
+  "actionPicker",
+  "duration",
   "connect",
   "auth",
   "query",
   "mcp",
   "tools",
+  "data_display",
 ]);
 
 export const FLEX_VIEW_TYPES = ["bool"];
@@ -750,7 +740,7 @@ export const INPUT_HANDLER_HOVER = "Avaliable input components:";
 export const OUTPUT_HANDLER_HOVER = "Avaliable output components:";
 export const TEXT_INPUT_MODAL_TITLE = "Inputs";
 export const OUTPUTS_MODAL_TITLE = "Outputs";
-export const PRIMEAGENT_CHAT_TITLE = "Primeagent Chat";
+export const PRIMEAGENT_CHAT_TITLE = "PrimeAgent Chat";
 export const CHAT_INPUT_PLACEHOLDER =
   "No chat input variables found. Click to run your flow.";
 export const CHAT_INPUT_PLACEHOLDER_SEND = "Send a message...";
@@ -758,9 +748,9 @@ export const EDIT_CODE_TITLE = "Edit Code";
 export const MY_COLLECTION_DESC =
   "Manage your projects. Download and upload entire collections.";
 export const STORE_DESC = "Explore community-shared flows and components.";
-export const STORE_TITLE = "Primeagent Store";
+export const STORE_TITLE = "PrimeAgent Store";
 export const NO_API_KEY = "You don't have an API key.";
-export const INSERT_API_KEY = "Insert your Primeagent API key.";
+export const INSERT_API_KEY = "Insert your PrimeAgent API key.";
 export const INVALID_API_KEY = "Your API key is not valid. ";
 export const CREATE_API_KEY = `Don't have an API key? Sign up at`;
 export const STATUS_BUILD = "Build to validate status.";
@@ -828,6 +818,14 @@ export const BROKEN_EDGES_WARNING =
 
 export const SAVE_DEBOUNCE_TIME = 300;
 
+// How long an edit waits before the flow is written back. Every save is a
+// full-graph overwrite, so this interval is the window in which two people can
+// diverge, and n8n reached for the same lever after attributing their
+// false-conflict problem to a more eager autosave. Deliberately not the
+// template-refresh delay above: holding a field's refresh back only leaves the
+// user waiting.
+export const AUTOSAVE_DEBOUNCE_TIME = 5000;
+
 export const IS_MAC =
   typeof navigator !== "undefined" &&
   navigator.userAgent.toUpperCase().includes("MAC");
@@ -871,15 +869,27 @@ export const TABS_ORDER = [
   "chat widget html",
 ];
 
-export const PRIMEAGENT_ACCESS_TOKEN = "access_token_lf";
-export const PRIMEAGENT_API_TOKEN = "apikey_tkn_lflw";
-export const PRIMEAGENT_AUTO_LOGIN_OPTION = "auto_login_lf";
-export const PRIMEAGENT_REFRESH_TOKEN = "refresh_token_lf";
+// Cookie paths alone cannot prevent a parent path's cookie from being sent.
+const authCookieSuffix = BASENAME ? `_${encodeURIComponent(BASENAME)}` : "";
+export const PRIMEAGENT_ACCESS_TOKEN = `access_token_lf${authCookieSuffix}`;
+export const PRIMEAGENT_API_TOKEN = `apikey_tkn_lflw${authCookieSuffix}`;
+export const PRIMEAGENT_AUTO_LOGIN_OPTION = `auto_login_lf${authCookieSuffix}`;
+export const PRIMEAGENT_REFRESH_TOKEN = `refresh_token_lf${authCookieSuffix}`;
 
 export const PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS = 60 * 60 - 60 * 60 * 0.1;
+const viteAccessTokenExpireSeconds =
+  typeof __PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS__ === "undefined"
+    ? undefined
+    : __PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS__;
+const configuredAccessTokenExpireSeconds = Number(
+  getEnvVar<string | number>(
+    "ACCESS_TOKEN_EXPIRE_SECONDS",
+    viteAccessTokenExpireSeconds,
+    60 * 60,
+  ),
+);
 export const PRIMEAGENT_ACCESS_TOKEN_EXPIRE_SECONDS_ENV =
-  Number(getEnvVar("ACCESS_TOKEN_EXPIRE_SECONDS", 60)) -
-  Number(getEnvVar("ACCESS_TOKEN_EXPIRE_SECONDS", 60)) * 0.1;
+  configuredAccessTokenExpireSeconds - configuredAccessTokenExpireSeconds * 0.1;
 export const TEXT_FIELD_TYPES: string[] = ["str", "SecretStr"];
 export const NODE_WIDTH = 384;
 export const NODE_HEIGHT = NODE_WIDTH * 3;
@@ -954,9 +964,16 @@ export const POLLING_MESSAGES = {
 
 export const BUILD_POLLING_INTERVAL = 25;
 
+const viteAutoLogin =
+  typeof __PRIMEAGENT_AUTO_LOGIN__ === "undefined"
+    ? undefined
+    : __PRIMEAGENT_AUTO_LOGIN__;
+const autoLoginEnv = getEnvVar<string | boolean>(
+  "PRIMEAGENT_AUTO_LOGIN",
+  viteAutoLogin,
+);
 export const IS_AUTO_LOGIN =
-  !getEnvVar("PRIMEAGENT_AUTO_LOGIN") ||
-  String(getEnvVar("PRIMEAGENT_AUTO_LOGIN"))?.toLowerCase() !== "false";
+  !autoLoginEnv || String(autoLoginEnv).toLowerCase() !== "false";
 
 export const AUTO_LOGIN_RETRY_DELAY = 2000;
 export const AUTO_LOGIN_MAX_RETRY_DELAY = 60000;
@@ -998,17 +1015,25 @@ export const OPENAI_VOICES = [
   { name: "verse", value: "verse" },
 ];
 
+/**
+ * Fallback for the Assistant composer's character cap, used until /config replies.
+ * Matches the backend default of PRIMEAGENT_ASSISTANT_MAX_MESSAGE_LENGTH so the two
+ * agree even when the config request is in flight or unauthenticated.
+ */
+export const DEFAULT_ASSISTANT_MAX_MESSAGE_LENGTH = 2000;
+
 export const DEFAULT_POLLING_INTERVAL = 5000;
 export const DEFAULT_TIMEOUT = 30000;
 export const DEFAULT_FILE_PICKER_TIMEOUT = 60000;
 export const DISCORD_URL = "https://discord.com/invite/EqksyE2EX9";
-export const GITHUB_URL = "https://github.com/khulnasoft/primeagent";
+export const GITHUB_URL = "https://github.com/khulnasoft-bot/primeagent";
 export const TWITTER_URL = "https://x.com/primeagent_ai";
-export const DOCS_URL = "https://docs.prime.khulnasoft.com";
+export const DOCS_URL = "https://prime.khulnasoft.com/docs";
 export const DATASTAX_DOCS_URL =
   "https://docs.datastax.com/en/primeagent/index.html";
 export const DESKTOP_URL = "https://www.prime.khulnasoft.com/desktop";
-export const BUG_REPORT_URL = "https://github.com/khulnasoft/primeagent/issues";
+export const BUG_REPORT_URL =
+  "https://github.com/khulnasoft-bot/primeagent/issues";
 
 export const UUID_PARSING_ERROR = "uuid_parsing";
 

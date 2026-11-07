@@ -1,4 +1,4 @@
-"""wfx environment configuration — resolve Primeagent instance URL and API key.
+"""wfx environment configuration — resolve PrimeAgent instance URL and API key.
 
 Config file lookup order
 ------------------------
@@ -52,19 +52,19 @@ class ConfigError(Exception):
     """Raised when the config file is missing, malformed, or an environment name cannot be resolved.
 
     Note: a missing API key env var is *not* a ``ConfigError`` — ``api_key``
-    will simply be ``None`` on the returned :class:`PrimeagentEnvironment`.
+    will simply be ``None`` on the returned :class:`PrimeAgentEnvironment`.
     Commands that require a key validate it themselves and raise an appropriate
     error with actionable guidance.
     """
 
 
 @dataclass
-class PrimeagentEnvironment:
-    """A fully-resolved Primeagent target instance.
+class PrimeAgentEnvironment:
+    """A fully-resolved PrimeAgent target instance.
 
     Attributes:
         name:    Human-readable label (environment name or ``"__inline__"``).
-        url:     Base URL of the Primeagent instance.
+        url:     Base URL of the PrimeAgent instance.
         api_key: Resolved API key value, or ``None`` if not configured.
     """
 
@@ -183,7 +183,7 @@ def _load_raw(path: Path) -> dict[str, Any]:
         return _parse_toml(path)
 
 
-def _parse_env_block(name: str, block: Any, config_path: Path) -> PrimeagentEnvironment:
+def _parse_env_block(name: str, block: Any, config_path: Path) -> PrimeAgentEnvironment:
     if not isinstance(block, dict):
         msg = f"Environment {name!r} in {config_path} must be a mapping, got {type(block).__name__}"
         raise ConfigError(msg)
@@ -208,10 +208,10 @@ def _parse_env_block(name: str, block: Any, config_path: Path) -> PrimeagentEnvi
         )
         api_key = str(block["api_key"])
 
-    return PrimeagentEnvironment(name=name, url=url, api_key=api_key)
+    return PrimeAgentEnvironment(name=name, url=url, api_key=api_key)
 
 
-def _load_config(path: Path) -> tuple[dict[str, PrimeagentEnvironment], str | None]:
+def _load_config(path: Path) -> tuple[dict[str, PrimeAgentEnvironment], str | None]:
     """Return ``(environments_dict, default_env_name)`` from the config at *path*."""
     raw = _load_raw(path)
 
@@ -220,7 +220,7 @@ def _load_config(path: Path) -> tuple[dict[str, PrimeagentEnvironment], str | No
         msg = f"'environments' in {path} must be a mapping, got {type(raw_envs).__name__}"
         raise ConfigError(msg)
 
-    envs: dict[str, PrimeagentEnvironment] = {}
+    envs: dict[str, PrimeAgentEnvironment] = {}
     for env_name, block in raw_envs.items():
         envs[str(env_name)] = _parse_env_block(str(env_name), block, path)
 
@@ -241,8 +241,8 @@ def resolve_environment(
     target: str | None = None,
     api_key: str | None = None,
     environments_file: str | None = None,
-) -> PrimeagentEnvironment:
-    """Resolve an environment name (or inline flags) to a :class:`PrimeagentEnvironment`.
+) -> PrimeAgentEnvironment:
+    """Resolve an environment name (or inline flags) to a :class:`PrimeAgentEnvironment`.
 
     Precedence
     ----------
@@ -270,7 +270,7 @@ def resolve_environment(
 
     Returns:
     -------
-    PrimeagentEnvironment:
+    PrimeAgentEnvironment:
         Fully-resolved environment with ``url`` and ``api_key``.
 
     Raises:
@@ -284,7 +284,7 @@ def resolve_environment(
     # -----------------------------------------------------------------------
     if target is not None:
         name = env or "__inline__"
-        return PrimeagentEnvironment(name=name, url=target, api_key=api_key)
+        return PrimeAgentEnvironment(name=name, url=target, api_key=api_key)
 
     # -----------------------------------------------------------------------
     # Mode 2: config file
@@ -297,7 +297,7 @@ def resolve_environment(
         lf_url = os.environ.get("PRIMEAGENT_URL") or os.environ.get("WFX_URL")
         if lf_url and env is None:
             lf_key = api_key or os.environ.get("PRIMEAGENT_API_KEY") or os.environ.get("WFX_API_KEY")
-            return PrimeagentEnvironment(name="__env__", url=lf_url, api_key=lf_key)
+            return PrimeAgentEnvironment(name="__env__", url=lf_url, api_key=lf_key)
 
         if env is not None:
             msg = (
@@ -339,6 +339,6 @@ def resolve_environment(
 
     # --api-key overrides the key resolved from the config file
     if api_key is not None:
-        resolved = PrimeagentEnvironment(name=resolved.name, url=resolved.url, api_key=api_key)
+        resolved = PrimeAgentEnvironment(name=resolved.name, url=resolved.url, api_key=api_key)
 
     return resolved

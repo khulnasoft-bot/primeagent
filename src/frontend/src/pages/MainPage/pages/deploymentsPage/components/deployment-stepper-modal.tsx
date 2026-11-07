@@ -89,12 +89,12 @@ export default function DeploymentStepperModal({
 
   // Build initial maps from attachments for the stepper context.
   // Tool names and connection assignments come from the provider (wxO) via
-  // the /flows endpoint, NOT from the Primeagent database. This means:
+  // the /flows endpoint, NOT from the PrimeAgent database. This means:
   //
   // - If a user renames a tool in the wxO console, the new name appears
-  //   here on the next edit. Primeagent doesn't cache tool names locally.
+  //   here on the next edit. PrimeAgent doesn't cache tool names locally.
   // - If a tool is deleted in wxO, provider_data will be null and the
-  //   review page falls back to the Primeagent flow name.
+  //   review page falls back to the PrimeAgent flow name.
   // - If a connection is deleted in wxO but the tool still references it,
   //   the app_id will appear in connectionsByFlow. The backend will fail
   //   fast during the update if the caller tries to attach a new tool to
@@ -149,6 +149,8 @@ export default function DeploymentStepperModal({
       <DialogContent
         className="flex h-[85vh] w-[900px] !max-w-none flex-col gap-0 overflow-hidden border-none bg-transparent p-0 shadow-none"
         hideCloseButton
+        hideTitle
+        hideDescription
         overlayClassName="bg-black/30 dark:bg-black/50 backdrop-blur"
       >
         <DeploymentStepperProvider
@@ -172,11 +174,16 @@ export default function DeploymentStepperModal({
           }}
         >
           {isLoadingEditData ? (
-            <div className="flex flex-1 items-center justify-center">
-              <span className="text-sm text-muted-foreground">
+            <>
+              <DialogTitle className="sr-only">
                 {t("deployments.loadingDeploymentData")}
-              </span>
-            </div>
+              </DialogTitle>
+              <div className="flex flex-1 items-center justify-center">
+                <span className="text-sm text-muted-foreground">
+                  {t("deployments.loadingDeploymentData")}
+                </span>
+              </div>
+            </>
           ) : (
             <DeploymentStepperModalContent
               setOpen={setOpen}

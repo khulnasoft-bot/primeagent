@@ -1,7 +1,7 @@
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import RedirectResponse
 from fastapi_pagination import Params
 
@@ -14,6 +14,22 @@ from primeagent.services.database.models.folder.model import (
 from primeagent.services.database.models.folder.pagination_model import FolderWithPaginatedFlows
 
 router = APIRouter(prefix="/folders", tags=["Folders"], include_in_schema=False)
+
+# Control characters (below 0x20) are not legal in an HTTP header value and are
+# rejected to prevent CRLF/header injection through the redirect Location header.
+_MAX_SAFE_QUERY_CHAR_CODE = 0x20
+
+
+def _safe_query_value(value: str) -> str:
+    """Sanitize a user-supplied query value reflected into a redirect Location header.
+
+    Rejects control characters (below 0x20) to prevent HTTP header injection
+    (CRLF injection) through the redirect target.
+    """
+    if any(ord(ch) < _MAX_SAFE_QUERY_CHAR_CODE for ch in value):
+        raise HTTPException(status_code=400, detail="Invalid query parameter")
+    return value
+
 
 # This file now serves as a redirection to the projects endpoint
 # All routes will redirect to the corresponding projects endpoint
@@ -48,7 +64,7 @@ async def read_folder_redirect(
     if is_flow:
         params_list.append(f"is_flow={is_flow}")
     if search:
-        params_list.append(f"search={search}")
+        params_list.append(f"search={_safe_query_value(search)}")
     if params and params.page:
         params_list.append(f"page={params.page}")
     if params and params.size:

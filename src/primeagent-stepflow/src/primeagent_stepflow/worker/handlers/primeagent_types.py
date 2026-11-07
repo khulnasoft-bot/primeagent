@@ -1,4 +1,4 @@
-"""Handlers for Primeagent core types (Message, Data, DataFrame).
+"""Handlers for PrimeAgent core types (Message, Data, DataFrame).
 
 Input: deserialize dicts with ``__primeagent_type__`` markers back to wfx objects.
 Output: serialize Message/Data objects to dicts with ``__primeagent_type__`` markers.
@@ -14,7 +14,7 @@ from .base import InputHandler, OutputHandler
 logger = logging.getLogger(__name__)
 
 # wfx 0.3+ renamed Data→JSON, DataFrame→Table. Map runtime class names
-# back to the canonical Primeagent type names used in serialized payloads.
+# back to the canonical PrimeAgent type names used in serialized payloads.
 _CLASS_TO_PRIMEAGENT_TYPE: dict[str, str] = {
     "JSON": "Data",
     "Table": "DataFrame",
@@ -22,7 +22,7 @@ _CLASS_TO_PRIMEAGENT_TYPE: dict[str, str] = {
 
 
 def _primeagent_type_name(value: Any) -> str:
-    """Return the canonical Primeagent type name for a value."""
+    """Return the canonical PrimeAgent type name for a value."""
     cls_name = type(value).__name__
     return _CLASS_TO_PRIMEAGENT_TYPE.get(cls_name, cls_name)
 
@@ -134,7 +134,7 @@ def _recover_dataframe(raw_value: dict[str, Any]) -> Any:
         return raw_value
 
 
-class PrimeagentTypeInputHandler(InputHandler):
+class PrimeAgentTypeInputHandler(InputHandler):
     """Deserialize dicts with ``__primeagent_type__`` markers to wfx objects.
 
     Handles Message, Data, and DataFrame deserialization. Also handles
@@ -157,7 +157,7 @@ class PrimeagentTypeInputHandler(InputHandler):
         return result
 
 
-class PrimeagentTypeOutputHandler(OutputHandler):
+class PrimeAgentTypeOutputHandler(OutputHandler):
     """Serialize Message and Data objects with ``__primeagent_type__`` markers.
 
     Matches ``isinstance(value, (Message, Data))`` and produces dicts with

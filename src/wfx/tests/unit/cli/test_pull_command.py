@@ -1,6 +1,6 @@
 """Unit tests for wfx pull -- pull_command and helpers.
 
-All tests run entirely in-process; no real Primeagent instance or SDK required.
+All tests run entirely in-process; no real PrimeAgent instance or SDK required.
 The SDK module is replaced wholesale with MagicMock so only the pull logic
 (flow fetching, file writing, project resolution, result rendering)
 is under test.

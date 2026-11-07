@@ -1,4 +1,4 @@
-"""MCP (Model Context Protocol) server for Primeagent Agentic tools."""
+"""MCP (Model Context Protocol) server for PrimeAgent Agentic tools."""
 
 from primeagent.agentic.mcp.server import mcp
 

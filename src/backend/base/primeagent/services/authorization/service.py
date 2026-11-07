@@ -1,4 +1,4 @@
-"""Primeagent authorization service (OSS pass-through; plugins enforce RBAC)."""
+"""PrimeAgent authorization service (OSS pass-through; plugins enforce RBAC)."""
 
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ if TYPE_CHECKING:
     from wfx.services.settings.service import SettingsService
 
 
-class PrimeagentAuthorizationService(BaseAuthorizationService):
+class PrimeAgentAuthorizationService(BaseAuthorizationService):
     """OSS pass-through authorization service (always allows)."""
 
     def __init__(self, settings_service: SettingsService) -> None:
@@ -25,7 +25,7 @@ class PrimeagentAuthorizationService(BaseAuthorizationService):
         super().__init__()
         self.settings_service = settings_service
         self.set_ready()
-        logger.debug("Primeagent authorization service initialized")
+        logger.debug("PrimeAgent authorization service initialized")
         # Loud, operator-visible warning when AUTHZ_ENABLED is on but the
         # registered service is the OSS pass-through. Without an enforcement
         # plugin registered via ``wfx.toml``, ``enforce()`` returns True for

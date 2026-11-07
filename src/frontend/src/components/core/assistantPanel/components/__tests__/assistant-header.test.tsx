@@ -25,10 +25,10 @@ describe("AssistantHeader", () => {
   });
 
   describe("rendering", () => {
-    it("should display 'Primeagent Assistant' title", () => {
+    it("should display 'PrimeAgent Assistant' title", () => {
       render(<AssistantHeader {...defaultProps} />);
 
-      expect(screen.getByText("Primeagent Assistant")).toBeInTheDocument();
+      expect(screen.getByText("PrimeAgent Assistant")).toBeInTheDocument();
     });
 
     it("should render New session button", () => {

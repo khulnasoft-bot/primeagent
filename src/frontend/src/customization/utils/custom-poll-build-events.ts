@@ -9,7 +9,11 @@ export async function customPollBuildEvents(
   buildResults: Array<boolean>,
   callbacks: {
     onBuildStart?: (idList: VertexLayerElementType[]) => void;
-    onBuildUpdate?: (data: any, status: BuildStatus, buildId: string) => void;
+    onBuildUpdate?: (
+      data: unknown,
+      status: BuildStatus,
+      buildId: string,
+    ) => void;
     onBuildComplete?: (allNodesValid: boolean) => void;
     onBuildError?: (
       title: string,
@@ -41,7 +45,7 @@ export async function customPollBuildEvents(
       const errorData = await response.json().catch(() => ({}));
       throw new Error(
         errorData.detail ||
-          "Primeagent was not able to connect to the server. Please make sure your connection is working properly.",
+          "PrimeAgent was not able to connect to the server. Please make sure your connection is working properly.",
       );
     }
 

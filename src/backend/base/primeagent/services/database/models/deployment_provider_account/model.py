@@ -53,14 +53,14 @@ class DeploymentProviderAccount(SQLModel, table=True):  # type: ignore[call-arg]
     # may not require a tenant/organization identifier.
     provider_tenant_id: str | None = Field(default=None, index=True)
     # The DB-level ``deployment_provider_key_enum`` constraint is defined
-    # by a Primeagent alembic migration.  The enum is Primeagent-owned (see
+    # by a PrimeAgent alembic migration.  The enum is PrimeAgent-owned (see
     # ``DeploymentProviderKey`` above); WFX uses plain strings for adapter
     # registry keys and does not reference this enum.
     #
     # To add a new value to ``deployment_provider_key_enum``:
     #   1. Add the member to ``DeploymentProviderKey`` in this module.
-    #   2. Register the corresponding adapter in WFX and mapper in Primeagent.
-    #   3. Create a Primeagent alembic migration that runs:
+    #   2. Register the corresponding adapter in WFX and mapper in PrimeAgent.
+    #   3. Create a PrimeAgent alembic migration that runs:
     #        op.execute(
     #            "ALTER TYPE deployment_provider_key_enum ADD VALUE '<new>'"
     #        )

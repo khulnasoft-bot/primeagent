@@ -1,4 +1,4 @@
-"""Script to update Primeagent starter projects with the latest component versions."""
+"""Script to update PrimeAgent starter projects with the latest component versions."""
 
 import asyncio
 import os

@@ -695,7 +695,7 @@ class TestFlowProposalReady:
     @pytest.mark.asyncio
     async def test_should_not_emit_flow_proposal_ready_for_question_intent(self):
         """Q&A path never emits the flow proposal signal."""
-        flow_gen = _make_flow_events([("token", "Primeagent is..."), ("end", {"result": "Primeagent is..."})])
+        flow_gen = _make_flow_events([("token", "PrimeAgent is..."), ("end", {"result": "PrimeAgent is..."})])
 
         with (
             patch(

@@ -41,13 +41,13 @@ if TYPE_CHECKING:
 
 
 # No adapter key registered -- this stub exists so the protocol and ABC are
-# testable.  Concrete adapters (e.g. in Primeagent) subclass BaseDeploymentService
+# testable.  Concrete adapters (e.g. in PrimeAgent) subclass BaseDeploymentService
 # and register under meaningful keys like "local" or "remote".
 class DeploymentService(BaseDeploymentService):
     """Null deployment service for WFX.
 
     All operations raise :class:`DeploymentNotConfiguredError` because WFX does
-    not ship a deployment adapter.  Concrete adapters (e.g. in Primeagent) should
+    not ship a deployment adapter.  Concrete adapters (e.g. in PrimeAgent) should
     subclass :class:`BaseDeploymentService` to provide real behaviour.
     """
 

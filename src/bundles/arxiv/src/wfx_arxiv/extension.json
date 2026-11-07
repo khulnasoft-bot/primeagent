@@ -1,9 +1,9 @@
 {
   "$schema": "https://schemas.prime.khulnasoft.com/extension/v1.json",
   "id": "wfx-arxiv",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "name": "arXiv Search",
-  "description": "arXiv search component as a standalone Primeagent Extension Bundle.",
+  "description": "arXiv search component as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

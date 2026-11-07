@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import MCPPrimeagent from "@/assets/MCPPrimeagent.png";
+import MCPPrimeAgent from "@/assets/MCPPrimeagent.png";
 import ForwardedIconComponent from "@/components/common/genericIconComponent";
 import { Button } from "@/components/ui/button";
 import { useCustomNavigate } from "@/customization/hooks/use-custom-navigate";
@@ -27,7 +27,7 @@ export const MCPServerNotice: FC<{
           <div className="">{t("sidebar.mcpProjectsTitle")}</div>
         </div>
         <img
-          src={MCPPrimeagent}
+          src={MCPPrimeAgent}
           alt={t("sidebar.mcpNoticeImageAlt")}
           className="rounded-xl"
         />

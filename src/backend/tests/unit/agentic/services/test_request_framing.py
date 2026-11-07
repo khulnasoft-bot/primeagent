@@ -38,7 +38,7 @@ def _step(**kw):
             ("generating_component", "Generating component..."),
         ),
         # plain flow request (no run/approval/continuation) → the RICH
-        # `generating_flow` step (so the frontend shows the Primeagent flow
+        # `generating_flow` step (so the frontend shows the PrimeAgent flow
         # icon/card immediately, same as `generating_component`), but with
         # a NEUTRAL message — at this point we still can't promise
         # "Generating plan..." (the agent may direct-edit). Requirement

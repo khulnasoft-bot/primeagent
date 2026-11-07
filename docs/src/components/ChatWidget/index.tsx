@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 
 // Component to load the chat widget script
 const ChatScriptLoader = () => {
   useEffect(() => {
     if (!document.querySelector('script[src*="primeagent-embedded-chat"]')) {
-      const script = document.createElement('script');
-      script.src = 'https://cdn.jsdelivr.net/gh/khulnasoft-bot/primeagent-embedded-chat@main/dist/build/static/js/bundle.min.js';
+      const script = document.createElement("script");
+      script.src =
+        "https://cdn.jsdelivr.net/gh/khulnasoft-bot/primeagent-embedded-chat@main/dist/build/static/js/bundle.min.js";
       script.async = true;
       document.body.appendChild(script);
     }

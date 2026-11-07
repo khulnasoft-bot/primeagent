@@ -1,12 +1,12 @@
-# Primeagent Documentation (full)
+# PrimeAgent Documentation (full)
 
-> Comprehensive guide for AI language models: Primeagent documentation at docs.prime.khulnasoft.com. Covers the visual flow builder, API and webhook triggers, MCP, deployment, components, and API reference. Use this file for deeper context than llms.txt.
+> Comprehensive guide for AI language models: PrimeAgent documentation at prime.khulnasoft.com/docs. Covers the visual flow builder, API and webhook triggers, MCP, deployment, components, and API reference. Use this file for deeper context than llms.txt.
 
 **Platform overview**
-Official documentation for Primeagent, a low-code platform for building and deploying AI-powered agents and workflows. Type: Technical Documentation – AI Development Platform. URL: https://docs.prime.khulnasoft.com. Category: Developer Documentation, AI/ML, Workflow Automation, RAG, MCP. Target: developers and teams adopting Primeagent (OSS or Desktop) for AI applications.
+Official documentation for PrimeAgent, a low-code platform for building and deploying AI-powered agents and workflows. Type: Technical Documentation – AI Development Platform. URL: https://prime.khulnasoft.com/docs. Category: Developer Documentation, AI/ML, Workflow Automation, RAG, MCP. Target: developers and teams adopting PrimeAgent (OSS or Desktop) for AI applications.
 
-**Technical specifications (Primeagent product)**
-Application type: Python web application (OSS); Tauri-based desktop (Primeagent Desktop). Supported platforms: Windows, macOS, Linux. Minimum requirements: Windows 10 (64-bit), macOS 10.15 Catalina, Ubuntu 18.04 LTS or equivalent; 4GB RAM minimum (8GB recommended), 2GB storage, internet for model integrations; Python 3.10–3.13 for OSS. Architecture: modular component system. License: MIT. Runtime: Python 3.10–3.13 (OSS); Node.js and Python (Desktop). Package format: pip/uv (OSS), Docker image, native Desktop installers (.exe, .dmg, .deb/.rpm). Default URL: http://127.0.0.1:7860. Repository: https://github.com/khulnasoft-bot/primeagent.
+**Technical specifications (PrimeAgent product)**
+Application type: Python web application (OSS); Tauri-based desktop (PrimeAgent Desktop). Supported platforms: Windows, macOS, Linux. Minimum requirements: Windows 10 (64-bit), macOS 10.15 Catalina, Ubuntu 18.04 LTS or equivalent; 4GB RAM minimum (8GB recommended), 2GB storage, internet for model integrations; Python 3.10–3.14 for OSS. Architecture: modular component system. License: MIT. Runtime: Python 3.10–3.14 (OSS); Node.js and Python (Desktop). Package format: pip/uv (OSS), Docker image, native Desktop installers (.exe, .dmg, .deb/.rpm). Default URL: http://127.0.0.1:7860. Repository: https://github.com/khulnasoft-bot/primeagent.
 
 **Core features (by doc section)**
 Get Started: about, installation, quickstart, tutorials (RAG, files, agents, MCP). Flows: visual editor, build flows, API and webhook triggers, playground, import/export. Agents: agents and tools, MCP client/server/Astra. Develop: API keys, custom dependencies, config and globals, env vars, storage and memory, observability (LangSmith, LangFuse, etc.), data types, voice mode, CLI. Deploy: overview, public server, Nginx/SSL, Docker, Kubernetes, GCP/Hugging Face/Railway/Render, security. Components: concepts, core components, bundles (integrations), custom components. API Reference: get started, TypeScript client, flow/OpenAI/files/projects/logs/monitor/build/users endpoints, API spec. Contribute: community, how to contribute, components, bundles, tests, templates. Support: troubleshooting, get help, Luna/IBM, release notes.
@@ -24,51 +24,51 @@ RAG applications, multi-agent workflows, MCP servers and clients, API-backed AI 
 Documentation sections: get started, flows, agents, develop, deploy, components, API, contribute, support. Community: Discord, GitHub discussions, YouTube, release notes. Technical: GitHub issues, troubleshooting docs, IBM Elite Support (Luna).
 
 **Privacy & security**
-Deployment security and API keys/auth documented at docs.prime.khulnasoft.com. Repository: SECURITY.md and GitHub security advisories. Data handling and env vars in Develop section.
+Deployment security and API keys/auth documented at prime.khulnasoft.com/docs. Repository: SECURITY.md and GitHub security advisories. Data handling and env vars in Develop section.
 
 **Performance**
 Default port 7860; observability docs (LangSmith, LangFuse, etc.); deployment best practices for scaling.
 
 **Documentation for AI agents**
-Documentation URL: https://docs.prime.khulnasoft.com. llms.txt: https://docs.prime.khulnasoft.com/llms.txt. llms-full.txt: https://docs.prime.khulnasoft.com/llms-full.txt. Release notes: https://docs.prime.khulnasoft.com/release-notes.
+Documentation URL: https://prime.khulnasoft.com/docs. llms.txt: https://prime.khulnasoft.com/docs/llms.txt. llms-full.txt: https://prime.khulnasoft.com/docs/llms-full.txt. Release notes: https://prime.khulnasoft.com/docs/release-notes.
 
 **Roadmap**
-Follow Primeagent releases and GitHub for product direction; release notes at docs.
+Follow PrimeAgent releases and GitHub for product direction; release notes at docs.
 
 ## Docs
 
-- [About Primeagent](https://docs.prime.khulnasoft.com/about-primeagent): Platform overview and introduction
-- [Install Primeagent](https://docs.prime.khulnasoft.com/get-started-installation): Installation options (OSS, Docker, from source)
-- [Quickstart](https://docs.prime.khulnasoft.com/get-started-quickstart): Get up and running quickly
-- [Use the visual editor](https://docs.prime.khulnasoft.com/concepts-overview): Visual flow builder overview
-- [Build flows](https://docs.prime.khulnasoft.com/concepts-flows): Concepts for building flows
-- [Trigger flows with the API](https://docs.prime.khulnasoft.com/concepts-publish): Run flows via the Primeagent API
-- [Trigger flows with webhooks](https://docs.prime.khulnasoft.com/webhook): Webhook triggers
-- [Test flows](https://docs.prime.khulnasoft.com/concepts-playground): Playground and testing
-- [Import and export flows](https://docs.prime.khulnasoft.com/concepts-flows-import): Import/export
-- [Agents](https://docs.prime.khulnasoft.com/agents): Agents and tools
-- [MCP client](https://docs.prime.khulnasoft.com/mcp-client): Model Context Protocol client and server
-- [API keys and authentication](https://docs.prime.khulnasoft.com/api-keys-and-authentication): Configure API keys and auth
-- [Deployment overview](https://docs.prime.khulnasoft.com/deployment-overview): How to deploy Primeagent
-- [Docker deployment](https://docs.prime.khulnasoft.com/deployment-docker): Primeagent Docker images
-- [Security](https://docs.prime.khulnasoft.com/security): Deployment and security guidance
-- [Components overview](https://docs.prime.khulnasoft.com/concepts-components): Component reference introduction
-- [API reference – get started](https://docs.prime.khulnasoft.com/api-reference-api-examples): Get started with the Primeagent API
-- [Troubleshooting](https://docs.prime.khulnasoft.com/troubleshoot): Troubleshooting guide
-- [Release notes](https://docs.prime.khulnasoft.com/release-notes): Version history and release notes
+- [About PrimeAgent](https://prime.khulnasoft.com/docs/about-primeagent): Platform overview and introduction
+- [Install PrimeAgent](https://prime.khulnasoft.com/docs/get-started-installation): Installation options (OSS, Docker, from source)
+- [Quickstart](https://prime.khulnasoft.com/docs/get-started-quickstart): Get up and running quickly
+- [Use the visual editor](https://prime.khulnasoft.com/docs/concepts-overview): Visual flow builder overview
+- [Build flows](https://prime.khulnasoft.com/docs/concepts-flows): Concepts for building flows
+- [Trigger flows with the API](https://prime.khulnasoft.com/docs/concepts-publish): Run flows via the PrimeAgent API
+- [Trigger flows with webhooks](https://prime.khulnasoft.com/docs/webhook): Webhook triggers
+- [Test flows](https://prime.khulnasoft.com/docs/concepts-playground): Playground and testing
+- [Import and export flows](https://prime.khulnasoft.com/docs/concepts-flows-import): Import/export
+- [Agents](https://prime.khulnasoft.com/docs/agents): Agents and tools
+- [MCP client](https://prime.khulnasoft.com/docs/mcp-client): Model Context Protocol client and server
+- [API keys and authentication](https://prime.khulnasoft.com/docs/api-keys-and-authentication): Configure API keys and auth
+- [Deployment overview](https://prime.khulnasoft.com/docs/deployment-overview): How to deploy PrimeAgent
+- [Docker deployment](https://prime.khulnasoft.com/docs/deployment-docker): PrimeAgent Docker images
+- [Security](https://prime.khulnasoft.com/docs/security): Deployment and security guidance
+- [Components overview](https://prime.khulnasoft.com/docs/concepts-components): Component reference introduction
+- [API reference – get started](https://prime.khulnasoft.com/docs/api-reference-api-examples): Get started with the PrimeAgent API
+- [Troubleshooting](https://prime.khulnasoft.com/docs/troubleshoot): Troubleshooting guide
+- [Release notes](https://prime.khulnasoft.com/docs/release-notes): Version history and release notes
 
 ## Community
 
 - [GitHub repository](https://github.com/khulnasoft-bot/primeagent): Source code and issues
-- [Primeagent website](https://prime.khulnasoft.com): Main product site
-- [Primeagent Desktop](https://prime.khulnasoft.com/desktop): Desktop app download
+- [PrimeAgent website](https://prime.khulnasoft.com): Main product site
+- [PrimeAgent Desktop](https://prime.khulnasoft.com/desktop): Desktop app download
 - [Discord](https://discord.com/invite/EqksyE2EX9): Community chat
 - [Twitter/X](https://x.com/primeagent_ai): Updates and news
-- [YouTube](https://www.youtube.com/@Primeagent): Tutorials and demos
+- [YouTube](https://www.youtube.com/@PrimeAgent): Tutorials and demos
 - [GitHub Discussions](https://github.com/khulnasoft-bot/primeagent/discussions): Community discussions
 
 ## Optional
 
-- [Contributing community](https://docs.prime.khulnasoft.com/contributing-community): Community guidelines
-- [How to contribute](https://docs.prime.khulnasoft.com/contributing-how-to-contribute): Contribution guide
-- [Get help and request enhancements](https://docs.prime.khulnasoft.com/contributing-github-issues): GitHub issues and help
+- [Contributing community](https://prime.khulnasoft.com/docs/contributing-community): Community guidelines
+- [How to contribute](https://prime.khulnasoft.com/docs/contributing-how-to-contribute): Contribution guide
+- [Get help and request enhancements](https://prime.khulnasoft.com/docs/contributing-github-issues): GitHub issues and help

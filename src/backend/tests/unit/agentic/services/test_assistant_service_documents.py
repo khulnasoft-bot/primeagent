@@ -113,7 +113,7 @@ class TestStreamingEmitsFileWrittenEvents:
         sse_lines: list[str] = [
             line
             async for line in assistant_service.execute_flow_with_validation_streaming(
-                flow_filename="PrimeagentAssistant.json",  # default; overridden internally by intent
+                flow_filename="PrimeAgentAssistant.json",  # default; overridden internally by intent
                 input_value="crie um doc",
                 global_variables={"FLOW_ID": None},
                 max_retries=0,
@@ -173,7 +173,7 @@ class TestStreamingEmitsFileWrittenEvents:
         sse_lines: list[str] = [
             line
             async for line in assistant_service.execute_flow_with_validation_streaming(
-                flow_filename="PrimeagentAssistant.json",  # default; overridden internally by intent
+                flow_filename="PrimeAgentAssistant.json",  # default; overridden internally by intent
                 input_value="crie um doc",
                 global_variables={"FLOW_ID": None},
                 max_retries=0,

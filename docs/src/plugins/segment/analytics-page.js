@@ -1,33 +1,33 @@
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import { identifyUser, trackPage } from './analytics-helpers';
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import { identifyUser, trackPage } from "./analytics-helpers";
 
 /**
  * Get friendly page name from pathname
  */
 function getFriendlyPageName(pathname) {
   // Remove leading/trailing slashes
-  const cleanPath = pathname.replace(/^\/+|\/+$/g, '');
+  const cleanPath = pathname.replace(/^\/+|\/+$/g, "");
 
   // Handle root/home page
   if (!cleanPath) {
-    return 'Home';
+    return "Home";
   }
 
   // Split by slash and capitalize each segment
-  const segments = cleanPath.split('/');
-  const formattedSegments = segments.map(segment => {
+  const segments = cleanPath.split("/");
+  const formattedSegments = segments.map((segment) => {
     // Replace hyphens with spaces and capitalize
     return segment
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   });
 
-  return formattedSegments.join(' > ');
+  return formattedSegments.join(" > ");
 }
 
 // Client module for tracking page views on route changes
-export function onRouteDidUpdate({location, previousLocation}) {
+export function onRouteDidUpdate({ location, previousLocation }) {
   // Only track page views in the browser and when the path actually changes
   if (
     ExecutionEnvironment.canUseDOM &&
@@ -52,7 +52,7 @@ export function onRouteDidUpdate({location, previousLocation}) {
 
 // Initial page view on load
 if (ExecutionEnvironment.canUseDOM) {
-  window.addEventListener('load', () => {
+  window.addEventListener("load", () => {
     if (window.analytics && window.analytics.page) {
       // Identify user on initial page load
       identifyUser();

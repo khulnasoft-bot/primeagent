@@ -1,4 +1,4 @@
-"""Process individual Primeagent nodes into Stepflow steps."""
+"""Process individual PrimeAgent nodes into Stepflow steps."""
 
 import datetime
 import logging
@@ -33,7 +33,7 @@ def _sanitize_for_stepflow(obj: Any) -> Any:
 
 
 class NodeProcessor:
-    """Processes individual Primeagent nodes into Stepflow steps."""
+    """Processes individual PrimeAgent nodes into Stepflow steps."""
 
     def __init__(self):
         """Initialize node processor."""
@@ -55,10 +55,10 @@ class NodeProcessor:
         source_outputs: dict[str, list[str]],
         output_refs_by_handle: dict[tuple[str, str], Any],
     ) -> Any | None:
-        """Process a Primeagent node using flow builder architecture.
+        """Process a PrimeAgent node using flow builder architecture.
 
         Args:
-            node: Primeagent node object
+            node: PrimeAgent node object
             dependencies: Dependency graph for all nodes
             builder: FlowBuilder instance
             node_output_refs: Mapping of node IDs to their primary output references
@@ -351,7 +351,7 @@ class NodeProcessor:
         """Generate a clean step ID from node ID and type.
 
         Args:
-            node_id: Original Primeagent node ID
+            node_id: Original PrimeAgent node ID
             component_type: Component type name
 
         Returns:
@@ -374,7 +374,7 @@ class NodeProcessor:
         """Prepare enhanced UDF blob data for component execution.
 
         Args:
-            node: Primeagent node object
+            node: PrimeAgent node object
             component_type: Component type name
             selected_output: The output this blob should execute. When None, falls
                 back to the component's first declared output.
@@ -474,7 +474,7 @@ class NodeProcessor:
         """Extract runtime inputs for UDF components using flow builder architecture.
 
         Args:
-            node: Primeagent node object
+            node: PrimeAgent node object
             dependency_node_ids: IDs of nodes this node depends on
             node_output_refs: Mapping of node IDs to their primary output references
             field_mapping: Mapping of target nodes to their input field names
@@ -554,7 +554,7 @@ class NodeProcessor:
         # Handle standalone File components with workflow input mapping
         if not dependency_node_ids and component_type == "File":
             # For standalone File components, map workflow file_path to path parameter
-            # Path parameter should match Primeagent's FileInput expectations
+            # Path parameter should match PrimeAgent's FileInput expectations
             # file_path should be a simple list of paths, not wrapped
             runtime_inputs["path"] = Value.input("$.file_path")
 
@@ -582,7 +582,7 @@ class NodeProcessor:
         """Create a component_tool step for tool-mode components.
 
         Args:
-            node: Primeagent node object
+            node: PrimeAgent node object
             step_id: Generated step ID
             builder: FlowBuilder instance
             dependencies: Dependency graph

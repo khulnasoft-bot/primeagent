@@ -50,8 +50,8 @@ in advance. A pre-checked checklist is not evidence.
 | --- | --- |
 | Run by | _engineer name + handle_ |
 | Date | _YYYY-MM-DD_ |
-| Pre-migration Primeagent version | `1.9.x` (last release before the pilot landed) |
-| Post-migration Primeagent version | this branch / `1.10.x` |
+| Pre-migration PrimeAgent version | `1.9.x` (last release before the pilot landed) |
+| Post-migration PrimeAgent version | this branch / `1.10.x` |
 | Result | _pass / fail_ |
 | Notes | _free text_ |
 

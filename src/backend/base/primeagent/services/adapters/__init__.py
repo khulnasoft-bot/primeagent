@@ -1,1 +1,1 @@
-"""Adapter namespaces for Primeagent service-scoped plugin registries."""
+"""Adapter namespaces for PrimeAgent service-scoped plugin registries."""

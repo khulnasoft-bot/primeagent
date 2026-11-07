@@ -1,12 +1,12 @@
 ---
-title: Deploy the Primeagent development environment on Kubernetes
+title: Deploy the PrimeAgent development environment on Kubernetes
 slug: /deployment-kubernetes-dev
 ---
 
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
-The [Primeagent integrated development environment (IDE) Helm chart](https://github.com/khulnasoft-bot/primeagent-helm-charts/tree/main/charts/primeagent-ide) is designed to provide a complete environment for developers to create, test, and debug their flows. It includes both the Primeagent API and visual editor.
+The [PrimeAgent integrated development environment (IDE) Helm chart](https://github.com/khulnasoft-bot/primeagent-helm-charts/tree/main/charts/primeagent-ide) is designed to provide a complete environment for developers to create, test, and debug their flows. It includes both the PrimeAgent API and visual editor.
 
 ## Prerequisites
 
@@ -20,70 +20,70 @@ This example uses [Minikube](https://minikube.sigs.k8s.io/docs/start/), but you 
 
 1. Create a Kubernetes cluster on Minikube:
 
-	```shell
-	minikube start
-	```
+   ```shell
+   minikube start
+   ```
 
 2. Set `kubectl` to use Minikube:
 
-	```shell
-	kubectl config use-context minikube
-	```
+   ```shell
+   kubectl config use-context minikube
+   ```
 
-## Install the Primeagent IDE Helm chart
+## Install the PrimeAgent IDE Helm chart
 
 1. Add the repository to Helm, and then update it:
 
-	```shell
-	helm repo add primeagent https://khulnasoft-bot.github.io/primeagent-helm-charts
-	helm repo update
-	```
+   ```shell
+   helm repo add primeagent https://khulnasoft-bot.github.io/primeagent-helm-charts
+   helm repo update
+   ```
 
-2. Install Primeagent with the default options in the `primeagent` namespace:
+2. Install PrimeAgent with the default options in the `primeagent` namespace:
 
-	```shell
-	helm install primeagent-ide primeagent/primeagent-ide -n primeagent --create-namespace
-	```
+   ```shell
+   helm install primeagent-ide primeagent/primeagent-ide -n primeagent --create-namespace
+   ```
 
 3. Check the status of the pods:
 
-	```shell
-	kubectl get pods -n primeagent
-	```
+   ```shell
+   kubectl get pods -n primeagent
+   ```
 
-## Access the Primeagent IDE
+## Access the PrimeAgent IDE
 
-Enable local port forwarding to access Primeagent from your local machine:
+Enable local port forwarding to access PrimeAgent from your local machine:
 
-1. Make the Primeagent API accessible from your local machine at port 7860:
+1. Make the PrimeAgent API accessible from your local machine at port 7860:
 
-    ```shell
-    kubectl port-forward -n primeagent svc/primeagent-service-backend 7860:7860
-    ```
+   ```shell
+   kubectl port-forward -n primeagent svc/primeagent-service-backend 7860:7860
+   ```
 
 2. Make the visual editor accessible from your local machine at port 8080:
 
-    ```shell
-    kubectl port-forward -n primeagent svc/primeagent-service 8080:8080
-    ```
+   ```shell
+   kubectl port-forward -n primeagent svc/primeagent-service 8080:8080
+   ```
 
 Now you can do the following:
 
-- Access the Primeagent API at `http://localhost:7860`.
+- Access the PrimeAgent API at `http://localhost:7860`.
 - Access the visual editor at `http://localhost:8080`.
 
-## Modify your Primeagent IDE deployment
+## Modify your PrimeAgent IDE deployment
 
-You can modify the Primeagent IDE Helm chart's [`values.yaml`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-ide/values.yaml) file to customize your deployment.
+You can modify the PrimeAgent IDE Helm chart's [`values.yaml`](https://github.com/khulnasoft-bot/primeagent-helm-charts/blob/main/charts/primeagent-ide/values.yaml) file to customize your deployment.
 The following sections describe some common modifications.
 
 If you need to set secrets, Kubernetes secrets are recommended.
 
-### Deploy a different Primeagent version
+### Deploy a different PrimeAgent version
 
-The Primeagent IDE Helm chart deploys the latest Primeagent version by default.
+The PrimeAgent IDE Helm chart deploys the latest PrimeAgent version by default.
 
-To specify a different Primeagent version, set the `primeagent.backend.image.tag` and `primeagent.frontend.image.tag` values to your preferred version.
+To specify a different PrimeAgent version, set the `primeagent.backend.image.tag` and `primeagent.frontend.image.tag` values to your preferred version.
 For example:
 
 ```yaml
@@ -96,9 +96,9 @@ primeagent:
       tag: "1.0.0a59"
 ```
 
-### Use external storage for the Primeagent database
+### Use external storage for the PrimeAgent database
 
-The Primeagent IDE Helm chart uses the default Primeagent database configuration, specifically a SQLite database stored in a local persistent disk.
+The PrimeAgent IDE Helm chart uses the default PrimeAgent database configuration, specifically a SQLite database stored in a local persistent disk.
 
 If you want to use an [external PostgreSQL database](/configuration-custom-database), use `postgresql` chart or `externalDatabase` to configure the database connection in `values.yaml`.
 
@@ -131,6 +131,8 @@ primeagent:
       enabled: true
       driver:
         value: "postgresql"
+      host:
+        value: "postgresql-svc.primeagent.svc.cluster.local"
       port:
         value: "5432"
       user:
@@ -151,7 +153,7 @@ primeagent:
 
 ### Configure scaling
 
-To configure scaling for the Primeagent IDE Helm chart deployment, you must set `replicaCount` (horizontal scaling) and `resources` (vertical scaling) for both the `primeagent.backend` and `primeagent.frontend`.
+To configure scaling for the PrimeAgent IDE Helm chart deployment, you must set `replicaCount` (horizontal scaling) and `resources` (vertical scaling) for both the `primeagent.backend` and `primeagent.frontend`.
 
 If your flows rely on a shared state, such as [built-in chat memory](/memory), you must also set up a shared database when scaling horizontally.
 
@@ -181,6 +183,6 @@ primeagent:
 
 ## See also
 
-* [Best practices for Primeagent on Kubernetes](/deployment-prod-best-practices)
-* [Deploy the Primeagent production environment on Kubernetes](/deployment-kubernetes-prod)
-* [Primeagent Helm Charts repository](https://github.com/khulnasoft-bot/primeagent-helm-charts)
+- [Best practices for PrimeAgent on Kubernetes](/deployment-prod-best-practices)
+- [Deploy the PrimeAgent production environment on Kubernetes](/deployment-kubernetes-prod)
+- [PrimeAgent Helm Charts repository](https://github.com/khulnasoft-bot/primeagent-helm-charts)

@@ -1,7 +1,7 @@
 """Integration tests for example flows from the Stepflow documentation.
 
 Tests the full end-to-end path used by the ``stepflow-primeagent run`` CLI:
-PrimeagentConverter -> StepflowClient -> orchestrator -> primeagent worker.
+PrimeAgentConverter -> StepflowClient -> orchestrator -> primeagent worker.
 
 The POC flow requires ``OPENAI_API_KEY`` for execution tests.
 """

@@ -15,7 +15,7 @@ class BaseTelemetryService(Service, ABC):
     """Abstract base class for telemetry services.
 
     Defines the minimal interface that all telemetry service implementations
-    must provide, whether minimal (WFX) or full-featured (Primeagent).
+    must provide, whether minimal (WFX) or full-featured (PrimeAgent).
     """
 
     @abstractmethod
@@ -39,6 +39,9 @@ class BaseTelemetryService(Service, ABC):
         Args:
             payload: Run payload containing run information
         """
+
+    async def log_integration_action(self, payload: BaseModel) -> None:
+        """Enqueue an integration event; older host implementations safely omit it."""
 
     @abstractmethod
     async def log_package_shutdown(self) -> None:

@@ -5,7 +5,6 @@ import {
   Outlet,
   Route,
 } from "react-router-dom";
-import { ProtectedAdminRoute } from "./components/authorization/authAdminGuard";
 import { ProtectedRoute } from "./components/authorization/authGuard";
 import { ProtectedLoginRoute } from "./components/authorization/authLoginGuard";
 import { AuthSettingsGuard } from "./components/authorization/authSettingsGuard";
@@ -19,33 +18,63 @@ import {
   ENABLE_FILE_MANAGEMENT,
   ENABLE_KNOWLEDGE_BASES,
 } from "./customization/feature-flags";
+import { CustomAuthRoutesStore } from "./customization/utils/custom-auth-routes-store";
 import { CustomRoutesStore } from "./customization/utils/custom-routes-store";
 import { CustomRoutesStorePages } from "./customization/utils/custom-routes-store-pages";
 import { AppAuthenticatedPage } from "./pages/AppAuthenticatedPage";
 import { AppInitPage } from "./pages/AppInitPage";
 import { AppWrapperPage } from "./pages/AppWrapperPage";
-import FlowPage from "./pages/FlowPage";
 import LoginPage from "./pages/LoginPage";
-import FilesPage from "./pages/MainPage/pages/filesPage";
-import HomePage from "./pages/MainPage/pages/homePage";
-import KnowledgePage from "./pages/MainPage/pages/knowledgePage";
-import SourceChunksPage from "./pages/MainPage/pages/knowledgePage/sourceChunksPage/SourceChunksPage";
-import CollectionPage from "./pages/MainPage/pages/main-page";
-import SettingsPage from "./pages/SettingsPage";
-import ApiKeysPage from "./pages/SettingsPage/pages/ApiKeysPage";
-import DBProvidersPage from "./pages/SettingsPage/pages/DBProvidersPage";
-import GeneralPage from "./pages/SettingsPage/pages/GeneralPage";
-import GlobalVariablesPage from "./pages/SettingsPage/pages/GlobalVariablesPage";
-import MCPServersPage from "./pages/SettingsPage/pages/MCPServersPage";
-import McpClientPage from "./pages/SettingsPage/pages/McpClientPage";
-import ModelProvidersPage from "./pages/SettingsPage/pages/ModelProvidersPage";
-import MessagesPage from "./pages/SettingsPage/pages/messagesPage";
-import ShortcutsPage from "./pages/SettingsPage/pages/ShortcutsPage";
-import ViewPage from "./pages/ViewPage";
 
-const AdminPage = lazy(() => import("./pages/AdminPage"));
+const FlowPage = lazy(() => import("./pages/FlowPage"));
+const FilesPage = lazy(() => import("./pages/MainPage/pages/filesPage"));
+const HomePage = lazy(() => import("./pages/MainPage/pages/homePage"));
+const KnowledgePage = lazy(
+  () => import("./pages/MainPage/pages/knowledgePage"),
+);
+const SourceChunksPage = lazy(
+  () =>
+    import(
+      "./pages/MainPage/pages/knowledgePage/sourceChunksPage/SourceChunksPage"
+    ),
+);
+const CollectionPage = lazy(() => import("./pages/MainPage/pages/main-page"));
+const SettingsPage = lazy(() => import("./pages/SettingsPage"));
+const ApiKeysPage = lazy(
+  () => import("./pages/SettingsPage/pages/ApiKeysPage"),
+);
+const ConnectionsPage = lazy(
+  () => import("./pages/SettingsPage/pages/ConnectionsPage"),
+);
+const DBProvidersPage = lazy(
+  () => import("./pages/SettingsPage/pages/DBProvidersPage"),
+);
+const GeneralPage = lazy(
+  () => import("./pages/SettingsPage/pages/GeneralPage"),
+);
+const GlobalVariablesPage = lazy(
+  () => import("./pages/SettingsPage/pages/GlobalVariablesPage"),
+);
+const MCPServersPage = lazy(
+  () => import("./pages/SettingsPage/pages/MCPServersPage"),
+);
+const McpClientPage = lazy(
+  () => import("./pages/SettingsPage/pages/McpClientPage"),
+);
+const MigrationPage = lazy(
+  () => import("./pages/SettingsPage/pages/MigrationPage"),
+);
+const ModelProvidersPage = lazy(
+  () => import("./pages/SettingsPage/pages/ModelProvidersPage"),
+);
+const MessagesPage = lazy(
+  () => import("./pages/SettingsPage/pages/messagesPage"),
+);
+const ShortcutsPage = lazy(
+  () => import("./pages/SettingsPage/pages/ShortcutsPage"),
+);
+
 const LoginAdminPage = lazy(() => import("./pages/AdminPage/LoginPage"));
-const DeleteAccountPage = lazy(() => import("./pages/DeleteAccountPage"));
 
 const PlaygroundPage = lazy(() => import("./pages/Playground"));
 
@@ -158,6 +187,7 @@ const router = createBrowserRouter(
                   />
                   <Route path="db-providers" element={<DBProvidersPage />} />
                   <Route path="mcp-servers" element={<MCPServersPage />} />
+                  <Route path="connections" element={<ConnectionsPage />} />
                   <Route path="mcp-client" element={<McpClientPage />} />
 
                   <Route path="api-keys" element={<ApiKeysPage />} />
@@ -171,27 +201,16 @@ const router = createBrowserRouter(
                   />
                   <Route path="shortcuts" element={<ShortcutsPage />} />
                   <Route path="messages" element={<MessagesPage />} />
+                  <Route path="migration" element={<MigrationPage />} />
                   {CustomRoutesStore()}
                 </Route>
                 {CustomRoutesStorePages()}
-                <Route path="account">
-                  <Route path="delete" element={<DeleteAccountPage />}></Route>
-                </Route>
-                <Route
-                  path="admin"
-                  element={
-                    <ProtectedAdminRoute>
-                      <AdminPage />
-                    </ProtectedAdminRoute>
-                  }
-                />
               </Route>
               <Route path="flow/:id/">
                 <Route path="" element={<CustomDashboardWrapperPage />}>
                   <Route path="folder/:folderId/" element={<FlowPage />} />
                   <Route path="" element={<FlowPage />} />
                 </Route>
-                <Route path="view" element={<ViewPage />} />
               </Route>
             </Route>
           </Route>
@@ -219,6 +238,7 @@ const router = createBrowserRouter(
               </ProtectedLoginRoute>
             }
           />
+          {CustomAuthRoutesStore()}
         </Route>
       </Route>
       <Route path="*" element={<CustomNavigate replace to="/" />} />

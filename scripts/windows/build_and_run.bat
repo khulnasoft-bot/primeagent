@@ -1,5 +1,5 @@
 @echo off
-echo Starting Primeagent build and run process...
+echo Starting PrimeAgent build and run process...
 
 REM Check if .env file exists and set env file flag
 set "USE_ENV_FILE="
@@ -11,7 +11,7 @@ if exist "%ENV_PATH%" (
     set "USE_ENV_FILE=1"
 ) else (
     echo .env file not found at: %ENV_PATH%
-    echo Primeagent will use default configuration
+    echo PrimeAgent will use default configuration
 )
 
 echo.
@@ -81,7 +81,7 @@ if errorlevel 1 (
 echo Build files copied successfully!
 
 echo.
-echo Step 4: Running Primeagent...
+echo Step 4: Running PrimeAgent...
 echo.
 echo Attention: Wait until uvicorn is running before opening the browser
 echo.
@@ -100,5 +100,5 @@ if errorlevel 1 (
 )
 
 echo.
-echo Primeagent build and run process completed!
+echo PrimeAgent build and run process completed!
 pause

@@ -29,7 +29,7 @@ from wfx.schema.token_usage import accumulate_usage, extract_usage_from_message
 class BatchRunComponent(Component):
     display_name = "Batch Run"
     description = "Runs an LLM on each row of a DataFrame column. If no column is specified, all columns are used."
-    documentation: str = "https://docs.prime.khulnasoft.com/batch-run"
+    documentation: str = "https://prime.khulnasoft.com/docs/batch-run"
     icon = "List"
 
     inputs = [

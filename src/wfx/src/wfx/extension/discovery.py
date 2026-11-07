@@ -1,4 +1,4 @@
-"""Production-install discovery for the Primeagent Extension System.
+"""Production-install discovery for the PrimeAgent Extension System.
 
 This module owns the two production install sources for Modes A, B, and C:
 
@@ -93,7 +93,8 @@ class DiscoveredExtension:
     Attributes:
         extension_id: The :attr:`ExtensionManifest.id` value.
         version: The :attr:`ExtensionManifest.version` value.
-        bundle_name: The single bundle's name (v0 ships exactly one).
+        bundle_name: The component bundle's name, or ``None`` for a
+            provider-only extension that ships ``providers[]`` and no bundle.
         manifest: The parsed manifest source (path + kind preserved).
         source_kind: Where the manifest came from -- ``installed`` for an
             ``importlib.metadata`` distribution, ``seed`` for a filesystem
@@ -108,11 +109,16 @@ class DiscoveredExtension:
 
     extension_id: str
     version: str
-    bundle_name: str
+    bundle_name: str | None
     manifest: ManifestSource
     source_kind: SourceKind
     source: str
     extension_root: Path
+
+    @property
+    def bundle_names(self) -> tuple[str, ...]:
+        """Return every component bundle declared by the Extension manifest."""
+        return tuple(bundle.name for bundle in self.manifest.manifest.bundles)
 
     @property
     def slot(self) -> Literal["official"]:
@@ -337,7 +343,7 @@ def _pyproject_declares_extension(pyproject_path: Path) -> bool:
     try:
         section = _read_pyproject_extension(pyproject_path)
     except ValueError:
-        # Unparseable TOML: not specifically a Primeagent concern, treat as
+        # Unparseable TOML: not specifically a PrimeAgent concern, treat as
         # "not a manifest-shipping package" and keep scanning.
         return False
     except TypeError:
@@ -397,16 +403,20 @@ def _build_installed_record(
             hint="Run `wfx extension validate` against the package source to see the per-field detail.",
         )
 
-    bundle = manifest.bundles[0]
-    path_error = _verify_bundle_path_safety(extension_root, bundle)
-    if path_error is not None:
-        return None, path_error
+    # A provider-only extension ships no component bundle (bundles is empty).
+    # Validate every declared bundle before publishing the Extension record:
+    # later entries are just as import-capable as the first.
+    for bundle in manifest.bundles:
+        path_error = _verify_bundle_path_safety(extension_root, bundle)
+        if path_error is not None:
+            return None, path_error
+    bundle = manifest.bundles[0] if manifest.bundles else None
     source = ManifestSource(manifest=manifest, path=manifest_path, kind=kind)
     return (
         DiscoveredExtension(
             extension_id=manifest.id,
             version=manifest.version,
-            bundle_name=bundle.name,
+            bundle_name=bundle.name if bundle else None,
             manifest=source,
             source_kind="installed",
             source=canonical,
@@ -614,15 +624,18 @@ def _build_seed_record(seed_subdir: Path) -> tuple[DiscoveredExtension | None, E
             hint="Run `wfx extension validate` against the seed subdirectory to see per-field detail.",
         )
 
-    bundle = source.manifest.bundles[0]
-    path_error = _verify_bundle_path_safety(seed_subdir, bundle)
-    if path_error is not None:
-        return None, path_error
+    # Provider-only seed extensions have no component bundle to path-check.
+    # Multi-bundle manifests must pass the same trust boundary for every path.
+    for bundle in source.manifest.bundles:
+        path_error = _verify_bundle_path_safety(seed_subdir, bundle)
+        if path_error is not None:
+            return None, path_error
+    bundle = source.manifest.bundles[0] if source.manifest.bundles else None
     return (
         DiscoveredExtension(
             extension_id=source.manifest.id,
             version=source.manifest.version,
-            bundle_name=bundle.name,
+            bundle_name=bundle.name if bundle else None,
             manifest=source,
             source_kind="seed",
             source=str(seed_subdir.resolve(strict=False)),

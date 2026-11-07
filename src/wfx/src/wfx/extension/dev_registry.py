@@ -4,7 +4,8 @@ When an author types ``wfx extension dev <path>``, we don't ship the
 Extension via pip; instead we record the absolute path in a small JSON
 state file, then hand off to ``primeagent run``.  At server startup, the
 loader reads this state file and registers each surviving directory at
-the ``official`` slot via :func:`wfx.extension.loader.load_extension`.
+the ``official`` slot via
+:func:`wfx.extension.loader.load_extension_bundles`.
 Paths that have moved or been deleted surface as
 ``local-extension-missing`` warnings rather than aborting startup.
 
@@ -28,7 +29,7 @@ writer is the ``extension dev`` CLI invoked synchronously by a developer.
 Scope notes:
 
     - This module only writes / reads / lists the state file; the actual
-      registration is consumed by Primeagent's startup hook.  The runtime
+      registration is consumed by PrimeAgent's startup hook.  The runtime
       "remove" path (``extension dev --unregister``) is a deliberate
       non-goal for v0; authors clean up by deleting the state file or
       the directory.
@@ -36,7 +37,7 @@ Scope notes:
       the @official slot mid-run; the reload UX itself ships there.
     - Installed-package discovery keeps its own primitives and is
       orthogonal -- both flows produce ``LoadResult`` lists that
-      Primeagent startup merges in the same step.
+      PrimeAgent startup merges in the same step.
 """
 
 from __future__ import annotations
@@ -53,7 +54,7 @@ from pathlib import Path
 from typing import TYPE_CHECKING
 
 from wfx.extension.errors import ExtensionError
-from wfx.extension.loader import load_extension
+from wfx.extension.loader import load_extension_bundles
 from wfx.extension.loader._types import LoadResult
 
 if TYPE_CHECKING:
@@ -309,9 +310,9 @@ def unregister_dev_extension(path: Path | str, *, state_dir: Path | None = None)
 def load_dev_extensions(*, state_dir: Path | None = None) -> list[LoadResult]:
     """Load every registered dev Extension.
 
-    Reads the state file, calls :func:`load_extension` for each entry
-    that still resolves to a directory, and returns the resulting list of
-    :class:`LoadResult`s in registration order.
+    Reads the state file, calls :func:`load_extension_bundles` for each
+    entry that still resolves to a directory, and returns every resulting
+    :class:`LoadResult` in manifest and registration order.
 
     Missing entries (the directory was renamed, deleted, or moved) are
     surfaced as :class:`LoadResult` instances containing a single
@@ -342,7 +343,7 @@ def load_dev_extensions(*, state_dir: Path | None = None) -> list[LoadResult]:
             )
             results.append(result)
             continue
-        results.append(load_extension(entry.path))
+        results.extend(load_extension_bundles(entry.path))
     return results
 
 
@@ -358,7 +359,7 @@ def dev_extension_component_paths(*, state_dir: Path | None = None) -> tuple[lis
           Callers should log these but should NOT abort startup.
 
     Kept for callers that only need bundle directories (tools that walk
-    paths, IDE integrations).  The Primeagent startup path itself uses
+    paths, IDE integrations).  The PrimeAgent startup path itself uses
     :func:`load_dev_extensions` so dev extensions land in the
     BundleRegistry alongside installed extensions and become reloadable.
     """
@@ -366,7 +367,7 @@ def dev_extension_component_paths(*, state_dir: Path | None = None) -> tuple[lis
     errors: list[ExtensionError] = []
     for result in load_dev_extensions(state_dir=state_dir):
         # Forward EVERY warning, not just local-extension-missing: the
-        # caller (Primeagent's lifespan hook) is the only thing that turns
+        # caller (PrimeAgent's lifespan hook) is the only thing that turns
         # these into a log line, so dropping any of them silences a real
         # signal (e.g. duplicate-component-name, duplicate-inline-bundle).
         errors.extend(result.warnings)

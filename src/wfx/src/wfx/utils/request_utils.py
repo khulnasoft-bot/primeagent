@@ -1,6 +1,6 @@
 from wfx.services.deps import get_settings_service
 
-DEFAULT_USER_AGENT = "Primeagent"
+DEFAULT_USER_AGENT = "PrimeAgent"
 
 
 def get_user_agent():

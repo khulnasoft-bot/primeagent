@@ -22,9 +22,9 @@ class TestDynamicImport:
 
     def test_primeagent_available(self):
         """Test whether the primeagent implementation is available."""
-        # Primeagent implementation should not be available
+        # PrimeAgent implementation should not be available
         if has_primeagent_memory():
-            pytest.fail("Primeagent implementation is available")
+            pytest.fail("PrimeAgent implementation is available")
 
     def test_helpers_import_build_schema_from_inputs(self):
         """Test the wfx.helpers.build_schema_from_inputs import."""

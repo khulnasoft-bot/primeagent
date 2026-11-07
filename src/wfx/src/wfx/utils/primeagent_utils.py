@@ -1,16 +1,16 @@
-"""Primeagent environment utility functions."""
+"""PrimeAgent environment utility functions."""
 
 import importlib.util
 
 from wfx.log.logger import logger
 
 
-class _PrimeagentModule:
+class _PrimeAgentModule:
     # Static variable
     # Tri-state:
-    # - None: Primeagent check not performed yet
-    # - True: Primeagent is available
-    # - False: Primeagent is not available
+    # - None: PrimeAgent check not performed yet
+    # - True: PrimeAgent is available
+    # - False: PrimeAgent is not available
     _available = None
 
     @classmethod
@@ -30,7 +30,7 @@ def has_primeagent_memory():
 
     # Use cached check from previous invocation (if applicable)
 
-    is_primeagent_available = _PrimeagentModule.is_available()
+    is_primeagent_available = _PrimeAgentModule.is_available()
 
     if is_primeagent_available is not None:
         return is_primeagent_available
@@ -47,7 +47,7 @@ def has_primeagent_memory():
         logger.error(f"Error encountered checking for primeagent.memory: {e}")
 
     is_primeagent_available = module_spec is not None
-    _PrimeagentModule.set_available(is_primeagent_available)
+    _PrimeAgentModule.set_available(is_primeagent_available)
 
     return is_primeagent_available
 

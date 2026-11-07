@@ -41,7 +41,7 @@ def register(app: typer.Typer) -> None:
         )
 
     @app.command(
-        name="login", help="Validate credentials against a remote Primeagent instance", rich_help_panel="Setup"
+        name="login", help="Validate credentials against a remote PrimeAgent instance", rich_help_panel="Setup"
     )
     def login_command_wrapper(
         env: str | None = typer.Option(
@@ -58,15 +58,15 @@ def register(app: typer.Typer) -> None:
         target: str | None = typer.Option(
             None,
             "--target",
-            help="Primeagent instance URL (inline override — skips config file lookup).",
+            help="PrimeAgent instance URL (inline override — skips config file lookup).",
         ),
         api_key: str | None = typer.Option(
             None,
             "--api-key",
-            help="API key for the Primeagent instance (used with --target or to override config).",
+            help="API key for the PrimeAgent instance (used with --target or to override config).",
         ),
     ) -> None:
-        """Test connectivity and authentication for a Primeagent environment (lazy-loaded)."""
+        """Test connectivity and authentication for a PrimeAgent environment (lazy-loaded)."""
         from wfx.cli.login import login_command
 
         login_command(

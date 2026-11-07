@@ -11,8 +11,8 @@ Ownership boundaries start here:
   define canonical slot names in wfx so both layers share one structure.
 - Adapter integrations populate adapter-side registries in wfx
   (``*PayloadSchemas`` subclasses).
-- Primeagent integrations populate API-side registries in Primeagent
-  (for example ``DeploymentApiPayloads``), including Primeagent-specific
+- PrimeAgent integrations populate API-side registries in PrimeAgent
+  (for example ``DeploymentApiPayloads``), including PrimeAgent-specific
   validation/reshaping decisions.
 """
 

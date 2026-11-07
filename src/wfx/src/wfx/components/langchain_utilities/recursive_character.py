@@ -10,7 +10,7 @@ from wfx.utils.util import unescape_string
 class RecursiveCharacterTextSplitterComponent(LCTextSplitterComponent):
     display_name: str = "Recursive Character Text Splitter"
     description: str = "Split text trying to keep all related text together."
-    documentation: str = "https://docs.prime.khulnasoft.com/components-processing"
+    documentation: str = "https://prime.khulnasoft.com/docs/components-processing"
     name = "RecursiveCharacterTextSplitter"
     icon = "LangChain"
 

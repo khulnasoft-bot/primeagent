@@ -1,7 +1,7 @@
 """Environment configuration for primeagent-sdk.
 
 Loads named environment definitions from a TOML file so teams can switch
-between Primeagent instances (dev / staging / production) without code changes.
+between PrimeAgent instances (dev / staging / production) without code changes.
 
 Config file lookup order
 ------------------------
@@ -47,7 +47,7 @@ _USER_PATH = Path.home() / ".config" / "primeagent" / "environments.toml"
 _EXAMPLE_CONFIG = """\
 # primeagent-environments.toml
 #
-# Define named Primeagent environments.  The api_key_env field is the *name*
+# Define named PrimeAgent environments.  The api_key_env field is the *name*
 # of an environment variable that holds the API key for that instance.
 #
 # [environments.staging]

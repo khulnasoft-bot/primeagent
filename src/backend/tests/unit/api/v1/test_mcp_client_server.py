@@ -1,23 +1,23 @@
 """Integration tests for wfx.mcp.server MCP tools.
 
-Uses the client_fixture (real Primeagent app via ASGITransport) — no mocking.
-Tests the full roundtrip: MCP tool -> PrimeagentClient -> Primeagent API -> DB.
+Uses the client_fixture (real PrimeAgent app via ASGITransport) — no mocking.
+Tests the full roundtrip: MCP tool -> PrimeAgentClient -> PrimeAgent API -> DB.
 """
 
 import pytest
 from httpx import AsyncClient
 from wfx.mcp import server as mcp_server_module
-from wfx.mcp.client import PrimeagentClient
+from wfx.mcp.client import PrimeAgentClient
 
 
 @pytest.fixture
 async def mcp_client(client: AsyncClient, logged_in_headers):
-    """Wire up a PrimeagentClient that uses the test's AsyncClient transport."""
+    """Wire up a PrimeAgentClient that uses the test's AsyncClient transport."""
     # Extract the token from logged_in_headers
     auth_header = logged_in_headers["Authorization"]
     access_token = auth_header.removeprefix("Bearer ")
 
-    lf_client = PrimeagentClient(server_url="http://testserver", access_token=access_token)
+    lf_client = PrimeAgentClient(server_url="http://testserver", access_token=access_token)
     # Inject the test's AsyncClient so requests go through ASGITransport
     lf_client._http = client
 
@@ -151,9 +151,17 @@ class TestGetComponentInfo:
         assert info["type"] == "ChatInput"
         assert "params" in info
 
-    async def test_get_component_info_redacts_secrets(self):
+    async def test_get_component_info_redacts_secrets(
+        self, mcp_client: PrimeAgentClient, monkeypatch: pytest.MonkeyPatch
+    ):
+        # LanguageModelComponent: in-tree model type with a SecretStr api_key.
+        # Provider components are registered under their namespaced extension
+        # ids (ext:openai:OpenAIModelComponent@official), not bare names.
+        # Exercise the CI configuration where provider discovery selects an
+        # initial OpenAI model during the api_key refresh.
+        monkeypatch.setenv("OPENAI_API_KEY", "sk-ci-provider-discovery")  # pragma: allowlist secret
         created = await mcp_server_module.create_flow("RedactTest")
-        comp = await mcp_server_module.add_component(created["id"], "OpenAIModel")
+        comp = await mcp_server_module.add_component(created["id"], "LanguageModelComponent")
         # Configure an API key
         await mcp_server_module.configure_component(
             created["id"],
@@ -162,6 +170,10 @@ class TestGetComponentInfo:
         )
         info = await mcp_server_module.get_component_info(created["id"], comp["id"])
         assert info["params"]["api_key"] == "***REDACTED***"
+
+        flow = await mcp_client.get(f"/flows/{created['id']}")
+        node = next(node for node in flow["data"]["nodes"] if node["data"]["id"] == comp["id"])
+        assert node["data"]["node"]["template"]["api_key"]["load_from_db"] is False
 
     async def test_get_single_field(self):
         created = await mcp_server_module.create_flow("FieldTest")
@@ -182,7 +194,7 @@ class TestGetComponentInfo:
 
     async def test_get_single_field_redacts_secret(self):
         created = await mcp_server_module.create_flow("FieldRedact")
-        comp = await mcp_server_module.add_component(created["id"], "OpenAIModel")
+        comp = await mcp_server_module.add_component(created["id"], "LanguageModelComponent")
         await mcp_server_module.configure_component(
             created["id"],
             comp["id"],
@@ -218,10 +230,14 @@ class TestConfigureComponent:
     async def test_configure_dynamic_field(self):
         """Fields with real_time_refresh trigger /custom_component/update."""
         created = await mcp_server_module.create_flow("DynamicTest")
-        comp = await mcp_server_module.add_component(created["id"], "OpenAIModel")
-        # model_name has real_time_refresh=True
-        result = await mcp_server_module.configure_component(created["id"], comp["id"], {"model_name": "gpt-4o"})
-        assert "model_name" in result["configured"]
+        comp = await mcp_server_module.add_component(created["id"], "LanguageModelComponent")
+        # api_key has real_time_refresh=True on LanguageModelComponent
+        result = await mcp_server_module.configure_component(
+            created["id"],
+            comp["id"],
+            {"api_key": "sk-test-fake"},  # pragma: allowlist secret
+        )
+        assert "api_key" in result["configured"]
 
 
 # ---------------------------------------------------------------------------
@@ -311,7 +327,7 @@ class TestSearchComponentTypes:
         results = await mcp_server_module.search_component_types(output_type="LanguageModel")
         assert len(results) > 0
         types = {r["type"] for r in results}
-        assert "OpenAIModel" in types
+        assert "LanguageModelComponent" in types
 
 
 @pytest.mark.usefixtures("mcp_client")
@@ -323,7 +339,7 @@ class TestDescribeComponentType:
         assert "outputs" in info
 
     async def test_describe_advanced_fields(self):
-        info = await mcp_server_module.describe_component_type("OpenAIModel")
+        info = await mcp_server_module.describe_component_type("LanguageModelComponent")
         assert "advanced_fields" in info
         assert isinstance(info["advanced_fields"], list)
         # Advanced fields should not appear in inputs or fields
@@ -439,27 +455,28 @@ edges:
     @pytest.mark.api_key_required
     async def test_create_flow_from_spec_prompt_template_variables(self):
         """Prompt Template with {var} in template creates dynamic input fields."""
+        # No model node: server-side validation builds the graph, and a model
+        # component without an API key fails its build. The subject here is
+        # the Prompt Template's dynamic {var} fields, not the model.
         spec = """\
 name: PromptVarTest
 
 nodes:
   A: ChatInput
   B: Prompt Template
-  C: OpenAIModel
   D: ChatOutput
 
 edges:
   A.message -> B.user_input
-  B.prompt -> C.input_value
-  C.text_output -> D.input_value
+  B.prompt -> D.input_value
 
 config:
   B.template: |
     Translate to French: {user_input}
 """
         result = await mcp_server_module.create_flow_from_spec(spec)
-        assert result["node_count"] == 4
-        assert result["edge_count"] == 3
+        assert result["node_count"] == 3
+        assert result["edge_count"] == 2
 
         # Verify the dynamic field was created
         prompt_info = await mcp_server_module.get_component_info(result["id"], result["node_id_map"]["B"])
@@ -634,7 +651,7 @@ class TestRunFlow:
         assert "outputs" in result
 
     async def test_stream_post_yields_events(self, mcp_client, created_api_key):
-        """Verify stream_post yields SSE events from Primeagent's streaming endpoint."""
+        """Verify stream_post yields SSE events from PrimeAgent's streaming endpoint."""
         mcp_client.api_key = created_api_key.api_key
         created = await mcp_server_module.create_flow("StreamTest")
         c1 = await mcp_server_module.add_component(created["id"], "ChatInput")
@@ -776,7 +793,7 @@ class TestExportFlow:
     async def test_export_flow_redacts_secrets(self):
         """API keys in exported flow data should be redacted."""
         created = await mcp_server_module.create_flow("SecretTest")
-        comp = await mcp_server_module.add_component(created["id"], "OpenAIModel")
+        comp = await mcp_server_module.add_component(created["id"], "LanguageModelComponent")
         await mcp_server_module.configure_component(
             created["id"],
             comp["id"],
@@ -784,9 +801,9 @@ class TestExportFlow:
         )
 
         result = await mcp_server_module.export_flow(created["id"])
-        # Find the OpenAI node and check api_key is redacted
+        # Find the model node and check api_key is redacted
         for node in result["data"]["nodes"]:
-            if node.get("data", {}).get("type") == "OpenAIModel":
+            if node.get("data", {}).get("type") == "LanguageModelComponent":
                 template = node["data"].get("node", {}).get("template", {})
                 api_key_val = template.get("api_key", {}).get("value", "")
                 assert api_key_val in {"***REDACTED***", ""}
@@ -810,7 +827,7 @@ class TestUpdateFlowFromSpec:
 name: Updated Flow
 nodes:
   A: ChatInput
-  B: OpenAIModel
+  B: LanguageModelComponent
   C: ChatOutput
 edges:
   A.message -> B.input_value

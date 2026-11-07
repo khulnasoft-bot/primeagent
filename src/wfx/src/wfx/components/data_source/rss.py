@@ -12,11 +12,11 @@ from wfx.utils.ssrf_requests import ssrf_safe_get
 class RSSReaderComponent(Component):
     display_name = "RSS Reader"
     description = "Fetches and parses an RSS feed."
-    documentation: str = "https://docs.prime.khulnasoft.com/web-search"
+    documentation: str = "https://prime.khulnasoft.com/docs/web-search"
     icon = "rss"
     name = "RSSReaderSimple"
     legacy = True
-    replacement = "data.WebSearch"
+    replacement = ["data_source.UnifiedWebSearch"]
 
     inputs = [
         MessageTextInput(

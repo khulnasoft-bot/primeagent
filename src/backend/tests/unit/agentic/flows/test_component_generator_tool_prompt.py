@@ -1,6 +1,6 @@
 """Regression guard for the component-generator agent's system prompt.
 
-The component generator (the inner ``PrimeagentAssistant.json`` Agent that
+The component generator (the inner ``PrimeAgentAssistant.json`` Agent that
 produces a single ``class MyComponent(Component): ...`` snippet) is the
 ONLY place that teaches the LLM how to write tool-friendly components.
 If the tool-compatibility section silently drops out, every component
@@ -28,12 +28,12 @@ PRIMEAGENT_ASSISTANT_JSON = (
     / "primeagent"
     / "agentic"
     / "flows"
-    / "PrimeagentAssistant.json"
+    / "PrimeAgentAssistant.json"
 )
 # The COMPONENT GENERATOR agent (the inner one whose prompt embeds the
-# Primeagent Component API Reference). The PARENT agent has a different id
+# PrimeAgent Component API Reference). The PARENT agent has a different id
 # and is covered by test_primeagent_assistant_prompt.py.
-COMPONENT_GENERATOR_AGENT_MARKER = "Primeagent Component API Reference"
+COMPONENT_GENERATOR_AGENT_MARKER = "PrimeAgent Component API Reference"
 
 
 @pytest.fixture(scope="module")
@@ -49,7 +49,7 @@ def generator_prompt() -> str:
         val = sp.get("value", "") or ""
         if COMPONENT_GENERATOR_AGENT_MARKER in val:
             return val
-    msg = "Component generator agent (the one carrying the API Reference) not found in PrimeagentAssistant.json"
+    msg = "Component generator agent (the one carrying the API Reference) not found in PrimeAgentAssistant.json"
     raise AssertionError(msg)
 
 

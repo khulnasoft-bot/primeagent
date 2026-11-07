@@ -111,8 +111,8 @@ class DeploymentApiPayloads(DeploymentPayloadFields):
     """API-side payload schema registry for deployment providers.
 
     Ownership boundary:
-    Primeagent owns API slot population here because API payloads may include
-    Primeagent-specific references and reshaping requirements. Adapter-side
+    PrimeAgent owns API slot population here because API payloads may include
+    PrimeAgent-specific references and reshaping requirements. Adapter-side
     slot population is defined separately via ``DeploymentPayloadSchemas``.
     """
 
@@ -142,7 +142,7 @@ class BaseDeploymentMapper:
     """Per-provider mapper for deployment API payloads.
 
     Mapper vs adapter responsibilities:
-    - Mapper: API-boundary translation/validation (Primeagent schemas <-> adapter payloads).
+    - Mapper: API-boundary translation/validation (PrimeAgent schemas <-> adapter payloads).
     - Adapter: provider execution (network calls, provider semantics, side effects).
 
     Selection contract:
@@ -159,7 +159,7 @@ class BaseDeploymentMapper:
       responses), while payload-only shapers return provider dicts unchanged.
 
     Provider-specific mappers override only the methods that need
-    Primeagent-aware resolution or payload reshaping.
+    PrimeAgent-aware resolution or payload reshaping.
     """
 
     api_payloads: ClassVar[DeploymentApiPayloads] = DeploymentApiPayloads()
@@ -244,7 +244,7 @@ class BaseDeploymentMapper:
         flow_name = getattr(flow_row, "name", None) or ""
         if not flow_name:
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail=(
                     f"Cannot build deployment artifact: the parent flow for version "
                     f"'{flow_version.id}' has been deleted or has no name."
@@ -259,7 +259,7 @@ class BaseDeploymentMapper:
             )
         except ValidationError as exc:
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail=(
                     f"Flow version '{flow_version.id}' cannot be used as a deployment "
                     f"artifact: {exc.errors()[0]['msg']}"
@@ -974,13 +974,13 @@ class BaseDeploymentMapper:
             parsed = slot.parse(raw)
         except AdapterPayloadMissingError as exc:
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail=f"Missing provider_data for {provider_label}.",
             ) from exc
         except AdapterPayloadValidationError as exc:
             detail = exc.format_first_error()
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail=f"Invalid provider_data for {provider_label}: {detail}",
             ) from exc
         if outer_payload is None:
@@ -989,7 +989,7 @@ class BaseDeploymentMapper:
             self.validate_with_outer_request(parsed, outer_payload)
         except OuterRequestValidationError as exc:
             raise HTTPException(
-                status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
                 detail=f"Invalid provider_data for {provider_label}: {exc.detail}",
             ) from exc
         except OuterRequestValidationNotConfiguredError as exc:

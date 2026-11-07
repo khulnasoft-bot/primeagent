@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { useShallow } from "zustand/react/shallow";
 import { normalizeTimeString } from "@/CustomNodes/GenericNode/components/NodeStatus/utils/format-run-time";
 import ForwardedIconComponent from "@/components/common/genericIconComponent";
 import { BorderTrail } from "@/components/core/border-trail";
@@ -22,21 +23,31 @@ import {
 
 export default function FlowBuildingComponent() {
   const { t } = useTranslation();
-  const isBuilding = useFlowStore((state) => state.isBuilding);
-  const flowBuildStatus = useFlowStore((state) => state.flowBuildStatus);
-  const buildInfo = useFlowStore((state) => state.buildInfo);
+  const {
+    isBuilding,
+    flowBuildStatus,
+    buildInfo,
+    setBuildInfo,
+    stopBuilding,
+    pastBuildFlowParams,
+    buildFlow,
+  } = useFlowStore(
+    useShallow((state) => ({
+      isBuilding: state.isBuilding,
+      flowBuildStatus: state.flowBuildStatus,
+      buildInfo: state.buildInfo,
+      setBuildInfo: state.setBuildInfo,
+      stopBuilding: state.stopBuilding,
+      pastBuildFlowParams: state.pastBuildFlowParams,
+      buildFlow: state.buildFlow,
+    })),
+  );
   const errorButtonsRef = useRef<HTMLDivElement>(null);
   const stopButtonRef = useRef<HTMLDivElement>(null);
-  const setBuildInfo = useFlowStore((state) => state.setBuildInfo);
   const [duration, setDuration] = useState(0);
   const [dismissed, setDismissed] = useState(false);
-  const stopBuilding = useFlowStore((state) => state.stopBuilding);
   const prevIsBuilding = useRef(isBuilding);
   const startTimeRef = useRef<number | null>(null);
-  const pastBuildFlowParams = useFlowStore(
-    (state) => state.pastBuildFlowParams,
-  );
-  const buildFlow = useFlowStore((state) => state.buildFlow);
   const statusBuilding = useMemo(
     () =>
       Object.entries(flowBuildStatus)
@@ -60,7 +71,7 @@ export default function FlowBuildingComponent() {
     if (isBuilding && startTimeRef.current !== null) {
       intervalId = setInterval(() => {
         setDuration(Date.now() - startTimeRef.current!);
-      }, 10);
+      }, 100);
     }
 
     if (!isBuilding && prevIsBuilding.current) {
@@ -251,6 +262,10 @@ export default function FlowBuildingComponent() {
                   <AnimatePresence>
                     {buildInfo?.error && (
                       <motion.div
+                        role="region"
+                        aria-label={t("flowBuild.buildFailed")}
+                        tabIndex={0}
+                        className="max-h-48 overflow-y-auto"
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: "auto" }}
                         exit={{ opacity: 0, height: 0 }}
@@ -258,7 +273,7 @@ export default function FlowBuildingComponent() {
                       >
                         <Markdown
                           remarkPlugins={[remarkGfm]}
-                          className="my-1.5 align-text-top truncate-doubleline"
+                          className="my-1.5 break-words [&>p+p]:mt-2"
                           components={{
                             a: ({ node, ...props }) => (
                               <a
@@ -270,13 +285,6 @@ export default function FlowBuildingComponent() {
                                 {props.children}
                               </a>
                             ),
-                            p({ node, ...props }) {
-                              return (
-                                <span className="inline-block w-fit max-w-full align-text-top truncate-doubleline">
-                                  {props.children}
-                                </span>
-                              );
-                            },
                           }}
                         >
                           {buildInfo?.error?.join("\n")}

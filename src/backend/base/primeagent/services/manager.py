@@ -1,4 +1,4 @@
-"""Primeagent ServiceManager - re-exports from wfx for backwards compatibility."""
+"""PrimeAgent ServiceManager - re-exports from wfx for backwards compatibility."""
 
 from __future__ import annotations
 

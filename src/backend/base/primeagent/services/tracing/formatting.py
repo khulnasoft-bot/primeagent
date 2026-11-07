@@ -25,7 +25,7 @@ if TYPE_CHECKING:
 _UTC_MIN = datetime.min.replace(tzinfo=timezone.utc)
 
 # Name substring used to identify the user-facing input span.
-# Primeagent's native tracer names this span "Chat Input" by convention.
+# PrimeAgent's native tracer names this span "Chat Input" by convention.
 # If the span naming convention changes, update this constant.
 _CHAT_INPUT_SPAN_NAME = "Chat Input"
 

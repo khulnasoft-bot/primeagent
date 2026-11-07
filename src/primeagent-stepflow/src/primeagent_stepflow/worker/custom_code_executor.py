@@ -1,6 +1,6 @@
-"""Custom code executor for Primeagent components.
+"""Custom code executor for PrimeAgent components.
 
-Executes Primeagent components by compiling their code from blob storage.
+Executes PrimeAgent components by compiling their code from blob storage.
 Uses a pre-compilation approach to eliminate context calls during execution.
 """
 
@@ -17,7 +17,7 @@ from .handlers import (
     BaseModelInputHandler,
     DataFrameConversionInputHandler,
     InputHandler,
-    PrimeagentTypeInputHandler,
+    PrimeAgentTypeInputHandler,
     StringCoercionInputHandler,
     ToolWrapperInputHandler,
 )
@@ -26,7 +26,7 @@ _COMPILED_CACHE_MAX_SIZE = 128
 
 
 class CustomCodeExecutor(BaseExecutor):
-    """Executes Primeagent custom code components by compiling code from blobs.
+    """Executes PrimeAgent custom code components by compiling code from blobs.
 
     This executor compiles component code from blob storage and instantiates
     the resulting classes. It uses a pre-compilation approach to eliminate
@@ -42,10 +42,10 @@ class CustomCodeExecutor(BaseExecutor):
         """Return input handlers for custom code execution.
 
         Includes all base handlers plus StringCoercion and DataFrame
-        conversion needed for Primeagent type transformations.
+        conversion needed for PrimeAgent type transformations.
         """
         return [
-            PrimeagentTypeInputHandler(),
+            PrimeAgentTypeInputHandler(),
             BaseModelInputHandler(),
             ToolWrapperInputHandler(),
             DataFrameConversionInputHandler(),
@@ -121,7 +121,7 @@ class CustomCodeExecutor(BaseExecutor):
                         blob_data = await context.get_blob(blob_id)
                 except Exception as e:
                     raise ExecutionError(
-                        f"No component code found for blob {blob_id}. All components must have real Primeagent code."
+                        f"No component code found for blob {blob_id}. All components must have real PrimeAgent code."
                     ) from e
 
                 # Pass blob_id to compilation for better tracing

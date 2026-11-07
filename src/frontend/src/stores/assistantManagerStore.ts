@@ -12,8 +12,21 @@ const defaultOptions: UseUndoRedoOptions = {
   enableShortcuts: true,
 };
 
+// Maximum number of flows to retain undo/redo history for.
+const MAX_UNDO_FLOWS = 20;
+
 const past = {};
 const future = {};
+
+function trimUndoFlows(): void {
+  const flowIds = Object.keys(past);
+  if (flowIds.length <= MAX_UNDO_FLOWS) return;
+  const toRemove = flowIds.slice(0, flowIds.length - MAX_UNDO_FLOWS);
+  for (const id of toRemove) {
+    delete past[id];
+    delete future[id];
+  }
+}
 
 const useAssistantManagerStore = create<AssistantManagerStoreType>(
   (set, get) => ({
@@ -91,6 +104,8 @@ const useAssistantManagerStore = create<AssistantManagerStoreType>(
       }
 
       future[currentFlowId] = [];
+
+      trimUndoFlows();
     },
     undo: () => {
       const newState = useFlowStore.getState();

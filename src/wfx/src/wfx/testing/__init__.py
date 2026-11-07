@@ -1,4 +1,4 @@
-"""pytest plugin providing flow_runner fixtures for local Primeagent flow execution.
+"""pytest plugin providing flow_runner fixtures for local PrimeAgent flow execution.
 
 The plugin is auto-discovered via the ``pytest11`` entry-point, so no
 ``conftest.py`` changes are needed.  Configure defaults via CLI options or
@@ -20,7 +20,7 @@ Tweaks (component-level field overrides, keyed by node id/type/display_name)::
     def test_with_tweaks(flow_runner):
         result = flow_runner(
             "flows/rag.json",
-            input_value="What is Primeagent?",
+            input_value="What is PrimeAgent?",
             tweaks={"OpenAI": {"model_name": "gpt-4o-mini", "temperature": 0.0}},
         )
         assert result.status == "success"

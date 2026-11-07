@@ -1,4 +1,4 @@
-"""Run module for executing Primeagent graphs."""
+"""Run module for executing PrimeAgent graphs."""
 
 from wfx.run.base import RunError, run_flow
 

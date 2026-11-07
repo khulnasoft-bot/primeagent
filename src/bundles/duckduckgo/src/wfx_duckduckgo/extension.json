@@ -1,9 +1,9 @@
 {
   "$schema": "https://schemas.prime.khulnasoft.com/extension/v1.json",
   "id": "wfx-duckduckgo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "name": "DuckDuckGo Search",
-  "description": "DuckDuckGo Search component as a standalone Primeagent Extension Bundle.",
+  "description": "DuckDuckGo Search component as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

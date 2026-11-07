@@ -9,7 +9,7 @@ Commands shipped here:
     - ``validate``  -- static manifest + AST checker.
     - ``schema``    -- emit the manifest JSON Schema.
     - ``init``      -- scaffold a basic single-Bundle extension.
-    - ``dev``       -- register a local extension and launch Primeagent with
+    - ``dev``       -- register a local extension and launch PrimeAgent with
                        it loaded.
 
 Each command is implemented as a thin shell over the helpers in
@@ -31,7 +31,7 @@ import typer
 
 extension_app = typer.Typer(
     name="extension",
-    help="Author and inspect Primeagent Extensions.",
+    help="Author and inspect PrimeAgent Extensions.",
     no_args_is_help=True,
     add_completion=False,
 )
@@ -79,7 +79,7 @@ def validate_command(
       3. AST-level inspection of every Python source file in each bundle.
 
     With ``--execute-imports``, additionally imports each bundle module in a
-    subprocess with a temporary Primeagent state directory.
+    subprocess with a temporary PrimeAgent state directory.
     """
     from wfx.extension import format_extension_error, validate_extension
 
@@ -195,6 +195,7 @@ def list_command(
                     "id": ext.extension_id,
                     "version": ext.version,
                     "bundle": ext.bundle_name,
+                    "bundles": list(ext.bundle_names),
                     "slot": ext.namespaced_slot,
                     "source_kind": ext.source_kind,
                     "source": ext.source,
@@ -232,7 +233,8 @@ def list_command(
 
         ids = [r.extension_id for r in rows]
         versions = [r.version for r in rows]
-        bundles = [r.bundle_name for r in rows]
+        # A provider-only extension has no component bundle; show a dash.
+        bundles = [", ".join(r.bundle_names) or "—" for r in rows]
         slots = [r.namespaced_slot for r in rows]
         sources = [r.source_kind for r in rows]
         statuses = [r.load_status.value for r in rows]
@@ -251,7 +253,7 @@ def list_command(
             cells = (
                 row.extension_id,
                 row.version,
-                row.bundle_name,
+                ", ".join(row.bundle_names) or "—",
                 row.namespaced_slot,
                 row.source_kind,
                 row.load_status.value,
@@ -291,12 +293,12 @@ def reload_command(
     target: str | None = typer.Option(
         None,
         "--target",
-        help=("Primeagent server URL (default: $PRIMEAGENT_HOST / http://localhost:7860)."),
+        help=("PrimeAgent server URL (default: $PRIMEAGENT_HOST / http://localhost:7860)."),
     ),
     api_key: str | None = typer.Option(
         None,
         "--api-key",
-        help="API key for the Primeagent server (default: $PRIMEAGENT_API_KEY).",
+        help="API key for the PrimeAgent server (default: $PRIMEAGENT_API_KEY).",
     ),
     output_format: str = typer.Option(
         "text",
@@ -376,8 +378,7 @@ def _resolve_bundle_from_discovery(extension_id: str) -> str | None:
 
     Returns the bundle name on success, or ``None`` and prints a typed
     error on stderr when the extension is not locally installed or when
-    discovery surfaces multiple bundles (a future-shape we do not yet
-    support; v0 ships one bundle per extension).
+    its manifest declares multiple bundles.
     """
     from wfx.extension import discover_all_extensions
 
@@ -392,17 +393,22 @@ def _resolve_bundle_from_discovery(extension_id: str) -> str | None:
             err=True,
         )
         return None
-    if len(matches) > 1:
-        # Can happen if two seed roots ship the same id; registry usually
-        # de-dupes via shadow-error, but be defensive at the CLI layer.
-        bundles = sorted({ext.bundle_name for ext in matches})
+    bundles = sorted({bundle_name for ext in matches for bundle_name in ext.bundle_names})
+    if len(bundles) > 1:
         typer.echo(
             f"extension reload: extension {extension_id!r} resolves to multiple bundles "
             f"({', '.join(bundles)}); pass --bundle <name> to disambiguate.",
             err=True,
         )
         return None
-    return matches[0].bundle_name
+    if not bundles:
+        typer.echo(
+            f"extension reload: extension {extension_id!r} does not declare a component bundle; "
+            "provider-only extensions cannot be reloaded.",
+            err=True,
+        )
+        return None
+    return bundles[0]
 
 
 def _post_reload(
@@ -486,21 +492,22 @@ def _reload_all(*, target: str | None, api_key: str | None, output_format: str) 
     from wfx.extension import discover_all_extensions
 
     extensions, _errors = discover_all_extensions()
+    reload_targets = [(ext.extension_id, bundle_name) for ext in extensions for bundle_name in ext.bundle_names]
 
     if output_format == "json":
         results = []
         any_failed = False
-        for ext in extensions:
+        for extension_id, bundle_name in reload_targets:
             response = _post_reload(
                 target=target,
                 api_key=api_key,
-                extension_id=ext.extension_id,
-                bundle_name=ext.bundle_name,
+                extension_id=extension_id,
+                bundle_name=bundle_name,
             )
             results.append(
                 {
-                    "extension_id": ext.extension_id,
-                    "bundle_name": ext.bundle_name,
+                    "extension_id": extension_id,
+                    "bundle_name": bundle_name,
                     "status": response.status,
                     "ok": response.ok,
                     "payload": response.payload,
@@ -511,7 +518,7 @@ def _reload_all(*, target: str | None, api_key: str | None, output_format: str) 
         typer.echo(json.dumps({"results": results}, indent=2, sort_keys=True))
         raise typer.Exit(code=1 if any_failed else 0)
 
-    if not extensions:
+    if not reload_targets:
         typer.echo(
             "extension reload --all: no locally-discovered bundles to reload.\n"
             "  - Run `wfx extension list` to confirm what is installed.",
@@ -521,17 +528,17 @@ def _reload_all(*, target: str | None, api_key: str | None, output_format: str) 
     any_failed = False
     successes = 0
     failures = 0
-    for ext in extensions:
+    for extension_id, bundle_name in reload_targets:
         response = _post_reload(
             target=target,
             api_key=api_key,
-            extension_id=ext.extension_id,
-            bundle_name=ext.bundle_name,
+            extension_id=extension_id,
+            bundle_name=bundle_name,
         )
         _render_reload_text(
             response,
-            extension_id=ext.extension_id,
-            bundle_name=ext.bundle_name,
+            extension_id=extension_id,
+            bundle_name=bundle_name,
         )
         if response.ok:
             successes += 1
@@ -612,7 +619,7 @@ def init_command(
     name: str | None = typer.Option(
         None,
         "--name",
-        help=("Human-readable display name shown in Primeagent.  Defaults to the title-cased extension id."),
+        help=("Human-readable display name shown in PrimeAgent.  Defaults to the title-cased extension id."),
     ),
 ) -> None:
     """Create a runnable extension skeleton you can iterate on with ``dev``.
@@ -678,7 +685,7 @@ def _resolve_primeagent_executable() -> str | None:
 
 @extension_app.command(
     name="dev",
-    help="Register a local extension and launch Primeagent with it loaded.",
+    help="Register a local extension and launch PrimeAgent with it loaded.",
 )
 def dev_command(
     target: str = typer.Argument(
@@ -713,7 +720,7 @@ def dev_command(
         help="Extra arguments forwarded to ``primeagent run`` (after a ``--`` separator).",
     ),
 ) -> None:
-    """Register the extension and launch a Primeagent dev server.
+    """Register the extension and launch a PrimeAgent dev server.
 
     Flow:
         1. Resolve the absolute path of the target extension.
@@ -725,7 +732,7 @@ def dev_command(
            ``PRIMEAGENT_LAZY_LOAD_COMPONENTS=false`` so dev-extensions are
            visible in the palette immediately.
 
-    AC #4 ("boots Primeagent with the new Extension visible in the palette
+    AC #4 ("boots PrimeAgent with the new Extension visible in the palette
     within 5s") is delivered jointly by this command and the startup
     hook in ``primeagent.main`` that consults the dev registry.
     """
@@ -752,7 +759,7 @@ def dev_command(
     typer.echo(f"Registered dev extension: {entry.path}")
     typer.echo("Reload instructions:")
     typer.echo("  - Edit any file under components/ in the registered directory.")
-    typer.echo("  - Click 'Reload' on the bundle header in the Primeagent palette.")
+    typer.echo("  - Click 'Reload' on the bundle header in the PrimeAgent palette.")
 
     if skip_launch:
         return

@@ -35,7 +35,7 @@ def _make_component(
 ) -> FileSystemToolComponent:
     """Build a FileSystemToolComponent pinned to a fresh sandbox.
 
-    The component bypasses the PrimeagentClient by binding ``_user_id``
+    The component bypasses the PrimeAgentClient by binding ``_user_id``
     directly and overriding ``_resolve_auto_login``. We seed a pepper
     file so the hash is reproducible across tests; otherwise the first
     write creates one and subsequent runs see a different namespace.

@@ -1,6 +1,6 @@
 """GH #13618 — component_code_search tool silently reports an empty library.
 
-The inline ``DataFrameKeywordSearch`` component in ``PrimeagentAssistant.json``
+The inline ``DataFrameKeywordSearch`` component in ``PrimeAgentAssistant.json``
 combines three defects into a confidently wrong "the component library is
 empty" answer:
 
@@ -23,7 +23,7 @@ import pytest
 from primeagent.schema import DataFrame
 from wfx.custom.eval import eval_custom_component_code
 
-FLOW_PATH = Path(__file__).parents[4] / "base" / "primeagent" / "agentic" / "flows" / "PrimeagentAssistant.json"
+FLOW_PATH = Path(__file__).parents[4] / "base" / "primeagent" / "agentic" / "flows" / "PrimeAgentAssistant.json"
 
 MIN_ENUMERATION_CANDIDATES = 10
 
@@ -34,7 +34,7 @@ def _keyword_search_template() -> dict:
         node_data = node.get("data", {})
         if node_data.get("type") == "DataFrameKeywordSearch":
             return node_data["node"]["template"]
-    msg = "DataFrameKeywordSearch node not found in PrimeagentAssistant.json"
+    msg = "DataFrameKeywordSearch node not found in PrimeAgentAssistant.json"
     raise AssertionError(msg)
 
 

@@ -80,9 +80,13 @@ jest.mock("@/stores/authStore", () => ({
 }));
 
 jest.mock("@/stores/darkStore", () => ({
-  useDarkStore: (
-    selector: (s: { stars: number; discordCount: number }) => unknown,
-  ) => selector({ stars: 149000, discordCount: 25000 }),
+  useDarkStore: (selector: (s: Record<string, unknown>) => unknown) =>
+    selector({
+      stars: 149000,
+      discordCount: 25000,
+      refreshStars: jest.fn(),
+      refreshDiscordCount: jest.fn(),
+    }),
 }));
 
 jest.mock("@/stores/foldersStore", () => ({
@@ -106,7 +110,7 @@ describe("EmptyPageCommunity - Create first flow behavior", () => {
 
     fireEvent.click(screen.getByTestId("new_project_btn_empty_page"));
 
-    // Empty-state button must open the new Primeagent Assistant welcome flow,
+    // Empty-state button must open the new PrimeAgent Assistant welcome flow,
     // matching the "New Flow" button shown when the user already has flows.
     expect(startNewFlowMock).toHaveBeenCalledTimes(1);
     // It must NOT open the old TemplatesModal.

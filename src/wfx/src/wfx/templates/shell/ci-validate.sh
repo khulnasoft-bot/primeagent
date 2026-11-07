@@ -2,7 +2,7 @@
 # ci-validate.sh
 #
 # PURPOSE
-#   Validate all Primeagent flow JSON files using `wfx validate`.
+#   Validate all PrimeAgent flow JSON files using `wfx validate`.
 #   No secrets or network access required — pure static analysis.
 #
 # USAGE

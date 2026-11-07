@@ -315,7 +315,7 @@ class TestExtractTraceIoFromSpans:
     def test_should_match_chat_input_span_by_substring(self):
         """Span name only needs to *contain* the constant, not equal it."""
         span = _span(
-            name=f"Primeagent {_CHAT_INPUT_SPAN_NAME} Component",
+            name=f"PrimeAgent {_CHAT_INPUT_SPAN_NAME} Component",
             inputs={"input_value": "hi"},
             end_time=_dt(1),
         )
@@ -388,7 +388,7 @@ class TestExtractTraceIoFromRows:
 
     def test_should_match_chat_input_row_by_substring(self):
         row = _row(
-            name=f"Primeagent {_CHAT_INPUT_SPAN_NAME} Component",
+            name=f"PrimeAgent {_CHAT_INPUT_SPAN_NAME} Component",
             inputs={"input_value": "hi"},
             end_time=_dt(1),
         )
