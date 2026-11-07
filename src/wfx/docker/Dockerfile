@@ -14,7 +14,7 @@ COPY --from=uv_installer /uv /usr/local/bin/uv
 COPY --from=uv_installer /uvx /usr/local/bin/uvx
 
 # Install build dependencies needed for some Python packages on Alpine
-RUN microdnf install -y python3.14-devel tar xz gcc gcc-c++ make libaio-devel kernel-headers mount
+RUN microdnf install -y python3.14-devel tar xz gcc gcc-c++ make libaio-devel kernel-headers
 
 WORKDIR /app
 
@@ -59,7 +59,7 @@ USER root
 # -G: Add to group (root)
 # -h: Set home directory
 # -s: Set shell
-RUN microdnf install -y tar xz mount shadow-utils && useradd -u 1000 -g 0 --no-create-home -d /app/data -s /sbin/nologin wfx
+RUN microdnf install -y tar xz shadow-utils && useradd -u 1000 -g 0 --no-create-home -d /app/data -s /sbin/nologin wfx
 
 # Copy the virtual environment from the builder stage
 COPY --from=builder --chown=1000 /app/.venv /app/.venv
