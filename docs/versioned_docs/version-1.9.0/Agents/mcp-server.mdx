@@ -362,7 +362,7 @@ You can use MCP Inspector to monitor your flows and get insights into how they a
     The field values depend on your server's method of [authentication](#authentication).
 
     <Tabs groupId="auth-type">
-  <TabItem value="API key" label="API key" default>
+    <TabItem value="API key" label="API key" default>
 
         - **Transport Type**: Select **STDIO**.
         - **Command**: `uvx`
@@ -371,8 +371,8 @@ You can use MCP Inspector to monitor your flows and get insights into how they a
             mcp-proxy --headers x-api-key YOUR_API_KEY http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable
             ```
 
-      </TabItem>
-  <TabItem value="OAuth" label="OAuth">
+    </TabItem>
+    <TabItem value="OAuth" label="OAuth">
 
         - **Transport Type**: Select **STDIO**.
         - **Command**: `uvx`
@@ -381,8 +381,8 @@ You can use MCP Inspector to monitor your flows and get insights into how they a
             mcp-composer --mode stdio --sse-url http://localhost:9000/sse --disable-composer-tools --client_auth_type oauth
             ```
 
-      </TabItem>
-  <TabItem value="None" label="None">
+    </TabItem>
+    <TabItem value="None" label="None">
 
         - **Transport Type**: Select **SSE**.
         - **URL**: Enter the PrimeAgent MCP server's endpoint. For example:
@@ -390,8 +390,8 @@ You can use MCP Inspector to monitor your flows and get insights into how they a
             http://localhost:7860/api/v1/mcp/project/d359cbd4-6fa2-4002-9d53-fa05c645319c/streamable
             ```
 
-      </TabItem>
-</Tabs>
+    </TabItem>
+    </Tabs>
 
 4.  Click **Connect**.
 
