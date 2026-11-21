@@ -6,7 +6,7 @@ import os
 import platform
 import traceback
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 import httpx
@@ -78,7 +78,7 @@ class TelemetryService(Service):
         self.client: httpx.AsyncClient | None = None
         self.running = False
         self._stopping = False
-        self._start_time = datetime.now(timezone.utc)
+        self._start_time = datetime.now(UTC)
 
         self.ot = OpenTelemetry(prometheus_enabled=settings_service.settings.prometheus_enabled)
         self.architecture: str | None = None
@@ -136,7 +136,7 @@ class TelemetryService(Service):
                 "event": event,
                 "messageId": str(uuid.uuid4()),
                 "properties": payload_dict,
-                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             }
             body["userId"] = (
                 get_hashed_user_id(event_anonymous_id)
@@ -178,7 +178,7 @@ class TelemetryService(Service):
         await self._queue_event((self.send_telemetry_data, payload, "deployment_run"))
 
     async def log_package_shutdown(self) -> None:
-        payload = ShutdownPayload(time_running=(datetime.now(timezone.utc) - self._start_time).seconds)
+        payload = ShutdownPayload(time_running=(datetime.now(UTC) - self._start_time).seconds)
         await self._queue_event((self.send_telemetry_data, payload, "shutdown"))
 
     async def _queue_event(self, payload) -> None:
@@ -282,7 +282,7 @@ class TelemetryService(Service):
             return
         try:
             self.running = True
-            self._start_time = datetime.now(timezone.utc)
+            self._start_time = datetime.now(UTC)
             self.client = httpx.AsyncClient(timeout=10.0)
             self.worker_task = asyncio.create_task(self.telemetry_worker())
             self.log_package_version_task = asyncio.create_task(self.log_package_version())

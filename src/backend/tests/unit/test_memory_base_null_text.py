@@ -1,6 +1,6 @@
 """API coverage for memory bases containing legacy messages with NULL text."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -24,7 +24,7 @@ async def test_memory_base_messages_accept_legacy_null_text(
     session_id = f"legacy-{uuid4().hex}"
     other_session_id = f"other-{uuid4().hex}"
     null_id, empty_id, normal_id, pending_id = (uuid4() for _ in range(4))
-    ingested_at = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    ingested_at = datetime(2026, 1, 1, tzinfo=UTC)
 
     async with session_scope() as session:
         flow = Flow(name="Legacy message flow", user_id=active_user.id, data={"nodes": [], "edges": []})
@@ -98,7 +98,7 @@ async def test_memory_base_messages_accept_legacy_null_text(
         assert item["sender_name"] == "Bot"
         assert item["content_blocks"] == []
         assert item["job_id"] is None
-        assert datetime.fromisoformat(item["ingested_at"]).replace(tzinfo=timezone.utc) == ingested_at
+        assert datetime.fromisoformat(item["ingested_at"]).replace(tzinfo=UTC) == ingested_at
     assert items[str(null_id)]["session_id"] == session_id
 
 

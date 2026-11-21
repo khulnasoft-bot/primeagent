@@ -19,6 +19,7 @@ import re
 import subprocess
 import sys
 import time
+import tomllib
 import urllib.error
 import urllib.request
 import zipfile
@@ -26,8 +27,6 @@ from collections.abc import Callable, Iterable, Sequence
 from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 from typing import Any, Protocol
-
-import tomllib
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 BUNDLES_DIR = BASE_DIR / "src" / "bundles"

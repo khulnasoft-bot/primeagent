@@ -6,10 +6,11 @@ import asyncio
 import json
 import multiprocessing
 from contextlib import asynccontextmanager
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from uuid import uuid4
 
+import pytest
 from cryptography.fernet import Fernet
 from primeagent.services.database.models.connection import Connection, ConnectionSecret
 from primeagent.services.database.models.connection.oauth import ConnectionOAuth
@@ -81,7 +82,7 @@ def _worker(database_url, key, owner_id, barrier, exchanges_path, results):
             }
 
         providers._request = exchange
-        await asyncio.to_thread(barrier.wait, 20)
+        await asyncio.to_thread(barrier.wait, 120)
         try:
             result = await service.DatabaseConnectionResolverService().resolve(
                 ConnectionResolutionRequest(
@@ -100,6 +101,10 @@ def _worker(database_url, key, owner_id, barrier, exchanges_path, results):
         raise
 
 
+# Each spawned worker cold-imports the full primeagent package before it can
+# reach the barrier, which takes ~60s on a loaded machine; the suite-wide
+# 90s timeout and a 45s join are both too tight for that startup cost.
+@pytest.mark.timeout(300)
 def test_two_workers_exchange_exactly_once(db_url, tmp_path):  # noqa: F811
     from primeagent.services.connection.oauth.config import OAuthRegistration
 
@@ -109,7 +114,7 @@ def test_two_workers_exchange_exactly_once(db_url, tmp_path):  # noqa: F811
         model.__table__.create(engine, checkfirst=True)
     owner, connection_id, generation = uuid4(), uuid4(), uuid4()
     key = Fernet.generate_key()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     config_digest = OAuthRegistration.model_validate(_registration()).fingerprint()
     with Session(engine) as session:
         session.add(User(id=owner, username="worker-owner", password=str(uuid4()), is_active=True))
@@ -165,7 +170,10 @@ def test_two_workers_exchange_exactly_once(db_url, tmp_path):  # noqa: F811
         for worker in workers:
             worker.start()
         for worker in workers:
-            worker.join(timeout=45)
+            # Generous bound: a spawned child cold-imports the full primeagent
+            # package (plus coverage's multiprocessing hooks in CI) before it
+            # can run, which can take ~60s on a loaded runner.
+            worker.join(timeout=180)
             assert worker.exitcode == 0
         assert [results.get(timeout=5) for _ in workers] == ["worker-refreshed", "worker-refreshed"]
         assert exchanges.read_text().splitlines() == ["exchange"]

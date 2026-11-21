@@ -9,7 +9,7 @@ import os
 import socket
 from contextvars import ContextVar
 from dataclasses import asdict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from uuid import UUID, uuid4
 
@@ -86,7 +86,7 @@ async def _phase(migration_id: UUID, phase: str, **changes) -> None:
     async with session_scope() as session:
         run = await session.get(KnowledgeBaseStorageMigration, migration_id)
         run.phase = phase
-        run.updated_at = datetime.now(timezone.utc)
+        run.updated_at = datetime.now(UTC)
         for key, value in changes.items():
             setattr(run, key, value)
         await session.commit()
@@ -115,7 +115,7 @@ async def _prepare(record: KnowledgeBaseRecord) -> KnowledgeBaseStorageMigration
         run.phase = "discovered"
         run.error_code = None
         run.coordinator = f"{socket.gethostname()}:{os.getpid()}"
-        run.updated_at = datetime.now(timezone.utc)
+        run.updated_at = datetime.now(UTC)
         await session.commit()
         await session.refresh(run)
         return run
@@ -137,7 +137,7 @@ async def _attention(kb_id: UUID, migration_id: UUID, code: str, *, exception_ty
                 }
             run.phase = "needs_attention"
             run.error_code = code
-            run.updated_at = datetime.now(timezone.utc)
+            run.updated_at = datetime.now(UTC)
         await session.commit()
     return phase
 
@@ -183,7 +183,7 @@ async def _complete(row: KnowledgeBaseRecord, run: KnowledgeBaseStorageMigration
         current_run = await session.get(KnowledgeBaseStorageMigration, run.id)
         current_run.phase = "complete"
         current_run.error_code = None
-        current_run.updated_at = datetime.now(timezone.utc)
+        current_run.updated_at = datetime.now(UTC)
         await session.commit()
 
 
@@ -930,7 +930,7 @@ async def stop_upgrade() -> None:
         await asyncio.gather(*tuple(_tasks), return_exceptions=True)
 
 
-async def wait_for_upgrade(*, timeout: float = 30) -> None:
+async def wait_for_upgrade(*, timeout: float = 30) -> None:  # noqa: ASYNC109
     """Wait for this worker's scheduled discovery without exposing task internals."""
     if _tasks:
         await asyncio.wait_for(asyncio.shield(asyncio.gather(*tuple(_tasks))), timeout=timeout)

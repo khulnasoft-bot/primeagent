@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Any
 
 from sqlmodel import col, select, update
@@ -168,7 +168,7 @@ async def append_and_advance(
     created = await ledger.append_events(session, trigger_id=trigger_id, events=events)
     if cursor is not None:
         row.provider_state = {**state, **cursor}
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         if expected_mechanism_id in PUSH_MECHANISMS:
             # Provider notifications may be dropped. The dispatcher scans the
             # source independently even when no notification arrives.

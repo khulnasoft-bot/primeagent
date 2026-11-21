@@ -7,7 +7,7 @@ so re-ingesting the same content does not create duplicates.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 from unittest.mock import MagicMock, patch
 
@@ -81,7 +81,7 @@ def test_qdrant_ids_differ_for_different_content() -> None:
 
 def test_qdrant_ids_handle_non_primitive_metadata() -> None:
     """Non-primitive metadata (datetime, Decimal) must serialize without raising and stay deterministic."""
-    ts = datetime(2026, 5, 11, 12, 0, tzinfo=timezone.utc)
+    ts = datetime(2026, 5, 11, 12, 0, tzinfo=UTC)
     docs = [Document(page_content="payload", metadata={"ts": ts, "price": Decimal("9.99")})]
 
     first = _captured_ids(docs)

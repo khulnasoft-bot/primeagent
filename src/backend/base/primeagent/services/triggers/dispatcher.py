@@ -23,7 +23,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Any
 from uuid import NAMESPACE_URL, uuid5
 
@@ -74,13 +74,13 @@ _DISPATCHABLE_TRIGGER_STATES = frozenset(
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _as_aware(value: datetime | None) -> datetime | None:
     if value is None:
         return None
-    return value if value.tzinfo is not None else value.replace(tzinfo=timezone.utc)
+    return value if value.tzinfo is not None else value.replace(tzinfo=UTC)
 
 
 def _backoff_seconds(attempt: int) -> float:

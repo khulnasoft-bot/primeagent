@@ -23,15 +23,10 @@ from __future__ import annotations
 
 import shutil
 import subprocess
-import sys
+import tomllib
 from pathlib import Path
 
 import pytest
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:  # pragma: no cover - py3.10 fallback
-    tomllib = pytest.importorskip("tomli")
 
 _PKG_DIR = Path(__file__).resolve().parent.parent
 _PYPROJECT = _PKG_DIR / "pyproject.toml"

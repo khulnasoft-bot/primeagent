@@ -10,7 +10,7 @@ import contextlib
 import json
 import sqlite3
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from fastapi.testclient import TestClient
@@ -288,7 +288,7 @@ def test_resume_survives_process_restart():
 
 def _backdate_pause(db_path, job_id: str, *, days: int) -> None:
     """Rewrite the suspended job's ``paused_at`` so the pending request is already expired."""
-    stale = (datetime.now(timezone.utc) - timedelta(days=days)).isoformat()
+    stale = (datetime.now(UTC) - timedelta(days=days)).isoformat()
     with contextlib.closing(sqlite3.connect(db_path)) as conn, conn:
         row = conn.execute("SELECT job_metadata FROM jobs WHERE job_id = ?", (job_id,)).fetchone()
         meta = json.loads(row[0])

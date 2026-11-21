@@ -24,6 +24,12 @@ async ?= true
 lf ?= false
 ff ?= true
 UV_RUN_ARGS ?=
+BACKEND_PYTHON :=
+ifeq ($(shell uname -s 2>/dev/null),Darwin)
+ifeq ($(shell uname -m 2>/dev/null),x86_64)
+BACKEND_PYTHON := --python 3.13
+endif
+endif
 all: help
 
 ######################
@@ -74,11 +80,11 @@ help: ## show basic help message with common commands
 
 reinstall_backend: ## forces reinstall all dependencies (no caching)
 	@echo 'Installing backend dependencies'
-	@uv sync -n --reinstall --frozen
+	@uv sync -n --reinstall --frozen $(BACKEND_PYTHON)
 
 install_backend: ## install the backend dependencies
 	@echo 'Installing backend dependencies'
-	@uv sync --frozen --extra "postgresql" $(EXTRA_ARGS)
+	@uv sync --frozen --extra "postgresql" $(BACKEND_PYTHON) $(EXTRA_ARGS)
 
 
 

@@ -15,7 +15,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import replace
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from urllib.parse import parse_qs, urlsplit
 from uuid import UUID
 
@@ -163,9 +163,7 @@ async def test_rejected_refresh_persists_expired_health_before_raising(
     """Runtime refresh failures must be visible without a manual health check."""
     row = authorized_connection
     if refresh_mode == "proactive":
-        await _rewrite_stored_payload(
-            row["id"], expires_at=(datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
-        )
+        await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(UTC) - timedelta(seconds=1)).isoformat())
     request = _resolution(
         row["owner_id"],
         rejected_token_digest=digest(STORED_ACCESS_TOKEN) if refresh_mode == "reactive" else None,
@@ -210,9 +208,7 @@ async def test_transient_refresh_failure_preserves_connection_and_can_recover(
     """An unavailable token endpoint must not turn a valid grant into a reconnect requirement."""
     row = authorized_connection
     if refresh_mode == "proactive":
-        await _rewrite_stored_payload(
-            row["id"], expires_at=(datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
-        )
+        await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(UTC) - timedelta(seconds=1)).isoformat())
     request = _resolution(
         row["owner_id"],
         rejected_token_digest=digest(STORED_ACCESS_TOKEN) if refresh_mode == "reactive" else None,
@@ -240,7 +236,7 @@ async def test_transient_refresh_failure_preserves_connection_and_can_recover(
     assert await _read_stored_payload(row["id"]) == stored
 
     # A manual check can report the outage without invalidating the credential.
-    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat())
+    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(UTC) - timedelta(seconds=1)).isoformat())
     checked = await client.post(f"/api/v1/connections/{row['id']}/health", headers=logged_in_headers)
     assert checked.status_code == 200, checked.text
     assert (checked.json()["status"], checked.json()["health"]) == ("ready", "unhealthy")
@@ -255,9 +251,7 @@ async def test_transient_refresh_failure_preserves_connection_and_can_recover(
 async def test_token_inside_the_sixty_second_skew_is_refreshed(authorized_connection, monkeypatch):
     """A token expiring inside the 60s skew is refreshed before it is handed out."""
     row = authorized_connection
-    await _rewrite_stored_payload(
-        row["id"], expires_at=(datetime.now(timezone.utc) + timedelta(seconds=30)).isoformat()
-    )
+    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(UTC) + timedelta(seconds=30)).isoformat())
     calls = _recording_refresh(monkeypatch)
 
     credential = await get_connection_resolver_service().resolve(_resolution(row["owner_id"]))
@@ -271,9 +265,7 @@ async def test_token_inside_the_sixty_second_skew_is_refreshed(authorized_connec
 async def test_token_fresh_beyond_the_skew_is_not_refreshed(authorized_connection, monkeypatch):
     """A token expiring past the skew is used as stored: no needless rotation."""
     row = authorized_connection
-    await _rewrite_stored_payload(
-        row["id"], expires_at=(datetime.now(timezone.utc) + timedelta(seconds=90)).isoformat()
-    )
+    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(UTC) + timedelta(seconds=90)).isoformat())
     calls = _recording_refresh(monkeypatch)
 
     credential = await get_connection_resolver_service().resolve(_resolution(row["owner_id"]))
@@ -311,7 +303,7 @@ async def test_mismatched_rejected_token_digest_leaves_a_fresh_token_alone(autho
 async def test_refresh_without_a_replacement_keeps_the_stored_refresh_token(authorized_connection, monkeypatch):
     """A provider that omits a new refresh token must not erase the stored one."""
     row = authorized_connection
-    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat())
+    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(UTC) - timedelta(seconds=1)).isoformat())
     calls = _recording_refresh(monkeypatch, omit_refresh_token=True)
 
     credential = await get_connection_resolver_service().resolve(_resolution(row["owner_id"]))
@@ -328,7 +320,7 @@ async def test_expired_oauth_credential_without_a_refresh_token_is_auth_expired(
     row = authorized_connection
     await _rewrite_stored_payload(
         row["id"],
-        expires_at=(datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat(),
+        expires_at=(datetime.now(UTC) - timedelta(seconds=1)).isoformat(),
         refresh_token=None,
     )
     calls = _recording_refresh(monkeypatch)
@@ -355,7 +347,7 @@ async def test_a_process_without_the_registrations_reports_configuration_not_exp
     wrong.
     """
     row = authorized_connection
-    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(timezone.utc) - timedelta(hours=1)).isoformat())
+    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(UTC) - timedelta(hours=1)).isoformat())
     calls = _recording_refresh(monkeypatch)
     monkeypatch.setenv("PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS", "{}")
     before = await _visible_connection(client, logged_in_headers, row["id"])
@@ -380,7 +372,7 @@ async def test_a_health_check_without_the_registrations_leaves_the_connection_al
     every trigger on the connection by itself - without an adapter ever failing.
     """
     row = authorized_connection
-    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(timezone.utc) - timedelta(hours=1)).isoformat())
+    await _rewrite_stored_payload(row["id"], expires_at=(datetime.now(UTC) - timedelta(hours=1)).isoformat())
     _recording_refresh(monkeypatch)
     monkeypatch.setenv("PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS", "{}")
 

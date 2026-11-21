@@ -15,7 +15,7 @@ exercised directly against ``finalize_flow_memory_base_cleanup``.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 from unittest.mock import AsyncMock, MagicMock
 
@@ -75,7 +75,7 @@ async def _seed_memory_base(flow_id: uuid.UUID, user_id: uuid.UUID, *, kb_name: 
 
     Uses a real SQLite backing store so teardown exercises persisted tombstones.
     """
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     mb_id = uuid.uuid4()
     async with session_scope() as db:
         db.add(

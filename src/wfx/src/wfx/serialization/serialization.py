@@ -1,6 +1,6 @@
 import math
 from collections.abc import AsyncIterator, Generator, Iterator
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 from typing import Any, cast
 from uuid import UUID
@@ -64,7 +64,7 @@ def _serialize_bytes(obj: bytes, max_length: int | None, _) -> str:
 
 def _serialize_datetime(obj: datetime, *_) -> str:
     """Convert datetime to UTC ISO format."""
-    return obj.replace(tzinfo=timezone.utc).isoformat()
+    return obj.replace(tzinfo=UTC).isoformat()
 
 
 def _serialize_decimal(obj: Decimal, *_) -> float:

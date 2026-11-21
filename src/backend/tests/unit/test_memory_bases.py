@@ -17,7 +17,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -50,7 +50,7 @@ def _make_mb(
         threshold=threshold,
         kb_name="test_kb",
         auto_capture=auto_capture,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
 
 
@@ -87,7 +87,7 @@ def _make_message(
         flow_id=flow_id,
         is_output=is_output,
         run_id=run_id,
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
     )
 
 

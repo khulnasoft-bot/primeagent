@@ -9,9 +9,8 @@ from __future__ import annotations
 import re
 import shutil
 import subprocess
-from pathlib import Path
-
 import tomllib
+from pathlib import Path
 
 FORBIDDEN_PACKAGES = {"chromadb", "langchain-chroma", "agent-lifecycle-toolkit"}
 

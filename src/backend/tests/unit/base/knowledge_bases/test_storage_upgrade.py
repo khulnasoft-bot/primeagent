@@ -10,7 +10,7 @@ import sqlite3
 import sys
 import threading
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
@@ -86,7 +86,7 @@ async def database(tmp_path, monkeypatch):
 
 def created_now() -> str:
     """When a 1.11 sidecar records its base was created: after its owner's account, as the create endpoint did."""
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 async def make_kb(database, *, backend="chroma", config=None):

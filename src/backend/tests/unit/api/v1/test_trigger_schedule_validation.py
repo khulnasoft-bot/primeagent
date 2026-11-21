@@ -1,6 +1,6 @@
 """Schedule configuration is checked at every public write boundary."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID
 
 import pytest
@@ -53,7 +53,7 @@ async def test_api_rejects_invalid_schedule_config(client, logged_in_headers, fl
 )
 async def test_api_schedule_update_resets_only_a_changed_clock(client, logged_in_headers, flow, change, resets):
     created = await _create(client, logged_in_headers, flow.id)
-    due = datetime(2026, 9, 14, 7, tzinfo=timezone.utc)
+    due = datetime(2026, 9, 14, 7, tzinfo=UTC)
     async with session_scope() as session:
         trigger = await session.get(Trigger, UUID(created["id"]))
         trigger.next_fire_at = due
@@ -65,13 +65,13 @@ async def test_api_schedule_update_resets_only_a_changed_clock(client, logged_in
     if resets:
         assert response.json()["next_fire_at"] is None
     else:
-        assert datetime.fromisoformat(response.json()["next_fire_at"]).replace(tzinfo=timezone.utc) == due
+        assert datetime.fromisoformat(response.json()["next_fire_at"]).replace(tzinfo=UTC) == due
 
 
 @pytest.mark.parametrize("state", ["active", "paused"])
 async def test_enable_preserves_active_cursor_and_resets_paused_cursor(client, logged_in_headers, flow, state):
     created = await _create(client, logged_in_headers, flow.id)
-    due = datetime(2026, 9, 14, 7, tzinfo=timezone.utc)
+    due = datetime(2026, 9, 14, 7, tzinfo=UTC)
     async with session_scope() as session:
         trigger = await session.get(Trigger, UUID(created["id"]))
         trigger.state = state
@@ -81,7 +81,7 @@ async def test_enable_preserves_active_cursor_and_resets_paused_cursor(client, l
     assert response.status_code == 200, response.text
     assert response.json()["state"] == "active"
     if state == "active":
-        assert datetime.fromisoformat(response.json()["next_fire_at"]).replace(tzinfo=timezone.utc) == due
+        assert datetime.fromisoformat(response.json()["next_fire_at"]).replace(tzinfo=UTC) == due
     else:
         assert response.json()["next_fire_at"] is None
 

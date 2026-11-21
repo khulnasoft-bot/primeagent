@@ -7,7 +7,7 @@ during policy sync.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 from uuid import UUID
 
@@ -312,7 +312,7 @@ async def update_team(
     if payload.is_active is not None and team.is_active != payload.is_active:
         team.is_active = payload.is_active
         changed_fields.append("is_active")
-    team.updated_at = datetime.now(timezone.utc)
+    team.updated_at = datetime.now(UTC)
     mutation = AuthorizationMutation(
         kind=AuthorizationMutationKind.TEAM_UPDATED,
         entity_id=team.id,

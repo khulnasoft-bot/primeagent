@@ -1,6 +1,6 @@
 import json
 import math
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Annotated
 from uuid import UUID, uuid4
 
@@ -27,9 +27,7 @@ ALLOWED_MESSAGE_ORDER_FIELDS = frozenset({"timestamp", "sender", "sender_name", 
 
 
 class MessageBase(SQLModel):
-    timestamp: Annotated[datetime, str_to_timestamp_validator] = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    timestamp: Annotated[datetime, str_to_timestamp_validator] = Field(default_factory=lambda: datetime.now(UTC))
     sender: str
     sender_name: str
     session_id: str
@@ -48,7 +46,7 @@ class MessageBase(SQLModel):
     def serialize_timestamp(self, value):
         if isinstance(value, datetime):
             if value.tzinfo is None:
-                value = value.replace(tzinfo=timezone.utc)
+                value = value.replace(tzinfo=UTC)
             return value.strftime(TF_WITH_TZ_AND_MICROSECONDS)
 
         if isinstance(value, str):
@@ -110,13 +108,11 @@ class MessageBase(SQLModel):
         if isinstance(message.timestamp, str):
             # Convert timestamp string in format "YYYY-MM-DD HH:MM:SS.ffffff UTC" to datetime
             try:
-                timestamp = datetime.strptime(message.timestamp, TF_WITH_TZ_AND_MICROSECONDS).replace(
-                    tzinfo=timezone.utc
-                )
+                timestamp = datetime.strptime(message.timestamp, TF_WITH_TZ_AND_MICROSECONDS).replace(tzinfo=UTC)
             except ValueError:
                 # Fallback for ISO format if the above fails; astimezone preserves offset if present
                 parsed = datetime.fromisoformat(message.timestamp)
-                timestamp = parsed.astimezone(timezone.utc) if parsed.tzinfo else parsed.replace(tzinfo=timezone.utc)
+                timestamp = parsed.astimezone(UTC) if parsed.tzinfo else parsed.replace(tzinfo=UTC)
         else:
             timestamp = str_to_timestamp(message.timestamp)
 

@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from primeagent.services.database.models.transactions.model import TransactionBase
@@ -9,7 +9,7 @@ def test_serialize_inputs_excludes_code_key():
     """Test that the code key is excluded from inputs when serializing."""
     # Create a TransactionBase object with inputs containing a code key
     transaction = TransactionBase(
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
         vertex_id="test-vertex",
         target_id="test-target",
         inputs={"param1": "value1", "param2": "value2", "code": "print('Hello, world!')"},
@@ -33,7 +33,7 @@ def test_serialize_inputs_handles_none():
     """Test that the serialize_inputs method handles None inputs."""
     # Create a TransactionBase object with None inputs
     transaction = TransactionBase(
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
         vertex_id="test-vertex",
         target_id="test-target",
         inputs=None,
@@ -53,7 +53,7 @@ def test_serialize_inputs_handles_non_dict():
     """Test that the serialize_inputs method handles non-dict inputs."""
     # Create a TransactionBase object with valid inputs
     transaction = TransactionBase(
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
         vertex_id="test-vertex",
         target_id="test-target",
         inputs={},  # Empty dict is valid
@@ -73,7 +73,7 @@ def test_serialize_inputs_handles_empty_dict():
     """Test that the serialize_inputs method handles empty dict inputs."""
     # Create a TransactionBase object with empty dict inputs
     transaction = TransactionBase(
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
         vertex_id="test-vertex",
         target_id="test-target",
         inputs={},
@@ -97,7 +97,7 @@ async def test_code_key_not_saved_to_database():
 
     # Create a transaction with inputs containing a code key
     transaction = TransactionBase(
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
         vertex_id="test-vertex",
         target_id="test-target",
         inputs=input_data,

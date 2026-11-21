@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 import httpx
@@ -42,7 +42,7 @@ async def _stored(session) -> list[AuditEvent]:
 
 
 async def test_a_staged_event_commits_with_the_mutation(audit_session, audit_enabled):  # noqa: ARG001
-    before = datetime.now(timezone.utc)
+    before = datetime.now(UTC)
 
     staged = await stage_audit_event(audit_session, project_patch_draft())
     await audit_session.commit()
@@ -51,7 +51,7 @@ async def test_a_staged_event_commits_with_the_mutation(audit_session, audit_ena
     assert row.id == staged.id
     assert row.details == {"schema_version": 1, "description": "Routes customer questions"}
     assert row.request_id is not None
-    assert row.timestamp.replace(tzinfo=timezone.utc) >= before.replace(microsecond=0)
+    assert row.timestamp.replace(tzinfo=UTC) >= before.replace(microsecond=0)
 
 
 async def test_a_staged_event_is_written_before_the_commit(audit_session, audit_enabled):  # noqa: ARG001

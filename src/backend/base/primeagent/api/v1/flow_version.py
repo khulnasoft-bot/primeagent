@@ -1,5 +1,5 @@
 import copy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 from uuid import UUID, uuid4
 
@@ -328,7 +328,7 @@ async def activate_version(
                     )
 
                 flow.data = target_data
-                flow.updated_at = datetime.now(timezone.utc)
+                flow.updated_at = datetime.now(UTC)
                 # Not routed through _patch_flow, so it rotates the token itself: otherwise a
                 # restore leaves open editors holding a token that still looks current.
                 flow.version_token = uuid4()

@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, computed_field, field_serializer
@@ -80,7 +80,7 @@ class FlowVersionRead(BaseModel):
     def serialize_datetime(self, value: datetime) -> str:
         value = value.replace(microsecond=0)
         if value.tzinfo is None:
-            value = value.replace(tzinfo=timezone.utc)
+            value = value.replace(tzinfo=UTC)
         return value.isoformat()
 
 

@@ -10,6 +10,7 @@ from __future__ import annotations
 import json
 import sqlite3
 import uuid
+from datetime import UTC
 from typing import TYPE_CHECKING
 
 import anyio
@@ -622,12 +623,12 @@ class TestReadOnly:
     """The preflight reads the source. It must not migrate, repair or prune it first."""
 
     async def test_the_cli_entry_point_leaves_the_source_as_it_found_it(self, safe_superuser):  # noqa: ARG002
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         from primeagent.__main__ import _migration_preflight
         from primeagent.services.database.models.auth.authz import AuthzAuditLog
 
-        old = AuthzAuditLog(action="flow:read", result="allow", timestamp=datetime(2020, 1, 1, tzinfo=timezone.utc))
+        old = AuthzAuditLog(action="flow:read", result="allow", timestamp=datetime(2020, 1, 1, tzinfo=UTC))
         await _add(old)
         async with session_scope() as session:
             revision_before = (await session.exec(sa.text("SELECT version_num FROM alembic_version"))).all()

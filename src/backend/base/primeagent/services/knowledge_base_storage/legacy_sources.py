@@ -16,7 +16,7 @@ is ambiguous. Callers fail closed on both rather than guess.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
 from primeagent.services.knowledge_base_storage.legacy_directories import (
@@ -356,4 +356,4 @@ def _aware(moment: datetime | None) -> datetime | None:
     """Read a naive timestamp, as SQLite returns them, as UTC."""
     if moment is None or moment.tzinfo is not None:
         return moment
-    return moment.replace(tzinfo=timezone.utc)
+    return moment.replace(tzinfo=UTC)

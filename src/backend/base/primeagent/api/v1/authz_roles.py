@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 from uuid import UUID
 
@@ -486,7 +486,7 @@ async def update_role(
             )
         role.permissions = list(payload.permissions)
 
-    role.updated_at = datetime.now(timezone.utc)
+    role.updated_at = datetime.now(UTC)
     mutation = AuthorizationMutation(
         kind=AuthorizationMutationKind.ROLE_UPDATED,
         entity_id=role.id,

@@ -13,6 +13,7 @@ Run:  uv run pytest src/backend/tests/unit/api/v2/test_mcp_db_store.py -v -s
 import asyncio
 import sqlite3
 import uuid
+from datetime import UTC
 from types import SimpleNamespace
 from unittest.mock import MagicMock, patch
 
@@ -312,11 +313,11 @@ async def test_concurrent_check_existing_create_does_not_overwrite_winner(tmp_pa
 @pytest.mark.asyncio
 async def test_get_server_list_preserves_insertion_order():
     """get_server_list orders by created_at so the starter project stays first, not sorted by name."""
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
 
     engine = await _memory_engine()
     user_id = uuid.uuid4()
-    base = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    base = datetime(2026, 1, 1, tzinfo=UTC)
     # Insert out of alphabetical order, with increasing created_at.
     names = ["lf-starter_project", "aaa_added_later", "zzz_added_last"]
     async with AsyncSession(engine, expire_on_commit=False) as session:

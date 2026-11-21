@@ -23,7 +23,7 @@ without another schema change:
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -325,7 +325,7 @@ class TriggerCleanup(SQLModel, table=True):  # type: ignore[call-arg]
         default=None, sa_column=Column(DateTime(timezone=True), nullable=True)
     )
     available_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False, server_default=func.now(), index=True),
     )
     attempt: int = Field(default=0, sa_column=Column(sa.Integer(), nullable=False, server_default="0"))

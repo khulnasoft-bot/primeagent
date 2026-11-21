@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 from urllib.parse import quote
 
@@ -41,7 +41,7 @@ _CREDENTIAL_RETENTION = timedelta(hours=1)
 
 
 def _aware(value: datetime) -> datetime:
-    return value.replace(tzinfo=timezone.utc) if value.tzinfo is None else value
+    return value.replace(tzinfo=UTC) if value.tzinfo is None else value
 
 
 def _credential_binding(task: TriggerCleanup) -> dict:
@@ -65,7 +65,7 @@ async def preserve_user_cleanup_credentials(session: AsyncSession, *, user_id: U
     """
     await session.flush()
     tasks = (await session.exec(select(TriggerCleanup).where(TriggerCleanup.user_id == user_id))).all()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     for task in tasks:
         if task.encrypted_credential is not None or task.connection_id is None:
             continue
@@ -136,7 +136,7 @@ class _CleanupSnapshotResolver:
             or expiry is None
             or task.credential_expires_at is None
             or expiry != _aware(task.credential_expires_at)
-            or expiry <= datetime.now(timezone.utc)
+            or expiry <= datetime.now(UTC)
         ):
             raise AuthExpiredError(provider=task.provider)
         return ResolvedCredential(
@@ -278,7 +278,7 @@ async def with_mailbox_lease(key, work):
 
 async def run_cleanup_pass(*, limit: int = 25) -> int:
     """Retry cleanup without a trigger row or an open writer during provider I/O."""
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     async with session_scope() as session:
         # Purge independently of available_at: retry backoff must never extend
         # credential retention. The non-secret intent can await provider TTL.
@@ -313,7 +313,7 @@ async def run_cleanup_pass(*, limit: int = 25) -> int:
             continue
         try:
             expiry = task.expires_at
-            expiry = expiry.replace(tzinfo=timezone.utc) if expiry and not expiry.tzinfo else expiry
+            expiry = expiry.replace(tzinfo=UTC) if expiry and not expiry.tzinfo else expiry
             if expiry is None or expiry > now:
                 await run_guarded(_revoke(task), name=name, owner=owner, ttl_s=ttl)
         except Exception as exc:  # noqa: BLE001 - durable cleanup is retryable
@@ -325,7 +325,7 @@ async def run_cleanup_pass(*, limit: int = 25) -> int:
                 if current is not None:
                     current.attempt += 1
                     current.last_error = type(exc).__name__
-                    current.available_at = datetime.now(timezone.utc) + timedelta(
+                    current.available_at = datetime.now(UTC) + timedelta(
                         seconds=min(60 * 2 ** min(current.attempt, 6), 3600)
                     )
                     session.add(current)

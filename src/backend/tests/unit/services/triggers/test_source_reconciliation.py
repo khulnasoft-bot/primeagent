@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import httpx
@@ -37,7 +37,7 @@ async def test_due_push_source_is_scanned_without_a_hint(make_trigger, monkeypat
         calls.append(identifier)
         async with session_scope() as session:
             trigger = await session.get(Trigger, identifier)
-            trigger.next_fire_at = datetime.now(timezone.utc) + timedelta(minutes=5)
+            trigger.next_fire_at = datetime.now(UTC) + timedelta(minutes=5)
             session.add(trigger)
         return 0
 
@@ -131,7 +131,7 @@ async def test_successful_hint_reconciliation_clears_only_its_own_error(make_tri
     async def poll(identifier) -> int:
         async with session_scope() as session:
             trigger = await session.get(Trigger, identifier)
-            trigger.next_fire_at = datetime.now(timezone.utc) + timedelta(minutes=5)
+            trigger.next_fire_at = datetime.now(UTC) + timedelta(minutes=5)
             session.add(trigger)
         return 0
 
@@ -141,7 +141,7 @@ async def test_successful_hint_reconciliation_clears_only_its_own_error(make_tri
         assert (await session.get(TriggerEvent, event_id)).state == "completed"
         trigger = await session.get(Trigger, trigger_id)
         assert trigger.last_error == (None if last_error.startswith("Source reconciliation failed:") else last_error)
-        assert trigger.next_fire_at > datetime.now(timezone.utc).replace(tzinfo=None)
+        assert trigger.next_fire_at > datetime.now(UTC).replace(tzinfo=None)
 
 
 @pytest.mark.parametrize("source_hints", [False, True], ids=["periodic", "hint"])

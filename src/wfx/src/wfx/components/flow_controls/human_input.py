@@ -9,7 +9,7 @@ a ``fallback`` branch is added for when no user action is answered (e.g. after t
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from wfx.custom import Component
@@ -187,7 +187,7 @@ class HumanInput(Component):
             "allowed_decisions": self._allowed_decisions(),
             "timeout_seconds": self._timeout_seconds(),
             "fallback_action": _FALLBACK_ACTION if getattr(self, "enable_fallback", False) else None,
-            "paused_at": datetime.now(timezone.utc).isoformat(),
+            "paused_at": datetime.now(UTC).isoformat(),
         }
 
     def _has_downstream_consumer(self) -> bool:

@@ -15,7 +15,7 @@ produces ticks, and a hard kill costs at most one TTL of latency.
 from __future__ import annotations
 
 import os
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
@@ -34,13 +34,13 @@ def new_owner_token(prefix: str = "trg") -> str:
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _as_aware(value: datetime | None) -> datetime | None:
     if value is None:
         return None
-    return value if value.tzinfo is not None else value.replace(tzinfo=timezone.utc)
+    return value if value.tzinfo is not None else value.replace(tzinfo=UTC)
 
 
 async def acquire(session: AsyncSession, *, name: str, owner: str, ttl_s: float) -> bool:

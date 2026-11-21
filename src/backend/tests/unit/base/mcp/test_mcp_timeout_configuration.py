@@ -6,7 +6,6 @@ long-running MCP tool executions (>30 seconds).
 Related to customer issue TS021996258 (Verizon).
 """
 
-import asyncio
 from unittest.mock import AsyncMock, patch
 
 import pytest
@@ -219,13 +218,13 @@ class TestMCPTimeoutBehavior:
         client._session_context = "test_context"
 
         mock_session = AsyncMock()
-        mock_session.call_tool = AsyncMock(side_effect=[asyncio.TimeoutError(), {"result": "success"}])
+        mock_session.call_tool = AsyncMock(side_effect=[TimeoutError(), {"result": "success"}])
 
         with (
             patch.object(client, "_get_or_create_session", return_value=mock_session),
             patch("asyncio.wait_for") as mock_wait_for,
         ):
-            mock_wait_for.side_effect = [asyncio.TimeoutError(), {"result": "success"}]
+            mock_wait_for.side_effect = [TimeoutError(), {"result": "success"}]
 
             with pytest.raises(ValueError, match="not retried"):
                 await client.run_tool("test_tool", {"arg": "value"})

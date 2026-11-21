@@ -17,7 +17,7 @@ from __future__ import annotations
 import inspect
 import sys
 from collections.abc import Awaitable, Callable
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
 from wfx.graph.checkpoint.resume import resume_graph_with_decision
@@ -68,8 +68,8 @@ def reroute_decision_on_timeout(pending: dict | None, decision: dict) -> dict:
     try:
         paused_dt = datetime.fromisoformat(paused_at)
         if paused_dt.tzinfo is None:
-            paused_dt = paused_dt.replace(tzinfo=timezone.utc)
-        elapsed = (datetime.now(timezone.utc) - paused_dt).total_seconds()
+            paused_dt = paused_dt.replace(tzinfo=UTC)
+        elapsed = (datetime.now(UTC) - paused_dt).total_seconds()
     except (TypeError, ValueError):
         return decision
     if elapsed > timeout_s:

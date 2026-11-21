@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import re
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from uuid import UUID
 
@@ -78,7 +78,7 @@ def parse_timestamp(name: str, value: str) -> datetime:
     offset = match["offset"].upper().replace("Z", "+00:00")
     fraction = f".{match['fraction'].ljust(6, '0')}" if match["fraction"] else ""
     try:
-        return datetime.fromisoformat(f"{match['base'].replace('t', 'T')}{fraction}{offset}").astimezone(timezone.utc)
+        return datetime.fromisoformat(f"{match['base'].replace('t', 'T')}{fraction}{offset}").astimezone(UTC)
     except (OverflowError, ValueError) as exc:
         msg = f"{name} is not a valid timestamp"
         raise bad_request(msg) from exc

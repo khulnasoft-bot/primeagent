@@ -96,7 +96,7 @@ class ModelProviderPolicyRefreshWorker:
         while not self._stop_event.is_set():
             try:
                 await asyncio.wait_for(self._stop_event.wait(), timeout=self._active_interval)
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 try:
                     await self._run_once()
                 except asyncio.CancelledError:

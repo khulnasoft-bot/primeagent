@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Literal
 from urllib.parse import urlencode, urlsplit
 from uuid import uuid4
@@ -41,7 +41,7 @@ def _handoff_digest(value: str) -> str:
 
 
 def _aware(value: datetime) -> datetime:
-    return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
+    return value if value.tzinfo else value.replace(tzinfo=UTC)
 
 
 async def start(
@@ -69,7 +69,7 @@ async def start(
             user_id=user_id,
             registration_id=registration_id,
             config_digest=registration.fingerprint(),
-            expires_at=datetime.now(timezone.utc),
+            expires_at=datetime.now(UTC),
         )
     binding.generation = uuid4()
     binding.user_id = user_id
@@ -79,7 +79,7 @@ async def start(
     binding.browser_digest = _handoff_digest(browser) if registration.context == "desktop" else digest(browser)
     binding.encrypted_verifier = auth_utils.encrypt_api_key(verifier)
     binding.scopes = scopes
-    binding.expires_at = datetime.now(timezone.utc) + timedelta(minutes=10)
+    binding.expires_at = datetime.now(UTC) + timedelta(minutes=10)
     session.add(binding)
     await session.flush()
     if registration.context == "desktop":
@@ -109,7 +109,7 @@ async def bind_desktop_browser(*, provider: str, state: str, handoff: str) -> tu
             .where(
                 col(ConnectionOAuth.state_digest) == digest(state),
                 col(ConnectionOAuth.browser_digest) == _handoff_digest(handoff),
-                col(ConnectionOAuth.expires_at) > datetime.now(timezone.utc),
+                col(ConnectionOAuth.expires_at) > datetime.now(UTC),
             )
             .values(browser_digest=digest(browser))
             .returning(ConnectionOAuth)
@@ -171,7 +171,7 @@ async def complete(*, provider: str, state: str, browser: str, code: str | None,
             reason = ConnectionStatusReason.OAUTH_DENIED
             msg = "OAuth authorization was denied. Start again."
             raise OAuthError(msg)
-        if not code or _aware(values["expires_at"]) <= datetime.now(timezone.utc):
+        if not code or _aware(values["expires_at"]) <= datetime.now(UTC):
             reason = ConnectionStatusReason.OAUTH_EXPIRED
             msg = "OAuth authorization expired. Start again."
             raise OAuthError(msg)
@@ -224,7 +224,7 @@ async def _record_failed_authorization(connection_id: UUID, generation: UUID, re
         if await session.get(ConnectionSecret, connection_id) is None:
             row.status = "error"
         row.status_reason = reason.value
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         row.updated_at = max(now, _aware(row.updated_at) + timedelta(microseconds=1)) if row.updated_at else now
         session.add(row)
 
@@ -243,7 +243,7 @@ async def store_tokens(session: AsyncSession, row: Connection, payload: dict, sc
     # Fresh tokens resolve whatever put the connection in error.
     row.status_reason = None
     row.health = "healthy"
-    row.health_checked_at = datetime.now(timezone.utc)
+    row.health_checked_at = datetime.now(UTC)
     row.updated_at = row.health_checked_at
     session.add(secret)
     session.add(row)
@@ -274,7 +274,7 @@ async def refresh_if_needed(
     rejected = rejected_token_digest is not None and secrets.compare_digest(
         rejected_token_digest, digest(payload["access_token"])
     )
-    if not rejected and (expiry is None or expiry > datetime.now(timezone.utc) + timedelta(seconds=60)):
+    if not rejected and (expiry is None or expiry > datetime.now(UTC) + timedelta(seconds=60)):
         return payload
     if not payload.get("refresh_token"):
         msg = "OAuth authorization expired. Reconnect the connection."

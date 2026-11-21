@@ -32,7 +32,7 @@ import json
 import os
 import re
 import tempfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -145,7 +145,7 @@ def invalidate_catalog_cache() -> None:
 # ---------------------------------------------------------------------------
 
 
-async def fetch_models_dev_snapshot(timeout: float = MODELS_DEV_FETCH_TIMEOUT) -> dict[str, Any] | None:
+async def fetch_models_dev_snapshot(timeout: float = MODELS_DEV_FETCH_TIMEOUT) -> dict[str, Any] | None:  # noqa: ASYNC109
     """Fetch the live models.dev JSON. Returns ``None`` on any failure.
 
     Logs a warning with the URL and HTTP status on transport/protocol errors.
@@ -265,7 +265,7 @@ def _release_date_to_epoch(value: Any) -> int:
         return 0
     try:
         # Date-only ISO 8601; interpret as UTC midnight.
-        dt = datetime.strptime(value[:_RELEASE_DATE_MIN_LEN], "%Y-%m-%d").replace(tzinfo=timezone.utc)
+        dt = datetime.strptime(value[:_RELEASE_DATE_MIN_LEN], "%Y-%m-%d").replace(tzinfo=UTC)
     except ValueError:
         return 0
     return int(dt.timestamp())
@@ -297,7 +297,7 @@ def _translate_model_entry(
       * stale LLM ``last_updated`` / ``release_date`` per :data:`_AGE_DEPRECATION_DAYS`.
     ``now`` is injected for testability — defaults to the current UTC time.
     """
-    now = now or datetime.now(tz=timezone.utc)
+    now = now or datetime.now(tz=UTC)
     model_id = model_dict.get("id") or ""
     modalities = model_dict.get("modalities") or {}
     inputs = modalities.get("input") if isinstance(modalities, dict) else None
@@ -377,7 +377,7 @@ def apply_models_dev_overrides(
     auto-flagged in :func:`_translate_model_entry`. ``now`` is forwarded for
     testability.
     """
-    now = now or datetime.now(tz=timezone.utc)
+    now = now or datetime.now(tz=UTC)
     # Build provider_name -> {model identity} from the static lists so we can
     # preserve the static curation through the override.
     static_deprecated_by_provider: dict[str, set[tuple[str | None, str]]] = {}

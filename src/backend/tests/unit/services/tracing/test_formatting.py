@@ -9,7 +9,7 @@ Covers:
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 from primeagent.services.database.models.traces.model import SpanStatus, SpanTable, SpanType
@@ -26,7 +26,7 @@ from primeagent.services.tracing.formatting import (
 # ---------------------------------------------------------------------------
 
 _TRACE_ID = uuid4()
-_UTC = timezone.utc
+_UTC = UTC
 
 
 def _dt(hour: int, minute: int = 0) -> datetime:

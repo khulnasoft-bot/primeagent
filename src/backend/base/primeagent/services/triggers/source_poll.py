@@ -13,7 +13,7 @@ import hashlib
 import json
 import re
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Any
 from urllib.parse import quote
 
@@ -90,7 +90,7 @@ def _graph_start(trigger: Trigger) -> tuple[str, str, dict[str, Any]]:
     if trigger.kind == "microsoft.calendar":
         window = state.get("window")
         if not isinstance(window, dict):
-            now = datetime.now(timezone.utc)
+            now = datetime.now(UTC)
             window = {
                 "start": (now - timedelta(days=30)).isoformat(),
                 "end": (now + timedelta(days=365)).isoformat(),
@@ -126,9 +126,9 @@ async def _graph_changes(client: SourceHTTP, trigger: Trigger) -> tuple[list[dic
         try:
             window_end = datetime.fromisoformat(str(state["window"]["end"]))
         except (KeyError, TypeError, ValueError):
-            window_end = datetime.min.replace(tzinfo=timezone.utc)
-        if window_end < datetime.now(timezone.utc) + timedelta(days=30):
-            now = datetime.now(timezone.utc)
+            window_end = datetime.min.replace(tzinfo=UTC)
+        if window_end < datetime.now(UTC) + timedelta(days=30):
+            now = datetime.now(UTC)
             params = {
                 "startDateTime": (now - timedelta(days=30)).isoformat(),
                 "endDateTime": (now + timedelta(days=365)).isoformat(),

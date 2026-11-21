@@ -151,10 +151,7 @@ def test_future_import_location_matches_fix_missing_locations() -> None:
     fixed_code = compile(fixed, "<string>", "exec")
     located_code = compile(located, "<string>", "exec")
     # co_positions (line and column spans) exists from Python 3.11; 3.10 has line tables only.
-    if sys.version_info >= (3, 11):
-        assert list(located_code.co_positions()) == list(fixed_code.co_positions())
-    else:
-        assert list(located_code.co_lines()) == list(fixed_code.co_lines())
+    assert list(located_code.co_positions()) == list(fixed_code.co_positions())
 
 
 def _source_line(code: str, text: str) -> int:
@@ -187,8 +184,7 @@ class LineNumberComponent(Component):
     frame = _string_frames(exc_info.value)[-1]
     assert frame.name == "build"
     assert frame.lineno == _source_line(code, '        raise RuntimeError(f"boom {value}")')
-    if sys.version_info >= (3, 11):
-        assert (frame.colno, frame.end_colno) == (8, len('        raise RuntimeError(f"boom {value}")'))
+    assert (frame.colno, frame.end_colno) == (8, len('        raise RuntimeError(f"boom {value}")'))
 
 
 def test_class_body_error_traceback_points_at_failing_line() -> None:

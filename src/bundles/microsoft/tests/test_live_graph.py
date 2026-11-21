@@ -20,7 +20,7 @@ driveItem/message/event identity fields the downstream components read.
 from __future__ import annotations
 
 import os
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 
 import pytest
@@ -64,7 +64,7 @@ async def test_live_outlook_search_returns_messages() -> None:
 
 
 async def test_live_calendar_list_returns_a_window() -> None:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     component = _live(
         OutlookCalendarListComponent,
         start_time=now.isoformat(timespec="seconds"),

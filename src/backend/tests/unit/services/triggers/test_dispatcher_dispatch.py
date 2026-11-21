@@ -8,7 +8,7 @@ edit, and a binding that is reported rather than silently rewritten.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from primeagent.services.database.models.flow.model import Flow
@@ -143,13 +143,13 @@ async def test_a_failed_submit_retries_with_backoff_then_dead_letters(make_trigg
 
 
 def _aware(value: datetime) -> datetime:
-    return value if value.tzinfo is not None else value.replace(tzinfo=timezone.utc)
+    return value if value.tzinfo is not None else value.replace(tzinfo=UTC)
 
 
 async def _make_due(event_id) -> None:
     async with session_scope() as session:
         row = await session.get(TriggerEvent, event_id)
-        row.available_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+        row.available_at = datetime.now(UTC) - timedelta(seconds=1)
         session.add(row)
 
 
@@ -165,7 +165,7 @@ async def test_a_dispatcher_killed_mid_claim_releases_the_lease_and_retries(
         assert [row.id for row in claimed] == [event_id]
         # Simulate the holder dying: the lease is in the past, nothing else changed.
         row = await session.get(TriggerEvent, event_id)
-        row.lease_expires_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+        row.lease_expires_at = datetime.now(UTC) - timedelta(seconds=1)
         session.add(row)
 
     async with session_scope() as session:
@@ -192,7 +192,7 @@ async def test_a_dispatched_row_is_never_swept(make_trigger, fake_background_ser
 
     async with session_scope() as session:
         row = await session.get(TriggerEvent, event_id)
-        row.lease_expires_at = datetime.now(timezone.utc) - timedelta(days=1)
+        row.lease_expires_at = datetime.now(UTC) - timedelta(days=1)
         session.add(row)
 
     async with session_scope() as session:

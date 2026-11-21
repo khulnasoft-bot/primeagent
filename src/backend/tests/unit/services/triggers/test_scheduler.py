@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from zoneinfo import ZoneInfo
 
 import pytest
@@ -26,7 +26,7 @@ WEEKDAYS_AT_8 = "0 8 * * 1-5"
 
 
 def _utc(*args) -> datetime:
-    return datetime(*args, tzinfo=timezone.utc)
+    return datetime(*args, tzinfo=UTC)
 
 
 def test_the_next_fire_time_is_the_local_wall_clock_converted_to_utc() -> None:
@@ -164,7 +164,7 @@ async def test_catch_up_never_reaches_past_the_replay_window(make_trigger) -> No
 
     window_days = get_settings_service().settings.trigger_replay_window_days
     trigger_id = await make_trigger(config=_schedule_config(cron="0 * * * *"))
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     async with session_scope() as session:
         trigger = await session.get(Trigger, trigger_id)
         trigger.next_fire_at = now - timedelta(days=60)

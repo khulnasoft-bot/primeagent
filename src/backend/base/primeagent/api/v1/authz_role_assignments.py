@@ -8,7 +8,7 @@ plugin's cache on write so the next ``enforce()`` picks up the change.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 from uuid import UUID
 
@@ -296,7 +296,7 @@ async def create_assignment(
         role_id=payload.role_id,
         domain_type=payload.domain_type,
         domain_id=payload.domain_id,
-        assigned_at=datetime.now(timezone.utc),
+        assigned_at=datetime.now(UTC),
         assigned_by=current_user.id,
     )
     assignment = (await session.exec(select(AuthzRoleAssignment).where(*_assignment_match(payload)))).first()

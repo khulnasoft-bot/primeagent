@@ -13,6 +13,7 @@ import json
 import re
 import sqlite3
 import uuid
+from datetime import UTC
 from typing import TYPE_CHECKING
 
 import anyio
@@ -798,13 +799,13 @@ class TestReadOnly:
         assert "aaaaaaaaaaaa" in report.checks[0].summary
 
     async def test_the_cli_entry_point_leaves_the_database_as_it_found_it(self, active_user, storage_dir, kb_root):  # noqa: ARG002
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         from primeagent.__main__ import _check_integrity
         from primeagent.services.database.models.auth.authz import AuthzAuditLog
 
         # Startup maintenance prunes audit rows older than the retention window.
-        old = AuthzAuditLog(action="flow:read", result="allow", timestamp=datetime(2020, 1, 1, tzinfo=timezone.utc))
+        old = AuthzAuditLog(action="flow:read", result="allow", timestamp=datetime(2020, 1, 1, tzinfo=UTC))
         await _add(old)
         async with session_scope() as session:
             revision_before = (await session.exec(sa.text("SELECT version_num FROM alembic_version"))).all()

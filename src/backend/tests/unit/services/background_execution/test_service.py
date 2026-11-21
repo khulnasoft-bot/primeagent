@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+from datetime import UTC
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
@@ -350,7 +351,7 @@ async def test_retention_sweep_runs_soon_after_start_then_hourly(monkeypatch):
 
 async def test_retention_sweep_purges_real_rows_and_spares_live_work(monkeypatch):
     """End to end over the real job store: aged terminal rows go, live rows stay."""
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
 
     from primeagent.services.background_execution import service as service_module
     from primeagent.services.database.models.jobs.model import Job, JobType
@@ -358,7 +359,7 @@ async def test_retention_sweep_purges_real_rows_and_spares_live_work(monkeypatch
     from sqlmodel import update
 
     job_service = get_job_service()
-    aged = datetime.now(timezone.utc) - timedelta(days=90)
+    aged = datetime.now(UTC) - timedelta(days=90)
 
     async def _aged_job(status: JobStatus):
         job_id = uuid4()

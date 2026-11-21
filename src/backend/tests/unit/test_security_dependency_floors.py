@@ -3,16 +3,11 @@
 from __future__ import annotations
 
 import runpy
-import sys
+import tomllib
 from pathlib import Path
 
 from packaging.requirements import Requirement
 from packaging.version import Version
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    import tomli as tomllib
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 

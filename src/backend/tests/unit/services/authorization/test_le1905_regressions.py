@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 from uuid import uuid4
@@ -457,7 +457,7 @@ async def test_event_class_filter_selects_and_never_hides_untagged_rows():
             session.add(
                 AuthzAuditLog(
                     id=uuid4(),
-                    timestamp=datetime.now(timezone.utc),
+                    timestamp=datetime.now(UTC),
                     action=action,
                     resource_type=action.split(":")[0],
                     result=audit_module.AUDIT_ALLOW,

@@ -950,7 +950,7 @@ def get_lifespan(*, fix_migration=False, version=None):
                         await logger.awarning(f"drain_pending_audit_writes failed: {drain_exc}")
                     try:
                         await asyncio.wait_for(teardown_services(), timeout=30)
-                    except asyncio.TimeoutError:
+                    except TimeoutError:
                         await logger.awarning("Teardown services timed out after 30s.")
                     finally:
                         # Shut down the code-execution sandbox VMs even when
@@ -971,7 +971,7 @@ def get_lifespan(*, fix_migration=False, version=None):
                     temp_dir_cleanups = [asyncio.to_thread(temp_dir.cleanup) for temp_dir in temp_dirs]
                     try:
                         await asyncio.wait_for(asyncio.gather(*temp_dir_cleanups), timeout=10)
-                    except asyncio.TimeoutError:
+                    except TimeoutError:
                         await logger.awarning("Temporary file cleanup timed out after 10s.")
 
                 # Step 4: Finalizing Shutdown

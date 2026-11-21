@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from fastapi import HTTPException
@@ -39,8 +39,8 @@ def to_http_error(exc: DataSubjectError) -> HTTPException:
 
 
 def request_read(request: DataSubjectRequest) -> DataSubjectRequestRead:
-    due_at = request.due_at if request.due_at.tzinfo else request.due_at.replace(tzinfo=timezone.utc)
-    overdue = request.status not in {s.value for s in CLOSED_STATUSES} and due_at < datetime.now(timezone.utc)
+    due_at = request.due_at if request.due_at.tzinfo else request.due_at.replace(tzinfo=UTC)
+    overdue = request.status not in {s.value for s in CLOSED_STATUSES} and due_at < datetime.now(UTC)
     return DataSubjectRequestRead.model_validate({**request.model_dump(), "overdue": overdue})
 
 

@@ -9,7 +9,7 @@ grant-scopes affordances would never fire.
 from __future__ import annotations
 
 from dataclasses import replace
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from conftest import FakeResolver, SlackTransport, load_fixture
@@ -336,7 +336,7 @@ async def test_a_multi_request_action_uses_a_proactively_refreshed_token(
     monkeypatch: pytest.MonkeyPatch,
     transport: SlackTransport,
 ) -> None:
-    now = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    now = datetime(2026, 1, 1, tzinfo=UTC)
     expires_at = now + timedelta(hours=1)
     resolver = FakeResolver(tokens=["xoxp-first", "xoxp-refreshed"])  # pragma: allowlist secret
     original_resolve = resolver.resolve

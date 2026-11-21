@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 from uuid import UUID, uuid4
@@ -49,7 +49,7 @@ class JobBase(SQLModel):
         ),
     )
     created_timestamp: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )
     finished_timestamp: datetime | None = Field(
@@ -142,7 +142,7 @@ class JobEvent(SQLModel, table=True):  # type: ignore[call-arg]
         sa_column=Column(JsonVariant, nullable=True),
     )
     created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )
 
@@ -181,7 +181,7 @@ class ExecutionSignal(SQLModel, table=True):  # type: ignore[call-arg]
         sa_column=Column(JsonVariant, nullable=True),
     )
     created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )
     consumed_at: datetime | None = Field(
@@ -207,10 +207,10 @@ class JobCheckpoint(SQLModel, table=True):  # type: ignore[call-arg]
     kind: str = Field(sa_column=Column(String, nullable=False))
     blob: str = Field(sa_column=Column(Text, nullable=False))
     created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )
     updated_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )

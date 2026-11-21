@@ -711,12 +711,10 @@ class TestClassifyIntentTokenUsage:
 
     @pytest.mark.asyncio
     async def test_should_return_none_tokens_when_translation_flow_times_out(self):
-        import asyncio
-
         with patch(
             "primeagent.agentic.services.helpers.intent_classification.execute_flow_file",
             new_callable=AsyncMock,
-            side_effect=asyncio.TimeoutError(),
+            side_effect=TimeoutError(),
         ):
             result = await classify_intent(text="hi", global_variables={})
 

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any, Literal
 from uuid import UUID
@@ -339,7 +339,7 @@ class VertexBuildResponse(BaseModel):
     """JSON string of the params."""
     data: ResultDataResponse
     """Mapping of vertex ids to result dict containing the param name and result value."""
-    timestamp: datetime | None = Field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime | None = Field(default_factory=lambda: datetime.now(UTC))
     """Timestamp of the build."""
 
     @field_serializer("data")

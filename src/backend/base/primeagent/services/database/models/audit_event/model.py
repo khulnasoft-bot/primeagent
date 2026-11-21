@@ -7,7 +7,7 @@ state. Nothing here names a flow or a project: a new resource is a new
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -120,4 +120,4 @@ def as_utc(value: datetime | None) -> datetime:
     if value is None:
         msg = "Database-generated audit timestamp is missing"
         raise ValueError(msg)
-    return value.replace(tzinfo=timezone.utc) if value.tzinfo is None else value.astimezone(timezone.utc)
+    return value.replace(tzinfo=UTC) if value.tzinfo is None else value.astimezone(UTC)

@@ -6,7 +6,7 @@ import os
 import threading
 import types
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from urllib.parse import urlparse
 
@@ -350,7 +350,7 @@ class TraceloopTracer(BaseTracer):
 
     @staticmethod
     def _get_current_timestamp() -> int:
-        return int(datetime.now(timezone.utc).timestamp() * 1_000_000_000)
+        return int(datetime.now(UTC).timestamp() * 1_000_000_000)
 
     @override
     def get_langchain_callback(self) -> BaseCallbackHandler | None:

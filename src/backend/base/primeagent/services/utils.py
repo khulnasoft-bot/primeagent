@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from importlib import import_module
 from pathlib import Path
@@ -495,7 +494,7 @@ async def teardown_superuser(settings_service: SettingsService, session: AsyncSe
         if not user.password or any(auth.verify_password(default, user.password) for default in defaults):
             user.password = auth.get_password_hash(token_urlsafe(32))
         user.is_active = False
-        user.retired_at = datetime.now(timezone.utc)
+        user.retired_at = datetime.now(UTC)
         session.add(user)
         await logger.awarning(
             f"AUTO_LOGIN is off, so the default superuser '{DEFAULT_SUPERUSER}' was deactivated: its "
@@ -567,7 +566,7 @@ async def clean_transactions(settings_service: SettingsService, session: AsyncSe
 
         await session.exec(delete_stmt)
         logger.debug("Successfully cleaned up old transactions")
-    except (sqlalchemy_exc.SQLAlchemyError, asyncio.TimeoutError) as exc:
+    except (TimeoutError, sqlalchemy_exc.SQLAlchemyError) as exc:
         logger.error(f"Error cleaning up transactions: {exc!s}")
         # Don't re-raise since this is a cleanup task
 
@@ -593,11 +592,11 @@ async def clean_authz_audit_log(settings_service: SettingsService, session: Asyn
         logger.debug("authz_audit_log retention disabled (AUTHZ_AUDIT_RETENTION_DAYS=%d)", retention_days)
         return 0
 
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
 
     from primeagent.services.database.models.auth import AuthzAuditLog
 
-    cutoff = datetime.now(timezone.utc) - timedelta(days=retention_days)
+    cutoff = datetime.now(UTC) - timedelta(days=retention_days)
     try:
         delete_stmt = delete(AuthzAuditLog).where(col(AuthzAuditLog.timestamp) < cutoff)
         result = await session.exec(delete_stmt)
@@ -608,7 +607,7 @@ async def clean_authz_audit_log(settings_service: SettingsService, session: Asyn
             deleted_count if deleted_count >= 0 else "?",
             retention_days,
         )
-    except (sqlalchemy_exc.SQLAlchemyError, asyncio.TimeoutError) as exc:
+    except (TimeoutError, sqlalchemy_exc.SQLAlchemyError) as exc:
         logger.warning("authz_audit_log cleanup failed: %s", exc)
         return -1
     else:
@@ -637,7 +636,7 @@ async def clean_vertex_builds(settings_service: SettingsService, session: AsyncS
 
         await session.exec(delete_stmt)
         logger.debug("Successfully cleaned up old vertex builds")
-    except (sqlalchemy_exc.SQLAlchemyError, asyncio.TimeoutError) as exc:
+    except (TimeoutError, sqlalchemy_exc.SQLAlchemyError) as exc:
         logger.error(f"Error cleaning up vertex builds: {exc!s}")
         # Don't re-raise since this is a cleanup task
 

@@ -8,7 +8,7 @@ import shutil
 import zipfile
 from collections import defaultdict
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import AnyStr
@@ -737,10 +737,7 @@ def get_project_data(project):
     project_description = project.get("description")
     project_is_component = project.get("is_component")
     project_updated_at = project.get("updated_at")
-    if not project_updated_at:
-        updated_at_datetime = datetime.now(tz=timezone.utc)
-    else:
-        updated_at_datetime = datetime.fromisoformat(project_updated_at)
+    updated_at_datetime = datetime.now(tz=UTC) if not project_updated_at else datetime.fromisoformat(project_updated_at)
     project_data = project.get("data")
     project_icon = project.get("icon")
     project_icon = demojize(project_icon) if project_icon and purely_emoji(project_icon) else project_icon
@@ -1312,7 +1309,7 @@ async def upsert_flow_from_file(file_content: AnyStr, filename: str, session: As
                 if key == "data" and settings.load_flows_preserve_variable_bindings:
                     incoming_value = _merge_variable_bindings(existing.data, incoming_value)
                 setattr(existing, key, incoming_value)
-        existing.updated_at = datetime.now(tz=timezone.utc).astimezone()
+        existing.updated_at = datetime.now(tz=UTC).astimezone()
         existing.user_id = user_id
 
         # Ensure that the flow is associated with an existing default folder
@@ -1329,7 +1326,7 @@ async def upsert_flow_from_file(file_content: AnyStr, filename: str, session: As
         flow["user_id"] = user_id
         flow["folder_id"] = folder.id
         flow = Flow.model_validate(flow)
-        flow.updated_at = datetime.now(tz=timezone.utc).astimezone()
+        flow.updated_at = datetime.now(tz=UTC).astimezone()
 
         session.add(flow)
 
@@ -1664,7 +1661,7 @@ async def sync_flows_from_fs():
                                             # The warm registry reconciles executable data by
                                             # updated_at, so filesystem writers must advance it in
                                             # the same transaction as the Flow fields they replace.
-                                            flow.updated_at = datetime.now(timezone.utc)
+                                            flow.updated_at = datetime.now(UTC)
                                         await session.flush()
                                         await session.refresh(flow)
                                     except Exception:  # noqa: BLE001

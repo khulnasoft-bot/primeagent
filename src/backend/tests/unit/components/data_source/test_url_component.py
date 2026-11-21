@@ -296,7 +296,7 @@ class _RecordingStream(httpcore.AsyncMockStream):
         super().__init__(buffer)
         self.sent = b""
 
-    async def write(self, buffer: bytes, timeout: float | None = None) -> None:  # noqa: ARG002
+    async def write(self, buffer: bytes, timeout: float | None = None) -> None:  # noqa: ARG002, ASYNC109
         """Capture outgoing request bytes for header assertions."""
         self.sent += buffer
 

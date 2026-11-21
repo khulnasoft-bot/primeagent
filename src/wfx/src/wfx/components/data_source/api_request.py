@@ -1,7 +1,7 @@
 import json
 import re
 import tempfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urlencode, urljoin, urlparse, urlunparse
@@ -332,7 +332,7 @@ class APIRequestComponent(Component):
         url: str,
         headers: dict | None = None,
         body: Any = None,
-        timeout: int = 5,
+        timeout: int = 5,  # noqa: ASYNC109
         *,
         follow_redirects: bool = False,
         save_to_file: bool = False,
@@ -679,7 +679,7 @@ class APIRequestComponent(Component):
         url: str,
         headers: dict | None,
         body: Any,
-        timeout: int,
+        timeout: int,  # noqa: ASYNC109
         validated_ips: list[str],
         *,
         save_to_file: bool = False,
@@ -872,7 +872,7 @@ class APIRequestComponent(Component):
                 pass  # File created successfully, we can use this path
         except FileExistsError:
             # If file exists, append a timestamp to the filename
-            timestamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S%f")
+            timestamp = datetime.now(UTC).strftime("%Y%m%d%H%M%S%f")
             file_path = component_temp_dir / f"{timestamp}-{filename}"
 
         return is_binary, file_path

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -677,7 +677,7 @@ async def test_authz_edit_lock_persists(authz_async_session: AsyncSession):
     await authz_async_session.commit()
     await authz_async_session.refresh(flow)
 
-    expires = datetime.now(timezone.utc) + timedelta(minutes=15)
+    expires = datetime.now(UTC) + timedelta(minutes=15)
     lock = AuthzEditLock(flow_id=flow.id, holder_user_id=user.id, expires_at=expires)
     authz_async_session.add(lock)
     await authz_async_session.commit()

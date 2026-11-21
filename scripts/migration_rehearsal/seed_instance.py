@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 import asyncio
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from uuid import UUID
 
@@ -73,7 +73,7 @@ async def main() -> None:
     await initialize_database()
     # Taken after the schema exists, so seeded rows are not older than the rows
     # alembic seeds (the system roles, policy bundle revision 1).
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     import sqlalchemy as sa
     from primeagent.services.auth.utils import encrypt_api_key, get_password_hash

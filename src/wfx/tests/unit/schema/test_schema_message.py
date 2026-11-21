@@ -1,7 +1,7 @@
 import base64
 import importlib
 import shutil
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import uuid4
@@ -184,7 +184,7 @@ def test_message_serialization():
     # Create a timestamp with timezone
     message = Message(text="Test message", sender=MESSAGE_SENDER_USER)
     timestamp_str = message.timestamp
-    timestamp_dt = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc)
+    timestamp_dt = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=UTC)
 
     serialized = message.model_dump()
 
@@ -192,8 +192,8 @@ def test_message_serialization():
     assert serialized["sender"] == MESSAGE_SENDER_USER
     assert serialized["timestamp"] == timestamp_str
 
-    parsed = datetime.strptime(serialized["timestamp"], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc)
-    assert parsed.tzinfo == timezone.utc
+    parsed = datetime.strptime(serialized["timestamp"], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=UTC)
+    assert parsed.tzinfo == UTC
     assert parsed == timestamp_dt
 
 
@@ -210,14 +210,14 @@ def test_timestamp_serialization():
     # Test with timezone
     msg1 = Message(text="Test message", sender=MESSAGE_SENDER_USER, timestamp="2023-12-25 15:30:45 UTC")
     serialized1 = msg1.model_dump()
-    ts1 = datetime.strptime(serialized1["timestamp"], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc)
-    assert ts1.tzinfo == timezone.utc
+    ts1 = datetime.strptime(serialized1["timestamp"], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=UTC)
+    assert ts1.tzinfo == UTC
 
     # Test without timezone
     msg2 = Message(text="Test message", sender=MESSAGE_SENDER_USER, timestamp="2023-12-25 15:30:45")
     serialized2 = msg2.model_dump()
-    ts2 = datetime.strptime(serialized2["timestamp"], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc)
-    assert ts2.tzinfo == timezone.utc
+    ts2 = datetime.strptime(serialized2["timestamp"], "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=UTC)
+    assert ts2.tzinfo == UTC
 
     # Test that both formats result in equivalent UTC times when appropriate
     msg_with_tz = Message(text="Test message", sender=MESSAGE_SENDER_USER, timestamp="2023-12-25 15:30:45 UTC")
@@ -226,8 +226,8 @@ def test_timestamp_serialization():
     ser_with_tz = msg_with_tz.model_dump()["timestamp"]
     ser_without_tz = msg_without_tz.model_dump()["timestamp"]
 
-    parsed_with_tz = datetime.strptime(ser_with_tz, "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc)
-    parsed_without_tz = datetime.strptime(ser_without_tz, "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=timezone.utc)
+    parsed_with_tz = datetime.strptime(ser_with_tz, "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=UTC)
+    parsed_without_tz = datetime.strptime(ser_without_tz, "%Y-%m-%d %H:%M:%S.%f %Z").replace(tzinfo=UTC)
 
     assert parsed_with_tz == parsed_without_tz
 

@@ -7,7 +7,7 @@ import threading
 import traceback
 import types
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
 from langchain_core.documents import Document
@@ -387,7 +387,7 @@ class ArizePhoenixTracer(BaseTracer):
     @staticmethod
     def _get_current_timestamp() -> int:
         """Gets the current UTC timestamp in nanoseconds."""
-        return int(datetime.now(timezone.utc).timestamp() * 1_000_000_000)
+        return int(datetime.now(UTC).timestamp() * 1_000_000_000)
 
     @staticmethod
     def _safe_json_dumps(obj: Any, **kwargs: Any) -> str:

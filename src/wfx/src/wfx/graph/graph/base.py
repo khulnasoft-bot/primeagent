@@ -6,12 +6,11 @@ import contextvars
 import copy
 import json
 import queue
-import sys
 import threading
 import traceback
 import uuid
 from collections import defaultdict, deque
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import partial
 from itertools import chain
 from typing import TYPE_CHECKING, Any, cast
@@ -199,7 +198,7 @@ class Graph:
         # anonymous serving-plane runs (ephemeral); bound per component execution
         # in get_instance_results so astore_message can skip the DB write.
         self.persist_messages: bool = True
-        self._start_time = datetime.now(timezone.utc)
+        self._start_time = datetime.now(UTC)
         self.inactivated_vertices: set = set()
         # Branch stops are transient and must be released by the vertex that
         # created them. The graph can execute sibling vertices concurrently, so
@@ -1133,21 +1132,14 @@ class Graph:
 
         async def async_end_traces_func():
             coro = self.end_all_traces(outputs, error)
-            if sys.version_info >= (3, 11):
-                await asyncio.create_task(coro, context=context)
-            else:
-                # Python 3.10's asyncio.create_task does not accept context=.
-                # Invoke create_task inside the captured context so the new
-                # Task copies it as its current context.
-                task = context.run(asyncio.create_task, coro)
-                await task
+            await asyncio.create_task(coro, context=context)
 
         return async_end_traces_func
 
     async def end_all_traces(self, outputs: dict[str, Any] | None = None, error: Exception | None = None) -> None:
         if not self.tracing_service:
             return
-        self._end_time = datetime.now(timezone.utc)
+        self._end_time = datetime.now(UTC)
         if outputs is None:
             outputs = {}
         outputs |= self.metadata

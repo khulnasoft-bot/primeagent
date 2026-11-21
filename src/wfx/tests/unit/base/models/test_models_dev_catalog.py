@@ -15,7 +15,7 @@ Covers:
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 from unittest.mock import AsyncMock, MagicMock, patch
 
@@ -430,7 +430,7 @@ def test_apply_overrides_marks_dated_snapshot_ids_deprecated():
         },
     }
 
-    fixed_now = datetime(2026, 5, 18, tzinfo=timezone.utc)
+    fixed_now = datetime(2026, 5, 18, tzinfo=UTC)
     result = apply_models_dev_overrides([], snapshot, now=fixed_now)
     by_name: dict[str, dict] = {}
     for group in result:
@@ -489,7 +489,7 @@ def test_apply_overrides_preserves_gemini_1_5_static_deprecation():
             },
         }
     }
-    fixed_now = datetime(2026, 5, 18, tzinfo=timezone.utc)
+    fixed_now = datetime(2026, 5, 18, tzinfo=UTC)
     result = apply_models_dev_overrides([GOOGLE_GENERATIVE_AI_MODELS_DETAILED], snapshot, now=fixed_now)
     by_name = {m["name"]: m for group in result for m in group}
 
@@ -578,7 +578,7 @@ def test_apply_overrides_marks_embedding_family_as_embeddings_model_type():
     }
     # Use a fixed "now" so the age-based deprecation doesn't interfere with
     # this test's assertions on model_type.
-    fixed_now = datetime(2024, 6, 1, tzinfo=timezone.utc)
+    fixed_now = datetime(2024, 6, 1, tzinfo=UTC)
     result = apply_models_dev_overrides([], snapshot, now=fixed_now)
     by_name = {m["name"]: m for group in result for m in group}
 
@@ -596,7 +596,7 @@ def test_apply_overrides_auto_deprecates_stale_language_models_only():
     """
     from wfx.base.models.models_dev_catalog import apply_models_dev_overrides
 
-    fixed_now = datetime(2026, 7, 14, tzinfo=timezone.utc)
+    fixed_now = datetime(2026, 7, 14, tzinfo=UTC)
     snapshot = {
         "openai": {
             "id": "openai",
@@ -674,7 +674,7 @@ def test_apply_overrides_drops_subsequent_static_groups_for_overridden_provider(
         }
     }
 
-    fixed_now = datetime(2026, 5, 18, tzinfo=timezone.utc)
+    fixed_now = datetime(2026, 5, 18, tzinfo=UTC)
     result = apply_models_dev_overrides([static_openai_llms, static_openai_embeddings], snapshot, now=fixed_now)
 
     # Flatten and collect duplicates by name.

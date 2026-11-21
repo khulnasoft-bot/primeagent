@@ -3,6 +3,7 @@
 Security invariants and validation behaviour that must not regress.
 """
 
+from datetime import UTC
 from uuid import uuid4
 
 import pytest
@@ -323,9 +324,9 @@ class TestDeploymentSnapshotListResponse:
 
 class TestDeploymentFlowVersionListSchemas:
     def test_flow_version_list_item_uses_attached_at(self):
-        from datetime import datetime, timezone
+        from datetime import datetime
 
-        now = datetime.now(tz=timezone.utc)
+        now = datetime.now(tz=UTC)
         item = DeploymentFlowVersionListItem(
             id=uuid4(),
             flow_id=uuid4(),

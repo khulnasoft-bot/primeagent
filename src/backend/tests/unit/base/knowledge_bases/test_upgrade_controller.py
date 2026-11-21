@@ -47,7 +47,7 @@ time.sleep(300)
 """
 
 
-async def _until(predicate, timeout=10):
+async def _until(predicate, timeout=10):  # noqa: ASYNC109
     """Wait with a deadline for a disposable process to reach the required state."""
     deadline = asyncio.get_running_loop().time() + timeout
     while not predicate():

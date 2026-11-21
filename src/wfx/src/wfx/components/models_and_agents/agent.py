@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from collections.abc import Mapping
 from contextlib import contextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any, cast
 
 from langchain.agents import create_agent
@@ -540,7 +540,7 @@ class AgentComponent(ToolApprovalMixin, ToolCallingAgentComponent):
         replacements = {
             # Day precision keeps the system prompt byte-identical across turns so
             # providers can serve the chat history from their prompt cache.
-            "{current_date}": datetime.now(tz=timezone.utc).date().isoformat(),
+            "{current_date}": datetime.now(tz=UTC).date().isoformat(),
             "{model_name}": self._get_resolved_model_name(),
             "{optional_user_context}": "",
         }

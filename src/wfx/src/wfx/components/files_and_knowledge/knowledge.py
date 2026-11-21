@@ -22,7 +22,7 @@ import uuid
 from collections.abc import Awaitable, Mapping
 from contextlib import aclosing
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any, TypeVar
 
 import anyio
@@ -1378,7 +1378,7 @@ class KnowledgeComponent(Component):
                 "column_metadata": column_metadata,
                 "path": str(kb_path),
                 "config_columns": len(config_list),
-                "timestamp": datetime.now(tz=timezone.utc).isoformat(),
+                "timestamp": datetime.now(tz=UTC).isoformat(),
             }
 
             if run_summary is not None:

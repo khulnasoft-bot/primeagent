@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 import sqlalchemy as sa
@@ -28,7 +28,7 @@ class MemoryBase(MemoryBaseBase, table=True):  # type: ignore[call-arg]
     # kb_name is auto-generated at creation time — not user-supplied
     kb_name: str = Field(default="")
     created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )
 
@@ -294,10 +294,10 @@ class MemoryBasePreprocessingOutput(SQLModel, table=True):  # type: ignore[call-
     source_message_ids: list = Field(default_factory=list, sa_column=Column(JSON(), nullable=False))
     model_used: str = Field(sa_column=Column(sa.String(), nullable=False))
     created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )
     updated_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )

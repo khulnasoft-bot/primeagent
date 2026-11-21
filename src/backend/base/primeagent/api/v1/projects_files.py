@@ -5,7 +5,7 @@ Extracted from projects.py to reduce file size and separate file I/O concerns.
 
 import io
 import zipfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 from uuid import UUID
 
@@ -99,7 +99,7 @@ async def download_project_flows(
 
         zip_stream.seek(0)
 
-        current_time = datetime.now(tz=timezone.utc).astimezone().strftime("%Y%m%d_%H%M%S")
+        current_time = datetime.now(tz=UTC).astimezone().strftime("%Y%m%d_%H%M%S")
         filename = f"{current_time}_{project.name}_flows.zip"
 
         return StreamingResponse(

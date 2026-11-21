@@ -3,18 +3,13 @@
 from __future__ import annotations
 
 import json
-import sys
+import tomllib
 from pathlib import Path
 
 import pytest
 import wfx_microsoft
 from wfx.extension import load_extension, validate_extension
 from wfx.extension.migration import MIGRATION_TABLE_PATH
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:  # pragma: no cover - the py3.10 matrix leg
-    import tomli as tomllib
 
 PACKAGE_ROOT = Path(wfx_microsoft.__file__).resolve().parent
 BUNDLE_DIR = PACKAGE_ROOT.parents[1]

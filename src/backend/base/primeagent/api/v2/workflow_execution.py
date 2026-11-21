@@ -417,7 +417,7 @@ async def _stream_event_frames(
                 )
         except asyncio.CancelledError:
             raise
-        except asyncio.TimeoutError:
+        except TimeoutError:
             # Wall-clock ceiling hit. Surface it as a sanitized terminal error
             # through the guaranteed-fallback block below: stream/public clients
             # see a clean RUN_ERROR/error and a background job is marked FAILED.
@@ -726,7 +726,7 @@ async def execute_sync_workflow_with_timeout(
             ),
             timeout=_resolve_execution_timeout(),
         )
-    except asyncio.TimeoutError as e:
+    except TimeoutError as e:
         raise WorkflowTimeoutError from e
 
 
@@ -1060,7 +1060,7 @@ async def execute_sync_workflow(
         # Re-raise CancelledError to allow timeout mechanism to work properly
         # This ensures asyncio.wait_for() can properly cancel and raise TimeoutError
         raise
-    except asyncio.TimeoutError as e:
+    except TimeoutError as e:
         # Re-raise TimeoutError to allow timeout mechanism to work properly
         # This ensures asyncio.wait_for() can properly cancel and raise TimeoutError
         raise WorkflowTimeoutError from e

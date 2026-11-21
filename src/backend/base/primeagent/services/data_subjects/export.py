@@ -9,7 +9,7 @@ from __future__ import annotations
 import json
 import tempfile
 import zipfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import PurePosixPath
 from typing import TYPE_CHECKING, Any
 
@@ -75,7 +75,7 @@ def _manifest(subject_type: str, actor_id: UUID | None) -> dict[str, Any]:
     return {
         "format": "primeagent-data-subject-export/1",
         "subject_type": subject_type,
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": datetime.now(UTC).isoformat(),
         "generated_by": str(actor_id) if actor_id else None,
     }
 

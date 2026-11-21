@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, cast
 from uuid import uuid4
 
@@ -39,7 +39,7 @@ _TEST_PASSWORD = "hashed"  # noqa: S105  # pragma: allowlist secret
 
 
 def _utcnow() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _create_sqlite_engine() -> AsyncEngine:

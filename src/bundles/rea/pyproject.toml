@@ -3,7 +3,7 @@ name = "wfx-rea"
 version = "0.1.0"
 description = "REA reverse-engineering components for PrimeAgent WFX"
 readme = "README.md"
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.11,<3.15"
 license = { text = "MIT" }
 dependencies = ["wfx>=1.13.0.dev0,<2.0.0"]
 

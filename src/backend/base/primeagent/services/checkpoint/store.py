@@ -15,7 +15,7 @@ scan if ever wired onto a request. The in-memory store keeps them for standalone
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -36,7 +36,7 @@ _SCAN_UNSUPPORTED = (
 
 
 def _expired(checkpoint: GraphCheckpoint) -> bool:
-    return checkpoint.expires_at is not None and checkpoint.expires_at <= datetime.now(timezone.utc)
+    return checkpoint.expires_at is not None and checkpoint.expires_at <= datetime.now(UTC)
 
 
 def _as_uuid(value: str) -> UUID | None:

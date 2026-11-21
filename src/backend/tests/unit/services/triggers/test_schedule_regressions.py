@@ -1,6 +1,6 @@
 """Schedule polling preserves current ticks and isolates bad configuration."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from primeagent.services.database.models.trigger.model import Trigger, TriggerEvent
@@ -9,7 +9,7 @@ from primeagent.services.triggers.scheduler import MAX_REPORTED_MISSED_TICKS, pr
 from sqlmodel import select
 
 pytestmark = pytest.mark.no_blockbuster
-NOW = datetime(2026, 9, 14, 12, tzinfo=timezone.utc)
+NOW = datetime(2026, 9, 14, 12, tzinfo=UTC)
 
 
 @pytest.mark.parametrize("delay", [0, 1, 4])

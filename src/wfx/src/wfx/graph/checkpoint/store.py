@@ -7,7 +7,7 @@ store lands in LE-1441 behind this same interface.
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -47,7 +47,7 @@ class CheckpointStore(ABC):
 
 
 def _expired(checkpoint: GraphCheckpoint) -> bool:
-    return checkpoint.expires_at is not None and checkpoint.expires_at <= datetime.now(timezone.utc)
+    return checkpoint.expires_at is not None and checkpoint.expires_at <= datetime.now(UTC)
 
 
 class InMemoryCheckpointStore(CheckpointStore):

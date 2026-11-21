@@ -1,7 +1,7 @@
 # Path: src/backend/primeagent/services/database/models/flow/model.py
 
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import TYPE_CHECKING, Optional
 from uuid import UUID, uuid4
@@ -61,7 +61,7 @@ def _serialize_flow_datetime(value):
         # and I want 2024-05-29T17:57:17-05:00
         value = value.replace(microsecond=0)
         if value.tzinfo is None:
-            value = value.replace(tzinfo=timezone.utc)
+            value = value.replace(tzinfo=UTC)
         return value.isoformat()
     return value
 
@@ -89,7 +89,7 @@ class FlowBase(SQLModel):
     gradient: str | None = Field(default=None, nullable=True)
     data: dict | None = Field(default=None, nullable=True)
     is_component: bool | None = Field(default=False, nullable=True)
-    updated_at: datetime | None = Field(default_factory=lambda: datetime.now(timezone.utc), nullable=True)
+    updated_at: datetime | None = Field(default_factory=lambda: datetime.now(UTC), nullable=True)
     webhook: bool | None = Field(default=False, nullable=True, description="Can be used on the webhook endpoint")
     endpoint_name: str | None = Field(default=None, nullable=True, index=True)
     tags: list[str] | None = None

@@ -100,7 +100,7 @@ async def _run_async(
     session_id: str | None,
     user_id: str | None,
     timing: bool,
-    timeout: float | None,
+    timeout: float | None,  # noqa: ASYNC109
 ) -> dict[str, Any]:
     """Invoke ``run_flow()`` with an optional timeout; always returns a dict."""
     from wfx.run.base import RunError, run_flow
@@ -121,7 +121,7 @@ async def _run_async(
         if timeout is not None:
             return await asyncio.wait_for(_inner(), timeout=timeout)
         return await _inner()
-    except asyncio.TimeoutError:
+    except TimeoutError:
         return {
             "success": False,
             "type": "error",
@@ -365,7 +365,7 @@ class AsyncLocalFlowRunner(_BaseLocalFlowRunner):
         tweaks: dict[str, dict[str, Any]] | None = None,
         global_variables: dict[str, str] | None = None,
         env_file: str | Path | None = None,
-        timeout: float | None = None,
+        timeout: float | None = None,  # noqa: ASYNC109
         check_variables: bool = False,
         session_id: str | None = None,
         user_id: str | None = None,

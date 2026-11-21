@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import json
 import traceback
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from wfx.integrations import (
@@ -98,7 +98,7 @@ async def test_json_wire_format_and_scopes(variable_service: VariableService) ->
             {
                 "access_token": "short-lived",
                 "token_type": "Bearer",
-                "expires_at": (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat(),
+                "expires_at": (datetime.now(UTC) + timedelta(hours=1)).isoformat(),
                 "scopes": ["drive.read"],
                 "account": {"id": "acct-1", "display": "Work"},
             }
@@ -166,7 +166,7 @@ async def test_expired_credential_is_typed(variable_service: VariableService) ->
         json.dumps(
             {
                 "access_token": "expired",
-                "expires_at": (datetime.now(timezone.utc) - timedelta(minutes=1)).isoformat(),
+                "expires_at": (datetime.now(UTC) - timedelta(minutes=1)).isoformat(),
             }
         ),
     )

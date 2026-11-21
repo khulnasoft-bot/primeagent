@@ -35,7 +35,7 @@ For more information, see [Configure an external PostgreSQL database](/configura
 3.  Configure PrimeAgent with the `.env` or `docker-compose.yml` files.
 
     <Tabs groupId="environment">
-<TabItem value=".env" label=".env" default>
+    <TabItem value=".env" label=".env" default>
     1. Create a `.env` file in the `primeagent` directory:
 
        ```shell
@@ -51,7 +51,7 @@ For more information, see [Configure an external PostgreSQL database](/configura
     For more environment variables, see the `.env.example` file in the PrimeAgent repository.
 
     </TabItem>
-<TabItem value="docker-compose.yml" label="docker-compose.yml">
+    <TabItem value="docker-compose.yml" label="docker-compose.yml">
 
     Use the sample `docker-compose.yml` from the PrimeAgent Repository.
     You can use the default values or customize them as needed.
@@ -83,24 +83,24 @@ For more information, see [Configure an external PostgreSQL database](/configura
     ```
 
     </TabItem>
-</Tabs>
+    </Tabs>
 
 4.  Start PrimeAgent with your PostgreSQL connection:
 
     <Tabs groupId="environment">
-  <TabItem value=".env" label=".env" default>
+    <TabItem value=".env" label=".env" default>
 
     ```shell
     uv run primeagent run --env-file .env
     ```
 
-      </TabItem>
-  <TabItem value="docker-compose.yml" label="docker-compose.yml">
+    </TabItem>
+    <TabItem value="docker-compose.yml" label="docker-compose.yml">
 
     Navigate to the directory containing `docker-compose.yml`, and then run `docker-compose up`.
 
-      </TabItem>
-</Tabs>
+    </TabItem>
+    </Tabs>
 
 5.  Optional: Run migrations.
 

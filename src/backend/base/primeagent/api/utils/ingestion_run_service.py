@@ -20,7 +20,7 @@ would block connection-pool slots for large background jobs.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from uuid import UUID
 
@@ -134,7 +134,7 @@ async def create_run(
             "source_config": source_config,
             "user_metadata": user_metadata or {},
             "status": IngestionRunStatus.PENDING.value,
-            "started_at": datetime.now(timezone.utc).isoformat(),
+            "started_at": datetime.now(UTC).isoformat(),
             # Legacy alias preserved for any code path still referring
             # to ``ingestion_run_id``. Equal to ``job_id`` post-cutover.
             "ingestion_run_id": str(job_id),
@@ -167,7 +167,7 @@ async def finalize_run(
     and swallowed.
     """
     serialized_items = [_serialize_item(item) for item in summary.items]
-    finished_at = datetime.now(timezone.utc)
+    finished_at = datetime.now(UTC)
     try:
         await _patch_job_metadata(
             run_id,

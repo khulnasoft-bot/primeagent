@@ -10,7 +10,7 @@ from __future__ import annotations
 import asyncio
 import os
 from collections import OrderedDict
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid5
 
@@ -102,7 +102,7 @@ class NativeTracer(BaseTracer):
         # Rolled up into the component span's attributes so the UI can show per-component token counts.
         self._component_tokens: dict[str, dict[str, int]] = {}
 
-        self._start_time = datetime.now(tz=timezone.utc)
+        self._start_time = datetime.now(tz=UTC)
 
         # Awaited by TracingService.end_tracers() to guarantee the DB write completes before the response returns.
         self._flush_task: asyncio.Task | None = None
@@ -142,7 +142,7 @@ class NativeTracer(BaseTracer):
         if not self._ready:
             return
 
-        start_time = datetime.now(tz=timezone.utc)
+        start_time = datetime.now(tz=UTC)
 
         # Strip the component ID suffix so the UI shows a clean display name.
         name = trace_name.removesuffix(f" ({trace_id})")
@@ -179,7 +179,7 @@ class NativeTracer(BaseTracer):
         if not self._ready:
             return
 
-        end_time = datetime.now(tz=timezone.utc)
+        end_time = datetime.now(tz=UTC)
 
         span_info = self.spans.pop(trace_id, None)
         if not span_info:
@@ -277,7 +277,7 @@ class NativeTracer(BaseTracer):
         """
         if not self.spans:
             return
-        end_time = datetime.now(tz=timezone.utc)
+        end_time = datetime.now(tz=UTC)
         for trace_id, span_info in list(self.spans.items()):
             self.spans.pop(trace_id, None)
             start_time = span_info["start_time"]
@@ -318,7 +318,7 @@ class NativeTracer(BaseTracer):
                     flow_uuid,
                 )
 
-            end_time = datetime.now(tz=timezone.utc)
+            end_time = datetime.now(tz=UTC)
             total_latency_ms = int((end_time - self._start_time).total_seconds() * 1000)
 
             # Propagate any child span error to the trace so the UI can filter by status.
@@ -429,7 +429,7 @@ class NativeTracer(BaseTracer):
         if not self._ready:
             return
 
-        start_time = datetime.now(tz=timezone.utc)
+        start_time = datetime.now(tz=UTC)
 
         # Keyed by span_id so end_langchain_span can look up the matching start data.
         self.langchain_spans[span_id] = {
@@ -471,7 +471,7 @@ class NativeTracer(BaseTracer):
         if not span_info:
             return
 
-        end_time = datetime.now(tz=timezone.utc)
+        end_time = datetime.now(tz=UTC)
         start_time = span_info["start_time"]
         actual_latency = int((end_time - start_time).total_seconds() * 1000)
 

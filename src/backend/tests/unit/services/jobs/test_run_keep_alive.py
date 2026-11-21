@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import asyncio
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock
 
 import anyio
@@ -337,7 +337,7 @@ async def test_memory_base_ingestion_is_not_swept_while_it_runs(trigger, active_
         threshold=1,
         kb_name="live_mb_kb",
         auto_capture=True,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     memory_session = MemoryBaseSession(id=uuid.uuid4(), memory_base_id=memory_base.id, session_id="sess-1")
     gate = _Gate()

@@ -1727,7 +1727,7 @@ class MCPSessionManager:
         except asyncio.CancelledError:
             self._abort_session_task(task)
             raise
-        except asyncio.TimeoutError as timeout_err:
+        except TimeoutError as timeout_err:
             # Clean up the failed task
             if not task.done():
                 task.cancel()
@@ -1925,7 +1925,7 @@ class MCPSessionManager:
         except asyncio.CancelledError:
             self._abort_session_task(task)
             raise
-        except asyncio.TimeoutError as timeout_err:
+        except TimeoutError as timeout_err:
             if not task.done():
                 task.cancel()
                 with contextlib.suppress(asyncio.CancelledError):

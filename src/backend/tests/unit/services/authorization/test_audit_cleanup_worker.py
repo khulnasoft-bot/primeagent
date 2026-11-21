@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import asyncio
 import contextlib
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 from uuid import uuid4
@@ -36,7 +36,7 @@ def _svc(*, enabled: bool, retention: int, interval: int = 86400) -> SimpleNames
 
 
 def _audit_row(*, days_old: int, resource_id=None) -> AuthzAuditLog:
-    timestamp = datetime.now(timezone.utc) - timedelta(days=days_old)
+    timestamp = datetime.now(UTC) - timedelta(days=days_old)
     return AuthzAuditLog(
         user_id=uuid4(),
         action="flow:read",

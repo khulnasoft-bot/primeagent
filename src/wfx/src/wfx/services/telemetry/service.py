@@ -9,7 +9,7 @@ import os
 import platform
 import traceback
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 import httpx
@@ -56,7 +56,7 @@ class TelemetryService(BaseTelemetryService):
         self._worker_task: asyncio.Task | None = None
         self._running = False
         self._stopping = False
-        self._start_time = datetime.now(timezone.utc)
+        self._start_time = datetime.now(UTC)
 
         self._common_fields = {
             "primeagent_version": self._get_version(),
@@ -77,7 +77,7 @@ class TelemetryService(BaseTelemetryService):
         if self._running or self.do_not_track or not self.write_key:
             return
         self._running = True
-        self._start_time = datetime.now(timezone.utc)
+        self._start_time = datetime.now(UTC)
         self._client = httpx.AsyncClient(timeout=10.0)
         self._worker_task = asyncio.create_task(self._worker())
 
@@ -131,7 +131,7 @@ class TelemetryService(BaseTelemetryService):
                 "event": event,
                 "messageId": str(uuid.uuid4()),
                 "properties": properties,
-                "timestamp": datetime.now(timezone.utc).isoformat(),
+                "timestamp": datetime.now(UTC).isoformat(),
             }
 
             resp = await self._client.post(self.base_url, auth=(self.write_key, ""), json=body)
@@ -152,7 +152,7 @@ class TelemetryService(BaseTelemetryService):
         await self._enqueue(payload, "integration_action")
 
     async def log_package_shutdown(self) -> None:
-        elapsed = int((datetime.now(timezone.utc) - self._start_time).total_seconds())
+        elapsed = int((datetime.now(UTC) - self._start_time).total_seconds())
         await self._enqueue(ShutdownPayload(time_running=elapsed), "shutdown")
 
     async def log_package_version(self) -> None:

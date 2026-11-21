@@ -668,7 +668,7 @@ class MCPToolsComponent(ComponentWithCache):
                             len(current_servers_cache),
                         )
 
-            except (TimeoutError, asyncio.TimeoutError) as e:
+            except TimeoutError as e:
                 msg = (
                     f"Timeout updating tool list: {e!s}. "
                     "Raise ``PRIMEAGENT_MCP_SERVER_TIMEOUT`` for the deployment if the MCP "
@@ -699,7 +699,7 @@ class MCPToolsComponent(ComponentWithCache):
                             self.tools, build_config["mcp_server"]["value"] = await self.update_tool_list()
                             build_config["tool"]["options"] = [tool.name for tool in self.tools]
                             build_config["tool"]["placeholder"] = "Select a tool"
-                        except (TimeoutError, asyncio.TimeoutError) as e:
+                        except TimeoutError as e:
                             msg = f"Timeout updating tool list: {e!s}"
                             await logger.aexception(msg)
                             if not build_config["tools_metadata"]["show"]:
@@ -865,7 +865,7 @@ class MCPToolsComponent(ComponentWithCache):
                             )
                             build_config["tool"]["options"] = [tool.name for tool in self.tools]
                             build_config["tool"]["placeholder"] = "Select a tool"
-                        except (TimeoutError, asyncio.TimeoutError) as e:
+                        except TimeoutError as e:
                             msg = f"Timeout loading tools for MCP server: {e!s}"
                             await logger.aexception(msg)
                             build_config["tool"]["options"] = []
@@ -901,7 +901,7 @@ class MCPToolsComponent(ComponentWithCache):
                         self.tools, build_config["mcp_server"]["value"] = await self.update_tool_list()
                         build_config["tool"]["options"] = [tool.name for tool in self.tools]
                         build_config["tool"]["placeholder"] = "Select a tool"
-                    except (TimeoutError, asyncio.TimeoutError) as e:
+                    except TimeoutError as e:
                         msg = f"Timeout loading tools when toggling tool mode: {e!s}"
                         await logger.aexception(msg)
                         build_config["tool"]["options"] = []

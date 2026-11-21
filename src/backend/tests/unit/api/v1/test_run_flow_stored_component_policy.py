@@ -11,6 +11,7 @@ stored ones.
 
 from __future__ import annotations
 
+from datetime import UTC
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, Mock
 from uuid import uuid4
@@ -35,14 +36,14 @@ def _stored_graph(source: str) -> dict:
 
 
 def _make_flow(user_id, data: dict):
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     return SimpleNamespace(
         id=uuid4(),
         user_id=user_id,
         name="stored",
         data=data,
-        updated_at=datetime(2026, 8, 5, 12, tzinfo=timezone.utc),
+        updated_at=datetime(2026, 8, 5, 12, tzinfo=UTC),
     )
 
 

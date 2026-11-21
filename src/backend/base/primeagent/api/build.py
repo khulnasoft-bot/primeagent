@@ -358,7 +358,7 @@ async def get_flow_events_response(
         except asyncio.CancelledError as exc:
             await logger.ainfo(f"Event polling was cancelled for job {job_id}")
             raise HTTPException(status_code=499, detail="Event polling was cancelled") from exc
-        except asyncio.TimeoutError:
+        except TimeoutError:
             await logger.awarning(f"Timeout while waiting for events for job {job_id}")
             return Response(content="", media_type="application/x-ndjson")  # Return empty response instead of error
 

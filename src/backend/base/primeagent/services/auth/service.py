@@ -7,7 +7,7 @@ import time
 import warnings
 from collections import OrderedDict
 from collections.abc import Awaitable, Callable, Coroutine, Iterable, Mapping
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -527,8 +527,8 @@ class AuthService(BaseAuthService):
 
             # Check expiration
             if expires := payload.get("exp", None):
-                expires_datetime = datetime.fromtimestamp(expires, timezone.utc)
-                if datetime.now(timezone.utc) > expires_datetime:
+                expires_datetime = datetime.fromtimestamp(expires, UTC)
+                if datetime.now(UTC) > expires_datetime:
                     logger.info("Token expired for user")
                     msg = "Token has expired"
                     raise TokenExpiredError(msg)
@@ -796,7 +796,7 @@ class AuthService(BaseAuthService):
                 snapshot=DirectoryMembershipSnapshot(
                     provider_id=identity.provider,
                     source="external_bearer",
-                    observed_at=datetime.now(timezone.utc),
+                    observed_at=datetime.now(UTC),
                     user_id=user.id,
                     provider_user_id=identity.subject,
                     memberships=groups,
@@ -948,7 +948,7 @@ class AuthService(BaseAuthService):
     async def _materialize_external_user(self, identity: ExternalIdentity, db: AsyncSession) -> User:
         """Find-or-create the local user backing an external identity."""
         import secrets
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         from sqlalchemy.exc import IntegrityError
         from sqlmodel import select
@@ -969,7 +969,7 @@ class AuthService(BaseAuthService):
             if not user.is_active:
                 msg = "User account is inactive"
                 raise InactiveUserError(msg)
-            now = datetime.now(timezone.utc)
+            now = datetime.now(UTC)
             # Only overwrite the stored email when the token carries one; a later
             # token that omits the email claim must not erase a previously stored
             # address.
@@ -982,7 +982,7 @@ class AuthService(BaseAuthService):
 
         username = await self._unique_external_username(db, identity)
         random_password = secrets.token_urlsafe(48)
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         user = User(
             username=username,
             password=self.get_password_hash(random_password),
@@ -1380,7 +1380,7 @@ class AuthService(BaseAuthService):
 
         settings_service = self.settings
         to_encode = data.copy()
-        expire = datetime.now(timezone.utc) + expires_delta
+        expire = datetime.now(UTC) + expires_delta
         to_encode["exp"] = expire
 
         signing_key = get_jwt_signing_key(settings_service)

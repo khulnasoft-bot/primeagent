@@ -12,7 +12,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from types import SimpleNamespace
 from uuid import UUID
@@ -67,7 +67,7 @@ async def _touch_flow(flow_id: str, new_name: str) -> None:
     async with session_scope() as session:
         flow = (await session.exec(select(Flow).where(Flow.id == UUID(flow_id)))).first()
         flow.name = new_name
-        flow.updated_at = datetime.now(timezone.utc)
+        flow.updated_at = datetime.now(UTC)
         session.add(flow)
 
 
@@ -81,7 +81,7 @@ async def _replace_flow_data(flow_id: str, data: dict) -> None:
     async with session_scope() as session:
         flow = (await session.exec(select(Flow).where(Flow.id == UUID(flow_id)))).first()
         flow.data = data
-        flow.updated_at = datetime.now(timezone.utc)
+        flow.updated_at = datetime.now(UTC)
         session.add(flow)
 
 

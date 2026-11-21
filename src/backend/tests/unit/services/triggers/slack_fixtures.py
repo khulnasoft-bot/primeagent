@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import copy
 import json
+from datetime import UTC
 from pathlib import Path
 from typing import Any
 
@@ -176,7 +177,7 @@ async def make_oauth_connection(
     name: str | None = None,
 ):
     """An OAuth bot installation of ``registration_id`` in workspace ``team_id``."""
-    from datetime import datetime, timezone
+    from datetime import datetime
     from uuid import uuid4
 
     from primeagent.services.database.models.connection.model import Connection
@@ -204,7 +205,7 @@ async def make_oauth_connection(
                 registration_id=registration_id,
                 config_digest="0" * 64,
                 scopes=["chat:write"],
-                expires_at=datetime.now(timezone.utc),
+                expires_at=datetime.now(UTC),
             )
         )
         await session.flush()

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -20,7 +20,7 @@ from tests.unit.services.data_subjects._seed import create_user
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 @pytest.fixture
@@ -59,7 +59,7 @@ async def test_should_set_the_due_date_from_the_response_days_setting(monkeypatc
 
     async with session_scope() as session:
         request = await session.get(DataSubjectRequest, request_id)
-    due_at = request.due_at if request.due_at.tzinfo else request.due_at.replace(tzinfo=timezone.utc)
+    due_at = request.due_at if request.due_at.tzinfo else request.due_at.replace(tzinfo=UTC)
     assert timedelta(days=9, hours=23) < due_at - _now() <= timedelta(days=10)
 
 

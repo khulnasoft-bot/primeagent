@@ -12,9 +12,8 @@ get_current_active_user) are mocked so no real database is required.
 
 from __future__ import annotations
 
-import asyncio
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import UUID, uuid4
 
@@ -59,7 +58,7 @@ def _make_trace_summary(**kwargs) -> TraceSummaryRead:
         "id": _FAKE_TRACE_ID,
         "name": "Test Trace",
         "status": SpanStatus.OK,
-        "start_time": datetime(2024, 1, 1, tzinfo=timezone.utc),
+        "start_time": datetime(2024, 1, 1, tzinfo=UTC),
         "total_latency_ms": 100,
         "total_tokens": 50,
         "flow_id": _FAKE_FLOW_ID,
@@ -76,8 +75,8 @@ def _make_trace_read(**kwargs) -> TraceRead:
         "id": _FAKE_TRACE_ID,
         "name": "Test Trace",
         "status": SpanStatus.OK,
-        "start_time": datetime(2024, 1, 1, tzinfo=timezone.utc),
-        "end_time": datetime(2024, 1, 1, 0, 0, 1, tzinfo=timezone.utc),
+        "start_time": datetime(2024, 1, 1, tzinfo=UTC),
+        "end_time": datetime(2024, 1, 1, 0, 0, 1, tzinfo=UTC),
         "total_latency_ms": 100,
         "total_tokens": 50,
         "flow_id": _FAKE_FLOW_ID,
@@ -115,7 +114,7 @@ class TestGetTraces:
 
     def test_should_return_empty_list_on_timeout(self, client: TestClient):
         async def _fetch(*_args, **_kwargs):
-            raise asyncio.TimeoutError
+            raise TimeoutError
 
         with patch("primeagent.api.v1.traces.fetch_traces", side_effect=_fetch):
             resp = client.get(self._PATH)
@@ -255,7 +254,7 @@ class TestGetTrace:
 
     def test_should_return_504_on_timeout(self, client: TestClient):
         async def _fetch(_user_id, _trace_id):
-            raise asyncio.TimeoutError
+            raise TimeoutError
 
         with patch("primeagent.api.v1.traces.fetch_single_trace", side_effect=_fetch):
             resp = client.get(self._path())

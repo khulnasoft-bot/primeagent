@@ -6,12 +6,12 @@ import argparse
 import hashlib
 import json
 import sys
+import tomllib
 from contextlib import suppress
 from importlib import metadata
 from pathlib import Path
 from typing import Any
 
-import tomllib
 from packaging.requirements import Requirement
 from packaging.specifiers import SpecifierSet
 from packaging.utils import canonicalize_name

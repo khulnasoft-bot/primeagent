@@ -7,7 +7,7 @@ admin decides what to cancel.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from urllib.parse import quote
 
@@ -91,7 +91,7 @@ async def live_listeners(session: AsyncSession) -> list[dict[str, Any]]:
     the lease when it is stopped.
     """
     leases = await session.exec(select(TriggerLease).where(col(TriggerLease.name).startswith(PRESENCE_PREFIX)))
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     # A lease that has run out belongs to a listener that was killed.
     return [
         {"holder": lease.owner, "heartbeat_at": _utc(lease.heartbeat_at).isoformat()}
@@ -115,4 +115,4 @@ def _cancel(job: Job, knowledge_base: str | None) -> dict[str, Any] | None:
 
 def _utc(moment: datetime) -> datetime:
     # SQLite reads a time back without its zone.
-    return moment if moment.tzinfo else moment.replace(tzinfo=timezone.utc)
+    return moment if moment.tzinfo else moment.replace(tzinfo=UTC)

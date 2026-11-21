@@ -12,13 +12,12 @@ from collections.abc import Iterator
 from datetime import datetime
 from pathlib import Path
 from threading import Lock, Semaphore, local
-from typing import Any, TypedDict
+from typing import Any, NotRequired, TypedDict
 
 import orjson
 import structlog
 from loguru import logger as loguru_logger
 from platformdirs import user_cache_dir
-from typing_extensions import NotRequired
 
 from wfx.settings import DEV
 
@@ -87,7 +86,7 @@ class SizedLogBuffer:
 
         if isinstance(timestamp, str):
             # Parse ISO format timestamp
-            dt = datetime.fromisoformat(timestamp.replace("Z", "+00:00"))
+            dt = datetime.fromisoformat(timestamp)
             epoch = int(dt.timestamp() * 1000)
         else:
             epoch = int(timestamp * 1000)

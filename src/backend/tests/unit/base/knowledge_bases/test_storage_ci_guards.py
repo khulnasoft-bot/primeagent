@@ -2,7 +2,6 @@
 
 import importlib.util
 import subprocess
-import sys
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -23,8 +22,6 @@ def load_guard(name):
 @pytest.fixture
 def inventory(tmp_path, monkeypatch):
     """Keep release inventory tests independent of installed application packages."""
-    if sys.version_info < (3, 11):
-        pytest.skip("The universal-export CI script runs under Python 3.13 and uses tomllib")
     guard = load_guard("check_chroma_removal")
     (tmp_path / "uv.lock").write_text('[[package]]\nname = "wfx"\n')
     base = tmp_path / "src/backend/base"

@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import copy
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from decimal import Decimal
 from typing import TYPE_CHECKING, cast
 from uuid import UUID
@@ -29,7 +29,7 @@ if TYPE_CHECKING:
 
 def custom_serializer(obj):
     if isinstance(obj, datetime):
-        utc_date = obj.replace(tzinfo=timezone.utc)
+        utc_date = obj.replace(tzinfo=UTC)
         return utc_date.strftime("%Y-%m-%d %H:%M:%S %Z")
     if isinstance(obj, Decimal):
         return float(obj)

@@ -9,7 +9,7 @@ credential material.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import get_args
 from uuid import uuid4
 
@@ -245,9 +245,9 @@ def test_connection_read_json_round_trip_carries_no_token_material() -> None:
         ),
         allow_non_interactive=False,
         has_credentials=True,
-        health_checked_at=datetime.now(timezone.utc),
-        created_at=datetime.now(timezone.utc),
-        updated_at=datetime.now(timezone.utc),
+        health_checked_at=datetime.now(UTC),
+        created_at=datetime.now(UTC),
+        updated_at=datetime.now(UTC),
     )
 
     rendered = read.model_dump_json()

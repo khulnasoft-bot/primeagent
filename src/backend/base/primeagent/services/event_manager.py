@@ -128,7 +128,7 @@ class WebhookEventManager:
         for queue in listeners:
             try:
                 await asyncio.wait_for(queue.put(event), timeout=SSE_EMIT_TIMEOUT_SECONDS)
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 # Queue is full (slow consumer), skip this event
                 logger.warning(f"Queue full for flow {flow_id}, dropping event {event_type}")
             except Exception as e:  # noqa: BLE001

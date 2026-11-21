@@ -1,6 +1,6 @@
 """Durable, credential-free ledger for local vector-store upgrades."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -27,5 +27,5 @@ class KnowledgeBaseStorageMigration(SQLModel, table=True):  # type: ignore[call-
     error_code: str | None = Field(default=None)
     coordinator: str | None = Field(default=None)
     validation: dict[str, Any] = Field(default_factory=dict, sa_column=sa.Column(JsonVariant, nullable=False))
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), nullable=False)
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), nullable=False)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC), nullable=False)
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC), nullable=False)

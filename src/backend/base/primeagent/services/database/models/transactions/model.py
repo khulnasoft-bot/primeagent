@@ -1,5 +1,5 @@
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -111,7 +111,7 @@ def sanitize_data(data: dict[str, Any] | None) -> dict[str, Any] | None:
 
 
 class TransactionBase(SQLModel):
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     vertex_id: str = Field(nullable=False)
     target_id: str | None = Field(default=None)
     inputs: dict | None = Field(default=None, sa_column=Column(JSON))
@@ -174,7 +174,7 @@ class TransactionLogsResponse(SQLModel):
     model_config = {"populate_by_name": True, "from_attributes": True}
 
     id: UUID
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     vertex_id: str = Field(nullable=False)
     target_id: str | None = Field(default=None)
     inputs: dict | None = Field(default=None)

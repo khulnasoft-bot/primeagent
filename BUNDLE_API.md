@@ -224,6 +224,14 @@ the deserialize half is covered by
 
 ## Changelog
 
+- **Python 3.11 baseline cleanup (2026-11-22).** Internal-only modernizations
+  required by dropping Python 3.10: `manifest.py` now imports `tomllib`
+  unconditionally, `integrations/models.py` and
+  `services/connection/env_resolver.py` use `datetime.UTC` instead of
+  `datetime.timezone.utc`, and `custom/custom_component/component.py` catches
+  `TimeoutError` directly. No public symbol names or signatures change, so
+  `BUNDLE_API_VERSION` remains `1`.
+
 - **Google Workspace network diagnostics (2026-10-15).** `wfx.integrations` exports
   `IntegrationNetworkError` with the additive `network-error` code. Google transport
   failures report a fixed reason and API hostname, with server-network guidance in

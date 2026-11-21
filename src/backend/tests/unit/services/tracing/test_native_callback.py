@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import UTC
 from unittest.mock import MagicMock
 from uuid import UUID, uuid4
 
@@ -116,11 +117,11 @@ class TestInternalHelpers:
 
     def test_get_start_time_returns_now_for_unknown_run(self):
         handler, _ = _make_handler()
-        from datetime import datetime, timezone
+        from datetime import datetime
 
-        before = datetime.now(timezone.utc)
+        before = datetime.now(UTC)
         t = handler._get_start_time(uuid4())
-        after = datetime.now(timezone.utc)
+        after = datetime.now(UTC)
         assert before <= t <= after
 
     def test_calculate_latency_returns_non_negative(self):

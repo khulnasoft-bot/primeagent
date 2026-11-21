@@ -2,17 +2,12 @@
 
 from __future__ import annotations
 
-import sys
+import tomllib
 from pathlib import Path
 
 from packaging.markers import default_environment
 from packaging.requirements import Requirement
 from packaging.version import Version
-
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    import tomli as tomllib
 
 REPO_ROOT = Path(__file__).resolve().parents[4]
 CRYPTOGRAPHY_FLOOR = Version("50.0.0")
@@ -86,7 +81,7 @@ def test_floor_guard_rejects_excluding_only_one_vulnerable_version() -> None:
 def test_pip_facing_extras_pin_the_highest_cryptography_50_compatible_release() -> None:
     """CUGA wheel metadata must expose the uv compatibility choice to pip."""
     environments = []
-    for python_version in ("3.10", "3.11", "3.12", "3.13", "3.14"):
+    for python_version in ("3.11", "3.12", "3.13", "3.14"):
         for sys_platform, platform_machine in (
             ("linux", "x86_64"),
             ("win32", "AMD64"),

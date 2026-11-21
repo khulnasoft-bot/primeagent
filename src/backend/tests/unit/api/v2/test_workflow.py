@@ -11,7 +11,7 @@ Test Organization:
     - TestWorkflowIDORProtection: cross-user ownership enforcement
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import UUID, uuid4
@@ -131,7 +131,7 @@ class TestWorkflowStatus:
         mock_job.status = JobStatus.QUEUED
         mock_job.type = JobType.WORKFLOW
         mock_job.user_id = None
-        mock_job.created_timestamp = datetime.now(timezone.utc)
+        mock_job.created_timestamp = datetime.now(UTC)
 
         with patch("primeagent.api.v2.workflow.get_job_service") as mock_get_job_service:
             mock_service = MagicMock()

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 import sqlalchemy as sa
@@ -30,5 +30,5 @@ class MCPServer(SQLModel, table=True):  # type: ignore[call-arg]
     config: dict | None = Field(default=None, sa_column=Column(JSON))
     enabled: bool = Field(default=True)
     version: int = Field(default=1)
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))

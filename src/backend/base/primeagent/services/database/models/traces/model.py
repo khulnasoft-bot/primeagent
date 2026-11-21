@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any, Optional
 from uuid import UUID, uuid4
@@ -144,7 +144,7 @@ class TraceBase(SQLModel):
         description="Overall trace status",
     )
     start_time: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         description="When the trace started",
     )
     end_time: datetime | None = Field(default=None, description="When the trace ended")
@@ -302,7 +302,7 @@ class SpanBase(SQLModel):
         description="Execution status",
     )
     start_time: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         description="When the span started",
     )
     end_time: datetime | None = Field(default=None, description="When the span ended")

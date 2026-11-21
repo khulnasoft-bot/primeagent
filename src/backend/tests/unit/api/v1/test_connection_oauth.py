@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from urllib.parse import parse_qs, urlsplit
 from uuid import UUID
 
@@ -161,7 +161,7 @@ async def test_desktop_handoff_rejects_invalidated_attempts(client, logged_in_he
     if failure == "expired":
         async with session_scope() as session:
             binding = await session.get(ConnectionOAuth, UUID(row["id"]))
-            binding.expires_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+            binding.expires_at = datetime.now(UTC) - timedelta(seconds=1)
             session.add(binding)
     elif failure == "revoked":
         assert (
@@ -450,7 +450,7 @@ async def test_failed_callback_consumes_state_without_storing_credentials(
             if failure == "pkce":
                 state.encrypted_verifier = auth_utils.encrypt_api_key("incorrect-verifier")
             else:
-                state.expires_at = datetime.now(timezone.utc) - timedelta(minutes=1)
+                state.expires_at = datetime.now(UTC) - timedelta(minutes=1)
             session.add(state)
     if failure == "unconfigured":
         monkeypatch.setenv("PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS", "{}")
@@ -529,7 +529,7 @@ async def test_parallel_refresh_and_reactive_refresh_keep_rotated_tokens(client,
     async with session_scope() as session:
         secret = await session.get(ConnectionSecret, UUID(row["id"]))
         payload = _decrypt_credential_payload(secret.encrypted_payload)
-        payload["expires_at"] = (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
+        payload["expires_at"] = (datetime.now(UTC) - timedelta(seconds=1)).isoformat()
         secret.encrypted_payload = _encrypt_credential_payload(json.dumps(payload))
         session.add(secret)
     calls = []
@@ -651,7 +651,7 @@ async def test_unfinished_reconnect_keeps_the_saved_grant_usable(
     if outcome == "expired":
         async with session_scope() as session:
             binding = await session.get(ConnectionOAuth, UUID(row["id"]))
-            binding.expires_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+            binding.expires_at = datetime.now(UTC) - timedelta(seconds=1)
             session.add(binding)
     if outcome != "abandoned":
         provider_double(monkeypatch, pending_query, reject=outcome == "failed_exchange")
@@ -661,7 +661,7 @@ async def test_unfinished_reconnect_keeps_the_saved_grant_usable(
         async with session_scope() as session:
             secret = await session.get(ConnectionSecret, UUID(row["id"]))
             payload = _decrypt_credential_payload(secret.encrypted_payload)
-            payload["expires_at"] = (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
+            payload["expires_at"] = (datetime.now(UTC) - timedelta(seconds=1)).isoformat()
             secret.encrypted_payload = _encrypt_credential_payload(json.dumps(payload))
             session.add(secret)
     calls = provider_double(monkeypatch, query)

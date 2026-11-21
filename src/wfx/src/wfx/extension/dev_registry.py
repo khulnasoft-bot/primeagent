@@ -49,7 +49,7 @@ import os
 import stat
 import tempfile
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -124,7 +124,7 @@ class DevExtensionEntry:
 
 
 def _utcnow_iso() -> str:
-    return datetime.now(tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return datetime.now(tz=UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 # ---------------------------------------------------------------------------

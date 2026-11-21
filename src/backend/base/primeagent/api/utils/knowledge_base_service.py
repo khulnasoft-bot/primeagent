@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from uuid import UUID, uuid4
@@ -421,7 +421,7 @@ async def update_stats(
             row.chunk_overlap = chunk_overlap
         if not isinstance(separator, _UnsetType):
             row.separator = separator
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         session.add(row)
         await session.commit()
 
@@ -443,7 +443,7 @@ async def update_status(
             return
         row.status = status.value
         row.failure_reason = failure_reason
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         session.add(row)
         await session.commit()
 
@@ -462,7 +462,7 @@ async def update_column_config(
         if row is None:
             return
         row.column_config = column_config
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         session.add(row)
         await session.commit()
 

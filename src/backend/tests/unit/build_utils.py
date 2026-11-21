@@ -32,7 +32,7 @@ async def get_build_events(client: AsyncClient, job_id: str, headers: dict[str, 
     return await client.get(f"api/v1/build/{job_id}/events", headers=headers_with_accept)
 
 
-async def consume_and_assert_stream(response, job_id, timeout=30.0):
+async def consume_and_assert_stream(response, job_id, timeout=30.0):  # noqa: ASYNC109
     """Consume the event stream and assert the expected event structure.
 
     Args:
@@ -109,7 +109,7 @@ async def consume_and_assert_stream(response, job_id, timeout=30.0):
                     logger.debug(f"Processed {count} events so far")
 
         await asyncio.wait_for(process_events(), timeout=timeout)
-    except asyncio.TimeoutError as e:
+    except TimeoutError as e:
         # If we timed out, logger.debug what we have so far and fail the test
         events_summary = "\n".join(
             f"{i}: {line[:80]}..." if len(line) > 80 else f"{i}: {line}" for i, line in enumerate(lines)

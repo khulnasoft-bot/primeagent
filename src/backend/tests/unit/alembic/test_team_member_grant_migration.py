@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import importlib
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 import sqlalchemy as sa
@@ -38,7 +38,7 @@ def test_upgrade_backfills_manual_and_unresolved_legacy_without_name_linking(mon
     engine, membership = _database()
     manual_id = uuid4()
     legacy_id = uuid4()
-    timestamp = datetime(2026, 8, 26, tzinfo=timezone.utc)
+    timestamp = datetime(2026, 8, 26, tzinfo=UTC)
     with engine.begin() as connection:
         connection.execute(
             membership.insert(),

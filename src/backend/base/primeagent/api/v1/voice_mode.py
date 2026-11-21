@@ -7,7 +7,7 @@ import traceback
 import uuid
 from collections import defaultdict
 from contextlib import ExitStack
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import lru_cache, partial
 from typing import Any
 from uuid import UUID, uuid4
@@ -300,7 +300,7 @@ async def add_message_to_db(message, session, flow_id, session_id, sender, sende
         message_tasks[queue_key] = asyncio.create_task(process_message_queue(queue_key, session))
 
 
-async def wait_for_sender_change(queue_key, current_sender, timeout=5):
+async def wait_for_sender_change(queue_key, current_sender, timeout=5):  # noqa: ASYNC109
     """Wait until the last sender for this session is not the same as current_sender.
 
     or until the timeout expires.
@@ -604,14 +604,14 @@ def pcm16_to_float_array(pcm_data):
     return values / 32768.0
 
 
-async def text_chunker_with_timeout(chunks, timeout=0.3):
+async def text_chunker_with_timeout(chunks, timeout=0.3):  # noqa: ASYNC109
     splitters = (".", ",", "?", "!", ";", ":", "—", "-", "(", ")", "[", "]", "}", " ")
     buffer = ""
     ait = chunks.__aiter__()
     while True:
         try:
             text = await asyncio.wait_for(ait.__anext__(), timeout=timeout)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             if buffer:
                 yield buffer + " "
                 buffer = ""
@@ -858,7 +858,7 @@ async def flow_as_tool_websocket(
 
             async def process_vad_audio() -> None:
                 nonlocal vad_audio_buffer
-                last_speech_time = datetime.now(tz=timezone.utc)
+                last_speech_time = datetime.now(tz=UTC)
                 vad = get_vad()
                 while True:
                     base64_data = await vad_queue.get()
@@ -881,10 +881,10 @@ async def flow_as_tool_websocket(
                             await logger.aerror(f"[ERROR] VAD processing failed (ValueError): {e}")
                             continue
                     if has_speech:
-                        last_speech_time = datetime.now(tz=timezone.utc)
+                        last_speech_time = datetime.now(tz=UTC)
                         logger.trace(".", end="")
                     else:
-                        time_since_speech = (datetime.now(tz=timezone.utc) - last_speech_time).total_seconds()
+                        time_since_speech = (datetime.now(tz=UTC) - last_speech_time).total_seconds()
                         if time_since_speech >= 1.0:
                             logger.trace("_", end="")
 

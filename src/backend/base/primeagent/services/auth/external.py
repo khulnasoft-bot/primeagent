@@ -17,7 +17,7 @@ import json
 import time
 from collections.abc import Awaitable, Callable, Mapping
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any, Protocol, TypeAlias, TypeVar, cast
 from urllib.parse import urlparse
 
@@ -263,7 +263,7 @@ def access_context_from_identity(
 
 
 def _validate_trusted_time_claims(claims: Mapping[str, Any]) -> None:
-    now = datetime.now(timezone.utc).timestamp()
+    now = datetime.now(UTC).timestamp()
     exp = claims.get("exp")
     # A token that omits exp never expires. Require it on the trusted-decode
     # path too so a credential without an expiry is rejected rather than

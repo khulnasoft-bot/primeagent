@@ -8,7 +8,7 @@ from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
 from primeagent.services.database.models.traces.model import (
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from uuid import UUID
 
 # Spans without end_time should sort last, not first.
-_UTC_MIN = datetime.min.replace(tzinfo=timezone.utc)
+_UTC_MIN = datetime.min.replace(tzinfo=UTC)
 
 # Name substring used to identify the user-facing input span.
 # PrimeAgent's native tracer names this span "Chat Input" by convention.

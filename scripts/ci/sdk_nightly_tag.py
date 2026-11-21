@@ -6,11 +6,11 @@ project's ``.devN`` history (stable finals never contribute). ``<base>`` comes f
 ``src/sdk/pyproject.toml``. See ``src/bundles/NIGHTLY.md``.
 """
 
+import tomllib
 from pathlib import Path
 
 import packaging.version
 import requests
-import tomllib
 from packaging.version import Version
 
 PYPI_SDK_URL = "https://pypi.org/pypi/primeagent-sdk/json"

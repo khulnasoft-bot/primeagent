@@ -9,7 +9,7 @@ from __future__ import annotations
 import csv
 import io
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import UUID, uuid4
 
 import pytest
@@ -20,7 +20,7 @@ from primeagent.services.database.models.auth import AuthzAuditLog
 from primeagent.services.deps import get_settings_service, session_scope
 from sqlmodel import col, select
 
-BASE = datetime(2021, 3, 4, 12, 0, tzinfo=timezone.utc)
+BASE = datetime(2021, 3, 4, 12, 0, tzinfo=UTC)
 WINDOW = "since=2021-03-04T00:00:00Z&until=2021-03-05T00:00:00Z"
 ITEM_KEYS = {
     "id",
@@ -343,9 +343,7 @@ async def test_the_export_releases_its_connection_between_batches(client, logged
     from primeagent.services.deps import get_db_service
 
     await seed(*(resource_event(minute) for minute in range(6)))
-    filters = AuditFeedFilters(
-        since=datetime(2021, 3, 4, tzinfo=timezone.utc), until=datetime(2021, 3, 5, tzinfo=timezone.utc)
-    )
+    filters = AuditFeedFilters(since=datetime(2021, 3, 4, tzinfo=UTC), until=datetime(2021, 3, 5, tzinfo=UTC))
     pool = get_db_service().engine.pool
     # Measured relatively: whatever else the suite is holding, the walk adds none.
     idle = pool.checkedout()

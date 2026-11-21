@@ -21,7 +21,7 @@ indexed read path is exercised.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 from unittest.mock import patch
 
@@ -44,7 +44,7 @@ _INSERT_OFFSET_SECONDS = 0
 def _next_created_timestamp() -> datetime:
     global _INSERT_OFFSET_SECONDS  # noqa: PLW0603
     _INSERT_OFFSET_SECONDS += 1
-    return datetime.now(timezone.utc) + timedelta(seconds=_INSERT_OFFSET_SECONDS)
+    return datetime.now(UTC) + timedelta(seconds=_INSERT_OFFSET_SECONDS)
 
 
 async def _ensure_kb_record(*, user_id: uuid.UUID, kb_name: str) -> uuid.UUID:

@@ -11,6 +11,7 @@ and the orphan sweep on BOTH engines.
 from __future__ import annotations
 
 import json
+from datetime import UTC
 from types import SimpleNamespace
 from typing import TYPE_CHECKING
 from uuid import uuid4
@@ -146,7 +147,7 @@ async def test_sweep_orphans_fails_in_progress(real_services_job_service):
 async def test_redis_fallback_watchdog_reconciles_orphans_without_restart(real_services_job_service):
     """A steady Redis-configured fleet must reap a dead owner's stale job."""
     import asyncio
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
     from types import SimpleNamespace
 
     from primeagent.services.background_execution.service import BackgroundExecutionService
@@ -165,7 +166,7 @@ async def test_redis_fallback_watchdog_reconciles_orphans_without_restart(real_s
         job_id = uuid4()
         await real_services_job_service.create_job(job_id=job_id, flow_id=uuid4(), user_id=uuid4())
         await real_services_job_service.update_job_status(job_id, JobStatus.IN_PROGRESS)
-        stale_heartbeat = (datetime.now(timezone.utc) - timedelta(seconds=60)).isoformat()
+        stale_heartbeat = (datetime.now(UTC) - timedelta(seconds=60)).isoformat()
         await real_services_job_service.update_job_metadata(
             job_id,
             {"owner": "dead-replica", "heartbeat_at": stale_heartbeat},
@@ -508,19 +509,19 @@ async def test_submit_serialization_resource_unavailable_creates_no_job(real_ser
 @pytest.mark.parametrize("new_owner", ["old-owner", "new-owner"])
 async def test_release_queued_lease_never_clears_an_updated_claim(real_services_job_service, new_owner):
     """A stale recovery cannot release a claim whose owner or heartbeat advanced."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     job_service = real_services_job_service
     job_id = uuid4()
     await job_service.create_job(job_id=job_id, flow_id=uuid4(), user_id=uuid4())
-    old_heartbeat = datetime.now(timezone.utc).isoformat()
+    old_heartbeat = datetime.now(UTC).isoformat()
     assert await job_service.claim_queued_lease(
         job_id,
         owner="old-owner",
         lease_ttl_s=0,
         heartbeat_at=old_heartbeat,
     )
-    new_heartbeat = datetime.now(timezone.utc).isoformat()
+    new_heartbeat = datetime.now(UTC).isoformat()
     await job_service.update_job_metadata(job_id, {"owner": new_owner, "heartbeat_at": new_heartbeat})
 
     released = await job_service.release_queued_lease(
@@ -538,19 +539,19 @@ async def test_release_queued_lease_never_clears_an_updated_claim(real_services_
 
 async def test_fail_queued_job_never_terminalizes_a_replaced_claim(real_services_job_service):
     """A stale recovery cannot fail a QUEUED row after another owner replaces its claim."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     job_service = real_services_job_service
     job_id = uuid4()
     await job_service.create_job(job_id=job_id, flow_id=uuid4(), user_id=uuid4())
-    old_heartbeat = datetime.now(timezone.utc).isoformat()
+    old_heartbeat = datetime.now(UTC).isoformat()
     assert await job_service.claim_queued_lease(
         job_id,
         owner="old-owner",
         lease_ttl_s=0,
         heartbeat_at=old_heartbeat,
     )
-    new_heartbeat = datetime.now(timezone.utc).isoformat()
+    new_heartbeat = datetime.now(UTC).isoformat()
     await job_service.update_job_metadata(job_id, {"owner": "new-owner", "heartbeat_at": new_heartbeat})
 
     failed = await job_service.fail_queued_job(
@@ -573,7 +574,7 @@ async def test_fail_queued_job_never_terminalizes_a_replaced_claim(real_services
 
 async def test_fail_queued_job_retries_event_sequence_collision_atomically(real_services_job_service, monkeypatch):
     """A colliding event insert rolls back the status CAS before retrying the whole transaction."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     from primeagent.services.database.models.jobs.model import JobEvent
     from primeagent.services.jobs import service as jobs_service_module
@@ -582,7 +583,7 @@ async def test_fail_queued_job_retries_event_sequence_collision_atomically(real_
     job_service = real_services_job_service
     job_id = uuid4()
     await job_service.create_job(job_id=job_id, flow_id=uuid4(), user_id=uuid4())
-    heartbeat = datetime.now(timezone.utc).isoformat()
+    heartbeat = datetime.now(UTC).isoformat()
     assert await job_service.claim_queued_lease(
         job_id,
         owner="recovery-owner",

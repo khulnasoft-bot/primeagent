@@ -9,7 +9,7 @@ reconcilers cannot push a job past max_attempts.
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -23,9 +23,9 @@ async def test_heartbeat_records_owner_and_timestamp():
     job_id = uuid4()
     await service.create_job(job_id=job_id, flow_id=uuid4(), user_id=uuid4())
 
-    before = datetime.now(timezone.utc)
+    before = datetime.now(UTC)
     await service.heartbeat(job_id, owner="worker-A")
-    after = datetime.now(timezone.utc)
+    after = datetime.now(UTC)
 
     job = await service.get_job_by_job_id(job_id)
     meta = job.job_metadata or {}
@@ -63,7 +63,7 @@ async def test_is_lease_stale_fresh_vs_stale():
 
     await service.heartbeat(fresh, owner="w1")
     # Backdate the stale job's heartbeat well past the TTL.
-    old = (datetime.now(timezone.utc) - timedelta(seconds=120)).isoformat()
+    old = (datetime.now(UTC) - timedelta(seconds=120)).isoformat()
     await service.update_job_metadata(stale, {"owner": "w1", "heartbeat_at": old})
 
     fresh_job = await service.get_job_by_job_id(fresh)
@@ -153,7 +153,7 @@ async def test_claim_queued_lease_reclaimable_when_stale():
     job_id = uuid4()
     await service.create_job(job_id=job_id, flow_id=uuid4(), user_id=uuid4())
 
-    old = (datetime.now(timezone.utc) - timedelta(seconds=300)).isoformat()
+    old = (datetime.now(UTC) - timedelta(seconds=300)).isoformat()
     await service.update_job_metadata(job_id, {"owner": "dead", "heartbeat_at": old})
 
     # The row is still QUEUED with a STALE lease -> a fresh worker re-claims it.

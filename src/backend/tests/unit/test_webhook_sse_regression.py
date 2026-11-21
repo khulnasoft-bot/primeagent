@@ -35,7 +35,7 @@ async def _assert_sse_not_forbidden(client, url: str) -> None:
     """
     try:
         response = await asyncio.wait_for(client.get(url), timeout=3.0)
-    except asyncio.TimeoutError:
+    except TimeoutError:
         return
 
     assert response.status_code != 403, (

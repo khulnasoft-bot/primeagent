@@ -13,7 +13,7 @@ real JobService to keep their metric semantics pinned.
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -86,7 +86,7 @@ async def test_queued_metrics_exclude_non_workflow_jobs():
     await service.append_event(ingestion_running, "run_started", {})
     await service.update_job_status(ingestion_running, JobStatus.IN_PROGRESS)
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     async with session_scope() as session:
         workflow = await session.get(Job, workflow_queued)
         ingestion = await session.get(Job, ingestion_queued)
@@ -118,7 +118,7 @@ async def test_oldest_queued_seconds_uses_injected_now():
     older_job = await service.get_job_by_job_id(older)
     created = older_job.created_timestamp
     if created.tzinfo is None:
-        created = created.replace(tzinfo=timezone.utc)
+        created = created.replace(tzinfo=UTC)
 
     now = created + timedelta(seconds=42)
 
@@ -136,7 +136,7 @@ async def test_oldest_queued_seconds_zero_when_none_queued():
     await _create_background_job(service, job_id=done, flow_id=uuid4(), user_id=uuid4())
     await service.update_job_status(done, JobStatus.COMPLETED, finished_timestamp=True)
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     async with session_scope() as session:
         age = await oldest_queued_seconds(session, now)
 
@@ -363,7 +363,7 @@ async def test_duration_percentiles_deterministic():
     from primeagent.services.database.models.jobs.model import Job
 
     service = JobService()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     # Seed five COMPLETED BACKGROUND jobs (with job_events) with known durations
     # 10..50s, all finished now.
@@ -408,7 +408,7 @@ async def test_duration_percentiles_excludes_jobs_outside_window():
     from primeagent.services.database.models.jobs.model import Job
 
     service = JobService()
-    base = datetime.now(timezone.utc) + timedelta(days=365)
+    base = datetime.now(UTC) + timedelta(days=365)
 
     old = uuid4()
     recent = uuid4()
@@ -458,7 +458,7 @@ async def test_duration_percentiles_zero_when_none_in_window():
 
     # Anchor ``now`` far in the FUTURE with a tiny window so the cutoff
     # (now - 1s) sits well after every real-time finish; nothing qualifies.
-    future = datetime.now(timezone.utc) + timedelta(days=365)
+    future = datetime.now(UTC) + timedelta(days=365)
     async with session_scope() as session:
         p50, p95 = await duration_percentiles(session, future, window_seconds=1.0)
 
@@ -477,7 +477,7 @@ async def test_collect_once_sets_counters_and_duration_gauges():
 
     service = JobService()
     backend = current_backend()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
 
     other_terminal = [
         await _seed_terminal(service, JobStatus.COMPLETED),
@@ -593,7 +593,7 @@ async def test_orphan_sweep_does_not_turn_other_jobs_into_background_jobs():
         others.append(job_id)
 
     assert set(await service.sweep_orphans()) == set(others)
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     async with session_scope() as session:
         for job_id in [background, *others]:
             job = await session.get(Job, job_id)
@@ -618,7 +618,7 @@ async def test_stored_sync_results_do_not_count_as_background_jobs(background_re
     background = await _seed_terminal(service, JobStatus.COMPLETED)
     await service.update_job_metadata(background, {"request": background_request})
     sync_job = await _seed_run_job(service)
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     async with session_scope() as session:
         for job_id, duration in ((background, 10), (sync_job, 3600)):
             row = await session.get(Job, job_id)
@@ -647,7 +647,7 @@ async def test_stored_sync_results_do_not_count_as_background_jobs(background_re
 async def test_background_marker_identifies_queued_and_suspended_jobs_without_events(sync_metadata):
     """Only submissions contribute even before an event is appended."""
     service = JobService()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     await _create_background_job(service, job_id=uuid4(), flow_id=uuid4())
     suspended = uuid4()
     await _create_background_job(service, job_id=suspended, flow_id=uuid4())
@@ -687,7 +687,7 @@ async def test_input_deadline_expiry_has_its_own_failure_reason():
     await _create_background_job(service, job_id=job_id, flow_id=uuid4())
     await service.update_job_status(job_id, JobStatus.SUSPENDED)
     await service.update_job_metadata(
-        job_id, {"input_deadline_at": (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()}
+        job_id, {"input_deadline_at": (datetime.now(UTC) - timedelta(seconds=1)).isoformat()}
     )
     assert await service.sweep_input_deadlines() == [job_id]
     async with session_scope() as session:
@@ -804,7 +804,7 @@ _TERMINAL_OUTCOMES = (
 
 async def _age_terminal_jobs(job_ids):
     """Put seeded terminal rows outside the retention window without waiting."""
-    stamp = datetime.now(timezone.utc) - timedelta(days=40)
+    stamp = datetime.now(UTC) - timedelta(days=40)
     async with session_scope() as session:
         for job_id in job_ids:
             job = await session.get(Job, job_id)

@@ -5,9 +5,9 @@ from __future__ import annotations
 import json
 import re
 import sys
+import tomllib
 from pathlib import Path
 
-import tomllib
 from packaging.requirements import Requirement
 from packaging.utils import canonicalize_name
 from packaging.version import Version

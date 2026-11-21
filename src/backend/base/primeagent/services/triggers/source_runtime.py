@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from sqlmodel import update
@@ -108,10 +108,9 @@ async def ensure_subscription(trigger_id: UUID) -> None:
             ).first()
             expiry = existing.expires_at if existing is not None else None
             if expiry is not None and expiry.tzinfo is None:
-                expiry = expiry.replace(tzinfo=timezone.utc)
+                expiry = expiry.replace(tzinfo=UTC)
             if existing is not None and (
-                existing.connection_id != row.connection_id
-                or (expiry is not None and expiry <= datetime.now(timezone.utc))
+                existing.connection_id != row.connection_id or (expiry is not None and expiry <= datetime.now(UTC))
             ):
                 await revoke_for_trigger(session, trigger_id=trigger_id)
         async with session_scope() as session:

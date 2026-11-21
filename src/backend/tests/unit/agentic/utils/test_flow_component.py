@@ -5,7 +5,7 @@ update_component_field_value, and list_component_fields.
 """
 
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import UUID, uuid4
 
@@ -208,7 +208,7 @@ class TestUpdateComponentFieldValue:
         db_flow = MagicMock()
         db_flow.user_id = UUID(USER_ID)
         db_flow.data = flow.data.copy()
-        previous_updated_at = datetime(2024, 1, 1, tzinfo=timezone.utc)
+        previous_updated_at = datetime(2024, 1, 1, tzinfo=UTC)
         db_flow.updated_at = previous_updated_at
 
         mock_session = AsyncMock()
@@ -238,7 +238,7 @@ class TestUpdateComponentFieldValue:
         assert result["old_value"] == "hello"
         assert result["new_value"] == "new_value"
         assert db_flow.updated_at > previous_updated_at
-        assert db_flow.updated_at.tzinfo is timezone.utc
+        assert db_flow.updated_at.tzinfo is UTC
 
     @pytest.mark.asyncio
     async def test_should_take_the_writers_turn_like_any_other_graph_write(self):
@@ -253,7 +253,7 @@ class TestUpdateComponentFieldValue:
         db_flow = MagicMock()
         db_flow.user_id = UUID(USER_ID)
         db_flow.data = flow.data.copy()
-        db_flow.updated_at = datetime(2024, 1, 1, tzinfo=timezone.utc)
+        db_flow.updated_at = datetime(2024, 1, 1, tzinfo=UTC)
         previous_token = uuid4()
         db_flow.version_token = previous_token
 

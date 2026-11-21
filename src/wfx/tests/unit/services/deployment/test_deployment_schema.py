@@ -691,7 +691,7 @@ def test_config_list_item_does_not_have_description() -> None:
 def test_config_list_item_accepts_all_fields() -> None:
     import datetime
 
-    now = datetime.datetime.now(tz=datetime.timezone.utc)
+    now = datetime.datetime.now(tz=datetime.UTC)
     item = ConfigListItem(
         id="cfg_1",
         name="Config",

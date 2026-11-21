@@ -11,7 +11,7 @@ without a consumer holds at most _MAX_EVENTS payloads.
 from __future__ import annotations
 
 import threading
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -29,7 +29,7 @@ def append_run_event(payload: RunPayload) -> None:
         # Consumers may drain after midnight. Preserve when the completed run
         # was recorded rather than attributing it to the later drain/upload day.
         if payload.run_completed_at is None:
-            payload.run_completed_at = datetime.now(timezone.utc)
+            payload.run_completed_at = datetime.now(UTC)
         _events.append(payload)
         if len(_events) > _MAX_EVENTS:
             del _events[: len(_events) - _MAX_EVENTS]

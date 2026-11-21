@@ -17,7 +17,7 @@ import subprocess
 import sys
 import tracemalloc
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 import pytest
@@ -57,7 +57,7 @@ class TestCoerceValue:
 
     def test_naive_datetime_for_a_timezone_column_is_read_as_utc(self):
         got = coerce_value("2026-09-10 14:37:14", sa.DateTime(timezone=True))
-        assert got == datetime(2026, 9, 10, 14, 37, 14, tzinfo=timezone.utc)
+        assert got == datetime(2026, 9, 10, 14, 37, 14, tzinfo=UTC)
 
     def test_offset_on_a_naive_column_is_stored_as_utc_wall_time(self):
         # Rows written through raw SQL can keep an offset. Bound as-is, Postgres converts

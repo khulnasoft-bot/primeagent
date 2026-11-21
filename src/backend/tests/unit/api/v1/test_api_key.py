@@ -1,3 +1,5 @@
+from datetime import UTC
+
 from fastapi import status
 from httpx import AsyncClient
 
@@ -39,9 +41,9 @@ async def test_create_api_key_route(client: AsyncClient, logged_in_headers, acti
 
 async def test_create_api_key_route_with_expiry(client: AsyncClient, logged_in_headers, active_user):
     """Creating an API key with expires_at must persist and return the expiry."""
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
 
-    expiry = (datetime.now(timezone.utc) + timedelta(days=30)).strftime("%Y-%m-%dT%H:%M:%SZ")
+    expiry = (datetime.now(UTC) + timedelta(days=30)).strftime("%Y-%m-%dT%H:%M:%SZ")
     payload = {
         "name": "expiring-key",
         "expires_at": expiry,
@@ -58,8 +60,8 @@ async def test_create_api_key_route_with_expiry(client: AsyncClient, logged_in_h
         raw = raw[:-1] + "+00:00"
     returned = datetime.fromisoformat(raw)
     if returned.tzinfo is None:
-        returned = returned.replace(tzinfo=timezone.utc)
-    expected = datetime.fromisoformat(expiry.replace("Z", "+00:00"))
+        returned = returned.replace(tzinfo=UTC)
+    expected = datetime.fromisoformat(expiry)
     assert abs((returned - expected).total_seconds()) < 5
 
 

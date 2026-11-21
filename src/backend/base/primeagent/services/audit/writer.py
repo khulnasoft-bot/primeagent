@@ -142,7 +142,9 @@ class AuditWriteQueueTimeoutError(Exception):
 
 
 async def persist_audit_event_independently(
-    event: AuditEvent, *, timeout: float = INDEPENDENT_WRITE_TIMEOUT_SECONDS
+    event: AuditEvent,
+    *,
+    timeout: float = INDEPENDENT_WRITE_TIMEOUT_SECONDS,  # noqa: ASYNC109
 ) -> bool:
     """Insert an already built event in its own transaction, or raise.
 
@@ -165,7 +167,7 @@ async def persist_audit_event_independently(
     slots = _slots()
     try:
         await asyncio.wait_for(slots.acquire(), timeout=INDEPENDENT_WRITE_QUEUE_TIMEOUT_SECONDS)
-    except asyncio.TimeoutError as exc:
+    except TimeoutError as exc:
         # Distinct from a write that timed out: this one never reached a database.
         raise AuditWriteQueueTimeoutError from exc
     try:

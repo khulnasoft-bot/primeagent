@@ -401,7 +401,7 @@ class SlackSocketModeAdapter:
         )
         try:
             hello = json.loads(await asyncio.wait_for(ws.recv(), timeout=self._open_timeout_s))
-        except (TimeoutError, asyncio.TimeoutError, ValueError, ConnectionClosed) as exc:
+        except (TimeoutError, ValueError, ConnectionClosed) as exc:
             await ws.close()
             msg = "Slack opened a socket but never said hello."
             raise SlackSocketModeError(msg) from exc

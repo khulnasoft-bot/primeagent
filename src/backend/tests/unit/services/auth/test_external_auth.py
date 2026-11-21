@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import base64
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import jwt
 import pytest
@@ -89,7 +89,7 @@ def test_extract_bearer_or_raw_token_handles_variants():
 async def test_trusted_jwt_decode_validates_expiry(tmp_path):
     settings = _auth_settings(tmp_path)
     token = jwt.encode(
-        {"sub": "expired-subject", "exp": datetime.now(timezone.utc) - timedelta(minutes=1)},
+        {"sub": "expired-subject", "exp": datetime.now(UTC) - timedelta(minutes=1)},
         _TEST_JWT_SECRET,
         algorithm="HS256",
     )
@@ -103,8 +103,8 @@ async def test_trusted_jwt_decode_validates_not_before(tmp_path):
     token = jwt.encode(
         {
             "sub": "future-subject",
-            "nbf": datetime.now(timezone.utc) + timedelta(minutes=5),
-            "exp": datetime.now(timezone.utc) + timedelta(minutes=10),
+            "nbf": datetime.now(UTC) + timedelta(minutes=5),
+            "exp": datetime.now(UTC) + timedelta(minutes=10),
         },
         _TEST_JWT_SECRET,
         algorithm="HS256",
@@ -122,7 +122,7 @@ async def test_trusted_jwt_decode_returns_claims_when_valid(tmp_path):
             "sub": expected_sub,
             "preferred_username": "alice",
             "email": "alice@example.com",
-            "exp": datetime.now(timezone.utc) + timedelta(minutes=5),
+            "exp": datetime.now(UTC) + timedelta(minutes=5),
         },
         _TEST_JWT_SECRET,
         algorithm="HS256",
@@ -215,7 +215,7 @@ async def test_jwks_decode_verifies_signature(tmp_path, monkeypatch):
     monkeypatch.setattr(external, "_jwks_cache", {})
     _install_fake_jwks_endpoint(monkeypatch, [{"keys": [_symmetric_jwk(_TEST_JWT_SECRET, kid="key-1")]}])
 
-    valid_exp = datetime.now(timezone.utc) + timedelta(minutes=5)
+    valid_exp = datetime.now(UTC) + timedelta(minutes=5)
     token = jwt.encode(
         {"sub": "subject-1", "aud": _JWKS_AUDIENCE, "exp": valid_exp},
         _TEST_JWT_SECRET,
@@ -259,7 +259,7 @@ async def test_jwks_decode_rejects_token_for_another_audience(tmp_path, monkeypa
     _install_fake_jwks_endpoint(monkeypatch, [{"keys": [_symmetric_jwk(_TEST_JWT_SECRET, kid="key-1")]}])
 
     foreign = jwt.encode(
-        {"sub": "subject-1", "aud": "some-other-service", "exp": datetime.now(timezone.utc) + timedelta(minutes=5)},
+        {"sub": "subject-1", "aud": "some-other-service", "exp": datetime.now(UTC) + timedelta(minutes=5)},
         _TEST_JWT_SECRET,
         algorithm="HS256",
         headers={"kid": "key-1"},
@@ -280,7 +280,7 @@ async def test_jwks_refetches_when_kid_is_newer_than_cache(tmp_path, monkeypatch
     calls = _install_fake_jwks_endpoint(monkeypatch, [new_jwks])
 
     token = jwt.encode(
-        {"sub": "rotated", "aud": _JWKS_AUDIENCE, "exp": datetime.now(timezone.utc) + timedelta(minutes=5)},
+        {"sub": "rotated", "aud": _JWKS_AUDIENCE, "exp": datetime.now(UTC) + timedelta(minutes=5)},
         _TEST_JWT_SECRET,
         algorithm="HS256",
         headers={"kid": "new-key"},
@@ -433,7 +433,7 @@ async def test_resolve_external_identity_default_uses_jwt(tmp_path):
         {
             "sub": "subject-1",
             "preferred_username": "bob",
-            "exp": datetime.now(timezone.utc) + timedelta(minutes=5),
+            "exp": datetime.now(UTC) + timedelta(minutes=5),
         },
         _TEST_JWT_SECRET,
         algorithm="HS256",

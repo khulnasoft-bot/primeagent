@@ -6,7 +6,7 @@ checkpoints as JSON), including the set-typed execution-state fields.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from importlib import import_module
 from typing import Any
 from uuid import uuid4
@@ -58,7 +58,7 @@ class GraphCheckpoint(BaseModel):
     vertex_results: dict[str, VertexCheckpointData] = Field(default_factory=dict)
     pause_context: dict[str, Any] | None = None
     human_input_decisions: dict[str, Any] = Field(default_factory=dict)
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     expires_at: datetime | None = None
 
 

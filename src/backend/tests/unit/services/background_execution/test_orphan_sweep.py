@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+from datetime import UTC
 from pathlib import Path
 from typing import TYPE_CHECKING
 from uuid import uuid4
@@ -128,9 +129,9 @@ async def test_queued_claimed_then_crashed_is_rerun_not_failed(active_user):
     # Simulate worker 1: lease-claimed the QUEUED row, then crashed BEFORE the
     # runner started (so the row is still QUEUED, with a STALE lease the next
     # boot's default 45s-TTL sweep will treat as orphaned and re-claim).
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
 
-    old = (datetime.now(timezone.utc) - timedelta(seconds=300)).isoformat()
+    old = (datetime.now(UTC) - timedelta(seconds=300)).isoformat()
     await job_service.update_job_metadata(job_id, {"owner": "dead-worker", "heartbeat_at": old})
     crashed = await job_service.get_job_by_job_id(job_id)
     assert crashed.status == JobStatus.QUEUED  # never flipped IN_PROGRESS

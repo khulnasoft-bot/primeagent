@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -28,7 +28,7 @@ from tests.unit.services.data_subjects._seed import create_user, end_user_messag
 
 
 def _now():
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 async def _seed_end_users() -> tuple:

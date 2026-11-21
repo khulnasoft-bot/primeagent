@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
@@ -325,7 +325,7 @@ async def replace_policy_bundle_state(
             active_revision=active_revision,
         )
 
-    created_at = datetime.now(timezone.utc)
+    created_at = datetime.now(UTC)
     snapshot = PolicyBundleSnapshot(
         revision=new_revision,
         initialized=True,

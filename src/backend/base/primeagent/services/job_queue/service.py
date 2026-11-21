@@ -1581,7 +1581,7 @@ class RedisJobQueueService(JobQueueService):
             # timeout case only so real bridge failures bubble up.
             try:
                 await asyncio.wait_for(asyncio.shield(bridge), timeout=2.0)
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 await logger.awarning(
                     f"Post-cancel cleanup: bridge sentinel flush timed out for {job_id}; "
                     "cross-worker consumers may see late end-of-stream."
@@ -1598,7 +1598,7 @@ class RedisJobQueueService(JobQueueService):
         except asyncio.CancelledError:
             # Expected: super().cleanup_job re-raises after a user-initiated cancel.
             pass
-        except asyncio.TimeoutError:
+        except TimeoutError:
             await logger.awarning(
                 f"Post-cancel cleanup timed out for {job_id} after "
                 f"{self._POST_CANCEL_CLEANUP_TIMEOUT_S:.1f}s; periodic cleanup will retry."

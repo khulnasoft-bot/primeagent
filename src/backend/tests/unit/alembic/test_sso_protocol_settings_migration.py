@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import sqlalchemy as sa
@@ -33,7 +33,7 @@ def test_sso_provider_settings_upgrade_and_downgrade_preserve_seeded_rows(db_url
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     user_id = str(uuid4())
     config_id = str(uuid4())
     profile_id = str(uuid4())

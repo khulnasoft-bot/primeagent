@@ -11,6 +11,7 @@ authz service installed via monkeypatch.
 
 from __future__ import annotations
 
+from datetime import UTC
 from types import SimpleNamespace
 from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
@@ -180,9 +181,9 @@ def _make_role_row(
     is_system: bool = False,
 ) -> SimpleNamespace:
     """Build a fake AuthzRole row carrying every field RoleRead serializes."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     return SimpleNamespace(
         id=id,
         name=name,
@@ -1339,9 +1340,9 @@ def _make_team_row(
     is_active: bool = True,
 ) -> SimpleNamespace:
     """Build a fake AuthzTeam row carrying every field TeamRead serializes."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     return SimpleNamespace(
         id=id,
         team_name=team_name,

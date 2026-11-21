@@ -17,7 +17,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import math
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from time import monotonic
 from typing import TYPE_CHECKING, Any
 
@@ -70,7 +70,7 @@ async def oldest_queued_seconds(session, now: datetime) -> float:
     # SQLite returns a naive datetime for a timezone-aware column; treat it as
     # UTC (matching how is_lease_stale normalizes naive heartbeats).
     if oldest.tzinfo is None:
-        oldest = oldest.replace(tzinfo=timezone.utc)
+        oldest = oldest.replace(tzinfo=UTC)
     age = (now - oldest).total_seconds()
     # A clock skew where now precedes the row should never report a negative age.
     return max(age, 0.0)
@@ -114,8 +114,8 @@ async def duration_percentiles(session, now: datetime, window_seconds: float) ->
         if finished is None:
             continue
         # SQLite hands back naive datetimes for tz-aware columns; normalize.
-        finished_utc = finished if finished.tzinfo is not None else finished.replace(tzinfo=timezone.utc)
-        created_utc = created if created.tzinfo is not None else created.replace(tzinfo=timezone.utc)
+        finished_utc = finished if finished.tzinfo is not None else finished.replace(tzinfo=UTC)
+        created_utc = created if created.tzinfo is not None else created.replace(tzinfo=UTC)
         durations.append(max((finished_utc - created_utc).total_seconds(), 0.0))
     if not durations:
         return 0.0, 0.0
@@ -167,7 +167,7 @@ class BackgroundMetricsCollector:
         """
         try:
             if now is None:
-                now = datetime.now(timezone.utc)
+                now = datetime.now(UTC)
             counts = await count_nonterminal_jobs(session)
             oldest = await oldest_queued_seconds(session, now)
             backend = current_backend()

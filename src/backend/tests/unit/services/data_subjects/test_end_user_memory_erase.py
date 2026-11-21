@@ -1,6 +1,6 @@
 """End-user erase inside a Memory Base: the person's chunks leave the store and the row's counts follow."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import pytest
@@ -113,7 +113,7 @@ async def _set_storage_state(record, state: str) -> None:
 async def _retry(request_id) -> tuple[str | None, DataSubjectRequest]:
     async with session_scope() as session:
         request = await session.get(DataSubjectRequest, request_id)
-        past = (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
+        past = (datetime.now(UTC) - timedelta(seconds=1)).isoformat()
         request.error = {**(request.error or {}), "retry_at": past}
         session.add(request)
     status = await run_request(request_id)

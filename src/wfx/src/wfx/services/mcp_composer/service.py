@@ -433,7 +433,7 @@ class MCPComposerService(Service):
                     except json.JSONDecodeError as e:
                         await logger.adebug(f"Failed to parse PowerShell output: {e}")
 
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 await logger.adebug("PowerShell command timed out while checking for orphaned processes")
             except Exception as e:  # noqa: BLE001
                 await logger.adebug(f"Error using PowerShell to find orphaned processes: {e}")
@@ -518,7 +518,7 @@ class MCPComposerService(Service):
                         try:
                             await asyncio.wait_for(asyncio.to_thread(process.wait), timeout=2.0)
                             await logger.adebug(f"MCP Composer for project {project_id} terminated gracefully")
-                        except asyncio.TimeoutError:
+                        except TimeoutError:
                             await logger.aerror(
                                 f"MCP Composer for project {project_id} did not terminate gracefully, force killing"
                             )
@@ -559,7 +559,7 @@ class MCPComposerService(Service):
         self,
         process: subprocess.Popen,
         oauth_server_url: str | None,
-        timeout: float = 2.0,
+        timeout: float = 2.0,  # noqa: ASYNC109
         stdout_file=None,
         stderr_file=None,
     ) -> tuple[str, str, str]:
@@ -1204,7 +1204,7 @@ class MCPComposerService(Service):
                     if existing_port:
                         try:
                             await asyncio.wait_for(self._kill_process_on_port(existing_port), timeout=5.0)
-                        except asyncio.TimeoutError:
+                        except TimeoutError:
                             await logger.aerror(f"Timeout while killing process on port {existing_port}")
 
             # Retry loop: try starting the process multiple times
@@ -1525,7 +1525,7 @@ class MCPComposerService(Service):
                     # Wait for graceful termination with timeout
                     try:
                         await asyncio.wait_for(asyncio.to_thread(process.wait), timeout=2.0)
-                    except asyncio.TimeoutError:
+                    except TimeoutError:
                         # Force kill if graceful termination times out
                         await logger.adebug(f"Process {process.pid} did not terminate gracefully, force killing")
                         await asyncio.to_thread(process.kill)

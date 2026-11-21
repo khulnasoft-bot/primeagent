@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -227,7 +227,7 @@ class DatabaseVariableService(VariableService, Service):
         """Adopt an unknown legacy credential only while it matches the environment."""
         if auth_utils.decrypt_api_key(variable.value) != value:
             return
-        created_at = variable.created_at or datetime.now(timezone.utc)
+        created_at = variable.created_at or datetime.now(UTC)
         statement = (
             update(Variable)
             .where(
@@ -552,7 +552,7 @@ class DatabaseVariableService(VariableService, Service):
             variable.value = auth_utils.encrypt_api_key(value, settings_service=self.settings_service)
         else:
             variable.value = value
-        variable.updated_at = datetime.now(timezone.utc)
+        variable.updated_at = datetime.now(UTC)
         variable.is_environment_managed = False
         session.add(variable)
         await session.flush()
@@ -610,7 +610,7 @@ class DatabaseVariableService(VariableService, Service):
             db_variable.is_environment_managed = False
         # Apply-to-fields edits must retain the marker on managed credentials.
         if claims_value or db_variable.is_environment_managed is not True:
-            db_variable.updated_at = datetime.now(timezone.utc)
+            db_variable.updated_at = datetime.now(UTC)
         variable_data = variable.model_dump(exclude_unset=True)
         for key, value in variable_data.items():
             setattr(db_variable, key, value)

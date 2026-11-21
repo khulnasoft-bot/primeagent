@@ -52,7 +52,7 @@ async def _trigger(trigger_id) -> Trigger:
         return await session.get(Trigger, trigger_id)
 
 
-async def _eventually(predicate, *, timeout: float = 5.0) -> None:
+async def _eventually(predicate, *, timeout: float = 5.0) -> None:  # noqa: ASYNC109
     deadline = asyncio.get_running_loop().time() + timeout
     while True:
         result = predicate()

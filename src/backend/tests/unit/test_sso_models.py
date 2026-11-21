@@ -4,7 +4,7 @@ No mocks: uses in-memory SQLite with foreign keys enabled to verify
 CASCADE delete, unique constraints, and default values.
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -325,7 +325,7 @@ class TestSSOConfig:
         await sso_async_session.refresh(updater)
         await sso_async_session.refresh(config)
 
-        old_timestamp = datetime(2000, 1, 1, tzinfo=timezone.utc)
+        old_timestamp = datetime(2000, 1, 1, tzinfo=UTC)
         config.updated_at = old_timestamp
         await sso_async_session.commit()
 
@@ -333,7 +333,7 @@ class TestSSOConfig:
         config.updated_by = updater.id
         await sso_async_session.commit()
         await sso_async_session.refresh(config)
-        assert config.updated_at.replace(tzinfo=timezone.utc) > old_timestamp
+        assert config.updated_at.replace(tzinfo=UTC) > old_timestamp
         assert config.updated_by == updater.id
 
         await sso_async_session.delete(updater)
@@ -710,7 +710,7 @@ class TestSSOConfig:
     @pytest.mark.parametrize("protocol", ["saml", "ldap"])
     async def test_database_preserves_enabled_legacy_provider_settings(self, protocol, sso_async_session):
         config_id = uuid4()
-        timestamp = datetime.now(timezone.utc)
+        timestamp = datetime.now(UTC)
 
         await sso_async_session.execute(
             SSOConfig.__table__.insert().values(

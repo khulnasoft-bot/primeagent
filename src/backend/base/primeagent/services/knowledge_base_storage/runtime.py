@@ -361,7 +361,7 @@ async def _remote_lock(kb_id: UUID, *, shared=False):
                     connection = await asyncio.wait_for(
                         manager.__aenter__(), max(0, deadline - asyncio.get_running_loop().time())
                     )
-                except asyncio.TimeoutError as exc:
+                except TimeoutError as exc:
                     msg = "Knowledge base storage coordination is busy. Retry the operation."
                     raise StorageUnavailableError(msg) from exc
                 try:

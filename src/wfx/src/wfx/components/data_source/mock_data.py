@@ -1,5 +1,5 @@
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from wfx.custom.custom_component.component import Component
 from wfx.io import Output
@@ -159,7 +159,7 @@ class MockDataGeneratorComponent(Component):
 
         # Generate sample records
         records = []
-        base_date = datetime.now(tz=timezone.utc) - timedelta(days=365)
+        base_date = datetime.now(tz=UTC) - timedelta(days=365)
 
         for i in range(record_count):
             record = {
@@ -299,7 +299,7 @@ class MockDataGeneratorComponent(Component):
 
             # Generate DataFrame data
             data = []
-            base_date = datetime.now(tz=timezone.utc) - timedelta(days=365)
+            base_date = datetime.now(tz=UTC) - timedelta(days=365)
 
             self.log("Generating row data...")
             for i in range(record_count):
@@ -386,7 +386,7 @@ class MockDataGeneratorComponent(Component):
                 error_df = pd.DataFrame(
                     {
                         "error": [error_msg],
-                        "timestamp": [datetime.now(tz=timezone.utc).isoformat()],
+                        "timestamp": [datetime.now(tz=UTC).isoformat()],
                         "attempted_records": [record_count],
                     }
                 )

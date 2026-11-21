@@ -153,7 +153,7 @@ name = "wfx-{bundle}"
 version = "0.1.0"
 description = "{display_name} component(s) as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.11,<3.15"
 license = {{ text = "MIT" }}
 authors = [
     {{ name = "KhulnaSoft", email = "info@khulnasoft.com" }},

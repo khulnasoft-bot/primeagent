@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import copy
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
 
@@ -290,7 +290,7 @@ async def run_assistant_and_persist(
                 await session.commit()
             raise
         flow.data = flow_data
-        flow.updated_at = datetime.now(timezone.utc)
+        flow.updated_at = datetime.now(UTC)
         # Take the writer's turn like any other graph write. Persisting without
         # rotating leaves every open editor holding a token that still matches,
         # so their next save silently overwrites what the assistant just wrote

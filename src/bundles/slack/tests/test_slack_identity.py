@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import replace
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 
 import pytest
@@ -280,7 +280,7 @@ async def test_refreshed_identity_is_checked_before_using_its_token(
         if len(fake.requests) > 1:
             return replace(credential, identity=refreshed_identity)
         if refresh == "expiry":
-            return replace(credential, expires_at=datetime.now(timezone.utc) + timedelta(seconds=10))
+            return replace(credential, expires_at=datetime.now(UTC) + timedelta(seconds=10))
         return credential
 
     monkeypatch.setattr(fake, "resolve", resolve)

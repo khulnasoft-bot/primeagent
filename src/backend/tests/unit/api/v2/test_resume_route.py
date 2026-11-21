@@ -7,6 +7,7 @@ deny-to-404, single-use 409, and accepted-resume 200.
 
 from __future__ import annotations
 
+from datetime import UTC
 from uuid import uuid4
 
 import pytest
@@ -362,9 +363,9 @@ class TestRerouteDecisionOnTimeout:
 
     @staticmethod
     def _pending(*, seconds_ago: float, timeout_s: int, fallback: str | None):
-        from datetime import datetime, timedelta, timezone
+        from datetime import datetime, timedelta
 
-        paused_at = (datetime.now(timezone.utc) - timedelta(seconds=seconds_ago)).isoformat()
+        paused_at = (datetime.now(UTC) - timedelta(seconds=seconds_ago)).isoformat()
         return {"timeout_seconds": timeout_s, "fallback_action": fallback, "paused_at": paused_at}
 
     def test_late_decision_reroutes_to_fallback(self):
@@ -421,12 +422,12 @@ class TestUnwrapPausePayload:
 
     def test_reroute_reads_timeout_through_agui_envelope(self):
         """End-to-end: a wrapped AG-UI payload (what production stores) still triggers reroute."""
-        from datetime import datetime, timedelta, timezone
+        from datetime import datetime, timedelta
 
         from primeagent.api.v2.hitl import reroute_decision_on_timeout
         from primeagent.services.jobs.service import _unwrap_pause_payload
 
-        paused_at = (datetime.now(timezone.utc) - timedelta(seconds=120)).isoformat()
+        paused_at = (datetime.now(UTC) - timedelta(seconds=120)).isoformat()
         raw = {"request_id": "r", "timeout_seconds": 60, "fallback_action": "fallback", "paused_at": paused_at}
         stored = {"type": "CUSTOM", "name": "primeagent.human_input_required", "value": raw}
         pending = _unwrap_pause_payload(stored)

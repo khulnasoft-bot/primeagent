@@ -31,9 +31,7 @@ from wfx.base.knowledge_bases.backends.base import IngestedDocument
 if TYPE_CHECKING:
     from collections.abc import Iterable, Iterator
     from types import TracebackType
-    from typing import BinaryIO
-
-    from typing_extensions import Self
+    from typing import BinaryIO, Self
 
 PROTOCOL_VERSION = 1
 MAX_BATCH_RECORDS = 5000

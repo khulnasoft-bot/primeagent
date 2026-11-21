@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import ANY, AsyncMock, Mock
@@ -80,7 +80,7 @@ def _snapshot(*, revision: int, actor_id=None, reason: str | None = None) -> Pol
         approved_integration_provider_ids={"slack", "google"},
         blocked_integration_action_keys={"integrations.google.drive.delete"},
         content_hash=f"{revision:064x}",
-        created_at=datetime(2026, 8, 5, 12, 30, tzinfo=timezone.utc),
+        created_at=datetime(2026, 8, 5, 12, 30, tzinfo=UTC),
         created_by=actor_id,
         reason=reason,
         rollback_of_revision=None,

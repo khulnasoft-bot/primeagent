@@ -14,7 +14,7 @@ import asyncio
 import contextlib
 import json
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -46,7 +46,7 @@ def _make_message(
         session_id=session_id,
         text=text,
         flow_id=flow_id or uuid.uuid4(),
-        timestamp=timestamp or datetime.now(timezone.utc),
+        timestamp=timestamp or datetime.now(UTC),
         run_id=run_id,
         content_blocks=content_blocks or [],
     )
@@ -2709,11 +2709,11 @@ class TestPreprocessingHelpers:
 
     @pytest.mark.asyncio
     async def test_update_preproc_row_status_updates_updated_at_timestamp(self):
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         from primeagent.services.memory_base.task import _update_preproc_row_status
 
-        old_time = datetime(2020, 1, 1, tzinfo=timezone.utc)
+        old_time = datetime(2020, 1, 1, tzinfo=UTC)
         row = self._make_preproc_row()
         row.updated_at = old_time
         mock_db = MagicMock()
@@ -2760,7 +2760,7 @@ class TestFetchPendingMessagesFiltersErrors:
 
             flow_id = uuid.uuid4()
             session_id = "sess-error-filter"
-            base_ts = datetime.now(timezone.utc)
+            base_ts = datetime.now(UTC)
 
             good_user = MessageTable(
                 id=uuid.uuid4(),
@@ -2843,7 +2843,7 @@ class TestFetchPendingMessagesFiltersErrors:
             other_flow_id = uuid.uuid4()
             session_id = "sess-A"
             other_session_id = "sess-B"
-            ts = datetime.now(timezone.utc)
+            ts = datetime.now(UTC)
 
             # Good message in *another* session — must not be returned.
             other_session_msg = MessageTable(

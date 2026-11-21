@@ -6,7 +6,7 @@ Runs on sqlite and (when configured) postgres.
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from alembic import command
@@ -42,7 +42,7 @@ def _insert_witness(connection) -> None:
         ),
         {
             "id": message_id.hex if connection.dialect.name == "sqlite" else str(message_id),
-            "timestamp": datetime(2026, 1, 1, tzinfo=timezone.utc).replace(tzinfo=None),
+            "timestamp": datetime(2026, 1, 1, tzinfo=UTC).replace(tzinfo=None),
             "files": "[]",
             "error": False,
             "edit": False,

@@ -9,8 +9,8 @@ Plugins must use these tables via the models exported from
 """
 
 import re
-from datetime import datetime, timezone
-from typing import Annotated, Any, Literal, TypeAlias
+from datetime import UTC, datetime
+from typing import Annotated, Any, Literal, Self, TypeAlias
 from urllib.parse import urlsplit
 from uuid import uuid4
 
@@ -21,7 +21,6 @@ from sqlalchemy import CheckConstraint, Column, DateTime, ForeignKey, Index
 from sqlalchemy.orm import validates
 from sqlalchemy.sql.naming import conv
 from sqlmodel import Field, SQLModel
-from typing_extensions import Self
 
 from primeagent.schema.serialize import UUIDstr
 from primeagent.services.database.models.auth.sso_secret import is_sso_client_secret_envelope
@@ -48,7 +47,7 @@ def _generate_sso_slug() -> str:
 
 
 def _utc_now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class OIDCProviderSettings(BaseModel):
@@ -257,8 +256,8 @@ class SSOUserProfile(SQLModel, table=True):  # type: ignore[call-arg]
     last_name: str | None = Field(default=None)
     picture: str | None = Field(default=None)
     sso_last_login_at: datetime | None = Field(default=None)
-    created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    created_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
 
 class SSOConfig(SQLModel, table=True):  # type: ignore[call-arg]

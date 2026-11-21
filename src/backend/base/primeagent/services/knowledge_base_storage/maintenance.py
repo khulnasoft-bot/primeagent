@@ -19,7 +19,7 @@ import stat
 import sys
 import time
 from contextlib import closing
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import psutil
@@ -303,7 +303,7 @@ def create_receipt(*, root: Path, database: Path, receipt: Path, previous_worker
             "backup_sha256": file_sha256(backup),
             "stopped_processes": previous_workers,
             "sources": sources,
-            "created_at": datetime.now(timezone.utc).isoformat(),
+            "created_at": datetime.now(UTC).isoformat(),
         }
         encoded = json.dumps(payload, separators=(",", ":")).encode()
         if len(encoded) > MAX_RECEIPT_BYTES:

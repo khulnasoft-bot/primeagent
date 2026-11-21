@@ -1,5 +1,5 @@
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from io import BytesIO
 from typing import Annotated
 
@@ -264,8 +264,6 @@ async def get_servers(
     action_count: bool | None = None,
 ):
     """Get the list of available servers."""
-    import asyncio
-
     server_list = await get_server_list(current_user, session, storage_service, settings_service)
 
     if not action_count:
@@ -328,7 +326,7 @@ async def get_servers(
                 # Network connection and timeout issues
                 await logger.aerror(f"Connection error for server {server_name}: {e}")
                 server_info["error"] = f"Connection failed: {e}"
-            except (TimeoutError, asyncio.TimeoutError) as e:
+            except TimeoutError as e:
                 # Timeout errors
                 await logger.aerror(f"Timeout error for server {server_name}: {e}")
                 server_info["error"] = "Timeout when checking server tools"
@@ -524,7 +522,7 @@ async def update_server(
                     config=encrypt_mcp_config(merged),
                     transport=_derive_transport(merged),
                     version=existing.version + 1,
-                    updated_at=datetime.now(timezone.utc),
+                    updated_at=datetime.now(UTC),
                 )
             )
             await _persist(session, owns_transaction=owns_transaction)
@@ -552,7 +550,7 @@ async def update_server(
                 config=encrypt_mcp_config(resolved_config),
                 transport=_derive_transport(resolved_config),
                 version=MCPServer.version + 1,
-                updated_at=datetime.now(timezone.utc),
+                updated_at=datetime.now(UTC),
             )
         )
         await _persist(session, owns_transaction=owns_transaction)

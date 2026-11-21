@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from unittest.mock import AsyncMock, patch
 
 import jwt
@@ -19,7 +19,7 @@ _EXTERNAL_AUTH_COOKIE = "external-session"
 
 def _external_token(**claims) -> str:
     payload = {
-        "exp": datetime.now(timezone.utc) + timedelta(minutes=5),
+        "exp": datetime.now(UTC) + timedelta(minutes=5),
         **claims,
     }
     return jwt.encode(payload, _EXTERNAL_TEST_SECRET, algorithm="HS256")
@@ -346,7 +346,7 @@ async def test_session_endpoint_rejects_expired_external_token(client, external_
         {
             "sub": "expired-subject",
             "preferred_username": "expired-user",
-            "exp": datetime.now(timezone.utc) - timedelta(minutes=1),
+            "exp": datetime.now(UTC) - timedelta(minutes=1),
         },
         _EXTERNAL_TEST_SECRET,
         algorithm="HS256",

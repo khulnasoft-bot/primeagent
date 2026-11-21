@@ -6,7 +6,7 @@ import asyncio
 import hashlib
 import re
 from dataclasses import dataclass, field, replace
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, SecretStr, StrictStr
@@ -171,7 +171,7 @@ class CredentialLease:
         self._request = request
         self._credential: ResolvedCredential | None = None
         self._lock = asyncio.Lock()
-        self._now = now or (lambda: datetime.now(timezone.utc))
+        self._now = now or (lambda: datetime.now(UTC))
         self._reactive_refresh_completed = False
         self._reactive_refresh_succeeded = False
 
@@ -190,7 +190,7 @@ class CredentialLease:
         if expires_at is None:
             return False
         if expires_at.tzinfo is None:
-            expires_at = expires_at.replace(tzinfo=timezone.utc)
+            expires_at = expires_at.replace(tzinfo=UTC)
         return expires_at - self._now() < _EXPIRY_MARGIN
 
     async def get_credential(self) -> ResolvedCredential:

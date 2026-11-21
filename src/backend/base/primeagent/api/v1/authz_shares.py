@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 from collections.abc import Awaitable
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated
 from uuid import UUID
 
@@ -351,7 +351,7 @@ async def create_share(
         target_id=payload.target_id,
         permission_level=payload.permission_level,
         created_by=current_user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     session.add(row)
     try:

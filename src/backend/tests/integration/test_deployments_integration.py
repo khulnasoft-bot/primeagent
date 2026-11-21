@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
 from uuid import uuid4
@@ -66,7 +66,7 @@ def _provider_deployment(
     display_name: str | None = None,
     description: str = "",
 ) -> ItemResult:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     display_label = display_name if display_name is not None else name
     return ItemResult(
         id=deployment_id,

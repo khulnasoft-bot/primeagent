@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
 
@@ -41,8 +41,8 @@ class User(SQLModel, table=True):  # type: ignore[call-arg]
     profile_image: str | None = Field(default=None, nullable=True)
     is_active: bool = Field(default=False)
     is_superuser: bool = Field(default=False)
-    create_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
-    updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    create_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
     last_login_at: datetime | None = Field(default=None, nullable=True)
     # Set when AUTO_LOGIN teardown retires the default superuser, so it is retired once.
     retired_at: datetime | None = Field(default=None, nullable=True)

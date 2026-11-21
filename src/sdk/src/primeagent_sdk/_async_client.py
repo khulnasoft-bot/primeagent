@@ -41,9 +41,8 @@ from primeagent_sdk.models import (
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator
     from pathlib import Path
+    from typing import Self
     from uuid import UUID
-
-    from typing_extensions import Self
 
 
 class AsyncPrimeAgentClient(_ClientCommon):

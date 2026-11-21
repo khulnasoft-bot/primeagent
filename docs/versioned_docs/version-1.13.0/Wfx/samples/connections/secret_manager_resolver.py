@@ -22,7 +22,7 @@ from __future__ import annotations
 
 import asyncio
 from collections.abc import Callable
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -107,7 +107,7 @@ class SecretManagerConnectionResolver(BaseConnectionResolverService):
             raise ConnectionUnresolvedError(request.ref.to_handle(), provider=request.ref.provider)
 
         credential = _parse_wire_value(raw, request)
-        if credential.expires_at is not None and credential.expires_at <= datetime.now(timezone.utc):
+        if credential.expires_at is not None and credential.expires_at <= datetime.now(UTC):
             raise AuthExpiredError(provider=request.ref.provider)
         # The base class checks verified scope metadata and provider-specific
         # scope aliases after this hook returns.

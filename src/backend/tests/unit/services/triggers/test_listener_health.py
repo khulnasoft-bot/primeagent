@@ -11,7 +11,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from primeagent.services.deps import get_settings_service
@@ -26,7 +26,7 @@ class _AliveSupervisor(ListenerSupervisor):
 
     def __init__(self) -> None:
         super().__init__(holder="probe-test")
-        self.last_reconcile_at = datetime.now(timezone.utc)
+        self.last_reconcile_at = datetime.now(UTC)
 
     @property
     def running(self) -> bool:
@@ -89,7 +89,7 @@ async def test_a_stale_reconcile_loop_turns_readiness_red(health_server) -> None
     server, supervisor = health_server
     settings = get_settings_service().settings
     stale_by = max(settings.listener_reconcile_interval_s * 4, settings.listener_lease_ttl_s) + 60
-    supervisor.last_reconcile_at = datetime.now(timezone.utc) - timedelta(seconds=stale_by)
+    supervisor.last_reconcile_at = datetime.now(UTC) - timedelta(seconds=stale_by)
 
     status, body = await _get(server.bound_port, "/healthz")
     assert status == 503
@@ -99,7 +99,7 @@ async def test_a_stale_reconcile_loop_turns_readiness_red(health_server) -> None
 
 async def test_a_failed_lease_renewal_turns_readiness_red(health_server) -> None:
     server, supervisor = health_server
-    supervisor.last_renew_failure_at = datetime.now(timezone.utc)
+    supervisor.last_renew_failure_at = datetime.now(UTC)
 
     status, body = await _get(server.bound_port, "/healthz")
     assert status == 503
@@ -107,7 +107,7 @@ async def test_a_failed_lease_renewal_turns_readiness_red(health_server) -> None
 
     # It clears itself once the failure is older than one TTL.
     ttl = get_settings_service().settings.listener_lease_ttl_s
-    supervisor.last_renew_failure_at = datetime.now(timezone.utc) - timedelta(seconds=ttl + 5)
+    supervisor.last_renew_failure_at = datetime.now(UTC) - timedelta(seconds=ttl + 5)
     status, body = await _get(server.bound_port, "/healthz")
     assert status == 200
     assert body["leases"] == "ok"
@@ -127,7 +127,7 @@ async def test_an_unreachable_database_turns_readiness_red(client, monkeypatch) 
 
 async def test_a_supervisor_that_is_not_running_is_never_ready(client) -> None:  # noqa: ARG001
     supervisor = ListenerSupervisor(holder="stopped")
-    supervisor.last_reconcile_at = datetime.now(timezone.utc)
+    supervisor.last_reconcile_at = datetime.now(UTC)
     ready, body = await readiness(supervisor)
     assert ready is False
     assert body["running"] is False

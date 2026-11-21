@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import UUID, uuid4
 
 from sqlalchemy import false, update
@@ -320,7 +320,7 @@ class JobService(Service):
             Updated Job object or None if not found
         """
         async with session_scope() as session:
-            finished_at = datetime.now(timezone.utc) if finished_timestamp else None
+            finished_at = datetime.now(UTC) if finished_timestamp else None
             return await update_job_status(session, job_id, status, finished_timestamp=finished_at)
 
     async def update_job_metadata(
@@ -430,7 +430,7 @@ class JobService(Service):
         """
         # Why: a single-statement dialect upsert is atomic, so two concurrent savers (two vertices at
         # one pause boundary) never collide on UNIQUE(job_id, kind) — no read-then-insert race to log.
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         async with session_scope() as session:
             if session.get_bind().dialect.name == "postgresql":
                 from sqlalchemy.dialects.postgresql import insert as _dialect_insert
@@ -664,7 +664,7 @@ class JobService(Service):
         re-enqueued run of the same job self-cancel off the stale signal. Returns
         the number of rows stamped.
         """
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         async with session_scope() as session:
             stmt = (
                 select(ExecutionSignal)
@@ -690,7 +690,7 @@ class JobService(Service):
         the attempt-accounting decision in the design) via a shallow merge so the
         persisted request / retry flags are preserved.
         """
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
         await self.update_job_metadata(job_id, {"owner": owner, "heartbeat_at": now})
 
     @staticmethod
@@ -711,12 +711,12 @@ class JobService(Service):
         except (TypeError, ValueError):
             return True
         if hb.tzinfo is None:
-            hb = hb.replace(tzinfo=timezone.utc)
-        age = (datetime.now(timezone.utc) - hb).total_seconds()
+            hb = hb.replace(tzinfo=UTC)
+        age = (datetime.now(UTC) - hb).total_seconds()
         return age > lease_ttl_s
 
     def _heartbeat_stamp(self) -> dict[str, str]:
-        return {"owner": self._owner, "heartbeat_at": datetime.now(timezone.utc).isoformat()}
+        return {"owner": self._owner, "heartbeat_at": datetime.now(UTC).isoformat()}
 
     async def start_keep_alive(self, job_id: UUID, *, interval_s: float | None = None, beat_now: bool = True) -> None:
         """Heartbeat ``job_id`` from this process for as long as it stays IN_PROGRESS.
@@ -881,7 +881,7 @@ class JobService(Service):
         from sqlmodel import update
 
         hb_expr = col(Job.job_metadata)["heartbeat_at"].as_string()
-        claim_heartbeat = heartbeat_at or datetime.now(timezone.utc).isoformat()
+        claim_heartbeat = heartbeat_at or datetime.now(UTC).isoformat()
         async with session_scope() as session:
             job = await session.get(Job, job_id)
             if job is None or job.status != JobStatus.QUEUED:
@@ -979,7 +979,7 @@ class JobService(Service):
                         .values(
                             status=JobStatus.FAILED,
                             error=dict(error),
-                            finished_timestamp=datetime.now(timezone.utc),
+                            finished_timestamp=datetime.now(UTC),
                         )
                     )
                     result = await session.exec(stmt)  # type: ignore[call-overload]
@@ -1069,7 +1069,7 @@ class JobService(Service):
         from primeagent.services.database.models.trigger.model import TriggerEvent
         from primeagent.services.database.models.trigger.schemas import TriggerEventState
 
-        cutoff = datetime.now(timezone.utc) - timedelta(days=older_than_days)
+        cutoff = datetime.now(UTC) - timedelta(days=older_than_days)
         aged_at = func.coalesce(col(Job.finished_timestamp), col(Job.created_timestamp))
         awaiting_reconcile = exists().where(
             col(TriggerEvent.job_id) == col(Job.job_id),
@@ -1112,7 +1112,7 @@ class JobService(Service):
         """
         from sqlmodel import update
 
-        now = datetime.now(timezone.utc).isoformat()
+        now = datetime.now(UTC).isoformat()
         async with session_scope() as session:
             job = await session.get(Job, job_id)
             if job is None:
@@ -1143,7 +1143,7 @@ class JobService(Service):
             stmt = (
                 update(Job)
                 .where(Job.job_id == job_id, Job.status == JobStatus.SUSPENDED)
-                .values(status=JobStatus.CANCELLED, finished_timestamp=datetime.now(timezone.utc))
+                .values(status=JobStatus.CANCELLED, finished_timestamp=datetime.now(UTC))
             )
             result = await session.exec(stmt)  # type: ignore[call-overload]
             await session.flush()
@@ -1211,7 +1211,7 @@ class JobService(Service):
             stmt = select(Job).where(Job.status == JobStatus.IN_PROGRESS)
             result = await session.exec(stmt)
             in_progress = list(result.all())
-            now = datetime.now(timezone.utc)
+            now = datetime.now(UTC)
             hb_expr = col(Job.job_metadata)["heartbeat_at"].as_string()
             for job in in_progress:
                 if not self.is_lease_stale(job, lease_ttl_s=lease_ttl_s):
@@ -1261,7 +1261,7 @@ class JobService(Service):
         reconciled: list[UUID] = []
         async with session_scope() as session:
             result = await session.exec(select(Job).where(Job.status == JobStatus.SUSPENDED))
-            now = datetime.now(timezone.utc)
+            now = datetime.now(UTC)
             deadline_expr = col(Job.job_metadata)["input_deadline_at"].as_string()
             for job in result.all():
                 deadline = (job.job_metadata or {}).get("input_deadline_at")
@@ -1297,7 +1297,7 @@ class JobService(Service):
             parsed = datetime.fromisoformat(raw)
         except (ValueError, TypeError):
             return None
-        return parsed if parsed.tzinfo is not None else parsed.replace(tzinfo=timezone.utc)
+        return parsed if parsed.tzinfo is not None else parsed.replace(tzinfo=UTC)
 
     async def get_latest_jobs_by_asset_ids(self, asset_ids: Sequence[UUID | str]) -> dict[UUID, Job]:
         """Get the latest job for each asset ID in a single batch query.
@@ -1345,7 +1345,7 @@ class JobService(Service):
             jobs = list(result.all())
             if not jobs:
                 return []
-            now = datetime.now(timezone.utc)
+            now = datetime.now(UTC)
             for job in jobs:
                 job.status = JobStatus.CANCELLED
                 job.finished_timestamp = now
@@ -1422,7 +1422,7 @@ class JobService(Service):
             await self.update_job_status(job_id, JobStatus.FAILED, finished_timestamp=True)
             raise
 
-        except asyncio.TimeoutError as e:
+        except TimeoutError as e:
             # Handle timeout specifically
             await logger.aerror(f"Job {job_id} timed out: {e}")
             await self.update_job_status(job_id, JobStatus.TIMED_OUT, finished_timestamp=True)

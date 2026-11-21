@@ -8,7 +8,7 @@ graph — not a hand-made stub — per the prefer-real-integrations policy.
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from wfx.components.input_output import ChatInput, ChatOutput
@@ -92,7 +92,7 @@ class TestCheckpointRoundTrip:
 class TestExpiry:
     async def test_should_not_load_an_expired_checkpoint(self, store):
         checkpoint = await _real_checkpoint()
-        checkpoint.expires_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+        checkpoint.expires_at = datetime.now(UTC) - timedelta(seconds=1)
         await store.save(checkpoint)
 
         assert await store.load(checkpoint.checkpoint_id) is None

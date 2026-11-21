@@ -1,6 +1,6 @@
 import hashlib
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from http import HTTPStatus
 from io import BytesIO
 from pathlib import Path
@@ -112,7 +112,7 @@ async def upload_file(
     # Authorization handled by get_flow dependency
     try:
         file_content = await file.read()
-        timestamp = datetime.now(tz=timezone.utc).astimezone().strftime("%Y-%m-%d_%H-%M-%S")
+        timestamp = datetime.now(tz=UTC).astimezone().strftime("%Y-%m-%d_%H-%M-%S")
         file_name = file.filename or hashlib.sha256(file_content).hexdigest()
         full_file_name = f"{timestamp}_{file_name}"
         folder = str(flow.id)

@@ -37,7 +37,7 @@ def main() -> None:
 
     def get_current_time(timezone: str = "UTC") -> str:
         """Return a stable-shaped timestamp for tool-discovery tests."""
-        return f"{dt.datetime.now(tz=dt.timezone.utc).isoformat()} ({timezone})"
+        return f"{dt.datetime.now(tz=dt.UTC).isoformat()} ({timezone})"
 
     if args.tool_set == "all":
         server.tool()(echo)
