@@ -9,7 +9,7 @@ import io
 import os
 import re
 import zipfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
 
@@ -542,7 +542,7 @@ async def _new_flow(
         if effective_id is not None:
             db_flow.id = effective_id
 
-        db_flow.updated_at = datetime.now(timezone.utc)
+        db_flow.updated_at = datetime.now(UTC)
         # Stamped at creation so the very first concurrent edit is already protected;
         # without it a brand-new flow has nothing to compare and saves unconditionally.
         db_flow.version_token = uuid4()
@@ -814,7 +814,7 @@ async def _update_existing_flow(
 
     webhook_component = get_webhook_component_in_flow(existing_flow.data or {})
     existing_flow.webhook = webhook_component is not None
-    existing_flow.updated_at = datetime.now(timezone.utc)
+    existing_flow.updated_at = datetime.now(UTC)
 
     session.add(existing_flow)
     await session.flush()
@@ -950,7 +950,7 @@ async def _patch_flow(
 
     webhook_component = get_webhook_component_in_flow(db_flow.data) if db_flow.data else None
     db_flow.webhook = webhook_component is not None
-    db_flow.updated_at = datetime.now(timezone.utc)
+    db_flow.updated_at = datetime.now(UTC)
 
     # Folder validation must be scoped to the owner — otherwise a non-owner
     # edit would land in the actor's default folder (see ``_validate_and_assign_folder``).
@@ -1047,7 +1047,7 @@ async def _build_flows_download_response(
                 zip_file.writestr(f"{safe_name}.json", flow_json)
 
         zip_stream.seek(0)
-        current_time = datetime.now(tz=timezone.utc).astimezone().strftime("%Y%m%d_%H%M%S")
+        current_time = datetime.now(tz=UTC).astimezone().strftime("%Y%m%d_%H%M%S")
         filename = f"{current_time}_primeagent_flows.zip"
 
         cd = build_content_disposition(filename)

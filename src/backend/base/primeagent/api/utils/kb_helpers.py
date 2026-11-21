@@ -4,7 +4,7 @@ import shutil
 import time
 import uuid
 from contextlib import aclosing
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -707,7 +707,7 @@ class KBIngestionHelper:
                             METADATA_KEY_FILE_NAME: content_obj.file_name,
                             METADATA_KEY_CHUNK_INDEX: i,
                             METADATA_KEY_TOTAL_CHUNKS: len(chunks),
-                            METADATA_KEY_INGESTED_AT: datetime.now(timezone.utc).isoformat(),
+                            METADATA_KEY_INGESTED_AT: datetime.now(UTC).isoformat(),
                             METADATA_KEY_JOB_ID: job_id_str,
                             METADATA_KEY_SOURCE_TYPE: source.source_type.value or source_type,
                             METADATA_KEY_SOURCE_METADATA: item_metadata_tag,

@@ -8,7 +8,7 @@ checkpoints as JSON and a lossy round-trip would corrupt resume state.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from wfx.graph.checkpoint.schema import (
@@ -76,7 +76,7 @@ def test_checkpoint_ids_default_and_expiry_optional():
     assert cp.checkpoint_id
     assert cp.expires_at is None
     assert cp.created_at.tzinfo is not None
-    expiring = _checkpoint(expires_at=datetime.now(timezone.utc) + timedelta(hours=1))
+    expiring = _checkpoint(expires_at=datetime.now(UTC) + timedelta(hours=1))
     assert expiring.expires_at is not None
 
 

@@ -68,7 +68,7 @@ class BackgroundJob:
     async def wait_for_completion(
         self,
         *,
-        timeout: float | None = None,
+        timeout: float | None = None,  # noqa: ASYNC109
     ) -> RunResponse:
         """Await the background run and return the :class:`RunResponse`.
 
@@ -87,7 +87,7 @@ class BackgroundJob:
         """
         try:
             return await asyncio.wait_for(asyncio.shield(self._task), timeout=timeout)
-        except asyncio.TimeoutError as exc:
+        except TimeoutError as exc:
             msg = (
                 f"Background job did not complete within {timeout}s. "
                 "The run is still in flight — call wait_for_completion() again "

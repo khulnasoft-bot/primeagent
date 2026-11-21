@@ -12,7 +12,7 @@ import json
 import os
 import shutil
 import subprocess
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from wfx.integrations import (
@@ -101,7 +101,7 @@ async def test_env_sample_request_scope_beats_the_environment(
     _ = variable_service
     key = env_sample.env_key_for(HANDLE)
     monkeypatch.setenv(key, "ambient-token")
-    expires_at = datetime.now(timezone.utc) + timedelta(hours=1)
+    expires_at = datetime.now(UTC) + timedelta(hours=1)
     value = env_sample.credential_json(
         "request-token",  # pragma: allowlist secret
         expires_at=expires_at,
@@ -244,7 +244,7 @@ async def test_secret_manager_sample_expired_and_scope_missing_are_typed(secret_
     expired = json.dumps(
         {
             "access_token": "expired",
-            "expires_at": (datetime.now(timezone.utc) - timedelta(minutes=1)).isoformat(),
+            "expires_at": (datetime.now(UTC) - timedelta(minutes=1)).isoformat(),
         }
     )
     resolver = _mounted_resolver(secret_sample, tmp_path, payload=expired)
@@ -490,7 +490,7 @@ async def test_serve_request_sample_sends_credentials_that_actually_resolve(env_
     assert credential.account is not None
     # A stale literal expiry would make every copy-pasted request fail auth-expired.
     assert credential.expires_at is not None
-    assert credential.expires_at > datetime.now(timezone.utc)
+    assert credential.expires_at > datetime.now(UTC)
 
 
 def test_samples_never_hardcode_a_timestamp_that_goes_stale() -> None:

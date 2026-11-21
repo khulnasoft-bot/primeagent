@@ -10,7 +10,7 @@ from __future__ import annotations
 import asyncio
 import contextlib
 import sqlite3
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from wfx.graph.checkpoint.schema import GraphCheckpoint
@@ -43,7 +43,7 @@ _NOT_EXPIRED = "(expires_at IS NULL OR expires_at > ?)"
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 class SqliteCheckpointStore(CheckpointStore):

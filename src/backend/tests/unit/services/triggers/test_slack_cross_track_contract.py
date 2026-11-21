@@ -57,7 +57,7 @@ def _slack_app(monkeypatch, listener_process):  # noqa: ARG001 - both are setup
     fx.use_registrations(monkeypatch)
 
 
-async def _wait_for_app_ids(trigger_ids, *, timeout: float = 5.0) -> None:
+async def _wait_for_app_ids(trigger_ids, *, timeout: float = 5.0) -> None:  # noqa: ASYNC109
     """Socket fan-out reaches another connection's trigger once its hello recorded the app."""
     from primeagent.services.triggers.providers.slack.socket_mode import PROVIDER_STATE_APP_ID
 

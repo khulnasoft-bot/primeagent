@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import FrozenInstanceError
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock
 from uuid import uuid4
 
@@ -191,7 +191,7 @@ async def test_identity_and_directory_contracts_are_default_noops(service: Autho
     snapshot = DirectoryMembershipSnapshot(
         provider_id="directory-1",
         source="scim",
-        observed_at=datetime.now(timezone.utc),
+        observed_at=datetime.now(UTC),
         user_id=user_id,
         provider_user_id="provider-user-1",
         memberships=("engineering", "reviewers"),

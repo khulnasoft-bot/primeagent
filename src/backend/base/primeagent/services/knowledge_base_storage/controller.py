@@ -351,7 +351,7 @@ def _owns_listener(identity: dict, port: int) -> bool:
     return False
 
 
-async def _wait_ready(identity: dict, port: int, timeout: float) -> None:
+async def _wait_ready(identity: dict, port: int, timeout: float) -> None:  # noqa: ASYNC109
     """Wait for strict storage readiness from the instance that owns the listener."""
     deadline = time.monotonic() + timeout
     async with httpx.AsyncClient(trust_env=False, timeout=2, follow_redirects=False) as client:

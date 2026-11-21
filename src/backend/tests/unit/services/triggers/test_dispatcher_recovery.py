@@ -1,7 +1,7 @@
 """Committed jobs survive interrupted trigger submission and bounded scans."""
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import NAMESPACE_URL, uuid4, uuid5
 
 import pytest
@@ -40,7 +40,7 @@ async def test_trigger_recovers_the_committed_job_after_interrupted_submit(make_
         async with session_scope() as session:
             event = await session.get(TriggerEvent, event_id)
             assert event.state == "claimed"
-            event.lease_expires_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+            event.lease_expires_at = datetime.now(UTC) - timedelta(seconds=1)
             session.add(event)
         async with session_scope() as session:
             assert await dispatcher.sweep_expired_claims(session) == 1
@@ -68,7 +68,7 @@ async def test_trigger_recovery_recognizes_a_legacy_attempt_key(make_trigger):
             state="claimed",
             attempt=0,
             lease_owner="old-process",
-            lease_expires_at=datetime.now(timezone.utc) - timedelta(seconds=1),
+            lease_expires_at=datetime.now(UTC) - timedelta(seconds=1),
         )
         session.add(event)
         await session.flush()
@@ -92,7 +92,7 @@ async def test_trigger_recovery_recognizes_a_legacy_attempt_key(make_trigger):
 
 
 async def test_capped_triggers_are_excluded_before_the_claim_limit(make_trigger):
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     for _index in range(25):
         trigger_id = await make_trigger()
         async with session_scope() as session:
@@ -151,7 +151,7 @@ async def test_overlapping_dispatchers_cannot_insert_two_jobs_for_one_event(make
         event, _ = await ledger.append_event(session, trigger_id=trigger_id, dedupe_key="overlap")
         event.state = "claimed"
         event.lease_owner = "replica"
-        event.lease_expires_at = datetime.now(timezone.utc) + timedelta(seconds=60)
+        event.lease_expires_at = datetime.now(UTC) + timedelta(seconds=60)
         session.add(event)
         event_id = event.id
     service = BackgroundExecutionService(get_settings_service())

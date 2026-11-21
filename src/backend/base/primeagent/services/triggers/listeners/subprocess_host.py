@@ -218,7 +218,7 @@ class ListenerSubprocess:
             process.terminate()
         try:
             await asyncio.wait_for(asyncio.to_thread(process.wait), timeout=GRACE_PERIOD_S)
-        except (TimeoutError, asyncio.TimeoutError):
+        except TimeoutError:
             await logger.awarning("PrimeAgent listeners child did not exit in %.0fs; killing it", GRACE_PERIOD_S)
             with contextlib.suppress(ProcessLookupError, OSError):
                 process.kill()

@@ -1,6 +1,6 @@
 """Unit tests for timestamp validator functions in both primeagent and wfx schemas."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 from typing import Annotated
 
 import primeagent.schema.validators as lf_validators
@@ -14,7 +14,7 @@ from pydantic import BaseModel, ValidationError
 
 
 def _utc(year, month, day, hour, minute, second, microsecond=0):
-    return datetime(year, month, day, hour, minute, second, microsecond, tzinfo=timezone.utc)
+    return datetime(year, month, day, hour, minute, second, microsecond, tzinfo=UTC)
 
 
 # ---------------------------------------------------------------------------

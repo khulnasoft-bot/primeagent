@@ -1,6 +1,6 @@
 """A stale timeout scan must not overwrite a newer HITL decision or deadline."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -21,7 +21,7 @@ async def test_stale_input_deadline_scan_preserves_winning_transition(
     await service.update_job_status(job_id, JobStatus.SUSPENDED)
     await service.update_job_metadata(
         job_id,
-        {"input_deadline_at": (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()},
+        {"input_deadline_at": (datetime.now(UTC) - timedelta(seconds=1)).isoformat()},
     )
     await service.save_checkpoint(job_id, "graph", "saved checkpoint")
 
@@ -44,7 +44,7 @@ async def test_stale_input_deadline_scan_preserves_winning_transition(
             elif transition == "new_deadline":
                 await service.update_job_metadata(
                     job_id,
-                    {"input_deadline_at": (datetime.now(timezone.utc) + timedelta(hours=1)).isoformat()},
+                    {"input_deadline_at": (datetime.now(UTC) + timedelta(hours=1)).isoformat()},
                 )
             else:
                 assert await service.sweep_input_deadlines() == [job_id]

@@ -33,7 +33,7 @@ Unique constraint on ``(user_id, name)`` — the guard against duplicate KBs,
 and the identity used to resolve historical ``{user}/{kb_name}`` directories.
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 from uuid import UUID, uuid4
@@ -135,11 +135,11 @@ class KnowledgeBaseRecordBase(SQLModel):
     # The Python ``default_factory`` remains so ORM-level inserts get
     # a timezone-aware UTC value without a round-trip.
     created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False, server_default=func.now()),
     )
     updated_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False, server_default=func.now()),
     )
 

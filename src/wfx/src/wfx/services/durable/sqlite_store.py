@@ -14,7 +14,7 @@ import asyncio
 import contextlib
 import json
 import sqlite3
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
 from wfx.services.durable.models import DurableEvent, DurableJob, DurableSignal, JobStatus, JobType, SignalType
@@ -57,7 +57,7 @@ CREATE INDEX IF NOT EXISTS idx_signals_job_consumed ON signals(job_id, consumed)
 
 
 def _utcnow() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _parse_dt(raw: str) -> datetime:

@@ -3,7 +3,7 @@ name = "wfx-firecrawl"
 version = "0.2.0"
 description = "Firecrawl components (Scrape, Crawl, Map, and Search APIs) as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.11,<3.15"
 license = { text = "MIT" }
 authors = [
     { name = "KhulnaSoft", email = "info@khulnasoft.com" },

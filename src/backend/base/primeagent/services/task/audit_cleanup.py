@@ -151,7 +151,7 @@ class AuditLogCleanupWorker:
         """
         try:
             await asyncio.wait_for(self._stop_event.wait(), timeout=delay)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             return False
         return True
 

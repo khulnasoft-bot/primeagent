@@ -106,7 +106,7 @@ import asyncio
 import json
 import os
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
@@ -241,7 +241,7 @@ class DeploymentsApiParallelE2E:
         self.concurrency_repeat = concurrency_repeat
         self.verify_tls = verify_tls
 
-        self.run_suffix = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S") + "-" + uuid4().hex[:8]
+        self.run_suffix = datetime.now(UTC).strftime("%Y%m%d%H%M%S") + "-" + uuid4().hex[:8]
         self._name_counter = 0
         self.owned_deployments: dict[str, OwnedDeployment] = {}
         self.orphaned_provider_resource_keys: set[str] = set()

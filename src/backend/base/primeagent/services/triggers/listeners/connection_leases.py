@@ -18,7 +18,7 @@ adapter must tolerate bounded overlap during handover
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 
 from sqlalchemy import case, exists, false, or_
@@ -36,14 +36,14 @@ if TYPE_CHECKING:
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _as_aware(value: datetime | None) -> datetime | None:
     """Read a timestamp back as UTC-aware (SQLite returns naive datetimes)."""
     if value is None:
         return None
-    return value if value.tzinfo is not None else value.replace(tzinfo=timezone.utc)
+    return value if value.tzinfo is not None else value.replace(tzinfo=UTC)
 
 
 def _is_live(row: TriggerListenerLease, *, ttl_s: float, now: datetime) -> bool:

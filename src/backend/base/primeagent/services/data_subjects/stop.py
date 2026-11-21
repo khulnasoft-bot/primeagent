@@ -5,7 +5,7 @@ Runs in the approval transaction, so the admin sees the refusal or the stop sync
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from sqlalchemy import delete, func, update
@@ -96,7 +96,7 @@ async def _stop_jobs(session: AsyncSession, where: ColumnElement[bool]) -> int:
     )
     if not live:
         return 0
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     job_ids = [job_id for job_id, _ in live]
     for job_id, status in live:
         if status == JobStatus.IN_PROGRESS:

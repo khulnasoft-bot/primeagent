@@ -6,7 +6,7 @@ just pin the response-shape contract and the ceiling on ``size``.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -27,7 +27,7 @@ def test_audit_log_read_accepts_minimal_row():
         resource_id=None,
         result="allow",
         details=None,
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
     )
     assert row.action == "flow:read"
     assert row.user_id is None
@@ -47,7 +47,7 @@ def test_audit_log_read_carries_details_dict():
         resource_id=uuid4(),
         result="deny",
         details={"domain": "project:abc", "flow_user_id": str(uuid4())},
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
     )
     assert row.details["domain"] == "project:abc"
     assert row.actor_type == "api_key"
@@ -83,7 +83,7 @@ def test_audit_log_read_requires_id_and_action():
             resource_id=None,
             result="allow",
             details=None,
-            timestamp=datetime.now(timezone.utc),
+            timestamp=datetime.now(UTC),
         )
     with pytest.raises(ValidationError):
         AuthzAuditLogRead(  # type: ignore[call-arg]
@@ -95,7 +95,7 @@ def test_audit_log_read_requires_id_and_action():
             resource_id=None,
             result="allow",
             details=None,
-            timestamp=datetime.now(timezone.utc),
+            timestamp=datetime.now(UTC),
         )
 
 
@@ -137,7 +137,7 @@ async def test_audit_query_filters_and_returns_first_class_actor_fields():
         resource_id=uuid4(),
         result="allow",
         details={"api_key_source": "db"},  # pragma: allowlist secret
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
     )
     session = _Session(row)
 
@@ -180,7 +180,7 @@ async def test_audit_query_filters_skipped_reconciliation_results():
         resource_id=uuid4(),
         result="skip",
         details={"reason": "overage"},
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
     )
     session = _Session(row)
 
@@ -223,7 +223,7 @@ async def test_unknown_actor_filter_includes_legacy_null_and_explicit_unknown_ro
             resource_id=uuid4(),
             result="allow",
             details=None,
-            timestamp=datetime.now(timezone.utc),
+            timestamp=datetime.now(UTC),
         ),
         SimpleNamespace(
             id=uuid4(),
@@ -235,7 +235,7 @@ async def test_unknown_actor_filter_includes_legacy_null_and_explicit_unknown_ro
             resource_id=None,
             result="allow",
             details=None,
-            timestamp=datetime.now(timezone.utc),
+            timestamp=datetime.now(UTC),
         ),
     ]
     session = _Session(rows)

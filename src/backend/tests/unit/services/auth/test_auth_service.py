@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 import hashlib
 from contextlib import asynccontextmanager
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, patch
 from uuid import UUID, uuid4
@@ -93,7 +93,7 @@ async def test_get_current_user_from_access_token_rejects_expired(
     auth_service: AuthService,
     auth_settings: AuthSettings,
 ):
-    expired = datetime.now(timezone.utc) - timedelta(minutes=1)
+    expired = datetime.now(UTC) - timedelta(minutes=1)
     token = jwt.encode(
         {"sub": str(uuid4()), "type": "access", "exp": int(expired.timestamp())},
         auth_settings.SECRET_KEY.get_secret_value(),
@@ -197,7 +197,7 @@ async def test_inactive_user_api_key_rejection_does_not_persist_usage(
             api_key_hash=hash_api_key(plaintext),
             name="inactive-user",
             user_id=inactive_user.id,
-            created_at=datetime.now(timezone.utc),
+            created_at=datetime.now(UTC),
         )
         async with AsyncSession(engine, expire_on_commit=False) as seed_session:
             seed_session.add(inactive_user)
@@ -263,7 +263,7 @@ async def test_api_key_fallback_rolls_back_failed_token_and_external_state(
         api_key_hash=hash_api_key(plaintext),
         name="fallback",
         user_id=api_user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_user)
     async_session.add(api_key)
@@ -434,7 +434,7 @@ async def test_auto_login_longterm_token_is_short_lived_with_refresh(
     # The access token lifetime is bounded by ACCESS_TOKEN_EXPIRE_SECONDS (60 in
     # the fixture), nowhere near a year.
     claims = jwt.decode(tokens["access_token"], options={"verify_signature": False})
-    lifetime = claims["exp"] - int(datetime.now(timezone.utc).timestamp())
+    lifetime = claims["exp"] - int(datetime.now(UTC).timestamp())
     assert lifetime > 0
     assert lifetime <= auth_settings.ACCESS_TOKEN_EXPIRE_SECONDS + 5
     assert lifetime < 60 * 60 * 24  # far below a day, definitely not 365 days
@@ -1039,7 +1039,7 @@ async def test_authenticate_user_inactive_previously_logged_in(auth_service: Aut
         password=auth_service.get_password_hash("password"),  # pragma: allowlist secret
         is_active=False,
         is_superuser=False,
-        last_login_at=datetime.now(timezone.utc),
+        last_login_at=datetime.now(UTC),
     )
     db = AsyncMock()
 
@@ -1179,7 +1179,7 @@ def _external_jwt(auth_service: AuthService, claims: dict) -> str:
     it (see external._validate_trusted_time_claims).
     """
     secret = auth_service.settings.auth_settings.SECRET_KEY.get_secret_value()
-    payload = {"exp": datetime.now(timezone.utc) + timedelta(minutes=5), **claims}
+    payload = {"exp": datetime.now(UTC) + timedelta(minutes=5), **claims}
     return jwt.encode(payload, secret, algorithm="HS256")
 
 
@@ -2535,7 +2535,7 @@ def _foreign_external_jwt(claims: dict) -> str:
     resolver, while the trusted external decode path
     (EXTERNAL_AUTH_TRUSTED_JWT_DECODE) accepts it without signature checks.
     """
-    payload = {"exp": datetime.now(timezone.utc) + timedelta(minutes=5), **claims}
+    payload = {"exp": datetime.now(UTC) + timedelta(minutes=5), **claims}
     return jwt.encode(payload, "not-the-service-secret-at-least-32-bytes", algorithm="HS256")
 
 

@@ -5,7 +5,7 @@ import json
 import re
 import traceback
 from collections.abc import AsyncIterator, Iterator
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Annotated, Any, Literal
 from uuid import UUID
@@ -118,7 +118,7 @@ class Message(Data):
     context_id: str | UUID | None = Field(default="")
     run_id: str | UUID | None = Field(default=None)
     timestamp: Annotated[str, timestamp_to_str_validator] = Field(
-        default_factory=lambda: datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
+        default_factory=lambda: datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
     )
     flow_id: str | UUID | None = None
     error: bool = Field(default=False)
@@ -821,9 +821,7 @@ class MessageResponse(DefaultModel):
     # (``%Y-%m-%d %H:%M:%S.%f %Z``) which Pydantic's default datetime parser
     # rejects. Reuse the shared parser so MessageResponse.from_message
     # accepts any of the formats ``Message`` itself recognises.
-    timestamp: Annotated[datetime, str_to_timestamp_validator] = Field(
-        default_factory=lambda: datetime.now(timezone.utc)
-    )
+    timestamp: Annotated[datetime, str_to_timestamp_validator] = Field(default_factory=lambda: datetime.now(UTC))
     sender: str
     sender_name: str
     session_id: str

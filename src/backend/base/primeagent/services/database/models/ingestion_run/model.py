@@ -24,7 +24,7 @@ Design notes:
   the application layer.
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Any
 from uuid import UUID, uuid4
@@ -124,7 +124,7 @@ class IngestionRunBase(SQLModel):
     # raw-SQL inserts. Indexed because list endpoints order by this
     # column — without the index, large run histories sequential-scan.
     started_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False, server_default=func.now(), index=True),
     )
     finished_at: datetime | None = Field(

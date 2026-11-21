@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import secrets
 from contextlib import asynccontextmanager
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 from uuid import uuid4
@@ -117,7 +117,7 @@ async def test_check_key_finds_by_hash(async_session, mock_settings):
         api_key_hash=hash_api_key(plaintext),
         name="test",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.commit()
@@ -140,7 +140,7 @@ async def test_authenticate_api_key_returns_db_key_metadata(async_session, mock_
         api_key_hash=hash_api_key(plaintext),
         name="test",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.commit()
@@ -166,7 +166,7 @@ async def test_check_key_fallback_for_legacy_keys(async_session, mock_settings, 
         api_key_hash=None,
         name="legacy",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.flush()
@@ -200,7 +200,7 @@ async def test_check_key_fallback_backfills_hash(async_session, mock_settings, m
         api_key_hash=None,
         name="legacy",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.flush()
@@ -240,7 +240,7 @@ async def test_check_key_skips_orphaned_encrypted_keys(async_session, mock_setti
         api_key_hash=None,
         name="orphaned",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     plaintext = "sk-valid-key"  # pragma: allowlist secret
     valid = ApiKey(
@@ -248,7 +248,7 @@ async def test_check_key_skips_orphaned_encrypted_keys(async_session, mock_setti
         api_key_hash=hash_api_key(plaintext),
         name="valid",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add_all([orphaned, valid])
     await async_session.flush()
@@ -278,14 +278,14 @@ async def test_check_key_duplicate_hash_fails_closed(async_session, mock_setting
         api_key_hash=shared_hash,
         name="key1",
         user_id=user1.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     key2 = ApiKey(
         api_key="encrypted-2",  # pragma: allowlist secret
         api_key_hash=shared_hash,
         name="key2",
         user_id=user2.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add_all([key1, key2])
     await async_session.flush()
@@ -308,7 +308,7 @@ async def test_inactive_key_is_rejected(async_session, mock_settings):
         name="inactive",
         user_id=user.id,
         is_active=False,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.flush()
@@ -332,8 +332,8 @@ async def test_expired_key_is_rejected(async_session, mock_settings):
         api_key_hash=hash_api_key(plaintext),
         name="expired",
         user_id=user.id,
-        expires_at=datetime.now(timezone.utc) - timedelta(seconds=1),
-        created_at=datetime.now(timezone.utc),
+        expires_at=datetime.now(UTC) - timedelta(seconds=1),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.flush()
@@ -357,8 +357,8 @@ async def test_valid_key_expiry_passes(async_session, mock_settings):
         api_key_hash=hash_api_key(plaintext),
         name="future-expiry",
         user_id=user.id,
-        expires_at=datetime.now(timezone.utc) + timedelta(days=30),
-        created_at=datetime.now(timezone.utc),
+        expires_at=datetime.now(UTC) + timedelta(days=30),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.flush()
@@ -382,7 +382,7 @@ async def test_no_expiry_key_passes(async_session, mock_settings):
         name="no-expiry",
         user_id=user.id,
         expires_at=None,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.flush()
@@ -408,13 +408,13 @@ async def test_create_api_key_stores_expires_at(async_session, mock_settings, mo
         lambda key, **_kwargs: f"encrypted-{key}",
     )
 
-    expiry = datetime.now(timezone.utc) + timedelta(days=30)
+    expiry = datetime.now(UTC) + timedelta(days=30)
     result = await create_api_key(async_session, ApiKeyCreate(name="test", expires_at=expiry), user.id)
 
     row = (await async_session.exec(select(ApiKey).where(ApiKey.user_id == user.id))).first()
     assert row is not None
     assert row.expires_at is not None
-    assert abs((row.expires_at.replace(tzinfo=timezone.utc) - expiry).total_seconds()) < 2
+    assert abs((row.expires_at.replace(tzinfo=UTC) - expiry).total_seconds()) < 2
     assert result.expires_at is not None
 
 
@@ -467,7 +467,7 @@ async def _seed_external_user_with_key(async_session, *, provider: str = "extern
             api_key_hash=hash_api_key(plaintext),
             name="ext-key",
             user_id=user.id,
-            created_at=datetime.now(timezone.utc),
+            created_at=datetime.now(UTC),
         )
     )
     await async_session.commit()
@@ -528,7 +528,7 @@ async def test_authenticate_api_key_allows_non_external_user_when_ceiling_enable
             api_key_hash=hash_api_key(plaintext),
             name="native-key",
             user_id=user.id,
-            created_at=datetime.now(timezone.utc),
+            created_at=datetime.now(UTC),
         )
     )
     await async_session.commit()
@@ -603,7 +603,7 @@ async def test_blocked_external_user_legacy_key_does_not_increment_usage(async_s
         api_key_hash=None,
         name="legacy-blocked",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(legacy)
     await async_session.commit()
@@ -638,7 +638,7 @@ async def test_allowed_user_key_still_increments_usage(async_session, mock_setti
             api_key_hash=hash_api_key(plaintext),
             name="tracked",
             user_id=user.id,
-            created_at=datetime.now(timezone.utc),
+            created_at=datetime.now(UTC),
         )
     )
     await async_session.commit()
@@ -667,7 +667,7 @@ async def test_inactive_user_key_does_not_mutate_bookkeeping(async_session, mock
         api_key_hash=hash_api_key(plaintext) if hashed else None,
         name="inactive-user-key",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.commit()
@@ -696,7 +696,7 @@ async def _seed_key_for_transaction_test(async_session, *, plaintext: str, hashe
         api_key_hash=hash_api_key(plaintext) if hashed else None,
         name="transaction-test",
         user_id=user.id,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )
     async_session.add(api_key)
     await async_session.commit()

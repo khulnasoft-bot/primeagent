@@ -23,7 +23,7 @@ import math
 import os
 import random
 import tempfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from time import monotonic
 from typing import TYPE_CHECKING, Any
@@ -936,7 +936,7 @@ class BackgroundExecutionService(Service):
         # sweep would fail worker_lost. The runner's execute_with_status performs
         # the real QUEUED->IN_PROGRESS flip once it actually starts emitting.
         for job in await self._queued_workflow_jobs():
-            lease_heartbeat = datetime.now(timezone.utc).isoformat()
+            lease_heartbeat = datetime.now(UTC).isoformat()
             if not await job_service.claim_queued_lease(
                 job.job_id,
                 owner=self._owner,

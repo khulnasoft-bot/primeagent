@@ -6,11 +6,11 @@ import os
 import shutil
 import subprocess
 import sys
+import tomllib
 import zipfile
 from pathlib import Path
 
 import pytest
-import tomllib
 from packaging.requirements import Requirement
 
 ROOT = Path(__file__).resolve().parents[2]

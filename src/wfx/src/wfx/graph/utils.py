@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import inspect
 from collections.abc import Generator
+from datetime import UTC
 from enum import Enum
 from functools import cache
 from typing import TYPE_CHECKING, Any
@@ -151,7 +152,7 @@ async def emit_vertex_build_event(
         inactivated_vertices: Vertices that were inactivated
     """
     try:
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         from primeagent.services.event_manager import webhook_event_manager
 
@@ -194,7 +195,7 @@ async def emit_vertex_build_event(
                     "params": str(params) if params else None,
                     "data": vertex_data,
                     "artifacts": serialized_artifacts,
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                    "timestamp": datetime.now(UTC).isoformat(),
                     "messages": vertex_data.get("messages", []),
                     "inactivated_vertices": inactivated_vertices or [],
                     "next_vertices_ids": next_vertices_ids or [],

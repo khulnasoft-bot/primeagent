@@ -13,7 +13,7 @@ import csv
 import io
 import json
 import re
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Annotated, Any
 from uuid import UUID
 
@@ -427,7 +427,7 @@ async def export_audits(
         raise bad_request(msg)
     async with session_scope() as session:
         filters = await frozen_until(session, _filters(grouped))
-    filename = f"primeagent-audit-{datetime.now(timezone.utc).date().isoformat()}.{export_format}"
+    filename = f"primeagent-audit-{datetime.now(UTC).date().isoformat()}.{export_format}"
     return StreamingResponse(
         _export_chunks(filters, export_format),
         media_type=_EXPORT_FORMATS[export_format],

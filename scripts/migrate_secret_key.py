@@ -50,7 +50,7 @@ import platform
 import random
 import secrets
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from cryptography.exceptions import InvalidTag
@@ -478,7 +478,7 @@ def ensure_no_pending_encrypted_work(conn) -> None:
     if inspect(conn).has_table("connection_oauth"):
         pending_oauth = conn.execute(
             text("SELECT 1 FROM connection_oauth WHERE encrypted_verifier IS NOT NULL AND expires_at > :now LIMIT 1"),
-            {"now": datetime.now(timezone.utc)},
+            {"now": datetime.now(UTC)},
         ).first()
         if pending_oauth:
             print("Error: Pending OAuth connection flows must finish before rotating the secret key.")
@@ -773,7 +773,7 @@ def migrate(
 
     # Move the new key into place only after the database commit
     if not dry_run:
-        backup_file = config_dir / f"secret_key.backup.{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}"
+        backup_file = config_dir / f"secret_key.backup.{datetime.now(UTC).strftime('%Y%m%d_%H%M%S')}"
         try:
             write_secret_key_to_file(config_dir, old_key, backup_file.name)
             print(f"\n{step + 1}. Backed up old key to: {backup_file}")

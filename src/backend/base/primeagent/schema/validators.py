@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from pydantic import BeforeValidator
 from wfx.schema.validators import ensure_utc
@@ -40,10 +40,7 @@ def timestamp_to_str(timestamp: datetime | str) -> str:
         for fmt in TIMESTAMP_FORMATS:
             try:
                 parsed = datetime.strptime(timestamp.strip(), fmt)  # noqa: DTZ007
-                if fmt in _FORMATS_WITH_NUMERIC_TZ:
-                    parsed = parsed.astimezone(timezone.utc)
-                else:
-                    parsed = parsed.replace(tzinfo=timezone.utc)
+                parsed = parsed.astimezone(UTC) if fmt in _FORMATS_WITH_NUMERIC_TZ else parsed.replace(tzinfo=UTC)
                 return parsed.strftime(TF_WITH_TZ_AND_MICROSECONDS)
             except ValueError:
                 continue
@@ -74,8 +71,8 @@ def str_to_timestamp(timestamp: str | datetime) -> datetime:
             try:
                 parsed = datetime.strptime(timestamp.strip(), fmt)  # noqa: DTZ007
                 if fmt in _FORMATS_WITH_NUMERIC_TZ:
-                    return parsed.astimezone(timezone.utc)
-                return parsed.replace(tzinfo=timezone.utc)
+                    return parsed.astimezone(UTC)
+                return parsed.replace(tzinfo=UTC)
             except ValueError:
                 continue
 

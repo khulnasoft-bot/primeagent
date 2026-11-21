@@ -22,6 +22,8 @@ from wfx.run.hitl import run_graph_with_human_input
 from wfx.services.deps import get_settings_service
 
 sys.path.insert(0, str(Path(__file__).parent.parent / "graph" / "checkpoint"))
+from datetime import UTC
+
 from _static_pauser import StaticPauser
 
 
@@ -157,7 +159,7 @@ def _hitl_graph(store, *, enable_fallback: bool, late: bool, job_id: str = "job-
     ``late=True`` backdates the pause so the driver sees the response as past-deadline.
     HumanInput's branch outputs are dynamic, so they're materialized + wired by name here.
     """
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
 
     from wfx.components.flow_controls.human_input import HumanInput
     from wfx.io import Output
@@ -174,7 +176,7 @@ def _hitl_graph(store, *, enable_fallback: bool, late: bool, job_id: str = "job-
 
         def _backdated():
             req = original()
-            req["paused_at"] = (datetime.now(timezone.utc) - timedelta(seconds=120)).isoformat()
+            req["paused_at"] = (datetime.now(UTC) - timedelta(seconds=120)).isoformat()
             return req
 
         human._pause_request = _backdated

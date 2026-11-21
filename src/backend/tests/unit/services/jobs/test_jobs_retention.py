@@ -9,7 +9,7 @@ no query will ever reach again.
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -33,7 +33,7 @@ async def _aged_job(service: JobService, *, status: JobStatus, age_days: float, 
         await service.append_event(job_id, "run_end", {"ok": True})
         await service.write_signal(job_id, SignalType.STOP)
         await service.save_checkpoint(job_id, "graph", "{}")
-    stamp = datetime.now(timezone.utc) - timedelta(days=age_days)
+    stamp = datetime.now(UTC) - timedelta(days=age_days)
     async with session_scope() as session:
         await session.exec(
             update(Job)
@@ -167,7 +167,7 @@ async def test_purge_ages_jobs_from_completion_not_creation():
 
     service = JobService()
     job_id = await _aged_job(service, status=JobStatus.COMPLETED, age_days=90, with_children=True)
-    recent = datetime.now(timezone.utc) - timedelta(days=1)
+    recent = datetime.now(UTC) - timedelta(days=1)
     async with session_scope() as session:
         await session.exec(update(Job).where(Job.job_id == job_id).values(finished_timestamp=recent))
 
@@ -185,7 +185,7 @@ async def test_sqlite_purge_bounds_delete_parameters():
 
     service = JobService()
     with_children = await _aged_job(service, status=JobStatus.COMPLETED, age_days=90, with_children=True)
-    old = datetime.now(timezone.utc) - timedelta(days=90)
+    old = datetime.now(UTC) - timedelta(days=90)
     jobs = [
         Job(job_id=uuid4(), flow_id=uuid4(), status=JobStatus.COMPLETED, created_timestamp=old, finished_timestamp=old)
         for _ in range(1000)

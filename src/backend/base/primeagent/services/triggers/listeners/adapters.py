@@ -31,7 +31,7 @@ import contextlib
 import json
 import random
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any, Protocol, TypeAlias, runtime_checkable
 
 from wfx.log.logger import logger
@@ -168,7 +168,7 @@ class SelfTestAdapter(PollingListenerAdapter):
         super().__init__(interval_s=interval_s)
 
     async def poll(self, ctx: ListenerContext) -> int:
-        bucket = int(datetime.now(timezone.utc).timestamp() // max(self.interval_s, 1.0))
+        bucket = int(datetime.now(UTC).timestamp() // max(self.interval_s, 1.0))
         appended = 0
         for trigger in ctx.triggers:
             created = await ctx.emit(
@@ -178,7 +178,7 @@ class SelfTestAdapter(PollingListenerAdapter):
                     "source": LISTENER_FAKE_MECHANISM,
                     "connection_id": str(ctx.connection_id),
                     "bucket": bucket,
-                    "observed_at": datetime.now(timezone.utc).isoformat(),
+                    "observed_at": datetime.now(UTC).isoformat(),
                 },
             )
             appended += int(created)

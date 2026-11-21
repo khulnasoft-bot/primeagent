@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import fields
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -347,7 +347,7 @@ def test_base_mapper_resolve_kwargs_for_metadata_update_raises_not_implemented()
 
 def test_base_mapper_shapes_deployment_create_result() -> None:
     mapper = BaseDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     deployment_id = uuid4()
     provider_account_id = uuid4()
     result = DeploymentCreateResult(id="provider-id", type=DeploymentType.AGENT, provider_result={"ok": True})
@@ -373,7 +373,7 @@ def test_base_mapper_shapes_deployment_create_result() -> None:
 
 def test_base_mapper_shapes_deployment_list_result() -> None:
     mapper = BaseDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     result = DeploymentListResult(
         deployments=[
             ItemResult(
@@ -409,7 +409,7 @@ def test_base_mapper_shapes_deployment_list_result() -> None:
 
 def test_base_mapper_shapes_flow_version_list_result() -> None:
     mapper = BaseDeploymentMapper()
-    attached_at = datetime.now(tz=timezone.utc)
+    attached_at = datetime.now(tz=UTC)
     flow_version_id = uuid4()
     flow_id = uuid4()
     rows = [
@@ -576,7 +576,7 @@ def test_base_mapper_shapes_deployment_update_result() -> None:
     mapper = BaseDeploymentMapper()
     deployment_id = uuid4()
     provider_account_id = uuid4()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     result = DeploymentUpdateResult(id="provider-id", provider_result={"ok": True})
     deployment_row = SimpleNamespace(
         id=deployment_id,
@@ -683,7 +683,7 @@ def test_base_mapper_exposes_reconciliation_resolvers() -> None:
 
 def test_base_mapper_shapes_provider_account_response() -> None:
     mapper = BaseDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     account = SimpleNamespace(
         id=uuid4(),
         name="staging",

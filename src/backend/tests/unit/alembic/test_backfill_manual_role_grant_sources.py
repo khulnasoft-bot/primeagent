@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import importlib
 import types
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 import sqlalchemy as sa
@@ -53,7 +53,7 @@ def test_upgrade_backfills_deterministic_batches_without_replacing_existing_sour
     monkeypatch.setattr(_MIGRATION, "_BATCH_SIZE", 2)
     assignment_ids = [UUID(int=value) for value in range(1, 7)]
     actors = [UUID(int=100 + value) for value in range(1, 7)]
-    assigned_at = [datetime(2026, 7, 30, 12, tzinfo=timezone.utc) + timedelta(minutes=value) for value in range(1, 7)]
+    assigned_at = [datetime(2026, 7, 30, 12, tzinfo=UTC) + timedelta(minutes=value) for value in range(1, 7)]
 
     with engine.begin() as conn:
         conn.execute(

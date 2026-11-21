@@ -8,9 +8,9 @@ from __future__ import annotations
 
 import json
 import sys
+import tomllib
 from pathlib import Path
 
-import tomllib
 from packaging.requirements import Requirement
 
 BASE_DIR = Path(__file__).resolve().parents[2]

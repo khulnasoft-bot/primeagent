@@ -8,7 +8,7 @@ from the existing versions UI (or a future "revert" affordance fed by the
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID
 
 from wfx.log.logger import logger
@@ -17,7 +17,7 @@ RESTORE_POINT_DESCRIPTION_PREFIX = "assistant-pre-edit"
 
 
 def _restore_point_description() -> str:
-    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    timestamp = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
     return f"{RESTORE_POINT_DESCRIPTION_PREFIX} {timestamp}"
 
 

@@ -7,7 +7,7 @@ license = {text = "Apache-2.0"}
 authors = [
     {name = "PrimeAgent Contributors"}
 ]
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.11,<3.15"
 keywords = [
     "workflow",
     "primeagent",
@@ -63,7 +63,7 @@ build-backend = "hatchling.build"
 packages = ["src/primeagent_stepflow"]
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 line-length = 120
 src = ["src", "tests"]
 

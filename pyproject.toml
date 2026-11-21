@@ -2,7 +2,7 @@
 name = "primeagent"
 version = "1.13.0"
 description = "A Python package with a built-in web application"
-requires-python = ">=3.10,<3.15"
+requires-python = ">=3.11,<3.15"
 license = "MIT"
 keywords = ["nlp", "langchain", "openai", "gpt", "gui"]
 readme = "README.md"
@@ -333,7 +333,9 @@ markers = [
 ]
 asyncio_mode = "auto"
 asyncio_default_fixture_loop_scope = "function"
-addopts = "-p no:benchmark"
+# -n 2: cap pytest-xdist workers at 2 to avoid saturating a 4-core Mac.
+# Override per-run with: PYTEST_ADDOPTS="-n auto" pytest ...  or  pytest -n auto ...
+addopts = "-n 2 -p no:benchmark"
 
 [tool.coverage.run]
 # Canonical backend coverage configuration. Keep this static and independent
@@ -341,7 +343,7 @@ addopts = "-p no:benchmark"
 command_line = """
     -m pytest --ignore=tests/integration
     --cov --cov-report=term --cov-report=html
-    --instafail -ra -n auto -m "not api_key_required"
+    --instafail -ra -n 2 -m "not api_key_required"
 """
 source = ["src/backend/base/primeagent/"]
 omit = [
@@ -369,7 +371,7 @@ directory = "coverage"
 
 
 [tool.ruff]
-target-version = "py310"
+target-version = "py311"
 exclude = [
     "src/backend/base/primeagent/alembic/*",
     "src/frontend/tests/assets/*",

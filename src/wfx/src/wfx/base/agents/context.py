@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 
 from langchain_core.language_models import BaseLanguageModel, BaseLLM
@@ -85,7 +85,7 @@ class AgentContext(BaseModel):
             self.update_context("Initial Context", self.context)
 
     def update_context(self, key: str, value: str):
-        self.context_history.insert(0, (key, value, datetime.now(tz=timezone.utc).astimezone().isoformat()))
+        self.context_history.insert(0, (key, value, datetime.now(tz=UTC).astimezone().isoformat()))
 
     def _serialize_context_history_tuple(self, context_history_tuple: tuple[str, str, str]) -> str:
         name, value, _ = context_history_tuple

@@ -6,7 +6,7 @@ import re
 from asyncio.subprocess import create_subprocess_exec
 from collections.abc import Awaitable, Callable, Sequence
 from contextvars import ContextVar
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from ipaddress import ip_address
 from pathlib import Path
 from subprocess import CalledProcessError
@@ -677,7 +677,7 @@ async def update_project_mcp_settings(
                     flow.mcp_enabled = settings_to_update.mcp_enabled
                     flow.action_name = settings_to_update.action_name
                     flow.action_description = settings_to_update.action_description
-                    flow.updated_at = datetime.now(timezone.utc)
+                    flow.updated_at = datetime.now(UTC)
                     session.add(flow)
                     updated_flows.append(flow)
 

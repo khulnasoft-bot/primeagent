@@ -1,6 +1,6 @@
 """Authorization (RBAC) tables (Alembic-owned; plugins populate policy data)."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from uuid import uuid4
 
@@ -32,7 +32,7 @@ class SharePermissionLevel(str, Enum):
 
 def _tz_aware_now() -> datetime:
     """Return a TZ-aware UTC datetime — used by every authz default_factory."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _tz_column(*, nullable: bool = False, index: bool = False) -> Column:

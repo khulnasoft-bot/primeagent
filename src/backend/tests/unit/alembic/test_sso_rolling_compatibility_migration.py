@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import importlib
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from uuid import UUID, uuid4
 
@@ -147,7 +147,7 @@ def test_sso_head_normalizes_pending_n_minus_one_insert(
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _INVARIANT_PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     config_id = str(uuid4())
     expected_settings = _oidc_settings()
     if not complete:
@@ -195,7 +195,7 @@ def test_sso_expand_keeps_n_and_n_minus_one_writes_coherent(db_url):  # noqa: F8
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     user_id = str(uuid4())
     profile_id = str(uuid4())
     saml_config_id = str(uuid4())

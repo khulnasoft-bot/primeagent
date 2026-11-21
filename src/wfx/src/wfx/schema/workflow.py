@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import Annotated, Any, Literal
 from uuid import UUID
@@ -416,7 +416,7 @@ class WorkflowExecutionResponse(BaseModel):
     )
     job_id: JobId | None = None
     object: Literal["response"] = Field(default="response")
-    created_timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_timestamp: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     status: JobStatus
     output: WorkflowOutput = Field(
         default_factory=lambda: WorkflowOutput(reason=OutputReason.NONE),
@@ -456,7 +456,7 @@ class WorkflowJobResponse(BaseModel):
     job_id: JobId
     flow_id: str
     object: Literal["job"] = Field(default="job")
-    created_timestamp: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+    created_timestamp: str = Field(default_factory=lambda: datetime.now(UTC).isoformat())
     status: JobStatus
     links: dict[str, str] = Field(default_factory=dict)
     errors: list[ErrorDetail] = []

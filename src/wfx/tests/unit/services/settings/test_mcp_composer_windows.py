@@ -118,7 +118,7 @@ class TestWindowsZombieProcessDetection:
         """Test that PowerShell timeout is handled gracefully."""
         with (
             patch("platform.system", return_value="Windows"),
-            patch("asyncio.to_thread", side_effect=asyncio.TimeoutError("PowerShell timed out")),
+            patch("asyncio.to_thread", side_effect=TimeoutError("PowerShell timed out")),
         ):
             # Should not raise, just return False
             result = await mcp_service._kill_zombie_mcp_processes(2000)

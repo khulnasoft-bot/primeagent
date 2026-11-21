@@ -1,6 +1,7 @@
 """Tests for login logging functionality."""
 
 import hashlib
+from datetime import UTC
 from unittest.mock import patch
 
 import pytest
@@ -64,7 +65,7 @@ async def test_failed_login_inactive_user_logs(client: AsyncClient):
     """Test that failed login for inactive user is logged."""
     # Create an inactive user with last_login_at set (so it returns 401, not 400)
     async with session_scope() as session:
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         from primeagent.services.deps import get_auth_service
 
@@ -73,7 +74,7 @@ async def test_failed_login_inactive_user_logs(client: AsyncClient):
             password=get_auth_service().get_password_hash("testpassword"),  # pragma: allowlist secret
             is_active=False,
             is_superuser=False,
-            last_login_at=datetime.now(timezone.utc),  # Set to avoid "Waiting for approval"
+            last_login_at=datetime.now(UTC),  # Set to avoid "Waiting for approval"
         )
         session.add(inactive_user)
         await session.commit()

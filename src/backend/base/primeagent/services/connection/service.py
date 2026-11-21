@@ -6,7 +6,7 @@ import contextlib
 import json
 import secrets
 from dataclasses import replace
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -139,7 +139,7 @@ class ConnectionSecretError(RuntimeError):
 
 
 def _utc_now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _credential_payload(payload: ConnectionCreate) -> str | None:
@@ -197,11 +197,11 @@ def _parse_expiry(value: object) -> datetime | None:
         msg = "Stored connection credential has an invalid expiry"
         raise ConnectionSecretError(msg)
     try:
-        parsed = datetime.fromisoformat(value.replace("Z", "+00:00"))
+        parsed = datetime.fromisoformat(value)
     except ValueError as exc:
         msg = "Stored connection credential has an invalid expiry"
         raise ConnectionSecretError(msg) from exc
-    return parsed if parsed.tzinfo is not None else parsed.replace(tzinfo=timezone.utc)
+    return parsed if parsed.tzinfo is not None else parsed.replace(tzinfo=UTC)
 
 
 def _set_status(

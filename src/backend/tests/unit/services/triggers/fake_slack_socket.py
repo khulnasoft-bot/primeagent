@@ -23,8 +23,8 @@ from tests.unit.services.triggers import slack_fixtures as fx
 
 if TYPE_CHECKING:
     from collections.abc import Awaitable, Callable
+    from typing import Self
 
-    from typing_extensions import Self
     from websockets.asyncio.server import ServerConnection
 
 API_BASE_URL = "https://slack.test/api"
@@ -53,7 +53,7 @@ class FakeSocket:
     def acked(self, envelope_id: str) -> bool:
         return any(frame.get("envelope_id") == envelope_id for frame in self.received)
 
-    async def wait_for_ack(self, envelope_id: str, *, timeout: float = 5.0) -> bool:
+    async def wait_for_ack(self, envelope_id: str, *, timeout: float = 5.0) -> bool:  # noqa: ASYNC109
         """True once the adapter acknowledged ``envelope_id``; False on timeout."""
         deadline = asyncio.get_running_loop().time() + timeout
         while not self.acked(envelope_id):
@@ -114,7 +114,7 @@ class FakeSlackSocketMode:
     def live(self) -> list[FakeSocket]:
         return [socket for socket in self.sockets if not socket.closed.is_set()]
 
-    async def wait_for_sockets(self, count: int, *, timeout: float = 5.0) -> list[FakeSocket]:
+    async def wait_for_sockets(self, count: int, *, timeout: float = 5.0) -> list[FakeSocket]:  # noqa: ASYNC109
         """Wait until at least ``count`` sockets have been opened in total."""
         deadline = asyncio.get_running_loop().time() + timeout
         while len(self.sockets) < count:

@@ -43,7 +43,7 @@ async def consume_streaming_events(
 
         try:
             event = await asyncio.wait_for(event_queue.get(), timeout=check_interval)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             if cancel_event is not None and cancel_event.is_set():
                 logger.info("Cancel event set, stopping event consumption")
                 yield ("cancelled", "")

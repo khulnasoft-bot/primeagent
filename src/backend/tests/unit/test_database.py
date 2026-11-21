@@ -1,7 +1,7 @@
 import io
 import json
 import zipfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import NamedTuple
 from uuid import UUID, uuid4
 
@@ -1602,7 +1602,7 @@ def test_transaction_excludes_code_key(session):
 
     # Create a transaction with inputs containing a code key
     transaction = TransactionTable(
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(UTC),
         vertex_id="test-vertex",
         target_id="test-target",
         inputs=input_data,

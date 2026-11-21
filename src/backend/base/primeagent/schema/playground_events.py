@@ -1,6 +1,6 @@
 import inspect
 from collections.abc import Callable
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Annotated, Literal
 from uuid import UUID
 
@@ -21,7 +21,7 @@ class PlaygroundEvent(BaseModel):
     files: list[str] | None = Field(default=None)
     text: str | None = Field(default=None)
     timestamp: Annotated[str, timestamp_to_str_validator] = Field(
-        default_factory=lambda: datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
+        default_factory=lambda: datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
     )
     id_: UUID | str | None = Field(default=None, alias="id")
 
@@ -80,7 +80,7 @@ class TokenEvent(BaseModel):
     chunk: str = Field(...)
     id: UUID | str | None = Field(alias="id")
     timestamp: Annotated[str, timestamp_to_str_validator] = Field(
-        default_factory=lambda: datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
+        default_factory=lambda: datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S.%f %Z")
     )
 
 

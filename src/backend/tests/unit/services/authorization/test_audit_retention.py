@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -34,7 +34,7 @@ async def authz_session(authz_engine):
 
 
 def _audit_row(*, days_old: int) -> AuthzAuditLog:
-    timestamp = datetime.now(timezone.utc) - timedelta(days=days_old)
+    timestamp = datetime.now(UTC) - timedelta(days=days_old)
     return AuthzAuditLog(
         user_id=uuid4(),
         action="flow:read",

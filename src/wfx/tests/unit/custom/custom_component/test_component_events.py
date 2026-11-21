@@ -242,7 +242,7 @@ async def test_component_logging():
     # Get the event from the queue with timeout to avoid race conditions
     try:
         event_id, event_data, _ = await asyncio.wait_for(queue.get(), timeout=5.0)
-    except asyncio.TimeoutError:
+    except TimeoutError:
         pytest.fail("Timeout waiting for log event in queue")
 
     event = event_data.decode("utf-8")

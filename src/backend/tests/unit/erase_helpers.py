@@ -7,7 +7,7 @@ from primeagent.services.deps import session_scope
 POLL_SECONDS = 0.1
 
 
-async def wait_for_erase(request_id: str | UUID, *, timeout: float = 30.0) -> DataSubjectRequest:
+async def wait_for_erase(request_id: str | UUID, *, timeout: float = 30.0) -> DataSubjectRequest:  # noqa: ASYNC109
     """Wait for the background worker to finish a deletion started with ``DELETE /users/{id}`` (202)."""
     deadline = asyncio.get_running_loop().time() + timeout
     while True:

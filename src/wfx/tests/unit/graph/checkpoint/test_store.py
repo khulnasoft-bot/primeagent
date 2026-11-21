@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from wfx.graph.checkpoint.schema import GraphCheckpoint
 from wfx.graph.checkpoint.store import CheckpointStore, InMemoryCheckpointStore
@@ -44,18 +44,18 @@ async def test_delete_removes_checkpoint():
 
 async def test_load_honors_expiry():
     store = InMemoryCheckpointStore()
-    expired = _checkpoint(expires_at=datetime.now(timezone.utc) - timedelta(seconds=1))
+    expired = _checkpoint(expires_at=datetime.now(UTC) - timedelta(seconds=1))
     await store.save(expired)
     assert await store.load(expired.checkpoint_id) is None
 
 
 async def test_load_by_run_id_returns_most_recent_non_expired():
     store = InMemoryCheckpointStore()
-    old = _checkpoint(created_at=datetime.now(timezone.utc) - timedelta(minutes=10))
-    newer = _checkpoint(created_at=datetime.now(timezone.utc) - timedelta(minutes=1))
+    old = _checkpoint(created_at=datetime.now(UTC) - timedelta(minutes=10))
+    newer = _checkpoint(created_at=datetime.now(UTC) - timedelta(minutes=1))
     expired_newest = _checkpoint(
-        created_at=datetime.now(timezone.utc),
-        expires_at=datetime.now(timezone.utc) - timedelta(seconds=1),
+        created_at=datetime.now(UTC),
+        expires_at=datetime.now(UTC) - timedelta(seconds=1),
     )
     for cp in (old, newer, expired_newest):
         await store.save(cp)

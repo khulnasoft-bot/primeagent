@@ -39,7 +39,7 @@ import asyncio
 import contextlib
 import random
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Any
 
 from pydantic import ValidationError
@@ -110,7 +110,7 @@ def is_local_configuration_failure(exc: BaseException) -> bool:
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def new_holder_token() -> str:

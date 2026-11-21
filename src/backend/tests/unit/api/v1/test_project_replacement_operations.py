@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 from uuid import UUID, uuid4
@@ -1114,7 +1114,7 @@ async def test_replacement_receipts_are_pruned_to_the_newest_ten(client: AsyncCl
     max_receipts = projects_module._MAX_REPLACEMENT_RECEIPTS_PER_PROJECT
     operation_ids = [str(uuid4()) for _ in range(max_receipts + 3)]
     bodies = [{"description": f"replacement {index}", "flows": []} for index in range(len(operation_ids))]
-    base_time = datetime(2024, 1, 1, tzinfo=timezone.utc)
+    base_time = datetime(2024, 1, 1, tzinfo=UTC)
 
     for index, (operation_id, body) in enumerate(zip(operation_ids, bodies, strict=True)):
         response = await client.put(

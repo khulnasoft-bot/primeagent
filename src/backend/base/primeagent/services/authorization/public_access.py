@@ -10,7 +10,7 @@ These grants are direct-link only and must never be used by list endpoints.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from typing import TYPE_CHECKING
 
@@ -81,7 +81,7 @@ def public_grant_allows(permission_level: str, action: PublicResourceAction) -> 
 
 def public_execution_user() -> UserRead:
     """Return the stable non-persisted runtime identity for public execution."""
-    epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
+    epoch = datetime(1970, 1, 1, tzinfo=UTC)
     return UserRead(
         id=PUBLIC_ANONYMOUS_ACTOR_ID,
         username="anonymous-public",

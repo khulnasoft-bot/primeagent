@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import json
 import sys
+import tomllib
 from pathlib import Path
 
 import pytest
-import tomllib
 from packaging.requirements import Requirement
 from packaging.version import Version
 

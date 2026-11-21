@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from primeagent.services.audit.retention import AuditEventCleanupWorker, purge_expired_audit_events
 from primeagent.services.audit.writer import build_audit_event
@@ -13,7 +13,7 @@ from sqlmodel import select
 
 from .conftest import project_patch_draft
 
-NOW = datetime(2026, 9, 15, 12, 0, tzinfo=timezone.utc)
+NOW = datetime(2026, 9, 15, 12, 0, tzinfo=UTC)
 
 
 async def _event_aged(session, days: float) -> AuditEvent:

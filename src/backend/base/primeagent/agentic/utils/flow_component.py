@@ -1,6 +1,6 @@
 """Flow component operations utilities for PrimeAgent."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -286,7 +286,7 @@ async def update_component_field_value(
 
             # Update the flow data
             db_flow.data = flow_data
-            db_flow.updated_at = datetime.now(timezone.utc)
+            db_flow.updated_at = datetime.now(UTC)
             # Same reason as the assistant runner: a graph write that does not
             # rotate the token is invisible to every open editor, whose next save
             # then overwrites it without anyone being told.

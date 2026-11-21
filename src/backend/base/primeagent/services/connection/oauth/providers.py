@@ -5,7 +5,7 @@ from __future__ import annotations
 import base64
 import hashlib
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 from uuid import UUID, uuid4
@@ -179,7 +179,7 @@ async def exchange(
             seconds = int(token["expires_in"])
             if seconds <= 0 or seconds > _MAX_TOKEN_LIFETIME_SECONDS:
                 raise ValueError
-            expiry = (datetime.now(timezone.utc) + timedelta(seconds=seconds)).isoformat()
+            expiry = (datetime.now(UTC) + timedelta(seconds=seconds)).isoformat()
         except (ValueError, TypeError, OverflowError):
             msg = "OAuth provider returned an invalid token expiry."
             raise OAuthError(msg, reason="provider-unavailable") from None

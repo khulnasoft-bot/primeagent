@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -27,7 +27,7 @@ def _approved(decided_at: datetime, error: dict | None = None) -> DataSubjectReq
 
 @pytest.mark.usefixtures("client")
 async def test_should_reach_a_fresh_approval_behind_a_full_batch_of_exhausted_requests():
-    start = datetime.now(timezone.utc) - timedelta(days=1)
+    start = datetime.now(UTC) - timedelta(days=1)
     exhausted = {"attempts": MAX_ATTEMPTS, "retry_at": start.isoformat()}
     async with session_scope() as session:
         session.add_all(_approved(start + timedelta(seconds=i), exhausted) for i in range(CANDIDATE_BATCH))

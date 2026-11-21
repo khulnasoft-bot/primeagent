@@ -134,7 +134,7 @@ class PrimeAgentClient:
             msg = f"GET {path} failed: {exc}"
             raise RuntimeError(msg) from exc
 
-    async def post(self, path: str, json_data: Any = None, timeout: float = 30.0, **kwargs: Any) -> Any:
+    async def post(self, path: str, json_data: Any = None, timeout: float = 30.0, **kwargs: Any) -> Any:  # noqa: ASYNC109
         url = self._url(path)
         try:
             client = await self._client()
@@ -149,7 +149,10 @@ class PrimeAgentClient:
             raise RuntimeError(msg) from exc
 
     async def stream_post(
-        self, path: str, json_data: Any = None, timeout: float = 300.0
+        self,
+        path: str,
+        json_data: Any = None,
+        timeout: float = 300.0,  # noqa: ASYNC109
     ) -> AsyncIterator[dict[str, Any]]:
         """POST with streaming SSE response. Yields parsed event dicts."""
         url = self._url(path)

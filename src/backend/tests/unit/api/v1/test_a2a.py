@@ -9,6 +9,7 @@ runs a real echo flow through the v2 surface.
 
 import json
 import uuid
+from datetime import UTC
 from pathlib import Path
 from unittest.mock import Mock
 
@@ -2336,7 +2337,7 @@ def test_answer_parts_serializes_non_json_native_output():
     new_data_part -> ParseDict rejects datetime/UUID/pydantic models; without coercion _answer_parts
     raises, and since it runs after execute()'s try/except that escaped and hung the task.
     """
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     from a2a.helpers.proto_helpers import get_data_parts
     from primeagent.api.v1.a2a_executor import _answer_parts
@@ -2348,7 +2349,7 @@ def test_answer_parts_serializes_non_json_native_output():
             "a": ComponentOutput(
                 type="data",
                 status=JobStatus.COMPLETED,
-                content={"when": datetime(2026, 1, 1, tzinfo=timezone.utc), "id": uuid.uuid4()},
+                content={"when": datetime(2026, 1, 1, tzinfo=UTC), "id": uuid.uuid4()},
             ),
         },
     )
@@ -2974,7 +2975,7 @@ async def test_execute_emits_canceled_when_run_is_cancelled():
     while True:
         try:
             event = await asyncio.wait_for(queue.dequeue_event(), timeout=0.5)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             # Not the builtin TimeoutError: on 3.10 asyncio's is a separate class, so a bare
             # `except TimeoutError` misses it and the drain loop blows up instead of ending.
             break
@@ -3023,7 +3024,7 @@ async def test_resume_conflict_bails_without_emitting_failed():
     while True:
         try:
             event = await asyncio.wait_for(queue.dequeue_event(), timeout=0.5)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             break
         state = getattr(getattr(event, "status", None), "state", None)
         if state is not None:

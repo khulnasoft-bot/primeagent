@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -218,7 +218,7 @@ def test_watsonx_mapper_provider_list_entry_rejects_non_dict_provider_data() -> 
 
 def test_watsonx_mapper_provider_list_entry_flattens_provider_data_and_uses_id() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    now = datetime.now(tz=timezone.utc)
+    now = datetime.now(tz=UTC)
     item = SimpleNamespace(
         id="agent-1",
         name="Agent 1",
@@ -253,7 +253,7 @@ def test_watsonx_mapper_provider_list_entry_flattens_provider_data_and_uses_id()
 
 def test_watsonx_mapper_provider_list_entry_rejects_blank_tool_id() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    now = datetime.now(tz=timezone.utc)
+    now = datetime.now(tz=UTC)
     item = ItemResult(
         id="agent-1",
         name="Agent 1",
@@ -279,7 +279,7 @@ def test_watsonx_mapper_provider_list_entry_rejects_blank_tool_id() -> None:
 
 def test_watsonx_mapper_shapes_deployment_list_result_with_flattened_entries() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    now = datetime.now(tz=timezone.utc)
+    now = datetime.now(tz=UTC)
     result = DeploymentListResult(
         deployments=[
             ItemResult(
@@ -325,7 +325,7 @@ def test_watsonx_mapper_shapes_deployment_list_result_with_flattened_entries() -
 
 def test_watsonx_mapper_deployment_list_result_rejects_unknown_flattened_entry_fields() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    now = datetime.now(tz=timezone.utc)
+    now = datetime.now(tz=UTC)
     result = DeploymentListResult(
         deployments=[
             ItemResult(
@@ -675,7 +675,7 @@ def test_wxo_mapper_flow_version_item_data_rejects_empty_provider_data() -> None
 
 def test_watsonx_mapper_shapes_flow_version_list_result_with_enrichment() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    attached_at = datetime.now(tz=timezone.utc)
+    attached_at = datetime.now(tz=UTC)
     flow_version_id = uuid4()
     flow_id = uuid4()
 
@@ -727,7 +727,7 @@ def test_watsonx_mapper_flow_version_list_result_returns_empty_app_ids_when_snap
     mapper = WatsonxOrchestrateDeploymentMapper()
     rows = [
         (
-            SimpleNamespace(provider_snapshot_id="tool-1", created_at=datetime.now(tz=timezone.utc)),
+            SimpleNamespace(provider_snapshot_id="tool-1", created_at=datetime.now(tz=UTC)),
             SimpleNamespace(id=uuid4(), flow_id=uuid4(), version_number=1),
             "Flow A",
         )
@@ -764,7 +764,7 @@ def test_watsonx_mapper_flow_version_list_result_degrades_when_snapshot_result_m
     mapper = WatsonxOrchestrateDeploymentMapper()
     rows = [
         (
-            SimpleNamespace(provider_snapshot_id="tool-1", created_at=datetime.now(tz=timezone.utc)),
+            SimpleNamespace(provider_snapshot_id="tool-1", created_at=datetime.now(tz=UTC)),
             SimpleNamespace(id=uuid4(), flow_id=uuid4(), version_number=1),
             "Flow A",
         )
@@ -788,7 +788,7 @@ def test_watsonx_mapper_flow_version_list_result_degrades_when_required_snapshot
     mapper = WatsonxOrchestrateDeploymentMapper()
     rows = [
         (
-            SimpleNamespace(provider_snapshot_id="tool-1", created_at=datetime.now(tz=timezone.utc)),
+            SimpleNamespace(provider_snapshot_id="tool-1", created_at=datetime.now(tz=UTC)),
             SimpleNamespace(id=uuid4(), flow_id=uuid4(), version_number=1),
             "Flow A",
         )
@@ -823,7 +823,7 @@ def test_watsonx_mapper_flow_version_list_result_degrades_when_required_snapshot
 
 def test_watsonx_mapper_shapes_config_list_result_with_full_slot_validation() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    now = datetime.now(tz=timezone.utc)
+    now = datetime.now(tz=UTC)
     result = ConfigListResult(
         configs=[
             ConfigListItem(
@@ -1040,7 +1040,7 @@ def test_watsonx_mapper_flow_version_list_result_fails_fast_on_invalid_attachmen
     mapper = WatsonxOrchestrateDeploymentMapper()
     rows = [
         (
-            SimpleNamespace(provider_snapshot_id=provider_snapshot_id, created_at=datetime.now(tz=timezone.utc)),
+            SimpleNamespace(provider_snapshot_id=provider_snapshot_id, created_at=datetime.now(tz=UTC)),
             SimpleNamespace(id=uuid4(), flow_id=uuid4(), version_number=1),
             "Flow A",
         )
@@ -1727,8 +1727,8 @@ def test_watsonx_mapper_metadata_sync_kwargs_include_display_name() -> None:
                     "llm": TEST_WXO_LLM,
                     "environments": [],
                 },
-                created_at=datetime.now(tz=timezone.utc),
-                updated_at=datetime.now(tz=timezone.utc),
+                created_at=datetime.now(tz=UTC),
+                updated_at=datetime.now(tz=UTC),
             )
         ]
     )
@@ -1756,8 +1756,8 @@ def test_watsonx_mapper_metadata_sync_passes_list_description() -> None:
                     "llm": TEST_WXO_LLM,
                     "environments": [],
                 },
-                created_at=datetime.now(tz=timezone.utc),
-                updated_at=datetime.now(tz=timezone.utc),
+                created_at=datetime.now(tz=UTC),
+                updated_at=datetime.now(tz=UTC),
             ),
             ItemResult(
                 id="provider-agent-2",
@@ -1770,8 +1770,8 @@ def test_watsonx_mapper_metadata_sync_passes_list_description() -> None:
                     "llm": TEST_WXO_LLM,
                     "environments": [],
                 },
-                created_at=datetime.now(tz=timezone.utc),
-                updated_at=datetime.now(tz=timezone.utc),
+                created_at=datetime.now(tz=UTC),
+                updated_at=datetime.now(tz=UTC),
             ),
         ]
     )
@@ -2500,7 +2500,7 @@ def test_watsonx_update_result_data_preserves_provider_owned_strings() -> None:
 
 def test_watsonx_mapper_shapes_update_response_from_result_schema() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     deployment_id = uuid4()
     provider_account_id = uuid4()
     deployment_row = SimpleNamespace(
@@ -2544,7 +2544,7 @@ def test_watsonx_mapper_shapes_update_response_from_result_schema() -> None:
 
 def test_watsonx_mapper_shapes_update_response_with_provider_display_name() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     deployment_row = SimpleNamespace(
         id=uuid4(),
         deployment_provider_account_id=uuid4(),
@@ -2594,7 +2594,7 @@ def test_watsonx_mapper_resolves_kwargs_for_metadata_update_from_adapter_result(
 def test_watsonx_mapper_update_response_rejects_non_uuid_source_ref() -> None:
     """Non-UUID source_ref in created_snapshot_bindings raises HTTP 500."""
     mapper = WatsonxOrchestrateDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     provider_account_id = uuid4()
     deployment_row = SimpleNamespace(
         id=uuid4(),
@@ -2626,7 +2626,7 @@ def test_watsonx_mapper_update_response_rejects_non_uuid_source_ref() -> None:
 
 def test_watsonx_mapper_shapes_create_response_with_provider_names() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     provider_account_id = uuid4()
     flow_version_id = uuid4()
     deployment_row = SimpleNamespace(
@@ -2668,7 +2668,7 @@ def test_watsonx_mapper_shapes_create_response_with_provider_names() -> None:
 def test_watsonx_mapper_create_response_rejects_non_uuid_source_ref_in_created_tools() -> None:
     """Create result must reject non-UUID source_ref in created tools."""
     mapper = WatsonxOrchestrateDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     provider_account_id = uuid4()
     deployment_row = SimpleNamespace(
         id=uuid4(),
@@ -2809,7 +2809,7 @@ def test_watsonx_mapper_exposes_reconciliation_resolvers() -> None:
 
 def test_wxo_mapper_provider_account_response_includes_tenant_id() -> None:
     mapper = WatsonxOrchestrateDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     account = SimpleNamespace(
         id=uuid4(),
         name="staging",
@@ -3777,7 +3777,7 @@ def test_watsonx_created_tool_includes_tool_id() -> None:
 def test_watsonx_mapper_shapes_update_response_with_tool_id() -> None:
     """shape_deployment_update_result should include tool_id in created_tools."""
     mapper = WatsonxOrchestrateDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     deployment_id = uuid4()
     provider_account_id = uuid4()
     flow_version_id = uuid4()
@@ -3823,7 +3823,7 @@ def test_watsonx_mapper_shapes_update_response_with_tool_id() -> None:
 def test_watsonx_mapper_shapes_update_response_with_non_uuid_source_ref() -> None:
     """Non-UUID source_ref in created_snapshot_bindings should fail."""
     mapper = WatsonxOrchestrateDeploymentMapper()
-    timestamp = datetime.now(tz=timezone.utc)
+    timestamp = datetime.now(tz=UTC)
     provider_account_id = uuid4()
     deployment_row = SimpleNamespace(
         id=uuid4(),

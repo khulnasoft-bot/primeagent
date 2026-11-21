@@ -20,7 +20,7 @@ are rejected outright, and unknown fields are refused.
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
 from wfx.integrations import ConnectionRef, ConnectionResolutionRequest
@@ -65,7 +65,7 @@ def credential_json(
     """
     payload: dict[str, Any] = {"access_token": access_token}
     if expires_at is not None:
-        payload["expires_at"] = expires_at.astimezone(timezone.utc).isoformat()
+        payload["expires_at"] = expires_at.astimezone(UTC).isoformat()
     if scopes is not None:
         payload["scopes"] = sorted(scopes)
     if account_id is not None:

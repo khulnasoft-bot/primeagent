@@ -15,7 +15,7 @@ import argparse
 import json
 import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 import requests
@@ -42,7 +42,7 @@ def fetch_translated_count(lang: str, en_keys: set) -> tuple[int, int]:
 
 
 def print_status(en_keys: set, comp_keys: set, other_keys: set) -> None:
-    now = datetime.now(timezone.utc).strftime("%H:%M:%S UTC")
+    now = datetime.now(UTC).strftime("%H:%M:%S UTC")
     print(f"\n=== Backend translation status — {GP_BACKEND_BUNDLE} ({now}) ===")
     print(f"{'Lang':<10} {'Components':>20} {'Other':>15} {'Total':>15}")
     print("-" * 65)

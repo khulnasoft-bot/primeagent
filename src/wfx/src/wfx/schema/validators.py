@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID
 
 from pydantic import BeforeValidator
@@ -24,8 +24,8 @@ TF_WITH_TZ_AND_MICROSECONDS = "%Y-%m-%d %H:%M:%S.%f %Z"
 def ensure_utc(timestamp: datetime) -> datetime:
     """Normalize a timestamp, interpreting legacy naive inputs as UTC."""
     if timestamp.tzinfo is None or timestamp.utcoffset() is None:
-        return timestamp.replace(tzinfo=timezone.utc)
-    return timestamp.astimezone(timezone.utc)
+        return timestamp.replace(tzinfo=UTC)
+    return timestamp.astimezone(UTC)
 
 
 def timestamp_to_str(timestamp: datetime | str) -> str:
@@ -46,10 +46,7 @@ def timestamp_to_str(timestamp: datetime | str) -> str:
         for fmt in TIMESTAMP_FORMATS:
             try:
                 parsed = datetime.strptime(timestamp.strip(), fmt)  # noqa: DTZ007
-                if fmt in _FORMATS_WITH_NUMERIC_TZ:
-                    parsed = parsed.astimezone(timezone.utc)
-                else:
-                    parsed = parsed.replace(tzinfo=timezone.utc)
+                parsed = parsed.astimezone(UTC) if fmt in _FORMATS_WITH_NUMERIC_TZ else parsed.replace(tzinfo=UTC)
                 return parsed.strftime(TF_WITH_TZ_AND_MICROSECONDS)
             except ValueError:
                 continue
@@ -80,8 +77,8 @@ def str_to_timestamp(timestamp: str | datetime) -> datetime:
             try:
                 parsed = datetime.strptime(timestamp.strip(), fmt)  # noqa: DTZ007
                 if fmt in _FORMATS_WITH_NUMERIC_TZ:
-                    return parsed.astimezone(timezone.utc)
-                return parsed.replace(tzinfo=timezone.utc)
+                    return parsed.astimezone(UTC)
+                return parsed.replace(tzinfo=UTC)
             except ValueError:
                 continue
 

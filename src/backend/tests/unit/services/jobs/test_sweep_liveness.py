@@ -10,7 +10,7 @@ owner is running it and the sweep must leave it alone.
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -30,7 +30,7 @@ async def test_sweep_skips_fresh_heartbeat_job():
 
     await service.create_job(job_id=dead, flow_id=uuid4(), user_id=uuid4())
     await service.update_job_status(dead, JobStatus.IN_PROGRESS)
-    old = (datetime.now(timezone.utc) - timedelta(seconds=300)).isoformat()
+    old = (datetime.now(UTC) - timedelta(seconds=300)).isoformat()
     await service.update_job_metadata(dead, {"owner": "worker-B", "heartbeat_at": old})
 
     swept = await service.sweep_orphans(lease_ttl_s=30.0)
@@ -72,7 +72,7 @@ async def test_concurrent_sweeps_reconcile_an_orphan_once():
     orphan = uuid4()
     await service.create_job(job_id=orphan, flow_id=uuid4(), user_id=uuid4())
     await service.update_job_status(orphan, JobStatus.IN_PROGRESS)
-    old = (datetime.now(timezone.utc) - timedelta(seconds=300)).isoformat()
+    old = (datetime.now(UTC) - timedelta(seconds=300)).isoformat()
     await service.update_job_metadata(orphan, {"owner": "dead-worker", "heartbeat_at": old})
 
     results = await asyncio.gather(

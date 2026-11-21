@@ -18,7 +18,7 @@ import contextlib
 import hashlib
 import json
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from uuid import UUID
 
@@ -252,9 +252,9 @@ def status_command(
                 statuses.append(FlowStatus(name=name, status=_STATUS_SYNCED, path=path, flow_id=flow_id))
             else:
                 remote_updated_at: datetime | None = remote_flow.updated_at
-                local_mtime = datetime.fromtimestamp(path.stat().st_mtime, tz=timezone.utc)
+                local_mtime = datetime.fromtimestamp(path.stat().st_mtime, tz=UTC)
                 if remote_updated_at and remote_updated_at.tzinfo is None:
-                    remote_updated_at = remote_updated_at.replace(tzinfo=timezone.utc)
+                    remote_updated_at = remote_updated_at.replace(tzinfo=UTC)
 
                 status = _STATUS_BEHIND if remote_updated_at and remote_updated_at > local_mtime else _STATUS_AHEAD
                 statuses.append(FlowStatus(name=name, status=status, path=path, flow_id=flow_id))

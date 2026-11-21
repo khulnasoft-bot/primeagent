@@ -2,7 +2,7 @@
 
 `python_test.yml` delegates the complete backend unit suite to
 `backend-unit-tests.yml`. Integration, WFX, bundle and CLI jobs remain separate.
-Both supported Python endpoints run the full unit selection. Python 3.10 also
+Both supported Python endpoints run the full unit selection. Python 3.11 also
 collects coverage and publishes the existing Codecov report.
 
 ## Timing baselines
@@ -75,9 +75,9 @@ Dispatch `Store pytest durations` with `shards`, `workers` and `distribution`:
 
 ```bash
 gh workflow run store_pytest_durations.yml --ref YOUR_BRANCH \
-  -f python-versions='["3.10"]' -f shards=5 -f workers=2 -f distribution=load
+  -f python-versions='["3.11"]' -f shards=5 -f workers=2 -f distribution=load
 gh workflow run store_pytest_durations.yml --ref YOUR_BRANCH \
-  -f python-versions='["3.10"]' -f shards=5 -f workers=4 -f distribution=worksteal
+  -f python-versions='["3.11"]' -f shards=5 -f workers=4 -f distribution=worksteal
 ```
 
 Compare elapsed time, summed phase time, total runner minutes, memory pressure,
@@ -85,7 +85,7 @@ failure counts and collection size. Run both cold-cache and warm-cache compariso
 More workers or shards are adopted only after those measurements show a benefit.
 Local worker benchmarks should run sequentially to avoid competing for CPU.
 
-The default is ten shards with two workers each. The initial Linux/Python 3.10
+The default is ten shards with two workers each. The initial Linux/Python 3.11
 comparison on the same commit reduced the longest test job from approximately
 23 minutes (five shards, two workers) to 13 minutes (ten shards, two workers).
 Five shards with four workers took approximately 17 minutes and exposed a

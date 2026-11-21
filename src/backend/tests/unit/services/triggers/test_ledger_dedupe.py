@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from primeagent.services.database.models.trigger.model import TriggerEvent
@@ -105,7 +105,7 @@ async def test_replay_outside_the_window_is_refused(make_trigger) -> None:
     trigger_id = await make_trigger()
     async with session_scope() as session:
         old, _ = await ledger.append_event(session, trigger_id=trigger_id, dedupe_key="ancient")
-        old.created_at = datetime.now(timezone.utc) - timedelta(days=30)
+        old.created_at = datetime.now(UTC) - timedelta(days=30)
         session.add(old)
         old_id = old.id
 
@@ -117,7 +117,7 @@ async def test_replay_outside_the_window_is_refused(make_trigger) -> None:
 async def test_purge_removes_only_old_terminal_rows(make_trigger) -> None:
     """Pending work is never purged, however old the row looks."""
     trigger_id = await make_trigger()
-    stale = datetime.now(timezone.utc) - timedelta(days=45)
+    stale = datetime.now(UTC) - timedelta(days=45)
     async with session_scope() as session:
         old_done, _ = await ledger.append_event(session, trigger_id=trigger_id, dedupe_key="old-done")
         old_done.state = TriggerEventState.COMPLETED.value

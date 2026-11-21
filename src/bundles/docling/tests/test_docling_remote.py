@@ -8,7 +8,7 @@ import httpx
 import pytest
 
 if TYPE_CHECKING:
-    from typing_extensions import Self
+    from typing import Self
 
 pytest.importorskip("docling_core")
 

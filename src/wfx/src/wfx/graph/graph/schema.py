@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, NamedTuple, Protocol
+from typing import TYPE_CHECKING, NamedTuple, NotRequired, Protocol
 
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import TypedDict
 
 from wfx.graph.edge.schema import EdgeData
 from wfx.graph.vertex.schema import NodeData

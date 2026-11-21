@@ -1,6 +1,6 @@
 """Catalog-governance policy storage."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from uuid import uuid4
 
@@ -61,7 +61,7 @@ _SCOPE_DOMAIN_CHECK = (
 
 def _tz_aware_now() -> datetime:
     """Return the current UTC timestamp for in-memory model defaults."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class CatalogPolicyRule(SQLModel, table=True):  # type: ignore[call-arg]

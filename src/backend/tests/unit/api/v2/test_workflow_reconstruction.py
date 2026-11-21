@@ -7,7 +7,7 @@ Test Coverage:
     - Reconstruction filtering to terminal nodes only
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import MagicMock, patch
 from uuid import uuid4
 
@@ -66,13 +66,13 @@ class TestWorkflowReconstruction:
         mock_vb1.id = "node1"
         mock_vb1.data = {"outputs": {"result": "output1"}}
         mock_vb1.artifacts = {}
-        mock_vb1.timestamp = datetime.now(timezone.utc)
+        mock_vb1.timestamp = datetime.now(UTC)
 
         mock_vb2 = MagicMock(spec=VertexBuildTable)
         mock_vb2.id = "node2"
         mock_vb2.data = {"outputs": {"result": "output2"}}
         mock_vb2.artifacts = {}
-        mock_vb2.timestamp = datetime.now(timezone.utc)
+        mock_vb2.timestamp = datetime.now(UTC)
 
         mock_session = MagicMock()
 
@@ -152,7 +152,7 @@ class TestWorkflowReconstruction:
             mock_vb.id = node_id
             mock_vb.data = {"outputs": {"result": f"output_{node_id}"}}
             mock_vb.artifacts = {}
-            mock_vb.timestamp = datetime.now(timezone.utc)
+            mock_vb.timestamp = datetime.now(UTC)
             mock_vertex_builds.append(mock_vb)
 
         mock_session = MagicMock()
@@ -271,7 +271,7 @@ class StoredComponent(Component):
             "duration": "8 ms",
         }
         vb.artifacts = {}
-        vb.timestamp = datetime.now(timezone.utc)
+        vb.timestamp = datetime.now(UTC)
 
         with patch("primeagent.api.v2.workflow_reconstruction.get_vertex_builds_by_job_id") as mock_get_vb:
             mock_get_vb.return_value = [vb]

@@ -8,7 +8,7 @@ import hashlib
 import hmac
 import json
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import requests
 from dotenv import load_dotenv
@@ -27,7 +27,7 @@ VERIFY_SSL = os.getenv("GP_VERIFY_SSL", "true").lower() != "false"
 
 def get_headers(url, method, body=None):
     """Generate GP-HMAC auth headers. url must be the full URL."""
-    date = datetime.now(timezone.utc)
+    date = datetime.now(UTC)
     date_string = date.strftime("%a, %d %b %Y %H:%M:%S %Z").replace("UTC", "GMT")
 
     if method.upper() == "GET":

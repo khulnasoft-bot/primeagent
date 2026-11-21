@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import asyncio
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
 
@@ -190,7 +190,7 @@ class _AuditEntry:
         # queued decision stable across batching delays and provides the seam
         # needed for idempotent downstream delivery.
         self.event_id = event_id or uuid4()
-        self.occurred_at = occurred_at or datetime.now(timezone.utc)
+        self.occurred_at = occurred_at or datetime.now(UTC)
 
 
 class _AuditEnvelope:
@@ -546,7 +546,7 @@ def stage_audit_decision(
     return True
 
 
-async def drain_pending_audit_writes(timeout: float = 5.0) -> None:
+async def drain_pending_audit_writes(timeout: float = 5.0) -> None:  # noqa: ASYNC109
     """Flush the audit queue and stop the writer (bounded by ``timeout``).
 
     Safe to call multiple times; safe to call when no audit traffic has run.
@@ -588,7 +588,7 @@ async def drain_pending_audit_writes(timeout: float = 5.0) -> None:
 
     try:
         await asyncio.wait_for(queue.join(), timeout=drain_budget)
-    except asyncio.TimeoutError:
+    except TimeoutError:
         logger.warning(
             "drain_pending_audit_writes timed out after %.2fs with %d row(s) pending",
             drain_budget,

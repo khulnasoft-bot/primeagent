@@ -246,7 +246,7 @@ async def run_working_flow(*, flow_data: dict, flow_id: str, user_id: str | None
                 run_graph_internal(graph, flow_id, inputs=[], outputs=[]),
                 timeout=RUN_TIMEOUT_SECONDS,
             )
-    except (TimeoutError, asyncio.TimeoutError):
+    except TimeoutError:
         # On Python 3.10 ``asyncio.wait_for`` raises ``asyncio.TimeoutError``,
         # a class DISTINCT from the builtin ``TimeoutError`` (they were unified
         # in 3.11). Catching only the builtin let 3.10 fall through to the

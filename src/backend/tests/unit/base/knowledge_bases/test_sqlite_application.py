@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import uuid
+from datetime import UTC
 
 import pytest
 from langchain_core.documents import Document
@@ -155,7 +156,7 @@ async def test_memory_delete_failure_preserves_identity_for_retry(active_user, m
 
 @pytest.fixture
 async def stored_memory_history(active_user, local_storage):  # noqa: ARG001 - storage-root fixture
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     from primeagent.services.database.models.flow.model import Flow
     from primeagent.services.database.models.memory_base.model import (
@@ -175,7 +176,7 @@ async def stored_memory_history(active_user, local_storage):  # noqa: ARG001 - s
     message = MessageTable(flow_id=flow.id, session_id="fenced", sender="User", sender_name="User", text="retained")
     tracked = MemoryBaseSession(memory_base_id=memory.id, session_id="fenced", cursor_id=message.id, total_processed=1)
     ingested = MessageIngestionRecord(
-        message_id=message.id, memory_base_id=memory.id, session_id="fenced", ingested_at=datetime.now(timezone.utc)
+        message_id=message.id, memory_base_id=memory.id, session_id="fenced", ingested_at=datetime.now(UTC)
     )
     processed = MemoryBasePreprocessingOutput(
         memory_base_id=memory.id,

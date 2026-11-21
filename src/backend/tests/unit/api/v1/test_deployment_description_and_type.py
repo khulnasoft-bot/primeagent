@@ -8,7 +8,7 @@ Covers:
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -64,7 +64,7 @@ class TestDeploymentModel:
         assert row.description is None
 
     def test_deployment_read_has_description_and_enum_type(self):
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         read = DeploymentRead(
             id=uuid4(),
             resource_key="rk-1",
@@ -81,7 +81,7 @@ class TestDeploymentModel:
         assert read.deployment_type == DeploymentType.AGENT
 
     def test_deployment_read_description_defaults_to_none(self):
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         read = DeploymentRead(
             id=uuid4(),
             resource_key="rk-1",
@@ -131,7 +131,7 @@ class TestAdapterDescriptionValidation:
 class TestCreateResponse:
     def test_surfaces_description_from_db_row(self):
         mapper = BaseDeploymentMapper()
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         provider_account_id = uuid4()
         row = SimpleNamespace(
             id=uuid4(),
@@ -151,7 +151,7 @@ class TestCreateResponse:
 
     def test_description_none_when_not_set(self):
         mapper = BaseDeploymentMapper()
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         provider_account_id = uuid4()
         row = SimpleNamespace(
             id=uuid4(),
@@ -171,7 +171,7 @@ class TestCreateResponse:
 
     def test_uses_enum_type_from_row(self):
         mapper = BaseDeploymentMapper()
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         provider_account_id = uuid4()
         row = SimpleNamespace(
             id=uuid4(),
@@ -198,7 +198,7 @@ class TestCreateResponse:
 class TestMapperUpdateResult:
     def test_reads_description_from_row(self):
         mapper = BaseDeploymentMapper()
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         provider_account_id = uuid4()
         row = SimpleNamespace(
             id=uuid4(),
@@ -219,7 +219,7 @@ class TestMapperUpdateResult:
 
     def test_description_none_from_row(self):
         mapper = BaseDeploymentMapper()
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         provider_account_id = uuid4()
         row = SimpleNamespace(
             id=uuid4(),

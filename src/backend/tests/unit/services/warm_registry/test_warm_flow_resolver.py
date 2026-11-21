@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 from uuid import UUID, uuid4
@@ -30,7 +30,7 @@ def _snapshot(
         folder_id=None,
         workspace_id=None,
         endpoint_name=endpoint_name,
-        updated_at=datetime(2026, 8, 5, 12, tzinfo=timezone.utc),
+        updated_at=datetime(2026, 8, 5, 12, tzinfo=UTC),
     )
 
 
@@ -249,7 +249,7 @@ async def test_shared_uuid_never_pairs_old_snapshot_with_new_revision(monkeypatc
         update={
             "name": "New",
             "data": {"nodes": [], "edges": [], "marker": "new"},
-            "updated_at": datetime(2026, 8, 5, 13, tzinfo=timezone.utc),
+            "updated_at": datetime(2026, 8, 5, 13, tzinfo=UTC),
         },
         deep=True,
     )

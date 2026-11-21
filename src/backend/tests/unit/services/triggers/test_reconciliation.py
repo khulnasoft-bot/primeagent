@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import UTC
 from typing import Any
 
 import pytest
@@ -226,9 +227,9 @@ async def test_a_racing_save_leaves_the_callers_transaction_usable(trigger_owner
 
 @pytest.mark.parametrize("changes", [{"catchup_policy": "skip"}, {"share_session": True}])
 async def test_non_timing_edits_preserve_a_due_tick(trigger_owner, owned_flow, changes):
-    from datetime import datetime, timezone
+    from datetime import datetime
 
-    due = datetime(2026, 9, 14, 7, tzinfo=timezone.utc)
+    due = datetime(2026, 9, 14, 7, tzinfo=UTC)
     async with session_scope() as session:
         await reconcile_flow_triggers(
             session, flow_id=owned_flow, owner_id=trigger_owner, flow_data=_flow_data(_schedule_node())
@@ -242,7 +243,7 @@ async def test_non_timing_edits_preserve_a_due_tick(trigger_owner, owned_flow, c
             session, flow_id=owned_flow, owner_id=trigger_owner, flow_data=_flow_data(_schedule_node(**changes))
         )
         row = (await session.exec(select(Trigger).where(Trigger.flow_id == owned_flow))).one()
-        assert row.next_fire_at.replace(tzinfo=timezone.utc) == due
+        assert row.next_fire_at.replace(tzinfo=UTC) == due
         assert row.state == "active"
 
 
@@ -300,7 +301,7 @@ async def test_correcting_an_invalid_schedule_rearms_the_trigger_it_disabled(
     trigger_owner, owned_flow, invalid_cron
 ) -> None:
     """LE-2481: a fixed cron must not leave the trigger stranded in ``error``."""
-    from datetime import datetime, timedelta, timezone
+    from datetime import datetime, timedelta
 
     from primeagent.services.database.models.trigger.model import TriggerEvent
     from primeagent.services.triggers.scheduler import produce_ticks
@@ -322,7 +323,7 @@ async def test_correcting_an_invalid_schedule_rearms_the_trigger_it_disabled(
     assert row.next_fire_at is None
 
     # And the schedule really runs again: first sight arms, the next minute fires.
-    now = datetime(2026, 9, 18, 12, 0, 30, tzinfo=timezone.utc)
+    now = datetime(2026, 9, 18, 12, 0, 30, tzinfo=UTC)
     async with session_scope() as session:
         assert await produce_ticks(session, now=now) == 0
         assert await produce_ticks(session, now=now + timedelta(minutes=1)) == 1

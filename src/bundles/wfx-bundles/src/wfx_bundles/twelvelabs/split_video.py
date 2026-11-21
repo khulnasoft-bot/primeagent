@@ -1,7 +1,7 @@
 import hashlib
 import math
 import subprocess
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
@@ -129,7 +129,7 @@ class SplitVideoComponent(Component):
         base_name = path_obj.stem
 
         # Create a timestamp
-        timestamp = datetime.now(tz=timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+        timestamp = datetime.now(tz=UTC).strftime("%Y-%m-%d_%H-%M-%S")
 
         # Create a unique hash from the video path
         path_hash = hashlib.sha256(video_path.encode()).hexdigest()[:8]

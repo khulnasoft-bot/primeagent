@@ -21,7 +21,7 @@ DB session, mirroring ``test_template_create.py``.
 """
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import uuid4
@@ -202,7 +202,7 @@ class TestRunAssistantAndPersist:
         from primeagent.agentic.utils.assistant_runner import run_assistant_and_persist
 
         user_id = uuid4()
-        previous_updated_at = datetime(2024, 1, 1, tzinfo=timezone.utc)
+        previous_updated_at = datetime(2024, 1, 1, tzinfo=UTC)
         flow = SimpleNamespace(
             id=uuid4(),
             name="My Flow",
@@ -236,7 +236,7 @@ class TestRunAssistantAndPersist:
 
         assert flow.data == NEW_FLOW_DATA
         assert flow.updated_at > previous_updated_at
-        assert flow.updated_at.tzinfo is timezone.utc
+        assert flow.updated_at.tzinfo is UTC
         session.commit.assert_awaited()
         assert result["flow_changed"] is True
         assert result["result"] == "Built a simple chat flow."

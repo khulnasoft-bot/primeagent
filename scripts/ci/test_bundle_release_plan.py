@@ -9,13 +9,13 @@ import io
 import json
 import subprocess
 import sys
+import tomllib
 import zipfile
 from collections import defaultdict
 from pathlib import Path
 from typing import Any
 
 import pytest
-import tomllib
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 

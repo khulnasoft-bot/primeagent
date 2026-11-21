@@ -188,11 +188,11 @@ async def validate_flow_execution(
             # Clean up the flow with timeout
             try:  # noqa: SIM105
                 await client.delete(f"api/v1/flows/{flow_id}", headers=headers, timeout=10)
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 # Log but don't fail if cleanup times out
                 pass
 
-    except asyncio.TimeoutError:
+    except TimeoutError:
         errors.append(f"{filename}: Flow execution timed out")
     except (ValueError, TypeError, KeyError, AttributeError) as e:
         errors.append(f"{filename}: Flow execution validation failed: {e!s}")
@@ -278,7 +278,7 @@ async def _validate_event_stream(response, job_id: str, filename: str, errors: l
         # if vertex_count == 0:
         #     errors.append(f"{filename}: No vertices executed in flow")
 
-    except asyncio.TimeoutError:
+    except TimeoutError:
         errors.append(f"{filename}: Flow execution timeout")
     except (ValueError, TypeError, KeyError, AttributeError) as e:
         errors.append(f"{filename}: Event stream validation failed: {e!s}")

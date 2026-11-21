@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import UUID, uuid4
 
 import pytest
@@ -473,7 +473,7 @@ async def test_failed_lifecycle_operations_do_not_hide_an_owners_history(
     assert response.status_code == status.HTTP_201_CREATED, response.text
     resource_id = UUID(response.json()["id"])
     # Keep all three events strictly ordered, independent of SQLite clock precision.
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     async with session_scope() as session:
         created = (await session.exec(select(AuditEvent).where(AuditEvent.resource_id == resource_id))).one()
         created.timestamp = now - timedelta(minutes=3)

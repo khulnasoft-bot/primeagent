@@ -10,7 +10,7 @@ the rest, rather than block behind that sweep or delete the same batch twice.
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 from uuid import UUID, uuid4
 
@@ -36,7 +36,7 @@ async def _aged_job(service: JobService, *, status: JobStatus) -> UUID:
     await service.append_event(job_id, "run_end", {"ok": True})
     await service.write_signal(job_id, SignalType.STOP)
     await service.save_checkpoint(job_id, "graph", "{}")
-    stamp = datetime.now(timezone.utc) - timedelta(days=_AGE_DAYS)
+    stamp = datetime.now(UTC) - timedelta(days=_AGE_DAYS)
     finished = None if status in {JobStatus.QUEUED, JobStatus.IN_PROGRESS, JobStatus.SUSPENDED} else stamp
     async with session_scope() as session:
         await session.exec(
@@ -115,11 +115,9 @@ async def test_purge_preserves_memory_ingestion_state(real_services_job_service,
         session_id=mbs.session_id,
         workflow_job_id=workflow_job,
         ingestion_job_id=ingestion_job,
-        recorded_at=datetime.now(timezone.utc),
+        recorded_at=datetime.now(UTC),
     )
-    pending = MemoryBaseWorkflowRun(
-        memory_base_id=mb.id, session_id=mbs.session_id, recorded_at=datetime.now(timezone.utc)
-    )
+    pending = MemoryBaseWorkflowRun(memory_base_id=mb.id, session_id=mbs.session_id, recorded_at=datetime.now(UTC))
     async with session_scope() as session:
         await session.exec(update(Job).where(Job.job_id == ingestion_job).values(type=JobType.INGESTION))
         session.add(mb)

@@ -2112,7 +2112,7 @@ class Component(CustomComponent):
                 tools = self._get_tools()
 
             placeholder = "Loading actions..." if len(tools) == 0 else ""
-        except (TimeoutError, asyncio.TimeoutError):
+        except TimeoutError:
             placeholder = "Timeout loading actions"
         except (ConnectionError, OSError, ValueError):
             placeholder = "Error loading actions"

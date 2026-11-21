@@ -52,8 +52,8 @@ def _is_expired(expires_at: datetime.datetime | None) -> bool:
     # Rows written before the expires_at column became tz-aware come back naive.
     # All historical writes used datetime.now(timezone.utc), so interpret naive as UTC.
     if expires_at.tzinfo is None:
-        expires_at = expires_at.replace(tzinfo=datetime.timezone.utc)
-    return datetime.datetime.now(datetime.timezone.utc) > expires_at
+        expires_at = expires_at.replace(tzinfo=datetime.UTC)
+    return datetime.datetime.now(datetime.UTC) > expires_at
 
 
 async def get_api_keys(session: AsyncSession, user_id: UUID) -> list[ApiKeyRead]:
@@ -112,7 +112,7 @@ async def create_api_key(session: AsyncSession, api_key_create: ApiKeyCreate, us
         api_key_hash=hash_api_key(generated_api_key),
         name=api_key_create.name,
         user_id=user_id,
-        created_at=api_key_create.created_at or datetime.datetime.now(datetime.timezone.utc),
+        created_at=api_key_create.created_at or datetime.datetime.now(datetime.UTC),
         expires_at=api_key_create.expires_at,
     )
 
@@ -249,7 +249,7 @@ async def _check_key_from_db_with_context(
             return None
         if settings_service.settings.disable_track_apikey_usage is not True:
             api_key_obj.total_uses += 1
-            api_key_obj.last_used_at = datetime.datetime.now(datetime.timezone.utc)
+            api_key_obj.last_used_at = datetime.datetime.now(datetime.UTC)
             session.add(api_key_obj)
             await session.flush()
         return ApiKeyAuthResult(user=user, api_key_source="db", api_key_id=api_key_obj.id)  # pragma: allowlist secret
@@ -295,7 +295,7 @@ async def _check_key_from_db_with_context(
             api_key_obj.api_key_hash = incoming_hash
             if settings_service.settings.disable_track_apikey_usage is not True:
                 api_key_obj.total_uses += 1
-                api_key_obj.last_used_at = datetime.datetime.now(datetime.timezone.utc)
+                api_key_obj.last_used_at = datetime.datetime.now(datetime.UTC)
             session.add(api_key_obj)
             await session.flush()
             return ApiKeyAuthResult(

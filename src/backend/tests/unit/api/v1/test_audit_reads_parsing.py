@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -59,10 +59,10 @@ def test_repeated_values_are_collected_and_fields_combined():
 @pytest.mark.parametrize(
     ("value", "expected"),
     [
-        ("2026-09-11T16:42:18Z", datetime(2026, 9, 11, 16, 42, 18, tzinfo=timezone.utc)),
-        ("2026-09-11T16:42:18.2z", datetime(2026, 9, 11, 16, 42, 18, 200000, tzinfo=timezone.utc)),
-        ("2026-09-11T13:42:18.284-03:00", datetime(2026, 9, 11, 16, 42, 18, 284000, tzinfo=timezone.utc)),
-        ("2026-09-11t16:42:18%2B00:00", datetime(2026, 9, 11, 16, 42, 18, tzinfo=timezone.utc)),
+        ("2026-09-11T16:42:18Z", datetime(2026, 9, 11, 16, 42, 18, tzinfo=UTC)),
+        ("2026-09-11T16:42:18.2z", datetime(2026, 9, 11, 16, 42, 18, 200000, tzinfo=UTC)),
+        ("2026-09-11T13:42:18.284-03:00", datetime(2026, 9, 11, 16, 42, 18, 284000, tzinfo=UTC)),
+        ("2026-09-11t16:42:18%2B00:00", datetime(2026, 9, 11, 16, 42, 18, tzinfo=UTC)),
     ],
 )
 def test_rfc3339_timestamps_are_read_as_utc(value, expected):

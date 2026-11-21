@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 from pydantic import BaseModel, field_serializer, field_validator
@@ -9,7 +9,7 @@ from primeagent.serialization.serialization import get_max_items_length, get_max
 
 
 class VertexBuildBase(SQLModel):
-    timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
+    timestamp: datetime = Field(default_factory=lambda: datetime.now(UTC))
     id: str = Field(nullable=False)
     data: dict | None = Field(default=None, sa_column=Column(JSON))
     artifacts: dict | None = Field(default=None, sa_column=Column(JSON))
@@ -35,7 +35,7 @@ class VertexBuildBase(SQLModel):
     @classmethod
     def serialize_timestamp(cls, value):
         if value.tzinfo is None:
-            value = value.replace(tzinfo=timezone.utc)
+            value = value.replace(tzinfo=UTC)
         return value
 
     @field_serializer("data")

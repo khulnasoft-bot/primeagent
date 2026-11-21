@@ -17,7 +17,7 @@ import json
 import sqlite3
 import uuid
 from dataclasses import dataclass, field
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -30,8 +30,7 @@ from sqlalchemy.dialects.postgresql import insert
 
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterator, Mapping
-
-    from typing_extensions import Self
+    from typing import Self
 
 # Postgres caps bind parameters per statement at 65535.
 _MAX_PARAMS_PER_STATEMENT = 60_000
@@ -260,11 +259,11 @@ def coerce_value(value: Any, column_type: sa.types.TypeEngine) -> Any:
         parsed = value if isinstance(value, datetime) else datetime.fromisoformat(str(value))
         if column_type.timezone and parsed.tzinfo is None:
             # PrimeAgent writes UTC. SQLite drops the offset, so restore it.
-            parsed = parsed.replace(tzinfo=timezone.utc)
+            parsed = parsed.replace(tzinfo=UTC)
         elif not column_type.timezone and parsed.tzinfo is not None:
             # Rows written through raw SQL can keep an offset. Postgres would convert it to
             # the session time zone, which is not UTC on every server, so store UTC wall time.
-            parsed = parsed.astimezone(timezone.utc).replace(tzinfo=None)
+            parsed = parsed.astimezone(UTC).replace(tzinfo=None)
         return parsed
     if isinstance(column_type, sa.Date) and not isinstance(value, date):
         return date.fromisoformat(str(value))

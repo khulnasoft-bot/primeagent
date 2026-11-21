@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 def utc_now():
     """Return the current UTC datetime."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _as_utc_iso(v: datetime | None) -> str | None:
@@ -25,7 +25,7 @@ def _as_utc_iso(v: datetime | None) -> str | None:
     if v is None:
         return None
     if v.tzinfo is None:
-        v = v.replace(tzinfo=timezone.utc)
+        v = v.replace(tzinfo=UTC)
     return v.replace(microsecond=0).isoformat()
 
 

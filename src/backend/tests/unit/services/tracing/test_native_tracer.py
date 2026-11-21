@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock, patch
 from uuid import UUID, uuid4
 
@@ -411,8 +411,8 @@ class TestFlushToDatabase:
                 "span_type": SpanType.CHAIN,
                 "inputs": {},
                 "outputs": None,
-                "start_time": datetime.now(tz=timezone.utc),
-                "end_time": datetime.now(tz=timezone.utc),
+                "start_time": datetime.now(tz=UTC),
+                "end_time": datetime.now(tz=UTC),
                 "latency_ms": 10,
                 "status": SpanStatus.OK,
                 "error": None,
@@ -469,8 +469,8 @@ class TestFlushToDatabase:
                 "span_type": SpanType.LLM,
                 "inputs": {},
                 "outputs": None,
-                "start_time": datetime.now(tz=timezone.utc),
-                "end_time": datetime.now(tz=timezone.utc),
+                "start_time": datetime.now(tz=UTC),
+                "end_time": datetime.now(tz=UTC),
                 "latency_ms": 10,
                 "status": SpanStatus.OK,
                 "error": None,
@@ -483,8 +483,8 @@ class TestFlushToDatabase:
                 "span_type": SpanType.LLM,
                 "inputs": {},
                 "outputs": None,
-                "start_time": datetime.now(tz=timezone.utc),
-                "end_time": datetime.now(tz=timezone.utc),
+                "start_time": datetime.now(tz=UTC),
+                "end_time": datetime.now(tz=UTC),
                 "latency_ms": 5,
                 "status": SpanStatus.OK,
                 "error": None,
@@ -846,8 +846,8 @@ class TestFlushParentChildOrder:
                 "span_type": SpanType.CHAIN,
                 "inputs": {},
                 "outputs": None,
-                "start_time": datetime.now(tz=timezone.utc),
-                "end_time": datetime.now(tz=timezone.utc),
+                "start_time": datetime.now(tz=UTC),
+                "end_time": datetime.now(tz=UTC),
                 "latency_ms": 5,
                 "status": SpanStatus.OK,
                 "error": None,
@@ -861,8 +861,8 @@ class TestFlushParentChildOrder:
                 "span_type": SpanType.CHAIN,
                 "inputs": {},
                 "outputs": None,
-                "start_time": datetime.now(tz=timezone.utc),
-                "end_time": datetime.now(tz=timezone.utc),
+                "start_time": datetime.now(tz=UTC),
+                "end_time": datetime.now(tz=UTC),
                 "latency_ms": 10,
                 "status": SpanStatus.OK,
                 "error": None,
@@ -903,8 +903,8 @@ class TestFlushParentChildOrder:
                 "span_type": SpanType.CHAIN,
                 "inputs": {},
                 "outputs": None,
-                "start_time": datetime.now(tz=timezone.utc),
-                "end_time": datetime.now(tz=timezone.utc),
+                "start_time": datetime.now(tz=UTC),
+                "end_time": datetime.now(tz=UTC),
                 "latency_ms": 5,
                 "status": SpanStatus.OK,
                 "error": None,

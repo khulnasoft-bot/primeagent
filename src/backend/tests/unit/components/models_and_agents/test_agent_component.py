@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from unittest.mock import patch
 from uuid import uuid4
@@ -654,9 +654,9 @@ class TestAgentComponent(ComponentTestBaseWithoutClient):
         component = component_class()
         component.model = [{"name": "gpt-4o", "provider": "OpenAI", "metadata": {}}]
 
-        before = datetime.now(tz=timezone.utc).date().isoformat()
+        before = datetime.now(tz=UTC).date().isoformat()
         result = component._inject_dynamic_prompt_values("Today's date: {current_date}")
-        after = datetime.now(tz=timezone.utc).date().isoformat()
+        after = datetime.now(tz=UTC).date().isoformat()
 
         assert result in {f"Today's date: {before}", f"Today's date: {after}"}
 

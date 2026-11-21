@@ -122,7 +122,7 @@ async def healthz(
             raise
         # asyncio.TimeoutError is a subclass of TimeoutError since 3.11;
         # both listed for Python 3.10 compatibility.
-        except (TimeoutError, asyncio.TimeoutError) as exc:
+        except TimeoutError as exc:
             await logger.awarning("Enterprise readiness check %s timed out after %ss", check_name, check_timeout)
             raise HTTPException(
                 status_code=status.HTTP_503_SERVICE_UNAVAILABLE,

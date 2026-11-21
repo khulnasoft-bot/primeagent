@@ -1,6 +1,6 @@
 """Tests for transactions API endpoints and models."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -176,7 +176,7 @@ class TestTransactionModels:
             status="success",
             error=None,
             flow_id=uuid4(),
-            timestamp=datetime.now(timezone.utc),
+            timestamp=datetime.now(UTC),
         )
 
         response = TransactionLogsResponse.model_validate(table, from_attributes=True)
@@ -451,7 +451,7 @@ class TestTransactionWithOutputs:
             outputs={"output": {"message": "result", "type": "text"}},
             status="success",
             flow_id=uuid4(),
-            timestamp=datetime.now(timezone.utc),
+            timestamp=datetime.now(UTC),
         )
 
         response = TransactionLogsResponse.model_validate(table, from_attributes=True)

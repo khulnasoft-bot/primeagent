@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import hashlib
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import httpx
@@ -95,19 +95,17 @@ def provider_http(source_connection, monkeypatch):
                 201,
                 json={
                     "id": str(uuid4()),
-                    "expirationDateTime": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+                    "expirationDateTime": (datetime.now(UTC) + timedelta(days=1)).isoformat(),
                 },
             )
         if request.method == "PATCH" and request.url.path.startswith("/v1.0/subscriptions/"):
-            return httpx.Response(
-                200, json={"expirationDateTime": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat()}
-            )
+            return httpx.Response(200, json={"expirationDateTime": (datetime.now(UTC) + timedelta(days=1)).isoformat()})
         if request.method == "POST" and request.url.path.endswith("/watch"):
             return httpx.Response(
                 200,
                 json={
                     "resourceId": "new-resource",
-                    "expiration": str(int((datetime.now(timezone.utc) + timedelta(days=1)).timestamp() * 1000)),
+                    "expiration": str(int((datetime.now(UTC) + timedelta(days=1)).timestamp() * 1000)),
                 },
             )
         if request.method in {"DELETE", "POST"}:
@@ -446,7 +444,7 @@ async def test_cleanup_retries_and_accepts_an_already_removed_watch(make_trigger
     async with session_scope() as session:
         task = await session.get(TriggerCleanup, cleanup_id)
         assert task.attempt == 1
-        task.available_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+        task.available_at = datetime.now(UTC) - timedelta(seconds=1)
         session.add(task)
     assert await source_cleanup.run_cleanup_pass() == 1
     async with session_scope() as session:
@@ -486,7 +484,7 @@ async def registered_source(source_connection, trigger_owner, monkeypatch):
                 user_id=trigger_owner,
                 registration_id="source-test",
                 config_digest="d" * 64,
-                expires_at=datetime.now(timezone.utc) + timedelta(days=1),
+                expires_at=datetime.now(UTC) + timedelta(days=1),
             )
         )
         return f"microsoft/{connection.name}"
@@ -621,7 +619,7 @@ async def test_dead_replacement_hint_keeps_visible_error_and_periodic_repair(
         assert (await session.get(TriggerEvent, event_id)).state == "dead"
         trigger = await session.get(Trigger, trigger_id)
         assert trigger.last_error == "Source reconciliation failed: RuntimeError"
-        trigger.next_fire_at = datetime.now(timezone.utc) - timedelta(seconds=1)
+        trigger.next_fire_at = datetime.now(UTC) - timedelta(seconds=1)
         session.add(trigger)
     monkeypatch.setattr(source_runtime, "reconcile_source", original)
     assert await dispatcher.reconcile_push_sources() == 1
@@ -655,8 +653,8 @@ async def test_renewal_resolves_credentials_without_holding_a_sqlite_writer(
             provider=provider,
             provider_subscription_id="old-watch",
             state="active",
-            expires_at=datetime.now(timezone.utc) + timedelta(hours=1),
-            renew_after=datetime.now(timezone.utc) - timedelta(seconds=1),
+            expires_at=datetime.now(UTC) + timedelta(hours=1),
+            renew_after=datetime.now(UTC) - timedelta(seconds=1),
             provider_state={"resource_id": "old-resource"},
         )
         session.add(subscription)

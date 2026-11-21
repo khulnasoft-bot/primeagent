@@ -74,7 +74,7 @@ class DNSPinningNetworkBackend(httpcore.AsyncNetworkBackend):
         self,
         host: str,
         port: int,
-        timeout: float | None = None,
+        timeout: float | None = None,  # noqa: ASYNC109
         local_address: str | None = None,
         socket_options: Iterable[httpcore.SOCKET_OPTION] | None = None,
     ) -> httpcore.AsyncNetworkStream:
@@ -150,7 +150,7 @@ class DNSPinningNetworkBackend(httpcore.AsyncNetworkBackend):
     async def connect_unix_socket(
         self,
         path: str,
-        timeout: float | None = None,
+        timeout: float | None = None,  # noqa: ASYNC109
         socket_options: Iterable[httpcore.SOCKET_OPTION] | None = None,
     ) -> httpcore.AsyncNetworkStream:
         """Connect to Unix socket (pass through to underlying backend)."""

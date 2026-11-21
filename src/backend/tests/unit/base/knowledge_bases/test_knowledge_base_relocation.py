@@ -16,7 +16,7 @@ import math
 import os
 import sys
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 from unittest.mock import MagicMock
 
@@ -526,7 +526,7 @@ class TestRelocateKbCommand:
         password = SecretStr("a-password")  # pragma: allowlist secret
         monkeypatch.setattr(get_settings_service().auth_settings, "SUPERUSER_PASSWORD", password)
         async with session_scope() as session:
-            row = AuthzAuditLog(action="flow:read", result="allow", timestamp=datetime(2020, 1, 1, tzinfo=timezone.utc))
+            row = AuthzAuditLog(action="flow:read", result="allow", timestamp=datetime(2020, 1, 1, tzinfo=UTC))
             session.add(row)
         return row
 

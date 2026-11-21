@@ -14,7 +14,7 @@ import contextlib
 from collections import OrderedDict
 from copy import deepcopy
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 from weakref import WeakValueDictionary
 
@@ -31,9 +31,7 @@ def flow_version(updated_at: datetime | None) -> str:
     """Normalize a flow change marker for ordering and exact cache matching."""
     if updated_at is None:
         return ""
-    normalized = (
-        updated_at.replace(tzinfo=timezone.utc) if updated_at.tzinfo is None else updated_at.astimezone(timezone.utc)
-    )
+    normalized = updated_at.replace(tzinfo=UTC) if updated_at.tzinfo is None else updated_at.astimezone(UTC)
     return normalized.isoformat()
 
 

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from urllib.parse import quote
 from uuid import UUID, uuid4
 
@@ -125,7 +125,7 @@ async def timestamped_messages(active_user):
         session.add(flow)
         await session.flush()
 
-        base_timestamp = datetime(2026, 1, 1, tzinfo=timezone.utc)
+        base_timestamp = datetime(2026, 1, 1, tzinfo=UTC)
         messages = [
             MessageCreate(
                 text=f"Message {index}",
@@ -852,7 +852,7 @@ async def many_timestamped_messages(active_user):
         session.add(flow)
         await session.flush()
 
-        base_timestamp = datetime(2026, 1, 1, tzinfo=timezone.utc)
+        base_timestamp = datetime(2026, 1, 1, tzinfo=UTC)
         messages = [
             MessageCreate(
                 text=f"Pagination message {index}",
@@ -873,7 +873,7 @@ async def many_timestamped_messages(active_user):
 # ── Session lists are bounded and newest-activity first (issue #15463) ─────────
 
 _SESSIONS_URL = "api/v1/monitor/messages/sessions"
-_SESSION_BASE_TIME = datetime(2026, 1, 1, tzinfo=timezone.utc)
+_SESSION_BASE_TIME = datetime(2026, 1, 1, tzinfo=UTC)
 
 
 async def _add_session_messages(flow_id: UUID, sessions: dict[str, list[int]]) -> None:
@@ -1039,7 +1039,7 @@ async def shared_virtual_flow_messages(active_user):
 
         source_flow_id = uuid4()
         virtual_flow_id = compute_virtual_flow_id(active_user.id, source_flow_id, principal_type="user")
-        base_timestamp = datetime(2026, 1, 1, tzinfo=timezone.utc)
+        base_timestamp = datetime(2026, 1, 1, tzinfo=UTC)
         messages = [
             MessageCreate(
                 text=f"Shared message {index}",
@@ -1170,7 +1170,7 @@ async def many_sessions_messages(active_user):
         session.add(flow)
         await session.flush()
 
-        base_timestamp = datetime(2026, 1, 1, tzinfo=timezone.utc)
+        base_timestamp = datetime(2026, 1, 1, tzinfo=UTC)
         messages = [
             MessageCreate(
                 text=f"Session message {index}",
@@ -1234,7 +1234,7 @@ async def many_shared_sessions_messages(active_user):
 
         source_flow_id = uuid4()
         virtual_flow_id = compute_virtual_flow_id(active_user.id, source_flow_id, principal_type="user")
-        base_timestamp = datetime(2026, 1, 1, tzinfo=timezone.utc)
+        base_timestamp = datetime(2026, 1, 1, tzinfo=UTC)
         messages = [
             MessageCreate(
                 text=f"Shared session message {index}",
@@ -1315,7 +1315,7 @@ async def shared_sessions_tied_timestamps(active_user):
 
         source_flow_id = uuid4()
         virtual_flow_id = compute_virtual_flow_id(active_user.id, source_flow_id, principal_type="user")
-        same_timestamp = datetime(2026, 1, 1, tzinfo=timezone.utc)
+        same_timestamp = datetime(2026, 1, 1, tzinfo=UTC)
         messages = [
             MessageCreate(
                 text=f"Tied session message {session_id}",
@@ -1408,7 +1408,7 @@ async def test_session_list_orders_by_latest_message_activity(
                 sender="User",
                 sender_name="User",
                 session_id="session-000",
-                timestamp=datetime(2026, 1, 2, tzinfo=timezone.utc),
+                timestamp=datetime(2026, 1, 2, tzinfo=UTC),
             ),
             from_attributes=True,
         )

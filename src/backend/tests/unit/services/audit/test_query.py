@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import base64
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 from uuid import uuid4
 
 import pytest
@@ -31,7 +31,7 @@ from sqlmodel import col
 from .conftest import project_patch_draft
 
 PROJECTS = AuditResourceType.PROJECT
-T0 = datetime(2026, 9, 11, 16, 0, tzinfo=timezone.utc)
+T0 = datetime(2026, 9, 11, 16, 0, tzinfo=UTC)
 
 
 async def _insert(session, *, at: datetime, **overrides):
@@ -68,8 +68,8 @@ async def test_rows_timestamped_after_the_traversal_started_are_never_returned(a
     returns, so the keyset clause alone would hand it back as the newest event.
     """
     for index in range(6):
-        await _insert(audit_session, at=datetime.now(timezone.utc) - timedelta(minutes=10 - index))
-    ahead = await _insert(audit_session, at=datetime.now(timezone.utc) + timedelta(hours=1))
+        await _insert(audit_session, at=datetime.now(UTC) - timedelta(minutes=10 - index))
+    ahead = await _insert(audit_session, at=datetime.now(UTC) + timedelta(hours=1))
     filters = AuditEventFilters(resource_type=PROJECTS)
 
     walked = await _walk(audit_session, filters, limit=3)
@@ -203,7 +203,7 @@ async def test_a_late_commit_with_an_earlier_timestamp_is_reached_on_a_later_pag
     first page and committed after it keeps a timestamp the walk has not passed
     and is returned later. Each row is still returned once, newest first.
     """
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     early = [await _insert(audit_session, at=now - timedelta(minutes=10 - index)) for index in range(6)]
     filters = AuditEventFilters(resource_type=PROJECTS)
     first = await list_audit_events(audit_session, filters, limit=3)

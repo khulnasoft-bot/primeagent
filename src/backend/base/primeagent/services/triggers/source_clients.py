@@ -18,8 +18,9 @@ from primeagent.services.triggers.ownership import is_owned_by
 from primeagent.services.triggers.principal import trigger_execution_principal
 
 if TYPE_CHECKING:
+    from typing import Self
+
     from sqlmodel.ext.asyncio.session import AsyncSession
-    from typing_extensions import Self
 
     from primeagent.services.database.models.trigger.model import Trigger
 

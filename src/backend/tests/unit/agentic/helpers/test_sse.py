@@ -4,6 +4,7 @@ Tests the event formatting functions used for streaming responses.
 """
 
 import json
+from datetime import UTC
 
 import pytest
 from primeagent.agentic.helpers.sse import (
@@ -353,10 +354,10 @@ class TestBugsAndEdgeCases:
 
         No try-except around json.dumps — TypeError propagates to caller.
         """
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         with pytest.raises(TypeError):
-            format_complete_event({"timestamp": datetime.now(tz=timezone.utc)})
+            format_complete_event({"timestamp": datetime.now(tz=UTC)})
 
     def test_negative_attempt_accepted_without_validation(self):
         """Negative attempt/max_attempts are accepted silently — no input validation."""

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from secrets import token_urlsafe
 from unittest.mock import AsyncMock
 
@@ -177,7 +177,7 @@ async def test_setup_superuser_rotates_legacy_default_password_when_auto_login_f
         user.password = get_auth_service().get_password_hash(legacy_password)
         user.is_superuser = True
         user.is_active = True
-        user.last_login_at = datetime.now(timezone.utc)
+        user.last_login_at = datetime.now(UTC)
         await session.commit()
 
     async with session_scope() as session:
@@ -328,7 +328,7 @@ async def test_teardown_superuser_removes_default_if_never_logged(initialized_se
 @pytest.mark.timeout(30)
 async def test_teardown_superuser_preserves_logged_in_default(initialized_services):  # noqa: ARG001
     """Test that teardown preserves default superuser if they have logged in."""
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     settings = get_settings_service()
     settings.auth_settings.AUTO_LOGIN = False
@@ -349,7 +349,7 @@ async def test_teardown_superuser_preserves_logged_in_default(initialized_servic
             await session.refresh(user)
 
         # Mark user as having logged in
-        user.last_login_at = datetime.now(timezone.utc)
+        user.last_login_at = datetime.now(UTC)
         user.is_superuser = True
         await session.commit()
 
@@ -639,7 +639,7 @@ async def _default_superuser_owning_work(
             password=get_auth_service().get_password_hash(password),
             is_superuser=True,
             is_active=True,
-            last_login_at=datetime.now(timezone.utc) if logged_in else None,
+            last_login_at=datetime.now(UTC) if logged_in else None,
         )
         session.add(user)
         await session.commit()

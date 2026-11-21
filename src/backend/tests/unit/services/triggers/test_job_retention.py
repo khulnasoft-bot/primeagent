@@ -6,7 +6,7 @@ own schedule; a purge that ran before reconciliation would leave the ledger row
 DISPATCHED with nothing left to join, and nothing else ever closes it.
 """
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -20,7 +20,7 @@ pytestmark = pytest.mark.no_blockbuster
 
 async def test_purge_waits_until_the_ledger_reconciles_a_dispatched_job(make_trigger):
     trigger_id = await make_trigger()
-    aged = datetime.now(timezone.utc) - timedelta(days=90)
+    aged = datetime.now(UTC) - timedelta(days=90)
     job_id = uuid4()
     async with session_scope() as session:
         trigger = await session.get(Trigger, trigger_id)

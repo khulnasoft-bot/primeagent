@@ -60,7 +60,7 @@ async def _slack(method: str, **payload) -> dict:
     return body
 
 
-async def _rows_matching(trigger_id, predicate, *, count: int, timeout: float = 120.0) -> list:
+async def _rows_matching(trigger_id, predicate, *, count: int, timeout: float = 120.0) -> list:  # noqa: ASYNC109
     deadline = asyncio.get_running_loop().time() + timeout
     while True:
         rows = [row for row in await fx.events_for(trigger_id) if predicate(row.payload)]

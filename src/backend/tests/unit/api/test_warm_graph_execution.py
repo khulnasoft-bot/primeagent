@@ -6,7 +6,7 @@ import os
 import subprocess
 import sys
 from copy import deepcopy
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from types import SimpleNamespace
 from unittest.mock import AsyncMock, Mock
@@ -353,7 +353,7 @@ async def test_v1_streaming_run_requests_a_streaming_warm_copy(monkeypatch: pyte
 
     flow_id = uuid4()
     user_id = uuid4()
-    updated_at = datetime(2026, 8, 5, 12, tzinfo=timezone.utc)
+    updated_at = datetime(2026, 8, 5, 12, tzinfo=UTC)
     result = await endpoints.simple_run_flow(
         flow=SimpleNamespace(
             id=flow_id,
@@ -430,7 +430,7 @@ async def test_v2_sync_run_requests_a_non_streaming_warm_copy(monkeypatch: pytes
 
     flow_id = uuid4()
     user_id = uuid4()
-    updated_at = datetime(2026, 8, 5, 12, tzinfo=timezone.utc)
+    updated_at = datetime(2026, 8, 5, 12, tzinfo=UTC)
     result = await workflow_execution.execute_sync_workflow(
         parsed=ParsedWorkflowRun(flow_id=str(flow_id), session_id="v2-session", mode="sync"),
         flow=SimpleNamespace(

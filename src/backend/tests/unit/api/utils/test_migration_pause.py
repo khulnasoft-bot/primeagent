@@ -13,7 +13,7 @@ import json
 import os
 import subprocess
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 from uuid import UUID, uuid4
 
@@ -749,7 +749,7 @@ async def test_a_live_connection_is_named_by_the_path_it_was_routed_to(client, c
     try:
         under_way = migration_pause.under_way()
         [connection] = [change for change in under_way["changes"] if change["kind"] == "websocket"]
-        assert datetime.fromisoformat(connection.pop("since")) <= datetime.now(timezone.utc)
+        assert datetime.fromisoformat(connection.pop("since")) <= datetime.now(UTC)
         assert connection == {
             "kind": "websocket",
             "method": None,
@@ -777,7 +777,7 @@ async def test_a_schedule_that_comes_due_during_the_pause_fires_after_it_ends(ac
             kind="schedule",
             config={"cron": "* * * * *", "timezone": "UTC"},
             state=TriggerState.ACTIVE.value,
-            next_fire_at=datetime.now(timezone.utc) - timedelta(minutes=2),
+            next_fire_at=datetime.now(UTC) - timedelta(minutes=2),
         )
         session.add(trigger)
         # Other background workers share the lease table and may already hold a lease before the pause.
@@ -785,7 +785,7 @@ async def test_a_schedule_that_comes_due_during_the_pause_fires_after_it_ends(ac
             TriggerLease(
                 name="unrelated-background-worker",
                 owner="pause-test-worker",
-                expires_at=datetime.now(timezone.utc) + timedelta(minutes=2),
+                expires_at=datetime.now(UTC) + timedelta(minutes=2),
             )
         )
 
@@ -1067,7 +1067,7 @@ async def test_the_audit_log_cleanup_waits_out_the_pause(config_dir, monkeypatch
             resource_id=uuid4(),
             result="allow",
             details={},
-            timestamp=datetime.now(timezone.utc) - timedelta(days=3650),
+            timestamp=datetime.now(UTC) - timedelta(days=3650),
         )
         session.add(expired)
         await session.flush()
@@ -1111,7 +1111,7 @@ async def test_an_approved_erase_waits_out_the_pause(config_dir, monkeypatch):
     monkeypatch.setattr("primeagent.services.data_subjects.engine.LATE_WRITE_SETTLE_SECONDS", 0)
     # One worker runs at a time, and the app's own worker holds the lease that says which.
     await data_subject_erase_worker.stop()
-    request_id = await _approved_erase(datetime.now(timezone.utc))
+    request_id = await _approved_erase(datetime.now(UTC))
 
     async def taken_up() -> bool:
         return await _erase_status(request_id) != DataSubjectRequestStatus.APPROVED.value
@@ -1129,7 +1129,7 @@ async def test_an_erase_pass_that_the_pause_overtakes_starts_no_other_erase(conf
     # Each erase waits this long for late writes, which is when the pause begins here.
     monkeypatch.setattr("primeagent.services.data_subjects.engine.LATE_WRITE_SETTLE_SECONDS", 1)
     await data_subject_erase_worker.stop()
-    decided = datetime.now(timezone.utc)
+    decided = datetime.now(UTC)
     first = await _approved_erase(decided - timedelta(minutes=1))
     second = await _approved_erase(decided)
 
@@ -1160,7 +1160,7 @@ async def test_a_paused_erase_pass_neither_approves_overdue_requests_nor_takes_t
             requested_by=None,
             source=DataSubjectRequestSource.ADMIN,
         )
-        request.due_at = datetime.now(timezone.utc) - timedelta(days=1)
+        request.due_at = datetime.now(UTC) - timedelta(days=1)
         session.add(request)
         request_id = request.id
 

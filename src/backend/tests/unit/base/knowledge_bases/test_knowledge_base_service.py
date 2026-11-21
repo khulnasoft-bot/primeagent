@@ -8,6 +8,7 @@ surface here rather than leaking into API-level tests.
 from __future__ import annotations
 
 import json
+from datetime import UTC
 from typing import TYPE_CHECKING
 
 import pytest
@@ -152,7 +153,7 @@ class TestDelete:
 class TestNormalization:
     def test_record_to_metadata_dict_matches_json_shape(self):
         import uuid
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         from primeagent.services.database.models.knowledge_base import KnowledgeBaseRecord
 
@@ -172,8 +173,8 @@ class TestNormalization:
             characters=1000,
             size_bytes=500,
             source_types=["pdf"],
-            created_at=datetime.now(timezone.utc),
-            updated_at=datetime.now(timezone.utc),
+            created_at=datetime.now(UTC),
+            updated_at=datetime.now(UTC),
         )
         snapshot = knowledge_base_service.record_to_metadata_dict(record)
         # Flat fields are derived views over ``model_selection``.

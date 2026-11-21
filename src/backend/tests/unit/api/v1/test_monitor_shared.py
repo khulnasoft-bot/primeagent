@@ -6,7 +6,7 @@ derived from the user's ID and the original flow ID.
 """
 
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from fastapi import status
@@ -124,7 +124,7 @@ async def shared_messages_setup(active_user):
     """Create test messages with a virtual flow_id scoped to active_user."""
     source_flow_id = uuid.uuid4()
     virtual_flow_id = compute_virtual_flow_id(active_user.id, source_flow_id, principal_type="user")
-    base_timestamp = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    base_timestamp = datetime(2026, 1, 1, tzinfo=UTC)
 
     async with session_scope() as session:
         for i in range(3):
@@ -189,7 +189,7 @@ async def test_get_shared_sessions_is_bounded_and_newest_first(
     """Shared session lists are capped, ordered by latest message and pageable (issue #15463)."""
     source_flow_id = uuid.uuid4()
     virtual_flow_id = compute_virtual_flow_id(active_user.id, source_flow_id, principal_type="user")
-    base_timestamp = datetime(2026, 1, 1, tzinfo=timezone.utc)
+    base_timestamp = datetime(2026, 1, 1, tzinfo=UTC)
     async with session_scope() as session:
         session.add_all(
             MessageTable(

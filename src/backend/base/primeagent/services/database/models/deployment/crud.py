@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any, TypeVar
 
 from sqlalchemy import Select, column, values
@@ -222,7 +222,7 @@ async def update_deployment(
         deployment.deployment_type = deployment_type  # type: ignore[assignment]
     if description is not _UNSET:
         deployment.description = description  # type: ignore[assignment]
-    deployment.updated_at = datetime.now(timezone.utc)
+    deployment.updated_at = datetime.now(UTC)
     db.add(deployment)
     try:
         await db.flush()

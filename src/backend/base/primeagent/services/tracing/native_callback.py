@@ -8,7 +8,7 @@ Note: Many method parameters are unused but required by the LangChain callback i
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
 
@@ -58,19 +58,19 @@ class NativeCallbackHandler(BaseCallbackHandler):
     def _get_span_id(self, run_id: UUID) -> UUID:
         """Return a stable span ID for a run, creating one on first access so on_*_end always finds it."""
         if run_id not in self._spans:
-            self._spans[run_id] = {"span_id": uuid4(), "start_time": datetime.now(timezone.utc)}
+            self._spans[run_id] = {"span_id": uuid4(), "start_time": datetime.now(UTC)}
         return self._spans[run_id]["span_id"]
 
     def _get_start_time(self, run_id: UUID) -> datetime:
         """Return the recorded start time for latency calculation, falling back to now if the run is unknown."""
         if run_id in self._spans:
             return self._spans[run_id]["start_time"]
-        return datetime.now(timezone.utc)
+        return datetime.now(UTC)
 
     def _calculate_latency(self, run_id: UUID) -> int:
         """Compute wall-clock latency in milliseconds so spans have accurate duration data."""
         start_time = self._get_start_time(run_id)
-        end_time = datetime.now(timezone.utc)
+        end_time = datetime.now(UTC)
         return int((end_time - start_time).total_seconds() * 1000)
 
     def _cleanup_run(self, run_id: UUID) -> None:

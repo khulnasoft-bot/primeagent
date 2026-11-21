@@ -189,7 +189,7 @@ class InMemoryLiveBus:
                     else:
                         try:
                             item = await asyncio.wait_for(queue.get(), timeout=poll_interval_s)
-                        except asyncio.TimeoutError:
+                        except TimeoutError:
                             highest, fresh = await drain_durable(highest)
                             for frame in fresh:
                                 yield frame

@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import uuid
 from contextlib import AsyncExitStack, asynccontextmanager, nullcontext
+from datetime import UTC
 from typing import TYPE_CHECKING
 
 from sqlmodel import col, func, select
@@ -658,7 +659,7 @@ async def _insert_workflow_run(
     safe to call multiple times with the same arguments.
     Skips silently if job_id is None or the job is not of WORKFLOW type.
     """
-    from datetime import datetime, timezone
+    from datetime import datetime
 
     hashed_sid = hash_session_id(session_id)
     if job_id is None:
@@ -685,7 +686,7 @@ async def _insert_workflow_run(
         "session_id": session_id,
         "workflow_job_id": job_id,
         "ingestion_job_id": None,
-        "recorded_at": datetime.now(timezone.utc),
+        "recorded_at": datetime.now(UTC),
     }
     conn = await db.connection()
     if conn.dialect.name == "postgresql":

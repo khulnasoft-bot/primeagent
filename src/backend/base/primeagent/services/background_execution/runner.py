@@ -19,7 +19,7 @@ import asyncio
 import contextlib
 import json
 from collections.abc import AsyncIterator, Callable
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Any
 
 from wfx.log.logger import logger
@@ -158,7 +158,7 @@ class JobRunner:
         if exc.request_id is not None:
             metadata["pending_request_id"] = exc.request_id
         if self._input_deadline_s is not None:
-            deadline = datetime.now(timezone.utc) + timedelta(seconds=self._input_deadline_s)
+            deadline = datetime.now(UTC) + timedelta(seconds=self._input_deadline_s)
             metadata["input_deadline_at"] = deadline.isoformat()
         if exc.output_events:
             # Durable stash of the pre-pause terminal outputs so the resumed pass can

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -29,7 +29,7 @@ def test_sso_secret_upgrade_and_downgrade_preserve_seeded_ciphertext(db_url):  #
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     user_id = str(uuid4())
     config_id = str(uuid4())
     profile_id = str(uuid4())
@@ -146,7 +146,7 @@ def test_sso_upgrade_clears_pre_encryption_plaintext_secret(db_url):  # noqa: F8
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     config_id = str(uuid4())
 
     engine = sa.create_engine(_engine_url(db_url))

@@ -26,7 +26,7 @@ else:
     async def timeout_context(timeout_seconds):
         try:
             yield await asyncio.wait_for(asyncio.Future(), timeout=timeout_seconds)
-        except asyncio.TimeoutError as e:
+        except TimeoutError as e:
             msg = f"Operation timed out after {timeout_seconds} seconds"
             raise TimeoutError(msg) from e
 

@@ -6,7 +6,7 @@ retries it; an administrator sees why and decides by hand.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from sqlmodel import col, select
@@ -26,7 +26,7 @@ AUTO_APPROVAL_BLOCKED = "auto_approval_blocked"
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def auto_erase_enabled() -> bool:

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 import pytest
@@ -44,7 +44,7 @@ def test_sso_multi_identity_upgrade_and_downgrade_preserve_seeded_rows(db_url): 
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     user_id = str(uuid4())
     other_user_id = str(uuid4())
     config_id = str(uuid4())
@@ -215,7 +215,7 @@ def test_sso_multi_identity_downgrade_rejects_users_with_multiple_identities(db_
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     user_id = str(uuid4())
     stored_user_id = UUID(user_id).hex if db_url.startswith("sqlite") else user_id
     config_id = str(uuid4())

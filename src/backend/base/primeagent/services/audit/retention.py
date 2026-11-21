@@ -7,7 +7,7 @@ retention window does.
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 
 from sqlalchemy import exc as sqlalchemy_exc
@@ -32,7 +32,7 @@ async def purge_expired_audit_events(
     """Delete events older than the window; ``0`` or less keeps everything."""
     if retention_days <= 0:
         return 0
-    cutoff = (now or datetime.now(timezone.utc)) - timedelta(days=retention_days)
+    cutoff = (now or datetime.now(UTC)) - timedelta(days=retention_days)
     result = await session.exec(delete(AuditEvent).where(col(AuditEvent.timestamp) < cutoff))
     deleted = getattr(result, "rowcount", None)
     return int(deleted) if deleted is not None and deleted >= 0 else -1
@@ -43,7 +43,7 @@ async def clean_audit_events(settings_service: SettingsService, session: AsyncSe
     retention_days = int(settings_service.settings.audit_retention_days)
     try:
         deleted = await purge_expired_audit_events(session, retention_days=retention_days)
-    except (sqlalchemy_exc.SQLAlchemyError, asyncio.TimeoutError) as exc:
+    except (TimeoutError, sqlalchemy_exc.SQLAlchemyError) as exc:
         await logger.awarning("op=clean_audit_events outcome=failed error=%s", type(exc).__name__)
         return -1
     await logger.adebug("op=clean_audit_events deleted=%s retention_days=%s", deleted, retention_days)

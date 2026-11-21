@@ -11,7 +11,7 @@ a tick) never imports the dispatch machinery.
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Any
 from uuid import uuid4
 
@@ -32,7 +32,7 @@ if TYPE_CHECKING:
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _as_aware(value: datetime | None) -> datetime | None:
@@ -43,7 +43,7 @@ def _as_aware(value: datetime | None) -> datetime | None:
     """
     if value is None:
         return None
-    return value if value.tzinfo is not None else value.replace(tzinfo=timezone.utc)
+    return value if value.tzinfo is not None else value.replace(tzinfo=UTC)
 
 
 async def append_event(

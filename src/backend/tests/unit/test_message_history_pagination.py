@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import UUID, uuid4
 
 import pytest
@@ -26,7 +26,7 @@ async def message_history(request, active_user):
                 id=UUID(int=id_prefix + index + 1),
                 flow_id=flow_id,
                 files=[],
-                timestamp=datetime(2026, 1, 1, tzinfo=timezone.utc) + timedelta(minutes=index // 5),
+                timestamp=datetime(2026, 1, 1, tzinfo=UTC) + timedelta(minutes=index // 5),
                 sender="User" if index % 2 else "Machine",
                 sender_name=f"Sender {249 - index:03d}",
                 text=f"Message {index:03d}",

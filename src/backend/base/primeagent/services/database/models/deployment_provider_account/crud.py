@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from cryptography.fernet import InvalidToken
@@ -181,7 +181,7 @@ async def _create_provider_account_internal(
     provider_key_enum = _coerce_provider_key(provider_key)
     provider_url_s = _strip_or_raise(provider_url, "provider_url")
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     try:
         encrypted_key = _encrypt_api_key(api_key)
     except RuntimeError:
@@ -269,7 +269,7 @@ async def update_provider_account(
                 provider_account.id,
             )
             raise
-    provider_account.updated_at = datetime.now(timezone.utc)
+    provider_account.updated_at = datetime.now(UTC)
     db.add(provider_account)
     try:
         await db.flush()

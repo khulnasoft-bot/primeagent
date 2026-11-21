@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 import pytest
@@ -21,7 +21,7 @@ def test_sso_connection_identity_upgrade_and_downgrade_preserve_seeded_rows(db_u
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     user_id = str(uuid4())
     slug_profile_user_id = str(uuid4())
     config_id = str(uuid4())
@@ -204,7 +204,7 @@ def test_sso_connection_identity_upgrade_preserves_duplicate_provider_names(db_u
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, _PRIOR_REVISION)
 
-    timestamp = datetime.now(timezone.utc)
+    timestamp = datetime.now(UTC)
     config_ids = [str(uuid4()), str(uuid4())]
 
     engine = sa.create_engine(_engine_url(db_url))

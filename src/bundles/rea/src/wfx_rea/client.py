@@ -257,7 +257,7 @@ class ReaMcpClient:
                 self._call_in_session(tool, target, tool_arguments),
                 timeout=self.timeout_seconds,
             )
-        except asyncio.TimeoutError as exc:
+        except TimeoutError as exc:
             msg = f"REA operation exceeded the {self.timeout_seconds}-second timeout."
             raise ReaAdapterError(msg) from exc
         except asyncio.CancelledError:

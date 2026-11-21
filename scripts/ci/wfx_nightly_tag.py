@@ -12,11 +12,11 @@ closed) so a transient error cannot regenerate an already-published version. See
 ``src/bundles/NIGHTLY.md``.
 """
 
+import tomllib
 from pathlib import Path
 
 import packaging.version
 import requests
-import tomllib
 from packaging.version import Version
 
 PYPI_WFX_URL = "https://pypi.org/pypi/wfx/json"

@@ -123,7 +123,7 @@ class ListenerHealthServer:
         try:
             try:
                 request_line = await asyncio.wait_for(reader.readline(), timeout=_READ_TIMEOUT_S)
-            except (TimeoutError, asyncio.TimeoutError):
+            except TimeoutError:
                 return
             if not request_line or len(request_line) > _MAX_REQUEST_BYTES:
                 return

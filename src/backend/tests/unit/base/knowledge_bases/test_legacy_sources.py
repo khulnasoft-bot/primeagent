@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -17,7 +17,7 @@ from primeagent.services.knowledge_base_storage.legacy_sources import (
 from primeagent.services.knowledge_base_storage.maintenance import MaintenanceRequiredError
 
 ALICE, BOB, CAROL = uuid4(), uuid4(), uuid4()
-JOINED = datetime(2026, 1, 1, tzinfo=timezone.utc)
+JOINED = datetime(2026, 1, 1, tzinfo=UTC)
 ACCOUNTS = [(ALICE, "alice", JOINED), (BOB, "bob", JOINED), (CAROL, "carol", JOINED)]
 
 
@@ -59,7 +59,7 @@ def test_scan_reports_sidecars_and_unreadable_entries_and_skips_internal_folders
     assert found[".hidden/kb"].has_store
     assert found[".hidden/kb"].recorded_id == kb_id
     # A naive timestamp is read as UTC.
-    assert found[".hidden/kb"].created_at == datetime(2025, 6, 1, tzinfo=timezone.utc)
+    assert found[".hidden/kb"].created_at == datetime(2025, 6, 1, tzinfo=UTC)
     assert not found["bob/broken"].readable
     assert unreadable == {"linked"}
 

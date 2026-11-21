@@ -14,7 +14,7 @@ next to the route it protects.
 from __future__ import annotations
 
 import secrets
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from sqlmodel import col, select
@@ -230,7 +230,7 @@ class TriggerService(Service):
             apply_config_verdict(row, None)
         for field, value in changes.items():
             setattr(row, field, value.value if hasattr(value, "value") else value)
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         session.add(row)
         await session.flush()
         await session.refresh(row)
@@ -240,7 +240,7 @@ class TriggerService(Service):
         row.state = state.value
         if state is not TriggerState.ERROR:
             row.last_error = None
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         session.add(row)
         await session.flush()
         await session.refresh(row)
@@ -298,7 +298,7 @@ class TriggerService(Service):
         """Pin the trigger to a flow version, or unpin with ``None``."""
         await self._validate_flow_version(session, flow_id=row.flow_id, flow_version_id=flow_version_id)
         row.flow_version_id = flow_version_id
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         session.add(row)
         await session.flush()
         await session.refresh(row)
@@ -322,7 +322,7 @@ class TriggerService(Service):
             row.public_id = mint_public_id()
         secret = mint_signing_secret()
         row.signing_secret_encrypted = encrypt_api_key(secret)
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         session.add(row)
         await session.flush()
         await session.refresh(row)
@@ -347,7 +347,7 @@ class TriggerService(Service):
     async def record_error(self, session: AsyncSession, *, row: Trigger, message: str) -> Trigger:
         row.last_error = message
         row.state = TriggerState.ERROR.value
-        row.updated_at = datetime.now(timezone.utc)
+        row.updated_at = datetime.now(UTC)
         session.add(row)
         await session.flush()
         return row

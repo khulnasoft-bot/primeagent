@@ -9,7 +9,7 @@ Covers the integration behaviour of the FastAPI route handlers:
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from unittest.mock import ANY, AsyncMock, MagicMock, patch
 from uuid import uuid4
@@ -2925,8 +2925,8 @@ class TestGetDeploymentSync:
                     for snapshot_id in get_result.model_dump()["provider_data"]["tool_ids"]
                 ]
 
-        created_at = datetime(2026, 1, 2, 3, 4, 5, tzinfo=timezone.utc)
-        updated_at = datetime(2026, 1, 3, 4, 5, 6, tzinfo=timezone.utc)
+        created_at = datetime(2026, 1, 2, 3, 4, 5, tzinfo=UTC)
+        updated_at = datetime(2026, 1, 3, 4, 5, 6, tzinfo=UTC)
         dep_row = _fake_deployment_row(
             resource_key="provider-rk-1",
             display_name="db-owned-name",

@@ -1,7 +1,7 @@
 """Application writes and queries remain compatible after the UTC migration."""
 
 from contextlib import asynccontextmanager
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta, timezone
 
 import pytest
 import sqlalchemy as sa
@@ -19,7 +19,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from .test_migration_execution import _engine_url, _make_alembic_cfg, db_url  # noqa: F401
 
-_UTC = datetime(2024, 11, 3, 8, 30, 12, 345678, tzinfo=timezone.utc)
+_UTC = datetime(2024, 11, 3, 8, 30, 12, 345678, tzinfo=UTC)
 
 
 @pytest.fixture

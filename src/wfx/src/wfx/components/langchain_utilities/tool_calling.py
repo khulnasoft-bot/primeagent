@@ -1,5 +1,5 @@
 import contextlib
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from langchain_classic.agents import create_tool_calling_agent
 from langchain_core.prompts import ChatPromptTemplate
@@ -137,7 +137,7 @@ class ToolCallingAgentComponent(LCToolsAgentComponent):
         if effective_system_prompt and has_env_placeholders(effective_system_prompt):
             effective_system_prompt = substitute_env_placeholders(
                 effective_system_prompt,
-                current_date=datetime.now(timezone.utc).date().isoformat(),
+                current_date=datetime.now(UTC).date().isoformat(),
                 model_name=str(get_model_name(llm)),
             )
             self._effective_system_prompt = effective_system_prompt

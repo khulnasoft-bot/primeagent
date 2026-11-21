@@ -1,6 +1,6 @@
 """Portable migration coverage for connection metadata and secret isolation."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID, uuid4
 
 import pytest
@@ -43,7 +43,7 @@ _CONNECTIONS = Table(
 
 
 def _user_row(user_id: UUID) -> dict:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     return {
         "id": user_id,
         "username": f"user-{user_id.hex}",

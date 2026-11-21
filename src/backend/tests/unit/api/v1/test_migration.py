@@ -18,7 +18,7 @@ import sqlite3
 import subprocess
 import sys
 import tempfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
 from urllib.parse import urlparse
@@ -870,7 +870,7 @@ async def test_the_pause_waits_for_the_steps_before_it(client, logged_in_headers
 async def test_a_pause_refuses_changes_until_the_admin_resumes(client, logged_in_headers_super_user, config_dir):
     headers = logged_in_headers_super_user
     _checked(config_dir, [PASSING], **PREPARED)
-    before = datetime.now(timezone.utc)
+    before = datetime.now(UTC)
 
     paused = await client.post(PAUSE, headers=headers)
 
@@ -1025,7 +1025,7 @@ async def test_the_pause_is_refused_while_a_change_let_in_before_it_is_still_goi
         "name": None,
         "since": None,
     }
-    assert datetime.fromisoformat(change["since"]) <= datetime.now(timezone.utc)
+    assert datetime.fromisoformat(change["since"]) <= datetime.now(UTC)
     assert not {"pause", "pausing"} & (await _migration(client, headers))["record"].keys()
 
     release.set()
@@ -2066,7 +2066,7 @@ async def test_the_pause_is_refused_while_a_job_is_still_writing(
 ):
     headers = logged_in_headers_super_user
     _checked(config_dir, [PASSING], **PREPARED)
-    flow_id, job_id, started_at = uuid4(), uuid4(), datetime(2026, 10, 1, 12, tzinfo=timezone.utc)
+    flow_id, job_id, started_at = uuid4(), uuid4(), datetime(2026, 10, 1, 12, tzinfo=UTC)
     await _add(
         Flow(id=flow_id, name="nightly report", data={}, user_id=active_super_user.id),
         Job(job_id=job_id, flow_id=flow_id, user_id=active_super_user.id, status=status, created_timestamp=started_at),
@@ -2134,7 +2134,7 @@ async def test_the_refusal_says_who_owns_each_job_and_how_to_cancel_it(
     admin, bob, flow_id, kb_id, ingestion_id = active_super_user.id, uuid4(), uuid4(), uuid4(), uuid4()
     background_id = uuid4()
     background = {"status": JobStatus.QUEUED, "job_metadata": {"request": {"mode": "background"}}}
-    started = [datetime(2026, 10, 1, hour, tzinfo=timezone.utc) for hour in (9, 10, 11, 12)]
+    started = [datetime(2026, 10, 1, hour, tzinfo=UTC) for hour in (9, 10, 11, 12)]
     await _add(
         User(id=bob, username="bob", password="never signs in"),  # noqa: S106  # pragma: allowlist secret
         Flow(id=flow_id, name="weekly digest", data={}, user_id=admin),
@@ -2206,7 +2206,7 @@ async def test_the_pause_is_refused_while_a_knowledge_base_is_marked_as_ingestin
     client, logged_in_headers_super_user, active_super_user, config_dir
 ):
     _checked(config_dir, [PASSING], **PREPARED)
-    kb_id, marked_at = uuid4(), datetime(2026, 10, 1, 12, tzinfo=timezone.utc)
+    kb_id, marked_at = uuid4(), datetime(2026, 10, 1, 12, tzinfo=UTC)
     # What an ingestion leaves when the server stops under it: the mark, and no job to cancel.
     await _add(
         KnowledgeBaseRecord(
@@ -2250,7 +2250,7 @@ async def test_the_pause_is_refused_while_a_trigger_listener_is_alive(client, lo
     assert (detail["code"], detail["jobs"]) == ("jobs_active", [])
     [listener] = detail["listeners"]
     assert listener["holder"] == "listener:222:cafef00d"
-    assert datetime.fromisoformat(listener["heartbeat_at"]) <= datetime.now(timezone.utc)
+    assert datetime.fromisoformat(listener["heartbeat_at"]) <= datetime.now(UTC)
     assert not {"pause", "pausing"} & (await _migration(client, headers))["record"].keys()
 
     async with session_scope() as session:

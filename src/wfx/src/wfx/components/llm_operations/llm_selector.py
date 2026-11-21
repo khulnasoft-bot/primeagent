@@ -1,4 +1,3 @@
-import asyncio
 import http  # Added for HTTPStatus
 import json
 from typing import Any
@@ -176,7 +175,7 @@ class LLMSelectorComponent(Component):
             self.log(f"AIOHTTP ClientError fetching OpenRouter models: {e!s}", "error")
             self._models_api_cache = {}
             self._model_name_to_api_id = {}
-        except asyncio.TimeoutError:
+        except TimeoutError:
             self.log("Timeout fetching OpenRouter model specifications.", "error")
             self._models_api_cache = {}
             self._model_name_to_api_id = {}

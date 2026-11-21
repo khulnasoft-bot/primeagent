@@ -1,7 +1,7 @@
 """Preserve historical timestamps when adopting SQLModel's UTC datetime type."""
 
 import importlib
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 import sqlalchemy as sa
@@ -12,7 +12,7 @@ from sqlmodel import UTCDateTime
 from .test_migration_execution import _engine_url, db_url  # noqa: F401
 
 _MIGRATION = importlib.import_module("primeagent.alembic.versions.f2a7c9e4b681_adopt_utc_datetime_storage")
-_UTC = datetime(2024, 11, 3, 8, 30, 12, 345678, tzinfo=timezone.utc)
+_UTC = datetime(2024, 11, 3, 8, 30, 12, 345678, tzinfo=UTC)
 
 
 @pytest.mark.parametrize("already_aware", [False, True])

@@ -1,7 +1,7 @@
 import asyncio
 import platform
 from asyncio.subprocess import create_subprocess_exec
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID
 
 from fastapi import HTTPException
@@ -433,7 +433,7 @@ async def auto_configure_starter_projects_mcp(session):
                             flow.action_name = sanitize_mcp_name(flow.name)
                         if not flow.action_description:
                             flow.action_description = flow.description or f"Starter project: {flow.name}"
-                        flow.updated_at = datetime.now(timezone.utc)
+                        flow.updated_at = datetime.now(UTC)
                         session.add(flow)
                         flows_configured += 1
 

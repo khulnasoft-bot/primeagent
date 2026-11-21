@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Any
 from uuid import uuid4
 
@@ -32,7 +32,7 @@ if TYPE_CHECKING:
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 async def source_ingress_url(session: AsyncSession, trigger: Trigger) -> str:
@@ -56,10 +56,10 @@ async def source_ingress_url(session: AsyncSession, trigger: Trigger) -> str:
 def _expiry(value: Any) -> datetime:
     if isinstance(value, str):
         if value.isdecimal():
-            return datetime.fromtimestamp(int(value) / 1000, tz=timezone.utc)
-        return datetime.fromisoformat(value.replace("Z", "+00:00"))
+            return datetime.fromtimestamp(int(value) / 1000, tz=UTC)
+        return datetime.fromisoformat(value)
     if isinstance(value, int | float):
-        return datetime.fromtimestamp(int(value) / 1000, tz=timezone.utc)
+        return datetime.fromtimestamp(int(value) / 1000, tz=UTC)
     msg = "Provider watch response contained no expiration."
     raise ValueError(msg)
 

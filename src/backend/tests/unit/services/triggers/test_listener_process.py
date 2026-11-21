@@ -10,7 +10,7 @@ from __future__ import annotations
 
 import asyncio
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import uuid4
 
 import pytest
@@ -192,7 +192,7 @@ async def test_the_self_test_dedupe_key_is_the_interval_bucket_not_the_clock(cli
     assert await adapter.poll(ctx) == 1
     assert await adapter.poll(ctx) == 0, "the second poll in the same bucket must be a duplicate"
     assert len(set(emitted)) == 1
-    bucket = int(datetime.now(timezone.utc).timestamp() // 3600)
+    bucket = int(datetime.now(UTC).timestamp() // 3600)
     assert emitted[0] == f"{LISTENER_FAKE_DEDUPE_PREFIX}:{bucket}"
 
 
@@ -311,7 +311,7 @@ async def test_a_listener_warns_at_startup_about_registrations_it_cannot_see(
                 user_id=trigger_owner,
                 registration_id="google-work",
                 config_digest="d" * 64,
-                expires_at=datetime.now(timezone.utc),
+                expires_at=datetime.now(UTC),
             )
         )
 

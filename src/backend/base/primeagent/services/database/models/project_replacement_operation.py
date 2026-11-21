@@ -1,6 +1,6 @@
 """Durable receipts for atomic project replacement operations."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID
 
 from sqlalchemy import Column, DateTime, String
@@ -29,6 +29,6 @@ class ProjectReplacementOperation(SQLModel, table=True):
     project_user_id: UUID | None = Field(default=None, nullable=True)
     workspace_id: UUID | None = Field(default=None, nullable=True)
     created_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         sa_column=Column(DateTime(timezone=True), nullable=False),
     )

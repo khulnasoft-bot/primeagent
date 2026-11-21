@@ -1409,7 +1409,7 @@ async def webhook_events_stream(
                         payload = project_payload_to_v1(payload)
                     event_data = json.dumps(payload)
                     yield f"event: {event_type}\ndata: {event_data}\n\n"
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     yield f"event: heartbeat\ndata: {json.dumps({'timestamp': time.time()})}\n\n"
 
         except asyncio.CancelledError:

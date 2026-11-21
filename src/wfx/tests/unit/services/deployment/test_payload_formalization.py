@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import fields
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from uuid import UUID
 
@@ -300,7 +300,7 @@ def test_generic_parametrization_applies_to_result_and_list_models() -> None:
 
 
 def test_payload_slot_dump_json_serializes_rich_payload() -> None:
-    now = datetime(2026, 1, 2, 3, 4, 5, tzinfo=timezone.utc)
+    now = datetime(2026, 1, 2, 3, 4, 5, tzinfo=UTC)
     rich_slot = PayloadSlot(_RichPayload)
     dumped = rich_slot.dump(
         _RichPayload(

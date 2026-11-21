@@ -2,7 +2,7 @@
 
 import hashlib
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import httpx
@@ -82,7 +82,7 @@ def _task(user_id, connection_id, *, provider="microsoft", kind="microsoft.calen
 async def test_user_delete_preserves_new_and_previous_revocations(
     client, logged_in_headers_super_user, trigger_owner, make_trigger, monkeypatch, provider, kind, method, path
 ):
-    token_expiry = datetime.now(timezone.utc) + timedelta(minutes=30)
+    token_expiry = datetime.now(UTC) + timedelta(minutes=30)
     async with session_scope() as session:
         connection_id = await _connection(session, trigger_owner, provider=provider, expires_at=token_expiry)
         earlier = _task(trigger_owner, connection_id, provider=provider, kind=kind, expires_at=token_expiry)
@@ -199,7 +199,7 @@ async def test_retained_revocation_survives_owner_cascades_on_both_sqlite_modes(
         connection_id=connection_id,
         provider="microsoft",
         provider_subscription_id=f"watch-{uuid4().hex}",
-        expires_at=datetime.now(timezone.utc) + timedelta(days=1),
+        expires_at=datetime.now(UTC) + timedelta(days=1),
     )
     session.add(subscription)
     await session.commit()
@@ -218,7 +218,7 @@ async def test_retained_revocation_survives_owner_cascades_on_both_sqlite_modes(
 
 @pytest.mark.parametrize("deadline_kind", ["token", "watch", "fallback"])
 async def test_snapshot_retention_uses_the_earliest_deadline(trigger_owner, deadline_kind):
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     token_expiry = now + timedelta(minutes=10) if deadline_kind == "token" else None
     watch_expiry = now + timedelta(minutes=5) if deadline_kind == "watch" else None
     async with session_scope() as session:
@@ -230,12 +230,12 @@ async def test_snapshot_retention_uses_the_earliest_deadline(trigger_owner, dead
             assert task.credential_expires_at <= token_expiry
         if watch_expiry:
             assert task.credential_expires_at <= watch_expiry
-        assert task.credential_expires_at <= datetime.now(timezone.utc) + timedelta(hours=1)
+        assert task.credential_expires_at <= datetime.now(UTC) + timedelta(hours=1)
 
 
 @pytest.mark.parametrize("unusable", ["expired-token", "revoked", "expired", "foreign-owner", "foreign-provider"])
 async def test_unusable_or_foreign_credentials_are_never_retained(trigger_owner, unusable):
-    expiry = datetime.now(timezone.utc) - timedelta(minutes=1) if unusable == "expired-token" else None
+    expiry = datetime.now(UTC) - timedelta(minutes=1) if unusable == "expired-token" else None
     async with session_scope() as session:
         owner_id = trigger_owner
         if unusable == "foreign-owner":
@@ -273,11 +273,11 @@ async def test_snapshot_cannot_authorize_a_different_watch_or_extend_its_deadlin
 async def test_expired_snapshot_is_purged_during_retry_backoff(trigger_owner, monkeypatch):
     async with session_scope() as session:
         connection_id = await _connection(session, trigger_owner)
-        task = _task(trigger_owner, connection_id, expires_at=datetime.now(timezone.utc) + timedelta(days=1))
+        task = _task(trigger_owner, connection_id, expires_at=datetime.now(UTC) + timedelta(days=1))
         session.add(task)
         await source_cleanup.preserve_user_cleanup_credentials(session, user_id=trigger_owner)
-        task.credential_expires_at = datetime.now(timezone.utc) - timedelta(seconds=1)
-        task.available_at = datetime.now(timezone.utc) + timedelta(hours=1)
+        task.credential_expires_at = datetime.now(UTC) - timedelta(seconds=1)
+        task.available_at = datetime.now(UTC) + timedelta(hours=1)
         session.add(task)
         task_id = task.id
 
@@ -296,7 +296,7 @@ async def test_expired_snapshot_is_purged_during_retry_backoff(trigger_owner, mo
 async def test_deleted_owner_cleanup_retries_transient_provider_failure(trigger_owner, monkeypatch):
     async with session_scope() as session:
         connection_id = await _connection(session, trigger_owner)
-        task = _task(trigger_owner, connection_id, expires_at=datetime.now(timezone.utc) + timedelta(days=1))
+        task = _task(trigger_owner, connection_id, expires_at=datetime.now(UTC) + timedelta(days=1))
         session.add(task)
         await source_cleanup.preserve_user_cleanup_credentials(session, user_id=trigger_owner)
         await session.delete(await session.get(User, trigger_owner))
@@ -319,7 +319,7 @@ async def test_deleted_owner_cleanup_retries_transient_provider_failure(trigger_
         task = await session.get(TriggerCleanup, task_id)
         assert task.attempt == 1
         assert task.encrypted_credential is not None
-        task.available_at = datetime.now(timezone.utc)
+        task.available_at = datetime.now(UTC)
         session.add(task)
     assert await source_cleanup.run_cleanup_pass() == 1
 
@@ -377,7 +377,7 @@ async def test_provider_policy_blocks_snapshot_before_decryption_or_http(trigger
 async def test_deleted_gmail_owner_preserves_a_sibling_mailbox_watch(
     client, logged_in_headers_super_user, trigger_owner, make_trigger, monkeypatch
 ):
-    expiry = datetime.now(timezone.utc) + timedelta(minutes=30)
+    expiry = datetime.now(UTC) + timedelta(minutes=30)
     async with session_scope() as session:
         connection_id = await _connection(session, trigger_owner, provider="google", expires_at=expiry)
         sibling_owner = User(username=f"sibling-{uuid4().hex}", password=str(uuid4()), is_active=True)

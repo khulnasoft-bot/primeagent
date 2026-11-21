@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import httpx
@@ -127,8 +127,8 @@ async def test_calendar_window_rolls_forward_before_it_expires() -> None:
         return httpx.Response(200, json={"value": [], "@odata.deltaLink": "rolled"})
 
     old = {
-        "start": (datetime.now(timezone.utc) - timedelta(days=360)).isoformat(),
-        "end": (datetime.now(timezone.utc) + timedelta(days=1)).isoformat(),
+        "start": (datetime.now(UTC) - timedelta(days=360)).isoformat(),
+        "end": (datetime.now(UTC) + timedelta(days=1)).isoformat(),
     }
     trigger = _trigger(
         kind="microsoft.calendar",

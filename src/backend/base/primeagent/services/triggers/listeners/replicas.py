@@ -25,7 +25,7 @@ leaves a row that stops counting as live after one TTL and is reaped later.
 from __future__ import annotations
 
 import math
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 
 from sqlmodel import col, delete, select
@@ -43,11 +43,11 @@ PRESENCE_PREFIX = "listener-replica:"
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 def _as_aware(value: datetime | None) -> datetime | None:
-    return value if value is None or value.tzinfo is not None else value.replace(tzinfo=timezone.utc)
+    return value if value is None or value.tzinfo is not None else value.replace(tzinfo=UTC)
 
 
 def presence_name(holder: str) -> str:

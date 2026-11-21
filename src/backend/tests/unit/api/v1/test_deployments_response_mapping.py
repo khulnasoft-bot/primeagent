@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from types import SimpleNamespace
 from uuid import uuid4
 
@@ -25,8 +25,8 @@ def _make_deployment_row(**overrides):
         "description": "db-description",
         "deployment_type": DeploymentType.AGENT,
         "resource_key": "provider-deployment-id",
-        "created_at": datetime.now(timezone.utc),
-        "updated_at": datetime.now(timezone.utc),
+        "created_at": datetime.now(UTC),
+        "updated_at": datetime.now(UTC),
     }
     defaults.update(overrides)
     return SimpleNamespace(**defaults)
@@ -40,7 +40,7 @@ def _make_deployment_row(**overrides):
 def test_shape_deployment_create_result_maps_db_identity_and_provider_result() -> None:
     mapper = BaseDeploymentMapper()
     provider_account_id = uuid4()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     deployment_row = SimpleNamespace(
         id=uuid4(),
         deployment_provider_account_id=provider_account_id,
@@ -98,7 +98,7 @@ def test_shape_deployment_create_result_with_empty_dict_provider_result() -> Non
 def test_shape_deployment_update_result_maps_db_identity_and_provider_result() -> None:
     mapper = BaseDeploymentMapper()
     provider_account_id = uuid4()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     row = _make_deployment_row(
         deployment_provider_account_id=provider_account_id,
         created_at=now,
@@ -129,7 +129,7 @@ def test_shape_deployment_update_result_maps_db_identity_and_provider_result() -
 
 def test_shape_deployment_list_result_with_entries() -> None:
     mapper = BaseDeploymentMapper()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     items = [
         ItemResult(
             id="dep-1",
@@ -228,7 +228,7 @@ def test_shape_execution_create_result_with_provider_data() -> None:
 
 def test_shape_deployment_list_items_basic() -> None:
     mapper = BaseDeploymentMapper()
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     dep_id = uuid4()
     prov_id = uuid4()
     row = SimpleNamespace(

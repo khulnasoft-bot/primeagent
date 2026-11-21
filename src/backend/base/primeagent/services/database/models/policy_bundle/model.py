@@ -1,6 +1,6 @@
 """Immutable deployment policy bundle history and active revision pointer."""
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import sqlalchemy as sa
 from sqlalchemy.sql.naming import conv
@@ -14,7 +14,7 @@ POLICY_BUNDLE_SOURCE_MAX_LENGTH = 32
 
 
 def _utc_now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class PolicyBundleRevision(SQLModel, table=True):  # type: ignore[call-arg]

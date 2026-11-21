@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
 from pydantic import SecretStr
@@ -34,13 +34,13 @@ def _parse_expiry(value: Any) -> datetime | None:
     if value is None:
         return None
     if isinstance(value, int | float) and not isinstance(value, bool):
-        return datetime.fromtimestamp(value, tz=timezone.utc)
+        return datetime.fromtimestamp(value, tz=UTC)
     if not isinstance(value, str):
         msg = "expires_at must be an ISO-8601 string or Unix timestamp"
         raise TypeError(msg)
     normalized = value[:-1] + "+00:00" if value.endswith("Z") else value
     parsed = datetime.fromisoformat(normalized)
-    return parsed.replace(tzinfo=timezone.utc) if parsed.tzinfo is None else parsed
+    return parsed.replace(tzinfo=UTC) if parsed.tzinfo is None else parsed
 
 
 def _parse_wire_value(raw: str, request: ConnectionResolutionRequest) -> ResolvedCredential:
@@ -149,7 +149,7 @@ class EnvConnectionResolver(BaseConnectionResolverService):
             )
         value = raw.get_secret_value() if isinstance(raw, SecretStr) else str(raw)
         credential = _parse_wire_value(value, request)
-        if credential.expires_at is not None and credential.expires_at <= datetime.now(timezone.utc):
+        if credential.expires_at is not None and credential.expires_at <= datetime.now(UTC):
             raise AuthExpiredError(provider=request.ref.provider)
         return credential
 

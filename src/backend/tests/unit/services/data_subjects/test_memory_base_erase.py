@@ -1,6 +1,6 @@
 """A Memory Base's remote collection must be gone before a builder erase can finish."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from primeagent.services.data_subjects.engine import run_request
@@ -74,7 +74,7 @@ async def _seed_builder_with_remote_memory_base(username: str):
 async def _make_retry_due(request_id) -> None:
     async with session_scope() as session:
         request = await session.get(DataSubjectRequest, request_id)
-        past = (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
+        past = (datetime.now(UTC) - timedelta(seconds=1)).isoformat()
         request.error = {**(request.error or {}), "retry_at": past}
         session.add(request)
 

@@ -23,7 +23,7 @@ import sqlite3
 import sys
 import tempfile
 from collections import deque
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Annotated, Any, Literal
 
@@ -559,7 +559,7 @@ async def download_database(admin: Superuser) -> StreamingResponse:
         raise HTTPException(status_code=409, detail={"code": "not_sqlite"})
     if not record.get("pause"):
         raise HTTPException(status_code=409, detail={"code": "not_paused"})
-    name = f"primeagent-backup-{datetime.now(timezone.utc):%Y%m%d}.db"
+    name = f"primeagent-backup-{datetime.now(UTC):%Y%m%d}.db"
     return _ClosingStream(
         _database_copy(url.database, admin.id, record["pause"]["frozen_at"]),
         media_type="application/vnd.sqlite3",
@@ -1653,4 +1653,4 @@ def _save(change: Callable[[dict[str, Any]], bool | None]) -> dict[str, Any]:
 
 
 def _now() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()

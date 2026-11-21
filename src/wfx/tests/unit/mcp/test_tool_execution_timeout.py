@@ -83,7 +83,7 @@ async def test_session_connectivity_validation_uses_resolved_timeout():
     session.list_tools.return_value = SimpleNamespace(tools=[])
     observed_timeout = None
 
-    async def wait_for(awaitable, *, timeout):
+    async def wait_for(awaitable, *, timeout):  # noqa: ASYNC109
         nonlocal observed_timeout
         observed_timeout = timeout
         return await awaitable
@@ -242,7 +242,7 @@ _real_wait_for = asyncio.wait_for
 def _recording_wait_for(observed: list[float]):
     """Record every timeout handed to asyncio.wait_for while still enforcing it."""
 
-    async def wait_for(awaitable, *, timeout):
+    async def wait_for(awaitable, *, timeout):  # noqa: ASYNC109
         observed.append(timeout)
         return await _real_wait_for(awaitable, timeout=timeout)
 

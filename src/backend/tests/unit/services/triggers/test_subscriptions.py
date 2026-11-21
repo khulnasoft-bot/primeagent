@@ -7,7 +7,7 @@ trigger still says "active", and no event ever arrives again.
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -25,7 +25,7 @@ PROVIDER = "microsoft"
 
 
 def _now() -> datetime:
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 @pytest.fixture
@@ -138,7 +138,7 @@ async def test_a_subscription_is_renewed_before_it_expires(make_subscription, fa
     assert fake_renewer == [provider_subscription_id]
     row = await _subscription(subscription_id)
     assert row.state == TriggerSubscriptionState.ACTIVE.value
-    assert row.expires_at.replace(tzinfo=timezone.utc) > _now() + timedelta(days=6)
+    assert row.expires_at.replace(tzinfo=UTC) > _now() + timedelta(days=6)
     # The lease is handed back so the next pass can claim it again.
     assert row.lease_owner is None
 
@@ -210,7 +210,7 @@ async def test_a_failing_renewal_stays_claimable_and_backs_off(make_subscription
     assert row.lease_owner is None
     assert row.provider_state["renew_failures"] == 1
     # Pushed into the future by the backoff, so the next pass does not spin.
-    assert row.renew_after.replace(tzinfo=timezone.utc) > _now()
+    assert row.renew_after.replace(tzinfo=UTC) > _now()
     # One failure is not yet worth telling the owner about.
     assert (await _trigger(trigger_id)).last_error is None
 
@@ -346,7 +346,7 @@ async def test_reauthorization_required_queues_renewal_without_stopping_trigger(
     assert changed is True
     assert (await _trigger(trigger_id)).state == TriggerState.ACTIVE.value
     row = await _subscription(subscription_id)
-    assert row.renew_after.replace(tzinfo=timezone.utc) <= _now()
+    assert row.renew_after.replace(tzinfo=UTC) <= _now()
     assert await subscriptions.run_renewal_pass(owner="replica-a") == 1
     assert fake_renewer == [provider_subscription_id]
 
@@ -637,4 +637,4 @@ async def test_a_renewal_pass_completes_with_durable_audit_on(make_subscription,
         await drain_pending_audit_writes()
 
     assert renewed == 1
-    assert (await _subscription(subscription_id)).expires_at.replace(tzinfo=timezone.utc) > _now() + timedelta(days=6)
+    assert (await _subscription(subscription_id)).expires_at.replace(tzinfo=UTC) > _now() + timedelta(days=6)

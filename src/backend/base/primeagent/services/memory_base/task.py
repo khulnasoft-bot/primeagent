@@ -28,7 +28,7 @@ import json
 import weakref
 from contextlib import AsyncExitStack
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
 from sqlalchemy import text
@@ -157,7 +157,7 @@ async def _pg_advisory_lock(db: Session, key: int) -> None:
 
         remaining = deadline - asyncio.get_event_loop().time()
         if remaining <= 0:
-            raise asyncio.TimeoutError
+            raise TimeoutError
 
         await asyncio.sleep(min(backoff, remaining))
         backoff = min(backoff * 2, max_backoff)
@@ -341,7 +341,7 @@ async def _ingest_memory_task_in_scope(
         storage_stack = AsyncExitStack()
         try:
             lock_handle = await _acquire_session_lock(db, memory_base_id, session_id)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             await logger.awarning(
                 "Ingestion lock wait timeout | memory_base=%s session=%s job=%s.",
                 memory_base_id,
@@ -725,7 +725,7 @@ async def _mark_messages_ingested(
 
     from primeagent.services.database.models.memory_base.model import MessageIngestionRecord
 
-    ingested_at = datetime.now(timezone.utc)
+    ingested_at = datetime.now(UTC)
     rows = [
         {
             "id": _uuid4(),
@@ -788,7 +788,7 @@ async def _insert_preproc_row(
     job retry only the KB write. For ``status='skipped'`` it's the audit record
     that the cursor advance was triggered by a kill-phrase response.
     """
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     row = MemoryBasePreprocessingOutput(
         memory_base_id=memory_base_id,
         session_id=session_id,
@@ -829,7 +829,7 @@ async def _update_preproc_row_status(
     """
     row.status = status
     row.job_id = task_job_id
-    row.updated_at = datetime.now(timezone.utc)
+    row.updated_at = datetime.now(UTC)
     if clear_output:
         row.output_text = None
     db.add(row)
@@ -864,7 +864,7 @@ async def _advance_cursor(
 
     mbs.cursor_id = new_cursor_id
     mbs.total_processed += ingested_count
-    mbs.last_sync_at = datetime.now(timezone.utc)
+    mbs.last_sync_at = datetime.now(UTC)
     db.add(mbs)
 
     # Stamp all pending workflow run rows for this session.

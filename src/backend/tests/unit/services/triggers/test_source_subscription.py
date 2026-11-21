@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import httpx
@@ -28,7 +28,7 @@ async def test_graph_drive_subscription_uses_updated_only(monkeypatch) -> None:
 
         async def request(self, method, path, *, body=None):
             requests.append((method, path, body))
-            return {"id": "sub-1", "expirationDateTime": datetime.now(timezone.utc).isoformat()}
+            return {"id": "sub-1", "expirationDateTime": datetime.now(UTC).isoformat()}
 
     async def lease(_session, _trigger, *, family):
         assert family == "trigger_push"
@@ -60,7 +60,7 @@ async def test_graph_drive_subscription_uses_updated_only(monkeypatch) -> None:
 
 async def test_graph_renewal_patches_the_existing_subscription(monkeypatch) -> None:
     requests = []
-    provider_expiry = datetime.now(timezone.utc) + timedelta(hours=24)
+    provider_expiry = datetime.now(UTC) + timedelta(hours=24)
 
     class Lease:
         async def get_token(self):
@@ -93,7 +93,7 @@ async def test_graph_renewal_patches_the_existing_subscription(monkeypatch) -> N
 
     assert renewed_until == provider_expiry
     assert requests[0][:2] == ("PATCH", "/v1.0/subscriptions/subscription-1")
-    assert datetime.fromisoformat(requests[0][2]["expirationDateTime"]) > datetime.now(timezone.utc)
+    assert datetime.fromisoformat(requests[0][2]["expirationDateTime"]) > datetime.now(UTC)
 
 
 @pytest.mark.parametrize(
@@ -105,7 +105,7 @@ async def test_graph_renewal_patches_the_existing_subscription(monkeypatch) -> N
 )
 async def test_google_watch_creates_a_verified_channel(kind, expected_path, monkeypatch) -> None:
     requests = []
-    expiry_ms = int((datetime.now(timezone.utc) + timedelta(hours=1)).timestamp() * 1000)
+    expiry_ms = int((datetime.now(UTC) + timedelta(hours=1)).timestamp() * 1000)
 
     class Lease:
         async def get_token(self):
@@ -144,7 +144,7 @@ async def test_google_watch_creates_a_verified_channel(kind, expected_path, monk
     assert requests[0][3]["address"] == "https://example.com/ingress"
     assert requests[0][3]["token"] == token
     assert state == {"channel_id": channel_id, "resource_id": "resource-1"}
-    assert expires_at == datetime.fromtimestamp(expiry_ms / 1000, tz=timezone.utc)
+    assert expires_at == datetime.fromtimestamp(expiry_ms / 1000, tz=UTC)
     if kind == "google.drive":
         assert requests[0][2]["pageToken"] == "start"
 
@@ -218,7 +218,7 @@ async def test_connection_change_retires_old_watch_before_provisioning_new_one(
         old_connection_id, new_connection_id = old_connection.id, new_connection.id
 
     trigger_id = await make_trigger(kind="microsoft.calendar", provider="microsoft", connection_id=old_connection_id)
-    expiry = datetime.now(timezone.utc) + timedelta(days=1)
+    expiry = datetime.now(UTC) + timedelta(days=1)
     async with session_scope() as session:
         old_subscription = await subscriptions.upsert_subscription(
             session,

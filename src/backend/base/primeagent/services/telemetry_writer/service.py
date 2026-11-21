@@ -363,7 +363,7 @@ class TelemetryWriterService(Service):
             if self._writer_task is not None:
                 try:
                     await asyncio.wait_for(self._writer_task, timeout=drain_timeout)
-                except asyncio.TimeoutError:
+                except TimeoutError:
                     # Drain budget exceeded. Whatever's still in the in-memory
                     # buffer survives via the disk spill below; rows that were
                     # popped into the in-flight batch are pushed back by the
@@ -480,7 +480,7 @@ class TelemetryWriterService(Service):
         # 'either': whichever trips first
         return count_exceeded or bytes_exceeded
 
-    async def _wait_or_shutdown(self, timeout: float, *, name: str) -> None:
+    async def _wait_or_shutdown(self, timeout: float, *, name: str) -> None:  # noqa: ASYNC109
         """Sleep up to ``timeout`` or return early if shutdown is signaled.
 
         Wraps ``Event.wait()`` in a named task so pyleak (and operators

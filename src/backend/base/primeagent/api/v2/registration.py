@@ -1,6 +1,6 @@
 import json
 from asyncio import to_thread
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException
@@ -74,7 +74,7 @@ def save_registration(email: str) -> bool:
         # Create new registration (replaces any existing)
         registration = {
             "email": email,
-            "registered_at": datetime.now(tz=timezone.utc).isoformat(),
+            "registered_at": datetime.now(tz=UTC).isoformat(),
         }
 
         # Log if replacing

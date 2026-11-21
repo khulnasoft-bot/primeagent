@@ -16,7 +16,7 @@ from wfx.mcp import server as mcp_server
 def _fake_client(events, seen=None):
     client = AsyncMock()
 
-    async def stream(path, json_data=None, timeout=None):  # noqa: ARG001
+    async def stream(path, json_data=None, timeout=None):  # noqa: ARG001, ASYNC109
         if seen is not None:
             seen["path"] = path
             seen["payload"] = json_data

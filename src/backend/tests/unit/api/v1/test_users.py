@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from types import SimpleNamespace
 from unittest.mock import AsyncMock
 from uuid import UUID, uuid4
@@ -645,7 +645,7 @@ def _pending_consent(connection_id: UUID, user_id: UUID) -> ConnectionOAuth:
         registration_id="google-work",
         config_digest="0" * 64,
         scopes=["calendar.readonly"],
-        expires_at=datetime.now(timezone.utc) + timedelta(minutes=10),
+        expires_at=datetime.now(UTC) + timedelta(minutes=10),
     )
 
 

@@ -225,7 +225,7 @@ async def classify_intent(
                 return _with_tokens(_finalize(response_text, "question", text), translation_tokens)
 
         return _with_tokens(_finalize(text, "question", text), translation_tokens)
-    except asyncio.TimeoutError:
+    except TimeoutError:
         logger.warning(
             "intent.classification.timeout: TranslationFlow exceeded %ss, defaulting to question",
             INTENT_CLASSIFICATION_TIMEOUT_SECONDS,

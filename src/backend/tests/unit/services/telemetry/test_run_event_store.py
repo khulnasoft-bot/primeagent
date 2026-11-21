@@ -3,7 +3,7 @@
 Testing library and framework: pytest
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from primeagent.services.telemetry import run_event_store
@@ -61,7 +61,7 @@ def test_bound_discards_oldest(monkeypatch):
 
 def test_completion_time_is_captured_when_recorded(monkeypatch):
     payload = _payload("before-midnight")
-    completed_at = datetime(2026, 9, 14, 23, 59, 59, tzinfo=timezone.utc)
+    completed_at = datetime(2026, 9, 14, 23, 59, 59, tzinfo=UTC)
 
     class CompletionClock(datetime):
         @classmethod
@@ -74,7 +74,7 @@ def test_completion_time_is_captured_when_recorded(monkeypatch):
 
 
 def test_existing_completion_time_survives_repeated_append():
-    completed_at = datetime(2026, 9, 14, 23, 59, 59, tzinfo=timezone.utc)
+    completed_at = datetime(2026, 9, 14, 23, 59, 59, tzinfo=UTC)
     payload = RunPayload(run_seconds=2, run_success=True, run_completed_at=completed_at)
     append_run_event(payload)
     append_run_event(payload)

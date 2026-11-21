@@ -64,7 +64,7 @@ async def run_server_checks(
     server_names: Sequence[str],
     check_server: Callable[[str], Awaitable[ServerInfo]],
     *,
-    timeout: float,
+    timeout: float,  # noqa: ASYNC109
 ) -> list[ServerInfo]:
     """Run a fixed worker pool within one deadline, retaining completed results.
 

@@ -110,7 +110,7 @@ class ReaCliClient:
                 asyncio.gather(process.wait(), stdout_task, stderr_task),
                 timeout=self.timeout_seconds,
             )
-        except asyncio.TimeoutError as exc:
+        except TimeoutError as exc:
             msg = f"REA CLI operation exceeded the {self.timeout_seconds}-second timeout."
             raise ReaAdapterError(msg) from exc
         except asyncio.CancelledError:

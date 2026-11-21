@@ -88,7 +88,7 @@ async def get_traces(
             ),
             timeout=DB_TIMEOUT,
         )
-    except asyncio.TimeoutError:
+    except TimeoutError:
         logger.warning("Traces query timed out after %ss (table may not exist or DB is slow)", DB_TIMEOUT)
         return TraceListResponse(traces=[], total=0, pages=0)
     except (OperationalError, ProgrammingError) as e:
@@ -122,7 +122,7 @@ async def get_trace(
             raise HTTPException(status_code=404, detail="Trace not found")
     except HTTPException:
         raise
-    except asyncio.TimeoutError:
+    except TimeoutError:
         logger.warning("Single trace query timed out after %ss", DB_TIMEOUT)
         raise HTTPException(status_code=504, detail="Database query timed out") from None
     except (OperationalError, ProgrammingError) as e:

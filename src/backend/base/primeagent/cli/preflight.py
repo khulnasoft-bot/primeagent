@@ -197,7 +197,7 @@ async def probe_database(settings_service: SettingsService) -> CheckResult:
     )
     try:
         target = await asyncio.wait_for(asyncio.to_thread(_connect), timeout=_PROBE_TIMEOUT)
-    except asyncio.TimeoutError:
+    except TimeoutError:
         return CheckResult("fail", f"could not connect (timed out after {_PROBE_TIMEOUT}s)", remediation)
     except Exception as exc:  # noqa: BLE001 — any driver/network error is a failed check
         return CheckResult("fail", f"could not connect ({_short_exc(exc)})", remediation)
@@ -350,7 +350,7 @@ async def probe_pgvector(_settings_service: SettingsService) -> CheckResult:
             "reachable, but the 'vector' extension is not installed",
             "Enable pgvector on the target database: CREATE EXTENSION vector;",
         )
-    except asyncio.TimeoutError:
+    except TimeoutError:
         return CheckResult(
             "fail",
             f"could not reach pgvector Postgres (timed out after {_PROBE_TIMEOUT}s)",
@@ -450,7 +450,7 @@ async def probe_opensearch() -> CheckResult | None:
             "Install the 'opensearch' extras (opensearch-py), or unset OPENSEARCH_URL if this "
             "deployment does not use OpenSearch.",
         )
-    except asyncio.TimeoutError:
+    except TimeoutError:
         return CheckResult(
             "fail",
             f"could not reach OpenSearch (timed out after {_PROBE_TIMEOUT}s)",

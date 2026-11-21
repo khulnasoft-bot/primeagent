@@ -1,5 +1,5 @@
 from collections import Counter
-from datetime import datetime
+from datetime import UTC, datetime
 from types import MethodType  # near the imports
 from typing import TYPE_CHECKING, Any
 
@@ -731,13 +731,11 @@ class RunFlowBaseComponent(Component):
 
     @staticmethod
     def _parse_timestamp(value: str | None) -> datetime | None:
-        from datetime import timezone
-
         if not value:
             return None
         try:
-            dt = datetime.fromisoformat(value.replace("Z", "+00:00"))
-            return dt.replace(tzinfo=timezone.utc, microsecond=0)
+            dt = datetime.fromisoformat(value)
+            return dt.replace(tzinfo=UTC, microsecond=0)
         except ValueError:
             logger.warning("Invalid updated_at value: %s", value)
             return None

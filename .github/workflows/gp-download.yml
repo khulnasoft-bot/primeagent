@@ -25,11 +25,15 @@ jobs:
             | sort -V \
             | tail -n 1)
           if [ -z "$BRANCH" ]; then
-            echo "No release-* branch found in ${{ github.repository }}"
+            BRANCH=$(git ls-remote --symref https://github.com/${{ github.repository }} HEAD \
+              | awk '/^ref:/ {sub("refs/heads/", "", $2); print $2; exit}')
+            echo "No release-* branch found in ${{ github.repository }}; using default branch: ${BRANCH:-unknown}"
+          fi
+          if [ -z "$BRANCH" ]; then
             exit 1
           fi
           echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
-          echo "Using release branch: $BRANCH"
+          echo "Using branch: $BRANCH"
 
       - name: Checkout release branch
         uses: actions/checkout@v7
@@ -126,11 +130,15 @@ jobs:
             | sort -V \
             | tail -n 1)
           if [ -z "$BRANCH" ]; then
-            echo "No release-* branch found in ${{ github.repository }}"
+            BRANCH=$(git ls-remote --symref https://github.com/${{ github.repository }} HEAD \
+              | awk '/^ref:/ {sub("refs/heads/", "", $2); print $2; exit}')
+            echo "No release-* branch found in ${{ github.repository }}; using default branch: ${BRANCH:-unknown}"
+          fi
+          if [ -z "$BRANCH" ]; then
             exit 1
           fi
           echo "branch=${BRANCH}" >> "$GITHUB_OUTPUT"
-          echo "Using release branch: $BRANCH"
+          echo "Using branch: $BRANCH"
 
       - name: Checkout release branch
         uses: actions/checkout@v7

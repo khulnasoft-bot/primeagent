@@ -7,7 +7,7 @@ agent-kind (base64) payload both round-trip byte-for-byte through the same API.
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -201,7 +201,7 @@ async def test_load_by_run_id_missing_returns_none(real_services_job_service) ->
 async def test_load_by_run_id_honors_expiry(real_services_job_service) -> None:
     store = _store(real_services_job_service)
     job_id = await _new_job(real_services_job_service)
-    cp = _checkpoint(job_id, expires_at=datetime.now(timezone.utc) - timedelta(seconds=1))
+    cp = _checkpoint(job_id, expires_at=datetime.now(UTC) - timedelta(seconds=1))
 
     await store.save(cp)
 

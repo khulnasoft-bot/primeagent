@@ -19,7 +19,7 @@ decided, so swapping the library later touches one file.
 
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING, Any
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
@@ -69,7 +69,7 @@ def next_fire_time(cron_expression: str, *, timezone_name: str | None, after: da
 
     validate_schedule_config({"cron": cron_expression, "timezone": timezone_name or DEFAULT_TIMEZONE})
     zone = _zone(timezone_name)
-    reference = after if after.tzinfo is not None else after.replace(tzinfo=timezone.utc)
+    reference = after if after.tzinfo is not None else after.replace(tzinfo=UTC)
     local_reference = reference.astimezone(zone)
     try:
         cursor = croniter(cron_expression, local_reference)
@@ -79,7 +79,7 @@ def next_fire_time(cron_expression: str, *, timezone_name: str | None, after: da
         raise InvalidScheduleError(msg) from exc
     if local_next.tzinfo is None:  # pragma: no cover - croniter preserves tzinfo
         local_next = local_next.replace(tzinfo=zone)
-    return local_next.astimezone(timezone.utc)
+    return local_next.astimezone(UTC)
 
 
 def latest_fire_time(cron_expression: str, *, timezone_name: str, at: datetime) -> datetime:
@@ -88,7 +88,7 @@ def latest_fire_time(cron_expression: str, *, timezone_name: str, at: datetime) 
 
     try:
         reference = (at + timedelta(microseconds=1)).astimezone(_zone(timezone_name))
-        return croniter(cron_expression, reference).get_prev(datetime).astimezone(timezone.utc)
+        return croniter(cron_expression, reference).get_prev(datetime).astimezone(UTC)
     except (CroniterError, ValueError, KeyError, OverflowError) as exc:
         msg = "Invalid cron expression: no prior fire time could be evaluated."
         raise InvalidScheduleError(msg) from exc
@@ -119,7 +119,7 @@ def tick_dedupe_key(scheduled_at: datetime) -> str:
     Derived from the instant, in UTC, so two replicas computing the same tick
     produce the same key and the unique index keeps one of them.
     """
-    return f"{TICK_DEDUPE_PREFIX}:{scheduled_at.astimezone(timezone.utc).isoformat()}"
+    return f"{TICK_DEDUPE_PREFIX}:{scheduled_at.astimezone(UTC).isoformat()}"
 
 
 def _config(trigger: Trigger) -> tuple[str, str, str]:
@@ -146,8 +146,8 @@ async def produce_ticks_for_trigger(
     week of runs.
     """
     settings = get_settings_service().settings
-    now = now or datetime.now(timezone.utc)
-    now = now if now.tzinfo is not None else now.replace(tzinfo=timezone.utc)
+    now = now or datetime.now(UTC)
+    now = now if now.tzinfo is not None else now.replace(tzinfo=UTC)
     cron_expression, timezone_name, catchup = _config(trigger)
 
     previous = trigger.next_fire_at
@@ -157,7 +157,7 @@ async def produce_ticks_for_trigger(
         await session.flush()
         return 0
 
-    previous = previous if previous.tzinfo is not None else previous.replace(tzinfo=timezone.utc)
+    previous = previous if previous.tzinfo is not None else previous.replace(tzinfo=UTC)
     if previous > now:
         return 0
 

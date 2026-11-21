@@ -12,6 +12,7 @@ from __future__ import annotations
 import json
 import os
 import uuid
+from datetime import UTC
 from typing import TYPE_CHECKING, ClassVar
 
 import anyio
@@ -381,7 +382,7 @@ class TestTheCommandLeavesTheDatabaseAlone:
             return set((await session.exec(text("SELECT version_num FROM alembic_version"))).scalars())
 
     async def test_a_dry_run_prunes_and_migrates_nothing(self, active_user, storage_dir, bucket):
-        from datetime import datetime, timezone
+        from datetime import datetime
 
         from primeagent.__main__ import _relocate_files
         from primeagent.services.database.models.auth import AuthzAuditLog
@@ -390,7 +391,7 @@ class TestTheCommandLeavesTheDatabaseAlone:
         await _seed_user_file(storage_dir, active_user.id, name="report.pdf", data=b"pdf-bytes")
         async with session_scope() as session:
             # Older than any retention window, so startup's history pruning would delete it.
-            old = datetime(2020, 1, 1, tzinfo=timezone.utc)
+            old = datetime(2020, 1, 1, tzinfo=UTC)
             session.add(AuthzAuditLog(action="read", result="allow", timestamp=old))
         revisions = await self._revisions()
 

@@ -12,7 +12,7 @@ Coverage:
 from __future__ import annotations
 
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
@@ -39,7 +39,7 @@ def _make_message(
         session_id=session_id,
         text=text,
         flow_id=uuid.uuid4(),
-        timestamp=timestamp or datetime.now(timezone.utc),
+        timestamp=timestamp or datetime.now(UTC),
         content_blocks=content_blocks or [],
     )
 
@@ -134,7 +134,7 @@ class TestFormatBatch:
         assert "Alice" in result
 
     def test_single_message_format_contains_timestamp_bracket(self):
-        ts = datetime(2024, 1, 15, 10, 30, 0, tzinfo=timezone.utc)
+        ts = datetime(2024, 1, 15, 10, 30, 0, tzinfo=UTC)
         msg = _make_message(text="hi", timestamp=ts)
         result = self._call([msg])
         assert "[2024-01-15" in result

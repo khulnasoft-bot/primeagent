@@ -23,7 +23,7 @@ Internal Helpers:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any, Protocol
 
 from wfx.schema.workflow import (
@@ -747,7 +747,7 @@ def create_job_response(job_id: str, flow_id: str) -> WorkflowJobResponse:
     return WorkflowJobResponse(
         job_id=job_id,
         flow_id=flow_id,
-        created_timestamp=datetime.now(timezone.utc).isoformat(),
+        created_timestamp=datetime.now(UTC).isoformat(),
         status=JobStatus.QUEUED,
         errors=[],
     )

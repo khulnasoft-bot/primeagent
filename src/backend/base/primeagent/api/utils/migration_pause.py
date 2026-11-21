@@ -34,7 +34,7 @@ import itertools
 import json
 import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
@@ -199,7 +199,7 @@ def under_way() -> dict[str, Any]:
     holds none: the lock says that a place is held and never whose.
     """
     changes = [
-        {**change, "since": datetime.fromtimestamp(change["since"], timezone.utc).isoformat()}
+        {**change, "since": datetime.fromtimestamp(change["since"], UTC).isoformat()}
         for change in sorted(_held.values(), key=lambda change: change["since"])
     ]
     # ponytail: a change in another worker is not named. Give each place a file of its own that says

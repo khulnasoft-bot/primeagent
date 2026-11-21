@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from pydantic import SecretStr
@@ -72,7 +72,7 @@ async def test_concurrent_stale_rejections_share_one_refresh_but_fresh_rejection
 
 @pytest.mark.asyncio
 async def test_expiring_credential_is_refreshed() -> None:
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     resolver = Resolver([_credential("old", now + timedelta(seconds=30)), _credential("new", now + timedelta(hours=1))])
     lease = CredentialLease(resolver, _request(), now=lambda: now)
 

@@ -4,7 +4,7 @@ import os
 import threading
 import traceback
 import types
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Any
 
 from typing_extensions import override
@@ -103,7 +103,7 @@ class LangSmithTracer(BaseTracer):
                     parent=parent,
                 )
                 self._run_tree = self._trace.__enter__()
-            self._run_tree.add_event({"name": "Start", "time": datetime.now(timezone.utc).isoformat()})
+            self._run_tree.add_event({"name": "Start", "time": datetime.now(UTC).isoformat()})
             self._run_tree.post()
         except Exception as ex:  # noqa: BLE001
             logger.warning(f"Error setting up LangSmith tracer: {ex}")
