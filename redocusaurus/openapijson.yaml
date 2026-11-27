@@ -1670,7 +1670,7 @@ components:
       type: object
     EndUserMatch:
       description: >-
-        An end-user id Primeagent has sessions for, to pick from when recording
+        An end-user id PrimeAgent has sessions for, to pick from when recording
         a request.
       properties:
         end_user_id:
@@ -4893,7 +4893,7 @@ components:
           description: >-
             Optional end-user identifier forwarded to tracing providers (e.g.
             Langfuse) as the trace's user_id. Does not affect authentication or
-            authorization — the API key owner remains the effective Primeagent
+            authorization — the API key owner remains the effective PrimeAgent
             user.
           title: User Id
       title: SimplifiedAPIRequest
@@ -6663,7 +6663,7 @@ components:
           tokenUrl: api/v1/login
       type: oauth2
 info:
-  title: Primeagent
+  title: PrimeAgent
   version: 1.13.0
 openapi: 3.1.0
 paths:
@@ -6962,7 +6962,7 @@ paths:
           schema:
             format: uuid
             type: string
-        - description: Exact Primeagent account.
+        - description: Exact PrimeAgent account.
           in: query
           name: user_id
           required: false
@@ -7149,7 +7149,7 @@ paths:
           schema:
             format: uuid
             type: string
-        - description: Exact Primeagent account.
+        - description: Exact PrimeAgent account.
           in: query
           name: user_id
           required: false
@@ -7310,14 +7310,14 @@ paths:
             title: Offset
             type: integer
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       responses:
         '200':
           content:
@@ -7346,14 +7346,14 @@ paths:
       operationId: create_assignment_api_v1_authz_role_assignments_post
       parameters:
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       requestBody:
         content:
           application/json:
@@ -7395,14 +7395,14 @@ paths:
             title: Assignment Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       responses:
         '200':
           content:
@@ -7515,14 +7515,14 @@ paths:
       operationId: create_role_api_v1_authz_roles_post
       parameters:
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       requestBody:
         content:
           application/json:
@@ -7566,14 +7566,14 @@ paths:
             title: Role Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       responses:
         '204':
           description: Successful Response
@@ -7632,14 +7632,14 @@ paths:
             title: Role Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       requestBody:
         content:
           application/json:
@@ -7752,14 +7752,14 @@ paths:
       operationId: create_team_api_v1_authz_teams_post
       parameters:
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       requestBody:
         content:
           application/json:
@@ -7798,14 +7798,14 @@ paths:
             title: Team Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       responses:
         '204':
           description: Successful Response
@@ -7863,14 +7863,14 @@ paths:
             title: Team Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       requestBody:
         content:
           application/json:
@@ -7967,14 +7967,14 @@ paths:
             title: Team Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       requestBody:
         content:
           application/json:
@@ -8020,14 +8020,14 @@ paths:
             title: User Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       responses:
         '204':
           description: Successful Response
@@ -9149,7 +9149,7 @@ paths:
         - Data Subjects
   /api/v1/data-subjects/find:
     post:
-      description: Count what Primeagent holds about a subject, without creating a request.
+      description: Count what PrimeAgent holds about a subject, without creating a request.
       operationId: find_subject_api_v1_data_subjects_find_post
       requestBody:
         content:
@@ -9372,7 +9372,7 @@ paths:
   /api/v1/data-subjects/requests/{request_id}/export:
     get:
       description: >-
-        Download what Primeagent holds about the subject, while the request is
+        Download what PrimeAgent holds about the subject, while the request is
         still open.
       operationId: export_request_api_v1_data_subjects_requests__request_id__export_get
       parameters:
@@ -10034,7 +10034,7 @@ paths:
                 - succeeded
                 - failed
             type: array
-        - description: Exact Primeagent account.
+        - description: Exact PrimeAgent account.
           in: query
           name: user_id
           required: false
@@ -12539,7 +12539,7 @@ paths:
                 - succeeded
                 - failed
             type: array
-        - description: Exact Primeagent account.
+        - description: Exact PrimeAgent account.
           in: query
           name: user_id
           required: false
@@ -13028,7 +13028,7 @@ paths:
         Create a response using OpenAI Responses API format.
 
         This endpoint accepts a flow_id in the model parameter and processes
-        the input through the specified Primeagent flow.
+        the input through the specified PrimeAgent flow.
 
         Args:
             request: OpenAI Responses API request with model (flow_id) and input
@@ -14021,14 +14021,14 @@ paths:
             description: Only users with an open account deletion request
             title: Deletion Requested
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       responses:
         '200':
           content:
@@ -14069,14 +14069,14 @@ paths:
       operationId: add_user_api_v1_users__post
       parameters:
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       requestBody:
         content:
           application/json:
@@ -14197,14 +14197,14 @@ paths:
             title: User Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       responses:
         '202':
           content:
@@ -14239,14 +14239,14 @@ paths:
             title: User Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       responses:
         '200':
           content:
@@ -14279,14 +14279,14 @@ paths:
             title: User Id
             type: string
         - in: header
-          name: X-Primeagent-Operation-ID
+          name: X-PrimeAgent-Operation-ID
           required: false
           schema:
             anyOf:
               - maxLength: 128
                 type: string
               - type: 'null'
-            title: X-Primeagent-Operation-Id
+            title: X-PrimeAgent-Operation-Id
       requestBody:
         content:
           application/json:

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
                        xmlns:moz="http://www.mozilla.org/2006/browser/search/">
-  <ShortName>Primeagent Documentation</ShortName>
-  <Description>Search Primeagent Documentation</Description>
+  <ShortName>PrimeAgent Documentation</ShortName>
+  <Description>Search PrimeAgent Documentation</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://docs.prime.khulnasoft.com/img/favicon.ico</Image>
-  <Url type="text/html" method="get" template="https://docs.prime.khulnasoft.com/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://docs.prime.khulnasoft.com/opensearch.xml" />
-  <moz:SearchForm>https://docs.prime.khulnasoft.com/</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://prime.khulnasoft.com/docs/img/favicon.ico</Image>
+  <Url type="text/html" method="get" template="https://prime.khulnasoft.com/docs/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://prime.khulnasoft.com/docs/opensearch.xml" />
+  <moz:SearchForm>https://prime.khulnasoft.com/docs/</moz:SearchForm>
 </OpenSearchDescription>
