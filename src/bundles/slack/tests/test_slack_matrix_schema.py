@@ -35,7 +35,7 @@ INPUT_DEVIATIONS = {
 }
 
 # action_id -> (frozen matrix output names, single shipped output name).
-# Primeagent edges are typed, so a bare ``bool``/``str`` output cannot be consumed
+# PrimeAgent edges are typed, so a bare ``bool``/``str`` output cannot be consumed
 # downstream; each group of scalars ships as one Data output carrying the same
 # keys, which the recorded-fixture tests assert.
 OUTPUT_DEVIATIONS = {

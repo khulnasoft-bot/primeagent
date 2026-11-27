@@ -49,7 +49,7 @@ jobs:
           RELEASE_TAG: ${{ inputs.tag }}
           REPLACE_PREPARED_TAG: ${{ inputs.replace_prepared_tag }}
         run: |
-          git config user.name "Primeagent Release Bot"
+          git config user.name "PrimeAgent Release Bot"
           git config user.email "bot-releases@khulnasoft.com"
           tag_ref="refs/tags/$RELEASE_TAG"
           if [ "$REPLACE_PREPARED_TAG" = "true" ]; then

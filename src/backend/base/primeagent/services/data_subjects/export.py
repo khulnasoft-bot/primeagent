@@ -1,4 +1,4 @@
-"""Export what Primeagent holds about one data subject as a ZIP (Art. 15 access, Art. 20 portability).
+"""Export what PrimeAgent holds about one data subject as a ZIP (Art. 15 access, Art. 20 portability).
 
 The archive is written to a spooled temporary file batch by batch, so a large history is never held in
 memory. A builder export never includes the messages of their flows: those belong to other people.

@@ -1,4 +1,4 @@
-"""Reproduction tests for the F2 Primeagent Assistant API bug report (2026-06-02).
+"""Reproduction tests for the F2 PrimeAgent Assistant API bug report (2026-06-02).
 
 Each test pins the CURRENT behavior of a reported issue so the fix has a
 failing test to flip:
@@ -7,7 +7,7 @@ failing test to flip:
             even though configured_providers is populated.
   Issue 2 — POST /agentic/assist runs the LLM (HTTP 200) on an unknown or
             cross-user flow_id instead of rejecting with 404/403.
-  Issue 3 — POST /agentic/execute/PrimeagentAssistant returns HTTP 500 for a
+  Issue 3 — POST /agentic/execute/PrimeAgentAssistant returns HTTP 500 for a
             valid assistant flow file (missing provider/model context).
 
 The endpoint tests need at least one configured provider; OPENAI_API_KEY from
@@ -96,6 +96,6 @@ async def test_assist_rejects_cross_user_flow_id(client, active_user, user_two_a
 @_NEEDS_KEY
 async def test_execute_named_assistant_flow_is_graceful_not_500(client, logged_in_headers):
     """Issue 3: executing the built-in assistant flow must not 500."""
-    body = {"flow_id": str(uuid4()), "input_value": "In one short sentence, what is Primeagent?"}
-    response = await client.post("api/v1/agentic/execute/PrimeagentAssistant", json=body, headers=logged_in_headers)
+    body = {"flow_id": str(uuid4()), "input_value": "In one short sentence, what is PrimeAgent?"}
+    response = await client.post("api/v1/agentic/execute/PrimeAgentAssistant", json=body, headers=logged_in_headers)
     assert response.status_code != 500, response.text

@@ -10,11 +10,11 @@ import PartialWfxBundlesInstall from "@site/docs/_partial-bundle-wfx-bundles-ins
 
 <Icon name="Blocks" aria-hidden="true" />
 [**Bundles**](/components-bundle-components) contain custom components that
-support third-party integrations with Primeagent.
+support third-party integrations with PrimeAgent.
 
 The **MrScraper** bundle provides three components: **Account**, **Scraper API**, and **Web Search**. They use `mrscraper-sdk` version `0.6.x`. Install the provider dependencies with `pip install "wfx-bundles[mrscraper]"`, then enter your API token from [the MrScraper app](https://app.mrscraper.com) in each component's **MrScraper API Token** field.
 
-All three components return the API payload as [`Data`](/data-types#json). The SDK's `status_code` and `headers` envelope is removed. Object responses are preserved; text and list responses are wrapped in a field so they remain valid Primeagent data. API, authentication, and network errors fail the component.
+All three components return the API payload as [`Data`](/data-types#json). The SDK's `status_code` and `headers` envelope is removed. Object responses are preserved; text and list responses are wrapped in a field so they remain valid PrimeAgent data. API, authentication, and network errors fail the component.
 
 ## MrScraper Account
 

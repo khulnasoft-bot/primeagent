@@ -554,7 +554,7 @@ async def test_snapshot_route_masks_auth_denial_and_does_not_expose_capture_deta
     assert raised.value.status_code == status.HTTP_404_NOT_FOUND
     assert raised.value.detail == "Project not found"
     assert secret not in str(raised.value.detail)
-    assert raised.value.headers.get("X-Primeagent-Error-Code") == "snapshot_project_not_found"
+    assert raised.value.headers.get("X-PrimeAgent-Error-Code") == "snapshot_project_not_found"
     session.commit.assert_not_awaited()
 
 
@@ -584,7 +584,7 @@ async def test_snapshot_route_masks_generic_capture_error_detail() -> None:
     assert raised.value.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
     assert raised.value.detail == "Project snapshot could not be captured safely"
     assert secret not in str(raised.value.detail)
-    assert raised.value.headers.get("X-Primeagent-Error-Code") == "snapshot_unsafe"
+    assert raised.value.headers.get("X-PrimeAgent-Error-Code") == "snapshot_unsafe"
     session.commit.assert_not_awaited()
 
 
@@ -614,7 +614,7 @@ async def test_snapshot_route_maps_bounded_capture_failures(failure, expected_st
         )
 
     assert raised.value.status_code == expected_status
-    assert raised.value.headers.get("X-Primeagent-Error-Code") == expected_code
+    assert raised.value.headers.get("X-PrimeAgent-Error-Code") == expected_code
     session.commit.assert_not_awaited()
 
 

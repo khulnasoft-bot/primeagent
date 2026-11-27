@@ -49,7 +49,7 @@ from wfx.base.mcp.security import (
         ("npx", ["wfx"], {"NPM_CONFIG_REGISTRY": "https://attacker.invalid"}),
         ("npx", ["wfx"], {"npm_config_userconfig": "/tenant/npmrc"}),
         # A tenant cannot supply the agentic user-id binding env var (case-insensitive); only
-        # Primeagent may inject it at spawn from the authenticated identity.
+        # PrimeAgent may inject it at spawn from the authenticated identity.
         ("python", ["-m", "primeagent.agentic.mcp"], {"PRIMEAGENT_AGENTIC_USER_ID": "victim"}),
         ("uvx", ["x"], {"primeagent_agentic_user_id": "victim"}),
         # Docker -- blocked even under the DEFAULT (lenient) policy.

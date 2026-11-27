@@ -1,7 +1,7 @@
 # wfx-exa
 
 [Exa](https://exa.ai/) web-search and contents tools as a standalone
-Primeagent Extension Bundle.
+PrimeAgent Extension Bundle.
 
 ## What it ships
 
@@ -9,7 +9,7 @@ One component, registered under the `exa` bundle group:
 
 - **Exa Search** (`ExaSearchToolkit`, canonical ID
   `ext:exa:ExaSearchToolkit@official`) — a toolkit exposing two tools for
-  a Primeagent **Agent** component or MCP client:
+  a PrimeAgent **Agent** component or MCP client:
   - `search` — search the web with Exa (`auto` / `fast` / `instant` /
     `deep` search types, category, domain allow/deny lists, published-date
     range), returning token-efficient highlights by default.
@@ -33,7 +33,7 @@ pip install wfx-exa
 
 ## Develop
 
-The bundle is a uv workspace member of the Primeagent monorepo:
+The bundle is a uv workspace member of the PrimeAgent monorepo:
 
 ```bash
 uv sync

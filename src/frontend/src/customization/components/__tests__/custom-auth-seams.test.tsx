@@ -27,7 +27,7 @@ describe("OSS auth customization seams", () => {
   it("renders the OSS product name as the login brand", () => {
     render(<CustomLoginBrandTitle />);
 
-    expect(screen.getByText("Primeagent")).toBeInTheDocument();
+    expect(screen.getByText("PrimeAgent")).toBeInTheDocument();
   });
 
   it("passes signup prompt children through", () => {

@@ -1,6 +1,6 @@
 """Authentication service factory.
 
-Builds the Primeagent auth implementation (JWT, DB users, etc.)
+Builds the PrimeAgent auth implementation (JWT, DB users, etc.)
 """
 
 from __future__ import annotations
@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 
 
 class AuthServiceFactory(ServiceFactory):
-    """Factory that creates the Primeagent auth service (implements WFX BaseAuthService)."""
+    """Factory that creates the PrimeAgent auth service (implements WFX BaseAuthService)."""
 
     name = ServiceType.AUTH_SERVICE.value
 

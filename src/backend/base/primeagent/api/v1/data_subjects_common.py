@@ -20,7 +20,7 @@ if TYPE_CHECKING:
     from primeagent.services.data_subjects.errors import DataSubjectError
     from primeagent.services.database.models.data_subject_request import DataSubjectRequest
 
-ERROR_CODE_HEADER = "X-Primeagent-Error-Code"
+ERROR_CODE_HEADER = "X-PrimeAgent-Error-Code"
 STREAM_CHUNK_BYTES = 64 * 1024
 
 

@@ -16,12 +16,12 @@ from unittest.mock import Mock
 
 from primeagent.api.build import _output_meta_for_vertex
 from wfx.workflow.adapters import StreamAdapterContext
-from wfx.workflow.adapters.primeagent import PrimeagentAdapter
+from wfx.workflow.adapters.primeagent import PrimeAgentAdapter
 from wfx.workflow.converters import build_component_output, resolve_output_type
 
 
-def _adapter() -> PrimeagentAdapter:
-    return PrimeagentAdapter(StreamAdapterContext(run_id="run-1", thread_id="thread-1"))
+def _adapter() -> PrimeAgentAdapter:
+    return PrimeAgentAdapter(StreamAdapterContext(run_id="run-1", thread_id="thread-1"))
 
 
 def _end_vertex_data(component_id: str, text: str, *, is_terminal: bool = True, is_output: bool = True) -> dict:
@@ -90,7 +90,7 @@ class TestOutputMetaForVertex:
         assert meta["is_terminal"] is False
 
 
-class TestPrimeagentAdapterOutputEvent:
+class TestPrimeAgentAdapterOutputEvent:
     """On a terminal end_vertex, the adapter ALSO emits a normalized ``output`` event."""
 
     def test_terminal_end_vertex_adds_output_event(self):

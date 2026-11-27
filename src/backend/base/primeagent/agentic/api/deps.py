@@ -10,7 +10,7 @@ from wfx.utils.flow_validation import admin_only_build_required
 
 from primeagent.api.utils.core import CurrentActiveUser
 
-ASSISTANT_ADMIN_ONLY_DETAIL = "The Primeagent Assistant is restricted to administrators on this server."
+ASSISTANT_ADMIN_ONLY_DETAIL = "The PrimeAgent Assistant is restricted to administrators on this server."
 
 
 def require_agentic_experience() -> None:
@@ -18,7 +18,7 @@ def require_agentic_experience() -> None:
 
     SECURITY: the assistant generates and EXECUTES component code in-process
     (primeagent.agentic.helpers.validation.validate_component_runtime and the user-components
-    overlay). ``agentic_experience`` is on by default (the Assistant is Primeagent's entry-point
+    overlay). ``agentic_experience`` is on by default (the Assistant is PrimeAgent's entry-point
     experience); this gate 404s the codegen endpoints when an operator opts out with
     PRIMEAGENT_AGENTIC_EXPERIENCE=false, matching the per-endpoint precedent in
     api/v1/endpoints.py. Execution entry points are additionally guarded by

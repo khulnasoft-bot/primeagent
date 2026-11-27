@@ -69,7 +69,7 @@ def test_warmup_run_opens_no_socket(monkeypatch):
 def test_warmup_run_does_not_start_tracers():
     """The warm-up run must not emit a trace, even when a tracing service is registered.
 
-    wfx and Primeagent share one service manager, so in a Primeagent process the hermetic graph
+    wfx and PrimeAgent share one service manager, so in a PrimeAgent process the hermetic graph
     would otherwise resolve the real tracer and ship a junk "prewarm" trace to a configured
     provider. The run disables tracing on its graph, so start_tracers is never called.
     """

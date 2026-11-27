@@ -48,7 +48,7 @@ def _normalize_keys(keys: Collection[str]) -> frozenset[str]:
     return frozenset(normalized)
 
 
-class PrimeagentCatalogPolicyService(BaseCatalogPolicyService):
+class PrimeAgentCatalogPolicyService(BaseCatalogPolicyService):
     """Catalog projection of the process-wide immutable policy bundle."""
 
     def __init__(

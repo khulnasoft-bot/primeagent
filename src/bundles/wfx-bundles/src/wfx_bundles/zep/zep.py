@@ -21,7 +21,7 @@ from wfx.inputs.inputs import DropdownInput, MessageTextInput, SecretStrInput
 DISABLED_MESSAGE = (
     "The legacy 'Zep Chat Memory' component no longer functions: it was built on the "
     "zep-python v1 API, which no longer exists in the zep-python 2.x release that "
-    "Primeagent installs. Replace this node with the 'Message History' component (its "
+    "PrimeAgent installs. Replace this node with the 'Message History' component (its "
     "designated replacement) or another memory integration."
 )
 

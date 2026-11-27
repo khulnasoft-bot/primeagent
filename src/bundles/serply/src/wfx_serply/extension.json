@@ -3,7 +3,7 @@
   "id": "wfx-serply",
   "version": "0.1.0",
   "name": "Serply",
-  "description": "Serply SERP API web-search component as a standalone Primeagent Extension Bundle.",
+  "description": "Serply SERP API web-search component as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

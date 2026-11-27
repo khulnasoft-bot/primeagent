@@ -3,7 +3,7 @@
   "id": "wfx-datastax",
   "version": "0.2.0",
   "name": "DataStax",
-  "description": "DataStax component(s) as a standalone Primeagent Extension Bundle.",
+  "description": "DataStax component(s) as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

@@ -258,7 +258,7 @@ def test_build_direct_uvicorn_kwargs_forwards_tls_paths():
 def test_build_direct_uvicorn_kwargs_starts_each_request_task_from_a_clean_context():
     """Direct-uvicorn startup must opt into uvicorn's per-request context reset.
 
-    Same reason as ``PrimeagentUvicornWorker.CONFIG_KWARGS`` on the Gunicorn path: a pipelined
+    Same reason as ``PrimeAgentUvicornWorker.CONFIG_KWARGS`` on the Gunicorn path: a pipelined
     request is started from inside the finishing request's task, and the copied context
     otherwise carries that request's ended server span into the new one, which OpenTelemetry
     reports as nesting. Kept on both paths so platform parity does not drift.

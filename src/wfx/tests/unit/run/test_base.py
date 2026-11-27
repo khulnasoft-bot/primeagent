@@ -516,7 +516,7 @@ class TestRunFlowSessionIdPropagation:
     async def test_session_id_does_not_overwrite_hardcoded_vertex_value(self, tmp_path):
         """If the flow JSON pinned session_id on the Memory component, the CLI must not clobber it.
 
-        Matches Primeagent's playground behavior: ``build_graph_from_data`` only writes
+        Matches PrimeAgent's playground behavior: ``build_graph_from_data`` only writes
         when ``raw_params.get("session_id")`` is falsy.
         """
         script_path = tmp_path / "test.py"
@@ -1420,7 +1420,7 @@ class TestMaterializeFlowDict:
     """Direct tests for ``_materialize_flow_dict`` — the core outer-envelope unwrap.
 
     This helper backs ``--upgrade-flow`` input handling.
-    Exported Primeagent flows look like ``{"name": ..., "data": {<graph>}}``; the inner graph is
+    Exported PrimeAgent flows look like ``{"name": ..., "data": {<graph>}}``; the inner graph is
     ``{"nodes": [...], "edges": [...]}``. This helper must unwrap the envelope, pass a bare graph
     through unchanged, unwrap exactly one level, and fail loudly (RunError) on bad/missing input.
     """

@@ -79,7 +79,7 @@ def _component_index_version_matches(txt: str, primeagent_version: str) -> bool:
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentBasePinSubstitution:
+class TestPrimeAgentBasePinSubstitution:
     V = "1.12.1"
 
     def test_replaces_gte_with_extras(self):
@@ -209,7 +209,7 @@ class TestWfxVersionSubstitution:
 [project]
 name = "wfx"
 version = "1.10.0"
-description = "Lightweight executor for Primeagent"
+description = "Lightweight executor for PrimeAgent"
 """
         result = _patch_wfx_pyproject(txt, "1.11.0")
         assert 'version = "1.11.0"' in result

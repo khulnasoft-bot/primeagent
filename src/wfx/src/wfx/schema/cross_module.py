@@ -75,7 +75,7 @@ class CrossModuleModel(BaseModel, metaclass=CrossModuleMeta):
         ...
         >>> # Even if Message is imported from different paths:
         >>> from wfx.schema.message import Message as WfxMessage
-        >>> from primeagent.schema import Message as PrimeagentMessage
+        >>> from primeagent.schema import Message as PrimeAgentMessage
         >>> msg = WfxMessage(text="hello")
-        >>> isinstance(msg, PrimeagentMessage)  # True (with cross-module support)
+        >>> isinstance(msg, PrimeAgentMessage)  # True (with cross-module support)
     """

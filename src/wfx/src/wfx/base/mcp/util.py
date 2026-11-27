@@ -467,7 +467,7 @@ def _is_pydantic_model_type(annotation: Any) -> bool:
 
 
 def _unwrap_primeagent_json_value(value: Any) -> Any:
-    """Return the payload dict from Primeagent JSON/Data values wired into MCP object parameters."""
+    """Return the payload dict from PrimeAgent JSON/Data values wired into MCP object parameters."""
     if isinstance(value, Data):
         return value.data
     return value
@@ -850,7 +850,7 @@ async def get_flow_snake_case(
         from primeagent.services.database.models.flow.model import Flow
         from sqlmodel import select
     except ImportError as e:
-        msg = "Primeagent Flow model is not available. This feature requires the full Primeagent installation."
+        msg = "PrimeAgent Flow model is not available. This feature requires the full PrimeAgent installation."
         raise ImportError(msg) from e
 
     uuid_user_id = UUID(user_id) if isinstance(user_id, str) else user_id
@@ -1721,7 +1721,7 @@ class MCPSessionManager:
         task.add_done_callback(self._background_tasks.discard)
 
         # Wait for the session to be ready within the configured connect budget. A cold stdio
-        # server (e.g. a packaged interpreter importing Primeagent) can take well over 20 s here.
+        # server (e.g. a packaged interpreter importing PrimeAgent) can take well over 20 s here.
         try:
             session = await asyncio.wait_for(session_future, timeout=get_session_init_timeout())
         except asyncio.CancelledError:
@@ -2213,7 +2213,7 @@ class MCPStdioClient(_PooledSessionClient):
         if AGENTIC_MCP_MODULE in command or any(AGENTIC_MCP_MODULE in arg for arg in args):
             if not current_user_id:
                 msg = (
-                    "The Primeagent agentic MCP server requires an authenticated user context and cannot be used here."
+                    "The PrimeAgent agentic MCP server requires an authenticated user context and cannot be used here."
                 )
                 raise ValueError(msg)
             # Bind the trusted identity only after validating the tenant-controlled
@@ -2224,7 +2224,7 @@ class MCPStdioClient(_PooledSessionClient):
         # shell=False: exec the binary directly with structured args. The MCP SDK
         # abstracts the platform differences (POSIX exec vs. Windows executable
         # resolution), so identical parameters work on every OS and no shell
-        # interpreter is ever interposed between Primeagent and the server process.
+        # interpreter is ever interposed between PrimeAgent and the server process.
         server_params = StdioServerParameters(
             command=command,
             args=final_args,
@@ -2859,7 +2859,7 @@ async def update_tools(
         mcp_streamable_http_client: Optional streamable HTTP client instance
         mcp_sse_client: Optional SSE client instance (backward compatibility)
         request_variables: Optional dict of global variables to resolve in headers. On a run
-            these carry the caller's ``X-Primeagent-Global-Var-*`` values, so they are trusted
+            these carry the caller's ``X-PrimeAgent-Global-Var-*`` values, so they are trusted
             for headers only.
         url_variables: Global variables trusted to resolve the target URL. Kept separate from
             ``request_variables`` on purpose: resolving the URL from caller-supplied values
@@ -2936,7 +2936,7 @@ async def update_tools(
 
         is_agentic_server = AGENTIC_MCP_MODULE in command or any(AGENTIC_MCP_MODULE in arg for arg in args)
         if is_agentic_server and not current_user_id:
-            msg = "The Primeagent agentic MCP server requires an authenticated user context and cannot be used here."
+            msg = "The PrimeAgent agentic MCP server requires an authenticated user context and cannot be used here."
             raise ValueError(msg)
         # `command` is a structured executable field, not a shell fragment. Keeping it
         # intact preserves legitimate executable paths that contain spaces.

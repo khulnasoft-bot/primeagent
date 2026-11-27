@@ -47,10 +47,10 @@ class WxOAuthURL(str, Enum):
     Please note:
     - The stated environment variables are solely for
     internal testing and development purposes,
-    and must be left unset when shipping Primeagent
+    and must be left unset when shipping PrimeAgent
     for general availability.
     - The IAM URLs cannot be changed during runtime,
-    and Primeagent does not dynamically resolve the IAM URL based on
+    and PrimeAgent does not dynamically resolve the IAM URL based on
     the environment of a given wxO tenant. It simply uses the
     default production IAM URLs, or the environment variable
     overrides if set.

@@ -60,7 +60,7 @@ def _is_existing_local_file(file_path: str) -> bool:
     """Return True when file_path is an absolute path to a real local file.
 
     Under S3 storage some callers still hand us genuine local paths (e.g. the
-    Primeagent Assistant injects the installed wfx components dir into a Directory
+    PrimeAgent Assistant injects the installed wfx components dir into a Directory
     node). A real local file is never an S3 key, so it must be read from disk
     instead of being parsed as "flow_id/filename". See issue #13798.
 

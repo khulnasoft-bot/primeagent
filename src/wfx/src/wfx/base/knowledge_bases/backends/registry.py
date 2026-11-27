@@ -145,7 +145,7 @@ def create_backend(
     pass ``None`` for ``kb_path``. Legacy Chroma routing requires migration.
 
     ``user_id`` is forwarded so backends can resolve credential *variables*
-    through Primeagent's ``variable_service`` (same pattern as the connector
+    through PrimeAgent's ``variable_service`` (same pattern as the connector
     ingestion sources). Legacy call sites that pass ``None`` still work —
     the backends fall back to ``os.environ`` in that case.
 

@@ -1,23 +1,23 @@
 """Integration tests for wfx.mcp.server MCP tools.
 
-Uses the client_fixture (real Primeagent app via ASGITransport) — no mocking.
-Tests the full roundtrip: MCP tool -> PrimeagentClient -> Primeagent API -> DB.
+Uses the client_fixture (real PrimeAgent app via ASGITransport) — no mocking.
+Tests the full roundtrip: MCP tool -> PrimeAgentClient -> PrimeAgent API -> DB.
 """
 
 import pytest
 from httpx import AsyncClient
 from wfx.mcp import server as mcp_server_module
-from wfx.mcp.client import PrimeagentClient
+from wfx.mcp.client import PrimeAgentClient
 
 
 @pytest.fixture
 async def mcp_client(client: AsyncClient, logged_in_headers):
-    """Wire up a PrimeagentClient that uses the test's AsyncClient transport."""
+    """Wire up a PrimeAgentClient that uses the test's AsyncClient transport."""
     # Extract the token from logged_in_headers
     auth_header = logged_in_headers["Authorization"]
     access_token = auth_header.removeprefix("Bearer ")
 
-    lf_client = PrimeagentClient(server_url="http://testserver", access_token=access_token)
+    lf_client = PrimeAgentClient(server_url="http://testserver", access_token=access_token)
     # Inject the test's AsyncClient so requests go through ASGITransport
     lf_client._http = client
 
@@ -152,7 +152,7 @@ class TestGetComponentInfo:
         assert "params" in info
 
     async def test_get_component_info_redacts_secrets(
-        self, mcp_client: PrimeagentClient, monkeypatch: pytest.MonkeyPatch
+        self, mcp_client: PrimeAgentClient, monkeypatch: pytest.MonkeyPatch
     ):
         # LanguageModelComponent: in-tree model type with a SecretStr api_key.
         # Provider components are registered under their namespaced extension
@@ -651,7 +651,7 @@ class TestRunFlow:
         assert "outputs" in result
 
     async def test_stream_post_yields_events(self, mcp_client, created_api_key):
-        """Verify stream_post yields SSE events from Primeagent's streaming endpoint."""
+        """Verify stream_post yields SSE events from PrimeAgent's streaming endpoint."""
         mcp_client.api_key = created_api_key.api_key
         created = await mcp_server_module.create_flow("StreamTest")
         c1 = await mcp_server_module.add_component(created["id"], "ChatInput")

@@ -182,7 +182,7 @@
   },
   "verification_programs": {
     "slack-directory-publication": {
-      "description": "The Slack MCP server admits only directory-published (Marketplace) apps or internal apps. A Primeagent-owned hosted Slack app that uses the MCP substrate must be published to the Slack Marketplace; self-managed customers can instead register an internal app in their own workspace.",
+      "description": "The Slack MCP server admits only directory-published (Marketplace) apps or internal apps. A PrimeAgent-owned hosted Slack app that uses the MCP substrate must be published to the Slack Marketplace; self-managed customers can instead register an internal app in their own workspace.",
       "source": "slack-mcp-server",
       "blocking_for_contexts": [
         "hosted"
@@ -311,7 +311,7 @@
       "decision": "include",
       "confidence": "high",
       "open_questions": [
-        "A Primeagent-owned hosted app must be Marketplace-approved or conversations.replies gets 1 request per minute with a 15-message limit.",
+        "A PrimeAgent-owned hosted app must be Marketplace-approved or conversations.replies gets 1 request per minute with a 15-message limit.",
         "INT-14 deployment prerequisite: record the target tenant/workspace consent policy and administrator approval for this registration and scope set; documentation review does not establish tenant consent."
       ],
       "rationale": "Web API conversations.replies is GA, scoped to the connected user's visibility, and has a published request and response contract. The hosted Marketplace review remains a calendar dependency. Included in wave 1 by the release owner on 2026-09-01.",

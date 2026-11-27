@@ -2,7 +2,7 @@ import type { Route } from "@playwright/test";
 import { expect, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
-import type { PrimeagentPage } from "../utils/types";
+import type { PrimeAgentPage } from "../utils/types";
 
 type MessageRow = {
   id: string;
@@ -34,7 +34,7 @@ const populatedMessages: MessageRow[] = [
   },
 ];
 
-async function mockMessages(page: PrimeagentPage, messages: MessageRow[]) {
+async function mockMessages(page: PrimeAgentPage, messages: MessageRow[]) {
   await page.route(
     /\/api\/v1\/monitor\/messages(\?.*)?$/,
     async (route: Route) => {
@@ -48,7 +48,7 @@ async function mockMessages(page: PrimeagentPage, messages: MessageRow[]) {
   );
 }
 
-async function mockStoreTags(page: PrimeagentPage) {
+async function mockStoreTags(page: PrimeAgentPage) {
   await page.route(/\/api\/v1\/store\/tags(\?.*)?$/, async (route: Route) => {
     if (route.request().method() === "GET") {
       await route.fulfill({ json: [] });
@@ -59,7 +59,7 @@ async function mockStoreTags(page: PrimeagentPage) {
   });
 }
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -76,7 +76,7 @@ async function disableAnimations(page: PrimeagentPage) {
 }
 
 async function openMessagesRoute(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   messages = populatedMessages,
 ) {
   await mockMessages(page, messages);
@@ -94,7 +94,7 @@ async function openMessagesRoute(
     .catch(() => {});
 }
 
-function messageRow(page: PrimeagentPage, text: string) {
+function messageRow(page: PrimeAgentPage, text: string) {
   return page
     .locator(".ag-center-cols-container .ag-row")
     .filter({ hasText: text })

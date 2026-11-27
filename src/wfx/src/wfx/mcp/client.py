@@ -1,4 +1,4 @@
-"""Async HTTP client for Primeagent REST API.
+"""Async HTTP client for PrimeAgent REST API.
 
 Adapted from the CLI's sync Backend class, using httpx.AsyncClient
 for non-blocking operations inside the MCP server.
@@ -47,8 +47,8 @@ def _global_var_headers() -> dict[str, str]:
     return headers
 
 
-class PrimeagentClient:
-    """Async HTTP client for Primeagent's REST API.
+class PrimeAgentClient:
+    """Async HTTP client for PrimeAgent's REST API.
 
     Auth sends both headers on every request:
     - Authorization: Bearer <access_token or api_key>
@@ -97,7 +97,7 @@ class PrimeagentClient:
         if request_origin != server_origin:
             # HTTPX strips Authorization across origins, but retains custom
             # headers, including global variables containing provider keys.
-            msg = "Refusing to forward global variable overrides outside the Primeagent server origin"
+            msg = "Refusing to forward global variable overrides outside the PrimeAgent server origin"
             raise RuntimeError(msg)
 
     async def close(self) -> None:

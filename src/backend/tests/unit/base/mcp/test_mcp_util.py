@@ -52,7 +52,7 @@ def test_validate_mcp_stdio_env_allows_regular_env():
 
 
 # Binaries that would indicate a shell interpreter is being interposed between
-# Primeagent and the MCP server process. After the shell=False refactor none of
+# PrimeAgent and the MCP server process. After the shell=False refactor none of
 # these should ever appear as the launched command.
 _SHELL_INTERPRETERS = frozenset({"bash", "sh", "zsh", "cmd", "cmd.exe", "powershell", "powershell.exe", "/bin/sh"})
 
@@ -3070,7 +3070,7 @@ class TestNormalizeArgumentsForMcp:
         assert isinstance(result["params"], dict)
 
     def test_primeagent_data_to_dict_when_dict_expected(self):
-        """Test Primeagent Data/JSON connected to a dict MCP parameter unwraps to its payload."""
+        """Test PrimeAgent Data/JSON connected to a dict MCP parameter unwraps to its payload."""
         from pydantic import BaseModel, Field
 
         class Schema(BaseModel):
@@ -4490,7 +4490,7 @@ class TestMCPToolNameResolution:
     """
 
     USER_ID = "123e4567-e89b-12d3-a456-426614174000"
-    LONG_NAME = "Portfolio Website Code Generator"  # 32 chars: a Primeagent starter template
+    LONG_NAME = "Portfolio Website Code Generator"  # 32 chars: a PrimeAgent starter template
 
     @pytest.mark.asyncio
     async def test_a_name_longer_than_the_limit_resolves(self):

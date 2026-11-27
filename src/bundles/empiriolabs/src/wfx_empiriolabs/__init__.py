@@ -1,6 +1,6 @@
 """wfx-empiriolabs: EmpirioLabs bundle.
 
-Distribution unit ``wfx-empiriolabs``.  At runtime Primeagent's loader discovers
+Distribution unit ``wfx-empiriolabs``.  At runtime PrimeAgent's loader discovers
 ``extension.json`` shipped alongside this ``__init__.py`` and registers the
 bundle's components under the namespaced IDs
 ``ext:empiriolabs:EmpirioLabsModelComponent@official`` and

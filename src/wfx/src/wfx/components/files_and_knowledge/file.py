@@ -3,7 +3,7 @@
 Notes:
 -----
 - ALL Docling parsing/export runs in a separate OS process to prevent memory
-  growth and native library state from impacting the main Primeagent process.
+  growth and native library state from impacting the main PrimeAgent process.
 - Standard text/structured parsing continues to use existing BaseFileComponent
   utilities, bounded by `concurrency_multithreading` via `aparallel_load_data`.
 - The loaders are coroutines (see BaseFileComponent): storage reads are awaited on

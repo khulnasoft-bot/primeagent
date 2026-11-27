@@ -1,6 +1,6 @@
 """Unit tests for wfx push -- push_command and helpers.
 
-All tests run entirely in-process; no real Primeagent instance or SDK required.
+All tests run entirely in-process; no real PrimeAgent instance or SDK required.
 The SDK module is replaced wholesale with MagicMock so only the push logic
 (file loading, upsert routing, dry-run, project resolution, result rendering)
 is under test.
@@ -48,8 +48,8 @@ _FLOW_DICT_2: dict = {
 # ---------------------------------------------------------------------------
 
 
-class _FakePrimeagentHTTPError(Exception):
-    """Stand-in for primeagent_sdk.PrimeagentHTTPError in unit tests."""
+class _FakePrimeAgentHTTPError(Exception):
+    """Stand-in for primeagent_sdk.PrimeAgentHTTPError in unit tests."""
 
     def __init__(self, status_code: int, detail: str) -> None:
         self.status_code = status_code
@@ -104,7 +104,7 @@ def _make_sdk_mock(client_mock: MagicMock | None = None) -> MagicMock:
 
     sdk = MagicMock()
     sdk.Client.return_value = client_mock
-    sdk.PrimeagentHTTPError = _FakePrimeagentHTTPError
+    sdk.PrimeAgentHTTPError = _FakePrimeAgentHTTPError
     # FlowCreate / ProjectCreate stay as MagicMock callables — push.py calls
     # them as constructors and passes the result to client.upsert_flow /
     # client.create_project.  We check the constructor call kwargs in tests.
@@ -384,7 +384,7 @@ class TestUpsertSingle:
         from wfx.cli.push import _upsert_single
 
         client = _make_client_mock()
-        client.upsert_flow.side_effect = _FakePrimeagentHTTPError(500, "server error")
+        client.upsert_flow.side_effect = _FakePrimeAgentHTTPError(500, "server error")
         sdk = _make_sdk_mock(client)
         result = _upsert_single(
             client,
@@ -536,7 +536,7 @@ class TestPushCommand:
         """HTTP failure on any flow → Exit(1) after all flows attempted."""
         p = _write_flow(tmp_path, "flow.json")
         client = _make_client_mock()
-        client.upsert_flow.side_effect = _FakePrimeagentHTTPError(500, "oops")
+        client.upsert_flow.side_effect = _FakePrimeAgentHTTPError(500, "oops")
         sdk = _make_sdk_mock(client)
         with pytest.raises(typer.Exit) as exc_info:
             _run_push([str(p)], sdk_mock=sdk)
@@ -596,7 +596,7 @@ class TestPushCommand:
         client = _make_client_mock()
         client.upsert_flow.side_effect = [
             (_fake_flow(), True),
-            _FakePrimeagentHTTPError(500, "server down"),
+            _FakePrimeAgentHTTPError(500, "server down"),
         ]
         sdk = _make_sdk_mock(client)
         with pytest.raises(typer.Exit) as exc_info:

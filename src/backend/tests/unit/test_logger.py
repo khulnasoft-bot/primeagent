@@ -175,7 +175,7 @@ class TestConfigure:
                     logging.root.removeHandler(handler)
 
     def test_configure_routes_loguru_messages_to_log_file(self):
-        """Test configure() routes Loguru messages through Primeagent logging."""
+        """Test configure() routes Loguru messages through PrimeAgent logging."""
         with tempfile.TemporaryDirectory() as tmp_dir:
             log_file_path = Path(tmp_dir) / "primeagent.log"
 

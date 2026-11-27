@@ -103,7 +103,7 @@ class ListenerContext:
 
 @runtime_checkable
 class ListenerAdapter(Protocol):
-    """A source that Primeagent dials out to."""
+    """A source that PrimeAgent dials out to."""
 
     transport: str
 

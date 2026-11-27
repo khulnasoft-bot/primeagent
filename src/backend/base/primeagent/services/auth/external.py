@@ -1,7 +1,7 @@
 """External trusted-identity helpers.
 
 When an upstream identity layer (proxy, gateway, IdP) issues or validates a
-credential, Primeagent accepts it via this module: extract the token from the
+credential, PrimeAgent accepts it via this module: extract the token from the
 configured header/cookie, validate it (built-in JWT/JWKS or a pluggable
 resolver), and return a normalized :class:`ExternalIdentity`. JIT user
 provisioning is handled separately by

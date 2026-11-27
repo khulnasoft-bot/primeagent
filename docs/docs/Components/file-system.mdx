@@ -58,7 +58,7 @@ Tool errors are returned to the agent as structured JSON:
 Flow JSON includes the component code saved when the flow was exported. Installing a newer WFX package does not replace that embedded code in the default configuration. An older File System component can therefore continue choosing a different private workspace on each standalone run.
 
 1. Back up the flow export and its filesystem data.
-2. Open the flow in an updated Primeagent installation and apply the File System component update. Preserve its connections, workspace sub-path, and read-only setting. If you customized the component code, review and incorporate the storage change into that code instead of replacing your customizations automatically.
+2. Open the flow in an updated PrimeAgent installation and apply the File System component update. Preserve its connections, workspace sub-path, and read-only setting. If you customized the component code, review and incorporate the storage change into that code instead of replacing your customizations automatically.
 3. Save and export the updated flow, then use that export with `wfx run` or `wfx serve`.
 4. Run its Metadata output and confirm the expected mode: `shared` for an WFX-generated identity, or `isolated` for an explicitly supplied or verified user when automatic login is disabled. Verify a file can be read on a subsequent run.
 
@@ -66,7 +66,7 @@ Updating the component does not relocate files written into earlier per-run priv
 
 ## Move shared files when enabling authentication
 
-Switching an existing Primeagent installation from `PRIMEAGENT_AUTO_LOGIN=true` to `false` changes this component's directory from `shared/` to `users/HASH/`. Existing files are not deleted or moved automatically. A flow can report `File not found` even though its earlier files remain in `shared/`.
+Switching an existing PrimeAgent installation from `PRIMEAGENT_AUTO_LOGIN=true` to `false` changes this component's directory from `shared/` to `users/HASH/`. Existing files are not deleted or moved automatically. A flow can report `File not found` even though its earlier files remain in `shared/`.
 
 1. Stop active flows and back up the entire `PRIMEAGENT_FS_TOOL_BASE_DIR` directory, including its `.fs_pepper` file. Preserve this directory along with the database and configuration during the [authentication upgrade](/api-keys-and-authentication#upgrade-from-auto-login).
 2. Decide which account owns each file previously stored in the shared workspace. Shared data has no reliable per-user ownership record; do not copy every file into every user's private directory.
@@ -78,7 +78,7 @@ Keep authentication enabled during normal operation. Re-enabling automatic login
 
 ## Docker deployment
 
-When running Primeagent in Docker, you must mount the sandbox directory as a persistent volume.
+When running PrimeAgent in Docker, you must mount the sandbox directory as a persistent volume.
 This ensures that the pepper file used to derive per-user namespace hashes survives container restarts.
 
     ```yaml

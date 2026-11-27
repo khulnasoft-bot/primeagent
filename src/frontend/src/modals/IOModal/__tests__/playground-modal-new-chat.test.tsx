@@ -96,7 +96,7 @@ jest.mock("@/customization/utils/custom-open-new-tab", () => ({
 
 jest.mock("@/customization/utils/urls", () => ({
   __esModule: true,
-  PrimeagentButtonRedirectTarget: () => "https://prime.khulnasoft.com",
+  PrimeAgentButtonRedirectTarget: () => "https://prime.khulnasoft.com",
 }));
 
 const messagesQueryResult = { isFetched: true, refetch: jest.fn() };

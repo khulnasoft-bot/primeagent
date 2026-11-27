@@ -213,7 +213,7 @@ async def test_read_all_users_denial_preserves_legacy_detail_and_adds_error_code
 
     assert response.status_code == status.HTTP_403_FORBIDDEN
     assert response.json() == {"detail": "The user doesn't have enough privileges"}
-    assert response.headers["X-Primeagent-Error-Code"] == "administration_denied"
+    assert response.headers["X-PrimeAgent-Error-Code"] == "administration_denied"
 
 
 async def test_read_user_by_id(client: AsyncClient, logged_in_headers_super_user):
@@ -436,8 +436,8 @@ async def test_external_identity_credentials_cannot_be_changed_locally(
 
     assert admin_response.status_code == status.HTTP_409_CONFLICT
     assert self_response.status_code == status.HTTP_409_CONFLICT
-    assert admin_response.headers["X-Primeagent-Error-Code"] == "external_credentials_managed"
-    assert self_response.headers["X-Primeagent-Error-Code"] == "external_credentials_managed"
+    assert admin_response.headers["X-PrimeAgent-Error-Code"] == "external_credentials_managed"
+    assert self_response.headers["X-PrimeAgent-Error-Code"] == "external_credentials_managed"
 
 
 async def test_reset_password_rejects_incorrect_current_password(client: AsyncClient, logged_in_headers, active_user):
@@ -735,7 +735,7 @@ async def test_patch_user_password_denial_is_audited(client: AsyncClient, logged
 
     audit = AsyncMock()
     monkeypatch.setattr(users, "audit_decision", audit)
-    headers = {**logged_in_headers, "X-Primeagent-Operation-ID": "cli-password-denial"}
+    headers = {**logged_in_headers, "X-PrimeAgent-Operation-ID": "cli-password-denial"}
 
     response = await client.patch(
         f"api/v1/users/{active_user.id}",

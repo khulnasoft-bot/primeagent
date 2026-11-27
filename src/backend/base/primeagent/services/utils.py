@@ -232,7 +232,7 @@ async def setup_superuser(settings_service: SettingsService, session: AsyncSessi
     if not username or not password:
         msg = (
             "Username and password must be set. "
-            "Set PRIMEAGENT_SUPERUSER_PASSWORD before starting Primeagent. "
+            "Set PRIMEAGENT_SUPERUSER_PASSWORD before starting PrimeAgent. "
             "If you are upgrading an existing auto-login installation, "
             "see https://prime.khulnasoft.com/docs/next/api-keys-and-authentication#upgrade-from-auto-login"
         )
@@ -286,7 +286,7 @@ async def migrate_orphaned_mcp_servers_config(
 
     The MCP servers config is persisted on disk at
     ``{config_dir}/{user_id}/_mcp_servers_{user_id}.json`` and tracked in the DB
-    via a ``File`` row. When Primeagent starts with a fresh database but the same
+    via a ``File`` row. When PrimeAgent starts with a fresh database but the same
     config directory (common in containerized deployments without a persisted DB
     volume), the default superuser is recreated with a new UUID and the
     previously saved MCP config files become unreachable.
@@ -659,10 +659,10 @@ def register_all_service_factories() -> None:
     from primeagent.services.auth import factory as auth_factory
     from primeagent.services.auth.service import AuthService
     from primeagent.services.authorization import factory as authorization_factory
-    from primeagent.services.authorization.service import PrimeagentAuthorizationService
+    from primeagent.services.authorization.service import PrimeAgentAuthorizationService
     from primeagent.services.cache import factory as cache_factory
     from primeagent.services.catalog_policy import factory as catalog_policy_factory
-    from primeagent.services.catalog_policy.service import PrimeagentCatalogPolicyService
+    from primeagent.services.catalog_policy.service import PrimeAgentCatalogPolicyService
     from primeagent.services.chat import factory as chat_factory
     from primeagent.services.checkpoint import factory as checkpoint_factory
     from primeagent.services.connection import factory as connection_factory
@@ -699,7 +699,7 @@ def register_all_service_factories() -> None:
     service_manager.register_factory(task_factory.TaskServiceFactory())
     service_manager.register_factory(store_factory.StoreServiceFactory())
     service_manager.register_factory(shared_component_cache_factory.SharedComponentCacheServiceFactory())
-    # Standalone WFX keeps its environment resolver. Full Primeagent resolves
+    # Standalone WFX keeps its environment resolver. Full PrimeAgent resolves
     # handles from encrypted connection rows unless a host plugin overrides
     # this service through wfx.toml.
     service_manager.register_service_class(
@@ -708,18 +708,18 @@ def register_all_service_factories() -> None:
         override=True,
     )
     service_manager.register_factory(connection_factory.ConnectionResolverServiceFactory())
-    # Override WFX's no-op auth service with Primeagent's full JWT implementation
+    # Override WFX's no-op auth service with PrimeAgent's full JWT implementation
     service_manager.register_service_class(ServiceType.AUTH_SERVICE, AuthService, override=True)
     service_manager.register_factory(auth_factory.AuthServiceFactory())
     # Same pattern as ``auth_service``: register the OSS pass-through here with
-    # ``override=True`` so Primeagent always has a default. A registered
+    # ``override=True`` so PrimeAgent always has a default. A registered
     # authorization plugin replaces it by listing its class in
     # ``PRIMEAGENT_CONFIG_DIR/wfx.toml`` (config files use ``override=True`` via
     # ``_discover_from_config``). Plain entry-point discovery uses
     # ``override=False`` and would lose to this default — the supported
     # override path is the ``wfx.toml`` config, matching SSO.
     service_manager.register_service_class(
-        ServiceType.AUTHORIZATION_SERVICE, PrimeagentAuthorizationService, override=True
+        ServiceType.AUTHORIZATION_SERVICE, PrimeAgentAuthorizationService, override=True
     )
     service_manager.register_factory(authorization_factory.AuthorizationServiceFactory())
     service_manager.register_service_class(
@@ -729,7 +729,7 @@ def register_all_service_factories() -> None:
     )
     service_manager.register_service_class(
         ServiceType.CATALOG_POLICY_SERVICE,
-        PrimeagentCatalogPolicyService,
+        PrimeAgentCatalogPolicyService,
         override=True,
     )
     service_manager.register_factory(catalog_policy_factory.CatalogPolicyServiceFactory())
@@ -817,7 +817,7 @@ async def initialize_services(*, fix_migration: bool = False, skip_superuser_set
         raise ConnectionError(msg)
 
     # Fail fast if the Redis-backed job queue is selected but Redis is unreachable.
-    # Otherwise Primeagent boots "fine" and emits confusing connection errors only
+    # Otherwise PrimeAgent boots "fine" and emits confusing connection errors only
     # when a flow is executed. Only probes when the redis backend is selected, so
     # the default asyncio backend is unaffected.
     if get_settings_service().settings.job_queue_type == "redis":

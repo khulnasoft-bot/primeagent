@@ -5,13 +5,13 @@ slug: /flow-devops-sdk
 
 Use the Flow DevOps Toolkit SDK to version, test, and deploy your flows.
 
-Instead of manually exporting, sharing, and importing flow JSON files from the Primeagent UI, the Flow DevOps toolkit offers terminal-based workflows for versioning, environment variables, testing, and deployment.
+Instead of manually exporting, sharing, and importing flow JSON files from the PrimeAgent UI, the Flow DevOps toolkit offers terminal-based workflows for versioning, environment variables, testing, and deployment.
 
 ## Prerequisites
 
-- [Install and start Primeagent](/get-started-installation)
-- Create a [Primeagent API key](/api-keys-and-authentication)
-- Install the Primeagent `wfx` package
+- [Install and start PrimeAgent](/get-started-installation)
+- Create a [PrimeAgent API key](/api-keys-and-authentication)
+- Install the PrimeAgent `wfx` package
 
   To install the `wfx` package from PyPI, do the following:
 
@@ -25,18 +25,18 @@ Instead of manually exporting, sharing, and importing flow JSON files from the P
       ```bash
       source VENV_NAME/bin/activate
       ```
-  3.  Install the Primeagent WFX package in the virtual environment:
+  3.  Install the PrimeAgent WFX package in the virtual environment:
       ```bash
       uv pip install wfx
       ```
   4.  Run Flow DevOps Toolkit commands in the virtual environment that has WFX installed.
 
-      Alternatively, you can run `uvx wfx` commands, or run WFX from the `src/wfx` directory in a cloned Primeagent repo.
-      For more information, see the [Primeagent WFX README](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/README.md).
+      Alternatively, you can run `uvx wfx` commands, or run WFX from the `src/wfx` directory in a cloned PrimeAgent repo.
+      For more information, see the [PrimeAgent WFX README](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/README.md).
 
 ## Create a project and version a flow
 
-1. Create a flow in the Primeagent UI, such as the Simple Agent starter flow in the [Quickstart](/get-started-quickstart).
+1. Create a flow in the PrimeAgent UI, such as the Simple Agent starter flow in the [Quickstart](/get-started-quickstart).
 2. Open a terminal session within the virtual environment that has `wfx` installed.
 3. To initialize a project, run:
 
@@ -82,10 +82,10 @@ Instead of manually exporting, sharing, and importing flow JSON files from the P
    - `flows/`: An empty directory to store flows that includes a `.gitkeep` file for flow versioning.
    - `tests/test_flows.py`: Example tests that you can modify to test flows.
 
-4. Add your Primeagent API key to your `.env` file, or export it within the terminal session.
+4. Add your PrimeAgent API key to your `.env` file, or export it within the terminal session.
    The Flow DevOps SDK includes `url` and `api_key_env` environment variables for `local`, `staging`, and `production` environments.
    The variable name for the API key differs between environments, so ensure you're adding the correct variable.
-   For example, to add a Primeagent API key to a local Primeagent server, set:
+   For example, to add a PrimeAgent API key to a local PrimeAgent server, set:
 
    ```text
    export PRIMEAGENT_LOCAL_API_KEY=PRIMEAGENT_API_KEY
@@ -125,17 +125,17 @@ Instead of manually exporting, sharing, and importing flow JSON files from the P
    If you run `wfx pull` again, the Flow DevOps SDK reports a Status of `Unchanged`.
    You will pull changes in the next steps.
 
-7. In the Primeagent UI, open the Simple Agent flow and change the flow.
+7. In the PrimeAgent UI, open the Simple Agent flow and change the flow.
    For example, change the **Chat Input** to a different input string.
    Save the flow.
 8. Return to your terminal, and run `wfx status`.
    The Flow DevOps SDK reports the flow's Status as `UPDATED`, because the hash of the flow JSON has changed with your update.
-9. To pull the reported changes from the Primeagent server to your local project folder, run `wfx pull`.
-10. To _push_ flow changes from flows stored locally in `demo-project/flows` to the Primeagent server, run `wfx push`.
+9. To pull the reported changes from the PrimeAgent server to your local project folder, run `wfx pull`.
+10. To _push_ flow changes from flows stored locally in `demo-project/flows` to the PrimeAgent server, run `wfx push`.
 
 ## Validate flows
 
-The Flow DevOps SDK can validate that local flows are correctly formed before pushing to the Primeagent with `wfx validate`.
+The Flow DevOps SDK can validate that local flows are correctly formed before pushing to the PrimeAgent with `wfx validate`.
 
 1. To test the Simple Agent starter flow, pass the flow JSON path to the `wfx validate` command:
    ```
@@ -164,7 +164,7 @@ Generate a `requirements.txt` file to capture the minimal Python dependencies, s
    ```
 
 2. Optionally, you can now share and serve the flow by keeping the flow JSON and `requirements.txt` in the same environment.
-   To serve the flow without the Primeagent UI, do the following:
+   To serve the flow without the PrimeAgent UI, do the following:
 
    1. Create a virtual environment:
 
@@ -184,20 +184,20 @@ Generate a `requirements.txt` file to capture the minimal Python dependencies, s
    uv pip install -r requirements.txt
    ```
 
-   4. To set a Primeagent API key, run:
+   4. To set a PrimeAgent API key, run:
 
    ```
    export PRIMEAGENT_API_KEY=PRIMEAGENT_API_KEY
    ```
 
-   5. To serve the flow without the Primeagent UI, pass the flow JSON path to the `wfx serve` command:
+   5. To serve the flow without the PrimeAgent UI, pass the flow JSON path to the `wfx serve` command:
 
    ```
    wfx serve flows/Simple_Agent.json
    ```
 
    `wfx serve` starts a FastAPI app that exposes your flow as an HTTP API endpoint.
-   For more information, see the [Primeagent WFX README](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/README.md).
+   For more information, see the [PrimeAgent WFX README](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/README.md).
 
 ## Manage multiple environments with `environments.yaml`
 
@@ -215,16 +215,16 @@ production:
   api_key_env: PRIMEAGENT_PRODUCTION_API_KEY
 ```
 
-Each entry contains a `url` for the Primeagent base URL, and an `api_key_env` field.
+Each entry contains a `url` for the PrimeAgent base URL, and an `api_key_env` field.
 The `api_key_env` field names an environment variable that you either `export` or store in a `.env` file, and does not store the secret string itself, which makes `environments.yaml` safe to commit to version control.
 
 The names `local`, `staging`, and `production` in `environments.yaml` are conventions, and can be named whatever your project requires. You can add more than three entries.
 
-`environments.yaml` is distinct from the Primeagent or WFX `.env` file.
-`environments.yaml` controls which remote Primeagent instance you're deploying flows to, flow versioning, and environment variable _names_ for API keys.
-The `.env` contains runtime values for the Primeagent server, and might also contain _actual secret values_, so the `.env` should not be committed to version control.
+`environments.yaml` is distinct from the PrimeAgent or WFX `.env` file.
+`environments.yaml` controls which remote PrimeAgent instance you're deploying flows to, flow versioning, and environment variable _names_ for API keys.
+The `.env` contains runtime values for the PrimeAgent server, and might also contain _actual secret values_, so the `.env` should not be committed to version control.
 
-Commands that call a Primeagent server over HTTP, such as `wfx pull` or `wfx push`, use `--env ENVIRONMENT_NAME` to determine which Primeagent instance to send the request to.
+Commands that call a PrimeAgent server over HTTP, such as `wfx pull` or `wfx push`, use `--env ENVIRONMENT_NAME` to determine which PrimeAgent instance to send the request to.
 
 For example, to send a `push` request to a server named `local` in `environments.yaml`, run:
 
@@ -232,4 +232,4 @@ For example, to send a `push` request to a server named `local` in `environments
 wfx push --env local
 ```
 
-This command will send the request to the Primeagent base URL at `http://127.0.0.1:7860` using a Primeagent API key named `PRIMEAGENT_LOCAL_API_KEY`.
+This command will send the request to the PrimeAgent base URL at `http://127.0.0.1:7860` using a PrimeAgent API key named `PRIMEAGENT_LOCAL_API_KEY`.

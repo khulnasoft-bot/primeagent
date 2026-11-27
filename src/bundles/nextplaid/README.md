@@ -1,7 +1,7 @@
 # wfx-nextplaid
 
 NextPlaid multi-vector vector store (plus its companion vLLM multivector
-embeddings) as a standalone Primeagent Extension Bundle.
+embeddings) as a standalone PrimeAgent Extension Bundle.
 
 NextPlaid stores each document as a *matrix* of token embeddings rather than
 a single vector, enabling ColBERT/ColPali-style late interaction (MaxSim
@@ -31,7 +31,7 @@ pip install wfx-nextplaid
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point. After install, restart your Primeagent server; the components
+entry-point. After install, restart your PrimeAgent server; the components
 appear in the palette under the `nextplaid` bundle group.
 
 ## Develop

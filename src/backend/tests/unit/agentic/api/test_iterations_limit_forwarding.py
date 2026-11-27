@@ -130,7 +130,7 @@ async def test_non_streaming_execution_binds_the_iterations_context():
 
     with patch.object(assistant_service, "execute_flow_file", side_effect=fake_execute_flow_file):
         await assistant_service.execute_flow_with_validation(
-            flow_filename="PrimeagentAssistant.json",
+            flow_filename="PrimeAgentAssistant.json",
             input_value="hello",
             global_variables={"ITERATIONS_LIMIT": "2"},
         )

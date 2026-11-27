@@ -8,7 +8,7 @@ the route after authorization becomes one failed event, written only after the
 rollback.
 
 An operation that is not yet authorized produces no action event: a request
-refused before authorization is not an operation that reached Primeagent.
+refused before authorization is not an operation that reached PrimeAgent.
 """
 
 from __future__ import annotations

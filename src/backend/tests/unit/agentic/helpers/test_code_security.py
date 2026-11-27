@@ -25,7 +25,7 @@ class TestScanCodeSecuritySafeCode:
     """Tests that safe component code passes the security scan."""
 
     def test_should_pass_basic_component(self):
-        """Basic Primeagent component should pass."""
+        """Basic PrimeAgent component should pass."""
         code = """
 from wfx.custom import Component
 from wfx.io import MessageTextInput, Output

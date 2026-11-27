@@ -416,7 +416,7 @@
                 "trace_as_input": true,
                 "trace_as_metadata": true,
                 "type": "str",
-                "value": "Create a Primeagent post"
+                "value": "Create a PrimeAgent post"
               },
               "sender": {
                 "_input_type": "DropdownInput",

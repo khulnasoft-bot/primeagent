@@ -65,7 +65,7 @@ def upgrade_command(
         typer.echo(f"Error reading flow: {e}", err=True)
         raise typer.Exit(1) from e
 
-    # Exported Primeagent flows may have an outer envelope:
+    # Exported PrimeAgent flows may have an outer envelope:
     # {"name": ..., "data": {"nodes": [...], "edges": [...]}}
     # Split it off so the checker sees the inner graph; the envelope is re-attached on write.
     try:

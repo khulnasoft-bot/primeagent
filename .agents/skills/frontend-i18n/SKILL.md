@@ -1,11 +1,11 @@
 ---
 name: frontend-i18n
-description: Add, change, or review user-facing text in the Primeagent frontend using the i18n system (i18next / react-i18next). Use whenever a change adds or edits UI strings — labels, buttons, tooltips, modals, toasts, error messages, empty states — or when reviewing a diff that contains user-facing text. Every user-facing string must go through the translation system and every new key must exist in ALL locale files. Do NOT use for backend strings, log messages, or code identifiers.
+description: Add, change, or review user-facing text in the PrimeAgent frontend using the i18n system (i18next / react-i18next). Use whenever a change adds or edits UI strings — labels, buttons, tooltips, modals, toasts, error messages, empty states — or when reviewing a diff that contains user-facing text. Every user-facing string must go through the translation system and every new key must exist in ALL locale files. Do NOT use for backend strings, log messages, or code identifiers.
 ---
 
 # Frontend i18n
 
-The Primeagent frontend is internationalized with **i18next + react-i18next**. Locales live in `src/frontend/src/locales/` — currently `en`, `de`, `es`, `fr`, `ja`, `pt`, `zh-Hans`. A hardcoded user-facing string, or a key missing from one locale, ships broken UI for part of the user base.
+The PrimeAgent frontend is internationalized with **i18next + react-i18next**. Locales live in `src/frontend/src/locales/` — currently `en`, `de`, `es`, `fr`, `ja`, `pt`, `zh-Hans`. A hardcoded user-facing string, or a key missing from one locale, ships broken UI for part of the user base.
 
 ## The two rules
 

@@ -17,11 +17,11 @@ import { createAccessTokenExpireSecondsDefinition } from "./vite-env-definitions
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
 
-  const envPrimeagentResult = dotenv.config({
+  const envPrimeAgentResult = dotenv.config({
     path: path.resolve(__dirname, "../../.env"),
   });
 
-  const envPrimeagent = envPrimeagentResult.parsed || {};
+  const envPrimeAgent = envPrimeAgentResult.parsed || {};
 
   const apiRoutes = API_ROUTES || ["^/api/v1/", "^/api/v2/", "/health"];
   const basePath = normalizeBasePath(env.VITE_PRIMEAGENT_BASE_PATH ?? BASENAME);
@@ -150,31 +150,31 @@ export default defineConfig(({ command, mode }) => {
 
     define: {
       ...createAccessTokenExpireSecondsDefinition(
-        envPrimeagent.ACCESS_TOKEN_EXPIRE_SECONDS,
+        envPrimeAgent.ACCESS_TOKEN_EXPIRE_SECONDS,
       ),
 
       "import.meta.env.BACKEND_URL": JSON.stringify(
-        envPrimeagent.BACKEND_URL ?? "http://localhost:7860",
+        envPrimeAgent.BACKEND_URL ?? "http://localhost:7860",
       ),
 
-      "import.meta.env.CI": JSON.stringify(envPrimeagent.CI ?? false),
+      "import.meta.env.CI": JSON.stringify(envPrimeAgent.CI ?? false),
 
       __PRIMEAGENT_AUTO_LOGIN__: JSON.stringify(
-        envPrimeagent.PRIMEAGENT_AUTO_LOGIN ?? true,
+        envPrimeAgent.PRIMEAGENT_AUTO_LOGIN ?? true,
       ),
 
       "import.meta.env.PRIMEAGENT_MCP_COMPOSER_ENABLED": JSON.stringify(
-        envPrimeagent.PRIMEAGENT_MCP_COMPOSER_ENABLED ?? "true",
+        envPrimeAgent.PRIMEAGENT_MCP_COMPOSER_ENABLED ?? "true",
       ),
 
       // Compile-time hard kill switch for the palette Bundle-header
       // Reload action.
       "import.meta.env.PRIMEAGENT_EXTENSION_RELOAD_ENABLED": JSON.stringify(
-        envPrimeagent.PRIMEAGENT_EXTENSION_RELOAD_ENABLED ?? "true",
+        envPrimeAgent.PRIMEAGENT_EXTENSION_RELOAD_ENABLED ?? "true",
       ),
 
       "import.meta.env.PRIMEAGENT_WXO_UTM_SOURCE": JSON.stringify(
-        envPrimeagent.PRIMEAGENT_WXO_UTM_SOURCE ?? "primeagent",
+        envPrimeAgent.PRIMEAGENT_WXO_UTM_SOURCE ?? "primeagent",
       ),
     },
 

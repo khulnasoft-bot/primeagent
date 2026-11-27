@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Generate the Primeagent OpenAPI specification.
+"""Generate the PrimeAgent OpenAPI specification.
 
-This script imports the Primeagent FastAPI application and writes its OpenAPI
+This script imports the PrimeAgent FastAPI application and writes its OpenAPI
 schema to a JSON file in this directory.
 
 Usage (from repository root):
@@ -108,7 +108,7 @@ def generate_openapi(output_path: Path) -> None:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Generate Primeagent OpenAPI specification.")
+    parser = argparse.ArgumentParser(description="Generate PrimeAgent OpenAPI specification.")
     parser.add_argument(
         "--output",
         "-o",

@@ -133,7 +133,7 @@ async def aget_agent_chat_history(
 
 class MemoryComponent(Component):
     display_name = "Message History"
-    description = "Stores or retrieves stored chat messages from Primeagent tables or an external memory."
+    description = "Stores or retrieves stored chat messages from PrimeAgent tables or an external memory."
     documentation: str = "https://prime.khulnasoft.com/docs/message-history"
     icon = "message-square-more"
     name = "Memory"
@@ -164,7 +164,7 @@ class MemoryComponent(Component):
             name="memory",
             display_name="External Memory",
             input_types=["Memory"],
-            info="Retrieve messages from an external memory. If empty, it will use the Primeagent tables.",
+            info="Retrieve messages from an external memory. If empty, it will use the PrimeAgent tables.",
             advanced=True,
         ),
         DropdownInput(

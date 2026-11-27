@@ -1,5 +1,5 @@
-name: Primeagent Release
-run-name: Primeagent Release by @${{ github.actor }}
+name: PrimeAgent Release
+run-name: PrimeAgent Release by @${{ github.actor }}
 
 on:
   workflow_dispatch:
@@ -13,12 +13,12 @@ on:
         required: true
         type: string
       release_package_base:
-        description: "Release Primeagent Base"
+        description: "Release PrimeAgent Base"
         required: true
         type: boolean
         default: false
       release_package_main:
-        description: "Release Primeagent"
+        description: "Release PrimeAgent"
         required: true
         type: boolean
         default: false
@@ -38,12 +38,12 @@ on:
         type: boolean
         default: false
       build_docker_base:
-        description: "Build Docker Image for Primeagent Base"
+        description: "Build Docker Image for PrimeAgent Base"
         required: true
         type: boolean
         default: false
       build_docker_main:
-        description: "Build Docker Image for Primeagent"
+        description: "Build Docker Image for PrimeAgent"
         required: true
         type: boolean
         default: false
@@ -228,8 +228,8 @@ jobs:
           fi
 
           if [ "${{ inputs.release_package_base }}" = "true" ] && [ "${{ inputs.release_wfx }}" = "false" ]; then
-            echo "Error: Cannot release Primeagent Base without releasing WFX."
-            echo "Primeagent Base depends on WFX. Please enable 'release_wfx' or disable 'release_package_base'."
+            echo "Error: Cannot release PrimeAgent Base without releasing WFX."
+            echo "PrimeAgent Base depends on WFX. Please enable 'release_wfx' or disable 'release_package_base'."
             exit 1
           fi
 
@@ -252,14 +252,14 @@ jobs:
           fi
 
           if [ "${{ inputs.release_package_main }}" = "true" ] && [ "${{ inputs.release_bundles }}" = "false" ]; then
-            echo "Error: Cannot release Primeagent Main without releasing bundles."
-            echo "Primeagent Main pins exact versions of its curated extension bundles. Please enable 'release_bundles' or disable 'release_package_main'."
+            echo "Error: Cannot release PrimeAgent Main without releasing bundles."
+            echo "PrimeAgent Main pins exact versions of its curated extension bundles. Please enable 'release_bundles' or disable 'release_package_main'."
             exit 1
           fi
 
           if [ "${{ inputs.release_package_main }}" = "true" ] && [ "${{ inputs.release_package_base }}" = "false" ]; then
-            echo "Error: Primeagent and primeagent-base are a coordinated release."
-            echo "Please enable 'release_package_base' when releasing Primeagent."
+            echo "Error: PrimeAgent and primeagent-base are a coordinated release."
+            echo "Please enable 'release_package_base' when releasing PrimeAgent."
             exit 1
           fi
 
@@ -883,7 +883,7 @@ jobs:
           path: src/wfx/dist
 
   build-base:
-    name: Build Primeagent Base
+    name: Build PrimeAgent Base
     needs: [build-bundles, build-wfx, build-sdk, determine-base-version, determine-wfx-version]
     if: |
       always() &&
@@ -1059,7 +1059,7 @@ jobs:
           path: src/backend/base/dist
 
   build-main:
-    name: Build Primeagent Main
+    name: Build PrimeAgent Main
     needs:
       [
         build-base,
@@ -1275,7 +1275,7 @@ jobs:
           path: dist/primeagent-*.whl
 
   build-bundles:
-    name: Build Primeagent Bundles
+    name: Build PrimeAgent Bundles
     needs: [build-wfx, determine-wfx-version, determine-rc-number]
     if: |
       always() &&
@@ -1451,7 +1451,7 @@ jobs:
             await reserveFinalPublication(github, context.repo, process.env.RELEASE_TAG, process.env.RELEASE_COMMIT);
 
   publish-base:
-    name: Publish Primeagent Base to PyPI
+    name: Publish PrimeAgent Base to PyPI
     if: |
       always() &&
       !cancelled() &&
@@ -1536,7 +1536,7 @@ jobs:
           if-no-files-found: ignore
 
   publish-main:
-    name: Publish Primeagent Main to PyPI
+    name: Publish PrimeAgent Main to PyPI
     if: |
       always() &&
       !cancelled() &&
@@ -1648,7 +1648,7 @@ jobs:
           cd src/wfx && uv publish dist/*.whl
 
   call_docker_build_base:
-    name: Call Docker Build Workflow for Primeagent Base
+    name: Call Docker Build Workflow for PrimeAgent Base
     if: |
       always() &&
       !cancelled() &&
@@ -1670,7 +1670,7 @@ jobs:
     secrets: inherit
 
   call_docker_build_main:
-    name: Call Docker Build Workflow for Primeagent
+    name: Call Docker Build Workflow for PrimeAgent
     if: |
       always() &&
       !cancelled() &&
@@ -1693,7 +1693,7 @@ jobs:
     secrets: inherit
 
   call_docker_build_main_backend:
-    name: Call Docker Build Workflow for Primeagent Backend
+    name: Call Docker Build Workflow for PrimeAgent Backend
     if: |
       always() &&
       !cancelled() &&
@@ -1712,7 +1712,7 @@ jobs:
     secrets: inherit
 
   call_docker_build_main_frontend:
-    name: Call Docker Build Workflow for Primeagent Frontend
+    name: Call Docker Build Workflow for PrimeAgent Frontend
     if: |
       always() &&
       !cancelled() &&
@@ -1731,7 +1731,7 @@ jobs:
     secrets: inherit
 
   call_docker_build_main_ep:
-    name: Call Docker Build Workflow for Primeagent with Entrypoint
+    name: Call Docker Build Workflow for PrimeAgent with Entrypoint
     if: |
       always() &&
       !cancelled() &&

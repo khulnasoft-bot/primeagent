@@ -1,1 +1,1 @@
-"""Helper utilities for the Primeagent Assistant."""
+"""Helper utilities for the PrimeAgent Assistant."""

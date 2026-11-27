@@ -27,7 +27,6 @@ Regression entry schema:
   "first_bad_version": "1.10.0",
   "last_known_good_version": "1.9.0",
   "resolved_in_version": "1.10.1",
-  "fix_pr": "https://github.com/khulnasoft-bot/primeagent/pull/12345",
   "workaround": "none"
 }
 ```

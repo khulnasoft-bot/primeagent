@@ -358,7 +358,7 @@ function renderHtml(scans, rules) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Primeagent Accessibility Report</title>
+  <title>PrimeAgent Accessibility Report</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -528,7 +528,7 @@ function renderHtml(scans, rules) {
 </head>
 <body>
   <header>
-    <h1>Primeagent Accessibility Report</h1>
+    <h1>PrimeAgent Accessibility Report</h1>
     <p class="muted">Generated ${escapeHtml(generatedAt)} from IBM accessibility-checker JSON reports.</p>
     <div class="stats">
       <div class="stat">

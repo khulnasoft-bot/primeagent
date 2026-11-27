@@ -20,7 +20,7 @@ as ``required``, even though a real attachment is optional there, you simply
 omit it to send an email without one. Left alone, an LLM building a tool call
 sees "attachment" in ``required`` and has to invent an empty placeholder
 (e.g. ``{"name": "", "data": ""}``) to satisfy the schema, which then reaches
-the real Gmail API and fails validation there instead. Primeagent's own
+the real Gmail API and fails validation there instead. PrimeAgent's own
 node-execution path (``ComposioBaseComponent``) already treats this field as
 optional for that action; ``_relax_attachment_requirements`` mirrors that for
 the raw tool-calling schema. Outlook is included in the same allowlist as a
@@ -29,7 +29,7 @@ precaution, its send/draft actions share the same general schema shape
 already special-cases Outlook's ``from`` field), but this has only been
 directly confirmed against Gmail, not independently verified for Outlook.
 
-This relaxation is deliberately NOT applied globally. Primeagent ships dozens
+This relaxation is deliberately NOT applied globally. PrimeAgent ships dozens
 of Composio toolkits, and several (jira, freshdesk, pandadoc, dropbox,
 onedrive, missive, flexisign, jotform, ...) have actions whose entire purpose
 is attaching a file, where ``attachment`` in ``required`` is the real

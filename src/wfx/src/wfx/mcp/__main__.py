@@ -1,4 +1,4 @@
-"""Entry point for the Primeagent MCP server.
+"""Entry point for the PrimeAgent MCP server.
 
 Usage:
     python -m wfx.mcp
@@ -6,7 +6,7 @@ Usage:
     wfx-mcp
 
 Environment variables:
-    PRIMEAGENT_SERVER_URL: Primeagent server URL (default: http://localhost:7860)
+    PRIMEAGENT_SERVER_URL: PrimeAgent server URL (default: http://localhost:7860)
     PRIMEAGENT_API_KEY: API key for authentication (skips login)
 """
 

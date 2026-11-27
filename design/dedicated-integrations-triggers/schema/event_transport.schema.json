@@ -35,7 +35,7 @@
     },
     "public_ingress_by_context": {
       "type": "object",
-      "description": "Whether a Primeagent deployment in this context can expose a public HTTPS URL to the provider.",
+      "description": "Whether a PrimeAgent deployment in this context can expose a public HTTPS URL to the provider.",
       "additionalProperties": false,
       "required": ["hosted", "self_managed", "desktop", "headless"],
       "properties": {
@@ -85,7 +85,7 @@
       "enum": ["provider_docs", "provider_changelog", "provider_console"]
     },
     "track": {
-      "description": "a = push ingress (the provider posts to a Primeagent URL); b = Primeagent reaches out and holds or polls the connection.",
+      "description": "a = push ingress (the provider posts to a PrimeAgent URL); b = PrimeAgent reaches out and holds or polls the connection.",
       "enum": ["a", "b"]
     },
     "transport": {
@@ -207,7 +207,7 @@
         },
         "subscription": {
           "type": "object",
-          "description": "Whether Primeagent must create and keep alive a provider-side object for this mechanism, and how. `required` is false when nothing is created through an API (app configuration, or a cursor Primeagent owns); `max_ttl_seconds` is null when the provider returns the expiry rather than publishing a constant.",
+          "description": "Whether PrimeAgent must create and keep alive a provider-side object for this mechanism, and how. `required` is false when nothing is created through an API (app configuration, or a cursor PrimeAgent owns); `max_ttl_seconds` is null when the provider returns the expiry rather than publishing a constant.",
           "additionalProperties": false,
           "required": ["required", "max_ttl_seconds", "renewal", "source"],
           "properties": {

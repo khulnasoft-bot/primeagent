@@ -1,6 +1,6 @@
-"""Unit tests for BackgroundJob and AsyncPrimeagentClient.run_background.
+"""Unit tests for BackgroundJob and AsyncPrimeAgentClient.run_background.
 
-All tests run entirely in-process; no real Primeagent instance required.
+All tests run entirely in-process; no real PrimeAgent instance required.
 The async client's ``run`` method is patched directly so only the asyncio
 task lifecycle and BackgroundJob status logic is under test.
 """
@@ -13,7 +13,7 @@ from unittest.mock import AsyncMock, patch
 
 import pytest
 from primeagent_sdk.background_job import BackgroundJob
-from primeagent_sdk.exceptions import PrimeagentTimeoutError
+from primeagent_sdk.exceptions import PrimeAgentTimeoutError
 from primeagent_sdk.models import RunOutput, RunResponse
 
 # ---------------------------------------------------------------------------
@@ -158,7 +158,7 @@ class TestWaitForCompletion:
     async def test_raises_primeagent_timeout_error_on_expiry(self):
         task = asyncio.create_task(_slow_success(5.0))
         job = BackgroundJob(task)
-        with pytest.raises(PrimeagentTimeoutError):
+        with pytest.raises(PrimeAgentTimeoutError):
             await job.wait_for_completion(timeout=0.01)
         task.cancel()
         with contextlib.suppress(asyncio.CancelledError, Exception):
@@ -169,7 +169,7 @@ class TestWaitForCompletion:
         """wait_for_completion uses shield() so the task survives a timeout."""
         task = asyncio.create_task(_slow_success(5.0))
         job = BackgroundJob(task)
-        with pytest.raises(PrimeagentTimeoutError):
+        with pytest.raises(PrimeAgentTimeoutError):
             await job.wait_for_completion(timeout=0.01)
         # Task should still be alive — shield protects it from cancellation
         assert not task.done() or not task.cancelled()
@@ -238,16 +238,16 @@ class TestCancel:
 
 
 # ---------------------------------------------------------------------------
-# AsyncPrimeagentClient.run_background integration
+# AsyncPrimeAgentClient.run_background integration
 # ---------------------------------------------------------------------------
 
 
 class TestRunBackground:
     @pytest.mark.asyncio
     async def test_returns_background_job_instance(self):
-        from primeagent_sdk.client import AsyncPrimeagentClient
+        from primeagent_sdk.client import AsyncPrimeAgentClient
 
-        client = AsyncPrimeagentClient("http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
+        client = AsyncPrimeAgentClient("http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
         with patch.object(client, "run", new_callable=AsyncMock, return_value=_RUN_RESPONSE):
             job = await client.run_background("my-flow", input_value="Hello")
         assert isinstance(job, BackgroundJob)
@@ -256,9 +256,9 @@ class TestRunBackground:
 
     @pytest.mark.asyncio
     async def test_run_background_calls_run_with_correct_args(self):
-        from primeagent_sdk.client import AsyncPrimeagentClient
+        from primeagent_sdk.client import AsyncPrimeAgentClient
 
-        client = AsyncPrimeagentClient("http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
+        client = AsyncPrimeAgentClient("http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
         mock_run = AsyncMock(return_value=_RUN_RESPONSE)
         with patch.object(client, "run", mock_run):
             job = await client.run_background(
@@ -279,13 +279,13 @@ class TestRunBackground:
 
     @pytest.mark.asyncio
     async def test_run_background_job_is_running_immediately(self):
-        from primeagent_sdk.client import AsyncPrimeagentClient
+        from primeagent_sdk.client import AsyncPrimeAgentClient
 
         async def _slow_run(*_args, **_kwargs) -> RunResponse:
             await asyncio.sleep(5.0)
             return _RUN_RESPONSE
 
-        client = AsyncPrimeagentClient("http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
+        client = AsyncPrimeAgentClient("http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
         with patch.object(client, "run", side_effect=_slow_run):
             job = await client.run_background("my-flow", input_value="Hi")
         assert job.is_running() is True
@@ -294,9 +294,9 @@ class TestRunBackground:
 
     @pytest.mark.asyncio
     async def test_run_background_completion_result_matches_run(self):
-        from primeagent_sdk.client import AsyncPrimeagentClient
+        from primeagent_sdk.client import AsyncPrimeAgentClient
 
-        client = AsyncPrimeagentClient("http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
+        client = AsyncPrimeAgentClient("http://primeagent.test", api_key="test-key")  # pragma: allowlist secret
         with patch.object(client, "run", new_callable=AsyncMock, return_value=_RUN_RESPONSE):
             job = await client.run_background("my-flow")
             response = await job.wait_for_completion()
@@ -311,6 +311,6 @@ class TestRunBackground:
 
     @pytest.mark.asyncio
     async def test_primeagent_timeout_error_exported_from_package(self):
-        from primeagent_sdk import PrimeagentTimeoutError as ExportedError
+        from primeagent_sdk import PrimeAgentTimeoutError as ExportedError
 
-        assert ExportedError is PrimeagentTimeoutError
+        assert ExportedError is PrimeAgentTimeoutError

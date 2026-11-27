@@ -1,4 +1,4 @@
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { adjustScreenView } from "../utils/adjust-screen-view";
 import { TID } from "../utils/constants/testIds";
 import { TEXTS } from "../utils/constants/texts";
@@ -23,7 +23,7 @@ import { openBlankFlow } from "../utils/flow/open-blank-flow";
 // that has fallen out of the composer's tab ring entirely.
 const COMPOSER_TAB_BUDGET = 5;
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -39,7 +39,7 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function forceDarkTheme(page: PrimeagentPage) {
+async function forceDarkTheme(page: PrimeAgentPage) {
   await page.addInitScript(() => {
     window.localStorage.setItem("themePreference", "dark");
     window.localStorage.setItem("isDark", "true");
@@ -50,7 +50,7 @@ async function forceDarkTheme(page: PrimeagentPage) {
  * Build a minimal chat flow, publish it, and return its id so the caller can
  * navigate to the standalone `/playground/:id/` surface.
  */
-async function publishChatFlowAndGetId(page: PrimeagentPage): Promise<string> {
+async function publishChatFlowAndGetId(page: PrimeAgentPage): Promise<string> {
   await openBlankFlow(page);
   await expect(page.getByTestId(TID.sidebarSearchInput)).toBeVisible({
     timeout: TIMEOUTS.standard,
@@ -149,7 +149,7 @@ async function publishChatFlowAndGetId(page: PrimeagentPage): Promise<string> {
   return flowId;
 }
 
-async function openSharedPlayground(page: PrimeagentPage, flowId: string) {
+async function openSharedPlayground(page: PrimeAgentPage, flowId: string) {
   // The disableAnimations style tag only freezes CSS animations; framer-motion
   // animates inline styles from JS. TextEffect renders statically under
   // prefers-reduced-motion, but framer's useReducedMotion reads the preference
@@ -166,7 +166,7 @@ async function openSharedPlayground(page: PrimeagentPage, flowId: string) {
   await disableAnimations(page);
 }
 
-async function collectTabStops(page: PrimeagentPage, steps: number) {
+async function collectTabStops(page: PrimeAgentPage, steps: number) {
   await page.evaluate(() => {
     (document.activeElement as HTMLElement | null)?.blur();
     document.body.focus();

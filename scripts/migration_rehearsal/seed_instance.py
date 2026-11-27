@@ -1,4 +1,4 @@
-"""Seed an adversarial OSS Primeagent instance for migration rehearsal.
+"""Seed an adversarial OSS PrimeAgent instance for migration rehearsal.
 
 Not a large instance. A small one where every row exists to trip a specific failure
 mode a whole-instance migration can hit. Each fixture below names what it catches.
@@ -116,7 +116,7 @@ async def main() -> None:
                 " values (:i,:n,:p,:a,:s,:c,:c)",
                 i=u,
                 n=name,
-                # A real hash: Primeagent's startup verifies the default superuser's
+                # A real hash: PrimeAgent's startup verifies the default superuser's
                 # password, and a non-hash value crashes it.
                 p=password_hash,
                 a=True,

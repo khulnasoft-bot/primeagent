@@ -1163,7 +1163,7 @@ async def test_replacement_receipts_are_pruned_to_the_newest_ten(client: AsyncCl
             f"api/v1/projects/{project_id}/replacement-operations/{operation_id}", headers=logged_in_headers
         )
         assert pruned.status_code == 410, pruned.text
-        assert pruned.headers["X-Primeagent-Error-Code"] == "replacement_receipt_expired"
+        assert pruned.headers["X-PrimeAgent-Error-Code"] == "replacement_receipt_expired"
 
     # A surviving receipt is still individually readable.
     kept = await client.get(
@@ -1182,7 +1182,7 @@ async def test_replacement_receipts_are_pruned_to_the_newest_ten(client: AsyncCl
         headers=logged_in_headers,
     )
     assert retry.status_code == 410, retry.text
-    assert retry.headers["X-Primeagent-Error-Code"] == "replacement_receipt_expired"
+    assert retry.headers["X-PrimeAgent-Error-Code"] == "replacement_receipt_expired"
 
     async with session_scope() as session:
         stored_project = await session.get(Folder, UUID(project_id))
@@ -1457,7 +1457,7 @@ async def test_replacement_by_non_owner_with_literal_mcp_secret_is_rejected(
     )
 
     assert response.status_code == 409, response.text
-    assert response.headers["X-Primeagent-Error-Code"] == "replacement_mcp_secret_requires_owner"
+    assert response.headers["X-PrimeAgent-Error-Code"] == "replacement_mcp_secret_requires_owner"
 
     async with session_scope() as session:
         variables_after = sorted(

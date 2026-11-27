@@ -72,7 +72,7 @@ def _require_ingress_kind(row: Trigger) -> None:
     """Only the generic signed webhook owns a secret the owner can rotate.
 
     Slack signs with a registration-level secret and Microsoft and Google verify
-    against a secret Primeagent mints per subscription, so offering an owner a
+    against a secret PrimeAgent mints per subscription, so offering an owner a
     rotate button for those would be a control that changes nothing.
     """
     if row.kind != KIND_INBOUND_WEBHOOK:

@@ -94,7 +94,7 @@ class OAuthRegistration(BaseModel):
             raise OAuthError(msg)
         if self.signing_secret is not None and self.provider != "slack":
             # Microsoft and Google authenticate their notifications with a
-            # per-subscription secret Primeagent mints (clientState, channel
+            # per-subscription secret PrimeAgent mints (clientState, channel
             # token), so a registration-level signing secret would be a second,
             # weaker path to the same trust decision.
             msg = "Only Slack registrations carry a signing secret"
@@ -205,7 +205,7 @@ def get_oauth_settings() -> OAuthSettings:
 def deployment_context() -> Literal["self_managed", "hosted", "desktop"]:
     """Which deployment this process is, as ``PRIMEAGENT_CONNECTION_OAUTH_CONTEXT`` says.
 
-    Hosted must set it: Primeagent-owned registrations are only valid in the
+    Hosted must set it: PrimeAgent-owned registrations are only valid in the
     ``hosted`` context, so a hosted deployment that left it unset could not
     connect anything. An unreadable configuration answers ``self_managed``,
     the context with no hosted-only restriction to wrongly apply.

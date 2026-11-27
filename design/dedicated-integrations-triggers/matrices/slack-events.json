@@ -138,7 +138,7 @@
       "replay": {
         "available": false,
         "window": null,
-        "details": "Slack offers no server-side replay beyond the three retries; an event dropped after them is lost at the provider. Primeagent's own trigger_event ledger is the replay surface (decisions/delivery-semantics.md).",
+        "details": "Slack offers no server-side replay beyond the three retries; an event dropped after them is lost at the provider. PrimeAgent's own trigger_event ledger is the replay surface (decisions/delivery-semantics.md).",
         "source": "slack-events-api"
       },
       "rate_limit": {
@@ -191,7 +191,7 @@
       ],
       "inbound_auth": {
         "method": "app_level_token",
-        "details": "Primeagent dials out, so there is no inbound request to verify. apps.connections.open is called with an app-level token (xapp-) carrying connections:write; that token is workspace-independent, never expires, and cannot be obtained through the OAuth install flow, so it is entered manually as the third named Slack profile (kind api_key, identity bot) and is resolvable only by trigger_listener principals.",
+        "details": "PrimeAgent dials out, so there is no inbound request to verify. apps.connections.open is called with an app-level token (xapp-) carrying connections:write; that token is workspace-independent, never expires, and cannot be obtained through the OAuth install flow, so it is entered manually as the third named Slack profile (kind api_key, identity bot) and is resolvable only by trigger_listener principals.",
         "source": "slack-app-tokens"
       },
       "subscription": {
@@ -231,7 +231,7 @@
         "details": "Identical to the Events API: slack:{team_id}:{channel}:{thread_ts or ts}, with team_id the receiving installation's. If the app is installed on both sides of a shared channel, Slack names one installation per event; which one is not documented to be stable, so that case alone may split a thread.",
         "source": "slack-events-reference"
       },
-      "notes": "Not available on hosted: a Socket Mode app cannot be distributed through the Slack Marketplace, and hosted Primeagent serves every tenant from one distributed registration. On Desktop it requires a customer-owned Slack app and its app-level token, entered manually; a flow that also replies needs the bot token entered the same way, as a second connection. Slack spreads an app's events across all of its open sockets, so the adapter writes each event for every armed Socket Mode trigger of that app (by the app_id each socket's hello reports), whichever socket received it. An app-level token is not workspace-scoped, so unlike an Events API trigger (scoped to its installation's workspace) a Socket Mode trigger hears every workspace the app is installed in; the token holder can read all of them anyway."
+      "notes": "Not available on hosted: a Socket Mode app cannot be distributed through the Slack Marketplace, and hosted PrimeAgent serves every tenant from one distributed registration. On Desktop it requires a customer-owned Slack app and its app-level token, entered manually; a flow that also replies needs the bot token entered the same way, as a second connection. Slack spreads an app's events across all of its open sockets, so the adapter writes each event for every armed Socket Mode trigger of that app (by the app_id each socket's hello reports), whichever socket received it. An app-level token is not workspace-scoped, so unlike an Events API trigger (scoped to its installation's workspace) a Socket Mode trigger hears every workspace the app is installed in; the token holder can read all of them anyway."
     },
     {
       "mechanism_id": "slack.rtm_api",

@@ -9,7 +9,7 @@ jest.mock("@/assets/PrimeagentLogo.svg?react", () => ({
 }));
 
 describe("CustomHeaderLogo", () => {
-  it("renders the Primeagent logo by default", () => {
+  it("renders the PrimeAgent logo by default", () => {
     const { getByTestId } = render(<CustomHeaderLogo />);
 
     expect(getByTestId("primeagent-logo")).toBeInTheDocument();

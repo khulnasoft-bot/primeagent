@@ -1,4 +1,4 @@
-"""Validate an installed Primeagent release tier against a checked-in contract."""
+"""Validate an installed PrimeAgent release tier against a checked-in contract."""
 
 from __future__ import annotations
 
@@ -59,7 +59,7 @@ def resolve_profile(contract: dict[str, Any], profile_name: str, seen: set[str] 
 
 
 def collect_inventory(entry_point_groups: list[str]) -> tuple[dict[str, Any], dict[str, list[str]]]:
-    """Collect installed Primeagent distributions, files, and extension entry points."""
+    """Collect installed PrimeAgent distributions, files, and extension entry points."""
     distributions: dict[str, str] = {}
     distribution_files: dict[str, list[str]] = {}
     for distribution in metadata.distributions():
@@ -153,7 +153,7 @@ def validate_inventory(
             errors.append(f"unexpected managed distributions: {unexpected}")
 
     forbidden = {normalize_name(name) for name in profile.get("forbidden_distributions", [])}
-    # Transitive retired SDKs are not Primeagent-managed distributions. Checking
+    # Transitive retired SDKs are not PrimeAgent-managed distributions. Checking
     # only the tier inventory would silently miss them in a built release.
     all_installed = set(actual.get("all_distributions", actual["managed_distributions"]))
     present_forbidden = sorted(forbidden & all_installed)

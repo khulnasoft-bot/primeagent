@@ -1,4 +1,4 @@
-"""Typed errors for the Primeagent Extension System.
+"""Typed errors for the PrimeAgent Extension System.
 
 Every error from validate / loader / reload / migration / events surfaces as a
 structured object: ``{code, message, hint, ref_url}``, emitted identically by

@@ -1,7 +1,7 @@
 [project]
 name = "wfx-amazon"
 version = "0.2.2"
-description = "Amazon component(s) as a standalone Primeagent Extension Bundle."
+description = "Amazon component(s) as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = { text = "MIT" }

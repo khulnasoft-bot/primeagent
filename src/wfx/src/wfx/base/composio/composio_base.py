@@ -758,7 +758,7 @@ class ComposioBaseComponent(Component):
             logger.debug(f"Could not populate Composio actions for {self.app_name}: {e}")
 
     def _validate_schema_inputs(self, action_key: str) -> list[InputTypes]:
-        """Convert the JSON schema for *action_key* into Primeagent input objects."""
+        """Convert the JSON schema for *action_key* into PrimeAgent input objects."""
         # Skip validation for default/placeholder values
         if action_key in ("disabled", "placeholder", ""):
             logger.debug(f"Skipping schema validation for placeholder value: {action_key}")
@@ -2461,7 +2461,7 @@ class ComposioBaseComponent(Component):
                     continue
                 value = getattr(self, field)
 
-                # Coerce Primeagent rich types to primitives the Composio API can serialise.
+                # Coerce PrimeAgent rich types to primitives the Composio API can serialise.
                 # A Message connected to a str field (e.g. subject, body) must arrive as
                 # plain text; a Data object should be unwrapped to its dict payload.
                 if isinstance(value, Message):

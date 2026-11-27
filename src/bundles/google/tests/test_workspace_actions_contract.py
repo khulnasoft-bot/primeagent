@@ -1,7 +1,7 @@
 """Contract tests for the five wave-1 Google Workspace actions.
 
 Each action is driven end to end — component inputs in, Google request out,
-recorded response in, Primeagent ``Data`` out — with no network and no
+recorded response in, PrimeAgent ``Data`` out — with no network and no
 credentials. What is pinned here is the part a Google SDK upgrade or a component
 refactor could silently change: the request Google actually receives, the shape
 of the returned data, and the mapping from provider failures onto the sanitized
@@ -215,7 +215,7 @@ def calendar_list_component(**overrides):
 def calendar_create_component(**overrides):
     defaults = {
         "calendar_id": "primary",
-        "summary": "Primeagent sync",
+        "summary": "PrimeAgent sync",
         "start_time": "2026-09-10T14:00:00Z",
         "end_time": "2026-09-10T15:00:00Z",
         "event_description": "",
@@ -626,7 +626,7 @@ async def test_calendar_create_posts_the_event_body() -> None:
     # input shadowed by a base-class attribute (the `description` bug) is invisible
     # unless the value the user supplied is read back off the wire.
     assert payload == {
-        "summary": "Primeagent sync",
+        "summary": "PrimeAgent sync",
         "start": {"dateTime": "2026-09-10T14:00:00Z", "timeZone": "Etc/UTC"},
         "end": {"dateTime": "2026-09-10T15:00:00Z", "timeZone": "Etc/UTC"},
         "description": "Weekly",

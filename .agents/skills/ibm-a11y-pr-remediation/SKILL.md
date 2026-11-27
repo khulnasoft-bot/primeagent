@@ -114,7 +114,7 @@ Default: **fix**. Only list proposed fixes without editing if the user asked **r
 
 Rules:
 - Prefer semantic HTML over ARIA.
-- Follow the Primeagent patterns in `ibm-a11y-testing-guide` (AG Grid, Radix `asChild`, focus restore, icon-only `aria-label`).
+- Follow the PrimeAgent patterns in `ibm-a11y-testing-guide` (AG Grid, Radix `asChild`, focus restore, icon-only `aria-label`).
 - Route new UI strings / `aria-label`s through i18n (`t(...)`, all locale files) per `frontend-i18n`.
 - Keep fixes minimal; do not refactor unrelated UI.
 - Do **not** silently disable scans. Use IBM baselines under `src/frontend/tests/a11y/baselines/` only for documented framework debt.

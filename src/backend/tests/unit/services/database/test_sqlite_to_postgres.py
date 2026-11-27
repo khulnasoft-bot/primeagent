@@ -1,4 +1,4 @@
-"""Tests for converting a Primeagent SQLite database to Postgres.
+"""Tests for converting a PrimeAgent SQLite database to Postgres.
 
 The coercion, ordering and source checks need no Postgres. The end-to-end tests
 build a real SQLite instance with alembic, convert it into a fresh Postgres
@@ -132,7 +132,7 @@ class TestSourceChecks:
         report = convert_sqlite_to_postgres(f"sqlite:///{empty}", self.UNREACHABLE_TARGET)
 
         assert not report.ok
-        assert any("no Primeagent schema" in p and "VACUUM INTO" in p for p in report.problems)
+        assert any("no PrimeAgent schema" in p and "VACUUM INTO" in p for p in report.problems)
         assert [p.code for p in report.problems] == ["source_not_primeagent"]
 
     def test_source_at_another_revision_is_refused(self, sqlite_source):
@@ -392,7 +392,7 @@ CUSTOM_ROLE = uuid.UUID("44444444-4444-4444-8444-444444444444")
 
 
 def _seed(url: str) -> None:
-    """Write through the ORM, the way a running Primeagent would."""
+    """Write through the ORM, the way a running PrimeAgent would."""
     from primeagent.services.database.models import Flow, User
     from primeagent.services.database.models.auth.authz import AuthzRole, AuthzRoleAssignment
     from sqlmodel import Session, select
@@ -417,9 +417,9 @@ BOB = uuid.UUID("55555555-5555-4555-8555-555555555555")
 
 
 def _leave_orphans(url: str) -> None:
-    """Clear a flow's traces and delete a user the way Primeagent did before 1.13.
+    """Clear a flow's traces and delete a user the way PrimeAgent did before 1.13.
 
-    Primeagent never turns on SQLite's foreign keys, so neither delete cascades:
+    PrimeAgent never turns on SQLite's foreign keys, so neither delete cascades:
     the spans and bob's role assignment stay behind. Deleting a user through the
     ORM removes their role assignments since 1.13 (#15124), but databases where a
     user was deleted earlier still hold them, so bob is deleted with plain SQL.
@@ -657,7 +657,7 @@ class TestConversionEndToEnd:
 
     def test_legacy_uppercase_trace_enums_are_carried_as_primeagent_reads_them(self, sqlite_source, postgres_database):
         # Before 1.9.2 trace and span enums were stored by name, and the SQLite
-        # rows were never rewritten. Primeagent still reads them case-insensitively.
+        # rows were never rewritten. PrimeAgent still reads them case-insensitively.
         _seed(sqlite_source)
         trace_id = uuid.uuid4()
         engine = sa.create_engine(sqlite_source)
@@ -896,7 +896,7 @@ class TestCommandOutput:
         _seed(sqlite_source)
         engine = sa.create_engine(postgres_database)
         with engine.begin() as conn:
-            # What a newer Primeagent leaves behind: a revision this one has no migration for.
+            # What a newer PrimeAgent leaves behind: a revision this one has no migration for.
             conn.execute(sa.text("CREATE TABLE alembic_version (version_num VARCHAR(32) NOT NULL)"))
             conn.execute(sa.text("INSERT INTO alembic_version VALUES ('ffffffffffff')"))
         engine.dispose()
@@ -911,7 +911,7 @@ class TestCommandOutput:
         assert events[:-2] == [CHECKING, PREPARING_TARGET]
         assert error["code"] == "target_not_empty"
         assert error["message"].startswith("target database is at revision ffffffffffff")
-        assert "another Primeagent version" in error["message"]
+        assert "another PrimeAgent version" in error["message"]
         assert "convert into an empty database" in error["message"]
         assert report["problems"] == [{"code": "target_not_empty", "message": error["message"]}]
 

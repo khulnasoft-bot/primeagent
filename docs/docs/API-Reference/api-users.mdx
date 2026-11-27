@@ -34,16 +34,16 @@ import exampleJavascriptApiUsersResetPassword from "!!raw-loader!@site/docs/API-
 import examplePythonApiUsersDeleteUser from "!!raw-loader!@site/docs/API-Reference/python-examples/api-users/delete-user.py";
 import exampleJavascriptApiUsersDeleteUser from "!!raw-loader!@site/docs/API-Reference/javascript-examples/api-users/delete-user.js";
 
-Use the `/users` endpoint to manage user accounts in Primeagent.
+Use the `/users` endpoint to manage user accounts in PrimeAgent.
 
-As of Primeagent 1.12, there is no **Admin Page** in the visual editor.
+As of PrimeAgent 1.12, there is no **Admin Page** in the visual editor.
 Superusers add, activate, list, and delete users, set **Superuser**, and set another user's password with `PATCH /api/v1/users/{id}`.
 
 ## Add user
 
 Create a new user account with a given username and password.
 
-Requires authentication as a superuser if the Primeagent server has authentication enabled.
+Requires authentication as a superuser if the PrimeAgent server has authentication enabled.
 
 <Tabs>
 <TabItem value="Python" label="Python" default>
@@ -64,8 +64,8 @@ Requires authentication as a superuser if the Primeagent server has authenticati
 </Tabs>
 
 The request returns an object describing the new user.
-The user's UUID is stored in `user_id` in the Primeagent database, and returned as `id` in the `/users` API response.
-This `user_id` key is specifically for Primeagent user management.
+The user's UUID is stored in `user_id` in the PrimeAgent database, and returned as `id` in the `/users` API response.
+This `user_id` key is specifically for PrimeAgent user management.
 
 <details>
 <summary>Result</summary>
@@ -109,7 +109,7 @@ Retrieve information about the authenticated user.
 
 Get a paginated list of all users in the system.
 
-Requires authentication as a superuser if the Primeagent server has authentication enabled.
+Requires authentication as a superuser if the PrimeAgent server has authentication enabled.
 
 <Tabs>
 <TabItem value="Python" label="Python" default>
@@ -142,7 +142,7 @@ Requires authentication as a superuser if the Primeagent server has authenticati
 
 Modify an existing user's information with a PATCH request.
 
-Requires authentication as a superuser if the Primeagent server has authentication enabled.
+Requires authentication as a superuser if the PrimeAgent server has authentication enabled.
 
 This example activates the specified user's account and makes them a superuser:
 
@@ -235,7 +235,7 @@ A superuser resetting someone else's password must use [Update user](#update-use
 
 Remove a user account from the system.
 
-Requires authentication as a superuser if the Primeagent server has authentication enabled.
+Requires authentication as a superuser if the PrimeAgent server has authentication enabled.
 
 <Tabs>
 <TabItem value="Python" label="Python" default>

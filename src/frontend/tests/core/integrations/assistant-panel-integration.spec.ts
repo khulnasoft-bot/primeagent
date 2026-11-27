@@ -23,15 +23,15 @@ test.describe("Assistant Panel Integration", { tag: ["@release"] }, () => {
     page,
   }) => {
     const textarea = page.getByTestId("assistant-input-textarea");
-    await textarea.fill("What is Primeagent? Answer in one sentence.");
+    await textarea.fill("What is PrimeAgent? Answer in one sentence.");
     await page.getByTestId("assistant-send-button").click();
 
     await expect(page.getByTestId("assistant-message-user")).toContainText(
-      "What is Primeagent",
+      "What is PrimeAgent",
     );
     await expect(
       page.getByTestId("assistant-message-assistant").last(),
-    ).toContainText("Primeagent is a deterministic visual workflow builder.");
+    ).toContainText("PrimeAgent is a deterministic visual workflow builder.");
     await expect(textarea).toBeEnabled();
   });
 
@@ -181,7 +181,7 @@ test.describe("Assistant Panel Integration", { tag: ["@release"] }, () => {
 
     await expect(
       page.getByTestId("assistant-message-assistant").last(),
-    ).toContainText("Primeagent is a deterministic visual workflow builder.");
+    ).toContainText("PrimeAgent is a deterministic visual workflow builder.");
     await expect(page.getByTestId("assistant-new-session")).toBeEnabled();
 
     await assistantMock.armSessionReset();

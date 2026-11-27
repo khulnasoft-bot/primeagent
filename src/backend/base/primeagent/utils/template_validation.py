@@ -1,4 +1,4 @@
-"""Template validation utilities for Primeagent starter projects.
+"""Template validation utilities for PrimeAgent starter projects.
 
 This module provides validation functions to ensure template integrity and prevent
 unexpected breakage in starter project templates.

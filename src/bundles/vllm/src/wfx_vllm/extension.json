@@ -3,7 +3,7 @@
   "id": "wfx-vllm",
   "version": "0.2.0",
   "name": "vLLM",
-  "description": "vLLM as a first-class Primeagent model provider, packaged as a standalone Extension Bundle.",
+  "description": "vLLM as a first-class PrimeAgent model provider, packaged as a standalone Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

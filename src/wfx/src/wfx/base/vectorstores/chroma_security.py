@@ -1,8 +1,8 @@
-"""Safe defaults for Primeagent-created Chroma collections.
+"""Safe defaults for PrimeAgent-created Chroma collections.
 
 Chroma collection configuration can persist server-side embedding functions.
 Some embedding functions accept model-loading kwargs such as trust_remote_code.
-Primeagent embeds client-side, so built-in collection creation should not register
+PrimeAgent embeds client-side, so built-in collection creation should not register
 server-side embedding code.
 """
 

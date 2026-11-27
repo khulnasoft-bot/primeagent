@@ -46,7 +46,7 @@ STARTUP_SCRIPT=$(cat <<'EOF'
 apt -y update
 apt -y upgrade
 
-# Install Python 3 pip, Primeagent, and Nginx
+# Install Python 3 pip, PrimeAgent, and Nginx
 apt -y install python3-pip
 pip install primeagent
 primeagent --host 0.0.0.0 --port 7860

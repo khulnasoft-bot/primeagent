@@ -107,7 +107,7 @@ describe("LoginPage accessibility", () => {
     const loginOptions = screen.getByTestId("custom-login-sso-options");
     const signUpLink = screen.getByRole("link", { name: /sign up/i });
 
-    expect(screen.getByText("Primeagent")).toBeInTheDocument();
+    expect(screen.getByText("PrimeAgent")).toBeInTheDocument();
     expect(screen.getByText(/don't have an account\?/i)).toBeInTheDocument();
     expect(
       signInButton.compareDocumentPosition(loginOptions) &

@@ -26,14 +26,14 @@ Decides which substrate the eight wave-1 Microsoft actions run on. Blocks INT-11
 
 Pros: Microsoft-maintained tool schemas; admin-center governance.
 Cons: preview and "not meant for production use" (fact 1); smuggles a per-tenant Microsoft 365 Copilot license into
-a Primeagent feature (fact 2); tenant-scoped endpoints and a customer-registered enterprise app make a Primeagent-owned
+a PrimeAgent feature (fact 2); tenant-scoped endpoints and a customer-registered enterprise app make a PrimeAgent-owned
 hosted app impossible (fact 3). Cost: blocks INT-11 on an unknown GA date and on customer licensing.
 
 ### Option B: Microsoft Graph REST with delegated permissions (recommended)
 
 Pros: GA, no admin consent for any wave-1 permission (fact 4), published throttling (fact 5), one auth path for
 hosted, self-managed, and Desktop; the msgraph-sdk-python or plain httpx suffices.
-Cons: Primeagent maintains eight thin adapters. Cost: inside the INT-11 estimate.
+Cons: PrimeAgent maintains eight thin adapters. Cost: inside the INT-11 estimate.
 
 ### Option C: Mixed
 

@@ -330,7 +330,7 @@ EXPECTED_FIELDS = {
     "sandbox_allow_software_emulation",
     # SecuritySettings: rebuild drifted built-ins with this server's code (issue #14455)
     "substitute_outdated_component_code",
-    # VariablesSettings: operator-tunable Primeagent Assistant prompt length
+    # VariablesSettings: operator-tunable PrimeAgent Assistant prompt length
     "assistant_max_message_length",
     # ---- Serving-plane end-user identity ----
     # SecuritySettings
@@ -597,7 +597,7 @@ def test_env_var_round_trip(monkeypatch, env_var, env_value, field, expected):
 
 
 def test_agentic_experience_on_by_default(monkeypatch):
-    """The Assistant is Primeagent's entry-point experience and must work out of the box.
+    """The Assistant is PrimeAgent's entry-point experience and must work out of the box.
 
     Regression: defaulting agentic_experience off left the frontend Assistant panel
     mounted while every /agentic endpoint returned 404 unless the operator set

@@ -58,9 +58,9 @@ What 1.13 owes this initiative, and nothing more:
 | One gap found while writing this gate: the contract assigns the `connection_resolution` matrix dimension and its checker vocabulary to INT-4 and INT-5, and neither open pull request delivers it | `../dedicated-integrations/connection-contract.md` section 11 | filed against 1.13 and picked up by INT-6, which now owns the dimension; TRG-2 adds family rows only |
 
 Exit criterion 7 asks for this table to be checked against the **merged** INT-2
-([#14919](https://github.com/khulnasoft-bot/primeagent/pull/14919)), INT-5
-([#14935](https://github.com/khulnasoft-bot/primeagent/pull/14935)) and INT-6
-([#14946](https://github.com/khulnasoft-bot/primeagent/pull/14946)) pull requests. All three remain open as of 2026-09-10,
+[#14919], INT-5
+[#14935] and INT-6
+[#14946] pull requests. All three remain open as of 2026-09-10,
 so the criterion stays open with the gap above recorded. Before marking criterion 7 done, the reviewing owners
 must record the merged commit for each PR, the reviewed boundary obligations and test evidence, and the disposition
 of each gap here. The checker requires dated completion of criterion 7; it does not query GitHub or establish
@@ -70,7 +70,7 @@ What this gate must not do: reopen a 1.13 decision, add to the 1.13 actions esti
 
 ## Two tracks
 
-**Track A: push ingress.** The provider posts to a Primeagent URL. Needs a public HTTPS endpoint, provider signature
+**Track A: push ingress.** The provider posts to a PrimeAgent URL. Needs a public HTTPS endpoint, provider signature
 or handshake verification, subscription creation and renewal, and a mapping from event to flow run. It belongs on
 the API process because it is request/response at the edge; today's `POST /api/v1/webhook/{flow_id_or_name}` is the
 closest seam. Wave-1 mechanisms, sourced in the matrices: Microsoft Graph change notifications
@@ -78,7 +78,7 @@ closest seam. Wave-1 mechanisms, sourced in the matrices: Microsoft Graph change
 `google.drive_push`), Gmail `users.watch` with a Cloud Pub/Sub push subscription
 (`google.gmail_watch_pubsub_push`), and the Slack Events API (`slack.events_api`).
 
-**Track B: persistent connections and polling.** Primeagent reaches out: Slack Socket Mode (`slack.socket_mode`), a
+**Track B: persistent connections and polling.** PrimeAgent reaches out: Slack Socket Mode (`slack.socket_mode`), a
 Gmail Pub/Sub pull subscription (`google.gmail_watch_pubsub_pull`), Microsoft Graph delta queries
 (`microsoft.graph_delta_poll`), and Google Calendar and Drive change feeds (`google.calendar_sync_poll`,
 `google.drive_changes_poll`). Needs a supervised process outside the API, one instance per connection, a lease so
@@ -96,7 +96,7 @@ mechanism, which is what makes the no-relay rule liveable.
 | 1 | Findings document covering both precedents and the sidecar position, authored by the platform owner | `findings/2026-09-listeners.md` | required file, accepted status, no TODO/TBD/to-be-written markers, sign-offs, dated criterion completion | **open**: stub written 2026-09-05 with the evidence pack; sections 3 and 4 are the platform owner's |
 | 2 | Event-transport matrix per wave-1 provider: every push and pull mechanism with its ingress requirement, inbound authentication, subscription TTL and renewal, payload shape (thin or full), delivery guarantee, replay availability, rate limits, and the deployment contexts it supports | `matrices/<provider>-events.json`, `schema/event_transport.schema.json` | `check_capability_matrices.py --design-root`: schema, sourced claims, and the no-ingress rule per context | done 2026-09-05 |
 | 3 | Process-model decision: subprocess supervisor under the API lifespan, separate service, or both; lease semantics for singleton listeners; behaviour on Desktop, `wfx serve`, single-container Docker, and multi-replica Kubernetes | `decisions/process-model.md` | `Status:` line and `## Decision` heading parsed by the checker | done 2026-09-05 |
-| 4 | Self-managed ingress decision: which Track A sources require public HTTPS, which Track B fallback exists per provider, and the explicit statement that Primeagent operates no relay | `decisions/self-managed-ingress.md` | the checker's no-ingress rule enforces the fallback per context | done 2026-09-05 |
+| 4 | Self-managed ingress decision: which Track A sources require public HTTPS, which Track B fallback exists per provider, and the explicit statement that PrimeAgent operates no relay | `decisions/self-managed-ingress.md` | the checker's no-ingress rule enforces the fallback per context | done 2026-09-05 |
 | 5 | Delivery-semantics decision: durable intake, dedupe, dispatch recovery, replay window, dead-letter, ordering, and backpressure | `decisions/delivery-semantics.md` | `Status:` line and `## Decision` heading parsed by the checker | **open**: reopened 2026-09-15; thin-notification normalization, event-to-job crash recovery, and resync after dedupe purge require owner decisions |
 | 6 | Trigger contract: the trigger entity and its binding to a flow version or deployment; correlation of a triggered run to a conversation; executing identity per trigger kind as new `execution_principal_matrix.json` families (`trigger_push`, `trigger_listener`); signed off by the wfx, primeagent-base, Enterprise, and platform owners | `trigger-contract.md` | required file, accepted status, sign-offs, dated criterion completion | **open**: delivery contract reopened 2026-09-15; revised storage and dispatch contract plus four owner sign-offs required |
 | 7 | 1.13 conformance: the boundary table above checked against the merged INT-2, INT-5, and INT-6 pull requests | this file, "Boundary with 1.13" | dated criterion completion required; merged-commit and behavioral evidence reviewed by owners | **open**: those pull requests are unmerged; one gap already filed (the `connection_resolution` dimension) |

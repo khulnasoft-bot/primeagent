@@ -39,7 +39,7 @@ def _get_allowed_profile_picture_folders(settings_service: SettingsService) -> s
     base directory and validate path containment below.
 
     If no directories can be found (unexpected), fall back to the curated
-    defaults {"People", "Space"} shipped with Primeagent.
+    defaults {"People", "Space"} shipped with PrimeAgent.
     """
     allowed: set[str] = set()
     try:

@@ -6,7 +6,7 @@ Revises: 9d7e2a6c4b81
 
 SQLModel 0.0.45 changed inferred datetime columns to UTCDateTime. Freeze the
 affected columns here rather than importing models that may change later.
-Known Primeagent writers use UTC; interpret historical naive values as UTC in
+Known PrimeAgent writers use UTC; interpret historical naive values as UTC in
 both directions, independently of the PostgreSQL session timezone.
 
 Stop all older application instances before upgrading or downgrading: their

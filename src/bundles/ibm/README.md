@@ -1,12 +1,12 @@
 # wfx-ibm
 
 IBM components — Db2 Vector Store, watsonx.ai LLM and embeddings, and
-watsonx.data Presto and MCP — as a standalone Primeagent Extension Bundle.
+watsonx.data Presto and MCP — as a standalone PrimeAgent Extension Bundle.
 
 This bundle ships five components:
 
 * **`DB2VectorStoreComponent`** — wraps the `DB2VS` LangChain-compatible
-  vector store and exposes Db2's native vector search through Primeagent's
+  vector store and exposes Db2's native vector search through PrimeAgent's
   standard vector-store palette entry.
 * **`WatsonxAIComponent`** — chat/text-generation against IBM watsonx.ai
   foundation models via `langchain-ibm`'s `ChatWatsonx`.
@@ -31,7 +31,7 @@ pip install wfx-ibm
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point. After install, restart your Primeagent server; the
+entry-point. After install, restart your PrimeAgent server; the
 components appear in the palette under the `ibm` bundle group.
 
 > **Platform notes:**

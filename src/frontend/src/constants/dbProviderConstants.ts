@@ -82,7 +82,7 @@ export const DB_PROVIDER_OPTIONS: DBProviderOption[] = [
     id: "sqlite",
     label: "SQLite Local",
     description:
-      "Local vector storage bundled with Primeagent. No additional configuration required.",
+      "Local vector storage bundled with PrimeAgent. No additional configuration required.",
     icon: "database",
     status: "available",
     defaultEnabled: true,
@@ -338,7 +338,7 @@ export type DBProviderConfigValue = string | boolean;
 
 /**
  * OpenSearch TLS toggles for ``backend_config``. A toggle the operator saved
- * always wins. Otherwise it defaults to ``true`` for a URL stored as a Primeagent
+ * always wins. Otherwise it defaults to ``true`` for a URL stored as a PrimeAgent
  * variable, but is *omitted* when the URL is not a variable (it comes from the
  * ``OPENSEARCH_URL`` environment variable): the UI cannot see that scheme, and
  * the backend derives SSL from it, whereas a hard-coded ``true`` would force

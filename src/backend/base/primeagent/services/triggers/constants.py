@@ -55,7 +55,7 @@ TEST_DEDUPE_PREFIX = "test"
 
 #: Listener transports (TRG-3). A ``socket`` adapter owns a long-lived
 #: connection and decides its own cadence; a ``poll`` adapter is driven by the
-#: generic poll loop. Both are Track B: Primeagent dials out, so no public ingress
+#: generic poll loop. Both are Track B: PrimeAgent dials out, so no public ingress
 #: is required.
 TRANSPORT_SOCKET = "socket"
 TRANSPORT_POLL = "poll"
@@ -134,7 +134,7 @@ GOOGLE_POLL_MECHANISMS = frozenset(
 #: fact about the connection, so it goes whenever the trigger's connection changes.
 SLACK_PROVIDER_STATE_APP_ID = "slack_app_id"
 
-#: Mechanisms a provider pushes to Primeagent's ingress (Track A). A run started
+#: Mechanisms a provider pushes to PrimeAgent's ingress (Track A). A run started
 #: by one executes as the ``trigger_push`` family; everything else a trigger
 #: runs - listener sources and the schedule - as ``trigger_listener``.
 PUSH_MECHANISMS = frozenset({MECHANISM_SLACK_EVENTS_API, MECHANISM_GRAPH_NOTIFICATIONS}) | GOOGLE_PUSH_MECHANISMS

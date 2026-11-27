@@ -395,7 +395,7 @@ class AsyncLocalFlowRunner(_BaseLocalFlowRunner):
 
 
 class RemoteFlowRunner(_BaseRemoteFlowRunner):
-    """Sync callable that runs flows against a live Primeagent instance.
+    """Sync callable that runs flows against a live PrimeAgent instance.
 
     Returned by :func:`flow_runner` when ``--primeagent-env`` or
     ``--primeagent-url`` is passed to pytest.  Call it like a function::
@@ -437,7 +437,7 @@ class RemoteFlowRunner(_BaseRemoteFlowRunner):
 
 
 class AsyncRemoteFlowRunner(_BaseRemoteFlowRunner):
-    """Async callable that runs flows against a live Primeagent instance.
+    """Async callable that runs flows against a live PrimeAgent instance.
 
     Returned by :func:`async_flow_runner` when ``--primeagent-env`` or
     ``--primeagent-url`` is passed to pytest.  Use with ``await``::

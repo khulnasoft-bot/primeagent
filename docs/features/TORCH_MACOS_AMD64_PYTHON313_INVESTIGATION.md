@@ -7,7 +7,7 @@
 
 ## TL;DR
 
-**PyTorch officially dropped macOS x86_64 (Intel) binary support after version 2.2.2** (milestone: PyTorch 2.3, March 2024). Since Python 3.13 was released in October 2024 — after this cutoff — **no official PyTorch wheel exists for macOS x86_64 + Python 3.13**. This is an upstream, permanent gap — not a bug in Primeagent.
+**PyTorch officially dropped macOS x86_64 (Intel) binary support after version 2.2.2** (milestone: PyTorch 2.3, March 2024). Since Python 3.13 was released in October 2024 — after this cutoff — **no official PyTorch wheel exists for macOS x86_64 + Python 3.13**. This is an upstream, permanent gap — not a bug in PrimeAgent.
 
 The failing CI job is `test-installation-experimental` on `macos-latest-large` (AMD64) with Python 3.13. The `continue-on-error: true` flag means it doesn't block releases, but the failure is persistent and expected.
 
@@ -96,7 +96,7 @@ langchain-huggingface = ["langchain-huggingface==0.3.1; sys_platform != 'darwin'
 **Pros:**
 
 - CI will pass on all experimental platforms
-- macOS x86_64 users on Python 3.13 can still use Primeagent (just without ALTK/HuggingFace features)
+- macOS x86_64 users on Python 3.13 can still use PrimeAgent (just without ALTK/HuggingFace features)
 - Consistent with existing pattern for docling/easyocr
 
 **Cons:**

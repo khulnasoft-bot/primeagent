@@ -34,7 +34,7 @@ Use the `$schema` reference in your manifest so editors can autocomplete and val
 | -------------- | -------------- | -------- | ---------------------------------------------------------------------------------------------------------------- |
 | `id`           | string         | yes      | Globally-unique extension ID. Lowercase, hyphenated, starts with a letter, 2-64 chars. Convention: `wfx-<name>`. |
 | `version`      | string         | yes      | SemVer 2.0.0 version string for this extension release.                                                          |
-| `name`         | string         | yes      | Human-readable display name shown in the Primeagent palette. 1-200 chars.                                        |
+| `name`         | string         | yes      | Human-readable display name shown in the PrimeAgent palette. 1-200 chars.                                        |
 | `description`  | string \| null | no       | Optional one-paragraph summary, max 2000 chars.                                                                  |
 | `wfx`          | object         | yes      | [Compatibility declaration](#wfx-compatibility-declaration) against the BUNDLE_API contract.                     |
 | `bundles`      | array          | yes      | [Bundle list](#bundles). v0 accepts **exactly one** bundle.                                                      |
@@ -122,7 +122,7 @@ The loader and validator both emit typed errors keyed by the manifest field that
 | ----------------------------------------- | --------------------------------------------------------------------------------------- |
 | `manifest-invalid`                        | Schema validation failed; the message names the field.                                  |
 | `manifest-not-found`                      | No `extension.json` and no `[tool.primeagent.extension]` section at the extension root. |
-| `version-constraint-unsatisfied`          | `wfx.compat` does not include this Primeagent's `BUNDLE_API_VERSION`.                   |
+| `version-constraint-unsatisfied`          | `wfx.compat` does not include this PrimeAgent's `BUNDLE_API_VERSION`.                   |
 | `field-deferred-in-this-milestone`        | A reserved field was set to a non-null value.                                           |
 | `multi-bundle-deferred-in-this-milestone` | `bundles` has more than one entry.                                                      |
 | `path-escape`                             | A `bundles[].path` resolves outside the manifest root (typically a symlink).            |

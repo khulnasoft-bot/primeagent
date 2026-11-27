@@ -50,7 +50,7 @@ help: ## show basic help message with common commands
 	@echo ''
 	@echo "$(GREEN)Basic Commands:$(NC)"
 	@echo "  $(GREEN)make init$(NC)                - Initialize project (install all dependencies)"
-	@echo "  $(GREEN)make run_cli$(NC)             - Run Primeagent CLI"
+	@echo "  $(GREEN)make run_cli$(NC)             - Run PrimeAgent CLI"
 	@echo "  $(GREEN)make run_clic$(NC)            - Run CLI with fresh frontend build"
 	@echo "  $(GREEN)make format$(NC)              - Format all code (backend + frontend)"
 	@echo "  $(GREEN)make tests$(NC)               - Run all tests"
@@ -583,10 +583,10 @@ patch: ## Update version across all projects. Usage: make patch v=1.5.0 [sdk_v=0
 	SDK_VERSION="$(sdk_v)"; \
 	if [ -z "$$SDK_VERSION" ]; then SDK_VERSION=$$(grep "^version" src/sdk/pyproject.toml | sed 's/.*"\(.*\)"$$/\1/'); fi; \
 	\
-	echo "$(GREEN)Primeagent version: $$PRIMEAGENT_VERSION$(NC)"; \
-	echo "$(GREEN)Primeagent-base version: $$PRIMEAGENT_VERSION$(NC)"; \
+	echo "$(GREEN)PrimeAgent version: $$PRIMEAGENT_VERSION$(NC)"; \
+	echo "$(GREEN)PrimeAgent-base version: $$PRIMEAGENT_VERSION$(NC)"; \
 	echo "$(GREEN)WFX (synced): $$PRIMEAGENT_VERSION$(NC)"; \
-	echo "$(GREEN)Primeagent SDK version: $$SDK_VERSION$(NC)"; \
+	echo "$(GREEN)PrimeAgent SDK version: $$SDK_VERSION$(NC)"; \
 	\
 	echo "$(GREEN)Updating main pyproject.toml...$(NC)"; \
 	python -c "import re; fname='pyproject.toml'; txt=open(fname).read(); txt=re.sub(r'^version = \".*\"', 'version = \"$$PRIMEAGENT_VERSION\"', txt, flags=re.MULTILINE); txt=re.sub(r'\"primeagent-base(\[[^\]]*\])?(?:==|>=|~=)[^\";]*(;[^\"]*)?\"', lambda m: '\"primeagent-base' + (m.group(1) or '') + '==$$PRIMEAGENT_VERSION' + (m.group(2) or '') + '\"', txt); open(fname, 'w').write(txt)"; \
@@ -613,8 +613,8 @@ patch: ## Update version across all projects. Usage: make patch v=1.5.0 [sdk_v=0
 	if ! grep -qF "\"primeagent-base==$$PRIMEAGENT_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml primeagent-base dependency validation failed$(NC)"; exit 1; fi; \
 	if ! grep -qF "\"primeagent-base[audio]==$$PRIMEAGENT_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml primeagent-base audio dependency validation failed$(NC)"; exit 1; fi; \
 	if ! grep -qF "\"primeagent-base[postgresql]==$$PRIMEAGENT_VERSION\"" pyproject.toml; then echo "$(RED)✗ Main pyproject.toml primeagent-base PostgreSQL dependency validation failed$(NC)"; exit 1; fi; \
-	if ! grep -q "^version = \"$$PRIMEAGENT_VERSION\"" src/backend/base/pyproject.toml; then echo "$(RED)✗ Primeagent-base pyproject.toml version validation failed$(NC)"; exit 1; fi; \
-	if ! grep -Eq "\"wfx(\[[^]]+\])?==$$PRIMEAGENT_VERSION\"" src/backend/base/pyproject.toml; then echo "$(RED)✗ Primeagent-base pyproject.toml wfx pin validation failed$(NC)"; exit 1; fi; \
+	if ! grep -q "^version = \"$$PRIMEAGENT_VERSION\"" src/backend/base/pyproject.toml; then echo "$(RED)✗ PrimeAgent-base pyproject.toml version validation failed$(NC)"; exit 1; fi; \
+	if ! grep -Eq "\"wfx(\[[^]]+\])?==$$PRIMEAGENT_VERSION\"" src/backend/base/pyproject.toml; then echo "$(RED)✗ PrimeAgent-base pyproject.toml wfx pin validation failed$(NC)"; exit 1; fi; \
 	if ! grep -q "^version = \"$$PRIMEAGENT_VERSION\"" src/wfx/pyproject.toml; then echo "$(RED)✗ WFX pyproject.toml version validation failed$(NC)"; exit 1; fi; \
 	if ! grep -q "^version = \"$$SDK_VERSION\"" src/sdk/pyproject.toml; then echo "$(RED)✗ SDK pyproject.toml version validation failed$(NC)"; exit 1; fi; \
 	if ! grep -q "\"primeagent-sdk>=$$SDK_VERSION\"" src/wfx/pyproject.toml; then echo "$(RED)✗ WFX SDK dependency validation failed$(NC)"; exit 1; fi; \
@@ -756,7 +756,7 @@ load_test_wfx_quick: ## Quick WFX load test (30 users, 60s). Options: html=true,
 
 # Enhanced load testing system with API-based flow loading
 load_test_setup: ## Set up load test environment with starter project flows
-	@echo "$(YELLOW)Setting up Primeagent load test environment$(NC)"
+	@echo "$(YELLOW)Setting up PrimeAgent load test environment$(NC)"
 	@cd src/backend/tests/locust && uv run python primeagent_setup_test.py --interactive
 
 load_test_setup_basic: ## Set up load test environment with Basic Prompting flow
@@ -786,8 +786,8 @@ load_test_run: ## Run load test (automatically sets up if needed). Use FLOW_NAME
 	export FLOW_ID=$$(python -c "import json; print(json.load(open('load_test_creds.json'))['flow_id'])") && \
 	uv run python primeagent_run_load_test.py --headless --users 20 --duration 120 --no-start-primeagent --html load_test_report.html --csv load_test_results
 
-load_test_primeagent_quick: ## Quick Primeagent load test (10 users, 30s) with HTML report (automatically sets up if needed). Use FLOW_NAME="Flow Name" to specify flow
-	@echo "$(YELLOW)Running quick Primeagent load test with HTML report$(NC)"
+load_test_primeagent_quick: ## Quick PrimeAgent load test (10 users, 30s) with HTML report (automatically sets up if needed). Use FLOW_NAME="Flow Name" to specify flow
+	@echo "$(YELLOW)Running quick PrimeAgent load test with HTML report$(NC)"
 	@if [ ! -f "src/backend/tests/locust/load_test_creds.json" ]; then \
 		echo "$(BLUE)No credentials found. Running automatic setup...$(NC)"; \
 		if [ -z "$(FLOW_NAME)" ]; then \
@@ -858,11 +858,11 @@ load_test_remote_run: ## Run load test against remote instance (requires prior s
 	uv run python primeagent_run_load_test.py --host $(PRIMEAGENT_HOST) --no-start-primeagent --headless --users 10 --spawn-rate 1 --duration 120 --html remote_test_report.html
 
 load_test_help: ## Show detailed load testing help
-	@echo "$(GREEN)Primeagent Enhanced Load Testing System$(NC)"
+	@echo "$(GREEN)PrimeAgent Enhanced Load Testing System$(NC)"
 	@echo ""
 	@echo "$(YELLOW)Quick Start (Local):$(NC)"
 	@echo "  1. make load_test_setup_basic    # Set up with Basic Prompting flow"
-	@echo "  2. make load_test_primeagent_quick # Run quick Primeagent test"
+	@echo "  2. make load_test_primeagent_quick # Run quick PrimeAgent test"
 	@echo "  3. Open quick_test_report.html  # View results"
 	@echo ""
 	@echo "$(YELLOW)Remote Testing:$(NC)"
@@ -875,7 +875,7 @@ load_test_help: ## Show detailed load testing help
 	@echo "  load_test_setup_basic  - Quick setup with Basic Prompting"
 	@echo "  load_test_list_flows   - List available starter flows"
 	@echo "  load_test_run          - Standard load test (25 users, 2 min)"
-	@echo "  load_test_primeagent_quick - Quick Primeagent test (10 users, 30s)"
+	@echo "  load_test_primeagent_quick - Quick PrimeAgent test (10 users, 30s)"
 	@echo "  load_test_quick        - Quick complex serve test (30 users, 60s)"
 	@echo "  load_test_stress       - Stress test (100 users, 5 min)"
 	@echo "  load_test_example      - Complete example workflow"
@@ -906,7 +906,7 @@ help_backend: ## show backend-specific commands
 	@echo "$(GREEN)Development:$(NC)"
 	@echo "  $(GREEN)make backend$(NC)             - Run backend in development mode"
 	@echo "  $(GREEN)make backend_base$(NC)        - Run backend with only primeagent-base installed"
-	@echo "  $(GREEN)make run_cli$(NC)             - Run Primeagent CLI"
+	@echo "  $(GREEN)make run_cli$(NC)             - Run PrimeAgent CLI"
 	@echo "  $(GREEN)make run_clic$(NC)            - Run CLI with fresh frontend build"
 	@echo "  $(GREEN)make run_cli_debug$(NC)       - Run CLI in debug mode"
 	@echo "  $(GREEN)make setup_devcontainer$(NC)  - Set up development container"
@@ -1117,7 +1117,7 @@ docs_serve: docs_build ## build and serve documentation locally
 # Note: $(or $(suites),a,b,c) is wrong here — GNU make's `or` returns only the first non-empty token.
 suites ?= curl,python,javascript
 
-api_examples_local: ## run docs API sample files against a local Primeagent server
+api_examples_local: ## run docs API sample files against a local PrimeAgent server
 	@echo "$(GREEN)Running docs API examples locally...$(NC)"
 	@SUITES="$(suites)" EXECUTE_MODE=true ./scripts/test-api-examples-local.sh
 

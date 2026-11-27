@@ -5,7 +5,7 @@ from typing import Any
 
 import pytest
 
-from primeagent_stepflow.translation.translator import PrimeagentConverter
+from primeagent_stepflow.translation.translator import PrimeAgentConverter
 
 # Register pytest-asyncio plugin at top level for all tests
 pytest_plugins = ["pytest_asyncio"]
@@ -19,7 +19,7 @@ def fixtures_dir() -> Path:
 
 @pytest.fixture
 def primeagent_fixtures_dir(fixtures_dir: Path) -> Path:
-    """Path to Primeagent JSON fixtures."""
+    """Path to PrimeAgent JSON fixtures."""
     return fixtures_dir / "primeagent"
 
 
@@ -31,7 +31,7 @@ def stepflow_fixtures_dir(fixtures_dir: Path) -> Path:
 
 @pytest.fixture
 def simple_primeagent_workflow() -> dict[str, Any]:
-    """Simple Primeagent workflow for testing."""
+    """Simple PrimeAgent workflow for testing."""
     return {
         "data": {
             "nodes": [
@@ -93,6 +93,6 @@ def simple_primeagent_workflow() -> dict[str, Any]:
 
 
 @pytest.fixture
-def converter() -> PrimeagentConverter:
-    """PrimeagentConverter instance for testing."""
-    return PrimeagentConverter()
+def converter() -> PrimeAgentConverter:
+    """PrimeAgentConverter instance for testing."""
+    return PrimeAgentConverter()

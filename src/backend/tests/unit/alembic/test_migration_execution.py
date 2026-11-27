@@ -681,9 +681,9 @@ def _create_foreign_tables(db_url: str) -> None:
 
 
 def test_foreign_tables_do_not_block_startup(db_url):
-    """Tables Primeagent does not own must not be reported as pending drops.
+    """Tables PrimeAgent does not own must not be reported as pending drops.
 
-    Primeagent shares its database with whatever the user points at the same
+    PrimeAgent shares its database with whatever the user points at the same
     connection string -- LangChain vector stores, the SQL Executor component,
     unrelated applications. Autogenerate used to report each of those as a
     ``remove_table`` diff, so ``alembic check`` aborted startup with
@@ -698,7 +698,7 @@ def test_foreign_tables_do_not_block_startup(db_url):
 
 
 def test_foreign_tables_do_not_hide_real_drift(db_url):
-    """Filtering foreign tables must not silence drift in Primeagent's own tables."""
+    """Filtering foreign tables must not silence drift in PrimeAgent's own tables."""
     alembic_cfg = _make_alembic_cfg(db_url)
     command.upgrade(alembic_cfg, "head")
 

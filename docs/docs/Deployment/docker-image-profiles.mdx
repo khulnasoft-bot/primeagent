@@ -1,9 +1,9 @@
 ---
-title: Choose a Primeagent Docker image
+title: Choose a PrimeAgent Docker image
 slug: /deployment/docker-image-profiles
 ---
 
-Primeagent publishes three application image profiles from
+PrimeAgent publishes three application image profiles from
 `docker/build_and_push.Dockerfile` (`base`, `full`, and `full-bundles`).
 They share the same frontend, non-root runtime (uid 1000),
 `PRIMEAGENT_AUTO_LOGIN=false`, and `primeagent` executable.
@@ -20,10 +20,10 @@ Choose the smallest profile that contains every extension used by your flows.
 
 The base and default profiles use the `primeagent` image repository. The extended
 profile uses the separate `primeagent-all` repository. All three profiles use the
-same Primeagent 1.12 version.
-As of Primeagent 1.12.x, there is no `primeagent-core` image, and earlier `core-*` tags are not published.
+same PrimeAgent 1.12 version.
+As of PrimeAgent 1.12.x, there is no `primeagent-core` image, and earlier `core-*` tags are not published.
 
-The base image is a complete, minimal Primeagent with no provider extensions,
+The base image is a complete, minimal PrimeAgent with no provider extensions,
 not only the [additional bundles](/extensions-bundle-list#additional-bundles)
 omitted from the default `primeagent` install.
 The default image matches `uv pip install primeagent`.
@@ -53,7 +53,7 @@ services:
 ```
 
 Record both the tag and digest in release records. A tag identifies the
-Primeagent release; the digest identifies the exact multi-platform image selected
+PrimeAgent release; the digest identifies the exact multi-platform image selected
 by the deployment.
 
 ## Change profiles or versions safely
@@ -65,7 +65,7 @@ change as a deployment migration:
 1. Inventory the components used by production flows and select a profile that
    contains them. Test custom components and provider integrations explicitly.
 2. Record the current image digest, configuration, and persistent volume
-   layout. Back up the database before starting a newer Primeagent version.
+   layout. Back up the database before starting a newer PrimeAgent version.
 3. Start the candidate image against a copy of production data and run smoke
    tests for login, flow loading, flow execution, file access, and provider
    credentials.
@@ -93,11 +93,11 @@ rollbacks non-reproducible.
 
 Keep the previous pinned image and database backup until the candidate passes
 production verification. To roll back a profile-only change on the same
-Primeagent version, redeploy the previous digest with the unchanged persistent
-data. To roll back across Primeagent versions after a database migration, stop
+PrimeAgent version, redeploy the previous digest with the unchanged persistent
+data. To roll back across PrimeAgent versions after a database migration, stop
 the candidate, restore the pre-upgrade database backup, and redeploy the
 previous digest. Do not run an older application against a database that a
 newer version migrated unless that downgrade path is explicitly documented.
 
 For general Docker configuration, persistence, and source builds, see
-[Deploy Primeagent on Docker](./deployment-docker.mdx).
+[Deploy PrimeAgent on Docker](./deployment-docker.mdx).

@@ -95,7 +95,7 @@ async def _prepare_public_mcp_execution_flow(
 
 
 EXCLUDED_FLOWS_META_KEY = "prime.khulnasoft.com/excluded-flows"
-# Carries per-request variables injected via HTTP headers (e.g., X-Primeagent-Global-Var-*)
+# Carries per-request variables injected via HTTP headers (e.g., X-PrimeAgent-Global-Var-*)
 current_request_variables_ctx: ContextVar[dict[str, str] | None] = ContextVar(
     "current_request_variables_ctx", default=None
 )
@@ -280,7 +280,7 @@ async def handle_read_resource(uri: str, project_id: UUID | str | None = None) -
             raise ValueError(msg)
 
         # SECURITY: authorise the caller before reading. The storage layer alone is
-        # not enough because the filesystem doesn't know about Primeagent users, and
+        # not enough because the filesystem doesn't know about PrimeAgent users, and
         # previously any authenticated user could request any flow_id.
         try:
             current_user = current_user_ctx.get()

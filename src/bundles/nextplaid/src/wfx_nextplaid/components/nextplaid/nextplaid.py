@@ -193,7 +193,7 @@ class NextPlaidVectorStoreComponent(LCVectorStoreComponent):
 
         self.ingest_data = self._prepare_ingest_data()
 
-        # Flatten — Primeagent wraps ingest data in a list: [[doc1, doc2, ...]]
+        # Flatten — PrimeAgent wraps ingest data in a list: [[doc1, doc2, ...]]
         raw_inputs: list[Any] = []
         for item in self.ingest_data or []:
             if isinstance(item, list):

@@ -9,7 +9,7 @@ Commands shipped here:
     - ``validate``  -- static manifest + AST checker.
     - ``schema``    -- emit the manifest JSON Schema.
     - ``init``      -- scaffold a basic single-Bundle extension.
-    - ``dev``       -- register a local extension and launch Primeagent with
+    - ``dev``       -- register a local extension and launch PrimeAgent with
                        it loaded.
 
 Each command is implemented as a thin shell over the helpers in
@@ -31,7 +31,7 @@ import typer
 
 extension_app = typer.Typer(
     name="extension",
-    help="Author and inspect Primeagent Extensions.",
+    help="Author and inspect PrimeAgent Extensions.",
     no_args_is_help=True,
     add_completion=False,
 )
@@ -79,7 +79,7 @@ def validate_command(
       3. AST-level inspection of every Python source file in each bundle.
 
     With ``--execute-imports``, additionally imports each bundle module in a
-    subprocess with a temporary Primeagent state directory.
+    subprocess with a temporary PrimeAgent state directory.
     """
     from wfx.extension import format_extension_error, validate_extension
 
@@ -293,12 +293,12 @@ def reload_command(
     target: str | None = typer.Option(
         None,
         "--target",
-        help=("Primeagent server URL (default: $PRIMEAGENT_HOST / http://localhost:7860)."),
+        help=("PrimeAgent server URL (default: $PRIMEAGENT_HOST / http://localhost:7860)."),
     ),
     api_key: str | None = typer.Option(
         None,
         "--api-key",
-        help="API key for the Primeagent server (default: $PRIMEAGENT_API_KEY).",
+        help="API key for the PrimeAgent server (default: $PRIMEAGENT_API_KEY).",
     ),
     output_format: str = typer.Option(
         "text",
@@ -619,7 +619,7 @@ def init_command(
     name: str | None = typer.Option(
         None,
         "--name",
-        help=("Human-readable display name shown in Primeagent.  Defaults to the title-cased extension id."),
+        help=("Human-readable display name shown in PrimeAgent.  Defaults to the title-cased extension id."),
     ),
 ) -> None:
     """Create a runnable extension skeleton you can iterate on with ``dev``.
@@ -685,7 +685,7 @@ def _resolve_primeagent_executable() -> str | None:
 
 @extension_app.command(
     name="dev",
-    help="Register a local extension and launch Primeagent with it loaded.",
+    help="Register a local extension and launch PrimeAgent with it loaded.",
 )
 def dev_command(
     target: str = typer.Argument(
@@ -720,7 +720,7 @@ def dev_command(
         help="Extra arguments forwarded to ``primeagent run`` (after a ``--`` separator).",
     ),
 ) -> None:
-    """Register the extension and launch a Primeagent dev server.
+    """Register the extension and launch a PrimeAgent dev server.
 
     Flow:
         1. Resolve the absolute path of the target extension.
@@ -732,7 +732,7 @@ def dev_command(
            ``PRIMEAGENT_LAZY_LOAD_COMPONENTS=false`` so dev-extensions are
            visible in the palette immediately.
 
-    AC #4 ("boots Primeagent with the new Extension visible in the palette
+    AC #4 ("boots PrimeAgent with the new Extension visible in the palette
     within 5s") is delivered jointly by this command and the startup
     hook in ``primeagent.main`` that consults the dev registry.
     """
@@ -759,7 +759,7 @@ def dev_command(
     typer.echo(f"Registered dev extension: {entry.path}")
     typer.echo("Reload instructions:")
     typer.echo("  - Edit any file under components/ in the registered directory.")
-    typer.echo("  - Click 'Reload' on the bundle header in the Primeagent palette.")
+    typer.echo("  - Click 'Reload' on the bundle header in the PrimeAgent palette.")
 
     if skip_launch:
         return

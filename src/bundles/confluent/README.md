@@ -1,7 +1,7 @@
 # wfx-confluent
 
 [IBM Confluent](https://www.ibm.com/products/confluent) — the data-in-motion
-half of IBM's streaming lakehouse — as a standalone Primeagent Extension
+half of IBM's streaming lakehouse — as a standalone PrimeAgent Extension
 Bundle. Everything talks to Confluent over open protocols only (Kafka wire
 protocol, the Tableflow Iceberg REST catalog, and MCP over Streamable HTTP),
 so the same components work against Confluent Cloud, Confluent Platform, and
@@ -31,7 +31,7 @@ Four components, registered under the `confluent` bundle group:
 
 Built on [`confluent-kafka`](https://pypi.org/project/confluent-kafka/) and
 [`pyiceberg`](https://pypi.org/project/pyiceberg/); the MCP component reuses
-Primeagent's own MCP client engine.
+PrimeAgent's own MCP client engine.
 
 ## Install
 
@@ -43,7 +43,7 @@ pip install wfx-confluent
 
 ## Develop
 
-The bundle is a uv workspace member of the Primeagent monorepo:
+The bundle is a uv workspace member of the PrimeAgent monorepo:
 
 ```bash
 uv sync

@@ -69,7 +69,7 @@ recorded; the table above remains the last issued baseline.
 
 ## What this estimate does not include
 
-A Primeagent-operated relay (forbidden by `decisions/self-managed-ingress.md`); Track A on `wfx serve` (excluded by
+A PrimeAgent-operated relay (forbidden by `decisions/self-managed-ingress.md`); Track A on `wfx serve` (excluded by
 `decisions/process-model.md`); Graph rich notifications and their certificate lifecycle (deferred in
 `matrices/microsoft-events.json`); Teams as an event source; Discord, which the `origin/mock-orchestra` precedent
 built but no wave-1 ticket carries; and the Enterprise approval, quota and audit-query surfaces beyond the plugin

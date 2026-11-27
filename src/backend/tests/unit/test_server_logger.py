@@ -193,7 +193,7 @@ class TestRecordsReachTheFile:
         """LE-2454's deciding variable: ``configure()`` ran before the ``Logger``.
 
         This is the real boot order -- ``primeagent/__main__.py`` configures logging
-        long before ``PrimeagentApplication`` is constructed. The app's later
+        long before ``PrimeAgentApplication`` is constructed. The app's later
         ``configure()`` call carries identical arguments, so it early-returns on the
         unchanged fingerprint and never reaches ``setup_gunicorn_logger()``. Nothing
         cleans up after ``Logger.__init__``, which is why the fix cannot rely on it.

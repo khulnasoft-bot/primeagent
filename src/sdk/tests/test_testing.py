@@ -1,6 +1,6 @@
 """Unit tests for primeagent_sdk.testing and RunResponse helpers.
 
-Uses respx to mock HTTP so no live Primeagent instance is needed.
+Uses respx to mock HTTP so no live PrimeAgent instance is needed.
 """
 # pragma: allowlist secret -- all credentials in this file are fake test data
 
@@ -9,7 +9,7 @@ from __future__ import annotations
 import httpx
 import respx
 from _pytest.config.argparsing import Parser
-from primeagent_sdk.client import AsyncPrimeagentClient, PrimeagentClient
+from primeagent_sdk.client import AsyncPrimeAgentClient, PrimeAgentClient
 from primeagent_sdk.models import RunOutput, RunResponse
 from primeagent_sdk.testing import AsyncFlowRunner, FlowRunner, pytest_addoption
 
@@ -19,7 +19,7 @@ _BASE = "http://primeagent.test"
 # Shared fixtures
 # ---------------------------------------------------------------------------
 
-# Minimal RunResponse payload matching the standard Primeagent chat shape
+# Minimal RunResponse payload matching the standard PrimeAgent chat shape
 _CHAT_RUN_RESPONSE = {
     "session_id": "sess-abc",
     "outputs": [
@@ -89,12 +89,12 @@ _MULTI_RUN_RESPONSE = {
 _EMPTY_RUN_RESPONSE = {"session_id": None, "outputs": []}
 
 
-def _sync_client() -> PrimeagentClient:
-    return PrimeagentClient(base_url=_BASE, api_key="test-key")  # pragma: allowlist secret
+def _sync_client() -> PrimeAgentClient:
+    return PrimeAgentClient(base_url=_BASE, api_key="test-key")  # pragma: allowlist secret
 
 
-def _async_client() -> AsyncPrimeagentClient:
-    return AsyncPrimeagentClient(base_url=_BASE, api_key="test-key")  # pragma: allowlist secret
+def _async_client() -> AsyncPrimeAgentClient:
+    return AsyncPrimeAgentClient(base_url=_BASE, api_key="test-key")  # pragma: allowlist secret
 
 
 # ---------------------------------------------------------------------------

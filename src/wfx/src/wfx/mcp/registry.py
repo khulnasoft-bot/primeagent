@@ -11,10 +11,10 @@ from typing import TYPE_CHECKING, Any
 from wfx.mcp.redact import is_sensitive_field
 
 if TYPE_CHECKING:
-    from wfx.mcp.client import PrimeagentClient
+    from wfx.mcp.client import PrimeAgentClient
 
 
-async def load_registry(client: PrimeagentClient) -> dict[str, dict]:
+async def load_registry(client: PrimeAgentClient) -> dict[str, dict]:
     """Fetch all component templates from the server.
 
     Returns a flat dict: {component_type: template_dict}.

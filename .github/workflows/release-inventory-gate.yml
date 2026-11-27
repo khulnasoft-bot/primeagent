@@ -163,12 +163,12 @@ jobs:
               exit 0
             fi
             if ! kill -0 "$server_pid" 2>/dev/null; then
-              echo "Primeagent base exited before becoming healthy"
+              echo "PrimeAgent base exited before becoming healthy"
               exit 1
             fi
             sleep 2
           done
-          echo "Primeagent base did not become healthy"
+          echo "PrimeAgent base did not become healthy"
           exit 1
 
       - name: Upload base Python inventory report
@@ -297,12 +297,12 @@ jobs:
               exit 0
             fi
             if ! kill -0 "$server_pid" 2>/dev/null; then
-              echo "Primeagent exited before becoming healthy"
+              echo "PrimeAgent exited before becoming healthy"
               exit 1
             fi
             sleep 2
           done
-          echo "Primeagent did not become healthy"
+          echo "PrimeAgent did not become healthy"
           exit 1
 
       - name: Upload Python inventory report
@@ -320,7 +320,7 @@ jobs:
       matrix:
         include:
           - arch: amd64
-            runner: Primeagent-runner
+            runner: PrimeAgent-runner
           - arch: arm64
             runner: [self-hosted, linux, ARM64, khulnasoft-bot-arm64-40gb-ephemeral]
     runs-on: ${{ matrix.runner }}

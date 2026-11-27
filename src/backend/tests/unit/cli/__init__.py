@@ -1,1 +1,1 @@
-"""Unit tests for Primeagent command-line interfaces."""
+"""Unit tests for PrimeAgent command-line interfaces."""

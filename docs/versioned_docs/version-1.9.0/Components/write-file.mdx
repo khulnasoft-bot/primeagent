@@ -9,10 +9,10 @@ import TabItem from "@theme/TabItem";
 import PartialParams from "@site/docs/_partial-hidden-params.mdx";
 import PartialDevModeWindows from "@site/docs/_partial-dev-mode-windows.mdx";
 
-In Primeagent version 1.7.0, this component was renamed from **Save File** to **Write File**.
+In PrimeAgent version 1.7.0, this component was renamed from **Save File** to **Write File**.
 
 The **Write File** component creates a file containing data produced by another component.
-Several file formats are supported, and you can store files in [Primeagent storage](/memory), AWS S3, Google Drive, or the local file system.
+Several file formats are supported, and you can store files in [PrimeAgent storage](/memory), AWS S3, Google Drive, or the local file system.
 
 To configure the **Write File** component and use it in a flow, do the following:
 
@@ -28,10 +28,10 @@ To configure the **Write File** component and use it in a flow, do the following
     The **File Name** parameter controls where the file is saved.
     It can contain a file name or an entire file path:
 
-    - **Default location**: If you only provide a file name, then the file is stored in the Primeagent data directory. For example,`~/Library/Caches/primeagent/data` on macOS.
+    - **Default location**: If you only provide a file name, then the file is stored in the PrimeAgent data directory. For example,`~/Library/Caches/primeagent/data` on macOS.
 
     - **Subdirectory**: To store files in subdirectories, add the path to the **File Name** parameter.
-      If a given subdirectory doesn't already exist, Primeagent automatically creates it.
+      If a given subdirectory doesn't already exist, PrimeAgent automatically creates it.
       For example, `files/my_file` creates `my_file` in `/data/files`, and it creates the `files` subdirectory if it doesn't already exist.
 
     - **Absolute or relative path**: To store files elsewhere in your environment or local file storage, provide the absolute or relative path to the desired location.
@@ -52,7 +52,7 @@ To configure the **Write File** component and use it in a flow, do the following
 
     :::warning Overwrites allowed
     If you have multiple **Write File** components, in one or more flows, with the same file name, path, and extension, the file contains the data from the most recent run only.
-    Primeagent doesn't block overwrites if a matching file already exists.
+    PrimeAgent doesn't block overwrites if a matching file already exists.
     To avoid unintended overwrites, use unique file names and paths.
     :::
 

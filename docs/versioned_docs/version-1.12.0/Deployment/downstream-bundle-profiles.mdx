@@ -3,7 +3,7 @@ title: Downstream bundle profiles
 slug: /deployment/downstream-bundle-profiles
 ---
 
-Downstream Primeagent application images must select their provider inventory at
+Downstream PrimeAgent application images must select their provider inventory at
 image-build time. A bundle profile records that selection separately from the
 Dockerfile so the same reviewed source can be used by local builds, CI, release
 workflows, and downstream repositories. Runtime package installation or
@@ -18,7 +18,7 @@ profile with `install_phase: build`; CI rejects unknown profiles, runtime
 installation phases, and profiles that no supported image family selects. It
 includes:
 
-- a bounded Primeagent application range;
+- a bounded PrimeAgent application range;
 - a bounded WFX bundle API range;
 - every bundle distribution, its selected extras, its bounded compatible
   range, and the providers it owns;
@@ -49,7 +49,7 @@ profile and application source always come from the same immutable OSS commit.
 The build stage must have the Python `packaging` distribution available to run
 the profile utility. `--bundles-only` is appropriate when the application is
 already installed from that pinned source; omit it when the lock should also
-install the exact Primeagent application distribution. Keep the profile argument
+install the exact PrimeAgent application distribution. Keep the profile argument
 fixed in the Dockerfile or the release build configuration so a moving
 environment variable cannot change an already-built image.
 
@@ -64,13 +64,13 @@ RUN python /tmp/bundle-profile/manage_bundle_profiles.py verify-installed \
 
 The verifier fails on missing or undeclared bundle distributions, version
 drift, missing or undeclared providers, duplicate providers, and incompatible
-Primeagent or WFX versions. Verification only inspects the build environment; it
+PrimeAgent or WFX versions. Verification only inspects the build environment; it
 does not install packages or mutate a registry.
 
 ## Update a profile
 
-Profile ownership is shared by the Primeagent Enterprise and Primeagent release
-maintainers. Review every profile on each Primeagent minor release and whenever a
+Profile ownership is shared by the PrimeAgent Enterprise and PrimeAgent release
+maintainers. Review every profile on each PrimeAgent minor release and whenever a
 provider is added, removed, or graduated.
 
 1. Edit `scripts/ci/bundle_profiles.json`. Adding or removing a provider must

@@ -67,8 +67,8 @@ MODELS_DEV_FETCH_TIMEOUT = 10.0
 MODELS_DEV_SNAPSHOT_FILENAME = "snapshot.json"
 MODELS_DEV_SNAPSHOT_SUBDIR = "models_dev"
 
-# Translation: models.dev provider slug -> Primeagent display name. Only
-# providers Primeagent already knows how to instantiate (have an entry in
+# Translation: models.dev provider slug -> PrimeAgent display name. Only
+# providers PrimeAgent already knows how to instantiate (have an entry in
 # ``MODEL_PROVIDER_METADATA`` + a ``_MODEL_CLASS_IMPORTS`` row) should appear
 # here; otherwise we'd surface models the runtime can't actually call.
 MODELS_DEV_PROVIDER_KEYS: dict[str, str] = {
@@ -278,7 +278,7 @@ def _translate_model_entry(
     deprecated: bool = False,
     now: datetime | None = None,
 ) -> dict[str, Any]:
-    """Convert one models.dev model entry to Primeagent's ``ModelMetadata`` shape.
+    """Convert one models.dev model entry to PrimeAgent's ``ModelMetadata`` shape.
 
     models.dev field -> ours:
         ``tool_call``           -> ``tool_calling``

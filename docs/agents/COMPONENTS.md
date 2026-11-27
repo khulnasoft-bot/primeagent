@@ -1,6 +1,6 @@
 # Component Development
 
-Components are the unit of work in Primeagent. They render as nodes on the canvas, persist into flow JSON, and become tools for Agents. Get the contract right and the rest of the system follows; get it wrong and you orphan every saved flow that referenced your component.
+Components are the unit of work in PrimeAgent. They render as nodes on the canvas, persist into flow JSON, and become tools for Agents. Get the contract right and the rest of the system follows; get it wrong and you orphan every saved flow that referenced your component.
 
 Components live in **`src/wfx/src/wfx/components/<category>/`**. The mirror tree under `src/backend/base/primeagent/components/` is legacy stubs — do not add files there.
 
@@ -15,7 +15,7 @@ Stop and check, in order. If any answer is "yes," do not create a new component.
    and check the category folder. The Calculator regret (two of them, see `tools/calculator.py` `legacy = True, replacement = ["utilities.CalculatorComponent"]`) is what happens when this step is skipped.
 2. **Is this a thin wrapper around an existing tool/SDK that an Agent could call directly via `tool_mode=True`?** If yes, add `tool_mode=True` to the relevant input on the existing component instead of building a new one.
 3. **Does it belong in a vendor bundle** (e.g., `openai/`, `anthropic/`, `datastax/`) rather than in generic `tools/` or `helpers/`? Vendor logic goes in vendor folders so bundles can ship/version independently.
-4. **Is this an wfx-runtime concern** (graph execution, schema, IO primitives) or a **Primeagent-app concern** (auth, DB, tracing)? Components are wfx; never import `primeagent.services.*` from a component.
+4. **Is this an wfx-runtime concern** (graph execution, schema, IO primitives) or a **PrimeAgent-app concern** (auth, DB, tracing)? Components are wfx; never import `primeagent.services.*` from a component.
 5. **Does an existing base class cover this category?** Use it:
    - LLMs → `LCModelComponent` (see `openai/openai_chat_model.py`)
    - Tools → `LCToolComponent` (see `tools/calculator.py`)

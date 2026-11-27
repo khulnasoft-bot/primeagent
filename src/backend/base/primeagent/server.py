@@ -10,7 +10,7 @@ from uvicorn.workers import UvicornWorker
 from wfx.log.logger import InterceptHandler, get_file_handler, structlog_routes_to_stdlib
 
 
-class PrimeagentUvicornWorker(UvicornWorker):
+class PrimeAgentUvicornWorker(UvicornWorker):
     # ``reset_contextvars``: start every request task from a clean context. Without it a
     # pipelined request inherits the previous request's ended server span and OpenTelemetry
     # emits it as an INTERNAL child of an unrelated request. Kept in step with the
@@ -60,7 +60,7 @@ class Logger(glogging.Logger):
     """Implements and overrides the gunicorn logging interface.
 
     This class inherits from the standard gunicorn logger and overrides it so
-    gunicorn's records join Primeagent's log output instead of gunicorn's own.
+    gunicorn's records join PrimeAgent's log output instead of gunicorn's own.
 
     How they get there depends on which mode structlog is in, because
     ``uvicorn.workers.UvicornWorker.__init__`` copies whatever handler list ends up
@@ -123,11 +123,11 @@ class Logger(glogging.Logger):
             super().error(msg, *args, **kwargs)
 
 
-class PrimeagentApplication(BaseApplication):
+class PrimeAgentApplication(BaseApplication):
     def __init__(self, app_factory: Callable[[], Any], options=None) -> None:
         self.options = options or {}
 
-        self.options["worker_class"] = "primeagent.server.PrimeagentUvicornWorker"
+        self.options["worker_class"] = "primeagent.server.PrimeAgentUvicornWorker"
         self.options["logger_class"] = Logger
         self.options["pre_fork"] = self.pre_fork
         self._app_factory = app_factory

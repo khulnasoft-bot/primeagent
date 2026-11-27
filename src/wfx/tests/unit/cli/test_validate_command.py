@@ -1,6 +1,6 @@
 """Unit tests for wfx validate — structural, extended checks, directory scanning, strict mode.
 
-All tests run entirely in-process (no running Primeagent instance or component
+All tests run entirely in-process (no running PrimeAgent instance or component
 registry required).  Level-2 component checks are skipped via skip_components=True
 so the registry never needs to be loaded.
 """
@@ -711,7 +711,7 @@ class TestVersionMismatch:
         assert len(result.warnings) == 2
 
     def test_primeagent_not_installed_skips_check(self):
-        """If Primeagent is not installed, version check is skipped silently."""
+        """If PrimeAgent is not installed, version check is skipped silently."""
         flow = {**_MINIMAL_VALID, "data": {"nodes": [_NODE_WITH_VERSION], "edges": []}}
         result = self._make_result()
         with patch("wfx.cli.validation.core._get_lf_version", return_value=None):

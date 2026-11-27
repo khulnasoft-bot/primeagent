@@ -86,7 +86,7 @@ class DirectoryComponent(Component):
     @staticmethod
     def _bundled_components_root() -> Path:
         # The component sources shipped with wfx are public, read-only package files that the
-        # Primeagent Assistant reads wherever wfx is installed, whatever the working directory.
+        # PrimeAgent Assistant reads wherever wfx is installed, whatever the working directory.
         return (Path(wfx.__file__).parent / "components").resolve()
 
     def _allowed_roots(self) -> list[Path]:

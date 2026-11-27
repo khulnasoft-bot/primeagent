@@ -13,9 +13,9 @@ Installing `wfx-bundles[codeagents]`, `wfx-bundles[all]`, or `wfx[bundles]` does
 
 <Icon name="Blocks" aria-hidden="true" />
 [**Bundles**](/components-bundle-components) contain custom components that
-support specific third-party integrations with Primeagent.
+support specific third-party integrations with PrimeAgent.
 
-Primeagent integrates with [OpenDsStar](https://github.com/IBM/OpenDsStar) through a bundle of code-writing agent components that can iteratively plan, write, and execute Python code to solve complex tasks.
+PrimeAgent integrates with [OpenDsStar](https://github.com/IBM/OpenDsStar) through a bundle of code-writing agent components that can iteratively plan, write, and execute Python code to solve complex tasks.
 
 :::info
 Code Agents components are in **beta** and can change in future releases.
@@ -33,10 +33,10 @@ Code Agents components are in **beta** and can change in future releases.
 
   For more information, see [Install custom dependencies](/install-custom-dependencies).
 
-OpenDsStar was removed from Primeagent's managed dependencies because it pulls in DiskCache with an unpatched [CVE-2025-69872](https://github.com/advisories/GHSA-w8v5-vhqr-4h9v).
+OpenDsStar was removed from PrimeAgent's managed dependencies because it pulls in DiskCache with an unpatched [CVE-2025-69872](https://github.com/advisories/GHSA-w8v5-vhqr-4h9v).
 Manual installation reintroduces this dependency and requires your own security assessment.
 The `wfx[opendsstar]` and `primeagent-base[opendsstar]` extras are no longer available.
-Existing component and saved-flow identifiers are preserved, but execution requires the manual installation in the same environment as Primeagent.
+Existing component and saved-flow identifiers are preserved, but execution requires the manual installation in the same environment as PrimeAgent.
 An exact `uv sync` can remove manually installed packages; reinstall them afterward or manage the opt-in in your own environment requirements.
 
 ## Use Code Agents components in a flow

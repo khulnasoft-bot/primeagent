@@ -1,7 +1,7 @@
 # wfx-oracle
 
 Oracle Database components (Doc Loader, Autonomous Database Loader,
-Embeddings, Vector Store) as a standalone Primeagent Extension Bundle.
+Embeddings, Vector Store) as a standalone PrimeAgent Extension Bundle.
 
 ## Install
 
@@ -10,7 +10,7 @@ pip install wfx-oracle
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point.  After install, restart your Primeagent server; the bundle's
+entry-point.  After install, restart your PrimeAgent server; the bundle's
 components will appear in the palette under the `Oracle` group.
 
 ## Develop

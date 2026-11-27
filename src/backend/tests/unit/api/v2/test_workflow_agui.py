@@ -1,6 +1,6 @@
 """V2 Workflow endpoint tests covering the native ``WorkflowRunRequest`` body.
 
-The v2 ``POST /workflows`` endpoint accepts a Primeagent-native body shape and
+The v2 ``POST /workflows`` endpoint accepts a PrimeAgent-native body shape and
 dispatches the stream protocol from ``stream_protocol`` (``primeagent`` default,
 ``agui`` opt-in). Tests in this module pin the ``agui`` protocol so the
 AG-UI-shaped assertions still apply end-to-end.
@@ -647,7 +647,7 @@ class TestV2WorkflowDelegatedErrorPolicy:
     async def test_denial_echoes_requested_identifier_not_resolved_uuid(self, monkeypatch: pytest.MonkeyPatch):
         """A denial on a flow referenced by endpoint name must not leak the resolved UUID."""
         from primeagent.api.v2 import workflow as workflow_module
-        from primeagent.api.v2.workflow_host import PrimeagentWorkflowHost
+        from primeagent.api.v2.workflow_host import PrimeAgentWorkflowHost
         from wfx.workflow.actions import WorkflowAction
         from wfx.workflow.host import ResolvedFlow
 
@@ -662,7 +662,7 @@ class TestV2WorkflowDelegatedErrorPolicy:
 
         # Through the host, so the requested-id wiring is what's exercised, not just the helper.
         with pytest.raises(HTTPException) as exc_info:
-            await PrimeagentWorkflowHost().authorize(SimpleNamespace(id=uuid4()), resolved, WorkflowAction.EXECUTE)
+            await PrimeAgentWorkflowHost().authorize(SimpleNamespace(id=uuid4()), resolved, WorkflowAction.EXECUTE)
 
         assert exc_info.value.status_code == 404
         assert exc_info.value.detail["code"] == "FLOW_NOT_FOUND"
@@ -672,7 +672,7 @@ class TestV2WorkflowDelegatedErrorPolicy:
     async def test_workflow_host_always_enforces_authorization(self, monkeypatch: pytest.MonkeyPatch):
         """Enabling the warm registry must not bypass the normal per-flow guard."""
         from primeagent.api.v2 import workflow as workflow_module
-        from primeagent.api.v2.workflow_host import PrimeagentWorkflowHost
+        from primeagent.api.v2.workflow_host import PrimeAgentWorkflowHost
         from wfx.workflow.actions import WorkflowAction
         from wfx.workflow.host import ResolvedFlow
 
@@ -681,7 +681,7 @@ class TestV2WorkflowDelegatedErrorPolicy:
         authorize = AsyncMock()
         monkeypatch.setattr(workflow_module, "authorize_flow_action", authorize)
 
-        await PrimeagentWorkflowHost().authorize(SimpleNamespace(id=uuid4()), resolved, WorkflowAction.EXECUTE)
+        await PrimeAgentWorkflowHost().authorize(SimpleNamespace(id=uuid4()), resolved, WorkflowAction.EXECUTE)
 
         authorize.assert_awaited_once_with(
             ANY,
@@ -693,7 +693,7 @@ class TestV2WorkflowDelegatedErrorPolicy:
     async def test_db_lock_during_authorize_yields_503_contract(self, monkeypatch: pytest.MonkeyPatch):
         """A transient DB lock during permission enforcement must surface as 503 DATABASE_ERROR."""
         from primeagent.api.v2 import workflow as workflow_module
-        from primeagent.api.v2.workflow_host import PrimeagentWorkflowHost
+        from primeagent.api.v2.workflow_host import PrimeAgentWorkflowHost
         from sqlalchemy.exc import OperationalError
         from wfx.workflow.actions import WorkflowAction
         from wfx.workflow.host import ResolvedFlow
@@ -708,7 +708,7 @@ class TestV2WorkflowDelegatedErrorPolicy:
         monkeypatch.setattr(workflow_module, "ensure_flow_permission", _lock)
 
         with pytest.raises(HTTPException) as exc_info:
-            await PrimeagentWorkflowHost().authorize(SimpleNamespace(id=uuid4()), resolved, WorkflowAction.EXECUTE)
+            await PrimeAgentWorkflowHost().authorize(SimpleNamespace(id=uuid4()), resolved, WorkflowAction.EXECUTE)
 
         assert exc_info.value.status_code == 503
         assert exc_info.value.detail["code"] == "DATABASE_ERROR"
@@ -1421,7 +1421,7 @@ class TestOutputIdsSelection:
         assert text_id in result["outputs"]
 
 
-class TestPrimeagentStreamOutputParity:
+class TestPrimeAgentStreamOutputParity:
     """The ``primeagent`` stream emits per-output ``output`` events that share sync's PARSER.
 
     One handler reads ``component_id``/``type``/``status``/``display_name``/``content`` off
@@ -2692,7 +2692,7 @@ class TestBackgroundModeStreamProtocol:
         events = await client.get(f"api/v2/workflows/{job_id}/events", headers=headers)
         assert events.status_code == 200
         text = events.text
-        # Primeagent passthrough shape: `{"event": "...", "data": {...}}`.
+        # PrimeAgent passthrough shape: `{"event": "...", "data": {...}}`.
         assert '"event":' in text
         assert '"data":' in text
         # AG-UI lifecycle types must be absent: the wire is primeagent, not agui.

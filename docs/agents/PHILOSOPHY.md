@@ -2,7 +2,7 @@
 
 Read this file before scoping any non-trivial work. Most off-narrative work comes from skipping it.
 
-Primeagent is a **visual flow builder first**. Every change should make sense to someone whose only interface is dragging nodes onto a canvas. Use these principles to scope work; if a proposed change fails one of them, stop and reconsider.
+PrimeAgent is a **visual flow builder first**. Every change should make sense to someone whose only interface is dragging nodes onto a canvas. Use these principles to scope work; if a proposed change fails one of them, stop and reconsider.
 
 ## Tenets
 

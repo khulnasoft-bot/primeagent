@@ -1,4 +1,4 @@
-"""Helpers for building spec-valid A2A agent cards from Primeagent flows.
+"""Helpers for building spec-valid A2A agent cards from PrimeAgent flows.
 
 The typed models come from ``a2a.compat.v0_3.types`` (pydantic). Do NOT import
 from ``a2a.types`` — in a2a-sdk 1.x those are protobuf messages that serialize

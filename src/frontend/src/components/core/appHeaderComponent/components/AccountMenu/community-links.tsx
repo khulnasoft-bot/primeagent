@@ -4,7 +4,7 @@ import { ForwardedIconComponent } from "@/components/common/genericIconComponent
 import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from "@/constants/constants";
 import { HeaderMenuItemLink } from "../HeaderMenu";
 
-/** Account menu group linking to the Primeagent GitHub, Discord and X pages. */
+/** Account menu group linking to the PrimeAgent GitHub, Discord and X pages. */
 export const AccountMenuCommunityLinks = () => {
   const { t } = useTranslation();
 

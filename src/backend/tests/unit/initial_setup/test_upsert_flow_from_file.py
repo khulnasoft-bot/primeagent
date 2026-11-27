@@ -2,7 +2,7 @@
 
 Covers the CI/CD upgrade scenario where a flow file's id differs from the DB
 row's id but the flow name is the same. Before the fix the loader hit the
-``unique_flow_name`` UniqueConstraint on INSERT and Primeagent failed to start.
+``unique_flow_name`` UniqueConstraint on INSERT and PrimeAgent failed to start.
 """
 
 from __future__ import annotations
@@ -549,7 +549,7 @@ async def test_upsert_flow_from_file_does_not_preserve_empty_default_binding() -
 async def test_upsert_flow_from_file_skips_name_match_when_overwrite_disabled() -> None:
     """When load_flows_overwrite_on_name_match=False, name-matched rows are NOT overwritten.
 
-    Protects the case where a user edited a flow in the UI and Primeagent restarts with a
+    Protects the case where a user edited a flow in the UI and PrimeAgent restarts with a
     regenerated file id; the on-disk JSON should not silently wipe the user's changes.
     """
     user_id = uuid4()
@@ -589,7 +589,7 @@ async def test_upsert_flow_from_file_ignores_relationship_keys_in_json() -> None
     True for relationship attributes (``user``, ``folder``), and ``getattr`` on an unloaded
     relationship under an async session triggers an implicit lazy load outside greenlet
     context, raising ``MissingGreenlet`` ("greenlet_spawn has not been called; can't call
-    await_only() here.") and crashing Primeagent startup.
+    await_only() here.") and crashing PrimeAgent startup.
     """
     user_id = uuid4()
     original = await _create_flow(name="WithRel", user_id=user_id)

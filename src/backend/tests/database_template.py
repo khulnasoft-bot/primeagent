@@ -33,7 +33,7 @@ class DatabaseTemplate:
         ):
             reader.backup(writer)
             # The copy inherits the source's WAL flag but no -wal/-shm files, and
-            # SQLite 3.54.0 cannot open such a file with mode=ro. Primeagent enables
+            # SQLite 3.54.0 cannot open such a file with mode=ro. PrimeAgent enables
             # WAL again through its sqlite_pragmas when it connects to the copy.
             # Exclusive locking keeps the WAL index in memory during the switch,
             # so it leaves no -shm file behind.

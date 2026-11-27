@@ -51,7 +51,7 @@ def test_no_endpoint_installs_no_provider():
 
 def test_primeagent_uses_the_shared_provider_bootstrap():
     # Configuration cases exercise the shared implementation in fresh processes.
-    # Keep an integration probe through Primeagent's wrapper, whose cold imports
+    # Keep an integration probe through PrimeAgent's wrapper, whose cold imports
     # otherwise cost several seconds for every configuration permutation.
     source = PROBE.replace(
         "from wfx.observability import bootstrap_application_telemetry",

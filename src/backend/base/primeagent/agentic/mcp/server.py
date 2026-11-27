@@ -1,4 +1,4 @@
-"""FastMCP server for Primeagent Agentic tools.
+"""FastMCP server for PrimeAgent Agentic tools.
 
 This module exposes template search and creation functions as MCP tools using FastMCP decorators.
 
@@ -126,9 +126,9 @@ DEFAULT_COMPONENT_FIELDS = ["name", "type", "display_name", "description"]
 
 
 def _bound_user_id() -> str:
-    """Return the authenticated user id Primeagent bound to this agentic MCP server process.
+    """Return the authenticated user id PrimeAgent bound to this agentic MCP server process.
 
-    SECURITY: Primeagent injects ``AGENTIC_USER_ID_ENV_VAR`` at spawn time from the authenticated
+    SECURITY: PrimeAgent injects ``AGENTIC_USER_ID_ENV_VAR`` at spawn time from the authenticated
     request identity (see ``wfx.base.mcp.util.update_tools``); a tenant cannot supply it via a
     stdio config because the key is in the MCP stdio env denylist. The flow/component tools are
     scoped to this id. We FAIL CLOSED when it is absent so a server spawned without a bound
@@ -733,11 +733,11 @@ async def run_assistant(
     session_id: str | None = None,
     ctx: Context | None = None,
 ) -> dict[str, Any]:
-    """Ask the Primeagent Assistant to build, edit, or explain a flow.
+    """Ask the PrimeAgent Assistant to build, edit, or explain a flow.
 
     The assistant runs its full agent loop (component search, flow build,
     canvas edits) and any resulting canvas change is persisted to the flow
-    so it is immediately visible in the Primeagent UI.
+    so it is immediately visible in the PrimeAgent UI.
 
     Args:
         instruction: Natural-language request, e.g. "Build a flow with a

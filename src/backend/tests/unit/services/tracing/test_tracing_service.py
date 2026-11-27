@@ -240,7 +240,7 @@ async def test_start_tracers_forwards_tracing_user_id_to_langfuse(tracing_servic
     """``tracing_user_id`` reaches Langfuse as a distinct field; ``user_id`` stays the auth user.
 
     Regression for GitHub issue #9505: the LangFuseTracer keeps ``user_id`` as
-    the authenticated Primeagent user (backwards compat) and exposes the override
+    the authenticated PrimeAgent user (backwards compat) and exposes the override
     on ``tracing_user_id``. The tracer stamps the override into trace metadata
     rather than redefining ``trace.userId``.
     """

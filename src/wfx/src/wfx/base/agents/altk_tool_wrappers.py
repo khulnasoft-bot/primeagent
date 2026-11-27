@@ -1,4 +1,4 @@
-"""Import-compatible names for ALTK tool wrappers retired in Primeagent 1.13.0."""
+"""Import-compatible names for ALTK tool wrappers retired in PrimeAgent 1.13.0."""
 
 from wfx.base.agents.altk_base_agent import ALTKBaseTool, ALTKRetiredError, BaseToolWrapper
 

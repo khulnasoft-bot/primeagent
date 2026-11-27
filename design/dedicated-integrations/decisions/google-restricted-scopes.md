@@ -1,4 +1,4 @@
-# Google restricted scopes on the Primeagent-owned hosted app: CASA or avoid
+# Google restricted scopes on the PrimeAgent-owned hosted app: CASA or avoid
 
 Status: accepted
 Decision ID: google-restricted-scopes
@@ -8,7 +8,7 @@ Last verified: 2026-09-01
 
 ## Context
 
-Hosted Primeagent ships in 1.13 with a Primeagent-owned External Google OAuth application. Any restricted scope on that
+Hosted PrimeAgent ships in 1.13 with a PrimeAgent-owned External Google OAuth application. Any restricted scope on that
 application triggers Google's restricted-scope verification and, because the hosted backend accesses the data
 through a third-party server, a CASA security assessment with annual recertification. Three wave-1 candidate
 actions carry restricted scopes. This record decides, per scope, whether the hosted app accepts CASA or wave 1
@@ -70,7 +70,7 @@ Option B, confirmed by the release owner on 2026-09-01.
 
 ### https://www.googleapis.com/auth/gmail.readonly
 
-Not requested by the Primeagent-owned hosted application in 1.13. `google.gmail.search` is excluded from wave 1 and
+Not requested by the PrimeAgent-owned hosted application in 1.13. `google.gmail.search` is excluded from wave 1 and
 carried to the 1.14 candidate list under Option C.
 Decision: avoid
 

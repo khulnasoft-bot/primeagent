@@ -28,7 +28,7 @@ async def test_should_refuse_a_password_change_made_with_an_api_key(client: Asyn
     )
 
     assert response.status_code == status.HTTP_403_FORBIDDEN
-    assert response.headers["X-Primeagent-Error-Code"] == "interactive_login_required"
+    assert response.headers["X-PrimeAgent-Error-Code"] == "interactive_login_required"
 
 
 async def test_should_rate_limit_password_guessing(client: AsyncClient, logged_in_headers_super_user):

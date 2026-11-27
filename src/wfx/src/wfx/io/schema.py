@@ -99,7 +99,7 @@ _SCHEMA_INPUT_TYPES_BY_CLS: dict[type[InputTypes], list[str]] = {
 
 
 def _resolve_input_type(annotation: Any, *, required: bool) -> tuple[type[InputTypes], bool, list[Any] | None]:
-    """Resolve a Pydantic annotation into a Primeagent input type."""
+    """Resolve a Pydantic annotation into a PrimeAgent input type."""
     ann = annotation
 
     if isinstance(ann, UnionType):
@@ -153,7 +153,7 @@ def _resolve_input_type(annotation: Any, *, required: bool) -> tuple[type[InputT
 
 
 def _get_primeagent_input_default(model_field: Any, input_cls: type[InputTypes]) -> Any:
-    """Return a Primeagent-safe default value for a Pydantic model field."""
+    """Return a PrimeAgent-safe default value for a Pydantic model field."""
     default = model_field.default
     if default is PydanticUndefined:
         return PydanticUndefined

@@ -119,7 +119,7 @@
       "subscription": {
         "required": true,
         "max_ttl_seconds": null,
-        "renewal": "Primeagent creates the subscription with an expirationDateTime and a lifecycleNotificationUrl, then renews by PATCHing expirationDateTime ahead of the value Graph returned; the renewal job keys off the stored subscriptionExpirationDateTime rather than a constant, because the ceiling differs per resource (10,080 minutes for Outlook message, event and contact resources). subscriptionRemoved recreates the subscription, missed forces a delta resync, and reauthorizationRequired queues an immediate PATCH renewal that also reauthorizes the subscription. A confirmed unusable connection moves the trigger to needs_reconnect.",
+        "renewal": "PrimeAgent creates the subscription with an expirationDateTime and a lifecycleNotificationUrl, then renews by PATCHing expirationDateTime ahead of the value Graph returned; the renewal job keys off the stored subscriptionExpirationDateTime rather than a constant, because the ceiling differs per resource (10,080 minutes for Outlook message, event and contact resources). subscriptionRemoved recreates the subscription, missed forces a delta resync, and reauthorizationRequired queues an immediate PATCH renewal that also reauthorizes the subscription. A confirmed unusable connection moves the trigger to needs_reconnect.",
         "source": "graph-subscription"
       },
       "payload": {
@@ -191,7 +191,7 @@
       "delivery": {
         "guarantee": "at_least_once",
         "ack_deadline_seconds": null,
-        "retry_policy": "Primeagent controls the cadence. A failed round leaves the stored deltaLink untouched and the next tick repeats it; a 429 backs off on Retry-After.",
+        "retry_policy": "PrimeAgent controls the cadence. A failed round leaves the stored deltaLink untouched and the next tick repeats it; a 429 backs off on Retry-After.",
         "source": "graph-delta-query"
       },
       "replay": {
@@ -226,7 +226,7 @@
       "status": "deferred",
       "confidence": "high",
       "owning_ticket": "TRG-6",
-      "rationale": "Would remove the fetch-back and give the notification body a cryptographic guarantee, but it requires Primeagent to own an encryption certificate and its private key per subscription, with rotation, and only a subset of resources supports it. No wave-1 ticket carries certificate lifecycle work.",
+      "rationale": "Would remove the fetch-back and give the notification body a cryptographic guarantee, but it requires PrimeAgent to own an encryption certificate and its private key per subscription, with rotation, and only a subset of resources supports it. No wave-1 ticket carries certificate lifecycle work.",
       "exclusion_basis": {
         "details": "Rich notifications require a subscriber-provided encryption certificate, private-key management, and key rotation, which are outside wave-1 scope.",
         "source": "graph-resource-data"

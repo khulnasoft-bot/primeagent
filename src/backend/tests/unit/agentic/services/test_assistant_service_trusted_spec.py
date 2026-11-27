@@ -22,7 +22,7 @@ from primeagent.agentic.services.assistant_service import execute_flow_with_vali
 MODULE = "primeagent.agentic.services.assistant_service"
 
 AGENT_AUTHORED_SPEC = (
-    "Create a Primeagent custom component named PromptInjectionFlagger that analyzes common "
+    "Create a PrimeAgent custom component named PromptInjectionFlagger that analyzes common "
     "prompt-injection patterns such as instructions to ignore previous instructions, "
     "reveal system prompts, override rules and jailbreak requests."
 )

@@ -236,6 +236,9 @@ jobs:
           TEST_GREP: ${{ steps.set-matrix.outputs.test_grep }}
         run: |
           set -euo pipefail
+          # Default shard count so the report gate always has a value even if
+          # a later step (npm ci, test:e2e-utilities) fails before we can count tests.
+          echo "shard_count=1" >> "$GITHUB_OUTPUT"
           cd src/frontend
           TESTS_FOLDER="${TESTS_FOLDER:-tests}"
 

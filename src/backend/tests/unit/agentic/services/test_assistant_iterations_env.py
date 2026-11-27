@@ -2,7 +2,7 @@
 
 The ticket asks whether the step ceiling is configurable. ``/iterations N`` answers
 that for one browser session, which does not help an operator who wants every user
-of a Primeagent instance to get a budget sized for their multi-stage flows.
+of a PrimeAgent instance to get a budget sized for their multi-stage flows.
 ``PRIMEAGENT_ASSISTANT_ITERATIONS`` sets the default the same way
 ``PRIMEAGENT_ASSISTANT_HISTORY_TURNS`` sets the memory window.
 

@@ -1,4 +1,4 @@
-"""Component search and metadata utilities for Primeagent."""
+"""Component search and metadata utilities for PrimeAgent."""
 
 from typing import Any
 

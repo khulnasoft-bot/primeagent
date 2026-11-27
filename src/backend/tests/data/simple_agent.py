@@ -1,6 +1,6 @@
-"""A simple agent flow example for Primeagent.
+"""A simple agent flow example for PrimeAgent.
 
-This script demonstrates how to set up a conversational agent using Primeagent's
+This script demonstrates how to set up a conversational agent using PrimeAgent's
 Agent component with web search capabilities.
 
 Features:

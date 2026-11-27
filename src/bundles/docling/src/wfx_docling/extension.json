@@ -3,7 +3,7 @@
   "id": "wfx-docling",
   "version": "0.2.1",
   "name": "Docling",
-  "description": "Docling document processing components as a standalone Primeagent Extension Bundle.",
+  "description": "Docling document processing components as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

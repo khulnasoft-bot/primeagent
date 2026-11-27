@@ -18,7 +18,7 @@ interface AssistantLoadingStateProps {
 
 // Flow-build steps that have no body content (no streaming code, no card).
 // For those, the bordered card looks like an "empty" loading box, so we swap
-// it for a minimal draw-on animation of the Primeagent assistant glyph.
+// it for a minimal draw-on animation of the PrimeAgent assistant glyph.
 const FLOW_BUILD_ICON_STEPS = new Set([
   "searching_components",
   "generating_plan",
@@ -29,7 +29,7 @@ const FLOW_BUILD_ICON_STEPS = new Set([
   "flow_built",
 ]);
 
-// SVG `d` of the three wavy strokes that form the Primeagent assistant glyph,
+// SVG `d` of the three wavy strokes that form the PrimeAgent assistant glyph,
 // in a 16x16 viewBox. Three sub-paths separated by `M` (moveto).
 const PRIMEAGENT_ASSISTANT_PATH_D =
   "M2.1665 11.3333H3.83317L7.1665 8H8.83317L12.1665 4.66667H13.8332M7.1665 13H8.83317L12.1665 9.66667H13.8332M2.1665 6.33333H3.83317L7.1665 3H8.83317";
@@ -51,7 +51,7 @@ const KEYFRAME_FADE_IN_PERCENT = 8;
 const KEYFRAME_FILLED_PERCENT = 65;
 const KEYFRAME_HOLD_END_PERCENT = 85;
 
-function PrimeagentDrawingIcon({ size = 24 }: { size?: number }) {
+function PrimeAgentDrawingIcon({ size = 24 }: { size?: number }) {
   const pathRef = useRef<SVGPathElement>(null);
   const [length, setLength] = useState(FALLBACK_PATH_LENGTH);
 
@@ -143,7 +143,7 @@ function AssistantLoadingStateComponent({
   }, [streamingContent]);
 
   // Minimal icon-only mode: flow-build steps with no body content. Swaps the
-  // bordered card (which would render essentially empty) for a draw-on Primeagent
+  // bordered card (which would render essentially empty) for a draw-on PrimeAgent
   // glyph animation. Must come AFTER all hook calls to preserve hook order.
   const isFlowBuildIconMode =
     FLOW_BUILD_ICON_STEPS.has(progress.step) &&
@@ -157,7 +157,7 @@ function AssistantLoadingStateComponent({
         data-testid="assistant-flow-loading-icon-mode"
         className="flex items-center gap-2 text-sm font-medium text-foreground"
       >
-        <PrimeagentDrawingIcon size={24} />
+        <PrimeAgentDrawingIcon size={24} />
         <span>{progress.message || "Working..."}</span>
       </div>
     );
@@ -166,14 +166,14 @@ function AssistantLoadingStateComponent({
   return (
     <div className="w-full max-w-[600px] py-1">
       {/* Header — status line, flat (no surrounding card). Uses the same
-          PrimeagentDrawingIcon (size 24) as the flow-build minimal mode so the
+          PrimeAgentDrawingIcon (size 24) as the flow-build minimal mode so the
           loading glyph is visually identical across component generation and
           flow building. */}
       <div className="mb-2 flex items-center gap-2 text-sm font-medium">
         {isReady ? (
           <Check className="h-4 w-4 text-accent-emerald-foreground" />
         ) : (
-          <PrimeagentDrawingIcon size={24} />
+          <PrimeAgentDrawingIcon size={24} />
         )}
         <span
           className={

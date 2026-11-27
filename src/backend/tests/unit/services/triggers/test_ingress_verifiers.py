@@ -46,7 +46,7 @@ def _webhook_request(body: bytes, *, secret: str = WEBHOOK_SECRET, timestamp: in
     return IngressRequest(
         provider="webhook",
         body=body,
-        headers={"X-Primeagent-Signature": signature, "X-Primeagent-Timestamp": str(timestamp)},
+        headers={"X-PrimeAgent-Signature": signature, "X-PrimeAgent-Timestamp": str(timestamp)},
         query={},
     )
 
@@ -354,7 +354,7 @@ def test_a_long_key_is_digested_rather_than_truncated() -> None:
 
 _SIGNED_HEADERS = {
     "slack": ("X-Slack-Signature", "X-Slack-Request-Timestamp"),
-    "webhook": ("X-Primeagent-Signature", "X-Primeagent-Timestamp"),
+    "webhook": ("X-PrimeAgent-Signature", "X-PrimeAgent-Timestamp"),
 }
 
 

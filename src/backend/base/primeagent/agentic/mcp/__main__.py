@@ -1,4 +1,4 @@
-"""Entry point for running the Primeagent Agentic MCP server.
+"""Entry point for running the PrimeAgent Agentic MCP server.
 
 This allows running the server with:
     python -m primeagent.agentic.mcp

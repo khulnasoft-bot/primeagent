@@ -7,7 +7,7 @@ import pytest
 from fastapi import Request, status
 from httpx import AsyncClient
 from primeagent.api.v1 import agentic_mcp
-from wfx.mcp.client import PrimeagentClient
+from wfx.mcp.client import PrimeAgentClient
 
 pytestmark = pytest.mark.asyncio
 
@@ -167,7 +167,7 @@ async def test_mcp_tools_cannot_read_or_delete_another_users_flow(
             ]
             return next(message["result"] for message in messages if message.get("id") == 1)
 
-        with patch.object(PrimeagentClient, "_client", get_http):
+        with patch.object(PrimeAgentClient, "_client", get_http):
             listed = await call_tool("list_flows", {})
             assert not listed.get("isError")
             text = " ".join(item.get("text", "") for item in listed["content"])

@@ -1,6 +1,6 @@
-"""wfx-slack: Slack Web API actions and Slack triggers on Primeagent connections.
+"""wfx-slack: Slack Web API actions and Slack triggers on PrimeAgent connections.
 
-Distribution unit ``wfx-slack``.  At runtime Primeagent's loader discovers
+Distribution unit ``wfx-slack``.  At runtime PrimeAgent's loader discovers
 ``extension.json`` shipped alongside this ``__init__.py``, registers the
 bundle's components under namespaced IDs such as
 ``ext:slack:SlackSearchComponent@official``, and loads
@@ -12,7 +12,7 @@ identity (connected user vs the app's bot user) is fixed per component and
 enforced against the resolved connection before the first request.
 
 The two trigger components (``Slack: On Message``, ``Slack: On Reaction``) are
-declarations: Primeagent receives their events through the Events API or Socket
+declarations: PrimeAgent receives their events through the Events API or Socket
 Mode on the server side, and the nodes hand the event to the flow.
 """
 

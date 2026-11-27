@@ -1,4 +1,4 @@
-"""A REAL Primeagent component with one observable side effect, in a real module.
+"""A REAL PrimeAgent component with one observable side effect, in a real module.
 
 Custom components need importable source (``inspect.getsource``), so this lives
 in a module file rather than being defined inline in a test. ``increment`` bumps

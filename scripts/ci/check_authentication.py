@@ -1,4 +1,4 @@
-"""Check release authentication against a disposable local Primeagent server.
+"""Check release authentication against a disposable local PrimeAgent server.
 
 Run with the installed wheel's Python and --start-server, or inside a running
 test container. Credentials come from the environment and are never printed.
@@ -49,7 +49,7 @@ def wait_until_ready(port: int, timeout: float, process: subprocess.Popen | None
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         if process is not None and process.poll() is not None:
-            msg = f"Primeagent exited before becoming ready (exit {process.returncode})"
+            msg = f"PrimeAgent exited before becoming ready (exit {process.returncode})"
             raise RuntimeError(msg)
         try:
             request(port, "GET", "/health_check", {200})
@@ -57,7 +57,7 @@ def wait_until_ready(port: int, timeout: float, process: subprocess.Popen | None
             time.sleep(1)
         else:
             return
-    msg = "Primeagent did not become ready within the startup timeout"
+    msg = "PrimeAgent did not become ready within the startup timeout"
     raise RuntimeError(msg)
 
 
@@ -177,7 +177,7 @@ def check_installed_wheel(port: int, timeout: float, username: str, password: st
                 # Keep startup failures diagnosable before the disposable directory is removed.
                 log.flush()
                 diagnostic = log_path.read_text(errors="replace").replace(password, "[redacted]")[-12000:]
-                print(f"Primeagent authentication smoke server log:\n{diagnostic}", file=sys.stderr)
+                print(f"PrimeAgent authentication smoke server log:\n{diagnostic}", file=sys.stderr)
                 raise
             finally:
                 stop_server(process)

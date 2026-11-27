@@ -1,10 +1,10 @@
 """Integration test for the DuckDuckGo pilot: legacy flows upgrade cleanly.
 
 Verifies the save/upgrade/load contract for flows referencing
-``DuckDuckGoSearchComponent`` from the pre-extraction Primeagent:
+``DuckDuckGoSearchComponent`` from the pre-extraction PrimeAgent:
 
     1. A saved flow uses the legacy bare class name ``DuckDuckGoSearchComponent``
-       (the form Primeagent serialized for years before the bundle move).
+       (the form PrimeAgent serialized for years before the bundle move).
     2. The migration table rewrites it to the canonical post-Phase-A
        namespaced ID ``ext:duckduckgo:DuckDuckGoSearchComponent@official``.
     3. A second flow uses the legacy import path
@@ -14,7 +14,7 @@ Verifies the save/upgrade/load contract for flows referencing
        in a location ``importlib.metadata.files`` can discover.
 
 This covers the *deserialize-side* half of the M1 proof gate plus the
-build-pipeline runtime contract: a saved flow from pre-migration Primeagent
+build-pipeline runtime contract: a saved flow from pre-migration PrimeAgent
 loads without intervention, the bundle distribution is wired correctly,
 the migration target resolves to a class built from the same source as
 the bundle export, and that loader-registered class's build method runs
@@ -23,7 +23,7 @@ output schema (``content`` / ``snippet`` columns, ``max_results``
 slicing, ``max_snippet_length`` truncation, canonical query template).
 
 Not covered here -- the part that genuinely requires a real environment
-swap: standing up a pre-migration Primeagent release, saving a flow,
+swap: standing up a pre-migration PrimeAgent release, saving a flow,
 upgrading to the post-migration release, loading that same flow JSON,
 and confirming real DuckDuckGo search results haven't drifted between
 versions.  That's the M1 manual dogfood gate; checklist lives at
@@ -71,7 +71,7 @@ def _saved_flow_node(node_id: str, type_value: str) -> dict:
 
 
 def _saved_flow(*nodes: dict) -> dict:
-    """Wrap nodes in the canonical Primeagent flow envelope."""
+    """Wrap nodes in the canonical PrimeAgent flow envelope."""
     return {"data": {"nodes": list(nodes), "edges": []}}
 
 
@@ -80,7 +80,7 @@ def test_legacy_bare_name_flow_upgrades(migration_table) -> None:
     """Pre-Phase-A flow saved with the bare class name upgrades to the canonical ID.
 
     A flow that serialized ``DuckDuckGoSearchComponent`` (the bare class name
-    Primeagent used for years before the bundle move) must rewrite to
+    PrimeAgent used for years before the bundle move) must rewrite to
     ``ext:duckduckgo:DuckDuckGoSearchComponent@official``.
     """
     from wfx.extension.migration.rewrite import migrate_flow_payload
@@ -100,7 +100,7 @@ def test_legacy_bare_name_flow_upgrades(migration_table) -> None:
 def test_legacy_import_path_flow_upgrades(migration_table) -> None:
     """A pre-Phase-A flow saved with the dotted import path upgrades cleanly.
 
-    Some Primeagent versions serialized the full module path instead of the
+    Some PrimeAgent versions serialized the full module path instead of the
     bare class name; both legacy forms must rewrite to the same target.
     """
     from wfx.extension.migration.rewrite import migrate_flow_payload

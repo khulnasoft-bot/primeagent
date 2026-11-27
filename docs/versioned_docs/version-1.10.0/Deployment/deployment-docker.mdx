@@ -1,5 +1,5 @@
 ---
-title: Deploy Primeagent on Docker
+title: Deploy PrimeAgent on Docker
 slug: /deployment-docker
 ---
 
@@ -9,18 +9,18 @@ import PartialPodmanAlt from "@site/docs/_partial-podman-alt.mdx";
 
 Running applications in Docker containers ensures consistent behavior across different systems and eliminates dependency conflicts.
 
-You can use the Primeagent Docker image to start a Primeagent container.
+You can use the PrimeAgent Docker image to start a PrimeAgent container.
 
-This guide demonstrates several ways to deploy Primeagent with [Docker](https://docs.docker.com/) and [Docker Compose](https://docs.docker.com/compose/):
+This guide demonstrates several ways to deploy PrimeAgent with [Docker](https://docs.docker.com/) and [Docker Compose](https://docs.docker.com/compose/):
 
-- [Quickstart](#quickstart): Start a Primeagent container with default values.
-- [Use Docker Compose](#clone): Clone the Primeagent repo, and then use Docker Compose to build the Primeagent Docker container.
-  This option provides more control over the configuration, including a persistent PostgreSQL database service, while still using the base Primeagent Docker image.
+- [Quickstart](#quickstart): Start a PrimeAgent container with default values.
+- [Use Docker Compose](#clone): Clone the PrimeAgent repo, and then use Docker Compose to build the PrimeAgent Docker container.
+  This option provides more control over the configuration, including a persistent PostgreSQL database service, while still using the base PrimeAgent Docker image.
 - [Create a custom flow image](#package-your-flow-as-a-docker-image): Use a Dockerfile to package a flow as a Docker image.
-- [Create a custom Primeagent image](#customize-the-primeagent-docker-image): Use a Dockerfile to package a custom Primeagent Docker image that includes your own code, custom dependencies, or other modifications.
-- [Upgrade the Primeagent Docker image](#upgrade-the-primeagent-docker-image): Upgrade to a newer image without losing your database or flows by using persistent volumes and replacing only the container.
+- [Create a custom PrimeAgent image](#customize-the-primeagent-docker-image): Use a Dockerfile to package a custom PrimeAgent Docker image that includes your own code, custom dependencies, or other modifications.
+- [Upgrade the PrimeAgent Docker image](#upgrade-the-primeagent-docker-image): Upgrade to a newer image without losing your database or flows by using persistent volumes and replacing only the container.
 
-## Quickstart: Start a local Primeagent container {#quickstart}
+## Quickstart: Start a local PrimeAgent container {#quickstart}
 
 With Docker installed and running on your system, run the following command:
 
@@ -28,24 +28,24 @@ With Docker installed and running on your system, run the following command:
 docker run -p 7860:7860 -e PRIMEAGENT_AUTO_LOGIN=true khulnasoft/primeagent:latest
 ```
 
-Then, access Primeagent at `http://localhost:7860/`.
+Then, access PrimeAgent at `http://localhost:7860/`.
 
 This starts a pre-built Docker image with automatic login enabled for local development.
-For more control over the configuration, see [Clone the repo and run the Primeagent Docker container](#clone).
+For more control over the configuration, see [Clone the repo and run the PrimeAgent Docker container](#clone).
 
-## Clone the repo and run the Primeagent Docker container {#clone}
+## Clone the repo and run the PrimeAgent Docker container {#clone}
 
-Cloning the Primeagent repository and using Docker Compose gives you more control over your configuration, allowing you to customize environment variables, use a persistent PostgreSQL database service (instead of the default SQLite database), and include custom dependencies.
+Cloning the PrimeAgent repository and using Docker Compose gives you more control over your configuration, allowing you to customize environment variables, use a persistent PostgreSQL database service (instead of the default SQLite database), and include custom dependencies.
 
 The default deployment with Docker Compose includes the following:
 
-- **Primeagent service**: Runs the latest Primeagent image with PostgreSQL as the database.
+- **PrimeAgent service**: Runs the latest PrimeAgent image with PostgreSQL as the database.
 - **PostgreSQL service**: Provides persistent data storage for flows, users, and settings.
 - **Persistent volumes**: Ensures your data survives container restarts.
 
 The complete Docker Compose configuration is available in `docker_example/docker-compose.yml`.
 
-1. Clone the Primeagent repository:
+1. Clone the PrimeAgent repository:
 
    ```shell
    git clone https://github.com/khulnasoft-bot/primeagent.git
@@ -57,7 +57,7 @@ The complete Docker Compose configuration is available in `docker_example/docker
    cd primeagent/docker_example
    ```
 
-3. Create a `.env` file with the Primeagent admin password:
+3. Create a `.env` file with the PrimeAgent admin password:
 
    ```text
    PRIMEAGENT_SUPERUSER_PASSWORD=replace-with-a-strong-password
@@ -71,7 +71,7 @@ The complete Docker Compose configuration is available in `docker_example/docker
    docker compose up
    ```
 
-5. Access Primeagent at `http://localhost:7860/`.
+5. Access PrimeAgent at `http://localhost:7860/`.
 
 ### Customize your deployment
 
@@ -87,7 +87,7 @@ For example, to configure the container's database credentials using a `.env` fi
    POSTGRES_PASSWORD=mypassword
    POSTGRES_DB=primeagent
 
-   # Primeagent configuration
+   # PrimeAgent configuration
    PRIMEAGENT_DATABASE_URL=postgresql://myuser:mypassword@postgres:5432/primeagent
    PRIMEAGENT_CONFIG_DIR=/app/primeagent
    PRIMEAGENT_SUPERUSER_PASSWORD=replace-with-a-strong-password
@@ -108,13 +108,13 @@ For example, to configure the container's database credentials using a `.env` fi
          - POSTGRES_DB=${POSTGRES_DB}
    ```
 
-For a complete list of available environment variables, see [Primeagent environment variables](/environment-variables).
+For a complete list of available environment variables, see [PrimeAgent environment variables](/environment-variables).
 
-For more customization options, see [Customize the Primeagent Docker image with your own code](#customize-the-primeagent-docker-image).
+For more customization options, see [Customize the PrimeAgent Docker image with your own code](#customize-the-primeagent-docker-image).
 
 ## Package your flow as a Docker image {#package-your-flow-as-a-docker-image}
 
-This section shows you how to create a Dockerfile that builds a Docker image containing your Primeagent flow. This approach is useful when you want to distribute a specific flow as a standalone container or deploy it to environments like Kubernetes.
+This section shows you how to create a Dockerfile that builds a Docker image containing your PrimeAgent flow. This approach is useful when you want to distribute a specific flow as a standalone container or deploy it to environments like Kubernetes.
 
 Unlike the previous sections that use pre-built images, this method builds a custom image with your flow embedded inside it.
 
@@ -143,7 +143,7 @@ Unlike the previous sections that use pre-built images, this method builds a cus
    ENV PRIMEAGENT_LOAD_FLOWS_PATH=/app/flows
    ```
 
-This Dockerfile uses the official Primeagent image as the base, creates a directory for your flows, copies your JSON flow files into the directory, and sets the environment variable to tell Primeagent where to find the flows.
+This Dockerfile uses the official PrimeAgent image as the base, creates a directory for your flows, copies your JSON flow files into the directory, and sets the environment variable to tell PrimeAgent where to find the flows.
 
 4. Build and test your custom image:
 
@@ -158,11 +158,11 @@ This Dockerfile uses the official Primeagent image as the base, creates a direct
    docker push myuser/primeagent-custom:1.0.0
    ```
 
-Your custom image now contains your flow and can be deployed anywhere Docker runs. For Kubernetes deployment, see [Deploy the Primeagent production environment on Kubernetes](/deployment-kubernetes-prod).
+Your custom image now contains your flow and can be deployed anywhere Docker runs. For Kubernetes deployment, see [Deploy the PrimeAgent production environment on Kubernetes](/deployment-kubernetes-prod).
 
-## Customize the Primeagent Docker image with your own code {#customize-the-primeagent-docker-image}
+## Customize the PrimeAgent Docker image with your own code {#customize-the-primeagent-docker-image}
 
-While the previous section showed how to package a flow with a Docker image, this section shows how to customize the Primeagent application itself. This is useful when you need to add custom Python packages or dependencies, modify Primeagent's configuration or settings, include custom components or tools, or add your own code to extend Primeagent's functionality.
+While the previous section showed how to package a flow with a Docker image, this section shows how to customize the PrimeAgent application itself. This is useful when you need to add custom Python packages or dependencies, modify PrimeAgent's configuration or settings, include custom components or tools, or add your own code to extend PrimeAgent's functionality.
 
 This example demonstrates how to customize the **Message History** component, but the same approach can be used for any code modifications.
 
@@ -189,23 +189,23 @@ RUN SITE_PACKAGES=$(cat /tmp/site_packages.txt) && \
     find "$SITE_PACKAGES" -name "*.pyc" -delete && \
     find "$SITE_PACKAGES" -name "__pycache__" -type d -exec rm -rf {} +
 
-# Expose the default Primeagent port
+# Expose the default PrimeAgent port
 EXPOSE 7860
 
-# Command to run Primeagent
+# Command to run PrimeAgent
 CMD ["python", "-m", "primeagent", "run", "--host", "0.0.0.0", "--port", "7860"]
 ```
 
 To use this custom Dockerfile, do the following:
 
-1.  Create a directory for your custom Primeagent setup:
+1.  Create a directory for your custom PrimeAgent setup:
 
     ```bash
     mkdir primeagent-custom && cd primeagent-custom
     ```
 
 2.  Create the necessary directory structure for your custom code.
-    In this example, Primeagent expects `memory.py` to exist in the `/helpers` directory, so you create a directory in that location.
+    In this example, PrimeAgent expects `memory.py` to exist in the `/helpers` directory, so you create a directory in that location.
 
         ```bash
         mkdir -p src/wfx/src/wfx/components/helpers
@@ -222,24 +222,24 @@ To use this custom Dockerfile, do the following:
     docker run -p 7860:7860 -e PRIMEAGENT_AUTO_LOGIN=true myuser/primeagent-custom:1.0.0
     ```
 
-This approach can be adapted for any other components or custom code you want to add to Primeagent by modifying the file paths and component names.
+This approach can be adapted for any other components or custom code you want to add to PrimeAgent by modifying the file paths and component names.
 
-## Upgrade the Primeagent Docker image {#upgrade-the-primeagent-docker-image}
+## Upgrade the PrimeAgent Docker image {#upgrade-the-primeagent-docker-image}
 
 :::warning Check where your container stores data
-Unless you set `PRIMEAGENT_DATABASE_URL` or `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=true`, Primeagent stores its SQLite database inside the container, not on a mounted volume.
-Unless you set `PRIMEAGENT_CONFIG_DIR` to the mounted path, Primeagent also stores its secret key and uploaded files inside the container.
+Unless you set `PRIMEAGENT_DATABASE_URL` or `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=true`, PrimeAgent stores its SQLite database inside the container, not on a mounted volume.
+Unless you set `PRIMEAGENT_CONFIG_DIR` to the mounted path, PrimeAgent also stores its secret key and uploaded files inside the container.
 Removing or recreating that container deletes this data, even if a volume is mounted.
 
 If your current container was started without these settings, [move its data to a volume](#move-data-to-a-volume) before you upgrade.
 :::
 
-To upgrade a Primeagent Docker deployment without losing your database or flows, do the following:
+To upgrade a PrimeAgent Docker deployment without losing your database or flows, do the following:
 
-1.  Keep data on persistent volumes, so when you upgrade Primeagent, you will replace only the container image.
+1.  Keep data on persistent volumes, so when you upgrade PrimeAgent, you will replace only the container image.
     Mount a Docker volume or bind mount at the path in `PRIMEAGENT_CONFIG_DIR`, and keep the database outside of the container.
     To use PostgreSQL, set `PRIMEAGENT_DATABASE_URL`. To keep SQLite, set `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=true`, which stores the database in the config directory.
-    For example, this Docker Compose file uses a bind mount for Primeagent data (`./primeagent-data` on the host) and a named volume for the PostgreSQL database (`primeagent-postgres`):
+    For example, this Docker Compose file uses a bind mount for PrimeAgent data (`./primeagent-data` on the host) and a named volume for the PostgreSQL database (`primeagent-postgres`):
 
         ```yaml
         services:
@@ -271,8 +271,8 @@ To upgrade a Primeagent Docker deployment without losing your database or flows,
           primeagent-postgres:
         ```
 
-        On Linux, if `./primeagent-data` doesn't exist, Docker creates it owned by `root`, and Primeagent fails to start with a `PermissionError`.
-        Before you start Primeagent, create the directory next to the Compose file, and make the Primeagent user (UID `1000`) its owner:
+        On Linux, if `./primeagent-data` doesn't exist, Docker creates it owned by `root`, and PrimeAgent fails to start with a `PermissionError`.
+        Before you start PrimeAgent, create the directory next to the Compose file, and make the PrimeAgent user (UID `1000`) its owner:
 
         ```bash
         mkdir -p primeagent-data
@@ -318,8 +318,8 @@ To upgrade a Primeagent Docker deployment without losing your database or flows,
     To use PostgreSQL instead, replace `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=true` with `PRIMEAGENT_DATABASE_URL`.
 
     Images `1.8.0` through `1.9.3` don't include the `/app/primeagent` directory.
-    When Docker mounts a new named volume there, `root` owns the volume, and Primeagent fails to start with a `PermissionError`.
-    Before you start one of these images, make the Primeagent user (UID `1000`) the owner of the volume:
+    When Docker mounts a new named volume there, `root` owns the volume, and PrimeAgent fails to start with a `PermissionError`.
+    Before you start one of these images, make the PrimeAgent user (UID `1000`) the owner of the volume:
 
     ```bash
     docker run --rm --user root \
@@ -330,13 +330,13 @@ To upgrade a Primeagent Docker deployment without losing your database or flows,
 
     The steps to [move data from a container to a volume](#move-data-to-a-volume) include this change of owner.
 
-This approach keeps the persistent volumes separate from the Primeagent container, so you can upgrade the Primeagent application without losing data.
+This approach keeps the persistent volumes separate from the PrimeAgent container, so you can upgrade the PrimeAgent application without losing data.
 
 ### Move data from a container to a volume {#move-data-to-a-volume}
 
 If your current container was started without `PRIMEAGENT_DATABASE_URL` or `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=true`, its SQLite database is inside the container.
 If it was also started without `PRIMEAGENT_CONFIG_DIR`, its secret key and uploaded files are inside the container too.
-Without the original secret key, Primeagent can't decrypt saved credentials, such as **Credential** global variables.
+Without the original secret key, PrimeAgent can't decrypt saved credentials, such as **Credential** global variables.
 
 To keep this data, copy it to a volume before you remove the container:
 
@@ -362,7 +362,7 @@ To keep this data, copy it to a volume before you remove the container:
     docker stop -t 60 OLD_CONTAINER
     ```
 
-    The `-t 60` option gives Primeagent up to 60 seconds to shut down before Docker kills it.
+    The `-t 60` option gives PrimeAgent up to 60 seconds to shut down before Docker kills it.
 
 3.  Copy the config directory, which is the directory that contains `secret_key`, and the database file to a backup directory on the host.
     Use the paths from step 1:
@@ -377,7 +377,7 @@ To keep this data, copy it to a volume before you remove the container:
         The backup contains your secret key, so keep it private.
 
         Then copy the `primeagent.db-wal` and `primeagent.db-shm` files from the same directory as the database file.
-        These files exist only if Primeagent didn't shut down cleanly, and they can hold changes that aren't in `primeagent.db` yet:
+        These files exist only if PrimeAgent didn't shut down cleanly, and they can hold changes that aren't in `primeagent.db` yet:
 
         ```bash
         docker cp OLD_CONTAINER:/app/.venv/lib/python3.14/site-packages/primeagent/primeagent.db-wal primeagent-backup/
@@ -386,7 +386,7 @@ To keep this data, copy it to a volume before you remove the container:
 
         If Docker reports `Could not find the file`, the database file already holds all changes.
 
-4.  Copy the backup into the volume, and make the Primeagent user (UID `1000`) the owner of the files:
+4.  Copy the backup into the volume, and make the PrimeAgent user (UID `1000`) the owner of the files:
 
     ```bash
     docker run --rm --user root \
@@ -402,15 +402,15 @@ To keep this data, copy it to a volume before you remove the container:
 
 5.  Start the new container with `PRIMEAGENT_CONFIG_DIR=/app/primeagent` and `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=true`, as shown in the `docker run` command in the [upgrade steps](#upgrade-the-primeagent-docker-image).
     With Docker Compose, add `PRIMEAGENT_SAVE_DB_IN_CONFIG_DIR=true` to the `environment` list.
-    Don't point `PRIMEAGENT_DATABASE_URL` at a new PostgreSQL database for this data. That database starts empty, because Primeagent doesn't copy SQLite data into it.
+    Don't point `PRIMEAGENT_DATABASE_URL` at a new PostgreSQL database for this data. That database starts empty, because PrimeAgent doesn't copy SQLite data into it.
 
-6.  Open Primeagent, sign in if Primeagent asks you to, and confirm that your flows, API keys, and files are present. Then remove the old container:
+6.  Open PrimeAgent, sign in if PrimeAgent asks you to, and confirm that your flows, API keys, and files are present. Then remove the old container:
 
     ```bash
     docker rm OLD_CONTAINER
     ```
 
-If you need to upgrade to a custom image based on a Primeagent release, such as to add `uv` in `1.8.0`, first build a derived image from the official image, and then follow the same steps above.
+If you need to upgrade to a custom image based on a PrimeAgent release, such as to add `uv` in `1.8.0`, first build a derived image from the official image, and then follow the same steps above.
 Set the custom image in your compose file or `docker run`, and then pull and restart.
 
 For a minimal Dockerfile that adds `uv` to the 1.8.0 image, see the [release notes](/release-notes) (“Docker image no longer includes uv or uvx”).

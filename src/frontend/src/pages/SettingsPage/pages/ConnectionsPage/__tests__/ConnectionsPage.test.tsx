@@ -476,15 +476,15 @@ describe("ConnectionsPage tabs", () => {
     ["revoked", "Connection revoked and token revoked at the provider."],
     [
       "failed",
-      "Credential removed from Primeagent, but provider revocation failed. Revoke the token in the provider's settings.",
+      "Credential removed from PrimeAgent, but provider revocation failed. Revoke the token in the provider's settings.",
     ],
     [
       "unsupported",
-      "Credential removed from Primeagent. The token may still be valid at the provider. Revoke it in the provider's settings.",
+      "Credential removed from PrimeAgent. The token may still be valid at the provider. Revoke it in the provider's settings.",
     ],
     [
       "not_applicable",
-      "Credential removed from Primeagent. The token may still be valid at the provider. Revoke it in the provider's settings.",
+      "Credential removed from PrimeAgent. The token may still be valid at the provider. Revoke it in the provider's settings.",
     ],
   ])("reports the provider revocation outcome %s", async (outcome, title) => {
     mockUser = { id: REGULAR_ID, is_superuser: false };

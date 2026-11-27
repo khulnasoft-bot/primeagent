@@ -6,7 +6,7 @@ or live non-listening TCP connections (their file descriptors are shared into ev
 These helpers detect that state so a warm-up path can confirm it's safe to fork/snapshot
 and dispose any fork-unsafe resources first.
 
-Shared by Primeagent's Gunicorn server (`pre_fork` hook) and wfx serve's prewarm.
+Shared by PrimeAgent's Gunicorn server (`pre_fork` hook) and wfx serve's prewarm.
 """
 
 from __future__ import annotations

@@ -1,6 +1,6 @@
 """Unit tests for wfx.config.environments — environment resolution.
 
-All tests run entirely in-process; no real Primeagent instance or SDK required.
+All tests run entirely in-process; no real PrimeAgent instance or SDK required.
 """
 
 from __future__ import annotations
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 from wfx.config.environments import (
     ConfigError,
-    PrimeagentEnvironment,
+    PrimeAgentEnvironment,
     _find_config_file,
     _load_config,
     _parse_env_block,
@@ -70,19 +70,19 @@ def _write(tmp_path: Path, name: str, content: str) -> Path:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentEnvironment
+# PrimeAgentEnvironment
 # ---------------------------------------------------------------------------
 
 
-class TestPrimeagentEnvironment:
+class TestPrimeAgentEnvironment:
     def test_fields_stored(self):
-        e = PrimeagentEnvironment(name="staging", url="https://x.com", api_key="key123")  # pragma: allowlist secret
+        e = PrimeAgentEnvironment(name="staging", url="https://x.com", api_key="key123")  # pragma: allowlist secret
         assert e.name == "staging"
         assert e.url == "https://x.com"
         assert e.api_key == "key123"  # pragma: allowlist secret
 
     def test_api_key_may_be_none(self):
-        e = PrimeagentEnvironment(name="local", url="http://localhost:7860", api_key=None)
+        e = PrimeAgentEnvironment(name="local", url="http://localhost:7860", api_key=None)
         assert e.api_key is None
 
 

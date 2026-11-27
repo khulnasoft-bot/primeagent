@@ -1,4 +1,4 @@
-"""Factory for Primeagent's database-backed connection resolver."""
+"""Factory for PrimeAgent's database-backed connection resolver."""
 
 from typing_extensions import override
 

@@ -1,7 +1,7 @@
 [project]
 name = "wfx-nextplaid"
 version = "0.2.0"
-description = "NextPlaid multi-vector vector store (+ vLLM multivector embeddings) as a standalone Primeagent Extension Bundle."
+description = "NextPlaid multi-vector vector store (+ vLLM multivector embeddings) as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = { text = "MIT" }

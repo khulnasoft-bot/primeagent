@@ -7,31 +7,31 @@ import Icon from "@site/src/components/icon";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-Primeagent produces logs for individual flows and the Primeagent application itself using the [structlog](https://www.structlog.org) library for logging.
+PrimeAgent produces logs for individual flows and the PrimeAgent application itself using the [structlog](https://www.structlog.org) library for logging.
 
-By default, OSS Primeagent writes logs to stdout. To write logs to a file, set `PRIMEAGENT_LOG_FILE` to the desired path.
+By default, OSS PrimeAgent writes logs to stdout. To write logs to a file, set `PRIMEAGENT_LOG_FILE` to the desired path.
 
 ## Log storage
 
-The `PRIMEAGENT_CONFIG_DIR` environment variable controls where Primeagent stores its configuration and data files. The default location depends on your operating system:
+The `PRIMEAGENT_CONFIG_DIR` environment variable controls where PrimeAgent stores its configuration and data files. The default location depends on your operating system:
 
-- **Primeagent Desktop**:
+- **PrimeAgent Desktop**:
 
-  - **macOS**: `/Users/<username>/Library/Logs/com.PrimeagentDesktop`
-  - **Windows**: `C:\Users\<username>\AppData\Local\com.PrimeagentDesktop\logs`
+  - **macOS**: `/Users/<username>/Library/Logs/com.PrimeAgentDesktop`
+  - **Windows**: `C:\Users\<username>\AppData\Local\com.PrimeAgentDesktop\logs`
 
-- **OSS Primeagent** (all installation methods, including `uv pip install` and `git clone`):
+- **OSS PrimeAgent** (all installation methods, including `uv pip install` and `git clone`):
 
   - **macOS**: `/Users/<username>/Library/Caches/primeagent`
   - **Linux**: `/home/<username>/.cache/primeagent`
   - **Windows/WSL**: `C:\Users\<username>\AppData\Local\primeagent\primeagent\Cache`
 
-To customize log storage locations and behaviors, set the following [Primeagent environment variables](/environment-variables) in your Primeagent `.env` file, and then start Primeagent with `uv run primeagent run --env-file .env`:
+To customize log storage locations and behaviors, set the following [PrimeAgent environment variables](/environment-variables) in your PrimeAgent `.env` file, and then start PrimeAgent with `uv run primeagent run --env-file .env`:
 
 | Variable                               | Format  | Default      | Description                                                                                                                                                                                                                                                                                                                          |
 | -------------------------------------- | ------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `PRIMEAGENT_CONFIG_DIR`                | String  | Varies       | Set the Primeagent configuration directory where files and logs are stored. Default path depends on your installation, as described in the preceding list.                                                                                                                                                                           |
-| `PRIMEAGENT_ENABLE_LOG_RETRIEVAL`      | Boolean | `False`      | Enables retrieval of logs from your Primeagent instance with [Logs endpoints](/api-logs).                                                                                                                                                                                                                                            |
+| `PRIMEAGENT_CONFIG_DIR`                | String  | Varies       | Set the PrimeAgent configuration directory where files and logs are stored. Default path depends on your installation, as described in the preceding list.                                                                                                                                                                           |
+| `PRIMEAGENT_ENABLE_LOG_RETRIEVAL`      | Boolean | `False`      | Enables retrieval of logs from your PrimeAgent instance with [Logs endpoints](/api-logs).                                                                                                                                                                                                                                            |
 | `PRIMEAGENT_ENVIRONMENT`               | String  | Not set      | Adds an `environment` field to every JSON log record when set (`staging`, `production`, etc.). Omitted otherwise.                                                                                                                                                                                                                    |
 | `PRIMEAGENT_LOG_ENV`                   | String  | `default`    | Primary log format controller. `container` or `container_json`: JSON format via [`JSONRenderer`](https://www.structlog.org/en/stable/api.html#structlog.processors.JSONRenderer). `container_csv`: Key-value format. `default` or unset: uses `PRIMEAGENT_PRETTY_LOGS` to determine format. See [JSON log format](#json-log-format). |
 | `PRIMEAGENT_LOG_FILE`                  | String  | Not set      | Sets the log file storage location. For example, `PRIMEAGENT_LOG_FILE=path/to/logfile.log`. If not set, logs are written to stdout.                                                                                                                                                                                                  |
@@ -42,14 +42,14 @@ To customize log storage locations and behaviors, set the following [Primeagent 
 | `PRIMEAGENT_LOG_RETRIEVER_BUFFER_SIZE` | Integer | `10000`      | Buffer size for log retrieval when `PRIMEAGENT_ENABLE_LOG_RETRIEVAL=True`. Must be greater than `0`.                                                                                                                                                                                                                                 |
 | `PRIMEAGENT_LOG_ROTATION`              | String  | `1 day`      | Controls log file rotation by time (`1 day`, `12 hours`, `1 week`) or size (`10 MB`, `1 GB`). Set to `None` to disable rotation.                                                                                                                                                                                                     |
 | `PRIMEAGENT_LOG_TRACE_LOCALS`          | Boolean | `false`      | Include frame locals in structured tracebacks. Off by default because locals can leak secrets; enable only for local debugging.                                                                                                                                                                                                      |
-| `PRIMEAGENT_NATIVE_TRACING`            | Boolean | `true`       | Enables the tracer to record execution traces in the Primeagent database for use in Trace View. Set to `false` to disable.                                                                                                                                                                                                           |
+| `PRIMEAGENT_NATIVE_TRACING`            | Boolean | `true`       | Enables the tracer to record execution traces in the PrimeAgent database for use in Trace View. Set to `false` to disable.                                                                                                                                                                                                           |
 | `PRIMEAGENT_PRETTY_LOGS`               | Boolean | `True`       | Controls output format when `PRIMEAGENT_LOG_ENV=default` or unset. `true`: [`ConsoleRenderer`](https://www.structlog.org/en/stable/console-output.html) (human-readable). `false`: JSON format.                                                                                                                                      |
 | `PRIMEAGENT_SERVICE_NAME`              | String  | `primeagent` | Value of the `service` field on every JSON log record. Used as a label by log aggregators. See [Grafana Loki](./observability-grafana-loki.mdx).                                                                                                                                                                                     |
 | `PRIMEAGENT_VERSION`                   | String  | Not set      | Adds a `version` field to every JSON log record when set. Omitted otherwise.                                                                                                                                                                                                                                                         |
 
 ## View logs in real-time
 
-By default, OSS Primeagent writes logs to stdout. To write logs to a file that you can tail, do the following:
+By default, OSS PrimeAgent writes logs to stdout. To write logs to a file that you can tail, do the following:
 
 1. Set `PRIMEAGENT_LOG_FILE` to a file path in your `.env` file:
 
@@ -57,7 +57,7 @@ By default, OSS Primeagent writes logs to stdout. To write logs to a file that y
    PRIMEAGENT_LOG_FILE=/path/to/primeagent.log
    ```
 
-2. Start Primeagent with your `.env` file:
+2. Start PrimeAgent with your `.env` file:
 
    ```bash
    uv run primeagent run --env-file .env
@@ -76,7 +76,7 @@ By default, OSS Primeagent writes logs to stdout. To write logs to a file that y
 <TabItem value="Windows" label="Windows">
 
    ```cmd
-   cd C:\Users\**USERNAME**\AppData\Local\com.PrimeagentDesktop\logs
+   cd C:\Users\**USERNAME**\AppData\Local\com.PrimeAgentDesktop\logs
    ```
 
    </TabItem>
@@ -101,7 +101,7 @@ By default, OSS Primeagent writes logs to stdout. To write logs to a file that y
    </TabItem>
 </Tabs>
 
-   If you don't see new log entries, check that Primeagent is running, and perform some actions to generate logs events. You can also check the terminal where you started Primeagent to see if logs are being printed there.
+   If you don't see new log entries, check that PrimeAgent is running, and perform some actions to generate logs events. You can also check the terminal where you started PrimeAgent to see if logs are being printed there.
 
 ## Flow and component logs
 
@@ -135,7 +135,7 @@ For example, the following `Message` data could be the output from a **Chat Inpu
 In the case of Input/Output components, the original input might not be structured as a `Message` object.
 For example, a language model component can pass a raw text response to a **Chat Output** component that is then transformed into a `Message` object.
 
-You can find `.log` files for flows at your Primeagent installation's log storage location.
+You can find `.log` files for flows at your PrimeAgent installation's log storage location.
 For filepaths, see [Log storage](#log-storage).
 
 ### View chat logs
@@ -149,9 +149,9 @@ When debugging issues with the format or content of a flow's output, it can help
 
 To view the output produced by a single component during the most recent run, click <Icon name="TextSearch" aria-hidden="true"/> **Inspect output** on the component in the visual editor.
 
-## Access Primeagent Desktop logs {#desktop-logs}
+## Access PrimeAgent Desktop logs {#desktop-logs}
 
-If you encounter issues with Primeagent Desktop, you might need to access startup logs for debugging.
+If you encounter issues with PrimeAgent Desktop, you might need to access startup logs for debugging.
 Follow the steps for your operating system.
 
 <Tabs>
@@ -160,7 +160,7 @@ Follow the steps for your operating system.
 1. Open Terminal and run:
 
    ```bash
-   cd ~/Library/Logs/com.PrimeagentDesktop
+   cd ~/Library/Logs/com.PrimeAgentDesktop
    ```
 
 2. To open the folder and view the log files, run the command:
@@ -177,7 +177,7 @@ Follow the steps for your operating system.
 1. Open the Command Prompt (CMD), and then run the following command:
 
    ```cmd
-   cd %LOCALAPPDATA%\com.PrimeagentDesktop\cache
+   cd %LOCALAPPDATA%\com.PrimeAgentDesktop\cache
    ```
 
 2. Open the folder and view the log files:
@@ -193,7 +193,7 @@ Follow the steps for your operating system.
 
 You can use the log file to investigate the issue on your own, add context to a [GitHub Issue](/contributing-github-issues), or send it to [support](/luna-for-primeagent) for debugging assistance.
 
-The log file is only created when Primeagent Desktop runs. If you don't see a log file, try starting Primeagent Desktop first, then check for the log file.
+The log file is only created when PrimeAgent Desktop runs. If you don't see a log file, try starting PrimeAgent Desktop first, then check for the log file.
 
 ## Log format
 

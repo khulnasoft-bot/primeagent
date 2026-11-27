@@ -1,11 +1,11 @@
 ---
 name: component-refactoring
-description: Refactor high-complexity React components in Primeagent frontend. Use when manual complexity assessment shows complexity > 50 or lineCount > 300, when the user asks for code splitting, hook extraction, or complexity reduction; avoid for simple/well-structured components, third-party wrappers, or when the user explicitly wants testing without refactoring.
+description: Refactor high-complexity React components in PrimeAgent frontend. Use when manual complexity assessment shows complexity > 50 or lineCount > 300, when the user asks for code splitting, hook extraction, or complexity reduction; avoid for simple/well-structured components, third-party wrappers, or when the user explicitly wants testing without refactoring.
 ---
 
-# Primeagent Component Refactoring Skill
+# PrimeAgent Component Refactoring Skill
 
-Refactor high-complexity React components in the Primeagent frontend codebase with the patterns and workflow below.
+Refactor high-complexity React components in the PrimeAgent frontend codebase with the patterns and workflow below.
 
 > **Complexity Threshold**: Components with complexity > 50 (measured manually by counting conditionals, nesting levels, and lines) should be refactored before testing.
 
@@ -28,7 +28,7 @@ npm test
 
 ### Manual Complexity Assessment
 
-Since Primeagent does not have automated complexity analysis tools, assess components manually:
+Since PrimeAgent does not have automated complexity analysis tools, assess components manually:
 
 1. **Count conditionals**: Each `if/else`, `switch/case`, ternary, `&&`/`||` chain adds +1.
 2. **Count nesting levels**: Each level of nesting within conditionals or loops adds +1.
@@ -51,7 +51,7 @@ Since Primeagent does not have automated complexity analysis tools, assess compo
 
 **When**: Component has complex state management, multiple `useState`/`useEffect`, or business logic mixed with UI.
 
-**Primeagent Convention**: Place hooks in a `hooks/` subdirectory or alongside the component as `use-<feature>.ts`. Primeagent uses kebab-case filenames with `use-` prefix.
+**PrimeAgent Convention**: Place hooks in a `hooks/` subdirectory or alongside the component as `use-<feature>.ts`. PrimeAgent uses kebab-case filenames with `use-` prefix.
 
 ```typescript
 // Before: Complex state logic in component
@@ -84,7 +84,7 @@ const FlowPage: FC = () => {
 }
 ```
 
-**Primeagent Examples**:
+**PrimeAgent Examples**:
 - `src/frontend/src/hooks/use-add-component.ts`
 - `src/frontend/src/hooks/use-unsaved-changes.ts`
 - `src/frontend/src/hooks/use-refresh-model-inputs.ts`
@@ -93,7 +93,7 @@ const FlowPage: FC = () => {
 
 **When**: Single component has multiple UI sections, conditional rendering blocks, or repeated patterns.
 
-**Primeagent Convention**: Place sub-components in subdirectories or as separate files in the same directory. UI primitives go in `components/ui/`, domain components in `components/core/`, reusable components in `components/common/`.
+**PrimeAgent Convention**: Place sub-components in subdirectories or as separate files in the same directory. UI primitives go in `components/ui/`, domain components in `components/core/`, reusable components in `components/common/`.
 
 ```typescript
 // Before: Monolithic JSX with multiple sections
@@ -126,7 +126,7 @@ const GenericNode = () => {
 }
 ```
 
-**Primeagent Examples**:
+**PrimeAgent Examples**:
 - `src/frontend/src/CustomNodes/GenericNode/components/`
 - `src/frontend/src/components/core/`
 - `src/frontend/src/components/ui/`
@@ -190,13 +190,13 @@ const getFieldComponent = (field: InputFieldType) => {
 
 **When**: Component directly handles API calls, data transformation, or complex async operations.
 
-**Primeagent Convention**:
+**PrimeAgent Convention**:
 - This skill is for component decomposition, not query/mutation design.
 - When refactoring data fetching, use `frontend-query-mutation` for query patterns, `UseRequestProcessor`, cache invalidation, and mutation error handling.
 - Do not create thin passthrough `useQuery` wrappers during refactoring; only extract a custom hook when it truly orchestrates multiple queries/mutations or shared derived state.
 - API hooks live in `controllers/API/queries/{domain}/`.
 
-**Primeagent Examples**:
+**PrimeAgent Examples**:
 - `src/frontend/src/controllers/API/queries/flows/use-post-add-flow.ts`
 - `src/frontend/src/controllers/API/queries/variables/use-get-global-variables.ts`
 - `src/frontend/src/controllers/API/queries/folders/use-get-folders.ts`
@@ -205,7 +205,7 @@ const getFieldComponent = (field: InputFieldType) => {
 
 **When**: Component manages multiple modals with complex open/close states.
 
-**Primeagent Convention**: Modals should be extracted with their state management.
+**PrimeAgent Convention**: Modals should be extracted with their state management.
 
 ```typescript
 // Before: Multiple modal states in component
@@ -239,7 +239,7 @@ const useFlowToolbarModals = () => {
 
 **When**: Complex form validation, submission handling, or field transformation.
 
-**Primeagent Convention**: Extract form state and validation into hooks.
+**PrimeAgent Convention**: Extract form state and validation into hooks.
 
 ```typescript
 // Extract form validation and submission
@@ -265,7 +265,7 @@ const useFlowSettingsForm = (initialValues: FlowSettings) => {
 }
 ```
 
-## Primeagent-Specific Refactoring Guidelines
+## PrimeAgent-Specific Refactoring Guidelines
 
 ### 1. Zustand Store Selectors
 
@@ -286,7 +286,7 @@ const Component = () => {
 }
 ```
 
-**Primeagent Reference**: All stores in `src/frontend/src/stores/` follow this selector pattern.
+**PrimeAgent Reference**: All stores in `src/frontend/src/stores/` follow this selector pattern.
 
 ### 2. Custom Node Components
 
@@ -419,7 +419,7 @@ const useButtonState = () => {
 
 ## References
 
-### Primeagent Codebase Examples
+### PrimeAgent Codebase Examples
 
 - **Hook extraction**: `src/frontend/src/hooks/`
 - **Component splitting**: `src/frontend/src/CustomNodes/GenericNode/components/`

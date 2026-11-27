@@ -1,12 +1,12 @@
 {
   "display_information": {
-    "name": "Primeagent",
-    "description": "Run Primeagent flows from Slack, and let flows act in Slack.",
+    "name": "PrimeAgent",
+    "description": "Run PrimeAgent flows from Slack, and let flows act in Slack.",
     "background_color": "#1a1a2e"
   },
   "features": {
     "bot_user": {
-      "display_name": "Primeagent",
+      "display_name": "PrimeAgent",
       "always_online": true
     }
   },

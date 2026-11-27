@@ -237,7 +237,7 @@ class CassandraVectorStoreComponent(LCVectorStoreComponent):
             except KeyError as e:
                 if "content" in str(e):
                     msg = (
-                        "You should ingest data through Primeagent (or LangChain) to query it in Primeagent. "
+                        "You should ingest data through PrimeAgent (or LangChain) to query it in PrimeAgent. "
                         "Your collection does not contain a field name 'content'."
                     )
                     raise ValueError(msg) from e

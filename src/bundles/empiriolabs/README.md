@@ -1,6 +1,6 @@
 # wfx-empiriolabs
 
-EmpirioLabs as a standalone Primeagent Extension Bundle.
+EmpirioLabs as a standalone PrimeAgent Extension Bundle.
 
 Ships two components for [EmpirioLabs](https://empiriolabs.ai):
 
@@ -24,7 +24,7 @@ pip install wfx-empiriolabs
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point. After install, restart your Primeagent server; the components will
+entry-point. After install, restart your PrimeAgent server; the components will
 appear in the palette under the `EmpirioLabs` group.
 
 You will need an EmpirioLabs API key (<https://empiriolabs.ai>) to run the

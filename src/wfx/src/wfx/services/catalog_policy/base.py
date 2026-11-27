@@ -1,4 +1,4 @@
-"""Stable catalog-policy contract shared by WFX and Primeagent."""
+"""Stable catalog-policy contract shared by WFX and PrimeAgent."""
 
 from __future__ import annotations
 
@@ -66,7 +66,7 @@ class BaseCatalogPolicyService(Service, abc.ABC):
 
     Implementations publish a complete immutable snapshot after loading
     durable policy. The initial empty snapshot is deliberately fail-open so
-    WFX remains usable when no Primeagent database-backed policy is present.
+    WFX remains usable when no PrimeAgent database-backed policy is present.
     """
 
     name = ServiceType.CATALOG_POLICY_SERVICE.value
@@ -75,7 +75,7 @@ class BaseCatalogPolicyService(Service, abc.ABC):
     def external_policy_snapshot(self) -> CatalogPolicySnapshot | None:
         """Return the externally owned active snapshot, if one is configured.
 
-        ``None`` means Primeagent owns the durable catalog policy. An empty
+        ``None`` means PrimeAgent owns the durable catalog policy. An empty
         snapshot still represents externally managed policy. A non-``None``
         value must be value-equivalent to ``snapshot`` because administration
         reads use this property while runtime enforcement uses ``snapshot``.
@@ -100,7 +100,7 @@ class BaseCatalogPolicyService(Service, abc.ABC):
     def supports_policy_bundle_updates(self) -> bool:
         """Return whether committed shared bundles can be applied atomically.
 
-        Legacy plugins default to ``False`` so Primeagent never reports a
+        Legacy plugins default to ``False`` so PrimeAgent never reports a
         successful database write that the active enforcement plugin ignored.
         """
         return False

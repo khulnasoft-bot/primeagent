@@ -184,7 +184,7 @@ async def ws_api_key_security(api_key: str | None) -> UserRead:
 def _auth_error_to_http(e: AuthenticationError) -> HTTPException:
     """Map auth exceptions to 503 Service Unavailable, 403 Forbidden or 401 Unauthorized.
 
-    Primeagent returns 403 for missing/invalid credentials; 401 for invalid/expired tokens.
+    PrimeAgent returns 403 for missing/invalid credentials; 401 for invalid/expired tokens.
     A backend failure never judged the credential, so it is reported as a
     retryable 503 rather than as a verdict on the caller's token.
     """

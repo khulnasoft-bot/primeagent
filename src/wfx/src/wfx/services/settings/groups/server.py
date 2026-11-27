@@ -19,9 +19,9 @@ class ServerSettings(BaseModel):
     required services). 'dev' (the default) skips those checks. Set via the
     PRIMEAGENT_DEPLOYMENT_PROFILE environment variable or the --deployment-profile CLI option."""
     host: str = "localhost"
-    """The host on which Primeagent will run."""
+    """The host on which PrimeAgent will run."""
     port: int = 7860
-    """The port on which Primeagent will run."""
+    """The port on which PrimeAgent will run."""
     runtime_port: int | None = Field(default=None, exclude=True)
     """TEMPORARY: The port detected at runtime after checking for conflicts.
     This field is system-managed only and will be removed in future versions
@@ -29,9 +29,9 @@ class ServerSettings(BaseModel):
     workers: int = 1
     """The number of workers to run."""
     log_level: str = "critical"
-    """The log level for Primeagent."""
+    """The log level for PrimeAgent."""
     log_file: str | None = "logs/primeagent.log"
-    """The path to log file for Primeagent."""
+    """The path to log file for PrimeAgent."""
     alembic_log_file: str = "alembic/alembic.log"
     """The path to log file for Alembic for SQLAlchemy."""
     alembic_log_to_stdout: bool = False
@@ -39,9 +39,9 @@ class ServerSettings(BaseModel):
     frontend_path: str | None = None
     """The path to the frontend directory containing build files. This is for development purposes only."""
     open_browser: bool = False
-    """If set to True, Primeagent will open the browser on startup."""
+    """If set to True, PrimeAgent will open the browser on startup."""
     backend_only: bool = False
-    """If set to True, Primeagent will not serve the frontend."""
+    """If set to True, PrimeAgent will not serve the frontend."""
     ssl_cert_file: str | None = None
     """Path to the SSL certificate file on the local system."""
     ssl_key_file: str | None = None
@@ -127,7 +127,7 @@ class ServerSettings(BaseModel):
     @classmethod
     def set_user_agent(cls, value):
         if not value:
-            value = "Primeagent"
+            value = "PrimeAgent"
         os.environ["USER_AGENT"] = value
         logger.debug(f"Setting user agent to {value}")
         return value

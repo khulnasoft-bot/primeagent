@@ -7,7 +7,7 @@ import { useCommunityCounts } from "@/hooks/use-community-counts";
 import { Case } from "@/shared/components/caseComponent";
 import { formatNumber } from "@/utils/utils";
 
-export const PrimeagentCounts = () => {
+export const PrimeAgentCounts = () => {
   const { t } = useTranslation();
   const { stars, discordCount } = useCommunityCounts();
 
@@ -69,4 +69,4 @@ export const PrimeagentCounts = () => {
   );
 };
 
-export default PrimeagentCounts;
+export default PrimeAgentCounts;

@@ -82,7 +82,7 @@ try:
     from wfx.cli.commands import serve_command
     from wfx.cli.run import run as wfx_run
 
-    wfx_app = typer.Typer(name="wfx", help="Primeagent Executor commands")
+    wfx_app = typer.Typer(name="wfx", help="PrimeAgent Executor commands")
     wfx_app.command(name="serve", help="Serve a flow as an API", no_args_is_help=True)(serve_command)
     wfx_app.command(name="run", help="Run a flow directly", no_args_is_help=True)(wfx_run)
 
@@ -366,7 +366,7 @@ def ensure_multi_worker_safe(num_workers: int) -> None:
     see the bypass warning, even if the flag is left set in the environment.
 
     ``PRIMEAGENT_DANGEROUSLY_ALLOW_MULTI_WORKER_WITHOUT_SHARED_QUEUE=true`` turns
-    the refusal into a loud warning for headless deployments that drive Primeagent
+    the refusal into a loud warning for headless deployments that drive PrimeAgent
     through the API only and accept the degradations listed in
     :func:`multi_worker_bypass_warning`. It is off by default and deliberately
     named: it does not make multi-worker safe, it only stops the process from
@@ -392,7 +392,7 @@ def ensure_multi_worker_safe(num_workers: int) -> None:
         "  * Configure a shared job queue: PRIMEAGENT_JOB_QUEUE_TYPE=redis. Works "
         "for every event_delivery mode.\n"
         "  * Run with --workers 1. Single worker, no cross-worker routing.\n"
-        f"  * If this deployment never uses the Primeagent UI or MCP over SSE, set "
+        f"  * If this deployment never uses the PrimeAgent UI or MCP over SSE, set "
         f"{MULTI_WORKER_BYPASS_ENV_VAR}=true to boot anyway and accept per-worker "
         "behavior. Unsupported; read the startup warning it prints first.\n"
         "Note: event_delivery=direct works in multi-worker because the POST "
@@ -545,7 +545,7 @@ def run(
         show_default=False,
     ),
 ) -> None:
-    """Run Primeagent."""
+    """Run PrimeAgent."""
     if env_file:
         if is_settings_service_initialized():
             err = (
@@ -567,7 +567,7 @@ def run(
     verbose = log_level == "debug"
     progress = create_primeagent_progress(verbose=verbose)
 
-    # Step 0: Initializing Primeagent
+    # Step 0: Initializing PrimeAgent
     with progress.step(0):
         logger.debug(f"Loading config from file: '{env_file}'" if env_file else "No env_file provided.")
         set_var_for_macos_issue()
@@ -669,7 +669,7 @@ def run(
         with progress.step(5):
             pass  # Starter projects are added during app startup
 
-    # Step 6: Launching Primeagent
+    # Step 6: Launching PrimeAgent
     if use_direct_uvicorn():
         # PRIMEAGENT_GUNICORN_PRELOAD is a Gunicorn-only knob: it triggers fork-safe
         # master-process preload so workers inherit state via copy-on-write. On
@@ -723,8 +723,8 @@ def run(
         )
     else:
         with progress.step(6):
-            # Use Gunicorn with PrimeagentUvicornWorker for non-Windows systems
-            from primeagent.server import PrimeagentApplication
+            # Use Gunicorn with PrimeAgentUvicornWorker for non-Windows systems
+            from primeagent.server import PrimeAgentApplication
 
             if app_factory is None:
                 msg = "Gunicorn startup requires an application factory."
@@ -741,7 +741,7 @@ def run(
                 "log_level": log_level.lower() if log_level is not None else "info",
                 "preload_app": os.environ.get("PRIMEAGENT_GUNICORN_PRELOAD", "false").lower() == "true",
             }
-            server = PrimeagentApplication(app_factory, options)
+            server = PrimeAgentApplication(app_factory, options)
 
             # Start the webapp process
             process_manager.webapp_process = Process(target=server.run)
@@ -965,17 +965,17 @@ def print_banner(host: str, port: int, protocol: str) -> None:
     )
     telemetry_text = (
         (
-            "We collect anonymous usage data to improve Primeagent.\n"
+            "We collect anonymous usage data to improve PrimeAgent.\n"
             "To opt out, set: [bold]DO_NOT_TRACK=true[/bold] in your environment."
         )
         if os.getenv("DO_NOT_TRACK", os.getenv("PRIMEAGENT_DO_NOT_TRACK", "False")).lower() != "true"
         else (
-            "We are [bold]not[/bold] collecting anonymous usage data to improve Primeagent.\n"
+            "We are [bold]not[/bold] collecting anonymous usage data to improve PrimeAgent.\n"
             "To contribute, set: [bold]DO_NOT_TRACK=false[/bold] in your environment."
         )
     )
     access_host = get_best_access_host(host, port)
-    access_link = f"[bold]{status_icon} Open Primeagent {arrow}[/bold] [link={protocol}://{access_host}:{port}]{protocol}://{access_host}:{port}[/link]"
+    access_link = f"[bold]{status_icon} Open PrimeAgent {arrow}[/bold] [link={protocol}://{access_host}:{port}]{protocol}://{access_host}:{port}[/link]"
 
     message = f"{title}\n{info_text}\n\n{telemetry_text}\n\n{access_link}"
 
@@ -990,7 +990,7 @@ def print_banner(host: str, port: int, protocol: str) -> None:
             "* GitHub: https://github.com/khulnasoft-bot/primeagent\n"
             "# Discord: https://discord.com/invite/EqksyE2EX9\n\n"
             f"{telemetry_text}\n\n"
-            f"[OK] Open Primeagent -> {protocol}://{access_host}:{port}"
+            f"[OK] Open PrimeAgent -> {protocol}://{access_host}:{port}"
         )
         try:
             console.print()  # Add line break before fallback banner
@@ -1000,7 +1000,7 @@ def print_banner(host: str, port: int, protocol: str) -> None:
             logger.info(f"Welcome to {package_name}")
             logger.info("GitHub: https://github.com/khulnasoft-bot/primeagent")
             logger.info("Discord: https://discord.com/invite/EqksyE2EX9")
-            logger.info(f"Open Primeagent: {protocol}://{access_host}:{port}")
+            logger.info(f"Open PrimeAgent: {protocol}://{access_host}:{port}")
 
 
 @app.command()
@@ -1201,7 +1201,7 @@ def reconcile_kb_from_disk(
     """Adopt knowledge base directories on disk that have no database row.
 
     The ``knowledge_base`` table is the sole authority for KB metadata, so this scan
-    no longer runs on every boot. Use it to recover KBs created by a Primeagent version
+    no longer runs on every boot. Use it to recover KBs created by a PrimeAgent version
     that still wrote the on-disk ``embedding_metadata.json`` sidecar and that are not
     showing up after an upgrade.
 
@@ -1251,14 +1251,14 @@ def convert_sqlite_to_postgres(
         "for a program that runs this command. Logs go to stderr.",
     ),
 ) -> None:
-    """Copy every row of a Primeagent SQLite database into Postgres.
+    """Copy every row of a PrimeAgent SQLite database into Postgres.
 
-    Stop Primeagent before running this. The source must already be on the latest
-    schema (start this Primeagent version against it once). The copy runs in one
+    Stop PrimeAgent before running this. The source must already be on the latest
+    schema (start this PrimeAgent version against it once). The copy runs in one
     transaction and is checked table by table, so it either lands whole or not at
     all, and running it again is safe. Nothing in the source is changed.
 
-    SQLite never enforced Primeagent's foreign keys, so deletes can leave rows that
+    SQLite never enforced PrimeAgent's foreign keys, so deletes can leave rows that
     point at nothing. They are refused, naming each key, unless --drop-orphans.
 
     A command line is visible to other users of the machine. Set the URLs in
@@ -1539,7 +1539,7 @@ async def _relocate_files(
 
 
 async def _refuse_a_database_not_at_this_versions_head(*, as_json: bool = False) -> None:
-    """Exit unless the database is at this Primeagent's migration head.
+    """Exit unless the database is at this PrimeAgent's migration head.
 
     This version's queries need this version's schema, and migrating is the server's
     job, so a database at any other revision is left as it is.
@@ -1555,8 +1555,8 @@ async def _refuse_a_database_not_at_this_versions_head(*, as_json: bool = False)
     if current != expected:
         message = (
             f"the database is at migration revision {', '.join(sorted(current)) or 'none'}, "
-            f"and this Primeagent expects {', '.join(sorted(expected))}. This command does not migrate the database. "
-            "Run it with the Primeagent version that matches the database."
+            f"and this PrimeAgent expects {', '.join(sorted(expected))}. This command does not migrate the database. "
+            "Run it with the PrimeAgent version that matches the database."
         )
         if as_json:
             emit("error", code="schema_mismatch", message=message)
@@ -1588,7 +1588,7 @@ def relocation_lines(result) -> list[str]:
 
 
 async def _schema_mismatch() -> str | None:
-    """Say why the database is not at this Primeagent's schema, or None when it is."""
+    """Say why the database is not at this PrimeAgent's schema, or None when it is."""
     from alembic.config import Config
     from alembic.script import ScriptDirectory
 
@@ -1603,9 +1603,9 @@ async def _schema_mismatch() -> str | None:
     if found == expected:
         return None
     return (
-        f"The database is at revision {', '.join(sorted(found)) or 'none'} and this Primeagent expects "
+        f"The database is at revision {', '.join(sorted(found)) or 'none'} and this PrimeAgent expects "
         f"{', '.join(sorted(expected))}. This command does not migrate the database: run it with the "
-        "Primeagent version that matches the database, or upgrade the database first."
+        "PrimeAgent version that matches the database, or upgrade the database first."
     )
 
 
@@ -1716,7 +1716,7 @@ def migration_preflight(
     ),
     target_version: str = typer.Option(
         "",
-        help="Primeagent version the target image runs, such as 1.13.0. Refuses a target older than this Primeagent. "
+        help="PrimeAgent version the target image runs, such as 1.13.0. Refuses a target older than this PrimeAgent. "
         "--target-revision is exact and wins when both are given.",
     ),
     target_secret_key_file: Path | None = typer.Option(

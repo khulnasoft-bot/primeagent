@@ -8,7 +8,7 @@ from typing import Any
 import httpx
 import pytest
 from primeagent_sdk import AsyncClient, Client, StreamChunk
-from primeagent_sdk.exceptions import PrimeagentAuthError, PrimeagentConnectionError, PrimeagentHTTPError
+from primeagent_sdk.exceptions import PrimeAgentAuthError, PrimeAgentConnectionError, PrimeAgentHTTPError
 from primeagent_sdk.models import RunResponse
 
 # ---------------------------------------------------------------------------
@@ -175,7 +175,7 @@ def test_stream_chunk_empty_data_defaults() -> None:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentClient.stream() tests
+# PrimeAgentClient.stream() tests
 # ---------------------------------------------------------------------------
 
 
@@ -252,7 +252,7 @@ def test_sync_stream_sets_stream_true_in_payload() -> None:
 def test_sync_stream_raises_auth_error_on_401() -> None:
     body = json.dumps({"detail": "Unauthorized"}).encode()
     client = _sync_client(_MockTransport(status=401, content=body, headers={"content-type": "application/json"}))
-    with pytest.raises(PrimeagentAuthError):
+    with pytest.raises(PrimeAgentAuthError):
         list(client.stream(_FLOW_ID, input_value="hi"))
     client.close()
 
@@ -261,7 +261,7 @@ def test_sync_stream_raises_auth_error_on_401() -> None:
 def test_sync_stream_raises_http_error_on_500() -> None:
     body = json.dumps({"detail": "Internal server error"}).encode()
     client = _sync_client(_MockTransport(status=500, content=body, headers={"content-type": "application/json"}))
-    with pytest.raises(PrimeagentHTTPError):
+    with pytest.raises(PrimeAgentHTTPError):
         list(client.stream(_FLOW_ID, input_value="hi"))
     client.close()
 
@@ -275,7 +275,7 @@ def test_sync_stream_raises_connection_error() -> None:
 
     http = httpx.Client(base_url=_BASE_URL, transport=_ErrorTransport())
     client = Client(_BASE_URL, httpx_client=http)
-    with pytest.raises(PrimeagentConnectionError):
+    with pytest.raises(PrimeAgentConnectionError):
         list(client.stream(_FLOW_ID, input_value="hi"))
     client.close()
 
@@ -299,7 +299,7 @@ def test_sync_stream_passes_tweaks() -> None:
 
 
 # ---------------------------------------------------------------------------
-# PrimeagentClient.run() convenience tests
+# PrimeAgentClient.run() convenience tests
 # ---------------------------------------------------------------------------
 
 
@@ -341,7 +341,7 @@ def test_sync_run_sends_correct_payload() -> None:
 
 
 # ---------------------------------------------------------------------------
-# AsyncPrimeagentClient.stream() tests
+# AsyncPrimeAgentClient.stream() tests
 # ---------------------------------------------------------------------------
 
 
@@ -374,7 +374,7 @@ async def test_async_stream_skips_blank_lines() -> None:
 async def test_async_stream_raises_auth_error_on_401() -> None:
     body = json.dumps({"detail": "Unauthorized"}).encode()
     client = _async_client(_AsyncMockTransport(status=401, content=body, headers={"content-type": "application/json"}))
-    with pytest.raises(PrimeagentAuthError):
+    with pytest.raises(PrimeAgentAuthError):
         async for _ in client.stream(_FLOW_ID, input_value="hi"):
             pass
     await client.aclose()
@@ -389,7 +389,7 @@ async def test_async_stream_raises_connection_error() -> None:
 
     http = httpx.AsyncClient(base_url=_BASE_URL, transport=_AsyncErrorTransport())
     client = AsyncClient(_BASE_URL, httpx_client=http)
-    with pytest.raises(PrimeagentConnectionError):
+    with pytest.raises(PrimeAgentConnectionError):
         async for _ in client.stream(_FLOW_ID, input_value="hi"):
             pass
     await client.aclose()
@@ -416,7 +416,7 @@ async def test_async_stream_sets_stream_true_in_payload() -> None:
 
 
 # ---------------------------------------------------------------------------
-# AsyncPrimeagentClient.run() convenience tests
+# AsyncPrimeAgentClient.run() convenience tests
 # ---------------------------------------------------------------------------
 
 

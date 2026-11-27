@@ -1,4 +1,4 @@
-"""Default auth service for WFX (no database/JWT; use Primeagent auth for full auth)."""
+"""Default auth service for WFX (no database/JWT; use PrimeAgent auth for full auth)."""
 
 from __future__ import annotations
 

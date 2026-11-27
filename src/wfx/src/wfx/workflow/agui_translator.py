@@ -1,11 +1,11 @@
 """AG-UI translator.
 
-Converts Primeagent ``EventManager`` events into AG-UI protocol events. The
-``EventManager`` queue is Primeagent's internal event seam; this translator is the
+Converts PrimeAgent ``EventManager`` events into AG-UI protocol events. The
+``EventManager`` queue is PrimeAgent's internal event seam; this translator is the
 one place that maps that vocabulary onto AG-UI, so the v2 workflows endpoint can
 stream a standard AG-UI event stream.
 
-One Primeagent event may map to several AG-UI events, so ``translate`` returns a
+One PrimeAgent event may map to several AG-UI events, so ``translate`` returns a
 list. The translator is stateful: one instance per run.
 """
 
@@ -35,7 +35,7 @@ from ag_ui.core import (
 
 from wfx.utils.constants import MESSAGE_SENDER_USER
 
-# Primeagent content-block types with no standard AG-UI primitive. They ride as
+# PrimeAgent content-block types with no standard AG-UI primitive. They ride as
 # CUSTOM events namespaced ``primeagent.*``; generic AG-UI clients ignore them.
 _CUSTOM_CONTENT_TYPES = frozenset({"json", "code", "media", "error"})
 
@@ -63,7 +63,7 @@ class _BufferedMessage:
 
 
 class AGUITranslator:
-    """Translates Primeagent ``EventManager`` events into AG-UI protocol events.
+    """Translates PrimeAgent ``EventManager`` events into AG-UI protocol events.
 
     Use one instance per run. Call :meth:`start` once to open the run, then
     :meth:`translate` for each ``EventManager`` event.
@@ -306,7 +306,7 @@ class AGUITranslator:
         message_id = str(data.get("id") or "")
         events: list[BaseEvent] = []
 
-        # Content blocks: tool_use becomes tool-call events, the Primeagent-specific
+        # Content blocks: tool_use becomes tool-call events, the PrimeAgent-specific
         # content types become namespaced CUSTOM events. They arrive in two shapes:
         # the legacy/grouped shape nests leaves inside a group's ``contents``, while
         # the agent's flat log (the content-blocks-as-source-of-truth design) carries
@@ -438,7 +438,7 @@ class AGUITranslator:
     def _translate_custom_content(
         self, message_id: str, block: dict, custom_ordinal: int, content: dict
     ) -> list[BaseEvent]:
-        """Map a Primeagent-specific content block to a namespaced CUSTOM event.
+        """Map a PrimeAgent-specific content block to a namespaced CUSTOM event.
 
         Deduplicated by content state: a re-fired ``add_message`` whose block is
         unchanged emits nothing, but an in-place update to the block re-emits.

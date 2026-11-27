@@ -1,7 +1,7 @@
 """Tests for plugin route discovery and conflict protection.
 
 Ensures that plugins loaded via the primeagent.plugins entry-point group
-cannot overwrite or shadow existing Primeagent routes.
+cannot overwrite or shadow existing PrimeAgent routes.
 """
 
 from unittest.mock import MagicMock, patch

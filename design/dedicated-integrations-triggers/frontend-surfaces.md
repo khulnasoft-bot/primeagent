@@ -9,7 +9,7 @@ extends something that exists or is net new. Paths are under `src/frontend/src/`
 without waiting for INT-8's shared connection picker (release owner decision, 2026-09-05); the interim connection
 field is called out below and is swapped for the shared picker when INT-8 lands.
 TRG-7 also owns the interim per-connection consent control; INT-8 owns its permanent home on the Connections page.
-API prerequisite verified 2026-09-10: INT-4 [PR #14921](https://github.com/khulnasoft-bot/primeagent/pull/14921), at
+API prerequisite verified 2026-09-10: INT-4 PR #14921, at
 `2e3225bd0ca2d7c86de9a03c6d7a35132cc9a801`, accepts and returns `allow_non_interactive` on creation/read but has no
 mutation endpoint for an existing connection. INT-4 must add an authenticated, connection-owner-only update that
 changes this flag without replacing credentials. B9 depends on that addition; it is not an API already available

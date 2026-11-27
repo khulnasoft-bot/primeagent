@@ -92,7 +92,7 @@ class TestRunStarterProjectsBackwardCompatibility:
                         error_line = line.strip()
                         break
                 pytest.fail(
-                    f"Primeagent import error found in 1.6.0 template {template_file.name}.\nError: {error_line}"
+                    f"PrimeAgent import error found in 1.6.0 template {template_file.name}.\nError: {error_line}"
                 )
 
             # Check for wfx import errors (these indicate structural issues)
@@ -250,7 +250,7 @@ class TestRunStarterProjectsBackwardCompatibility:
 
             # More specific checks for these basic templates
             if "No module named 'primeagent'" in all_output:
-                pytest.fail(f"Primeagent import error in 1.6.0 template {template_name}")
+                pytest.fail(f"PrimeAgent import error in 1.6.0 template {template_name}")
 
             # Check for module not found errors specifically related to primeagent
             # (Settings service errors are runtime errors, not import errors)
@@ -277,7 +277,7 @@ class TestRunStarterProjectsBackwardCompatibility:
         # Verify no import errors
         all_output = result.output
         if "No module named 'primeagent'" in all_output:
-            pytest.fail("Primeagent import error in 1.6.0 stdin test")
+            pytest.fail("PrimeAgent import error in 1.6.0 stdin test")
 
     @pytest.mark.parametrize("template_file", get_starter_project_files(), ids=lambda x: x.name)
     def test_run_1_6_0_starter_project_inline_json(self, template_file):
@@ -297,4 +297,4 @@ class TestRunStarterProjectsBackwardCompatibility:
         # Verify no import errors
         all_output = result.output
         if "No module named 'primeagent'" in all_output:
-            pytest.fail("Primeagent import error in 1.6.0 inline JSON test")
+            pytest.fail("PrimeAgent import error in 1.6.0 inline JSON test")

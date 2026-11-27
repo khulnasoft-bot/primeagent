@@ -560,7 +560,7 @@ class TestBackwardsCompatibility:
         """LE-2352: a coded DRIVER error must not collapse to its numeric code.
 
         ``_coded_exception_message`` only looked at ``args[0]``, which reason-coded
-        Primeagent errors populate. A database or SDK exception carries a protocol status
+        PrimeAgent errors populate. A database or SDK exception carries a protocol status
         on ``.code`` with ``args`` EMPTY and the human text on ``__str__``, so the
         ``hasattr(exception, "code")`` branch short-circuited past the ``.message`` and
         ``.detail`` fallbacks below it and rendered a bare code.

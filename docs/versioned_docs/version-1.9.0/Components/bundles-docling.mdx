@@ -11,9 +11,9 @@ import PartialDockerDoclingDeps from "@site/docs/_partial-docker-docling-deps.md
 
 <Icon name="Blocks" aria-hidden="true" />
 [**Bundles**](/components-bundle-components) contain custom components that
-support specific third-party integrations with Primeagent.
+support specific third-party integrations with PrimeAgent.
 
-Primeagent integrates with [Docling](https://docling-project.github.io/docling/) through a bundle of components for parsing and chunking documents.
+PrimeAgent integrates with [Docling](https://docling-project.github.io/docling/) through a bundle of components for parsing and chunking documents.
 
 ## Prerequisites
 
@@ -22,17 +22,17 @@ Primeagent integrates with [Docling](https://docling-project.github.io/docling/)
   <PartialDevModeWindows />
 
 - **Install Docling dependency**:
-  The Docling dependency is required to use the Docling components in Primeagent.
+  The Docling dependency is required to use the Docling components in PrimeAgent.
 
-      * **Primeagent Desktop**: Set `PRIMEAGENT_DOCLING=True` in your `.env` file to enable Docling dependency installation. For more information, see [Set environment variables for Primeagent Desktop](/environment-variables#set-environment-variables-for-primeagent-desktop).
+      * **PrimeAgent Desktop**: Set `PRIMEAGENT_DOCLING=True` in your `.env` file to enable Docling dependency installation. For more information, see [Set environment variables for PrimeAgent Desktop](/environment-variables#set-environment-variables-for-primeagent-desktop).
 
-      * **Primeagent OSS**:
+      * **PrimeAgent OSS**:
           * If you installed `primeagent` (`uv pip install primeagent`), Docling is included automatically through bundled extras.
           * If you installed `primeagent-base` directly, install Docling with an extra, for example `uv pip install "primeagent-base[docling]"`.
 
       * **macOS Intel (x86_64)**: Use the [Docling installation guide](https://docling-project.github.io/docling/installation/) to install the Docling dependency.
 
-      * **Earlier versions**: Primeagent versions earlier than 1.6 don't include the Docling dependency by default.
+      * **Earlier versions**: PrimeAgent versions earlier than 1.6 don't include the Docling dependency by default.
 
       For more information, see [Install custom dependencies](/install-custom-dependencies).
 
@@ -41,7 +41,7 @@ Primeagent integrates with [Docling](https://docling-project.github.io/docling/)
 ## Use Docling components in a flow
 
 :::tip
-To learn more about content extraction with Docling, see the video tutorial [Docling + Primeagent: Document Processing for AI Workflows](https://www.youtube.com/watch?v=5DuS6uRI5OM).
+To learn more about content extraction with Docling, see the video tutorial [Docling + PrimeAgent: Document Processing for AI Workflows](https://www.youtube.com/watch?v=5DuS6uRI5OM).
 :::
 
 This example demonstrates how to use Docling components to split a PDF in a flow:

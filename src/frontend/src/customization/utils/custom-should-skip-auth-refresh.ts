@@ -3,7 +3,7 @@ import type { AxiosError } from "axios";
 /**
  * Error codes that mean "authenticated, but this plan does not allow it"
  * rather than "session invalid". The backend sends them on a 403 both as the
- * `X-Primeagent-Error-Code` response header and as `detail.error_code`
+ * `X-PrimeAgent-Error-Code` response header and as `detail.error_code`
  * (see `primeagent.services.creation_hooks`).
  */
 const GATED_ERROR_CODES = new Set([

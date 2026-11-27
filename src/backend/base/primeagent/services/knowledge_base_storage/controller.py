@@ -451,7 +451,7 @@ async def upgrade(
             )
             if remaining:
                 msg = (
-                    f"Unselected Primeagent workers remain (PIDs {remaining}). Stop their deployments before upgrading"
+                    f"Unselected PrimeAgent workers remain (PIDs {remaining}). Stop their deployments before upgrading"
                 )
                 raise _error(msg)
             # Fail before downtime for a busy target port or unreadable metadata.

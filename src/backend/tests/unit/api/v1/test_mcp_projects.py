@@ -1225,7 +1225,7 @@ async def test_should_replace_base_name_entry_without_project_url_on_reinstall(
     tmp_path,
     monkeypatch,
 ):
-    """An entry with no Primeagent project URL (e.g. a former MCP Composer install) is replaced, not duplicated."""
+    """An entry with no PrimeAgent project URL (e.g. a former MCP Composer install) is replaced, not duplicated."""
     config_path = _prepare_install_test_env(monkeypatch, tmp_path, "cursor_mode_switch.json")
     stale_composer_entry = {"command": "uvx", "args": ["mcp-composer", "--endpoint", "http://localhost:9999"]}
     config_path.write_text(
@@ -1542,7 +1542,7 @@ async def test_patch_project_mcp_settings_syncs_server_config_for_apikey(
 
     Regression test for the PATCH-path gap where auth_settings was updated in the DB but the
     corresponding MCP server config was never reconciled, leaving args without --headers x-api-key
-    and causing subsequent startup reconciliation to generate duplicate Primeagent API keys.
+    and causing subsequent startup reconciliation to generate duplicate PrimeAgent API keys.
     """
     project_sse_transports.clear()
     project_mcp_servers.clear()

@@ -30,7 +30,7 @@ def _restore_policy():
 
 
 async def test_no_policy_means_no_restriction():
-    """Stock Primeagent has no sign-in policy and must be unaffected."""
+    """Stock PrimeAgent has no sign-in policy and must be unaffected."""
     set_api_key_issuance_policy(None)
 
     await check_api_key_issuance(AsyncMock(), uuid4())

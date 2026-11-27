@@ -13,7 +13,7 @@ from sqlmodel import select
 from wfx.services.settings.constants import DEFAULT_SUPERUSER, LEGACY_DEFAULT_SUPERUSER_PASSWORD
 
 _EXTERNAL_TEST_SECRET = "external-test-secret-with-enough-length"  # noqa: S105 # pragma: allowlist secret
-_EXTERNAL_AUTH_HEADER = "X-Primeagent-External-Auth"
+_EXTERNAL_AUTH_HEADER = "X-PrimeAgent-External-Auth"
 _EXTERNAL_AUTH_COOKIE = "external-session"
 
 

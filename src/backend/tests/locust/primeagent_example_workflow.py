@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Example Primeagent Load Testing Workflow
+"""Example PrimeAgent Load Testing Workflow
 
 This script demonstrates the complete workflow for setting up and running
-Primeagent load tests with real starter project flows.
+PrimeAgent load tests with real starter project flows.
 
 Usage:
     python example_workflow.py
@@ -81,11 +81,11 @@ def check_dependencies():
 def main():
     import argparse
 
-    parser = argparse.ArgumentParser(description="Example Primeagent Load Testing Workflow")
+    parser = argparse.ArgumentParser(description="Example PrimeAgent Load Testing Workflow")
     parser.add_argument("--auto", action="store_true", help="Run automatically without user input prompts")
     args = parser.parse_args()
 
-    print("🚀 Primeagent Load Testing Example Workflow")
+    print("🚀 PrimeAgent Load Testing Example Workflow")
     print("This example will demonstrate the complete load testing setup and execution.")
 
     # Check dependencies
@@ -217,10 +217,10 @@ def main():
         print("   - primeagent_load_test_results_*.csv (CSV data files)")
         print("   - primeagent_load_test_detailed_errors_*.log (detailed error logs)")
         print("   - primeagent_load_test_error_summary_*.json (error analysis)")
-        print("   - primeagent_server_logs_during_test_*.log (Primeagent server logs)")
+        print("   - primeagent_server_logs_during_test_*.log (PrimeAgent server logs)")
         print()
         print("🧹 Clean up:")
-        print("   - Remove test flows from Primeagent UI")
+        print("   - Remove test flows from PrimeAgent UI")
         print("   - Delete example_test_creds.json")
         print("   - Delete generated report files")
         print("   - Reset environment variables")
@@ -264,7 +264,7 @@ def main():
                         print(f"⚠️  Could not clean up {file_path}: {e}")
 
         print("\n🎉 Example workflow completed successfully!")
-        print("You're now ready to use Primeagent load testing for your own projects.")
+        print("You're now ready to use PrimeAgent load testing for your own projects.")
         print()
         print("📊 View your load test results:")
         print("   • Open primeagent_load_test_report.html in your browser for detailed analysis")

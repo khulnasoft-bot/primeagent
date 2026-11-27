@@ -1,5 +1,5 @@
 import type { Route } from "@playwright/test";
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 
@@ -40,7 +40,7 @@ const populatedApiKeys: ApiKeyRow[] = [
   },
 ];
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -56,7 +56,7 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function mockApiKeys(page: PrimeagentPage, apiKeys: ApiKeyRow[]) {
+async function mockApiKeys(page: PrimeAgentPage, apiKeys: ApiKeyRow[]) {
   await page.route(/\/api\/v1\/api_key\/?.*/, async (route: Route) => {
     const request = route.request();
     const method = request.method();
@@ -94,7 +94,7 @@ async function mockApiKeys(page: PrimeagentPage, apiKeys: ApiKeyRow[]) {
 }
 
 async function openApiKeysRoute(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   apiKeys = populatedApiKeys,
 ) {
   await mockApiKeys(page, apiKeys);
@@ -102,7 +102,7 @@ async function openApiKeysRoute(
   await page.goto("/settings/api-keys");
   await disableAnimations(page);
   await expect(page.getByTestId("settings_menu_header")).toContainText(
-    "Primeagent API Keys",
+    "PrimeAgent API Keys",
     { timeout: TIMEOUTS.standard },
   );
   await page
@@ -129,7 +129,7 @@ type ActiveElementSnapshot = FocusTraversalSnapshot & {
   isTabGuard: boolean;
 };
 
-async function getVisibleTabOrder(page: PrimeagentPage) {
+async function getVisibleTabOrder(page: PrimeAgentPage) {
   return page.evaluate<FocusableSnapshot[]>(() => {
     const focusableSelector = [
       "a[href]",
@@ -180,7 +180,7 @@ async function getVisibleTabOrder(page: PrimeagentPage) {
   });
 }
 
-async function collectTabTraversal(page: PrimeagentPage, steps: number) {
+async function collectTabTraversal(page: PrimeAgentPage, steps: number) {
   const focusedElements: FocusTraversalSnapshot[] = [];
 
   await page.evaluate(() => {
@@ -228,7 +228,7 @@ async function collectTabTraversal(page: PrimeagentPage, steps: number) {
   return focusedElements;
 }
 
-async function getActiveElementSnapshot(page: PrimeagentPage) {
+async function getActiveElementSnapshot(page: PrimeAgentPage) {
   return page.evaluate<ActiveElementSnapshot>(() => {
     const element = document.activeElement as HTMLElement | null;
     const getName = (activeElement: HTMLElement | null) =>
@@ -340,7 +340,7 @@ test.describe("API keys route accessibility", () => {
             ?.getAttribute("aria-label") ?? null,
       );
       expect(treegridName, "table should expose one named treegrid").toBe(
-        "Primeagent API Keys",
+        "PrimeAgent API Keys",
       );
       const cellAndHeaderTabStops = tabOrder.filter(
         (item) => item.role === "gridcell" || item.role === "columnheader",
@@ -585,7 +585,7 @@ test.describe("API keys route accessibility", () => {
       await openApiKeysRoute(page);
       await expect(page.getByText("A11y Primary Key")).toBeVisible();
       await expect(
-        page.getByTestId("sidebar-nav-Primeagent API Keys"),
+        page.getByTestId("sidebar-nav-PrimeAgent API Keys"),
       ).toBeVisible();
 
       await page.runA11yScan("settings-api-keys-mobile-data-rich");

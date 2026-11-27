@@ -1,4 +1,4 @@
-"""Input and output handlers for Primeagent type transformations.
+"""Input and output handlers for PrimeAgent type transformations.
 
 Input handlers dispatch on template field metadata and/or runtime value content
 to transform parameter values before component execution.
@@ -10,7 +10,7 @@ JSON-compatible formats with type markers.
 from .base import InputHandler, OutputHandler
 from .base_model import BaseModelInputHandler, BaseModelOutputHandler
 from .dataframe import DataFrameConversionInputHandler, DataFrameOutputHandler
-from .primeagent_types import PrimeagentTypeInputHandler, PrimeagentTypeOutputHandler
+from .primeagent_types import PrimeAgentTypeInputHandler, PrimeAgentTypeOutputHandler
 from .string_coercion import StringCoercionInputHandler
 from .tool_wrapper import ToolWrapperInputHandler
 
@@ -21,8 +21,8 @@ __all__ = [
     "BaseModelOutputHandler",
     "DataFrameConversionInputHandler",
     "DataFrameOutputHandler",
-    "PrimeagentTypeInputHandler",
-    "PrimeagentTypeOutputHandler",
+    "PrimeAgentTypeInputHandler",
+    "PrimeAgentTypeOutputHandler",
     "StringCoercionInputHandler",
     "ToolWrapperInputHandler",
 ]

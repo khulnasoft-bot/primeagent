@@ -444,7 +444,7 @@ def _optional_dependency_distributions(requirements: tuple[str, ...], *, bundle_
     (for example, ``langchain-mistralai`` -> ``langchain_mistralai``). It does
     not infer broad first segments such as ``langchain`` or ``wfx``: those are
     shared namespaces whose missing submodules can indicate a broken install
-    or a Primeagent defect rather than an absent provider dependency.
+    or a PrimeAgent defect rather than an absent provider dependency.
 
     Only requirements whose marker applies to this exact extra are included.
     The distribution value lets the importer verify its actual absence with

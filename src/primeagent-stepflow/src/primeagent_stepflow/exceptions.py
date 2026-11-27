@@ -1,25 +1,25 @@
-"""Custom exception types for Primeagent integration."""
+"""Custom exception types for PrimeAgent integration."""
 
 
-class PrimeagentIntegrationError(Exception):
-    """Base exception for Primeagent integration errors."""
-
-    pass
-
-
-class ConversionError(PrimeagentIntegrationError):
-    """Error during Primeagent to Stepflow conversion."""
+class PrimeAgentIntegrationError(Exception):
+    """Base exception for PrimeAgent integration errors."""
 
     pass
 
 
-class ValidationError(PrimeagentIntegrationError):
+class ConversionError(PrimeAgentIntegrationError):
+    """Error during PrimeAgent to Stepflow conversion."""
+
+    pass
+
+
+class ValidationError(PrimeAgentIntegrationError):
     """Error during workflow validation."""
 
     pass
 
 
-class ExecutionError(PrimeagentIntegrationError):
+class ExecutionError(PrimeAgentIntegrationError):
     """Error during component execution."""
 
     pass

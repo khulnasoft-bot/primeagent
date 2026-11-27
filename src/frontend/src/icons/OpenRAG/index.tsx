@@ -1,7 +1,7 @@
 /*
  * OpenRAG logo geometry is Copyright 2025 IBM and licensed under Apache-2.0.
  * Source: https://github.com/khulnasoft-bot/openrag/blob/main/frontend/components/icons/openrag-logo.tsx
- * Modified for Primeagent to support forwarded refs, 1em sizing, and inherited colors.
+ * Modified for PrimeAgent to support forwarded refs, 1em sizing, and inherited colors.
  */
 import { forwardRef, type SVGProps } from "react";
 

@@ -46,18 +46,18 @@ VERSION_TABLE = "alembic_version"
 
 
 def include_name(name: str | None, type_: str, parent_names: dict[str, str | None]) -> bool:
-    """Restrict autogenerate to the tables Primeagent owns.
+    """Restrict autogenerate to the tables PrimeAgent owns.
 
-    Primeagent shares its database with anything the user points at the same
+    PrimeAgent shares its database with anything the user points at the same
     connection string: LangChain vector stores (``langchain_pg_collection``,
     ``langchain_pg_embedding``), the SQL Executor component, or an unrelated
     application. Without this filter autogenerate reflects those tables, finds
     no model behind them, and emits a ``remove_table`` diff -- which makes
     ``alembic check`` fail and aborts startup with "There's a mismatch between
-    the models and the database" (GH #9117). Primeagent never drops a table it
+    the models and the database" (GH #9117). PrimeAgent never drops a table it
     does not own, so those diffs are always false positives.
 
-    Drift inside Primeagent's own tables is still compared normally.
+    Drift inside PrimeAgent's own tables is still compared normally.
     """
     if type_ != "table":
         return True

@@ -31,7 +31,7 @@ class ToolApprovalMixin:
     def _build_agent_checkpointer(self):
         """Durable saver for a gated agent run, else None (no checkpointer overhead).
 
-        The blob store is the INJECTED checkpoint service (DB-backed in the Primeagent
+        The blob store is the INJECTED checkpoint service (DB-backed in the PrimeAgent
         runtime, in-memory standalone) so wfx never imports primeagent.
         """
         thread_id = self._agent_thread_id()

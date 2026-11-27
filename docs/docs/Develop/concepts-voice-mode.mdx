@@ -9,7 +9,7 @@ The <Icon name="Mic" aria-hidden="true"/> **Microphone** button in the **Playgro
 It doesn't provide spoken responses or full voice interaction.
 
 :::note
-The previous Playground Voice Mode was deprecated in Primeagent 1.10.
+The previous Playground Voice Mode was deprecated in PrimeAgent 1.10.
 Its legacy WebSocket endpoints remain available for existing integrations.
 :::
 
@@ -31,7 +31,7 @@ If the microphone button is disabled, your browser doesn't support the required 
 
 The deprecated `/api/v1/voice/ws/flow_tts/$FLOW_ID` and `/api/v1/voice/ws/flow_tts/$FLOW_ID/$SESSION_ID` endpoints remain available for existing applications.
 They use OpenAI Realtime voice transcription, run the specified flow, and return text-to-speech audio.
-They require Primeagent authentication and an OpenAI API key configured for the user; ElevenLabs is optional.
+They require PrimeAgent authentication and an OpenAI API key configured for the user; ElevenLabs is optional.
 
 Don't use these deprecated endpoints for new integrations.
 

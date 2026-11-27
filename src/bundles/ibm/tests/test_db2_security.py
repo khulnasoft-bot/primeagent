@@ -84,7 +84,7 @@ def test_create_safe_error_message_redacts_connection_details():
 #
 # ``ssl_certificate_path`` is a tenant-controlled component field.  A published
 # flow makes it reachable from the unauthenticated public-build endpoint, so a
-# URL value turns into a server-side GET from Primeagent's network context, and a
+# URL value turns into a server-side GET from PrimeAgent's network context, and a
 # local path value turns into a server-side file read.  Both branches must be
 # constrained.
 # ---------------------------------------------------------------------------

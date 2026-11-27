@@ -3,15 +3,15 @@ title: Receive provider events with trigger webhooks
 slug: /deployment-trigger-webhooks
 ---
 
-A trigger runs a flow when something happens outside Primeagent. This page is for providers that post that event to a Primeagent URL: Slack, Microsoft, Google, or your own system.
+A trigger runs a flow when something happens outside PrimeAgent. This page is for providers that post that event to a PrimeAgent URL: Slack, Microsoft, Google, or your own system.
 
-Primeagent must be reachable over public HTTPS. If it is not, use [trigger listeners](./deployment-trigger-listeners.mdx). Listeners call out and hold the connection, and they need no public URL.
+PrimeAgent must be reachable over public HTTPS. If it is not, use [trigger listeners](./deployment-trigger-listeners.mdx). Listeners call out and hold the connection, and they need no public URL.
 
 The request records the event and returns. It does not run the flow. The flow runs afterward, as the trigger's owner.
 
 ## Prerequisites
 
-1. Primeagent is reachable at a public HTTPS URL.
+1. PrimeAgent is reachable at a public HTTPS URL.
 2. The flow is saved, and the trigger is enabled.
 3. The connection on the trigger belongs to the flow owner, and **Allow background runs** is on.
 4. For Slack, Microsoft, or Google, the provider app is already registered. Slack setup is on [Slack triggers](../Components/bundles-slack.mdx#slack-triggers). Google setup is on [Google Workspace source triggers](../Components/bundles-google.mdx#google-workspace-source-triggers).
@@ -47,8 +47,8 @@ Use an **Inbound Webhook** trigger for a system that is not Slack, Microsoft, or
        data=body,
        headers={
            "Content-Type": "application/json",
-           "X-Primeagent-Signature": signature,
-           "X-Primeagent-Timestamp": timestamp,
+           "X-PrimeAgent-Signature": signature,
+           "X-PrimeAgent-Timestamp": timestamp,
        },
    )
    ```
@@ -57,7 +57,7 @@ Use an **Inbound Webhook** trigger for a system that is not Slack, Microsoft, or
 
 To send two events, send two different bodies. Two identical bodies in the same second count as one event.
 
-## Point a provider at Primeagent
+## Point a provider at PrimeAgent
 
 Most providers use one URL per trigger:
 
@@ -78,21 +78,21 @@ POST /api/v1/triggers/ingress/slack/apps/{registration_id}
 Each provider proves the delivery in its own way:
 
 - **Slack:** `X-Slack-Signature` over the raw body, and a timestamp no more than five minutes old.
-- **Microsoft:** the `clientState` Primeagent set when it created the subscription.
-- **Google:** the `X-Goog-Channel-Token` Primeagent set when it created the channel.
-- **Your system:** `X-Primeagent-Signature` over the raw body, with the trigger's secret.
+- **Microsoft:** the `clientState` PrimeAgent set when it created the subscription.
+- **Google:** the `X-Goog-Channel-Token` PrimeAgent set when it created the channel.
+- **Your system:** `X-PrimeAgent-Signature` over the raw body, with the trigger's secret.
 
 A failed check returns `404` with the same body every time. The reason is in the authorization audit log. Turn that on with `PRIMEAGENT_AUTHZ_AUDIT_ENABLED=true`.
 
-Microsoft's subscription handshake is the exception. It returns `200` and echoes `validationToken` before Primeagent looks up the trigger.
+Microsoft's subscription handshake is the exception. It returns `200` and echoes `validationToken` before PrimeAgent looks up the trigger.
 
 ## Troubleshoot
 
 **Every delivery returns 404.**
-Check, in order: the trigger is enabled, the URL's provider matches the trigger, Slack's URL names a registration that has `signing_secret`, the sender's clock is within five minutes of Primeagent, the signature covers the raw body, and the body is under the size cap. The audit log names the check that failed.
+Check, in order: the trigger is enabled, the URL's provider matches the trigger, Slack's URL names a registration that has `signing_secret`, the sender's clock is within five minutes of PrimeAgent, the signature covers the raw body, and the body is under the size cap. The audit log names the check that failed.
 
-**Slack keeps retrying a delivery Primeagent accepted.**
-Slack retries when it does not get a success response in three seconds. Primeagent answers after the event is saved, so a slow database or a proxy in front of Primeagent makes Slack retry. The flow still runs once.
+**Slack keeps retrying a delivery PrimeAgent accepted.**
+Slack retries when it does not get a success response in three seconds. PrimeAgent answers after the event is saved, so a slow database or a proxy in front of PrimeAgent makes Slack retry. The flow still runs once.
 
 **Events stopped, and the trigger looks fine.**
 If the state is **Needs reconnect**, reconnect the connection. If the trigger is still active, the subscription may have expired while the API was down. Enable the trigger again to subscribe.
@@ -105,5 +105,5 @@ Two triggers are armed on the same source. One trigger does not run twice for on
 | Variable                                           | Default   | Description                                                                   |
 | -------------------------------------------------- | --------- | ----------------------------------------------------------------------------- |
 | `PRIMEAGENT_TRIGGER_INGRESS_ENABLED`               | `true`    | Set to `false` to refuse every inbound delivery. Those requests return `404`. |
-| `PRIMEAGENT_TRIGGER_INGRESS_MAX_BODY_BYTES`        | `1048576` | Largest request body Primeagent accepts on these routes.                      |
+| `PRIMEAGENT_TRIGGER_INGRESS_MAX_BODY_BYTES`        | `1048576` | Largest request body PrimeAgent accepts on these routes.                      |
 | `PRIMEAGENT_TRIGGER_INGRESS_SIGNATURE_TOLERANCE_S` | `300`     | How old a signed timestamp may be, in seconds.                                |

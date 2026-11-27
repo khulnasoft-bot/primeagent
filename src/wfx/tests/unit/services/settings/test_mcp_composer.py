@@ -49,7 +49,7 @@ class TestPortAvailability:
 
 
 class TestBackendAuthToken:
-    """Test internal Composer-to-Primeagent backend authentication config."""
+    """Test internal Composer-to-PrimeAgent backend authentication config."""
 
     def test_backend_auth_member_config_adds_internal_header(self, mcp_service):
         project_id = "backend-auth-test"

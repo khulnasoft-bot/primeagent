@@ -5,12 +5,12 @@ slug: /authorization
 
 Role-based access control on this page requires a plugin.
 
-Primeagent includes the same routes and database tables as the plugin, but _always allows_ every action for every authenticated user.
-Setting `PRIMEAGENT_AUTHZ_ENABLED=true` in Primeagent _does not_ restrict access. Route guards still run, and audit rows can still be written, but no policies are applied.
+PrimeAgent includes the same routes and database tables as the plugin, but _always allows_ every action for every authenticated user.
+Setting `PRIMEAGENT_AUTHZ_ENABLED=true` in PrimeAgent _does not_ restrict access. Route guards still run, and audit rows can still be written, but no policies are applied.
 
 ## Enable RBAC with an authorization plugin
 
-1. Set `PRIMEAGENT_AUTHZ_AUDIT_ENABLED=true` and run Primeagent in a staging environment. Review the [audit log](#audit-log-api) to understand what decisions would be made before enforcement is on.
+1. Set `PRIMEAGENT_AUTHZ_AUDIT_ENABLED=true` and run PrimeAgent in a staging environment. Review the [audit log](#audit-log-api) to understand what decisions would be made before enforcement is on.
 
 2. Install and register the authorization plugin.
 
@@ -40,7 +40,7 @@ failure class names; database exception text is never exposed.
 
 ## System roles
 
-Primeagent seeds three built-in system roles that an enforcement plugin uses as a starting point for policy sync. These roles cannot be deleted.
+PrimeAgent seeds three built-in system roles that an enforcement plugin uses as a starting point for policy sync. These roles cannot be deleted.
 
 | Role        | Permission slugs                                                                                    |
 | ----------- | --------------------------------------------------------------------------------------------------- |
@@ -68,7 +68,7 @@ These endpoints manage the RBAC data model. An enforcement plugin consumes roles
 
 A share delegates an action on a resource; it does not delegate the owner's identity or credentials.
 
-For an authenticated shared-flow run, the authenticated caller is the execution principal. Variables, files, nested flows, messages, jobs, and other dependencies resolve in that caller's namespace. A dependency must therefore be owned by the caller or shared with the caller separately. Primeagent never falls back to the flow owner's credentials when a caller-owned or explicitly shared dependency is unavailable.
+For an authenticated shared-flow run, the authenticated caller is the execution principal. Variables, files, nested flows, messages, jobs, and other dependencies resolve in that caller's namespace. A dependency must therefore be owned by the caller or shared with the caller separately. PrimeAgent never falls back to the flow owner's credentials when a caller-owned or explicitly shared dependency is unavailable.
 
 Only the flow owner can submit graph data or component-parameter tweaks. A non-owner receives the same not-found response as a caller without access so the rejection does not confirm that the flow exists.
 

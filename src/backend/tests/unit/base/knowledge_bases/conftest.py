@@ -11,7 +11,7 @@ import pytest
 def fake_opensearchpy(monkeypatch: pytest.MonkeyPatch) -> None:
     """Provide the optional opensearch-py surface these unit tests patch.
 
-    The default Primeagent test environment does not install OpenSearch extras.
+    The default PrimeAgent test environment does not install OpenSearch extras.
     These tests mock the client entirely, so a small import stub keeps the
     backend behavior covered without pulling opensearch-py into the base install.
     """

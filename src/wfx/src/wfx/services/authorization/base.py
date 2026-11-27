@@ -111,7 +111,7 @@ class ExecutionPrincipal:
 class PublicAuthorizationRequest:
     """Plugin-neutral anonymous resource decision.
 
-    This request is evaluated only after Primeagent's local grant floor confirms
+    This request is evaluated only after PrimeAgent's local grant floor confirms
     a canonical PUBLIC share or a documented legacy compatibility grant. It
     must never be used to widen general resource listings. ``request_host`` is
     request metadata, not trusted tenant identity; a plugin must map it through
@@ -133,7 +133,7 @@ class ShareRuleSnapshot:
 
     Delete hooks run after the durable share row is gone, so plugins cannot
     reload it from the application database. This immutable value object keeps
-    the hook independent of Primeagent's ORM model while carrying every field a
+    the hook independent of PrimeAgent's ORM model while carrying every field a
     policy adapter needs to identify the rules that were derived from the row.
     """
 
@@ -146,7 +146,7 @@ class ShareRuleSnapshot:
 
 
 class AuthorizationMutationKind(str, Enum):
-    """Canonical policy-relevant lifecycle mutations emitted by Primeagent."""
+    """Canonical policy-relevant lifecycle mutations emitted by PrimeAgent."""
 
     USER_CREATED = "user.created"
     USER_DISABLED = "user.disabled"
@@ -336,7 +336,7 @@ class BaseAuthorizationService(Service, abc.ABC):
     # True when the service can authorize non-owner access (share-aware fetch).
     SUPPORTS_CROSS_USER_FETCH: ClassVar[bool] = False
     # True when the service honors API-key credential context as a possible
-    # restriction on top of the resolved user. When enabled, Primeagent lets the
+    # restriction on top of the resolved user. When enabled, PrimeAgent lets the
     # plugin evaluate owner-owned resources for API-key requests instead of
     # applying the built-in owner override first.
     SUPPORTS_API_KEY_SCOPES: ClassVar[bool] = False

@@ -1,6 +1,6 @@
 # API Examples (Local Test Harness)
 
-Run all API example suites against a local Primeagent server:
+Run all API example suites against a local PrimeAgent server:
 
 ```bash
 make api_examples_local

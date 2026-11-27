@@ -7,11 +7,11 @@ import Icon from "@site/src/components/icon";
 import PartialParams from "@site/docs/_partial-hidden-params.mdx";
 
 :::warning Deprecated
-The Agentics components are deprecated and can't run in this version of Primeagent, because the `agentics-py` SDK they depend on can't be installed alongside Primeagent.
+The Agentics components are deprecated and can't run in this version of PrimeAgent, because the `agentics-py` SDK they depend on can't be installed alongside PrimeAgent.
 For details, see [Compatibility](#compatibility).
 
-Don't run `pip install agentics-py` or `uv pip install agentics-py` in your Primeagent environment.
-The install succeeds, but it downgrades `langchain-core` and other packages below the versions Primeagent requires, and Primeagent stops working.
+Don't run `pip install agentics-py` or `uv pip install agentics-py` in your PrimeAgent environment.
+The install succeeds, but it downgrades `langchain-core` and other packages below the versions PrimeAgent requires, and PrimeAgent stops working.
 :::
 
 The [Agentics](https://github.com/IBM/agentics/) component bundle uses LLMs to transform tabular data. Add or fill columns row-by-row with the [**aMap** component](#amap-component), collapse many rows into one with [**aReduce** component](#areduce-component), or generate synthetic rows with the [**aGenerate** component](#agenerate-component).
@@ -48,10 +48,10 @@ Watch it in action with a sentiment analysis example that transforms customer re
 
 ## Compatibility
 
-The Agentics components need the `agentics-py` SDK at runtime, and no `agentics-py` release can be installed in the same Python environment as Primeagent 1.9 or later:
+The Agentics components need the `agentics-py` SDK at runtime, and no `agentics-py` release can be installed in the same Python environment as PrimeAgent 1.9 or later:
 
-- The latest release, `agentics-py` 0.3.6, requires `langchain-core` earlier than 1.0 through its `langchain-huggingface` dependency. Primeagent requires `langchain-core` 1.x.
-- `agentics-py` depends on `crewai`, and every `crewai` release since 0.140.0 pins `json-repair` or `tomli` below the versions Primeagent requires.
+- The latest release, `agentics-py` 0.3.6, requires `langchain-core` earlier than 1.0 through its `langchain-huggingface` dependency. PrimeAgent requires `langchain-core` 1.x.
+- `agentics-py` depends on `crewai`, and every `crewai` release since 0.140.0 pins `json-repair` or `tomli` below the versions PrimeAgent requires.
 - Earlier `agentics-py` releases have the same conflicts, or they fail when imported.
 
 When you run an Agentics component, it stops with an error that links to this page.
@@ -182,7 +182,7 @@ It sums revenue into `total_revenue`, identifies the best-selling product in `be
 
 - **Token usage:** aMap scales with rows; aReduce sends all rows in one call; aGenerate scales with instances. Use smaller batches or sample large datasets to reduce cost.
 - **Batch size:** Default 10; max 25. Larger batches improve throughput but increase latency per batch.
-- **Errors:** If a component reports that `agentics-py` isn't available, see [Compatibility](#compatibility). Don't install `agentics-py` into your Primeagent environment. For API/key errors, set the provider’s API key as a global variable or env var. For DataFrame errors, ensure input is a list of dicts or use a DataFrame component output.
+- **Errors:** If a component reports that `agentics-py` isn't available, see [Compatibility](#compatibility). Don't install `agentics-py` into your PrimeAgent environment. For API/key errors, set the provider’s API key as a global variable or env var. For DataFrame errors, ensure input is a list of dicts or use a DataFrame component output.
 
 ## See also
 

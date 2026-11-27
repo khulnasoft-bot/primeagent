@@ -17,7 +17,7 @@ from typing import Any
 from wfx.graph.edge.base import types_compatible
 from wfx.graph.flow_builder.component import sync_dropdown_selected_outputs
 
-# Primeagent uses oe (U+0153) as a quote replacement in ReactFlow handle strings
+# PrimeAgent uses oe (U+0153) as a quote replacement in ReactFlow handle strings
 _Q = "\u0153"
 
 # Must match wfx.base.tools.constants.TOOL_OUTPUT_NAME \u2014 duplicated as a
@@ -190,12 +190,12 @@ def _enable_tool_mode(flow: dict, source_id: str, registry: dict[str, dict] | No
 
 
 def _scaped_json_stringify(obj: Any) -> str:
-    """Replicate Primeagent frontend's scapedJSONStringfy: sorted keys, compact, oe for quotes."""
+    """Replicate PrimeAgent frontend's scapedJSONStringfy: sorted keys, compact, oe for quotes."""
     return _custom_stringify(obj).replace('"', _Q)
 
 
 def _custom_stringify(obj: Any) -> str:
-    """Replicate Primeagent frontend's customStringify for edge handle data.
+    """Replicate PrimeAgent frontend's customStringify for edge handle data.
 
     Covers the subset of types used in handle dicts. Uses json.dumps for
     strings to handle escaping correctly.

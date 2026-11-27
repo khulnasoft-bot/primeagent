@@ -60,8 +60,8 @@ def sample_image(primeagent_cache_dir):
 
 def test_message_prompt_serialization():
     template = "Hello, {name}!"
-    message = Message.from_template(template, name="Primeagent")
-    assert message.text == "Hello, Primeagent!"
+    message = Message.from_template(template, name="PrimeAgent")
+    assert message.text == "Hello, PrimeAgent!"
 
     # The base Message class in wfx doesn't support prompt serialization
     # This functionality is only available in the enhanced message class

@@ -110,7 +110,7 @@ async def authenticate_and_get_openai_key(session: DbSession, user: User, websoc
             {
                 "type": "error",
                 "code": "primeagent_auth",
-                "message": "You must pass a valid Primeagent token or cookie.",
+                "message": "You must pass a valid PrimeAgent token or cookie.",
             }
         )
         return None, None

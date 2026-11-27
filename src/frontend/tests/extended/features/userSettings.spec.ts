@@ -331,12 +331,12 @@ test(
     await page.getByTestId("user-profile-settings").click();
     await page.getByText(TEXTS.settings).click();
 
-    const primeagentApiNavItem = page.getByText("Primeagent API").first();
+    const primeagentApiNavItem = page.getByText("PrimeAgent API").first();
     await expect(primeagentApiNavItem).toBeVisible({ timeout: 10000 });
     await primeagentApiNavItem.click();
 
     await expect(
-      page.getByText("Primeagent API Keys", { exact: true }).nth(1),
+      page.getByText("PrimeAgent API Keys", { exact: true }).nth(1),
     ).toBeVisible({ timeout: 10000 });
     await page.getByText("Add New").click();
     await expect(page.getByPlaceholder("My API Key")).toBeVisible({

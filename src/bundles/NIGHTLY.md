@@ -5,7 +5,7 @@ They do not publish parallel `*-nightly` Python distributions.
 
 ## Version chain
 
-The workflow derives one coordinated Primeagent development version from the
+The workflow derives one coordinated PrimeAgent development version from the
 canonical histories of `primeagent`, `primeagent-base`, `wfx`, and
 `primeagent-sdk`.
 

@@ -76,7 +76,7 @@ _DEFAULT_EXPORT_SUFFIX = ".txt"
 # frontend-surfaces.md B14: an access outcome names the drive.file boundary. Kept in
 # step with wfx_google's _workspace_client, which this core module cannot import.
 _DRIVE_FILE_BOUNDARY = (
-    "Primeagent can access only Drive files created by or opened with this app (the drive.file scope). "
+    "PrimeAgent can access only Drive files created by or opened with this app (the drive.file scope). "
     "Connecting the account does not grant access to all Drive files, and file selection with Google "
     "Picker is not available in this release."
 )

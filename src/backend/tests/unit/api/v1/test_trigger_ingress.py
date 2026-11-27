@@ -61,8 +61,8 @@ async def _events(trigger_id) -> list[TriggerEvent]:
 def _webhook_headers(body: bytes, *, secret: str = WEBHOOK_SECRET) -> dict[str, str]:
     timestamp = int(time.time())
     return {
-        "X-Primeagent-Signature": sign_webhook_payload(secret, timestamp=timestamp, body=body),
-        "X-Primeagent-Timestamp": str(timestamp),
+        "X-PrimeAgent-Signature": sign_webhook_payload(secret, timestamp=timestamp, body=body),
+        "X-PrimeAgent-Timestamp": str(timestamp),
         "Content-Type": "application/json",
     }
 
@@ -96,8 +96,8 @@ async def test_a_signed_webhook_delivery_becomes_a_ledger_row(
         url,
         content=body,
         headers={
-            "X-Primeagent-Signature": sign_webhook_payload(secret, timestamp=timestamp, body=body),
-            "X-Primeagent-Timestamp": str(timestamp),
+            "X-PrimeAgent-Signature": sign_webhook_payload(secret, timestamp=timestamp, body=body),
+            "X-PrimeAgent-Timestamp": str(timestamp),
             "Content-Type": "application/json",
         },
     )
@@ -132,8 +132,8 @@ async def test_rotating_the_secret_invalidates_the_old_one_immediately(
         first["ingress_url"],
         content=body,
         headers={
-            "X-Primeagent-Signature": sign_webhook_payload(first["signing_secret"], timestamp=timestamp, body=body),
-            "X-Primeagent-Timestamp": str(timestamp),
+            "X-PrimeAgent-Signature": sign_webhook_payload(first["signing_secret"], timestamp=timestamp, body=body),
+            "X-PrimeAgent-Timestamp": str(timestamp),
         },
     )
     assert stale.status_code == 404
@@ -521,8 +521,8 @@ async def test_a_malformed_header_on_a_real_trigger_is_an_audited_404(
     monkeypatch.setattr(get_settings_service().auth_settings, "AUTHZ_AUDIT_ENABLED", True)
     trigger_id, minted = await _armed_webhook(client, logged_in_headers, flow)
     headers = {
-        "X-Primeagent-Signature": signature,
-        "X-Primeagent-Timestamp": timestamp or str(int(time.time())),
+        "X-PrimeAgent-Signature": signature,
+        "X-PrimeAgent-Timestamp": timestamp or str(int(time.time())),
     }
     try:
         real = await client.post(minted["ingress_url"], content=b"{}", headers=headers)
@@ -571,10 +571,10 @@ async def test_an_accepted_delivery_commits_before_the_durable_audit_waits(
                 minted["ingress_url"],
                 content=body,
                 headers={
-                    "X-Primeagent-Signature": sign_webhook_payload(
+                    "X-PrimeAgent-Signature": sign_webhook_payload(
                         minted["signing_secret"], timestamp=timestamp, body=body
                     ),
-                    "X-Primeagent-Timestamp": str(timestamp),
+                    "X-PrimeAgent-Timestamp": str(timestamp),
                 },
             ),
             timeout=10,

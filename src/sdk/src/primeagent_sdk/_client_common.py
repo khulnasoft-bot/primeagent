@@ -1,4 +1,4 @@
-"""Shared helpers used by both sync and async Primeagent SDK clients."""
+"""Shared helpers used by both sync and async PrimeAgent SDK clients."""
 
 from __future__ import annotations
 

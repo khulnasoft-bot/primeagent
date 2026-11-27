@@ -331,7 +331,7 @@ async def test_start_skips_explicitly_external_builtin_subclass(monkeypatch):
 
 
 async def test_start_keeps_refreshing_when_only_integration_policy_is_primeagent_owned(monkeypatch):
-    """A Primeagent-owned integration ceiling still needs cross-worker convergence."""
+    """A PrimeAgent-owned integration ceiling still needs cross-worker convergence."""
     service = _ExternalBuiltinPolicyService()
     worker = refresh_module.ModelProviderPolicyRefreshWorker(interval=5)
     run_started = asyncio.Event()

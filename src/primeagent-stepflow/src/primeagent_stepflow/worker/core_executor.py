@@ -1,6 +1,6 @@
-"""Core component executor for known Primeagent components.
+"""Core component executor for known PrimeAgent components.
 
-Executes known Primeagent components by importing them directly by module path,
+Executes known PrimeAgent components by importing them directly by module path,
 without needing to compile code from blob storage. This is more efficient for
 components whose code hash matches a known version.
 """
@@ -16,7 +16,7 @@ from .base_executor import BaseExecutor
 
 
 class CoreExecutor(BaseExecutor):
-    """Executes known Primeagent components by importing them directly.
+    """Executes known PrimeAgent components by importing them directly.
 
     This executor imports components by their module path and instantiates them
     directly, without needing to compile code from blob storage.
@@ -65,7 +65,7 @@ class CoreExecutor(BaseExecutor):
         input_data: dict[str, Any],
         context: StepflowContext,
     ) -> dict[str, Any]:
-        """Execute a core Primeagent component.
+        """Execute a core PrimeAgent component.
 
         Args:
             component_path: The component path suffix after /primeagent/core/

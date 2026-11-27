@@ -3,7 +3,7 @@
   "id": "wfx-serpingapi",
   "version": "0.1.0",
   "name": "Serping API",
-  "description": "Serping API Google SERP web-search component as a standalone Primeagent Extension Bundle.",
+  "description": "Serping API Google SERP web-search component as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

@@ -164,7 +164,7 @@ class TestOffTopicIntegration:
         ):
             gen = execute_flow_with_validation_streaming(
                 flow_filename="TestFlow",
-                input_value="What is Primeagent?",
+                input_value="What is PrimeAgent?",
                 global_variables={},
             )
             events = await _collect_events(gen)

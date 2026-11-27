@@ -254,7 +254,7 @@
       "delivery": {
         "guarantee": "at_least_once",
         "ack_deadline_seconds": null,
-        "retry_policy": "Primeagent controls the cadence; a failed round leaves the stored token untouched and the next tick repeats it.",
+        "retry_policy": "PrimeAgent controls the cadence; a failed round leaves the stored token untouched and the next tick repeats it.",
         "source": "calendar-sync"
       },
       "replay": {
@@ -310,7 +310,7 @@
       "delivery": {
         "guarantee": "at_least_once",
         "ack_deadline_seconds": null,
-        "retry_policy": "Primeagent controls the cadence; a failed round leaves the persisted cursor untouched.",
+        "retry_policy": "PrimeAgent controls the cadence; a failed round leaves the persisted cursor untouched.",
         "source": "drive-changes"
       },
       "replay": {
@@ -391,7 +391,7 @@
         "details": "google:gmail:{threadId} so a mail thread correlates to one conversation.",
         "source": "gmail-sync"
       },
-      "notes": "Hidden on hosted, and hidden on Desktop unless the customer-owned override is configured. It also needs a Cloud project with a Pub/Sub topic that grants the Gmail service account publish rights, which is customer setup, not Primeagent setup."
+      "notes": "Hidden on hosted, and hidden on Desktop unless the customer-owned override is configured. It also needs a Cloud project with a Pub/Sub topic that grants the Gmail service account publish rights, which is customer setup, not PrimeAgent setup."
     },
     {
       "mechanism_id": "google.gmail_watch_pubsub_pull",

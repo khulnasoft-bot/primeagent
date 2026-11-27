@@ -1,4 +1,4 @@
-"""A secret-manager connection resolver for a host without Primeagent's database.
+"""A secret-manager connection resolver for a host without PrimeAgent's database.
 
 ``SecretManagerConnectionResolver`` is the shape to copy when credentials live in
 AWS Secrets Manager, HashiCorp Vault, GCP Secret Manager, or any other store: the

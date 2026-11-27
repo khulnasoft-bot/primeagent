@@ -12,9 +12,9 @@ import { GraduatedBundleInstall } from "@site/docs/_partial-bundle-graduated-ins
 
 <Icon name="Blocks" aria-hidden="true" />
 [**Bundles**](/components-bundle-components) contain custom components that
-support specific third-party integrations with Primeagent.
+support specific third-party integrations with PrimeAgent.
 
-This page describes the components that are available in the **IBM Confluent** bundle, and the zero-code ways to connect Primeagent flows to Confluent that work with the components you already have.
+This page describes the components that are available in the **IBM Confluent** bundle, and the zero-code ways to connect PrimeAgent flows to Confluent that work with the components you already have.
 
 [IBM Confluent](https://www.ibm.com/products/confluent) is the data-in-motion half of IBM's streaming lakehouse: Apache Kafka® for streams, Apache Flink® for processing (including [Streaming Agents](https://docs.confluent.io/cloud/current/ai/streaming-agents/overview.html)), [Tableflow](https://docs.confluent.io/cloud/current/topics/tableflow/overview.html) to materialize topics as Apache Iceberg™ tables, and the [Real-Time Context Engine](https://docs.confluent.io/cloud/current/ai/real-time-context-engine/overview.html) to serve fresh, governed topic data to AI agents over MCP. The data-at-rest half — IBM watsonx.data — is covered by the [**IBM** bundle](./bundles-ibm.mdx).
 
@@ -34,7 +34,7 @@ The Real-Time Context Engine materializes schema'd Kafka topics into a low-laten
 - `get_metadata` — a topic's schema and metadata.
 - `query_data` — the latest data by key lookup, filters, ranges, and compound predicates.
 
-The component templates the regional MCP endpoint from your Confluent Cloud IDs, authenticates with a Confluent Cloud API key, and hands the tools to an Agent. It reuses Primeagent's MCP client engine, so it behaves like the [**MCP Tools** component](/mcp-client) without asking you to assemble a server entry by hand.
+The component templates the regional MCP endpoint from your Confluent Cloud IDs, authenticates with a Confluent Cloud API key, and hands the tools to an Agent. It reuses PrimeAgent's MCP client engine, so it behaves like the [**MCP Tools** component](/mcp-client) without asking you to assemble a server entry by hand.
 
 To use it, enable the Context Engine on one or more topics in Confluent Cloud, create a **Global** API key, and fill in the region, organization, environment, and Kafka cluster IDs. Then either:
 
@@ -120,7 +120,7 @@ Record values are decoded as JSON by default (falling back to text); `string` ke
 
 ## Confluent Tableflow Reader
 
-This component reads a Kafka topic that Tableflow has materialized as an Apache Iceberg table, through the Tableflow Iceberg REST catalog, into a DataFrame. It uses `pyiceberg` (no JVM), so it runs anywhere Primeagent runs, and applies an optional row filter, a column projection, and a hard row limit before the data reaches the flow.
+This component reads a Kafka topic that Tableflow has materialized as an Apache Iceberg table, through the Tableflow Iceberg REST catalog, into a DataFrame. It uses `pyiceberg` (no JVM), so it runs anywhere PrimeAgent runs, and applies an optional row filter, a column projection, and a hard row limit before the data reaches the flow.
 
 Tableflow tables are read-only from external engines. To change the data, publish to the source topic. To query the same tables with SQL alongside your other lakehouse data, register the Tableflow catalog in watsonx.data and use the [**IBM watsonx.data Presto** component](./bundles-ibm.mdx#ibm-watsonxdata-presto).
 
@@ -154,9 +154,9 @@ To use it, enable Tableflow on the topic in Confluent Cloud, capture the REST ca
 | Result Table                                  | [DataFrame](/data-types#table) | Output. Rows of the table after filter, projection, and limit.                                              |
 | Tables                                        | [Data](/data-types#json)       | Output. The tables in the namespace.                                                                        |
 
-## Connect Confluent and Primeagent without new components
+## Connect Confluent and PrimeAgent without new components
 
-These recipes use components and endpoints that ship with every Primeagent installation. They are the fastest way to prove an end-to-end flow before you adopt the bundle's components.
+These recipes use components and endpoints that ship with every PrimeAgent installation. They are the fastest way to prove an end-to-end flow before you adopt the bundle's components.
 
 ### Use the Real-Time Context Engine through the MCP Tools component
 
@@ -175,23 +175,23 @@ The Context Engine is a standard MCP server, so the generic [**MCP Tools** compo
 }
 ```
 
-`CONFLUENT_RTCE_AUTH` is a Primeagent [global variable](/configuration-global-variables) that holds `Basic <base64 of API_KEY:API_SECRET>`. Primeagent resolves header values that name a global variable, so the credential never lives in the flow.
+`CONFLUENT_RTCE_AUTH` is a PrimeAgent [global variable](/configuration-global-variables) that holds `Basic <base64 of API_KEY:API_SECRET>`. PrimeAgent resolves header values that name a global variable, so the credential never lives in the flow.
 
 The same approach works for Confluent's [managed MCP servers](https://docs.confluent.io/cloud/current/ai/ai-tools/managed-mcp-server.html) (`https://api.confluent.cloud/mcp/v1` and the regional `https://mcp.<region>.<cloud>.confluent.cloud/mcp/v1/organizations/<org_id>`), which expose environment, cluster, topic, and Schema Registry inspection tools.
 
 ### Trigger a flow from Kafka
 
-Primeagent flows can be started by an HTTP request. Use Confluent's **HTTP Sink Connector** to POST each record (or a batch) to a flow's [webhook endpoint](/webhook):
+PrimeAgent flows can be started by an HTTP request. Use Confluent's **HTTP Sink Connector** to POST each record (or a batch) to a flow's [webhook endpoint](/webhook):
 
 1. Add a **Webhook** component to the flow and copy its endpoint, `POST /api/v1/webhook/<flow-id-or-endpoint-name>`.
-2. Create a Primeagent API key.
+2. Create a PrimeAgent API key.
 3. Configure the HTTP Sink Connector with the webhook URL and a request header `x-api-key: <primeagent-api-key>`.
 
 Every record now runs the flow, and the Webhook component's output carries the record payload.
 
-### Let a Flink Streaming Agent call a Primeagent flow as a tool
+### Let a Flink Streaming Agent call a PrimeAgent flow as a tool
 
-Confluent's Streaming Agents can call external MCP servers, and every Primeagent project is an MCP server. Publish the flows you want to expose from a project's [**MCP Server** tab](/mcp-server), then in Flink SQL:
+Confluent's Streaming Agents can call external MCP servers, and every PrimeAgent project is an MCP server. Publish the flows you want to expose from a project's [**MCP Server** tab](/mcp-server), then in Flink SQL:
 
 ```sql
 CREATE CONNECTION primeagent_mcp
@@ -211,7 +211,7 @@ WITH (
 Reference `primeagent_flows` in `CREATE AGENT`, and the agent can invoke your flows on every event it processes.
 
 :::warning
-Primeagent's MCP endpoint accepts the API key as an `x-api-key` header or query parameter, and Confluent's `mcp_server` connection sends only the credential form it defines, so the example puts the key in the URL. Confluent stores connection secrets in its secret store, but query-string credentials can still surface in proxy and server access logs. Scope the key to the project, rotate it regularly, and prefer the connection's OAuth options when your Primeagent deployment fronts the MCP server with OAuth (MCP Composer).
+PrimeAgent's MCP endpoint accepts the API key as an `x-api-key` header or query parameter, and Confluent's `mcp_server` connection sends only the credential form it defines, so the example puts the key in the URL. Confluent stores connection secrets in its secret store, but query-string credentials can still surface in proxy and server access logs. Scope the key to the project, rotate it regularly, and prefer the connection's OAuth options when your PrimeAgent deployment fronts the MCP server with OAuth (MCP Composer).
 :::
 
 ### Query Tableflow tables from watsonx.data

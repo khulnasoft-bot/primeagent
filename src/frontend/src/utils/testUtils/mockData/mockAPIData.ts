@@ -1,9 +1,4 @@
-import type {
-  APIClassType,
-  APIDataType,
-  APITemplateType,
-  InputFieldType,
-} from "@/types/api";
+import type { APIDataType, APITemplateType } from "@/types/api";
 
 const mockTemplate: APITemplateType = {
   api_key: {

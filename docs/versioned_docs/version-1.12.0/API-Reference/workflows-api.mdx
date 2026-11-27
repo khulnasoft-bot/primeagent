@@ -16,9 +16,9 @@ import exampleJavascriptWorkflowsApiExampleSynchronousRequest from "!!raw-loader
 import exampleJavascriptWorkflowsApiExampleAsynchronousRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-asynchronous-request.js";
 import exampleJavascriptWorkflowsApiExampleRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-request.js";
 import exampleJavascriptWorkflowsApiExampleRequest2 from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-request-2.js";
-import exampleWorkflowsApiExampleStreamPrimeagentRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-stream-primeagent-request.sh";
-import examplePythonWorkflowsApiExampleStreamPrimeagentRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-stream-primeagent-request.py";
-import exampleJavascriptWorkflowsApiExampleStreamPrimeagentRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-stream-primeagent-request.js";
+import exampleWorkflowsApiExampleStreamPrimeAgentRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-stream-primeagent-request.sh";
+import examplePythonWorkflowsApiExampleStreamPrimeAgentRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-stream-primeagent-request.py";
+import exampleJavascriptWorkflowsApiExampleStreamPrimeAgentRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-stream-primeagent-request.js";
 import exampleWorkflowsApiExampleStreamAguiRequest from "!!raw-loader!@site/docs/API-Reference/curl-examples/workflows-api/example-stream-agui-request.sh";
 import examplePythonWorkflowsApiExampleStreamAguiRequest from "!!raw-loader!@site/docs/API-Reference/python-examples/workflows-api/example-stream-agui-request.py";
 import exampleJavascriptWorkflowsApiExampleStreamAguiRequest from "!!raw-loader!@site/docs/API-Reference/javascript-examples/workflows-api/example-stream-agui-request.js";
@@ -33,11 +33,11 @@ The Workflow API is currently in **Beta**.
 The API endpoints and response formats may change in future releases.
 :::
 
-The Workflow API provides programmatic access to execute Primeagent workflows in `sync`, `stream`, or `background` modes.
+The Workflow API provides programmatic access to execute PrimeAgent workflows in `sync`, `stream`, or `background` modes.
 
-The Workflow API is part of the Primeagent Developer v2 API and offers enhanced workflow execution capabilities compared to the v1 `/run` endpoint.
+The Workflow API is part of the PrimeAgent Developer v2 API and offers enhanced workflow execution capabilities compared to the v1 `/run` endpoint.
 
-As of Primeagent version 1.11, `stream` mode supports both Primeagent's built-in `EventManager` and the [AG-UI protocol](https://docs.ag-ui.com/introduction).
+As of PrimeAgent version 1.11, `stream` mode supports both PrimeAgent's built-in `EventManager` and the [AG-UI protocol](https://docs.ag-ui.com/introduction).
 
 :::tip New to the Workflow API?
 Start with the [Workflow API quickstart](./workflow-api-quickstart) for a step-by-step walkthrough of sync, stream, and background modes.
@@ -104,17 +104,17 @@ Set `"mode": "sync"` or omit `mode` to run inline and receive the full response 
 
 Set `"mode": "stream"` to receive a Server-Sent Events (SSE) stream for the run.
 
-`stream_protocol` is set to `primeagent` by default, which emits the built-in Primeagent `EventManager` output.
-For more information, see [Stream with Primeagent EventManager](#stream-with-primeagent)
+`stream_protocol` is set to `primeagent` by default, which emits the built-in PrimeAgent `EventManager` output.
+For more information, see [Stream with PrimeAgent EventManager](#stream-with-primeagent)
 
 Set `stream_protocol` to `agui` to emit events using the [AG-UI protocol](https://docs.ag-ui.com/introduction) instead.
 For more information, see [Stream with AG-UI](#stream-with-ag-ui).
 
 If `stream_protocol` names an unknown adapter, the endpoint returns `422` with an `available` list of registered protocol names.
 
-#### Stream with Primeagent EventManager {#stream-with-primeagent}
+#### Stream with PrimeAgent EventManager {#stream-with-primeagent}
 
-`stream_protocol` defaults to `primeagent`, which passes through the built-in Primeagent `EventManager` events. Each SSE frame has a monotonic `id:` and a `data:` line containing JSON shaped like `{"event": "<type>", "data": {...}}`. This is the same wire format the v1 build stream uses, so existing Primeagent clients can read it without changes.
+`stream_protocol` defaults to `primeagent`, which passes through the built-in PrimeAgent `EventManager` events. Each SSE frame has a monotonic `id:` and a `data:` line containing JSON shaped like `{"event": "<type>", "data": {...}}`. This is the same wire format the v1 build stream uses, so existing PrimeAgent clients can read it without changes.
 
 Omit `stream_protocol` or set it explicitly to `"primeagent"`. Use `curl -N` so the client does not buffer the stream.
 
@@ -122,21 +122,21 @@ Omit `stream_protocol` or set it explicitly to `"primeagent"`. Use `curl -N` so 
 <TabItem value="Python" label="Python" default>
 
 <CodeBlock language="python">
-  {examplePythonWorkflowsApiExampleStreamPrimeagentRequest}
+  {examplePythonWorkflowsApiExampleStreamPrimeAgentRequest}
 </CodeBlock>
 
 </TabItem>
 <TabItem value="JavaScript" label="JavaScript">
 
 <CodeBlock language="javascript">
-  {exampleJavascriptWorkflowsApiExampleStreamPrimeagentRequest}
+  {exampleJavascriptWorkflowsApiExampleStreamPrimeAgentRequest}
 </CodeBlock>
 
 </TabItem>
 <TabItem value="curl" label="curl">
 
 <CodeBlock language="bash">
-  {exampleWorkflowsApiExampleStreamPrimeagentRequest}
+  {exampleWorkflowsApiExampleStreamPrimeAgentRequest}
 </CodeBlock>
 
 </TabItem>
@@ -159,7 +159,7 @@ For more examples of `token` and `add_message` events, see [Stream LLM token res
 
 #### Stream with AG-UI {#stream-with-ag-ui}
 
-Stream with the [AG-UI protocol](https://docs.ag-ui.com/introduction) when your client expects agent lifecycle events such as `RUN_STARTED` and `TEXT_MESSAGE_*` instead of Primeagent's internal events.
+Stream with the [AG-UI protocol](https://docs.ag-ui.com/introduction) when your client expects agent lifecycle events such as `RUN_STARTED` and `TEXT_MESSAGE_*` instead of PrimeAgent's internal events.
 Read responses as an SSE stream. Each `data:` line contains one AG-UI event serialized as JSON. Close flow runs when you receive `RUN_FINISHED`, or handle failures on `RUN_ERROR`.
 
 Send `POST /api/v2/workflows` with `"mode": "stream"` and `"stream_protocol": "agui"`.
@@ -197,9 +197,9 @@ Send `POST /api/v2/workflows` with `"mode": "stream"` and `"stream_protocol": "a
 | `TOOL_CALL_START` / `TOOL_CALL_ARGS` / `TOOL_CALL_END` / `TOOL_CALL_RESULT` | Tool invocation lifecycle.                  |
 | `STEP_STARTED` / `STEP_FINISHED`                                            | Per-component execution steps.              |
 | `STATE_SNAPSHOT` / `STATE_DELTA`                                            | Node graph state (status and output).       |
-| `CUSTOM`                                                                    | Primeagent-specific extensions (see below). |
+| `CUSTOM`                                                                    | PrimeAgent-specific extensions (see below). |
 
-Primeagent also emits `CUSTOM` events that generic AG-UI clients can ignore, such as `primeagent.log`, `primeagent.content.*`, `primeagent.message.removed`, and `primeagent.run.cancelled`.
+PrimeAgent also emits `CUSTOM` events that generic AG-UI clients can ignore, such as `primeagent.log`, `primeagent.content.*`, `primeagent.message.removed`, and `primeagent.run.cancelled`.
 
 For the full AG-UI event catalog, see the [AG-UI specification](https://docs.ag-ui.com/concepts/architecture).
 

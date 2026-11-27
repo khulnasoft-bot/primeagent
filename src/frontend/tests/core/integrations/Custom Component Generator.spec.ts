@@ -28,7 +28,7 @@ withEventDeliveryModes(
       .getByTestId("input-chat-playground")
       .last()
       .fill(
-        "Create a custom component that can generate a random number between 1 and 100 and is called Primeagent Random Number",
+        "Create a custom component that can generate a random number between 1 and 100 and is called PrimeAgent Random Number",
       );
 
     await page.getByTestId("button-send").last().click();

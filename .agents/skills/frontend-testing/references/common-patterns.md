@@ -1,6 +1,6 @@
 # Common Testing Patterns
 
-Frequently used patterns for testing Primeagent React components with Jest and React Testing Library.
+Frequently used patterns for testing PrimeAgent React components with Jest and React Testing Library.
 
 ## Query Priority
 
@@ -176,7 +176,7 @@ describe("LoginForm", () => {
 
 ## Modal/Dialog Testing
 
-Primeagent uses Radix UI dialogs:
+PrimeAgent uses Radix UI dialogs:
 
 ```typescript
 describe("ConfirmDialog", () => {
@@ -316,7 +316,7 @@ describe("ItemList", () => {
 
 ## Testing Tooltips
 
-Primeagent uses Radix tooltips which require hover:
+PrimeAgent uses Radix tooltips which require hover:
 
 ```typescript
 it("should show tooltip on hover", async () => {
@@ -363,7 +363,7 @@ describe("ErrorBoundary", () => {
 
 ## Testing Custom data-testid Attributes
 
-Primeagent components frequently use `data-testid` for testing. Common patterns:
+PrimeAgent components frequently use `data-testid` for testing. Common patterns:
 
 ```typescript
 // Input components

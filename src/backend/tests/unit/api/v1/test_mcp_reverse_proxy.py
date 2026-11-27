@@ -1,7 +1,7 @@
 """Tests for MCP reverse proxy support (root_path / X-Forwarded-Prefix).
 
 Covers the fix for https://github.com/khulnasoft-bot/primeagent/issues/9797 where MCP
-SSE transport breaks when Primeagent sits behind a reverse proxy that adds a URL
+SSE transport breaks when PrimeAgent sits behind a reverse proxy that adds a URL
 prefix (basePath).
 """
 

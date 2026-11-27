@@ -22,7 +22,7 @@ SECRET = "sk-legacy-embedded-key"  # noqa: S105  # pragma: allowlist secret
 
 
 def _legacy_flow_data(server_name: str) -> dict:
-    """The shape a pre-scrub Primeagent wrote: the credential sitting in the graph."""
+    """The shape a pre-scrub PrimeAgent wrote: the credential sitting in the graph."""
     return {
         "nodes": [
             {

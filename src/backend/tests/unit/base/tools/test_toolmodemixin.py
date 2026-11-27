@@ -26,7 +26,7 @@ from wfx.schema import Data
 
 class AllInputsComponent(Component):
     display_name = "All Inputs Component"
-    description = "A component with all input types available in Primeagent."
+    description = "A component with all input types available in PrimeAgent."
     documentation: str = "http://prime.khulnasoft.com/docs/components/all_inputs"
     icon = "code"
     name = "AllInputsComponent"

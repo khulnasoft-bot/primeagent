@@ -5,7 +5,7 @@ const client = new OpenAI({
   defaultHeaders: {
     "x-api-key": "PRIMEAGENT_API_KEY",
   },
-  apiKey: "dummy-api-key", // Required by OpenAI SDK but not used by Primeagent
+  apiKey: "dummy-api-key", // Required by OpenAI SDK but not used by PrimeAgent
 });
 
 const response = await client.responses.create({

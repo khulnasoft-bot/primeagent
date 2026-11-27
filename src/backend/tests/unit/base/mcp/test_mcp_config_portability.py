@@ -250,7 +250,7 @@ class TestRunToolReachesTheDescriber:
 class TestUrlResolutionProvenance:
     """Who chooses the outbound target must not be the caller.
 
-    ``request_variables`` on a run come from the inbound ``X-Primeagent-Global-Var-*``
+    ``request_variables`` on a run come from the inbound ``X-PrimeAgent-Global-Var-*``
     headers. Letting them resolve ``{{MCP_HOST}}/mcp`` hands the destination to whoever
     calls the flow, and the resolved credential headers travel to that destination.
     SSRF validation rejects internal targets, not an arbitrary external one.
@@ -308,7 +308,7 @@ class TestUrlResolutionProvenance:
 class TestEnvVariableResolution:
     """``env`` was left literal, so a stdio server received ``MCP_FOO_...`` as its key.
 
-    The module promised the reference keeps a flow portable. Under Primeagent the stored
+    The module promised the reference keeps a flow portable. Under PrimeAgent the stored
     server row masks the gap; under ``wfx serve`` or an import elsewhere the subprocess
     is handed the variable name and authenticates with nonsense.
     """

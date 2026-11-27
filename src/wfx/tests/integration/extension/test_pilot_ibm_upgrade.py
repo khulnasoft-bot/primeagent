@@ -8,7 +8,7 @@ documented in ``src/bundles/PORTING.md`` end-to-end for both a
 single-class bundle and a multi-class bundle.
 
 Verifies the save/upgrade/load contract for flows referencing any of
-the three IBM components from the pre-extraction Primeagent:
+the three IBM components from the pre-extraction PrimeAgent:
 
     1. A saved flow uses one of the legacy bare class names; the
        migration table rewrites it to the canonical post-Phase-A
@@ -74,7 +74,7 @@ def _saved_flow_node(node_id: str, type_value: str) -> dict:
 
 
 def _saved_flow(*nodes: dict) -> dict:
-    """Wrap nodes in the canonical Primeagent flow envelope."""
+    """Wrap nodes in the canonical PrimeAgent flow envelope."""
     return {"data": {"nodes": list(nodes), "edges": []}}
 
 

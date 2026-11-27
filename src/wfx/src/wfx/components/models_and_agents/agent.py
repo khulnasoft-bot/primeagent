@@ -689,7 +689,7 @@ class AgentComponent(ToolApprovalMixin, ToolCallingAgentComponent):
         agent_message = self._build_initial_agent_message()
         token_usage_handler = TokenUsageCallbackHandler()
 
-        # Stream tokens to the event manager when running inside the Primeagent runtime.
+        # Stream tokens to the event manager when running inside the PrimeAgent runtime.
         # This is what powers the live-typing view in the chat UI.
         on_token_callback: OnTokenFunctionType | None = None
         if getattr(self, "_event_manager", None):

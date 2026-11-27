@@ -114,7 +114,7 @@ _catalog_policy_fallback_lock = threading.Lock()
 def get_catalog_policy_service():
     """Return the ready catalog-policy service.
 
-    Standalone WFX resolves the built-in allow-all implementation. Primeagent
+    Standalone WFX resolves the built-in allow-all implementation. PrimeAgent
     overrides it with the database-backed process-local snapshot service. A
     broken configured implementation is replaced with one stable built-in
     allow-all instance so later lookups remain fail-open instead of retrying a
@@ -297,7 +297,7 @@ def get_transaction_service() -> TransactionServiceProtocol | None:
 def get_auth_service() -> AuthServiceProtocol | None:
     """Retrieves the auth service instance.
 
-    Returns the pluggable auth service (minimal WFX or full Primeagent when configured).
+    Returns the pluggable auth service (minimal WFX or full PrimeAgent when configured).
     """
     from wfx.services.schema import ServiceType
 

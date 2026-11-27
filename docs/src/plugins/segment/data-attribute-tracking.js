@@ -17,7 +17,7 @@ let isDataAttributeTrackingInitialized = false;
  *   'data-channel': 'docs',
  *   'data-element-id': 'social-github',
  *   'data-namespace': 'header',
- *   'data-platform-title': 'Primeagent'
+ *   'data-platform-title': 'PrimeAgent'
  * }
  *
  * Example - CTA Clicked:

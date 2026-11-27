@@ -25,7 +25,7 @@ ANONYMOUS_PREFIX = ANONYMOUS_SESSION_PREFIX.removesuffix(SCOPE_SEPARATOR)
 
 @dataclass(frozen=True)
 class EndUserKeys:
-    """Every key under which Primeagent stores one end user's data."""
+    """Every key under which PrimeAgent stores one end user's data."""
 
     raw_id: str
     message_owner_id: UUID

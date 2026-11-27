@@ -1,6 +1,6 @@
 # wfx-amazon
 
-Amazon component(s) as a standalone Primeagent Extension Bundle.
+Amazon component(s) as a standalone PrimeAgent Extension Bundle.
 
 ## Install
 
@@ -9,7 +9,7 @@ pip install wfx-amazon
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point.  After install, restart your Primeagent server; the bundle's
+entry-point.  After install, restart your PrimeAgent server; the bundle's
 components will appear in the palette under the `amazon` group with
 the namespaced IDs `ext:amazon:<Class>@official`.
 

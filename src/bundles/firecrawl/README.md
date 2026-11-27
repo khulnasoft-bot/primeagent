@@ -1,7 +1,7 @@
 # wfx-firecrawl
 
 Firecrawl components (Scrape, Crawl, Map, and Search APIs) as a standalone
-Primeagent Extension Bundle, built against the firecrawl-py v2 SDK.
+PrimeAgent Extension Bundle, built against the firecrawl-py v2 SDK.
 
 ## Install
 
@@ -10,7 +10,7 @@ pip install wfx-firecrawl
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point.  After install, restart your Primeagent server; the bundle's
+entry-point.  After install, restart your PrimeAgent server; the bundle's
 components will appear in the palette under the `firecrawl` group.
 
 ## Develop

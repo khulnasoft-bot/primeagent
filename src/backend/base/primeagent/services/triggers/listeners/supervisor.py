@@ -747,7 +747,7 @@ class ListenerSupervisor:
                 # of the trigger can do.
                 "The listener cannot read this connection with its own configuration "
                 f"({worker.last_error}). It must run with the same PRIMEAGENT_SECRET_KEY and "
-                "PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS as the Primeagent API. The trigger stays armed and "
+                "PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS as the PrimeAgent API. The trigger stays armed and "
                 "resumes on its own once it does."
                 if local_configuration
                 else (

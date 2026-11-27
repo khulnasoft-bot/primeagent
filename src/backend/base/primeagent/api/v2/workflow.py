@@ -133,7 +133,7 @@ def _workflow_job_mode(job: Job) -> str | None:
 # The primeagent durable background routes (GET status, POST /stop, GET /pending,
 # POST /{job_id}/resume, GET /{job_id}/events). The POST run path is contributed
 # by the shared wfx router (``wfx.workflow.router.create_workflow_router``)
-# bound to ``PrimeagentWorkflowHost``; only these durable, behaviorally-rich
+# bound to ``PrimeAgentWorkflowHost``; only these durable, behaviorally-rich
 # routes stay primeagent-owned. Both are mounted on the same ``/workflows``
 # prefix in ``primeagent.api.router``.
 router = APIRouter(prefix="/workflows", tags=["Workflow"])

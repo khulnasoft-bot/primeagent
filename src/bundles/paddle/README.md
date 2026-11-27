@@ -1,6 +1,6 @@
 # wfx-paddle
 
-PaddleOCR as a standalone Primeagent Extension Bundle.
+PaddleOCR as a standalone PrimeAgent Extension Bundle.
 
 Ships the **PaddleOCR** component, which performs either layout-aware document
 parsing into Markdown (`PP-StructureV3`, `PaddleOCR-VL-1.6`) or plain OCR text
@@ -8,7 +8,7 @@ recognition (`PP-OCRv5`, `PP-OCRv6`). It talks to the PaddleOCR
 [AI Studio async Job HTTP API](https://paddlepaddle.github.io/PaddleOCR/latest/en/version3.x/paddleocr_and_ppstructure.html)
 (`submit -> poll -> fetch`) directly via `httpx`, so it does **not** require the
 `paddleocr` Python SDK (whose transitive `pyyaml` constraint conflicts with
-Primeagent's dependency tree).
+PrimeAgent's dependency tree).
 
 ## Install
 
@@ -17,7 +17,7 @@ pip install wfx-paddle
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point. After install, restart your Primeagent server; the component will
+entry-point. After install, restart your PrimeAgent server; the component will
 appear in the palette under the `paddle` group.
 
 You will need an AI Studio access token

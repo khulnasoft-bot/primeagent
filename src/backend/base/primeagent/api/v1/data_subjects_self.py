@@ -44,7 +44,7 @@ def _require_interactive_login(current_user: CurrentActiveUser) -> None:  # noqa
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Sign in interactively to manage your own data",
-            headers={"X-Primeagent-Error-Code": "interactive_login_required"},
+            headers={"X-PrimeAgent-Error-Code": "interactive_login_required"},
         )
 
 

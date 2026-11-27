@@ -96,7 +96,7 @@ if TYPE_CHECKING:
     from pathlib import Path
 
 # Mode constants. Plain-text labels (no emoji) for consistency with the rest of
-# Primeagent's TabInput palette — see ``MemoryComponent`` for the same convention.
+# PrimeAgent's TabInput palette — see ``MemoryComponent`` for the same convention.
 MODE_INGEST = "Ingest"
 MODE_RETRIEVE = "Retrieve"
 
@@ -173,7 +173,7 @@ _DEFAULT_OPENSEARCH_CONFIG = {
 
 
 class KnowledgeComponent(Component):
-    """One component for both writing into and reading from a Primeagent knowledge base.
+    """One component for both writing into and reading from a PrimeAgent knowledge base.
 
     A ``TabInput`` switches between ingestion and retrieval. The
     ``update_build_config`` / ``update_outputs`` hooks hide the inputs
@@ -182,7 +182,7 @@ class KnowledgeComponent(Component):
     """
 
     display_name = "Knowledge"
-    description = "Ingest into or retrieve from a Primeagent knowledge base."
+    description = "Ingest into or retrieve from a PrimeAgent knowledge base."
     icon = "database"
     name = "Knowledge"
 
@@ -284,7 +284,7 @@ class KnowledgeComponent(Component):
                 "data": {
                     "node": {
                         "name": "create_knowledge_base",
-                        "description": "Create new knowledge in Primeagent.",
+                        "description": "Create new knowledge in PrimeAgent.",
                         "display_name": "Create new Knowledge Base",
                         "field_order": [
                             "01_new_kb_name",
@@ -303,7 +303,7 @@ class KnowledgeComponent(Component):
                                 display_name="Choose Embedding Model",
                                 info=(
                                     "Select the embedding model to use for this knowledge base. "
-                                    "Primeagent uses the configured credentials for that model provider."
+                                    "PrimeAgent uses the configured credentials for that model provider."
                                 ),
                                 required=True,
                                 model_type="embedding",
@@ -912,7 +912,7 @@ class KnowledgeComponent(Component):
         backend_type: str,
         backend_config: dict[str, Any],
     ) -> None:
-        """Persist the component-created KB in the DB when Primeagent is available."""
+        """Persist the component-created KB in the DB when PrimeAgent is available."""
         from primeagent.api.utils import knowledge_base_service
 
         await knowledge_base_service.create_record(
@@ -1771,7 +1771,7 @@ class KnowledgeComponent(Component):
         except ModuleNotFoundError as exc:
             if exc.name != "primeagent":
                 raise
-            msg = "Knowledge Base retrieval requires Primeagent's application services. Run this flow in Primeagent."
+            msg = "Knowledge Base retrieval requires PrimeAgent's application services. Run this flow in PrimeAgent."
             raise RuntimeError(msg) from None
 
         async with session_scope() as db:

@@ -1,7 +1,7 @@
 """With no OpenTelemetry configuration, nothing must leave the process.
 
 An operator who has not opted into telemetry is entitled to assume none is produced and none
-is sent. "No endpoint configured" is the default for every Primeagent install, so this is the
+is sent. "No endpoint configured" is the default for every PrimeAgent install, so this is the
 common case rather than an edge one, and a regression here leaks to whatever happens to be
 listening rather than failing loudly.
 

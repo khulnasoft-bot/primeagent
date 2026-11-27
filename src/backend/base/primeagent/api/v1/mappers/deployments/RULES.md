@@ -5,7 +5,7 @@ for the deployments implementation.
 
 The goal is strict separation of concerns between:
 
-- Primeagent API orchestration (`src/backend/base/primeagent/api/v1`)
+- PrimeAgent API orchestration (`src/backend/base/primeagent/api/v1`)
 - Mapper translation/reconciliation layer (`src/backend/base/primeagent/api/v1/mappers/deployments`)
 - Adapter execution layer (`src/backend/base/primeagent/services/adapters/deployment/*`)
 - Generic adapter schema/payload contracts (`src/wfx/src/wfx/services/adapters/deployment/*`)
@@ -34,7 +34,7 @@ Not allowed in routes:
 
 ### 1.2 Mapper is the API-boundary translation and reconciliation owner
 
-The mapper translates API payloads to Adapters and the Primeagent DB:
+The mapper translates API payloads to Adapters and the PrimeAgent DB:
 
 - **API → Adapter** — reshapes the API request's `provider_data` into adapter-layer input models (e.g. `VerifyCredentials`, `AdapterDeploymentCreate`). The adapter then makes the actual provider SDK/network calls.
 - **API → DB** — extracts provider-specific fields from the API request and assembles typed DB-bound create/update contracts (e.g. `resolve_provider_account_create` returns a `DeploymentProviderAccount` model and `resolve_provider_account_update` returns the full update diff dict).
@@ -43,7 +43,7 @@ Mapper responsibility includes:
 
 - API payload validation and translation into adapter payloads
 - Provider-specific interpretation of adapter result payloads
-- Reconciliation extraction needed by Primeagent persistence logic
+- Reconciliation extraction needed by PrimeAgent persistence logic
 - Extraction and validation of provider credentials from `provider_data` for DB storage
 - Assembly of provider-account update kwargs with provider-specific cross-field logic
 
@@ -63,15 +63,15 @@ Adapter responsibility includes:
 
 Adapter should not:
 
-- Depend on Primeagent flow-version concepts directly
-- Encode Primeagent DB semantics
+- Depend on PrimeAgent flow-version concepts directly
+- Encode PrimeAgent DB semantics
 - Assume API route-level orchestration details
 
 ---
 
-## 2) Primeagent vs Adapter Vocabulary Rules
+## 2) PrimeAgent vs Adapter Vocabulary Rules
 
-### 2.1 No Primeagent-specific identity terms in adapter contracts
+### 2.1 No PrimeAgent-specific identity terms in adapter contracts
 
 Do not expose `flow_version_id` as an adapter contract requirement.
 
@@ -79,7 +79,7 @@ Use adapter-neutral correlation:
 
 - `source_ref: str`
 
-Primeagent can choose to populate `source_ref` with serialized flow-version IDs, but this is an implementation decision at the mapper/API boundary.
+PrimeAgent can choose to populate `source_ref` with serialized flow-version IDs, but this is an implementation decision at the mapper/API boundary.
 
 ### 2.2 Clean break for fragile positional mapping
 
@@ -461,7 +461,7 @@ For each contract evolution, explicitly choose one mode:
 
 Default policy:
 
-- Prefer **clean break** for changes internal to Primeagent/adapter implementation layers when public API contracts are unchanged.
+- Prefer **clean break** for changes internal to PrimeAgent/adapter implementation layers when public API contracts are unchanged.
 - Use transitional compatibility only when required to preserve public API behavior or external integration expectations.
 
 Rules:
@@ -495,7 +495,7 @@ Following this process keeps layering explicit, reduces leakage during migration
 
 ### 13.1 Write-path rollback ownership
 
-Both create and update follow a **provider-first** strategy: the provider is called first, then the Primeagent DB is updated and committed. If the DB commit fails, the route issues a best-effort compensating call to the provider.
+Both create and update follow a **provider-first** strategy: the provider is called first, then the PrimeAgent DB is updated and committed. If the DB commit fails, the route issues a best-effort compensating call to the provider.
 
 - **Create rollback:** the route issues a compensating `adapter.delete()` to remove the provider resource. Secondary resources (snapshots, configs) are intentionally not cascade-deleted because they may be shared across deployments; they remain as orphaned provider-side resources.
 - **Update rollback:** the route asks the mapper to build a compensating update payload via `resolve_rollback_update()`, then issues `adapter.update()`. If the mapper returns `None` (no rollback possible for this provider), provider state may diverge until it is independently detected (e.g., lazily synced in a read path).
@@ -521,8 +521,8 @@ Read-path synchronization operates at two levels and is an independent mechanism
 
 Rollback and synchronization address different consistency problems:
 
-- **Rollback** compensates for a provider-side change that the Primeagent DB failed to record (write-path problem). Its goal is to undo the provider-side change so that both sides remain consistent.
-- **Synchronization** detects provider-side deletions (and maybe mutations) that the Primeagent DB hasn't been notified about (read-path problem). Its goal is to remove (or update, respectively) stale DB rows that no longer correspond to (or accurately represent, respectively) provider resources.
+- **Rollback** compensates for a provider-side change that the PrimeAgent DB failed to record (write-path problem). Its goal is to undo the provider-side change so that both sides remain consistent.
+- **Synchronization** detects provider-side deletions (and maybe mutations) that the PrimeAgent DB hasn't been notified about (read-path problem). Its goal is to remove (or update, respectively) stale DB rows that no longer correspond to (or accurately represent, respectively) provider resources.
 
 When rollback is unavailable or fails, provider state may diverge from the DB. Synchronization operates from DB rows outward (checking whether each row's resource still exists in the provider), so it can only detect stale DB rows for deleted provider resources. It cannot detect orphaned provider resources that were never recorded in the DB (e.g. a failed create rollback), nor can it detect that an existing provider resource's state diverged after a failed update rollback.
 
@@ -532,24 +532,24 @@ Routes that perform write-path rollback must call `session.commit()` explicitly 
 
 ## 14) API Response Ownership Boundaries
 
-### 14.1 Do not mix Primeagent-owned and provider-owned fields at the same level
+### 14.1 Do not mix PrimeAgent-owned and provider-owned fields at the same level
 
-API response schemas must keep a clear ownership boundary between Primeagent-managed data and provider-managed data.
+API response schemas must keep a clear ownership boundary between PrimeAgent-managed data and provider-managed data.
 
-- **Top-level fields** should be Primeagent-owned: identifiers that Primeagent persists and controls (e.g. `deployment_id`, `name`, `created_at`).
+- **Top-level fields** should be PrimeAgent-owned: identifiers that PrimeAgent persists and controls (e.g. `deployment_id`, `name`, `created_at`).
 - **Provider-owned data** (execution identifiers, agent metadata, status, timestamps, errors) belongs inside the `provider_data` dict.
 
-This prevents future collisions — for example, if Primeagent starts persisting its own execution records, a top-level `execution_id` would be ambiguous against the provider's opaque run identifier.
+This prevents future collisions — for example, if PrimeAgent starts persisting its own execution records, a top-level `execution_id` would be ambiguous against the provider's opaque run identifier.
 
 ### 14.2 Classification of fields
 
-**Primeagent-owned** — fields derived from the Primeagent database or assigned by Primeagent logic:
+**PrimeAgent-owned** — fields derived from the PrimeAgent database or assigned by PrimeAgent logic:
 
 - `deployment_id` (DB UUID), `id`, `name`, `description`, `type`
 - `created_at`, `updated_at` (DB timestamps)
-- `resource_key` — provider-originated but stored and indexed by Primeagent, so treated as Primeagent-owned once persisted.
+- `resource_key` — provider-originated but stored and indexed by PrimeAgent, so treated as PrimeAgent-owned once persisted.
 
-**Provider-owned** — values returned by the external provider that Primeagent passes through without persisting or interpreting:
+**Provider-owned** — values returned by the external provider that PrimeAgent passes through without persisting or interpreting:
 
 - `execution_id` (the provider's opaque run identifier)
 - `agent_id`, `status`, `result`, `started_at`, `completed_at`, `failed_at`, `cancelled_at`, `last_error`
@@ -559,17 +559,17 @@ This prevents future collisions — for example, if Primeagent starts persisting
 
 When adding a new field to an execution or deployment response:
 
-1. Is Primeagent the source of truth for this value? → top level.
-2. Does this value come from the provider and Primeagent just relays it? → inside `provider_data`.
-3. Does the provider supply it but Primeagent persists and indexes it (like `resource_key`)? → top level is acceptable.
+1. Is PrimeAgent the source of truth for this value? → top level.
+2. Does this value come from the provider and PrimeAgent just relays it? → inside `provider_data`.
+3. Does the provider supply it but PrimeAgent persists and indexes it (like `resource_key`)? → top level is acceptable.
 
 ### 14.4 Hard placement rule for non-persisted provider data
 
-If data is not persisted in the Primeagent DB and comes directly from the provider,
+If data is not persisted in the PrimeAgent DB and comes directly from the provider,
 it must go into `provider_data`.
 
 Rules:
 
-- Top-level response fields are reserved for values that Primeagent persists and controls.
-- Provider-originated data that Primeagent only relays must stay in `provider_data` without exception.
+- Top-level response fields are reserved for values that PrimeAgent persists and controls.
+- Provider-originated data that PrimeAgent only relays must stay in `provider_data` without exception.
 - Examples: provider tool names, execution metadata/status/timestamps, connection types, environments.

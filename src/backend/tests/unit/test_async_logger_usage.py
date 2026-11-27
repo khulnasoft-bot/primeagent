@@ -1,4 +1,4 @@
-"""Static guard for the async-aware Primeagent logger API."""
+"""Static guard for the async-aware PrimeAgent logger API."""
 
 from __future__ import annotations
 

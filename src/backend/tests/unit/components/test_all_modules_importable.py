@@ -23,7 +23,7 @@ from primeagent import components
 from wfx.interface.components import _warm_circular_imports
 
 # Provider components ship in bundle distributions. Partner packages are
-# expected in the base Primeagent install, but the long-tail wfx-bundles
+# expected in the base PrimeAgent install, but the long-tail wfx-bundles
 # metapackage is opt-in. While an optional bundle is absent its compatibility
 # shim stays in ``components.__all__`` but cannot be imported, so these tests
 # skip that category instead of failing.

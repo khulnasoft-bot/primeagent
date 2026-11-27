@@ -39,7 +39,7 @@ from primeagent.services.adapters.deployment.watsonx_orchestrate.utils import (
 from primeagent.utils.version import get_version_info
 
 if TYPE_CHECKING:
-    from ibm_watsonx_orchestrate_core.types.tools.primeagent_tool import PrimeagentTool
+    from ibm_watsonx_orchestrate_core.types.tools.primeagent_tool import PrimeAgentTool
     from wfx.services.adapters.deployment.schema import BaseFlowArtifact, SnapshotItems, SnapshotListResult
 
     from primeagent.services.adapters.deployment.watsonx_orchestrate.types import WxOClient
@@ -115,14 +115,14 @@ def verify_primeagent_owned(tool: dict[str, Any], *, tool_id: str) -> None:
     """Raise ``InvalidContentError`` if the tool lacks ``binding.primeagent``.
 
     Call before any mutating operation on an existing tool to ensure
-    Primeagent created it.  Tools created manually in the wxO console or
+    PrimeAgent created it.  Tools created manually in the wxO console or
     by other integrations will not have this marker.
     """
     binding = tool.get("binding")
     if not isinstance(binding, dict) or "primeagent" not in binding:
         msg = (
-            f"Cannot modify tool '{tool_id}': it does not have a Primeagent binding "
-            "and may not be managed by Primeagent."
+            f"Cannot modify tool '{tool_id}': it does not have a PrimeAgent binding "
+            "and may not be managed by PrimeAgent."
         )
         raise InvalidContentError(message=msg)
 
@@ -187,7 +187,7 @@ async def update_existing_tool_connection_bindings(
 
 
 def extract_primeagent_artifact_from_zip(artifact_zip_bytes: bytes, *, snapshot_id: str) -> dict[str, Any]:
-    """Read and parse the Primeagent flow JSON from a wxO snapshot artifact zip."""
+    """Read and parse the PrimeAgent flow JSON from a wxO snapshot artifact zip."""
     try:
         with zipfile.ZipFile(io.BytesIO(artifact_zip_bytes), "r") as zip_artifact:
             json_members = [name for name in zip_artifact.namelist() if name.lower().endswith(".json")]
@@ -215,7 +215,7 @@ def extract_primeagent_artifact_from_zip(artifact_zip_bytes: bytes, *, snapshot_
 
 def build_primeagent_artifact_bytes(
     *,
-    tool: PrimeagentTool,
+    tool: PrimeAgentTool,
     flow_definition: dict[str, Any],
     flow_filename: str | None = None,
 ) -> bytes:
@@ -313,11 +313,11 @@ def create_wxo_flow_tool(
     if not flow_definition.get("last_tested_version"):
         detected_version = (get_version_info() or {}).get("version")
         if not detected_version:
-            msg = "Unable to determine running Primeagent version for snapshot creation."
+            msg = "Unable to determine running PrimeAgent version for snapshot creation."
             raise InvalidContentError(message=msg)
         flow_definition["last_tested_version"] = detected_version
 
-    tool: PrimeagentTool = create_primeagent_tool(
+    tool: PrimeAgentTool = create_primeagent_tool(
         tool_definition=flow_definition,
         connections=connections,
         show_details=False,

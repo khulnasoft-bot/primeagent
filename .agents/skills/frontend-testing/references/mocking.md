@@ -1,6 +1,6 @@
-# Mocking Guide for Primeagent Tests
+# Mocking Guide for PrimeAgent Tests
 
-All mocking in Primeagent uses Jest APIs. Never use Vitest (`vi.*`) APIs.
+All mocking in PrimeAgent uses Jest APIs. Never use Vitest (`vi.*`) APIs.
 
 ## Quick Reference
 
@@ -37,7 +37,7 @@ jest.unmock("@/stores/darkStore");
 
 ### Mocking Axios Calls
 
-Primeagent uses Axios via a configured API instance. Mock the API module:
+PrimeAgent uses Axios via a configured API instance. Mock the API module:
 
 ```typescript
 import api from "@/controllers/API/api";
@@ -111,7 +111,7 @@ jest.mock("@/controllers/API", () => ({
 
 ## Zustand Store Mocking
 
-Primeagent does NOT have a global Zustand auto-mock. You have two options:
+PrimeAgent does NOT have a global Zustand auto-mock. You have two options:
 
 ### Option 1: Use Real Stores with `setState()` (Preferred)
 
@@ -211,7 +211,7 @@ describe("useMyStore", () => {
 
 ## React Router Mocking
 
-Primeagent uses `react-router-dom` v6 (NOT Next.js routing).
+PrimeAgent uses `react-router-dom` v6 (NOT Next.js routing).
 
 ### Wrapping with MemoryRouter
 

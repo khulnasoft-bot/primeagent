@@ -11,8 +11,8 @@ Last verified: 2026-09-05
 TRG-1 exit criterion 4, and the user story that names it: an Enterprise customer without public ingress needs a
 written answer for which sources work on their instance. It is also the criterion the deferred record's re-open
 trigger 3 measures ("two of three providers' event delivery confirmed usable from a self-managed instance without
-public ingress"). The answer has to be per provider and per deployment context, and it has to say what Primeagent will
-not do, because the obvious product answer - Primeagent hosts a relay that accepts provider webhooks and forwards them
+public ingress"). The answer has to be per provider and per deployment context, and it has to say what PrimeAgent will
+not do, because the obvious product answer - PrimeAgent hosts a relay that accepts provider webhooks and forwards them
 to the customer's instance - is the one that would quietly turn a self-managed deployment into a hosted dependency.
 
 ## Facts (with citations)
@@ -26,7 +26,7 @@ to the customer's instance - is the one that would quietly turn a self-managed d
 | 5 | Google Calendar and Drive push channels require an https `address` on a domain verified with Google and a valid certificate | https://developers.google.com/workspace/calendar/api/guides/push | 2026-09-05 | high |
 | 6 | A Cloud Pub/Sub subscription can be pull rather than push; a pull subscriber opens an outbound connection and acknowledges by ack id | https://cloud.google.com/pubsub/docs/pull | 2026-09-05 | high |
 | 7 | Gmail `users.watch` publishes to a Pub/Sub topic in a Cloud project the customer owns, and requires the restricted `gmail.readonly` scope | https://developers.google.com/workspace/gmail/api/guides/push | 2026-09-05 | high |
-| 8 | The accepted 1.13 Google restricted-scope decision is "avoid": the hosted Primeagent Google app requests no restricted scope | `../dedicated-integrations/decisions/google-restricted-scopes.md` | 2026-09-01 | high |
+| 8 | The accepted 1.13 Google restricted-scope decision is "avoid": the hosted PrimeAgent Google app requests no restricted scope | `../dedicated-integrations/decisions/google-restricted-scopes.md` | 2026-09-01 | high |
 | 9 | Microsoft Graph change notifications need a publicly reachable `notificationUrl` that answers the `validationToken` handshake within ten seconds | https://learn.microsoft.com/en-us/graph/change-notifications-delivery-webhooks | 2026-09-05 | high |
 
 ## Options
@@ -37,10 +37,10 @@ Pros: one code path per provider; lowest engineering cost.
 Cons: fails the user story outright for air-gapped and firewalled instances, and fails re-open trigger 3.
 Cost: none, but the gate cannot close on it.
 
-### Option B: Primeagent operates a relay that receives provider webhooks and forwards them
+### Option B: PrimeAgent operates a relay that receives provider webhooks and forwards them
 
 Pros: every provider works everywhere with one mechanism.
-Cons: every self-managed customer's event payloads traverse Primeagent-operated infrastructure, which is precisely
+Cons: every self-managed customer's event payloads traverse PrimeAgent-operated infrastructure, which is precisely
 what a self-managed deployment is bought to avoid; it creates a hosted availability dependency for self-managed
 instances, a multi-tenant secret custody problem for signing secrets, and a data-residency question no wave-1 ticket
 answers. Not recommended.
@@ -56,7 +56,7 @@ Cost: TRG-3's poll loop and Socket Mode adapter, both already in the TRG estimat
 
 ## Decision
 
-Option C, with the rule stated first: **Primeagent operates no relay.** No Primeagent-operated service receives provider
+Option C, with the rule stated first: **PrimeAgent operates no relay.** No PrimeAgent-operated service receives provider
 events on behalf of a self-managed instance, in this release or as a follow-up, and no gate record may assume one.
 Every mechanism is either delivered directly to the customer's own ingress or fetched by the customer's own instance.
 
@@ -75,7 +75,7 @@ an ingress and some do not, so a Track A mechanism may offer itself there only w
 fallback that covers the same context. Desktop and headless are `unavailable` outright - Desktop has no stable public
 URL, and the process-model decision gives `wfx serve` no trigger surface at all.
 
-The customer-owned side of this is a documented prerequisite, not a Primeagent feature: Google push needs the
+The customer-owned side of this is a documented prerequisite, not a PrimeAgent feature: Google push needs the
 notification domain verified with Google (fact 5), Graph needs a reachable `notificationUrl` (fact 9), and Gmail on
 either transport needs a Cloud project with a Pub/Sub topic that grants the Gmail service account publish rights
 (fact 7).
@@ -90,7 +90,7 @@ either transport needs a Cloud project with a Pub/Sub topic that grants the Gmai
   exposing them costs latency rather than function.
 - `PRIMEAGENT_PUBLIC_URL` (TRG-4) is required only for Track A; a no-ingress instance leaves it unset and every Track A
   trigger reports a typed "no public URL configured" reason rather than failing at subscription time.
-- Nothing in this initiative may add a Primeagent-operated forwarding component. A future proposal to do so replaces
+- Nothing in this initiative may add a PrimeAgent-operated forwarding component. A future proposal to do so replaces
   this record rather than extending it.
 
 ## Re-open trigger

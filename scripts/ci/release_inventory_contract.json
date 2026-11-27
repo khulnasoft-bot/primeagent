@@ -76,6 +76,7 @@
         "wfx-openai",
         "wfx-openai-compatible",
         "wfx-oracle",
+        "wfx-rea",
         "wfx-slack",
         "wfx-toolguard",
         "wfx-vllm"
@@ -112,6 +113,7 @@
           "wfx-openai",
           "wfx-openai-compatible",
           "wfx-oracle",
+          "wfx-rea",
           "wfx-slack",
           "wfx-toolguard",
           "wfx-vllm"
@@ -250,6 +252,7 @@
           "wfx-openai",
           "wfx-openai-compatible",
           "wfx-oracle",
+          "wfx-rea",
           "wfx-paddle",
           "wfx-serpingapi",
           "wfx-serply",

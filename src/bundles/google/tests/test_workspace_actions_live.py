@@ -178,7 +178,7 @@ async def test_live_gmail_send(headless) -> None:
             to=[_recipient()],
             cc=[],
             bcc=[],
-            subject=f"Primeagent live suite {int(time.time())}",
+            subject=f"PrimeAgent live suite {int(time.time())}",
             body="Sent by the wfx-google live suite.",
             body_is_html=False,
             attachments=[],
@@ -263,7 +263,7 @@ async def test_live_calendar_create_then_delete(headless) -> None:
     component = headless(
         GoogleCalendarCreateComponent(
             calendar_id=_calendar_id(),
-            summary=f"Primeagent live suite {int(time.time())}",
+            summary=f"PrimeAgent live suite {int(time.time())}",
             start_time="2030-01-01T10:00:00Z",
             end_time="2030-01-01T11:00:00Z",
             event_description="Created by the wfx-google live suite.",

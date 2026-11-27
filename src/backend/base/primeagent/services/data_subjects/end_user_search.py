@@ -1,4 +1,4 @@
-"""Suggest end-user ids an administrator may be looking for, from the sessions Primeagent stored."""
+"""Suggest end-user ids an administrator may be looking for, from the sessions PrimeAgent stored."""
 
 from __future__ import annotations
 

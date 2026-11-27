@@ -1,5 +1,5 @@
-"""Primeagent catalog-policy service."""
+"""PrimeAgent catalog-policy service."""
 
-from primeagent.services.catalog_policy.service import PrimeagentCatalogPolicyService
+from primeagent.services.catalog_policy.service import PrimeAgentCatalogPolicyService
 
-__all__ = ["PrimeagentCatalogPolicyService"]
+__all__ = ["PrimeAgentCatalogPolicyService"]

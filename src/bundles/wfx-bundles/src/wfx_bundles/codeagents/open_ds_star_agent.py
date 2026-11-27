@@ -121,10 +121,10 @@ class OpenDsStarAgentRunnable(Runnable):
         config: RunnableConfig | None = None,
         **_kwargs: Any,
     ) -> AsyncIterator[dict[str, Any]]:
-        """Async stream events in LangChain format for Primeagent compatibility.
+        """Async stream events in LangChain format for PrimeAgent compatibility.
 
         This converts LangGraph's stream output to LangChain's astream_events format
-        so it works with Primeagent's process_agent_events().
+        so it works with PrimeAgent's process_agent_events().
         """
         # Extract the input message
         if isinstance(input_value, dict) and "input" in input_value:
@@ -375,7 +375,7 @@ class OpenDsStarAgentComponent(ToolCallingAgentComponent):
             logger.warning("OpenDsStarAgent - tools attribute not set, initializing to empty list")
             self.tools = []
 
-        # Clean up tools list - remove empty strings or None which Primeagent
+        # Clean up tools list - remove empty strings or None which PrimeAgent
         # sometimes passes when the input is functionally empty
         if isinstance(self.tools, list):
             self.tools = [t for t in self.tools if t and not (isinstance(t, str) and not t.strip())]
@@ -825,7 +825,7 @@ class OpenDsStarAgentComponent(ToolCallingAgentComponent):
         """Override parent's validate_tool_names to provide better error messages for OpenDsStar Agent."""
         pattern = re.compile(r"^[a-zA-Z0-9_-]+$")
 
-        # Clean up tools list - remove empty strings or None which Primeagent sometimes passes
+        # Clean up tools list - remove empty strings or None which PrimeAgent sometimes passes
         if hasattr(self, "tools"):
             if isinstance(self.tools, list):
                 self.tools = [t for t in self.tools if t and not (isinstance(t, str) and not t.strip())]
@@ -911,7 +911,7 @@ class OpenDsStarAgentComponent(ToolCallingAgentComponent):
         logger = logging.getLogger(__name__)
         logger.debug("OPEN_DS_STAR_AGENT: RAW TOOLS RECEIVED = %r", tools)
 
-        # Clean up empty strings or None which Primeagent sometimes passes when the input is functionally empty
+        # Clean up empty strings or None which PrimeAgent sometimes passes when the input is functionally empty
         tools = [t for t in tools if t and not (isinstance(t, str) and not t.strip())]
 
         logger.debug("OPEN_DS_STAR_AGENT: CLEANED TOOLS = %r", tools)

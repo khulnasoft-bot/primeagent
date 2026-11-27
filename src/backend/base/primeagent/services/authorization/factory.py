@@ -11,22 +11,22 @@ if TYPE_CHECKING:
     from wfx.services.authorization.base import BaseAuthorizationService
     from wfx.services.settings.service import SettingsService
 
-    from primeagent.services.authorization.service import PrimeagentAuthorizationService
+    from primeagent.services.authorization.service import PrimeAgentAuthorizationService
 
 
 class AuthorizationServiceFactory(ServiceFactory):
-    """Factory that creates the Primeagent authorization service."""
+    """Factory that creates the PrimeAgent authorization service."""
 
     name = ServiceType.AUTHORIZATION_SERVICE.value
 
-    service_class: type[PrimeagentAuthorizationService]
+    service_class: type[PrimeAgentAuthorizationService]
 
     def __init__(self) -> None:
-        """Bind the factory to the PrimeagentAuthorizationService implementation."""
-        from primeagent.services.authorization.service import PrimeagentAuthorizationService
+        """Bind the factory to the PrimeAgentAuthorizationService implementation."""
+        from primeagent.services.authorization.service import PrimeAgentAuthorizationService
 
-        super().__init__(PrimeagentAuthorizationService)
+        super().__init__(PrimeAgentAuthorizationService)
 
     def create(self, settings_service: SettingsService) -> BaseAuthorizationService:
-        """Build a PrimeagentAuthorizationService using the injected settings service."""
+        """Build a PrimeAgentAuthorizationService using the injected settings service."""
         return self.service_class(settings_service)

@@ -381,7 +381,7 @@ async def test_blocking_findings_keep_every_later_step_locked(client, logged_in_
     ("backend_type", "backend_config", "local"),
     [
         ("sqlite", {}, True),
-        # Not upgraded yet: this Primeagent turns it into SQLite, and that is what gets copied.
+        # Not upgraded yet: this PrimeAgent turns it into SQLite, and that is what gets copied.
         ("chroma", {}, True),
         ("chroma", {"mode": "cloud"}, False),
         ("postgres", {}, False),
@@ -797,7 +797,7 @@ async def test_an_acceptance_without_recorded_problems_requires_accepting_again(
 async def test_a_check_that_makes_the_move_unsafe_cannot_be_accepted(
     client, logged_in_headers_super_user, active_super_user
 ):
-    # Still on Chroma: this Primeagent has to upgrade its storage before the knowledge base can be copied.
+    # Still on Chroma: this PrimeAgent has to upgrade its storage before the knowledge base can be copied.
     async with session_scope() as session:
         session.add(KnowledgeBaseRecord(user_id=active_super_user.id, name="legacy", backend_type="chroma"))
         await session.commit()
@@ -2352,7 +2352,7 @@ async def test_an_empty_database_passes_and_its_address_stays_in_memory(
     assert url.password not in record
     assert url.username not in record
 
-    # The copy builds Primeagent's tables there with its own migrations. A database that holds them still passes.
+    # The copy builds PrimeAgent's tables there with its own migrations. A database that holds them still passes.
     await asyncio.to_thread(upgrade_to_head, address)
     assert (await _connect(client, logged_in_headers_super_user, database_url=address))["results"] == {
         "database": {"ok": True}
@@ -2367,7 +2367,7 @@ async def test_only_an_empty_database_or_one_an_earlier_copy_filled_passes(
     client, logged_in_headers_super_user, active_super_user, scratch_database
 ):
     headers, address = logged_in_headers_super_user, scratch_database.render_as_string(hide_password=False)
-    # What an earlier copy leaves: Primeagent's tables, this instance's users, and a table for each knowledge base.
+    # What an earlier copy leaves: PrimeAgent's tables, this instance's users, and a table for each knowledge base.
     _sql(
         scratch_database,
         "CREATE TABLE alembic_version (version_num text)",
@@ -2487,7 +2487,7 @@ async def test_an_instance_on_postgresql_cannot_keep_knowledge_bases_without_its
     # After the copy the server reads them through that variable, so the admin learns it here, before the pause.
     assert saved["results"]["vectors"]["code"] == "pgvector_env_missing"
     assert "PGVECTOR_CONNECTION_STRING" in saved["results"]["vectors"]["reason"]
-    assert "restart Primeagent" in saved["results"]["vectors"]["reason"]
+    assert "restart PrimeAgent" in saved["results"]["vectors"]["reason"]
     assert {step["id"]: (step["state"], step["reason"]) for step in saved["steps"]}["connect_target"] == (
         "blocked",
         "pgvector_env_missing",
@@ -2524,7 +2524,7 @@ async def test_knowledge_bases_cannot_be_tested_without_the_database_address(
     monkeypatch.setitem(migration_module._secrets, "database_url", address)
     unable = await _connect(client, logged_in_headers_super_user, vectors={"kind": "pgvector"})
 
-    # Its own code: this server's package is for whoever runs Primeagent, the extension for the database's admin.
+    # Its own code: this server's package is for whoever runs PrimeAgent, the extension for the database's admin.
     assert unable["results"]["vectors"]["code"] == "pgvector_package_missing"
     assert "primeagent[pgvector]" in unable["results"]["vectors"]["reason"]
 

@@ -211,7 +211,7 @@ This example uses the **Agent** component's built-in OpenAI model, which require
     API key:     x-api-key header or ?x-api-key= query parameter
    ```
 
-6. To send a test request to the server, open a new terminal and export your `flow_id` and Primeagent API key values as variables:
+6. To send a test request to the server, open a new terminal and export your `flow_id` and PrimeAgent API key values as variables:
 
    ```bash
    export PRIMEAGENT_API_KEY="sk..."
@@ -250,7 +250,7 @@ The WFX server exposes the following endpoints. All `/flows/{flow_id}` routes re
 | Endpoint | Method | Description |
 |----------|--------|-------------|
 | `/flows` | GET | List all served flows and their metadata |
-| `/flows/upload/` | POST | Upload a flow JSON to the registry (accepts full Primeagent export format) |
+| `/flows/upload/` | POST | Upload a flow JSON to the registry (accepts full PrimeAgent export format) |
 | `/flows/{flow_id}/run` | POST | Run the flow and return a single response |
 | `/flows/{flow_id}/stream` | POST | Run the flow and stream output as server-sent events |
 | `/flows/{flow_id}/info` | GET | Return flow metadata (title, description, input/output types) |
@@ -341,7 +341,7 @@ uv run wfx serve --env-file .env
 
 While the server is running, upload flows with `POST /flows/upload/`.
 
-The endpoint accepts the full Primeagent export JSON directly, the same format you get from the Primeagent UI's **Export** button:
+The endpoint accepts the full PrimeAgent export JSON directly, the same format you get from the PrimeAgent UI's **Export** button:
 
 ```bash
 # Upload a flow JSON file
@@ -408,7 +408,7 @@ curl -X POST http://localhost:8000/flows/$FLOW_ID/run \
   }'
 ```
 
-Credentials supplied in `PRIMEAGENT_REQUEST_VARIABLES` are scoped to the current request using Python `contextvars`. Primeagent's built-in components do not write them to `os.environ`, so they do not bleed into other concurrent requests on the same worker. Custom components that explicitly write to `os.environ` are outside this guarantee.
+Credentials supplied in `PRIMEAGENT_REQUEST_VARIABLES` are scoped to the current request using Python `contextvars`. PrimeAgent's built-in components do not write them to `os.environ`, so they do not bleed into other concurrent requests on the same worker. Custom components that explicitly write to `os.environ` are outside this guarantee.
 
 ### Check or upgrade flow compatibility at startup
 

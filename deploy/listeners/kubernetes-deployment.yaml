@@ -1,4 +1,4 @@
-# Primeagent trigger listeners (TRG-3) as a Kubernetes Deployment.
+# PrimeAgent trigger listeners (TRG-3) as a Kubernetes Deployment.
 #
 # This is the supported shape for multi-replica deployments. The API Deployment
 # keeps serving HTTP and running the trigger dispatcher; this Deployment holds

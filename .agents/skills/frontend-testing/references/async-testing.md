@@ -1,6 +1,6 @@
 # Async Testing Patterns
 
-Patterns for testing asynchronous behavior in Primeagent with Jest and React Testing Library.
+Patterns for testing asynchronous behavior in PrimeAgent with Jest and React Testing Library.
 
 ## waitFor
 

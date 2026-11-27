@@ -22,7 +22,7 @@ import HelpDropdown from "./HelpDropdown";
 import useMinimizeAllAndAlign from "./hooks/use-minimize-all-and-align";
 import { useDismissOnTabBoundary } from "./utils/use-dismiss-on-tab-boundary";
 
-// Delay before the "Try the new Primeagent Assistant!" tooltip surfaces, in ms.
+// Delay before the "Try the new PrimeAgent Assistant!" tooltip surfaces, in ms.
 // Long enough that an active user mid-task isn't interrupted; short enough
 // that a user who landed on the canvas and paused gets the hint.
 const ONBOARDING_TOOLTIP_DELAY_MS = 10_000;
@@ -196,7 +196,7 @@ const CanvasControls = ({
                     the button reads as "active" alongside the open panel. */}
                 <img
                   src={primeagentAssistantIdleIcon}
-                  alt="Primeagent Assistant"
+                  alt="PrimeAgent Assistant"
                   className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-150 ${
                     assistantSidebarOpen ? "opacity-0" : "group-hover:opacity-0"
                   }`}

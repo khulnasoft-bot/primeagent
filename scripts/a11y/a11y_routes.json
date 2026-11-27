@@ -85,7 +85,7 @@
       "id": "settings-mcp-client",
       "path": "/settings/mcp-client",
       "surface": "MCP client settings page",
-      "ready": [{ "role": "heading", "name": "Primeagent MCP Client" }]
+      "ready": [{ "role": "heading", "name": "PrimeAgent MCP Client" }]
     },
     {
       "id": "settings-api-keys",

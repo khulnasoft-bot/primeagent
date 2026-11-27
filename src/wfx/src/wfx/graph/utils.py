@@ -395,7 +395,7 @@ async def log_vertex_build(
 
             # Resolve only the database service already registered with the shared
             # WFX service manager. Calling primeagent.services.deps.get_db_service()
-            # here would install Primeagent's default DatabaseService as a lookup
+            # here would install PrimeAgent's default DatabaseService as a lookup
             # side effect, turning a DB-less `wfx serve` process into a partially
             # initialized DB runtime between two vertices in the same graph run.
             db_service = get_db_service()

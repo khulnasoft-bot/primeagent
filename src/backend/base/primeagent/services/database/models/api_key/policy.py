@@ -6,7 +6,7 @@ account out -- SSO-only with no linked identity, say -- must not let that
 account mint one, or the key quietly replaces the credential the policy just
 took away.
 
-Primeagent has no such policy of its own. This is the seam a distribution plugs
+PrimeAgent has no such policy of its own. This is the seam a distribution plugs
 one into, and :func:`check_api_key_issuance` is called from the single function
 that creates keys, so every route that mints one is covered -- including the
 MCP ones that mint implicitly, where the caller never asked for a key and never
@@ -56,7 +56,7 @@ def get_api_key_issuance_policy() -> ApiKeyIssuancePolicy | None:
 async def check_api_key_issuance(session: AsyncSession, user_id: UUID) -> None:
     """Ask the installed policy whether *user_id* may be issued a key now.
 
-    No policy installed means no restriction, which is stock Primeagent. The
+    No policy installed means no restriction, which is stock PrimeAgent. The
     check runs before anything is staged on ``session``, so a refusal leaves
     the caller's transaction exactly as it found it.
     """

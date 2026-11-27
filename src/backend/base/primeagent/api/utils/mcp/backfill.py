@@ -9,7 +9,7 @@ Runs best-effort on startup and via ``primeagent migrate-mcp``. Properties:
 - **Backend-agnostic** — reads through the storage service, so it covers local disk
   and S3/Ceph/MinIO identically.
 - **Non-destructive** — the legacy file is never deleted, so rolling back to a
-  file-based Primeagent remains safe.
+  file-based PrimeAgent remains safe.
 """
 
 from sqlalchemy.exc import IntegrityError

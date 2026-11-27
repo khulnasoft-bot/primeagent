@@ -14,7 +14,7 @@
 ### Keep business logic out of route handlers
 - Category: maintainability
 - Severity: critical
-- Description: Route handlers (FastAPI endpoint functions) should parse input, delegate to a service, and return a serialized response. Business decisions inside route handlers make behavior hard to reuse, test, and maintain. Primeagent uses FastAPI with `Depends()` for dependency injection and async handlers throughout.
+- Description: Route handlers (FastAPI endpoint functions) should parse input, delegate to a service, and return a serialized response. Business decisions inside route handlers make behavior hard to reuse, test, and maintain. PrimeAgent uses FastAPI with `Depends()` for dependency injection and async handlers throughout.
 - Suggested fix: Move domain/business logic into the appropriate service under `src/backend/base/primeagent/services/`. Keep route handlers thin and orchestration-focused.
 - Example:
   - Bad:
@@ -116,7 +116,7 @@
 ### Domain logic must not import from FastAPI/HTTP layers
 - Category: best practices
 - Severity: critical
-- Description: Service classes and model definitions must never import FastAPI-specific constructs such as `Request`, `Response`, `HTTPException`, `APIRouter`, or `Depends`. This keeps the domain layer transport-agnostic and testable without spinning up an HTTP server. Primeagent services inherit from `primeagent.services.base.Service` and receive dependencies through their factory's `create()` method or via constructor injection, not through FastAPI's `Depends()`.
+- Description: Service classes and model definitions must never import FastAPI-specific constructs such as `Request`, `Response`, `HTTPException`, `APIRouter`, or `Depends`. This keeps the domain layer transport-agnostic and testable without spinning up an HTTP server. PrimeAgent services inherit from `primeagent.services.base.Service` and receive dependencies through their factory's `create()` method or via constructor injection, not through FastAPI's `Depends()`.
 - Suggested fix: Raise domain-specific exceptions in services (e.g., `FlowNotFoundError`, `PermissionDeniedError`) and let the route handler translate them into HTTP responses.
 - Example:
   - Bad:
@@ -190,7 +190,7 @@
 ### Use the async logger from `wfx.log.logger`
 - Category: best practices
 - Severity: critical
-- Description: Primeagent uses an async-aware logger from `wfx.log.logger`. In async code, always use the `a`-prefixed methods (`adebug`, `ainfo`, `awarning`, `aerror`, `aexception`) to avoid blocking the event loop. Never use `print()` or stdlib `logging` directly. Use `aexception` for errors (auto-includes traceback). Use `{e!s}` for string representation of exceptions.
+- Description: PrimeAgent uses an async-aware logger from `wfx.log.logger`. In async code, always use the `a`-prefixed methods (`adebug`, `ainfo`, `awarning`, `aerror`, `aexception`) to avoid blocking the event loop. Never use `print()` or stdlib `logging` directly. Use `aexception` for errors (auto-includes traceback). Use `{e!s}` for string representation of exceptions.
 - Example:
   - Bad:
     ```python

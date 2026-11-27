@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { axe } from "@/utils/a11y-test";
-import { PrimeagentCounts } from "../primeagent-counts";
+import { PrimeAgentCounts } from "../primeagent-counts";
 
 type DarkStoreState = {
   stars: number;
@@ -21,26 +21,26 @@ jest.mock("@/stores/darkStore", () => ({
     }),
 }));
 
-describe("PrimeagentCounts", () => {
+describe("PrimeAgentCounts", () => {
   beforeEach(() => {
     mockDarkStoreState = { stars: 0, discordCount: 0 };
   });
 
   it("should_have_no_axe_violations with zero counts", async () => {
-    const { container } = render(<PrimeagentCounts />);
+    const { container } = render(<PrimeAgentCounts />);
 
     expect(await axe(container)).toHaveNoViolations();
   });
 
   it("should_have_no_axe_violations with non-zero counts", async () => {
     mockDarkStoreState = { stars: 42000, discordCount: 1234 };
-    const { container } = render(<PrimeagentCounts />);
+    const { container } = render(<PrimeAgentCounts />);
 
     expect(await axe(container)).toHaveNoViolations();
   });
 
   it("exposes accessible names for the GitHub and Discord links via sr-only text", () => {
-    render(<PrimeagentCounts />);
+    render(<PrimeAgentCounts />);
 
     expect(
       screen.getByRole("button", { name: "Go to GitHub repo" }),
@@ -52,7 +52,7 @@ describe("PrimeagentCounts", () => {
 
   it("hides the numeric star/discord counts from the accessibility tree (surfaced only via sr-only name)", () => {
     mockDarkStoreState = { stars: 42000, discordCount: 1234 };
-    render(<PrimeagentCounts />);
+    render(<PrimeAgentCounts />);
 
     const starsCount = screen.getByText("42k");
     expect(starsCount).toHaveAttribute("aria-hidden", "true");

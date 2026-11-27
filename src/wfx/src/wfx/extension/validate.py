@@ -1,4 +1,4 @@
-"""Offline, non-executing validator for a Primeagent Extension.
+"""Offline, non-executing validator for a PrimeAgent Extension.
 
 ``validate_extension`` is the function backing the ``wfx extension validate``
 CLI.  It performs four passes:
@@ -17,7 +17,7 @@ CLI.  It performs four passes:
        obfuscation (``getattr``, base64, aliasing).  Operators must still
        treat third-party bundles as untrusted code.
     4. **(opt-in)** ``--execute-imports``: forks a subprocess with a temporary
-       Primeagent state dir, a strict env allowlist, and no inherited server
+       PrimeAgent state dir, a strict env allowlist, and no inherited server
        state, imports each bundle module, and reports failures.  Still
        executes arbitrary Python; see the CLI help for the trust caveat.
 
@@ -423,7 +423,7 @@ def _inherits_entry_point(node: ast.ClassDef) -> bool:
 def _has_build_method(node: ast.ClassDef) -> bool:
     """Return True if the class body declares an invocable entry-point.
 
-    Primeagent Components reach the runtime in two shapes:
+    PrimeAgent Components reach the runtime in two shapes:
 
     1. A literal ``build`` method on the class (the original convention).
     2. A method named in an ``Output(method="...")`` declaration in the
@@ -707,7 +707,7 @@ def _build_probe_env(tmp_path: Path) -> dict[str, str]:
     inherit from the parent environment.  HOME, TMPDIR, and
     PRIMEAGENT_CONFIG_DIR are pinned to the throwaway temp directory so a
     misbehaving bundle cannot read or pollute the developer's real
-    Primeagent state.  Cloud credentials (AWS_*, OPENAI_API_KEY, GITHUB_TOKEN,
+    PrimeAgent state.  Cloud credentials (AWS_*, OPENAI_API_KEY, GITHUB_TOKEN,
     ...) are intentionally NOT in the allowlist; without this, a malicious
     bundle's top-level import would read them and could exfiltrate.
     """

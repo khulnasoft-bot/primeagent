@@ -17,14 +17,14 @@ Four verifiers, one per wave-1 mechanism:
 ``microsoft``
     Two shapes. The subscription handshake arrives as a ``validationToken``
     query parameter that must be echoed as ``text/plain``; notifications carry
-    ``clientState``, a secret Primeagent minted at subscribe time, which is
+    ``clientState``, a secret PrimeAgent minted at subscribe time, which is
     compared against the stored digest.
 ``google``
-    ``X-Goog-Channel-Token``, the secret Primeagent set when it created the
+    ``X-Goog-Channel-Token``, the secret PrimeAgent set when it created the
     channel, compared against the stored digest, together with the channel id
     so a token from one channel cannot drive another.
 ``webhook``
-    The generic signed endpoint: ``X-Primeagent-Signature: v1=<hex>`` over
+    The generic signed endpoint: ``X-PrimeAgent-Signature: v1=<hex>`` over
     ``v1:{timestamp}:{body}`` with the trigger's own rotatable secret.
 
 Every comparison is constant-time over bytes. Every failure - including a
@@ -126,7 +126,7 @@ class IngressSecrets:
     makes it testable against recorded provider payloads.
 
     Microsoft's ``clientState`` and Google's channel token are held as SHA-256
-    digests rather than as the values themselves. Primeagent mints both and never
+    digests rather than as the values themselves. PrimeAgent mints both and never
     has to replay either, so a comparison against a digest is all that is ever
     needed - and a database read that cannot yield the secret is one fewer place
     to leak it.
@@ -162,7 +162,7 @@ def _same(expected: str, supplied: str) -> bool:
 
 
 def state_digest(value: str) -> str:
-    """The stored form of a secret Primeagent minted and only ever compares."""
+    """The stored form of a secret PrimeAgent minted and only ever compares."""
     return hashlib.sha256(_utf8(value)).hexdigest()
 
 
@@ -420,10 +420,10 @@ async def verify_gmail_pubsub(request: IngressRequest, secrets: IngressSecrets) 
 
 def verify_webhook(request: IngressRequest, secrets: IngressSecrets, *, tolerance_s: int) -> Verified:
     """The generic signed inbound webhook, with the trigger's own secret."""
-    signature = request.header("X-Primeagent-Signature")
+    signature = request.header("X-PrimeAgent-Signature")
     if not signature:
         raise IngressRejected(REASON_MISSING_SIGNATURE)
-    timestamp = _check_timestamp(request.header("X-Primeagent-Timestamp"), tolerance_s=tolerance_s)
+    timestamp = _check_timestamp(request.header("X-PrimeAgent-Timestamp"), tolerance_s=tolerance_s)
     secret = _require(secrets.signing_secret)
     basestring = f"{_WEBHOOK_SIGNATURE_VERSION}:{timestamp}:".encode() + request.body
     expected = f"{_WEBHOOK_SIGNATURE_VERSION}={_hmac_hex(secret, basestring)}"

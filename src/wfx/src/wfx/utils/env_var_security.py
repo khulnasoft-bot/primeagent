@@ -22,7 +22,7 @@ database-backed global variables.
 
 from __future__ import annotations
 
-# Variable-name prefixes that belong to the application/runtime itself. Primeagent and wfx
+# Variable-name prefixes that belong to the application/runtime itself. PrimeAgent and wfx
 # read all of their own configuration (secret key, database URL, auth secrets, superuser
 # password, ...) from variables under these prefixes via a settings ``env_prefix``. None of
 # them are ever meant to be surfaced as a flow value, and several are crown-jewel secrets.

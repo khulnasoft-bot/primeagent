@@ -3,7 +3,7 @@
   "id": "wfx-oracle",
   "version": "0.2.0",
   "name": "Oracle",
-  "description": "Oracle component(s) as a standalone Primeagent Extension Bundle.",
+  "description": "Oracle component(s) as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

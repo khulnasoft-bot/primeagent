@@ -1,14 +1,14 @@
-# Primeagent Demo Codespace Readme
+# PrimeAgent Demo Codespace Readme
 
-These instructions will walk you through the process of running a Primeagent demo via GitHub Codespaces.
+These instructions will walk you through the process of running a PrimeAgent demo via GitHub Codespaces.
 
-If you want a faster and easier demo experience with Primeagent, download and install [Primeagent Desktop](https://prime.khulnasoft.com/docs/get-started-installation#install-and-run-primeagent-desktop) for the least complicated setup experience.
+If you want a faster and easier demo experience with PrimeAgent, download and install [PrimeAgent Desktop](https://prime.khulnasoft.com/docs/get-started-installation#install-and-run-primeagent-desktop) for the least complicated setup experience.
 
 ## Create a Codespace in GitHub
 
 To setup the demo in Codespace:
 
-1. Navigate to the Primeagent repo
+1. Navigate to the PrimeAgent repo
 2. On the "Code <>" button, select the "Codespaces" tab
 3. Click the green "Create codespace on..." button (or "+" icon if you want more options) to create a new Codespace
 
@@ -17,7 +17,7 @@ To setup the demo in Codespace:
 After the codespace is opened, there will be two phases to the process. It will take ≈5-10 minutes to complete.
 
 * **Phase 1**: Building Container; you can click on the "Building Codespace" link to watch the logs
-* **Phase 2**: Building Primeagent; the terminal will now show `Running postCreateCommand...`, similar to:
+* **Phase 2**: Building PrimeAgent; the terminal will now show `Running postCreateCommand...`, similar to:
 
 ```
 ✔ Finishing up...
@@ -45,15 +45,15 @@ The service will start, and you will may notice a dialog in the lower right indi
 
 ```
 ╭───────────────────────────────────────────────────────────────────────╮
-│ Welcome to Primeagent                                                   │
+│ Welcome to PrimeAgent                                                   │
 │                                                                       │
 │ 🌟 GitHub: Star for updates → https://github.com/khulnasoft-bot/primeagent  │
 │ 💬 Discord: Join for support → https://discord.com/invite/EqksyE2EX9   │
 │                                                                       │
-│ We collect anonymous usage data to improve Primeagent.                  │
+│ We collect anonymous usage data to improve PrimeAgent.                  │
 │ To opt out, set: DO_NOT_TRACK=true in your environment.               │
 │                                                                       │
-│ 🟢 Open Primeagent → http://localhost:7860                               │
+│ 🟢 Open PrimeAgent → http://localhost:7860                               │
 ╰───────────────────────────────────────────────────────────────────────╯
 ```
 

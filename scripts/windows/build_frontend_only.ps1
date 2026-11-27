@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-Write-Host "Starting Primeagent frontend build process..." -ForegroundColor Green
+Write-Host "Starting PrimeAgent frontend build process..." -ForegroundColor Green
 
 # Get script directory and project root
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition

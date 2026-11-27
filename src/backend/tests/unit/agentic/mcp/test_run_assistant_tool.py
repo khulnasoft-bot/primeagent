@@ -1,4 +1,4 @@
-"""The Primeagent Assistant must be callable from external MCP clients.
+"""The PrimeAgent Assistant must be callable from external MCP clients.
 
 User report (Discord, 2026-06-11): "i can't call the assistant by mcp."
 Verified live (2026-06-12): the ``primeagent-agentic`` MCP server exposes 18
@@ -43,7 +43,7 @@ EVENTS_WITH_FLOW = [
 
 EVENTS_TEXT_ONLY = [
     {"event": "progress", "step": "generating"},
-    {"event": "complete", "data": {"result": "Primeagent is a visual flow builder."}},
+    {"event": "complete", "data": {"result": "PrimeAgent is a visual flow builder."}},
 ]
 
 INCREMENTAL_NODE_A = {"id": "ChatInput-abc", "data": {"id": "ChatInput-abc", "type": "ChatInput"}}
@@ -343,13 +343,13 @@ class TestRunAssistantAndPersist:
             result = await run_assistant_and_persist(
                 session=session,
                 user_id=user_id,
-                instruction="What is Primeagent?",
+                instruction="What is PrimeAgent?",
                 flow_id=str(flow.id),
             )
 
         assert flow.data is original_data
         assert result["flow_changed"] is False
-        assert result["result"] == "Primeagent is a visual flow builder."
+        assert result["result"] == "PrimeAgent is a visual flow builder."
 
     @pytest.mark.asyncio
     async def test_should_persist_canvas_when_agent_emits_incremental_events(self):
@@ -888,7 +888,7 @@ class TestRunAssistantAppliesProposedFieldEdits:
                 "action": "edit_field",
                 "component_id": "Agent-1",
                 "field": "system_prompt",
-                "old_value": "You are a Primeagent Agent.",
+                "old_value": "You are a PrimeAgent Agent.",
                 "new_value": self.MARKER,
                 "patch": [
                     {
@@ -909,7 +909,7 @@ class TestRunAssistantAppliesProposedFieldEdits:
         flow = SimpleNamespace(
             id=uuid4(),
             name="My Flow",
-            data=self._agent_data("You are a Primeagent Agent."),
+            data=self._agent_data("You are a PrimeAgent Agent."),
             version_token=None,
             user_id=user_id,
         )
@@ -918,7 +918,7 @@ class TestRunAssistantAppliesProposedFieldEdits:
 
         # The working flow snapshot still holds the OLD prompt — the proposal was
         # never applied to it (the bug). The runner must apply the edit_field.
-        working_without_edit = {"data": self._agent_data("You are a Primeagent Agent.")}
+        working_without_edit = {"data": self._agent_data("You are a PrimeAgent Agent.")}
 
         with (
             patch.object(
@@ -954,7 +954,7 @@ class TestRunAssistantAppliesProposedFieldEdits:
         flow = SimpleNamespace(
             id=uuid4(),
             name="My Flow",
-            data=self._agent_data("You are a Primeagent Agent."),
+            data=self._agent_data("You are a PrimeAgent Agent."),
             version_token=None,
             user_id=user_id,
         )

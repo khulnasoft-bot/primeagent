@@ -51,7 +51,7 @@ class FigraniumExecuteTaskComponent(Component):
         MultilineInput(
             name="task_variables",
             display_name="Variables",
-            info='Optional task variables as a JSON object, for example {"query": "Primeagent"}.',
+            info='Optional task variables as a JSON object, for example {"query": "PrimeAgent"}.',
             value="{}",
         ),
         IntInput(

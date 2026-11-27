@@ -1,6 +1,6 @@
 ---
 name: ibm-a11y-testing-guide
-description: Reference guide for writing and running Primeagent frontend accessibility tests with axe (Jest) and IBM Equal Access (Playwright `page.runA11yScan`). Covers which engine/test layer to pick, the POUR checklist, axe-vs-IBM rule gaps, Radix/AG-Grid component gotchas, and IBM baselines. Use when writing or reviewing a11y tests, debugging a specific axe/IBM violation, or deciding which test layer fits a UI surface. Does not run scans, audit a whole surface, or fix a PR end-to-end — see ibm-a11y-route-scan, ibm-a11y-level1-audit, and ibm-a11y-pr-remediation for those.
+description: Reference guide for writing and running PrimeAgent frontend accessibility tests with axe (Jest) and IBM Equal Access (Playwright `page.runA11yScan`). Covers which engine/test layer to pick, the POUR checklist, axe-vs-IBM rule gaps, Radix/AG-Grid component gotchas, and IBM baselines. Use when writing or reviewing a11y tests, debugging a specific axe/IBM violation, or deciding which test layer fits a UI surface. Does not run scans, audit a whole surface, or fix a PR end-to-end — see ibm-a11y-route-scan, ibm-a11y-level1-audit, and ibm-a11y-pr-remediation for those.
 ---
 
 # IBM/axe Accessibility Testing Guide

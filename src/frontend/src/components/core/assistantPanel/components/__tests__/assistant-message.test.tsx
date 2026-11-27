@@ -30,7 +30,7 @@ jest.mock("@/customization/config-constants", () => ({
 }));
 
 // Mocking the customization layer for the user avatar is how we prove the
-// Desktop Primeagent Assistant avatar bug is fixed: the component must render
+// Desktop PrimeAgent Assistant avatar bug is fixed: the component must render
 // CustomProfileIcon (which the Desktop customization overrides to prepend an
 // absolute baseURL), not a bare <img> with a relative URL.
 jest.mock("@/customization/components/custom-profile-icon", () => ({
@@ -189,7 +189,7 @@ describe("AssistantMessageItem", () => {
       expect(screen.getByAltText("User")).toBeInTheDocument();
     });
 
-    // Regression guard: Primeagent Desktop shipped with a broken user avatar in
+    // Regression guard: PrimeAgent Desktop shipped with a broken user avatar in
     // the Assistant panel because the bare <img> used a relative URL that
     // resolved against the Tauri origin instead of the Python sidecar. The
     // fix routes the avatar through CustomProfileIcon so Desktop's
@@ -229,7 +229,7 @@ describe("AssistantMessageItem", () => {
   });
 
   describe("assistant messages", () => {
-    it("should render assistant label with Primeagent icon", () => {
+    it("should render assistant label with PrimeAgent icon", () => {
       const message = createMessage({
         role: "assistant",
         content: "Here is your component",
@@ -238,8 +238,8 @@ describe("AssistantMessageItem", () => {
 
       render(<AssistantMessageItem message={message} />);
 
-      expect(screen.getByText("Primeagent Assistant")).toBeInTheDocument();
-      expect(screen.getByAltText("Primeagent Assistant")).toBeInTheDocument();
+      expect(screen.getByText("PrimeAgent Assistant")).toBeInTheDocument();
+      expect(screen.getByAltText("PrimeAgent Assistant")).toBeInTheDocument();
     });
   });
 
@@ -300,7 +300,7 @@ describe("AssistantMessageItem", () => {
       // generic dotted "Generating document..." thinking line. The earlier
       // anti-glitch concern (a bordered streaming card morphing into the
       // file card) is addressed by using the icon-only minimal mode
-      // (animated Primeagent glyph), NOT the bordered streaming card — see
+      // (animated PrimeAgent glyph), NOT the bordered streaming card — see
       // the assistant-loading-state icon-mode test.
       const message = createMessage({
         role: "assistant",
@@ -499,14 +499,14 @@ describe("AssistantMessageItem", () => {
     it("should render markdown for regular text content", () => {
       const message = createMessage({
         role: "assistant",
-        content: "Primeagent is a visual flow builder.",
+        content: "PrimeAgent is a visual flow builder.",
         status: "complete",
       });
 
       render(<AssistantMessageItem message={message} />);
 
       expect(screen.getByTestId("markdown-content")).toHaveTextContent(
-        "Primeagent is a visual flow builder.",
+        "PrimeAgent is a visual flow builder.",
       );
     });
 
@@ -530,7 +530,7 @@ describe("AssistantMessageItem", () => {
         "    def run(self) -> Data:\n",
         "        return Data(data={'result': 42})\n",
         "```\n\n",
-        "Save the file and restart Primeagent.",
+        "Save the file and restart PrimeAgent.",
       ].join("");
 
       const message = createMessage({

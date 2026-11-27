@@ -52,6 +52,6 @@ These all look like cleanup. They are user-visible regressions.
 
 ## Why this matters
 
-Primeagent flows are **persisted user artifacts** running in production. The system that loads them is forgiving by design: it tolerates new fields, falls back on missing ones, applies type migrations on load. That tolerance is paid for by every contract in the table above. Break one and the system can no longer route around it — the flow stops working.
+PrimeAgent flows are **persisted user artifacts** running in production. The system that loads them is forgiving by design: it tolerates new fields, falls back on missing ones, applies type migrations on load. That tolerance is paid for by every contract in the table above. Break one and the system can no longer route around it — the flow stops working.
 
 Treat this file as a checklist. If your change touches any row, the corresponding rule applies; no exceptions without an explicit deprecation plan.

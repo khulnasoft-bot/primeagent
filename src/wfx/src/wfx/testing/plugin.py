@@ -53,7 +53,7 @@ def pytest_addoption(parser: pytest.Parser) -> None:
 
     # Guard against duplicate registration when primeagent-sdk[testing] is also installed.
     # Both plugins expose the same --primeagent-* options; only register them once.
-    remote = parser.getgroup("primeagent", "Primeagent remote integration testing options")
+    remote = parser.getgroup("primeagent", "PrimeAgent remote integration testing options")
     _remote_opts = {
         "--primeagent-env": {
             "dest": "primeagent_env",
@@ -68,13 +68,13 @@ def pytest_addoption(parser: pytest.Parser) -> None:
             "dest": "primeagent_url",
             "default": None,
             "metavar": "URL",
-            "help": "Base URL of the remote Primeagent instance (overrides --primeagent-env).",
+            "help": "Base URL of the remote PrimeAgent instance (overrides --primeagent-env).",
         },
         "--primeagent-api-key": {
             "dest": "primeagent_api_key",
             "default": None,
             "metavar": "KEY",
-            "help": "API key for the remote Primeagent instance.",
+            "help": "API key for the remote PrimeAgent instance.",
         },
         "--primeagent-environments-file": {
             "dest": "primeagent_environments_file",
@@ -100,12 +100,12 @@ def pytest_configure(config: pytest.Config) -> None:
     )
     config.addinivalue_line(
         "markers",
-        "integration: integration test that requires a live Primeagent instance",
+        "integration: integration test that requires a live PrimeAgent instance",
     )
 
 
 _SKIP_NO_REMOTE = (
-    "No remote Primeagent connection configured. "
+    "No remote PrimeAgent connection configured. "
     "Pass --primeagent-url <URL> or --primeagent-env <NAME> to run against a live instance."
 )
 
@@ -145,7 +145,7 @@ def _resolve_remote_client(request: pytest.FixtureRequest) -> Any | None:
 
         return get_client(env_name, config_file=_Path(env_file) if env_file else None)
     except Exception as exc:  # noqa: BLE001
-        pytest.skip(f"Could not configure Primeagent environment {env_name!r}: {exc}")
+        pytest.skip(f"Could not configure PrimeAgent environment {env_name!r}: {exc}")
 
 
 def _resolve_async_remote_client(request: pytest.FixtureRequest) -> Any | None:
@@ -177,7 +177,7 @@ def _resolve_async_remote_client(request: pytest.FixtureRequest) -> Any | None:
 
         return get_async_client(env_name, config_file=_Path(env_file) if env_file else None)
     except Exception as exc:  # noqa: BLE001
-        pytest.skip(f"Could not configure Primeagent environment {env_name!r}: {exc}")
+        pytest.skip(f"Could not configure PrimeAgent environment {env_name!r}: {exc}")
 
 
 def _get_marker_arg(request: pytest.FixtureRequest, name: str) -> Any:
@@ -226,7 +226,7 @@ def flow_runner(
         * ``WFX_ENV_FILE`` / ``WFX_TIMEOUT`` / ``WFX_FLOW_DIR``
 
     **Remote mode** (when ``--primeagent-env`` or ``--primeagent-url`` is supplied)
-        Calls the live Primeagent API.  Requires ``primeagent-sdk``.
+        Calls the live PrimeAgent API.  Requires ``primeagent-sdk``.
 
         * ``--primeagent-env <NAME>`` -- named environment from ``.wfx/environments.yaml``
         * ``--primeagent-url <URL>`` -- direct URL

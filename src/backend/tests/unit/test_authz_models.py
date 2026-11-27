@@ -153,7 +153,7 @@ async def test_deleting_assignment_removes_its_grants_on_sqlite(authz_async_sess
     """Revoking an assignment must not leave orphan provenance rows.
 
     SQLite ignores ``ON DELETE CASCADE`` unless ``PRAGMA foreign_keys=ON`` is
-    issued on every connection, which Primeagent never does, so the cascade has
+    issued on every connection, which PrimeAgent never does, so the cascade has
     to come from the ORM relationship rather than from the database.
     """
     user = User(username="cascade_assignee", password=_TEST_PASSWORD)

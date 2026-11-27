@@ -7,7 +7,7 @@ from types import SimpleNamespace
 from uuid import uuid4
 
 import pytest
-from primeagent.services.authorization.service import PrimeagentAuthorizationService
+from primeagent.services.authorization.service import PrimeAgentAuthorizationService
 from wfx.services.authorization import ShareRuleSnapshot
 from wfx.services.authorization import base as authz_base
 from wfx.services.authorization.base import BaseAuthorizationService
@@ -105,7 +105,7 @@ def test_share_rule_snapshot_is_framework_neutral_and_immutable():
 @pytest.mark.anyio
 async def test_primeagent_pass_through_does_not_support_cross_user_fetch():
     """OSS pass-through must NOT opt in — that is the strict-pass-through contract."""
-    service = PrimeagentAuthorizationService(_settings())
+    service = PrimeAgentAuthorizationService(_settings())
     assert await service.supports_cross_user_fetch() is False
     assert await service.supports_api_key_scopes() is False
 
@@ -114,7 +114,7 @@ async def test_primeagent_pass_through_does_not_support_cross_user_fetch():
 async def test_subclass_can_opt_in():
     """Authorization plugins flip capability constants; the base accepts them."""
 
-    class _Plugin(PrimeagentAuthorizationService):
+    class _Plugin(PrimeAgentAuthorizationService):
         SUPPORTS_CROSS_USER_FETCH = True
         SUPPORTS_API_KEY_SCOPES = True
 

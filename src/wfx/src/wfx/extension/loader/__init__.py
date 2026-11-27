@@ -1,4 +1,4 @@
-"""Single-Bundle loader for the Primeagent Extension System.
+"""Single-Bundle loader for the PrimeAgent Extension System.
 
 This package turns a directory tree on disk (an Extension or a loose
 PRIMEAGENT_COMPONENTS_PATH entry) into a list of :class:`LoadedComponent`

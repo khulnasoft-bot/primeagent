@@ -289,7 +289,7 @@ async def _stream_event_frames(
     adapter; closing the consumer cancels the run.
 
     When the adapter is AG-UI, side-channel ``CustomEvent`` frames carry
-    the raw Primeagent payload alongside the AG-UI translation for the
+    the raw PrimeAgent payload alongside the AG-UI translation for the
     playground's chat-view. A follow-up retires this once chat-view
     consumes the AG-UI ``TEXT_MESSAGE_*`` lifecycle directly.
 
@@ -662,7 +662,7 @@ def _execute_streaming_workflow(
                 source_flow_owner_id=flow.user_id,
                 run_id=run_id,
                 # The live v2 stream. Which client sent it is a separate attribute, read from the
-                # X-Primeagent-Client header, because the playground calls this same public endpoint.
+                # X-PrimeAgent-Client header, because the playground calls this same public endpoint.
                 protocol="v2",
                 execution_family=FAMILY_WORKFLOW_V2,
                 expose_error_details=caller_owns_flow(flow, current_user),

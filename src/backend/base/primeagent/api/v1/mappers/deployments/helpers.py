@@ -993,7 +993,7 @@ async def list_deployments_synced(
     Note that this helper deletes and writes to shared deployment resources
     without any permission checks. In most cases that is unacceptable. It is
     acceptable here because those writes synchronize provider state into
-    Primeagent, not perform arbitrary actions on behalf of any user.
+    PrimeAgent, not perform arbitrary actions on behalf of any user.
     """
     provider_namespace_user_id = row_owner_id or user_id
     accepted: list[tuple[Deployment, int, list[tuple[UUID, str | None]]]] = []
@@ -1051,8 +1051,8 @@ async def list_deployments_synced(
             accepted_deployment_ids.append(row.id)
             cursor += 1
 
-    # Phase 2: synchronize provider state into Primeagent. These updates/deletes
-    # skip permission checks — acceptable only as provider→Primeagent reconciliation,
+    # Phase 2: synchronize provider state into PrimeAgent. These updates/deletes
+    # skip permission checks — acceptable only as provider→PrimeAgent reconciliation,
     # not as arbitrary user-driven writes (see docstring).
     if accepted:
         metadata_updates: list[DeploymentMetadataUpdate] = []

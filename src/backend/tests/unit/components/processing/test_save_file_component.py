@@ -881,7 +881,7 @@ class TestSaveToFileComponent(ComponentTestBaseWithoutClient):
         assert storage_input.advanced is True
 
     def test_get_input_type_raw_pandas_dataframe(self, component_class):
-        """Test that a raw pandas DataFrame is auto-wrapped into Primeagent DataFrame."""
+        """Test that a raw pandas DataFrame is auto-wrapped into PrimeAgent DataFrame."""
         component = component_class()
         raw_df = pd.DataFrame([{"a": 1, "b": 2}])
         component.set_attributes({"input": raw_df, "file_name": "test", "file_format": "csv"})

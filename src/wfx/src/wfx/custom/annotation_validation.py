@@ -55,7 +55,7 @@ def _is_safe_annotation_node(
         if root_name == "Literal":
             return _is_safe_annotation_node(node.slice, seen_strings=seen_strings, inspect_strings=False)
         if root_name == "Annotated" and isinstance(node.slice, ast.Tuple) and node.slice.elts:
-            # Metadata does not participate in Primeagent's output type. Validate
+            # Metadata does not participate in PrimeAgent's output type. Validate
             # only the wrapped type so common metadata factories such as
             # Pydantic Field(...) remain compatible without being resolved.
             return _is_safe_annotation_node(node.slice.elts[0], seen_strings=seen_strings)
@@ -536,7 +536,7 @@ def _resolve_annotation_node(
         elif base is typing.Annotated:
             if not isinstance(node.slice, ast.Tuple) or not node.slice.elts[1:]:
                 return None
-            # Primeagent's output type contract consumes only the wrapped type;
+            # PrimeAgent's output type contract consumes only the wrapped type;
             # metadata is deliberately never evaluated by this resolver.
             return _resolve_annotation_node(node.slice.elts[0], globalns=globalns, aliases=aliases)
         else:

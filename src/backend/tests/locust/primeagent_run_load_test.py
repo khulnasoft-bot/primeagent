@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Primeagent Load Test Runner
+"""PrimeAgent Load Test Runner
 
-This script provides an easy way to run Primeagent load tests.
+This script provides an easy way to run PrimeAgent load tests.
 For first-time setup, use setup_primeagent_test.py to create test credentials.
 
 Usage:
@@ -41,7 +41,7 @@ def run_command(cmd, check=True, capture_output=False):
 
 
 def check_primeagent_running(host):
-    """Check if Primeagent is already running."""
+    """Check if PrimeAgent is already running."""
     try:
         import httpx
 
@@ -123,29 +123,29 @@ def test_single_request(host):
 
 
 def wait_for_primeagent(host, timeout=60):
-    """Wait for Primeagent to be ready."""
-    print(f"Waiting for Primeagent to be ready at {host}...")
+    """Wait for PrimeAgent to be ready."""
+    print(f"Waiting for PrimeAgent to be ready at {host}...")
     start_time = time.time()
 
     while time.time() - start_time < timeout:
         if check_primeagent_running(host):
-            print("✅ Primeagent is ready!")
+            print("✅ PrimeAgent is ready!")
             return True
         time.sleep(2)
 
-    print(f"❌ Primeagent did not start within {timeout} seconds")
+    print(f"❌ PrimeAgent did not start within {timeout} seconds")
     return False
 
 
 def start_primeagent(host, port):
-    """Start Primeagent server if not already running."""
+    """Start PrimeAgent server if not already running."""
     if check_primeagent_running(host):
-        print(f"✅ Primeagent is already running at {host}")
+        print(f"✅ PrimeAgent is already running at {host}")
         return None
 
-    print(f"Starting Primeagent server on port {port}...")
+    print(f"Starting PrimeAgent server on port {port}...")
 
-    # Start Primeagent in the background
+    # Start PrimeAgent in the background
     cmd = [
         sys.executable,
         "-m",
@@ -240,7 +240,7 @@ def run_locust_test(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Run Primeagent load tests with automatic setup",
+        description="Run PrimeAgent load tests with automatic setup",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -253,7 +253,7 @@ Examples:
   # Run with specific load shape
   python run_load_test.py --shape ramp100 --headless --users 100 --duration 180
 
-  # Run against existing Primeagent instance
+  # Run against existing PrimeAgent instance
   python run_load_test.py --host http://localhost:8000 --no-start-primeagent
 
   # Save results to CSV
@@ -261,17 +261,17 @@ Examples:
         """,
     )
 
-    # Primeagent options
+    # PrimeAgent options
     parser.add_argument(
         "--host",
         default="http://localhost:7860",
-        help="Primeagent host URL (default: http://localhost:7860, use https:// for remote instances)",
+        help="PrimeAgent host URL (default: http://localhost:7860, use https:// for remote instances)",
     )
-    parser.add_argument("--port", type=int, default=7860, help="Port to start Primeagent on (default: 7860)")
+    parser.add_argument("--port", type=int, default=7860, help="Port to start PrimeAgent on (default: 7860)")
     parser.add_argument(
         "--no-start-primeagent",
         action="store_true",
-        help="Don't start Primeagent automatically (assume it's already running)",
+        help="Don't start PrimeAgent automatically (assume it's already running)",
     )
 
     # Load test options
@@ -299,7 +299,7 @@ Examples:
     primeagent_process = None
 
     try:
-        # Start Primeagent if needed
+        # Start PrimeAgent if needed
         if not args.no_start_primeagent:
             if args.host.startswith("https://") or not args.host.startswith("http://localhost"):
                 print(f"⚠️  Remote host detected: {args.host}")
@@ -309,18 +309,18 @@ Examples:
 
             primeagent_process = start_primeagent(args.host, args.port)
             if not primeagent_process:
-                print("❌ Failed to start Primeagent")
+                print("❌ Failed to start PrimeAgent")
                 sys.exit(1)
         # Just check if it's running
         elif not check_primeagent_running(args.host):
-            print(f"❌ Primeagent is not running at {args.host}")
+            print(f"❌ PrimeAgent is not running at {args.host}")
             if args.host.startswith("https://"):
-                print("   Make sure your remote Primeagent instance is accessible")
+                print("   Make sure your remote PrimeAgent instance is accessible")
             else:
-                print("Either start Primeagent manually or remove --no-start-primeagent flag")
+                print("Either start PrimeAgent manually or remove --no-start-primeagent flag")
             sys.exit(1)
         else:
-            print(f"🔗 Using existing Primeagent instance at {args.host}")
+            print(f"🔗 Using existing PrimeAgent instance at {args.host}")
             if args.host.startswith("https://"):
                 print("   ✅ Remote instance mode")
 
@@ -338,15 +338,15 @@ Examples:
         print(f"❌ Error: {e}")
         sys.exit(1)
     finally:
-        # Clean up Primeagent process
+        # Clean up PrimeAgent process
         if primeagent_process:
-            print("\nStopping Primeagent server...")
+            print("\nStopping PrimeAgent server...")
             primeagent_process.terminate()
             try:
                 primeagent_process.wait(timeout=10)
             except subprocess.TimeoutExpired:
                 primeagent_process.kill()
-            print("✅ Primeagent server stopped")
+            print("✅ PrimeAgent server stopped")
 
 
 if __name__ == "__main__":

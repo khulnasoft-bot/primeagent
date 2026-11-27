@@ -1,6 +1,6 @@
 # Accessibility scan coverage
 
-Primeagent has two a11y scan layers:
+PrimeAgent has two a11y scan layers:
 
 - Playwright specs in this directory are regression hosts. GitHub Actions runs
   every spec that calls `page.runA11yScan(...)` in `.github/workflows/a11y-scan.yml`.

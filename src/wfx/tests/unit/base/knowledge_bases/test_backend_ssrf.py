@@ -1,7 +1,7 @@
 """SSRF regression tests for the OpenSearch and Chroma Cloud KB backends.
 
 The connection target of both backends is fully tenant-controlled — OpenSearch
-resolves its cluster URL from a tenant-written Primeagent variable, Chroma Cloud
+resolves its cluster URL from a tenant-written PrimeAgent variable, Chroma Cloud
 takes ``cloud_host`` / ``cloud_port`` straight from the request body — and the
 test-connection route echoes the probe outcome back to the tenant. These tests
 pin the two destination gates at the sinks.
@@ -62,7 +62,7 @@ def _opensearch_backend(
     """Build an OpenSearch backend whose ``OPENSEARCH_URL`` resolves to ``url``.
 
     ``source`` is the provenance the destination gate reads: ``"variable"`` (the
-    default) for a tenant-written Primeagent variable, ``"environment"`` for a
+    default) for a tenant-written PrimeAgent variable, ``"environment"`` for a
     process env var the operator set.
     """
     backend = OpenSearchBackend(kb_name="kb", backend_config={})

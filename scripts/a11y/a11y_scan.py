@@ -654,7 +654,7 @@ def markdown_rule_table(counts: Counter[str]) -> str:
 def write_markdown_report(report: dict[str, Any], output_path: Path) -> None:
     results = report["results"]
     lines = [
-        "# Primeagent Accessibility Report",
+        "# PrimeAgent Accessibility Report",
         "",
         f"- Generated: `{report['generatedAt']}`",
         f"- Base URL: `{report['url']}`",
@@ -843,7 +843,7 @@ def write_html_report(report: dict[str, Any], output_path: Path) -> None:
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Primeagent Accessibility Report</title>
+  <title>PrimeAgent Accessibility Report</title>
   <style>
     :root {{
       color-scheme: light dark;
@@ -1042,7 +1042,7 @@ def write_html_report(report: dict[str, Any], output_path: Path) -> None:
 </head>
 <body>
 <main>
-  <h1>Primeagent Accessibility Report</h1>
+  <h1>PrimeAgent Accessibility Report</h1>
   <p class="muted">Generated {html_escape(report["generatedAt"])}</p>
   <section class="summary">
     <div class="stats">

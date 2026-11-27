@@ -21,7 +21,7 @@ import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import PartialAPISetup from "@site/docs/_partial-api-setup.mdx";
 
-The [Workflow API](./workflow-api) executes Primeagent flows over `POST /api/v2/workflows` in three modes.
+The [Workflow API](./workflow-api) executes PrimeAgent flows over `POST /api/v2/workflows` in three modes.
 
 Use the default **`sync`** mode when you want to wait for the full JSON result in one response. Use **`stream`** when you need live Server-Sent Events (SSE) emitted as the flow runs. Use **`background`** when you want to queue a job and then poll or re-attach to its event stream.
 
@@ -79,12 +79,12 @@ Pass the same `session_id` on the next request to continue chat history for that
 
 Set `"mode": "stream"` to open an SSE stream. Choose the wire format with `stream_protocol`:
 
-- **`primeagent`** (default): Primeagent `EventManager` frames for existing Primeagent clients.
+- **`primeagent`** (default): PrimeAgent `EventManager` frames for existing PrimeAgent clients.
 - **`agui`**: [AG-UI](https://docs.ag-ui.com/introduction) lifecycle events for compatible clients.
 
 For request examples, event types, and protocol details, see [Execute flow with selected `stream` mode](./workflow-api#execute-flow-with-selected-stream-mode) in the Workflow API reference.
 
-### Primeagent EventManager (default)
+### PrimeAgent EventManager (default)
 
 Each `data:` line is JSON shaped like `{"event": "<type>", "data": {...}}`. The example below prints only `token` events (`data.chunk`) as they arrive.
 

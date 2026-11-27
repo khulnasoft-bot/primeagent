@@ -3,8 +3,8 @@
 
 Phase: MIGRATE
 
-Historic Primeagent releases seeded the agentic assistant flows (PrimeagentAssistant,
-SystemMessageGen, TemplateAssistant) into each user's "Primeagent Assistant" folder on
+Historic PrimeAgent releases seeded the agentic assistant flows (PrimeAgentAssistant,
+SystemMessageGen, TemplateAssistant) into each user's "PrimeAgent Assistant" folder on
 login, and users could also build their own flows with the Agent component. Every such
 Flow row embeds a snapshot of the Agent component source in
 ``node.data.node.template.code.value``. In the pre-fix snapshot ``get_memory_data`` read

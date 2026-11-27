@@ -271,10 +271,10 @@ def get_auth_service() -> BaseAuthService:
     WFX's no-op ``AuthService`` claims the ``auth_service`` slot at import time via
     ``@register_service(..., override=True)``, and a registered service class always wins
     over the factory passed here as a fallback. That stub must never be the resolved
-    service in a Primeagent process: it raises ``NotImplementedError`` for user/token
+    service in a PrimeAgent process: it raises ``NotImplementedError`` for user/token
     operations and answers API-key checks with ``None``. ``register_all_service_factories()``
     overrides it during startup, so anything touching auth before (or without) that call
-    would otherwise get the stub -- swap it out for Primeagent's implementation here.
+    would otherwise get the stub -- swap it out for PrimeAgent's implementation here.
 
     A plugin-provided auth service (e.g. SSO, registered through ``wfx.toml``) is a
     different class and is left untouched.
@@ -303,7 +303,7 @@ def get_authorization_service() -> BaseAuthorizationService:
 
 
 def get_connection_resolver_service() -> BaseConnectionResolverService:
-    """Retrieve Primeagent's active host-pluggable connection resolver."""
+    """Retrieve PrimeAgent's active host-pluggable connection resolver."""
     from primeagent.services.connection.factory import ConnectionResolverServiceFactory
 
     return get_service(ServiceType.CONNECTION_RESOLVER_SERVICE, ConnectionResolverServiceFactory())

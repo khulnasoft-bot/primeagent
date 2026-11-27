@@ -210,7 +210,7 @@ class TestWfxReexportModules:
             try:
                 # Import the primeagent module
                 lf_module = importlib.import_module(primeagent_module)
-                assert lf_module is not None, f"Primeagent module {primeagent_module} is None"
+                assert lf_module is not None, f"PrimeAgent module {primeagent_module} is None"
 
                 # Import the corresponding wfx module to compare
 
@@ -230,7 +230,7 @@ class TestWfxReexportModules:
             try:
                 # Import the primeagent module
                 lf_module = importlib.import_module(primeagent_module)
-                assert lf_module is not None, f"Primeagent module {primeagent_module} is None"
+                assert lf_module is not None, f"PrimeAgent module {primeagent_module} is None"
 
                 # Wildcard imports should expose most/all attributes from wfx module
                 wfx_mod = importlib.import_module(wfx_module)
@@ -255,7 +255,7 @@ class TestWfxReexportModules:
             try:
                 # Import the primeagent module
                 lf_module = importlib.import_module(primeagent_module)
-                assert lf_module is not None, f"Primeagent module {primeagent_module} is None"
+                assert lf_module is not None, f"PrimeAgent module {primeagent_module} is None"
 
                 # Verify it has __all__ attribute for complex modules
                 assert hasattr(lf_module, "__all__"), f"Complex module {primeagent_module} missing __all__"
@@ -285,7 +285,7 @@ class TestWfxReexportModules:
             try:
                 # Import the primeagent module
                 lf_module = importlib.import_module(primeagent_module)
-                assert lf_module is not None, f"Primeagent module {primeagent_module} is None"
+                assert lf_module is not None, f"PrimeAgent module {primeagent_module} is None"
 
                 # Dynamic modules should have __getattr__ method
                 assert hasattr(lf_module, "__getattr__"), f"Dynamic module {primeagent_module} missing __getattr__"

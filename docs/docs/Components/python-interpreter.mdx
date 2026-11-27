@@ -9,8 +9,8 @@ import TabItem from "@theme/TabItem";
 
 This component allows you to execute Python code with imported packages.
 
-By default, code runs in the Primeagent server process.
-The **Python Interpreter** can only import packages that are already installed in your Primeagent environment.
+By default, code runs in the PrimeAgent server process.
+The **Python Interpreter** can only import packages that are already installed in your PrimeAgent environment.
 If you encounter an `ImportError`, install the package first. For more information, see [Install custom dependencies](/install-custom-dependencies).
 
 On a shared server, isolate executions in a microVM or [block the custom component](/api-keys-and-authentication#multi-tenant-component-hardening).
@@ -250,12 +250,12 @@ The VM has a read-only root filesystem, no host filesystem access, and no networ
    PRIMEAGENT_SANDBOX_BACKEND=exec-sandbox
    ```
 
-4. Restart Primeagent.
+4. Restart PrimeAgent.
 
-If the sandbox is configured but unavailable, execution fails with an error, and Primeagent does not fall back to in-process `exec`.
+If the sandbox is configured but unavailable, execution fails with an error, and PrimeAgent does not fall back to in-process `exec`.
 
 Sandboxed code may import any module already in the microVM's filesystem.
-Primeagent inserts `import` statements at the top of the script in the VM. Those packages must already be in the microVM's filesystem, not only in your Primeagent environment.
+PrimeAgent inserts `import` statements at the top of the script in the VM. Those packages must already be in the microVM's filesystem, not only in your PrimeAgent environment.
 Network access is off by default.
 Code that fetches URLs needs `PRIMEAGENT_SANDBOX_ALLOW_NETWORK=true` and, for non-PyPI hosts, `PRIMEAGENT_SANDBOX_ALLOWED_DOMAINS`.
 

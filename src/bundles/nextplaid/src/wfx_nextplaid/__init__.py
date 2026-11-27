@@ -1,7 +1,7 @@
 """wfx-nextplaid: NextPlaid multi-vector vector store bundle.
 
 This package is the distribution unit ``wfx-nextplaid``.  At runtime
-Primeagent's loader discovers ``extension.json`` shipped alongside this
+PrimeAgent's loader discovers ``extension.json`` shipped alongside this
 ``__init__.py`` and registers the bundle's two components under the
 namespaced IDs:
 

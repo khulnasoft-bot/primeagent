@@ -1,6 +1,6 @@
 # Component Splitting Patterns
 
-This document provides detailed guidance on splitting large components into smaller, focused components in Primeagent.
+This document provides detailed guidance on splitting large components into smaller, focused components in PrimeAgent.
 
 ## When to Split Components
 
@@ -563,11 +563,11 @@ function FieldList<T>({ fields, renderField, renderEmpty }: FieldListProps<T>) {
 />
 ```
 
-## Primeagent-Specific Splitting Guidelines
+## PrimeAgent-Specific Splitting Guidelines
 
 ### Splitting GenericNode Components
 
-The `GenericNode` component is one of the most complex components in Primeagent. When splitting:
+The `GenericNode` component is one of the most complex components in PrimeAgent. When splitting:
 
 1. Keep the main `index.tsx` as an orchestrator that composes sub-components.
 2. Parameter rendering goes in `components/NodeInputField/`.

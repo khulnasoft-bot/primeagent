@@ -44,7 +44,7 @@ if TYPE_CHECKING:
 
 
 class CustomComponent(BaseComponent):
-    """Represents a custom component in Primeagent.
+    """Represents a custom component in PrimeAgent.
 
     Attributes:
         name (Optional[str]): This attribute helps the frontend apply styles to known components.

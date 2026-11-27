@@ -1,11 +1,11 @@
-"""Hash-to-module mappings for known Primeagent core components.
+"""Hash-to-module mappings for known PrimeAgent core components.
 
 This module contains mappings of code hashes to component module paths for
-known Primeagent core components. When a component's code_hash matches an entry
+known PrimeAgent core components. When a component's code_hash matches an entry
 here and the module matches, we can use the core executor instead of compiling
 custom code from a blob.
 
-The hashes are derived from the Primeagent workflow metadata and can be found in
+The hashes are derived from the PrimeAgent workflow metadata and can be found in
 the `metadata.code_hash` and `metadata.module` fields of each node.
 """
 
@@ -28,7 +28,7 @@ class KnownComponent:
 
 
 # Mapping of code_hash -> KnownComponent
-# These hashes are version-specific and may need updating when Primeagent versions change
+# These hashes are version-specific and may need updating when PrimeAgent versions change
 KNOWN_COMPONENTS: dict[str, KnownComponent] = {
     # ChatInput component (wfx)
     "f701f686b325": KnownComponent(  # pragma: allowlist secret

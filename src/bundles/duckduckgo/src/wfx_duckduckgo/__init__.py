@@ -1,7 +1,7 @@
 """wfx-duckduckgo: DuckDuckGo Search bundle.
 
 This package is the distribution unit ``wfx-duckduckgo``.  At runtime
-Primeagent's loader discovers ``extension.json`` shipped alongside this
+PrimeAgent's loader discovers ``extension.json`` shipped alongside this
 ``__init__.py`` and registers ``DuckDuckGoSearchComponent`` under the
 namespaced ID ``ext:duckduckgo:DuckDuckGoSearchComponent@official``.
 

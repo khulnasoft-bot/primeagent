@@ -3,7 +3,7 @@
   "id": "wfx-anthropic",
   "version": "0.2.0",
   "name": "Anthropic",
-  "description": "Anthropic component(s) as a standalone Primeagent Extension Bundle.",
+  "description": "Anthropic component(s) as a standalone PrimeAgent Extension Bundle.",
   "wfx": {
     "compat": ["1"]
   },

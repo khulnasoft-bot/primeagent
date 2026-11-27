@@ -32,10 +32,10 @@ import {
 import type {
   A11yScanOptions,
   ExpectedServerError,
-  PrimeagentPage,
+  PrimeAgentPage,
 } from "./utils/types";
 
-export type { A11yScanOptions, PrimeagentPage } from "./utils/types";
+export type { A11yScanOptions, PrimeAgentPage } from "./utils/types";
 
 const RUN_A11Y = process.env.RUN_A11Y === "true";
 const RUN_A11Y_ASSERT = process.env.RUN_A11Y_ASSERT === "true";
@@ -99,7 +99,7 @@ const CPU_THROTTLE_RATE = (() => {
 })();
 
 // Extend test to log backend errors
-export const test = base.extend<{ page: PrimeagentPage }, A11yFixtures>({
+export const test = base.extend<{ page: PrimeAgentPage }, A11yFixtures>({
   _a11ySession: [
     async ({ browserName }, use) => {
       void browserName;
@@ -140,7 +140,7 @@ export const test = base.extend<{ page: PrimeagentPage }, A11yFixtures>({
     // Flag to allow flow errors (for tests that expect errors)
     let allowFlowErrors = false;
 
-    // Add helper method to page context — see PrimeagentPage type in utils/types.ts
+    // Add helper method to page context — see PrimeAgentPage type in utils/types.ts
     (page as Page & { allowFlowErrors?: () => void }).allowFlowErrors = () => {
       allowFlowErrors = true;
     };
@@ -464,7 +464,7 @@ export const test = base.extend<{ page: PrimeagentPage }, A11yFixtures>({
     });
     page.on("framedetached", finishFrameRequests);
 
-    await use(page as PrimeagentPage);
+    await use(page as PrimeAgentPage);
     // Freeze only the finite lifecycle set at the test boundary. Existing
     // requests must still finish, while teardown polling must not continually
     // extend this drain. Keep request/status observation active through the

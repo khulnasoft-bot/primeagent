@@ -21,7 +21,7 @@ Before you start, confirm the component is a good fit:
 - [ ] The provider directory `src/wfx/src/wfx/components/<provider>/` exists
       and contains one or more `Component` subclasses.
 - [ ] Imports from `wfx.*` only (no `from primeagent...`); the bundle is
-      installed against the public `BUNDLE_API` surface, not Primeagent internals.
+      installed against the public `BUNDLE_API` surface, not PrimeAgent internals.
       Check with: `grep -r "from primeagent" src/wfx/src/wfx/components/<provider>/`
 - [ ] No deactivated / legacy duplicate exists under `src/wfx/src/wfx/components/deactivated/<provider>/`.
 - [ ] The runtime dependencies the component pulls in (e.g. `langchain-community`,
@@ -68,7 +68,7 @@ Copy [`src/bundles/duckduckgo/pyproject.toml`](duckduckgo/pyproject.toml) and
 substitute names + the runtime-dep block. The non-obvious bits:
 
 - `dependencies` lists every runtime dep the component imports. Floor `wfx`
-  at the current Primeagent/WFX `major.minor` line and cap below the next `wfx`
+  at the current PrimeAgent/WFX `major.minor` line and cap below the next `wfx`
   major — e.g. `"wfx>=1.10.0,<2.0.0"`. You normally don't hand-write this:
   `port_bundle.py` fills it in from `src/wfx/pyproject.toml` at port time, and
   `make patch` re-syncs every existing bundle via
@@ -380,7 +380,7 @@ python scripts/ci/bundle_release_plan.py plan \
 
 To apply the plan, use the update command instead of editing version fields by
 hand. It bumps affected bundles by one patch by default, synchronizes their
-`extension.json` versions and WFX ranges, raises every matching Primeagent
+`extension.json` versions and WFX ranges, raises every matching PrimeAgent
 dependency floor, and regenerates `uv.lock` as one rollback-safe operation:
 
 ```bash
@@ -430,7 +430,7 @@ unchanged.
   empty dict and the bundle never enters the registry.
 - **Migration entries missing**: saved flows still validate, but the
   palette can't render the legacy node — the user sees a "component not
-  found" toast. The four-entry block in step 4 covers every shape Primeagent
+  found" toast. The four-entry block in step 4 covers every shape PrimeAgent
   has serialized in the past.
 
 ---

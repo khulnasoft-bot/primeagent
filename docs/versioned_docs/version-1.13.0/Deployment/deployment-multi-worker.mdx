@@ -1,12 +1,12 @@
 ---
-title: Deploy Primeagent with multiple workers
+title: Deploy PrimeAgent with multiple workers
 slug: /deployment-multi-worker
 ---
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-By default, Primeagent runs with a single worker process and stores build job state in memory.
+By default, PrimeAgent runs with a single worker process and stores build job state in memory.
 
 A single-worker process is fine for development, but it doesn't scale when you run more than one worker.
 A flow build started on worker **A** cannot be polled or streamed from worker **B** because the in-memory job queue is _per-process_.
@@ -14,13 +14,13 @@ A flow build started on worker **A** cannot be polled or streamed from worker **
 A multi-worker deployment runs more than one worker process on the same host. Concurrency can be increased by increasing the number of `PRIMEAGENT_WORKERS`, but each process keeps its own in-memory build queue unless you add a shared store.
 
 A Redis-backed job queue stores build events in [Redis Streams](https://redis.io/docs/latest/develop/data-types/streams/), so any worker can pick up and serve any job's events.
-To configure a multi-worker Primeagent process, follow the steps to enable the Redis job queue.
+To configure a multi-worker PrimeAgent process, follow the steps to enable the Redis job queue.
 
 After the Redis job queue is configured, you can optionally follow [recommended Gunicorn settings](#recommended-gunicorn-settings) to reduce memory use and keep workers healthy. This tuning applies to Linux production hosts only. On Windows and macOS, `primeagent run` uses a single Uvicorn process.
 
 ## Prerequisites
 
-- **Redis 6 or later**, reachable from all Primeagent worker processes.
+- **Redis 6 or later**, reachable from all PrimeAgent worker processes.
 - All workers configured with the same `PRIMEAGENT_JOB_QUEUE_TYPE`. Mixed-mode deployments (some workers using `asyncio`, others using `redis`) are not supported.
 - A dedicated Redis database index for the job queue. The cache uses DB `0` by default; the job queue defaults to DB `1`. Using the same index for both will cause key collisions.
 
@@ -40,19 +40,19 @@ If you use a managed Redis service with auth or TLS, you must use `PRIMEAGENT_RE
 
 ## Run multiple workers without Redis
 
-By default, Primeagent refuses to start when `PRIMEAGENT_WORKERS` is greater than 1 and `PRIMEAGENT_JOB_QUEUE_TYPE` is still `asyncio`, because the in-memory job queue is per-process.
+By default, PrimeAgent refuses to start when `PRIMEAGENT_WORKERS` is greater than 1 and `PRIMEAGENT_JOB_QUEUE_TYPE` is still `asyncio`, because the in-memory job queue is per-process.
 
-If your deployment is headless — it only calls the Primeagent API and never opens the visual editor — you can opt out of that check:
+If your deployment is headless — it only calls the PrimeAgent API and never opens the visual editor — you can opt out of that check:
 
 ```text
 PRIMEAGENT_WORKERS=3
 PRIMEAGENT_DANGEROUSLY_ALLOW_MULTI_WORKER_WITHOUT_SHARED_QUEUE=true
 ```
 
-Primeagent then starts and logs a warning listing everything that changes. The flag does not make multi-worker safe; it only stops Primeagent from refusing to boot.
+PrimeAgent then starts and logs a warning listing everything that changes. The flag does not make multi-worker safe; it only stops PrimeAgent from refusing to boot.
 
 :::warning
-This configuration is **not supported with the Primeagent UI** and **not supported with MCP over SSE**.
+This configuration is **not supported with the PrimeAgent UI** and **not supported with MCP over SSE**.
 
 - The visual editor and the playground do not work. They use the v1 `/build` endpoints, whose queues live in one worker's memory, so the follow-up `GET /api/v1/build/<job_id>/events` request fails whenever the load balancer routes it to a different worker.
 - MCP over SSE does not work, because the SSE stream and the POST message endpoint that feeds it must run in the same process. Use the Streamable HTTP transport instead.
@@ -69,7 +69,7 @@ For a supported multi-worker deployment, set `PRIMEAGENT_JOB_QUEUE_TYPE=redis` i
 
 ## Example: multi-worker Docker Compose
 
-This example runs three Primeagent workers sharing a Redis job queue and a PostgreSQL database.
+This example runs three PrimeAgent workers sharing a Redis job queue and a PostgreSQL database.
 
 To run this example you need:
 
@@ -142,7 +142,7 @@ podman machine start
    docker compose up -d
    ```
 
-3. Watch the logs until Primeagent is ready:
+3. Watch the logs until PrimeAgent is ready:
 
    ```bash
    docker compose logs -f primeagent
@@ -153,7 +153,7 @@ podman machine start
    ```
    [preload] initializing services in master
    [preload] master preload complete; workers will inherit shared state via COW
-   ✓ Launching Primeagent...
+   ✓ Launching PrimeAgent...
    ```
 
 4. Create a superuser token using the `username` and `password` set in the Docker Compose file:
@@ -211,7 +211,7 @@ podman machine start
    done
    ```
 
-7. Open the Primeagent UI and build a flow by sending a message to the flow in the **Playground**.
+7. Open the PrimeAgent UI and build a flow by sending a message to the flow in the **Playground**.
    The number of `active_jobs` reported by the `monitor/job_queue` endpoint increases, confirming your Redis queue is working.
 
 ### Verify cross-worker cancellation
@@ -292,7 +292,7 @@ See [Troubleshoot multi-worker deployments](./troubleshoot#multi-worker-deployme
 | Variable                                                         | Default                 | Description                                                                                                                                                                                                                                                        |
 | ---------------------------------------------------------------- | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `PRIMEAGENT_JOB_QUEUE_TYPE`                                      | `asyncio`               | Job queue backend. Set to `redis` to enable the cross-worker queue.                                                                                                                                                                                                |
-| `PRIMEAGENT_DANGEROUSLY_ALLOW_MULTI_WORKER_WITHOUT_SHARED_QUEUE` | `False`                 | Start with more than one worker while the job queue is still `asyncio`. **Unsupported with the Primeagent UI and with MCP over SSE.** See [Run multiple workers without Redis](#run-multiple-workers-without-redis).                                               |
+| `PRIMEAGENT_DANGEROUSLY_ALLOW_MULTI_WORKER_WITHOUT_SHARED_QUEUE` | `False`                 | Start with more than one worker while the job queue is still `asyncio`. **Unsupported with the PrimeAgent UI and with MCP over SSE.** See [Run multiple workers without Redis](#run-multiple-workers-without-redis).                                               |
 | `PRIMEAGENT_REDIS_QUEUE_URL`                                     | Not set                 | Full Redis connection URL. Takes priority over `HOST`/`PORT`/`DB` when set. Use this for any Redis instance that requires authentication or TLS.                                                                                                                   |
 | `PRIMEAGENT_REDIS_QUEUE_HOST`                                    | `PRIMEAGENT_REDIS_HOST` | Redis host for the job queue. Falls back to the general Redis host setting. Does not support auth or TLS (use `PRIMEAGENT_REDIS_QUEUE_URL` instead for secured instances).                                                                                         |
 | `PRIMEAGENT_REDIS_QUEUE_PORT`                                    | `PRIMEAGENT_REDIS_PORT` | Redis port for the job queue. Falls back to the general Redis port setting.                                                                                                                                                                                        |
@@ -385,15 +385,15 @@ This tuning is optional, and it applies to Linux only. It does not replace the R
 On Windows and macOS, `primeagent run` uses one Uvicorn process, so `PRIMEAGENT_GUNICORN_PRELOAD` and `GUNICORN_CMD_ARGS` have no effect.
 :::
 
-These recommendations are starting points from Primeagent engineering benchmarks on Linux multi-worker deployments.
+These recommendations are starting points from PrimeAgent engineering benchmarks on Linux multi-worker deployments.
 After you apply these values, monitor performance, and then make adjustments using `htop` or `btop` while you run flows.
 
-Add the starter values to your server's `.env` file after the [Redis job queue](#enable-the-redis-job-queue) settings, then restart Primeagent. Copy the block that best matches your server:
+Add the starter values to your server's `.env` file after the [Redis job queue](#enable-the-redis-job-queue) settings, then restart PrimeAgent. Copy the block that best matches your server:
 
 <Tabs>
 <TabItem value="small" label="Small / dev (4–8 GB RAM)" default>
 
-Start with fewer workers so Primeagent and local databases do not hit OOM.
+Start with fewer workers so PrimeAgent and local databases do not hit OOM.
 
 ```text
 PRIMEAGENT_WORKERS=5
@@ -405,7 +405,7 @@ GUNICORN_CMD_ARGS="--max-requests 100 --max-requests-jitter 20"
 </TabItem>
 <TabItem value="standard" label="Standard API (12 GB RAM)">
 
-A balanced default for a dedicated Primeagent host.
+A balanced default for a dedicated PrimeAgent host.
 
 ```text
 PRIMEAGENT_WORKERS=15
@@ -434,4 +434,4 @@ GUNICORN_CMD_ARGS="--max-requests 150 --max-requests-jitter 30"
 - **`PRIMEAGENT_GUNICORN_PRELOAD`** — Loads the app once in the Gunicorn master before workers fork so Linux can share memory across workers through Copy-on-Write. Recommended to leave enabled in multi-worker deployments for memory savings. Safe to leave off; behavior matches older releases when `false`.
 - **`GUNICORN_CMD_ARGS`** — Recycles workers after a set number of requests so memory usage growth does not continuously accumulate. `--max-requests` restarts a worker after it processes that many requests; `--max-requests-jitter` adds a random extra 0–N requests on top of that limit for each worker. Spreading restarts over time avoids every worker reloading at once. If RAM usage increases over time, lower `--max-requests` before you lower worker count.
 
-For more information, see the [Scaling Primeagent blog post](https://www.prime.khulnasoft.com/blog/scaling-primeagent).
+For more information, see the [Scaling PrimeAgent blog post](https://www.prime.khulnasoft.com/blog/scaling-primeagent).

@@ -419,7 +419,7 @@ async def test_migration_status_retry_and_detach(client, admin_headers, active_u
 
 @pytest.mark.parametrize("route", ["status", "migrations"])
 async def test_migration_guidance_covers_all_host_processes(client, admin_headers, active_user, storage_root, route):  # noqa: ARG001
-    """Both status views explain that unrelated Primeagent processes also block upgrades."""
+    """Both status views explain that unrelated PrimeAgent processes also block upgrades."""
     from primeagent.services.database.models.knowledge_base_storage_migration import KnowledgeBaseStorageMigration
 
     record, run = await _attention_migration(active_user.id)
@@ -433,7 +433,7 @@ async def test_migration_guidance_covers_all_host_processes(client, admin_header
     entry = next(row for row in entries if row["kb_id"] == str(record.id))
     assert entry["error_code"] == "legacy_workers_running"
     assert entry["guidance"] == (
-        "Stop all other Primeagent processes on this host, then retry the upgrade. "
+        "Stop all other PrimeAgent processes on this host, then retry the upgrade. "
         "This includes instances using different databases or knowledge directories."
     )
 

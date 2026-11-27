@@ -35,7 +35,7 @@ export interface CreateKnowledgeBaseRequest {
    * - ``"opensearch"``: ``{ url_variable?, username_variable?,
    *   password_variable?, index_name, vector_field?, text_field? }``
    *
-   * Credentials are referenced by Primeagent-variable *name*, never
+   * Credentials are referenced by PrimeAgent-variable *name*, never
    * embedded as raw secrets.
    */
   backend_config?: Record<string, unknown>;

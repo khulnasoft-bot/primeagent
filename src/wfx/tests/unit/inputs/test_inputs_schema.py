@@ -222,7 +222,7 @@ def test_schema_to_primeagent_inputs():
         dict_field: dict = Field(description="A dictionary field")
         list_field: list[str] = Field(description="A list of strings")
 
-    # Convert schema to Primeagent inputs
+    # Convert schema to PrimeAgent inputs
     inputs = schema_to_primeagent_inputs(TestSchema)
 
     # Verify the number of inputs matches the schema fields

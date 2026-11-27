@@ -1,7 +1,7 @@
 [project]
 name = "wfx-azure"
 version = "0.2.0"
-description = "Azure model components as a standalone Primeagent Extension Bundle."
+description = "Azure model components as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = { text = "MIT" }
@@ -11,8 +11,8 @@ authors = [
 keywords = ["primeagent", "wfx", "extension", "bundle", "azure", "azure-ai-foundry", "azure-openai"]
 
 # Runtime deps cover both the dedicated Azure OpenAI components and the
-# unified Azure AI Foundry provider exposed by Primeagent's Language Model
-# component. Keeping them here makes the default Primeagent install complete
+# unified Azure AI Foundry provider exposed by PrimeAgent's Language Model
+# component. Keeping them here makes the default PrimeAgent install complete
 # without restoring the opt-in wfx-bundles metapackage.
 dependencies = [
     "wfx>=1.13.0.dev0,<2.0.0",

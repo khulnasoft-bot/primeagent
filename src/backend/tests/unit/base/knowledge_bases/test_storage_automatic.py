@@ -82,7 +82,7 @@ def test_application_backup_recovers_partial_copy_and_is_shared_across_bases(tmp
         # A later base must reuse the original rollback backup, even if normal
         # app usage has changed the metadata database in the meantime.
         with sqlite3.connect(database) as connection:
-            connection.execute("INSERT INTO data VALUES ('while using Primeagent')")
+            connection.execute("INSERT INTO data VALUES ('while using PrimeAgent')")
     assert references[0] == references[1]
     assert not incomplete.exists()
     assert len(list(backup_directory.glob("*.sqlite3"))) == 1

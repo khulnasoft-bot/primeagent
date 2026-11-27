@@ -58,7 +58,7 @@ _PG_VERSION_QUERY = sa.text("SELECT current_setting('server_version_num'), curre
 # so independent processes converge on the same lock; the value itself is
 # arbitrary, just has to fit in a Postgres bigint and not collide with other
 # advisory locks the application takes (currently none).
-_MIGRATION_ADVISORY_LOCK_ID = 0x4C616E67666C6F77  # ASCII "Primeagent"
+_MIGRATION_ADVISORY_LOCK_ID = 0x4C616E67666C6F77  # ASCII "PrimeAgent"
 _MIGRATION_LOCK_DEFAULT_TIMEOUT_S = 300.0
 _MIGRATION_LOCK_POLL_INTERVAL_S = 2.0
 
@@ -142,7 +142,7 @@ def _postgres_migration_lock(database_url: str):
     here (bounded, with progress logging) and then find the schema already at
     head.
 
-    No-op for non-PostgreSQL URLs. SQLite has no advisory locks (and Primeagent
+    No-op for non-PostgreSQL URLs. SQLite has no advisory locks (and PrimeAgent
     runs single-process on it anyway).
     """
     if not database_url.startswith(("postgresql", "postgres")):
@@ -221,7 +221,7 @@ def check_sqlite_database_path(database_url: str) -> None:
     ``PRIMEAGENT_DATABASE_URL`` are resolved by SQLAlchemy against the current
     working directory at connect time. When the resolved parent directory is
     missing the raw ``sqlite3.OperationalError`` ("unable to open database file")
-    is opaque, so surface where Primeagent actually tried to open the database and
+    is opaque, so surface where PrimeAgent actually tried to open the database and
     how a relative path was resolved. No-op for non-SQLite and in-memory URLs.
 
     Note: this only improves diagnostics; it does not change which URLs are
@@ -244,12 +244,12 @@ def check_sqlite_database_path(database_url: str) -> None:
         f"directories. "
     )
     if db_path.is_absolute():
-        msg += "Create the directory before starting Primeagent, or point PRIMEAGENT_DATABASE_URL at an existing path."
+        msg += "Create the directory before starting PrimeAgent, or point PRIMEAGENT_DATABASE_URL at an existing path."
     else:
         msg += (
             f"The relative path '{db_path}' from PRIMEAGENT_DATABASE_URL was resolved against the current working "
             f"directory ('{Path.cwd()}'). Set PRIMEAGENT_DATABASE_URL to an absolute path "
-            f"(e.g. 'sqlite:///{resolved}'), or create the directory before starting Primeagent."
+            f"(e.g. 'sqlite:///{resolved}'), or create the directory before starting PrimeAgent."
         )
     raise ValueError(msg)
 
@@ -474,7 +474,7 @@ class DatabaseService(Service):
     async def ensure_postgresql_version(self) -> None:
         """If the database is PostgreSQL, ensure it is version 15 or higher.
 
-        Primeagent's schema uses UNIQUE NULLS DISTINCT, which is only supported in PostgreSQL 15+.
+        PrimeAgent's schema uses UNIQUE NULLS DISTINCT, which is only supported in PostgreSQL 15+.
         Logs the message and raises UnsupportedPostgreSQLVersionError if the version is too old.
         """
         if not self.database_url.startswith(("postgresql", "postgres")):

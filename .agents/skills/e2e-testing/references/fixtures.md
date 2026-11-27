@@ -2,7 +2,7 @@
 
 ## Overview
 
-Primeagent extends Playwright's default `test` and `expect` with a custom fixture in `src/frontend/tests/fixtures.ts`. This fixture adds **automatic error detection** that fails tests when unexpected API errors or flow execution errors occur.
+PrimeAgent extends Playwright's default `test` and `expect` with a custom fixture in `src/frontend/tests/fixtures.ts`. This fixture adds **automatic error detection** that fails tests when unexpected API errors or flow execution errors occur.
 
 ## Why Custom Fixtures Exist
 

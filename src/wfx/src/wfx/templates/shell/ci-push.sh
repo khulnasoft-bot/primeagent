@@ -2,7 +2,7 @@
 # ci-push.sh
 #
 # PURPOSE
-#   Push (upsert) Primeagent flow JSON files to a remote Primeagent instance
+#   Push (upsert) PrimeAgent flow JSON files to a remote PrimeAgent instance
 #   using `wfx push`.  Stable flow IDs mean re-running always converges.
 #
 # USAGE
@@ -14,7 +14,7 @@
 # ENVIRONMENT VARIABLES — connection (pick one approach)
 #
 #   Approach A: direct URL + key (simplest)
-#     PRIMEAGENT_URL        URL of the target Primeagent instance.
+#     PRIMEAGENT_URL        URL of the target PrimeAgent instance.
 #     PRIMEAGENT_API_KEY    API key for that instance.
 #
 #   Approach B: named environment from a TOML config

@@ -1821,11 +1821,11 @@ async def test_apply_provider_create_plan_binds_raw_tools_with_provider_app_ids(
     assert fake_clients.agent.create_calls
     assert fake_clients.agent.create_calls[0]["name"] == _agent_technical_name()
     assert fake_clients.agent.create_calls[0]["display_name"] == "my deployment"
-    assert fake_clients.agent.create_calls[0]["description"] == "Primeagent deployment my deployment"
+    assert fake_clients.agent.create_calls[0]["description"] == "PrimeAgent deployment my deployment"
     assert fake_clients.agent.create_calls[0]["tools"] == ["created-tool-1"]
     assert fake_clients.agent.create_calls[0]["llm"] == TEST_WXO_LLM
     assert result.agent_id == "dep-created"
-    assert result.description == "Primeagent deployment my deployment"
+    assert result.description == "PrimeAgent deployment my deployment"
     assert result.app_ids == ["cfg"]
     assert [(binding.tool_id, binding.app_ids) for binding in result.tool_app_bindings] == [("created-tool-1", ["cfg"])]
     assert [(binding.source_ref, binding.tool_id) for binding in result.tools_with_refs] == [
@@ -6676,7 +6676,7 @@ def test_build_agent_payload_from_values_uses_display_name_for_default_descripti
         llm=TEST_WXO_LLM,
     )
 
-    assert payload["description"] == "Primeagent deployment Agent Name"
+    assert payload["description"] == "PrimeAgent deployment Agent Name"
 
 
 # ---------------------------------------------------------------------------
@@ -7986,7 +7986,7 @@ def test_api_execution_schemas_have_no_run_id_field():
 
 
 def test_api_execution_schemas_omit_primeagent_owned_fields():
-    """deployment_id (Primeagent DB UUID) belongs on the top-level response, not in provider_data."""
+    """deployment_id (PrimeAgent DB UUID) belongs on the top-level response, not in provider_data."""
     from primeagent.api.v1.mappers.deployments.watsonx_orchestrate.payloads import (
         WatsonxApiAgentExecutionCreateResultData,
         WatsonxApiAgentExecutionStatusResultData,
@@ -8347,7 +8347,7 @@ async def test_verify_credentials_provider_unreachable(monkeypatch):
 
 
 def _make_primeagent_tool(tool_id: str, *, connections: dict[str, str] | None = None) -> dict[str, Any]:
-    """Build a tool dict that looks Primeagent-managed (has binding.primeagent)."""
+    """Build a tool dict that looks PrimeAgent-managed (has binding.primeagent)."""
     return {
         "id": tool_id,
         "name": f"tool_{tool_id}",
@@ -8361,7 +8361,7 @@ def _make_primeagent_tool(tool_id: str, *, connections: dict[str, str] | None = 
 
 
 def _make_external_tool(tool_id: str) -> dict[str, Any]:
-    """Build a tool dict that is NOT Primeagent-managed (no binding.primeagent)."""
+    """Build a tool dict that is NOT PrimeAgent-managed (no binding.primeagent)."""
     return {
         "id": tool_id,
         "name": f"external_{tool_id}",
@@ -8383,7 +8383,7 @@ async def test_update_connection_deltas_rejects_non_primeagent_tool():
     clients = FakeWXOClients(tool=FakeToolClient([external_tool]))
 
     ops = ToolConnectionOps(bind=OrderedUniqueStrs.from_values(["app-1"]))
-    with pytest.raises(InvalidContentError, match="does not have a Primeagent binding"):
+    with pytest.raises(InvalidContentError, match="does not have a PrimeAgent binding"):
         await _update_deltas(
             clients=clients,
             existing_tool_deltas={"ext-1": ops},
@@ -8426,7 +8426,7 @@ async def test_bind_existing_tools_for_create_rejects_non_primeagent_tool():
     external_tool = _make_external_tool("ext-1")
     clients = FakeWXOClients(tool=FakeToolClient([external_tool]))
 
-    with pytest.raises(InvalidContentError, match="does not have a Primeagent binding"):
+    with pytest.raises(InvalidContentError, match="does not have a PrimeAgent binding"):
         await _bind_existing(
             clients=clients,
             existing_tool_bindings={"ext-1": ["app-1"]},
@@ -8464,7 +8464,7 @@ async def test_update_existing_tool_connection_bindings_rejects_non_primeagent_t
     external_tool = _make_external_tool("ext-1")
     clients = FakeWXOClients(tool=FakeToolClient([external_tool]))
 
-    with pytest.raises(InvalidContentError, match="does not have a Primeagent binding"):
+    with pytest.raises(InvalidContentError, match="does not have a PrimeAgent binding"):
         await _update_bindings(
             clients=clients,
             existing_target_tool_ids=["ext-1"],
@@ -8481,7 +8481,7 @@ async def test_update_existing_tool_connection_bindings_rejects_unbound_tool():
     bare_tool = _make_unbound_tool("bare-1")
     clients = FakeWXOClients(tool=FakeToolClient([bare_tool]))
 
-    with pytest.raises(InvalidContentError, match="does not have a Primeagent binding"):
+    with pytest.raises(InvalidContentError, match="does not have a PrimeAgent binding"):
         await _update_bindings(
             clients=clients,
             existing_target_tool_ids=["bare-1"],
@@ -8497,7 +8497,7 @@ async def test_update_existing_tool_connection_bindings_rejects_unbound_tool():
 
 @pytest.mark.anyio
 async def test_apply_tool_renames_succeeds_for_primeagent_tool():
-    """_update_existing_tools renames a Primeagent-owned tool on the agent."""
+    """_update_existing_tools renames a PrimeAgent-owned tool on the agent."""
     _apply_renames = update_core_module._update_existing_tools
 
     lf_tool = _make_primeagent_tool("lf-1")
@@ -8552,7 +8552,7 @@ async def test_apply_tool_renames_rejects_non_primeagent_tool():
     external_tool = _make_external_tool("ext-1")
     clients = FakeWXOClients(tool=FakeToolClient([external_tool]))
 
-    with pytest.raises(InvalidContentError, match="does not have a Primeagent binding"):
+    with pytest.raises(InvalidContentError, match="does not have a PrimeAgent binding"):
         await _apply_renames(
             clients=clients,
             existing_tool_deltas={},

@@ -1,1 +1,1 @@
-"""Services for the Primeagent Assistant."""
+"""Services for the PrimeAgent Assistant."""

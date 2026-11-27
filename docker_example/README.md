@@ -1,6 +1,6 @@
-# Run Primeagent with Docker
+# Run PrimeAgent with Docker
 
-This guide will help you get Primeagent up and running using Docker and Docker Compose.
+This guide will help you get PrimeAgent up and running using Docker and Docker Compose.
 
 ## Prerequisites
 
@@ -9,7 +9,7 @@ This guide will help you get Primeagent up and running using Docker and Docker C
 
 ## Steps
 
-1. Clone the Primeagent repository:
+1. Clone the PrimeAgent repository:
 
    ```sh
    git clone https://github.com/khulnasoft-bot/primeagent.git
@@ -21,13 +21,13 @@ This guide will help you get Primeagent up and running using Docker and Docker C
    cd primeagent/docker_example
    ```
 
-3. Create a `.env` file with the Primeagent admin password set:
+3. Create a `.env` file with the PrimeAgent admin password set:
 
    ```sh
    PRIMEAGENT_SUPERUSER_PASSWORD=SUPERUSER_PASSWORD
    ```
 
-   Replace `SUPERUSER_PASSWORD` with a strong password for the Primeagent superuser.
+   Replace `SUPERUSER_PASSWORD` with a strong password for the PrimeAgent superuser.
    The default admin username is `primeagent`.
 
 4. Run the Docker Compose file:
@@ -36,13 +36,13 @@ This guide will help you get Primeagent up and running using Docker and Docker C
    docker compose up
    ```
 
-Primeagent will now be accessible at [http://localhost:7860/](http://localhost:7860/).
+PrimeAgent will now be accessible at [http://localhost:7860/](http://localhost:7860/).
 
 ## Configure Docker Compose
 
 The Docker Compose configuration spins up two services: `primeagent` and `postgres`.
 
-### Primeagent service
+### PrimeAgent service
 
 The `primeagent` service uses the `khulnasoft/primeagent:latest` Docker image and exposes port 7860. It depends on the `postgres` service.
 
@@ -50,7 +50,7 @@ Environment variables:
 
 - `PRIMEAGENT_DATABASE_URL`: The connection string for the PostgreSQL database.
 - `PRIMEAGENT_SUPERUSER_PASSWORD`: The initial admin password. This value is required in `.env`.
-- `PRIMEAGENT_CONFIG_DIR`: The directory where Primeagent stores logs, file storage, monitor data, and secret keys.
+- `PRIMEAGENT_CONFIG_DIR`: The directory where PrimeAgent stores logs, file storage, monitor data, and secret keys.
 
 Volumes:
 
@@ -79,7 +79,7 @@ WARNING: database "primeagent" has a collation version mismatch
 DETAIL: The database was created using collation version 2.36, but the operating system provides version 2.41.
 ```
 
-To clear it, refresh the collation version against the running database (one-off, takes seconds on a typical Primeagent database):
+To clear it, refresh the collation version against the running database (one-off, takes seconds on a typical PrimeAgent database):
 
 ```sh
 docker compose exec postgres \
@@ -90,6 +90,6 @@ docker compose exec postgres \
 
 Fresh installs are unaffected.
 
-## Switching to a specific Primeagent version
+## Switching to a specific PrimeAgent version
 
-If you want to use a specific version of Primeagent, you can modify the `image` field under the `primeagent` service in the Docker Compose file. For example, to use version 1.0-alpha, change `khulnasoft/primeagent:latest` to `khulnasoft/primeagent:1.0-alpha`.
+If you want to use a specific version of PrimeAgent, you can modify the `image` field under the `primeagent` service in the Docker Compose file. For example, to use version 1.0-alpha, change `khulnasoft/primeagent:latest` to `khulnasoft/primeagent:1.0-alpha`.

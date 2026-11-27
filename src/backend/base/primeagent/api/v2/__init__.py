@@ -4,11 +4,11 @@ from .files import router as files_router
 from .mcp import router as mcp_router
 from .registration import router as registration_router
 from .workflow import router as workflow_background_router
-from .workflow_host import PrimeagentWorkflowHost
+from .workflow_host import PrimeAgentWorkflowHost
 from .workflow_public import router as workflow_public_router
 
 __all__ = [
-    "PrimeagentWorkflowHost",
+    "PrimeAgentWorkflowHost",
     "files_router",
     "mcp_router",
     "registration_router",

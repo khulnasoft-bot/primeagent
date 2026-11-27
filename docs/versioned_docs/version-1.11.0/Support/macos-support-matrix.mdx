@@ -3,20 +3,20 @@ title: macOS Support
 slug: /macos-support
 ---
 
-Primeagent supports both Apple Silicon (ARM64) and Intel (x86_64) Macs, but ML and AI features are only available on Apple Silicon due to hardware and dependency constraints.
+PrimeAgent supports both Apple Silicon (ARM64) and Intel (x86_64) Macs, but ML and AI features are only available on Apple Silicon due to hardware and dependency constraints.
 
 Intel Macs lack the Neural Engine, Metal 3 GPU acceleration, and unified memory architecture that Apple Silicon uses to run ML workloads efficiently.
 
-PyTorch, a popular AI/ML library, dropped support for macOS Intel (x86_64) starting with version 2.3.0 in April 2024. The last compatible release was PyTorch 2.2.2, which only supports Python versions 3.10–3.12. Many Primeagent components depend on PyTorch, and are automatically excluded on Intel Macs to prevent installation failures.
+PyTorch, a popular AI/ML library, dropped support for macOS Intel (x86_64) starting with version 2.3.0 in April 2024. The last compatible release was PyTorch 2.2.2, which only supports Python versions 3.10–3.12. Many PrimeAgent components depend on PyTorch, and are automatically excluded on Intel Macs to prevent installation failures.
 
 ## Quick reference
 
-Core Primeagent features and OCR work on both architectures.
+Core PrimeAgent features and OCR work on both architectures.
 ML/AI components and GPU acceleration are Apple Silicon only.
 
 | Feature category     | Apple Silicon (M1/M2/M3) | Intel (x86_64)      |
 | -------------------- | ------------------------ | ------------------- |
-| **Core Primeagent**  | Full support             | Full support        |
+| **Core PrimeAgent**  | Full support             | Full support        |
 | **ML/AI Components** | Full support             | Limited/Unavailable |
 | **GPU acceleration** | Metal support            | Not available       |
 | **Native OCR**       | Full support             | Full support        |
@@ -34,7 +34,7 @@ On Intel Macs, Python 3.13 and later lose PyTorch-dependent features like ALTK, 
 | 3.13           | Supported     | Limited (no PyTorch) |
 | 3.14           | Supported     | Limited (no PyTorch) |
 
-## Primeagent feature support
+## PrimeAgent feature support
 
 Feature support varies by Mac architecture. The following sections describe what works on each.
 
@@ -77,7 +77,7 @@ docker run --platform linux/arm64 khulnasoft/primeagent:latest
 
 Installation instructions vary depending on your Mac architecture.
 
-For Apple Silicon users, install Primeagent normally with all features:
+For Apple Silicon users, install PrimeAgent normally with all features:
 
 ```bash
 pip install primeagent
@@ -100,4 +100,4 @@ pip install primeagent
 
 For troubleshooting, see [Troubleshoot Intel Mac issues](./troubleshooting.mdx#intel-mac-issues).
 
-For more information, ask the Primeagent community in [GitHub Discussions](https://github.com/khulnasoft-bot/primeagent/discussions) or the [Discord server](https://discord.gg/EqksyE2EX9).
+For more information, ask the PrimeAgent community in [GitHub Discussions](https://github.com/khulnasoft-bot/primeagent/discussions) or the [Discord server](https://discord.gg/EqksyE2EX9).

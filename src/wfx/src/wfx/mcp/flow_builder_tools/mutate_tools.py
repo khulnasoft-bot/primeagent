@@ -199,7 +199,7 @@ def _reconcile_source_selected_output(flow: dict, source_id: str, source_output:
 
 
 def _current_policy_user_id() -> str | None:
-    """Return the request user when wfx is hosted by Primeagent."""
+    """Return the request user when wfx is hosted by PrimeAgent."""
     try:
         from primeagent.agentic.services.user_components_context import current_user_id
     except ImportError:

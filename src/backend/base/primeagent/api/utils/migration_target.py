@@ -1,9 +1,9 @@
 """What the last two steps of a migration need: checking the copy, and starting the new instance.
 
-The check of the copy runs Primeagent's own integrity check against what the copies wrote,
+The check of the copy runs PrimeAgent's own integrity check against what the copies wrote,
 before any new instance has started on it, and reads each of its results beside what the
 check of this instance said of the same thing. "Start the new instance" hands the admin
-the settings a Primeagent server has to start with so that it runs on that same place.
+the settings a PrimeAgent server has to start with so that it runs on that same place.
 What is here holds no state.
 """
 

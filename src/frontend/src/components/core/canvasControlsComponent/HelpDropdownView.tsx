@@ -80,7 +80,7 @@ export const HelpDropdownView = ({
         <DropdownControlButton
           iconName="download"
           testId="canvas_controls_dropdown_get_primeagent_desktop"
-          label={t("help.getPrimeagentDesktop")}
+          label={t("help.getPrimeAgentDesktop")}
           externalLink
           onClick={() => openLink(urls.desktop)}
         />

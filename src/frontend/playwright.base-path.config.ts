@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 if (!process.env.PRIMEAGENT_BASE_PATH_TEST_URL) {
   throw new Error(
-    "Set PRIMEAGENT_BASE_PATH_TEST_URL to a prefixed Primeagent deployment.",
+    "Set PRIMEAGENT_BASE_PATH_TEST_URL to a prefixed PrimeAgent deployment.",
   );
 }
 

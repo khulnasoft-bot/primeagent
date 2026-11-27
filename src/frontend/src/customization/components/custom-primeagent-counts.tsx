@@ -1,7 +1,7 @@
-import { PrimeagentCounts } from "@/components/core/appHeaderComponent/components/primeagent-counts";
+import { PrimeAgentCounts } from "@/components/core/appHeaderComponent/components/primeagent-counts";
 
-export function CustomPrimeagentCounts() {
-  return <PrimeagentCounts />;
+export function CustomPrimeAgentCounts() {
+  return <PrimeAgentCounts />;
 }
 
-export default CustomPrimeagentCounts;
+export default CustomPrimeAgentCounts;

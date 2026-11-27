@@ -8,7 +8,7 @@ memory.
 The identity travels in a trusted request header
 (``PRIMEAGENT_SERVING_END_USER_HEADER``, e.g. ``X-End-User-Id``) whose value is an
 opaque, deterministic per-user string minted and injected by the authenticated
-gateway. Primeagent does not parse or validate it (the gateway validates the
+gateway. PrimeAgent does not parse or validate it (the gateway validates the
 upstream JWT); it is used only as the per-user memory-scope key.
 
 Trust is fail-closed. The header is honored ONLY when
@@ -29,9 +29,9 @@ not get re-scoped); an anonymous request is moved into a reserved, per-request
 random namespace and marked non-persisting, so it can neither accumulate memory
 nor address an identified user's existing session key.
 
-"No persisted per-user memory" covers what Primeagent itself writes for a run: chat
+"No persisted per-user memory" covers what PrimeAgent itself writes for a run: chat
 messages, transaction rows, and vertex-build rows. It cannot cover stores outside
-Primeagent's own database — external tracing backends or memory services a flow
+PrimeAgent's own database — external tracing backends or memory services a flow
 author explicitly wires in (e.g. an external chat-memory component) are the flow
 author's responsibility.
 """
@@ -277,7 +277,7 @@ def scope_session_for_identity(
     when none was supplied), so two end-users sharing a session id — or both
     omitting it and falling back to the flow id — never collide. The merge is
     idempotent: a caller echoing back the effective key from a previous response
-    (the normal Primeagent contract) is not re-scoped into a fresh namespace.
+    (the normal PrimeAgent contract) is not re-scoped into a fresh namespace.
 
     An anonymous request is moved into the reserved ``anon::<random>`` namespace
     and marked non-persisting. Its requested session id is deliberately ignored:

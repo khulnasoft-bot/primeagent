@@ -1,4 +1,4 @@
-"""Verify cookie routing when Primeagent instances share a hostname."""
+"""Verify cookie routing when PrimeAgent instances share a hostname."""
 
 from http.cookies import SimpleCookie
 from unittest.mock import AsyncMock

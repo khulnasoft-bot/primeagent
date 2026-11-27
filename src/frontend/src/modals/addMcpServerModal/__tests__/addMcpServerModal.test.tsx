@@ -316,7 +316,7 @@ describe("AddMcpServerModal", () => {
       command: "uvx",
       args: ["mcp-proxy", "http://host/mcp"],
       headers: {
-        "X-Primeagent-Global-Var-OPENRAG_INGEST_TOKEN": "OPENRAG_INGEST_TOKEN",
+        "X-PrimeAgent-Global-Var-OPENRAG_INGEST_TOKEN": "OPENRAG_INGEST_TOKEN",
       },
     };
 
@@ -344,7 +344,7 @@ describe("AddMcpServerModal", () => {
       command: "uvx",
       args: ["mcp-proxy", "http://host/mcp"],
       headers: {
-        "X-Primeagent-Global-Var-OPENRAG_INGEST_TOKEN": "OPENRAG_INGEST_TOKEN",
+        "X-PrimeAgent-Global-Var-OPENRAG_INGEST_TOKEN": "OPENRAG_INGEST_TOKEN",
       },
     });
   });

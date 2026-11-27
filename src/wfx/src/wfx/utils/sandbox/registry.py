@@ -3,7 +3,7 @@
 Before this registry the name ``exec-sandbox`` had to be spelled in two
 independent allowlists — the dispatch chain here and a second copy inside
 ``wfx.services.settings.groups.security.validate_sandbox_backend``. A backend
-added to one and missed in the other made Primeagent raise at startup. The
+added to one and missed in the other made PrimeAgent raise at startup. The
 registry owns the list, so the two cannot drift.
 
 A backend registers itself at import. In-tree backends are imported by
@@ -197,7 +197,7 @@ def _load_entry_points() -> None:
     """Load the out-of-tree backends the operator named, once per process.
 
     Discovery is deliberately NOT automatic. ``entry_point.load()`` imports
-    third-party code into the Primeagent process, and this function runs on the
+    third-party code into the PrimeAgent process, and this function runs on the
     path that decides whether user code is isolated -- including from the
     settings validator at startup. Importing every installed package that
     happens to declare the group would let a compromised or merely mistaken
@@ -211,7 +211,7 @@ def _load_entry_points() -> None:
     Anything unnamed is never imported. A name already used in-tree is refused
     rather than replaced.
 
-    A broken third-party package must not stop a correctly configured Primeagent
+    A broken third-party package must not stop a correctly configured PrimeAgent
     from starting, so a failure here is logged and the backend is simply
     absent. It cannot fail open: an absent backend makes the dispatcher refuse
     the run.

@@ -1,6 +1,6 @@
 """Process-wide registry for bundle-contributed model providers.
 
-Primeagent's model-provider system (``MODEL_PROVIDER_METADATA``, the lazy
+PrimeAgent's model-provider system (``MODEL_PROVIDER_METADATA``, the lazy
 class-import tables in ``unified_models.class_registry``, the
 ``LIVE_MODEL_PROVIDERS`` gate, and the credential/instantiation/live-discovery
 dispatch) is defined as static module-level data in this package.  A third

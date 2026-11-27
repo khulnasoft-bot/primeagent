@@ -1,7 +1,7 @@
 """Load orchestration: turn a directory tree into a :class:`LoadResult`.
 
 This module wires the discovery + detection layers together and exposes the
-two public entry points the rest of Primeagent consumes:
+two public entry points the rest of PrimeAgent consumes:
 
     - :func:`load_extension` for an installed Extension (or filesystem dev
       checkout) that ships a v0 manifest.  Loads at the ``official`` slot.
@@ -502,7 +502,7 @@ def load_extension(
                 content=str(declared),
                 hint=(
                     f"Update the manifest's wfx.compat to include "
-                    f'"{BUNDLE_API_VERSION!s}", or install a Primeagent whose '
+                    f'"{BUNDLE_API_VERSION!s}", or install a PrimeAgent whose '
                     f"BUNDLE_API_VERSION matches the bundle's declared compat."
                 ),
             )
@@ -647,7 +647,7 @@ _INLINE_BUNDLE_SKIP_MARKERS = frozenset({"# wfx-bundles-shim", "# wfx-compat-shi
 
 
 def _is_marked_component_shim(path: Path) -> bool:
-    """Return True for Primeagent-owned compatibility dirs that are not inline bundles."""
+    """Return True for PrimeAgent-owned compatibility dirs that are not inline bundles."""
     init_py = path / "__init__.py"
     if not init_py.is_file():
         return False

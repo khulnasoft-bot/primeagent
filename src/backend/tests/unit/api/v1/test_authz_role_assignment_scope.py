@@ -257,7 +257,7 @@ async def test_inactive_user_cannot_receive_a_role(
     monkeypatch.setattr(authz_role_assignments, "audit_decision", audit)
     response = await _assign(
         client,
-        {**logged_in_headers_super_user, "X-Primeagent-Operation-ID": "inactive-role-assignment"},
+        {**logged_in_headers_super_user, "X-PrimeAgent-Operation-ID": "inactive-role-assignment"},
         user_id=target_users[0],
         role_id=roles["viewer"],
         domain_type=domain_type,

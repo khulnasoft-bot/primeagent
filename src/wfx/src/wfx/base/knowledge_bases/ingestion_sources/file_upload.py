@@ -51,7 +51,7 @@ class FileUploadSource(KBIngestionSource):
 
     source_type = SourceType.FILE_UPLOAD
     display_name = "File Upload"
-    description = "Ingest one or more files uploaded via the Primeagent UI or API."
+    description = "Ingest one or more files uploaded via the PrimeAgent UI or API."
     icon = "upload"
     requires_credentials = False
 

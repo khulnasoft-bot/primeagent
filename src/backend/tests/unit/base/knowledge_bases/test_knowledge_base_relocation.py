@@ -138,7 +138,7 @@ async def _seed_sqlite_kb(
 
 
 async def _set_row(record_id: uuid.UUID, **fields) -> None:
-    """Change a knowledge base's row, as a storage operation elsewhere in Primeagent would."""
+    """Change a knowledge base's row, as a storage operation elsewhere in PrimeAgent would."""
     async with session_scope() as session:
         row = await session.get(KnowledgeBaseRecord, record_id)
         for name, value in fields.items():
@@ -334,7 +334,7 @@ class TestRelocationWithoutATarget:
     )
     async def test_repoint_leaves_a_row_that_changed_after_it_was_read(self, active_user, change):
         # ``record`` is the row as relocate-kb read it; the change is what a storage
-        # operation elsewhere in Primeagent, or another run, does to it before the repoint.
+        # operation elsewhere in PrimeAgent, or another run, does to it before the repoint.
         record, _ = await _seed_sqlite_kb(active_user.id, "kb_moved_on", 2)
         await _set_row(record.id, **change)
 
@@ -543,7 +543,7 @@ class TestRelocateKbCommand:
         assert old_audit_row.id in before[1]
 
     async def test_database_behind_this_primeagent_is_refused_not_migrated(self, old_audit_row, capsys):  # noqa: ARG002
-        earlier = "9d7e2a6c4b81"  # an earlier revision of this Primeagent's own  # pragma: allowlist secret
+        earlier = "9d7e2a6c4b81"  # an earlier revision of this PrimeAgent's own  # pragma: allowlist secret
         async with session_scope() as session:
             await session.exec(sa.text("UPDATE alembic_version SET version_num = :v").bindparams(v=earlier))
         before = await _database_state()

@@ -129,7 +129,7 @@ def test_a_slack_registration_may_carry_a_signing_secret() -> None:
 
 
 def test_only_slack_registrations_carry_a_signing_secret(monkeypatch) -> None:
-    """Microsoft and Google verify with a per-subscription secret Primeagent mints.
+    """Microsoft and Google verify with a per-subscription secret PrimeAgent mints.
 
     Checked through the operator-facing lookup rather than the model, because
     that is the path whose message an operator actually reads - and it must name

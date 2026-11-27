@@ -1,4 +1,4 @@
-"""Base executor class with shared functionality for Primeagent component execution."""
+"""Base executor class with shared functionality for PrimeAgent component execution."""
 
 import inspect
 from abc import ABC, abstractmethod
@@ -15,14 +15,14 @@ from .handlers import (
     DataFrameOutputHandler,
     InputHandler,
     OutputHandler,
-    PrimeagentTypeInputHandler,
-    PrimeagentTypeOutputHandler,
+    PrimeAgentTypeInputHandler,
+    PrimeAgentTypeOutputHandler,
     ToolWrapperInputHandler,
 )
 
 
 class BaseExecutor(ABC):
-    """Abstract base class for Primeagent component executors.
+    """Abstract base class for PrimeAgent component executors.
 
     Provides shared functionality for both core and custom code executors:
     - Execution method determination
@@ -63,7 +63,7 @@ class BaseExecutor(ABC):
         StringCoercion, DataFrameConversion).
         """
         return [
-            PrimeagentTypeInputHandler(),
+            PrimeAgentTypeInputHandler(),
             BaseModelInputHandler(),
             ToolWrapperInputHandler(),
         ]
@@ -75,7 +75,7 @@ class BaseExecutor(ABC):
         the first match wins for each value.
         """
         return [
-            PrimeagentTypeOutputHandler(),
+            PrimeAgentTypeOutputHandler(),
             DataFrameOutputHandler(),
             BaseModelOutputHandler(),
         ]

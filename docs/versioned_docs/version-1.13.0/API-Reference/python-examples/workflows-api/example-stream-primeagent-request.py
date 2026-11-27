@@ -10,7 +10,7 @@ headers = {"Content-Type": "application/json", "x-api-key": api_key}
 
 payload = {
     "flow_id": flow_id,
-    "input_value": "Hello from a Primeagent stream client",
+    "input_value": "Hello from a PrimeAgent stream client",
     "mode": "stream",
     "session_id": "session-123",
 }

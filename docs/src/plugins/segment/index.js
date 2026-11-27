@@ -63,7 +63,7 @@ function pluginSegment(context, options = {}) {
                   }
                 },
                 "commonProperties": {
-                  "productTitle": "IBM Elite Support for Primeagent",
+                  "productTitle": "IBM Elite Support for PrimeAgent",
                   "productCode": "5900BUB",
                   "productCodeType": "WWPC",
                   "UT30": "30AS5",

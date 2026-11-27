@@ -7,13 +7,13 @@ import Icon from "@site/src/components/icon";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-Primeagent’s **Traces** feature records detailed execution traces for your flows and components so that you can debug issues, measure latency, and track token usage without relying on external observability services.
+PrimeAgent’s **Traces** feature records detailed execution traces for your flows and components so that you can debug issues, measure latency, and track token usage without relying on external observability services.
 
-Trace data is stored in the Primeagent database in the `trace` and `span` tables.
+Trace data is stored in the PrimeAgent database in the `trace` and `span` tables.
 Trace data is presented in the **Flow Activity** and **Trace Details** pages in the UI, and can be retrieved from the `/monitor/traces` API endpoint.
 
 Traces are enabled by default.
-To disable Primeagent tracing and use a different tracing provider, set `PRIMEAGENT_NATIVE_TRACING` to `false`.
+To disable PrimeAgent tracing and use a different tracing provider, set `PRIMEAGENT_NATIVE_TRACING` to `false`.
 
 ## What traces capture
 
@@ -34,7 +34,7 @@ Each span includes:
 
 ## View traces in the UI
 
-To view traces in the Primeagent UI, do the following:
+To view traces in the PrimeAgent UI, do the following:
 
 1. Run a flow, such as the Simple Agent starter flow in the [Quickstart](/get-started-quickstart).
 2. Click <Icon name="Activity" aria-hidden="true"/> **Traces**.

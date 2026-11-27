@@ -28,7 +28,7 @@ def administration_audit_details(
     ``details`` keeps whatever the route already records (the audit ``event``
     family, ``status_code``/``reason`` on denials, changed field names on
     mutations). ``source`` names the origin of the request and ``operation_id``
-    echoes the caller's ``X-Primeagent-Operation-ID`` so a CLI run can be
+    echoes the caller's ``X-PrimeAgent-Operation-ID`` so a CLI run can be
     correlated across the audit trail. Secrets are never included.
     """
     result = dict(details or {})
@@ -55,7 +55,7 @@ def administration_denied(detail: str | None = None, *, resource: Administration
     return HTTPException(
         status_code=status.HTTP_403_FORBIDDEN,
         detail=detail or f"Permission denied: {resource}:manage is required.",
-        headers={"X-Primeagent-Error-Code": ADMINISTRATION_DENIED_CODE},
+        headers={"X-PrimeAgent-Error-Code": ADMINISTRATION_DENIED_CODE},
     )
 
 

@@ -1,7 +1,7 @@
 """Unit tests for the Figranium components with mocked HTTP calls.
 
 Requests are intercepted at ``httpx.Client.get`` / ``httpx.Client.post``, which is
-where Primeagent's SSRF-protected helpers hand off to httpx, so the tests exercise
+where PrimeAgent's SSRF-protected helpers hand off to httpx, so the tests exercise
 the real URL validation, header, body, and error handling of the client.
 """
 
@@ -38,7 +38,7 @@ def _execute_component(**overrides) -> FigraniumExecuteTaskComponent:
         "base_url": BASE_URL,
         "api_key": API_KEY,
         "task_id": "task_123",
-        "task_variables": '{"query": "Primeagent"}',
+        "task_variables": '{"query": "PrimeAgent"}',
     }
     values.update(overrides)
     component = FigraniumExecuteTaskComponent()
@@ -78,7 +78,7 @@ class TestFigraniumExecuteTask:
         kwargs = mock_post.call_args.kwargs
         assert kwargs["url"] == f"{BASE_URL}/api/tasks/task_123/api"
         assert kwargs["headers"]["x-api-key"] == API_KEY
-        assert kwargs["json"] == {"variables": {"query": "Primeagent"}}
+        assert kwargs["json"] == {"variables": {"query": "PrimeAgent"}}
         assert kwargs["timeout"] == 45.0
 
     def test_default_timeout_when_unset(self) -> None:

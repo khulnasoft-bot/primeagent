@@ -1,6 +1,6 @@
 """Integration tests for the upgrade machinery against real v1.9.0 starter flows.
 
-These flows are frozen snapshots from the Primeagent v1.9.0 release. They exercise
+These flows are frozen snapshots from the PrimeAgent v1.9.0 release. They exercise
 the checker and applier against real component code rather than hand-crafted stubs.
 
 The tests make no assumption about which nodes are outdated vs. ok — the component
@@ -65,7 +65,7 @@ def registry() -> dict:
 def flow_data_map() -> dict[str, dict]:
     """Return a map of flow_name -> flow graph data dict (the inner ``data`` key).
 
-    Real Primeagent flow JSON files have the shape::
+    Real PrimeAgent flow JSON files have the shape::
 
         {
           "name": "...",

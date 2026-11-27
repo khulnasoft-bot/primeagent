@@ -1,6 +1,6 @@
 # Docling Bundle
 
-Docling components for Primeagent packaged as a standalone Extension Bundle.
+Docling components for PrimeAgent packaged as a standalone Extension Bundle.
 
 ## Components
 
@@ -11,7 +11,7 @@ Docling components for Primeagent packaged as a standalone Extension Bundle.
 
 ## Install
 
-The bundle is installed with Primeagent in the 1.10 workspace. The base package includes `docling-core` for the `DoclingDocument` schema. For standalone local conversion:
+The bundle is installed with PrimeAgent in the 1.10 workspace. The base package includes `docling-core` for the `DoclingDocument` schema. For standalone local conversion:
 
 ```bash
 uv pip install "wfx-docling[local]"

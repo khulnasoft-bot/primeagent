@@ -1,4 +1,4 @@
-"""Azure model components for Primeagent."""
+"""Azure model components for PrimeAgent."""
 
 from wfx_azure.components.azure import AzureChatOpenAIComponent, AzureOpenAIEmbeddingsComponent
 

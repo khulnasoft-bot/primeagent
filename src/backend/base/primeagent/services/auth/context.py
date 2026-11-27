@@ -1,6 +1,6 @@
 """Request-local authentication credential context.
 
-Authentication resolves every credential to a Primeagent user, but authorization
+Authentication resolves every credential to a PrimeAgent user, but authorization
 plugins sometimes need to know how that user authenticated. Keep that metadata
 request-local so API-key caveats can be enforced without changing route
 signatures or teaching OSS how to interpret policy.
@@ -103,6 +103,6 @@ def current_auth_context_for_audit() -> dict[str, str]:
 
 
 def current_auth_is_api_key() -> bool:
-    """Return True when the active request authenticated with a Primeagent API key."""
+    """Return True when the active request authenticated with a PrimeAgent API key."""
     context = get_current_auth_context()
     return context is not None and context.method == AUTH_METHOD_API_KEY

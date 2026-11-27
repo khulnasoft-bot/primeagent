@@ -16,7 +16,7 @@ from primeagent.agentic.services.flow_preparation import (
     inject_iterations_into_flow,
 )
 
-_ASSISTANT_FLOW = Path(__file__).parents[4] / "base" / "primeagent" / "agentic" / "flows" / "PrimeagentAssistant.json"
+_ASSISTANT_FLOW = Path(__file__).parents[4] / "base" / "primeagent" / "agentic" / "flows" / "PrimeAgentAssistant.json"
 
 
 def _builder_agent_max_iterations(graph) -> int | None:

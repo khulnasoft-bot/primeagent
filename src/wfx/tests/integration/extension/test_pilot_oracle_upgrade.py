@@ -11,7 +11,7 @@ maps the old ``oracledb`` import paths onto the new
 ``ext:oracle:<Class>@official`` IDs.
 
 Verifies the save/upgrade/load contract for flows referencing any of
-the four Oracle components from the pre-extraction Primeagent:
+the four Oracle components from the pre-extraction PrimeAgent:
 
     1. A saved flow uses one of the legacy bare class names; the
        migration table rewrites it to the canonical namespaced ID
@@ -82,7 +82,7 @@ def _saved_flow_node(node_id: str, type_value: str) -> dict:
 
 
 def _saved_flow(*nodes: dict) -> dict:
-    """Wrap nodes in the canonical Primeagent flow envelope."""
+    """Wrap nodes in the canonical PrimeAgent flow envelope."""
     return {"data": {"nodes": list(nodes), "edges": []}}
 
 

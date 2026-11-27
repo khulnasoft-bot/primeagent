@@ -1,4 +1,4 @@
-"""Async HTTP client for the Primeagent REST API.
+"""Async HTTP client for the PrimeAgent REST API.
 
 Preferred usage via the short alias::
 
@@ -46,8 +46,8 @@ if TYPE_CHECKING:
     from typing_extensions import Self
 
 
-class AsyncPrimeagentClient(_ClientCommon):
-    """Async client for the Primeagent REST API.
+class AsyncPrimeAgentClient(_ClientCommon):
+    """Async client for the PrimeAgent REST API.
 
     Prefer the short alias :data:`AsyncClient` for new code::
 
@@ -234,8 +234,8 @@ class AsyncPrimeagentClient(_ClientCommon):
         Args:
             flow_id_or_endpoint: Flow UUID or named endpoint.
             input_value: Text input passed to the flow.
-            input_type: Primeagent input type (default ``"chat"``).
-            output_type: Primeagent output type (default ``"chat"``).
+            input_type: PrimeAgent input type (default ``"chat"``).
+            output_type: PrimeAgent output type (default ``"chat"``).
             tweaks: Optional component tweaks dict.
 
         Returns:
@@ -400,7 +400,7 @@ class AsyncPrimeagentClient(_ClientCommon):
 
         .. note::
             Flows with duplicate names overwrite each other.  See
-            :meth:`PrimeagentClient.pull_project` for details.
+            :meth:`PrimeAgentClient.pull_project` for details.
 
         ::
 
@@ -413,11 +413,11 @@ class AsyncPrimeagentClient(_ClientCommon):
 # Short alias  (preferred for new code)
 # ---------------------------------------------------------------------------
 
-#: Short alias for :class:`AsyncPrimeagentClient`.
+#: Short alias for :class:`AsyncPrimeAgentClient`.
 #:
 #: Example::
 #:
 #:     from primeagent_sdk import AsyncClient
 #:     async with AsyncClient("https://primeagent.example.com", api_key="...") as c:
 #:         flows = await c.list_flows()
-AsyncClient = AsyncPrimeagentClient
+AsyncClient = AsyncPrimeAgentClient

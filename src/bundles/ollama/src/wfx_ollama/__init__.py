@@ -1,4 +1,4 @@
-"""Ollama model components for Primeagent."""
+"""Ollama model components for PrimeAgent."""
 
 from wfx_ollama.components.ollama import ChatOllamaComponent, OllamaEmbeddingsComponent
 

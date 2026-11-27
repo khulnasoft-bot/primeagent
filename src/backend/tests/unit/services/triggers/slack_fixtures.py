@@ -88,7 +88,7 @@ def thread_replies(count: int) -> list[dict[str, Any]]:
 # Database helpers: Slack connections and armed Slack triggers
 # --------------------------------------------------------------------------- #
 
-#: The bot scopes a full installation of the Primeagent Slack app grants.
+#: The bot scopes a full installation of the PrimeAgent Slack app grants.
 INSTALLATION_SCOPES = (
     "chat:write",
     "reactions:write",

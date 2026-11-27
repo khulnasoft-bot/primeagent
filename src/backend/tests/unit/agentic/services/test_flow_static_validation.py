@@ -1,6 +1,6 @@
 """validate_flow_spec — Tier-1 static validation of a built flow.
 
-Thin wrapper that reuses Primeagent's existing CLI validator
+Thin wrapper that reuses PrimeAgent's existing CLI validator
 (``validate_flow_file`` + the STRUCTURAL→REQUIRED_INPUTS semantic
 checks) on an in-memory flow dict, with ZERO LLM tokens. Its own
 responsibility is only: serialize → delegate → map to a small stable

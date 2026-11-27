@@ -111,6 +111,6 @@ class TestGoogleSearchAPICore(ComponentTestBaseWithoutClient):
 
     async def test_latest_version(self, component_class, default_kwargs, skipped_outputs):
         # Answer the search offline; the component's handling of the results runs for real.
-        results = [{"title": "Primeagent", "link": "https://prime.khulnasoft.com", "snippet": "Build AI agents"}]
+        results = [{"title": "PrimeAgent", "link": "https://prime.khulnasoft.com", "snippet": "Build AI agents"}]
         with patch("langchain_google_community.GoogleSearchAPIWrapper.results", return_value=results):
             await super().test_latest_version(component_class, default_kwargs, skipped_outputs)

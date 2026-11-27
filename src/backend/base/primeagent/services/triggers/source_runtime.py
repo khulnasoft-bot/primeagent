@@ -30,7 +30,7 @@ def source_failure_detail(exc: BaseException) -> str:
     if isinstance(exc, ConnectionUnresolvedError) and is_local_configuration_failure(exc):
         return (
             f"{type(exc).__name__} ({exc.reason}). The source worker must use the same PRIMEAGENT_SECRET_KEY and "
-            "PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS as the Primeagent API"
+            "PRIMEAGENT_CONNECTION_OAUTH_REGISTRATIONS as the PrimeAgent API"
         )
     return type(exc).__name__
 

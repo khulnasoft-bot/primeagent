@@ -147,13 +147,13 @@ export async function mockAssistant(
           },
         })
       : sse(
-          { event: "token", chunk: "Primeagent is a deterministic " },
+          { event: "token", chunk: "PrimeAgent is a deterministic " },
           { event: "token", chunk: "visual workflow builder." },
           {
             event: "complete",
             data: {
               duration_seconds: 0.01,
-              result: "Primeagent is a deterministic visual workflow builder.",
+              result: "PrimeAgent is a deterministic visual workflow builder.",
               usage: { input_tokens: 6, output_tokens: 7, total_tokens: 13 },
               validated: false,
             },

@@ -1,5 +1,5 @@
 @echo off
-echo Starting Primeagent frontend build process...
+echo Starting PrimeAgent frontend build process...
 
 REM Get the script directory and resolve project root
 for %%I in ("%~dp0..\..") do set "PROJECT_ROOT=%%~fI"

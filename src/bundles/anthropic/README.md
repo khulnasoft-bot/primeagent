@@ -1,6 +1,6 @@
 # wfx-anthropic
 
-Anthropic component(s) as a standalone Primeagent Extension Bundle.
+Anthropic component(s) as a standalone PrimeAgent Extension Bundle.
 
 ## Install
 
@@ -9,7 +9,7 @@ pip install wfx-anthropic
 ```
 
 The bundle is registered automatically via the `primeagent.extensions`
-entry-point.  After install, restart your Primeagent server; the bundle's
+entry-point.  After install, restart your PrimeAgent server; the bundle's
 components will appear in the palette under the `anthropic` group with
 the namespaced IDs `ext:anthropic:<Class>@official`.
 

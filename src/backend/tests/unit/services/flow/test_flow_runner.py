@@ -2,7 +2,7 @@ from unittest.mock import AsyncMock
 from uuid import uuid4
 
 import pytest
-from primeagent.services.flow.flow_runner import PrimeagentRunnerExperimental
+from primeagent.services.flow.flow_runner import PrimeAgentRunnerExperimental
 
 
 @pytest.fixture
@@ -19,7 +19,7 @@ def sample_flow_dict():
 
 @pytest.fixture
 def flow_runner():
-    return PrimeagentRunnerExperimental()
+    return PrimeAgentRunnerExperimental()
 
 
 @pytest.mark.asyncio

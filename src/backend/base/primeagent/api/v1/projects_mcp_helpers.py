@@ -59,7 +59,7 @@ def _server_config_uses_streamable_http(args: list[Any], streamable_http_url: st
 
 
 def _server_config_has_project_api_key(args: list[Any]) -> bool:
-    """Return whether the server args include the generated Primeagent API key header."""
+    """Return whether the server args include the generated PrimeAgent API key header."""
     return any(
         arg == "--headers" and index + 2 < len(args) and args[index + 1] == "x-api-key"
         for index, arg in enumerate(args)

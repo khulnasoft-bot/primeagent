@@ -18,7 +18,7 @@ withEventDeliveryModes(
     await page
       .getByTestId("input-chat-playground")
       .last()
-      .fill("Hello, tell me about Primeagent.");
+      .fill("Hello, tell me about PrimeAgent.");
 
     await page.getByTestId("button-send").last().click();
 

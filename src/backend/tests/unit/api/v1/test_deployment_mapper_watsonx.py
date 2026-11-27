@@ -1811,7 +1811,7 @@ def test_watsonx_mapper_create_model_uses_adapter_result_description() -> None:
         id="provider-id",
         type=DeploymentType.AGENT,
         name="primeagent_OK_AGENT_6_cea1e533",
-        description="Primeagent deployment OK AGENT 6",
+        description="PrimeAgent deployment OK AGENT 6",
         provider_result={
             "display_name": "OK AGENT 6",
             "app_ids": [],
@@ -1829,7 +1829,7 @@ def test_watsonx_mapper_create_model_uses_adapter_result_description() -> None:
     assert deployment.resource_key == "provider-id"
     assert deployment.display_name == "OK AGENT 6"
     assert deployment.deployment_type == DeploymentType.AGENT
-    assert deployment.description == "Primeagent deployment OK AGENT 6"
+    assert deployment.description == "PrimeAgent deployment OK AGENT 6"
 
 
 def test_watsonx_mapper_create_model_passes_adapter_result_description() -> None:

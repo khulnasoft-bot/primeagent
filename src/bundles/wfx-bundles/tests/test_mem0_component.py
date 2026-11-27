@@ -40,7 +40,7 @@ from wfx.components.mem0.mem0_chat_memory import Mem0MemoryComponent
         assert result.returncode == 0, result.stderr
 
     def test_mem0_telemetry_is_disabled_by_default(self):
-        """Primeagent should not start mem0's PostHog telemetry on component import."""
+        """PrimeAgent should not start mem0's PostHog telemetry on component import."""
         from mem0.memory import telemetry as mem0_telemetry
 
         assert os.environ["MEM0_TELEMETRY"] == "False"

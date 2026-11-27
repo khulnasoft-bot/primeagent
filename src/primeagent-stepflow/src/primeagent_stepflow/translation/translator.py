@@ -1,4 +1,4 @@
-"""Main Primeagent to Stepflow converter implementation."""
+"""Main PrimeAgent to Stepflow converter implementation."""
 
 import json
 from dataclasses import dataclass
@@ -16,9 +16,9 @@ from .schema_mapper import SchemaMapper
 
 @dataclass
 class WorkflowAnalysis:
-    """Typed analysis results from analyzing a Primeagent workflow."""
+    """Typed analysis results from analyzing a PrimeAgent workflow."""
 
-    node_count: int  # Total number of nodes in the Primeagent workflow
+    node_count: int  # Total number of nodes in the PrimeAgent workflow
     edge_count: int  # Total number of connections/edges between nodes
     # Map of component type names to their counts (e.g., {"ChatInput": 1, "OpenAI": 2})
     component_types: dict[str, int]
@@ -26,8 +26,8 @@ class WorkflowAnalysis:
     potential_issues: list[str]  # List of warnings or potential problems detected during analysis
 
 
-class PrimeagentConverter:
-    """Convert Primeagent JSON workflows to Stepflow YAML workflows."""
+class PrimeAgentConverter:
+    """Convert PrimeAgent JSON workflows to Stepflow YAML workflows."""
 
     def __init__(self):
         """Initialize the converter."""
@@ -36,10 +36,10 @@ class PrimeagentConverter:
         self.node_processor = NodeProcessor()
 
     def convert_file(self, input_path: str | Path) -> str:
-        """Convert a Primeagent JSON file to Stepflow YAML.
+        """Convert a PrimeAgent JSON file to Stepflow YAML.
 
         Args:
-            input_path: Path to the Primeagent JSON file
+            input_path: Path to the PrimeAgent JSON file
 
         Returns:
             Stepflow YAML as a string
@@ -64,10 +64,10 @@ class PrimeagentConverter:
         return self.to_yaml(workflow)
 
     def convert(self, primeagent_data: dict[str, Any]) -> Flow:
-        """Convert Primeagent data structure to Stepflow workflow.
+        """Convert PrimeAgent data structure to Stepflow workflow.
 
         Args:
-            primeagent_data: Parsed Primeagent JSON data
+            primeagent_data: Parsed PrimeAgent JSON data
 
         Returns:
             Flow object
@@ -79,14 +79,14 @@ class PrimeagentConverter:
         try:
             # Extract main data structure
             if "data" not in primeagent_data:
-                raise ConversionError("Invalid Primeagent JSON: missing 'data' key")
+                raise ConversionError("Invalid PrimeAgent JSON: missing 'data' key")
 
             data = primeagent_data["data"]
             nodes = data.get("nodes", [])
             edges = data.get("edges", [])
 
             if not nodes:
-                raise ConversionError("No nodes found in Primeagent workflow")
+                raise ConversionError("No nodes found in PrimeAgent workflow")
 
             # Build dependency graph from edges
             dependencies = self.dependency_analyzer.build_dependency_graph(edges)
@@ -205,10 +205,10 @@ class PrimeagentConverter:
             raise ConversionError(f"Error generating YAML: {e}") from e
 
     def analyze(self, primeagent_data: dict[str, Any]) -> WorkflowAnalysis:
-        """Analyze Primeagent workflow structure without conversion.
+        """Analyze PrimeAgent workflow structure without conversion.
 
         Args:
-            primeagent_data: Parsed Primeagent JSON data
+            primeagent_data: Parsed PrimeAgent JSON data
 
         Returns:
             Typed analysis results
@@ -257,25 +257,25 @@ class PrimeagentConverter:
             raise ConversionError(f"Error analyzing workflow: {e}") from e
 
     def _generate_workflow_name(self, primeagent_data: dict[str, Any]) -> str:
-        """Generate a workflow name from Primeagent data."""
+        """Generate a workflow name from PrimeAgent data."""
         # Try to get name from various sources
         if "name" in primeagent_data:
             name = primeagent_data["name"]
-            return str(name) if name is not None else "Converted Primeagent Workflow"
+            return str(name) if name is not None else "Converted PrimeAgent Workflow"
 
         data = primeagent_data.get("data", {})
         if "name" in data:
             name = data["name"]
-            return str(name) if name is not None else "Converted Primeagent Workflow"
+            return str(name) if name is not None else "Converted PrimeAgent Workflow"
 
         # Fallback to generic name
-        return "Converted Primeagent Workflow"
+        return "Converted PrimeAgent Workflow"
 
     def _build_field_mapping_from_edges(self, edges: list[dict[str, Any]]) -> dict[str, dict[str, str]]:
         """Build field mapping from edges for proper input handling.
 
         Args:
-            edges: List of Primeagent edges
+            edges: List of PrimeAgent edges
 
         Returns:
             Dict mapping target_node_id -> {source_node_id -> target_field_name}
@@ -324,7 +324,7 @@ class PrimeagentConverter:
         preserve the output selected by each individual edge.
 
         Args:
-            edges: List of Primeagent edges
+            edges: List of PrimeAgent edges
 
         Returns:
             Dict mapping (source_node_id, target_node_id) -> output_name
@@ -391,7 +391,7 @@ class PrimeagentConverter:
 
         Args:
             builder: FlowBuilder instance to add output fields to
-            nodes: Original Primeagent nodes
+            nodes: Original PrimeAgent nodes
             dependencies: Dependency graph
             node_output_refs: Mapping of node IDs to their primary output references
             output_mapping: Mapping of (source_id, target_id) -> output name

@@ -1,4 +1,4 @@
-import { expect, type PrimeagentPage } from "../../fixtures";
+import { expect, type PrimeAgentPage } from "../../fixtures";
 import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../../utils/constants/timeouts";
 
@@ -116,7 +116,7 @@ export const SEEDED_CHUNKS_RESPONSE = {
     {
       id: "chunk-1",
       content:
-        "Primeagent lets you compose AI workflows visually. This chunk is long " +
+        "PrimeAgent lets you compose AI workflows visually. This chunk is long " +
         "enough to exercise the readable body-text path in the chunk card.",
       char_count: 132,
       metadata: {
@@ -152,7 +152,7 @@ const MODEL_PROVIDERS = [
   },
 ];
 
-export async function disableAnimations(page: PrimeagentPage) {
+export async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -169,13 +169,13 @@ export async function disableAnimations(page: PrimeagentPage) {
 }
 
 export async function mockKnowledgeBases(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   rows: SeededKnowledgeBase[],
 ) {
   await page.route(KB_LIST_GLOB, (route) => route.fulfill({ json: rows }));
 }
 
-export async function mockIngestionRuns(page: PrimeagentPage, runs: unknown[]) {
+export async function mockIngestionRuns(page: PrimeAgentPage, runs: unknown[]) {
   await page.route(KB_RUNS_LIST_GLOB, (route) =>
     route.fulfill({
       json: {
@@ -190,7 +190,7 @@ export async function mockIngestionRuns(page: PrimeagentPage, runs: unknown[]) {
 }
 
 export async function mockIngestionRunDetail(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   detail: unknown,
 ) {
   await page.route(KB_RUN_DETAIL_GLOB, (route) =>
@@ -198,7 +198,7 @@ export async function mockIngestionRunDetail(
   );
 }
 
-export async function mockModels(page: PrimeagentPage) {
+export async function mockModels(page: PrimeAgentPage) {
   await page.route(VARIABLES_GLOB, (route) => route.fulfill({ json: [] }));
   await page.route(
     (url) => url.pathname === "/api/v1/models",
@@ -223,14 +223,14 @@ export async function mockModels(page: PrimeagentPage) {
   );
 }
 
-export async function mockChunks(page: PrimeagentPage, response: unknown) {
+export async function mockChunks(page: PrimeAgentPage, response: unknown) {
   await page.route(KB_CHUNKS_GLOB, (route) =>
     route.fulfill({ json: response }),
   );
 }
 
 export async function mockMetadataKeys(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   keys: Record<string, string[]>,
 ) {
   await page.route(KB_METADATA_KEYS_GLOB, (route) =>
@@ -238,7 +238,7 @@ export async function mockMetadataKeys(
   );
 }
 
-export async function openKnowledgeBasesRoute(page: PrimeagentPage) {
+export async function openKnowledgeBasesRoute(page: PrimeAgentPage) {
   await awaitBootstrapTest(page, { skipModal: true });
   await page.goto("/assets/knowledge-bases");
   await disableAnimations(page);
@@ -250,7 +250,7 @@ export async function openKnowledgeBasesRoute(page: PrimeagentPage) {
   });
 }
 
-export async function openChunksRoute(page: PrimeagentPage, sourceId: string) {
+export async function openChunksRoute(page: PrimeAgentPage, sourceId: string) {
   await awaitBootstrapTest(page, { skipModal: true });
   await page.goto(`/assets/knowledge-bases/${sourceId}/chunks`);
   await disableAnimations(page);
@@ -259,13 +259,13 @@ export async function openChunksRoute(page: PrimeagentPage, sourceId: string) {
   });
 }
 
-export async function settleNetwork(page: PrimeagentPage) {
+export async function settleNetwork(page: PrimeAgentPage) {
   await page
     .waitForLoadState("networkidle", { timeout: TIMEOUTS.medium })
     .catch(() => {});
 }
 
-export async function openCreateModal(page: PrimeagentPage) {
+export async function openCreateModal(page: PrimeAgentPage) {
   await mockModels(page);
   await mockKnowledgeBases(page, SEEDED_KNOWLEDGE_BASES);
   await mockIngestionRuns(page, []);
@@ -282,7 +282,7 @@ export async function openCreateModal(page: PrimeagentPage) {
   });
 }
 
-export async function openAddSourcesModal(page: PrimeagentPage) {
+export async function openAddSourcesModal(page: PrimeAgentPage) {
   await mockModels(page);
   await mockKnowledgeBases(page, SEEDED_KNOWLEDGE_BASES);
   await mockIngestionRuns(page, [SEEDED_RUN]);
@@ -304,7 +304,7 @@ export async function openAddSourcesModal(page: PrimeagentPage) {
  * longer pre-filled: an empty model input stays empty so a provider enabled by an
  * env-harvested credential is never chosen on the user's behalf (LE-2168).
  */
-export async function selectEmbeddingModel(page: PrimeagentPage) {
+export async function selectEmbeddingModel(page: PrimeAgentPage) {
   const combobox = page.getByRole("combobox", { name: /embedding model/i });
   await expect(combobox).toBeVisible({ timeout: TIMEOUTS.standard });
   await combobox.click();
@@ -316,7 +316,7 @@ export async function selectEmbeddingModel(page: PrimeagentPage) {
   });
 }
 
-export async function attachFiles(page: PrimeagentPage, paths: string[]) {
+export async function attachFiles(page: PrimeAgentPage, paths: string[]) {
   await page.getByTestId("kb-source-name-input").fill("review_kb");
   await page.locator("#file-input").setInputFiles(paths);
   await expect(page.getByTestId("kb-file-metadata-toggle-0")).toBeVisible({
@@ -325,7 +325,7 @@ export async function attachFiles(page: PrimeagentPage, paths: string[]) {
 }
 
 export async function openKnowledgeBaseDrawer(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   kbName = "Alpha Knowledge Base",
 ) {
   await page.getByText(kbName).click();
@@ -335,7 +335,7 @@ export async function openKnowledgeBaseDrawer(
 }
 
 export async function gateRoute(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   glob: string,
   json: unknown,
 ): Promise<() => void> {

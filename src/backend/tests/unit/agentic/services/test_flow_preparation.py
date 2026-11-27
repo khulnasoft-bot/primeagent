@@ -420,7 +420,7 @@ def _make_directory_flow(path_value: str) -> dict:
 class TestInjectWfxComponentsPath:
     """Tests for inject_wfx_components_path.
 
-    Regression guard for the Primeagent Desktop bug where the PrimeagentAssistant
+    Regression guard for the PrimeAgent Desktop bug where the PrimeAgentAssistant
     flow embedded a relative path './src/wfx/src/wfx/components/' which only
     resolved correctly when the sidecar CWD was the monorepo root. On Desktop
     the CWD is the data dir, so the Directory component raised
@@ -469,7 +469,7 @@ class TestInjectWfxComponentsPath:
         Desktop (and any non-monorepo CWD) can execute the assistant flow.
         """
         flow_data = _make_directory_flow(WFX_COMPONENTS_PATH_SENTINEL)
-        flow_file = tmp_path / "PrimeagentAssistant.json"
+        flow_file = tmp_path / "PrimeAgentAssistant.json"
         flow_file.write_text(json.dumps(flow_data))
 
         result_json = load_and_prepare_flow(flow_file, None, None, None)
@@ -482,7 +482,7 @@ class TestInjectWfxComponentsPath:
     def test_shipped_assistant_directory_node_loads_components_from_any_working_dir(self, tmp_path, monkeypatch):
         """The shipped flow's Directory node must load when the process does not run from the repo.
 
-        Primeagent Desktop runs from its data dir, where the rewritten absolute path lies outside
+        PrimeAgent Desktop runs from its data dir, where the rewritten absolute path lies outside
         the working root the Directory component trusts by default. Local file access stays
         restricted, as it is by default.
         """
@@ -529,7 +529,7 @@ def _make_filesystem_flow(root_path_value: str) -> dict:
 class TestInjectAssistantFsRoot:
     """Tests for inject_assistant_fs_root.
 
-    The shipped PrimeagentAssistant flow leaves FileSystemTool.root_path empty
+    The shipped PrimeAgentAssistant flow leaves FileSystemTool.root_path empty
     on purpose — it must be resolved at runtime to an OS-appropriate sandbox
     so the flow runs portably on macOS, Linux, Windows and Docker.
     """
@@ -593,7 +593,7 @@ class TestInjectAssistantFsRoot:
     def test_should_inject_root_path_when_loading_assistant_flow(self, tmp_path):
         """End-to-end: load_and_prepare_flow must inject the resolved root_path."""
         flow_data = _make_filesystem_flow("")
-        flow_file = tmp_path / "PrimeagentAssistant.json"
+        flow_file = tmp_path / "PrimeAgentAssistant.json"
         flow_file.write_text(json.dumps(flow_data))
 
         with patch(f"{MODULE}.resolve_assistant_fs_root", return_value=tmp_path / "ws"):

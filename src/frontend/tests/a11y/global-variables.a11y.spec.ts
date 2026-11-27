@@ -1,5 +1,5 @@
 import type { Route } from "@playwright/test";
-import { expect, type PrimeagentPage, test } from "../fixtures";
+import { expect, type PrimeAgentPage, test } from "../fixtures";
 import { awaitBootstrapTest } from "../utils/await-bootstrap-test";
 import { TIMEOUTS } from "../utils/constants/timeouts";
 
@@ -55,7 +55,7 @@ const invalidProviderVariables: VariableRow[] = [
   },
 ];
 
-async function disableAnimations(page: PrimeagentPage) {
+async function disableAnimations(page: PrimeAgentPage) {
   await page.addStyleTag({
     content: `
       *,
@@ -71,7 +71,7 @@ async function disableAnimations(page: PrimeagentPage) {
   });
 }
 
-async function mockComponentTypes(page: PrimeagentPage) {
+async function mockComponentTypes(page: PrimeAgentPage) {
   // The "Apply to Fields" popover options are derived from live component
   // template data (secret fields extracted from `/api/v1/all`). Returning an
   // empty component map forces the deterministic fallback field list
@@ -82,7 +82,7 @@ async function mockComponentTypes(page: PrimeagentPage) {
   });
 }
 
-async function mockVariables(page: PrimeagentPage, variables: VariableRow[]) {
+async function mockVariables(page: PrimeAgentPage, variables: VariableRow[]) {
   await page.route(/\/api\/v1\/variables\/?.*/, async (route: Route) => {
     const method = route.request().method();
 
@@ -123,7 +123,7 @@ async function mockVariables(page: PrimeagentPage, variables: VariableRow[]) {
 }
 
 async function openGlobalVariablesRoute(
-  page: PrimeagentPage,
+  page: PrimeAgentPage,
   variables = populatedVariables,
 ) {
   await page.route(/\/api\/v1\/store\/tags(\?.*)?$/, async (route: Route) => {
@@ -151,7 +151,7 @@ async function openGlobalVariablesRoute(
     .catch(() => {});
 }
 
-async function openCreateModal(page: PrimeagentPage) {
+async function openCreateModal(page: PrimeAgentPage) {
   await page.getByTestId("api-key-button-store").click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await expect(
@@ -159,7 +159,7 @@ async function openCreateModal(page: PrimeagentPage) {
   ).toBeVisible();
 }
 
-async function openApplyToFieldsPopover(page: PrimeagentPage) {
+async function openApplyToFieldsPopover(page: PrimeAgentPage) {
   const dialog = page.getByRole("dialog");
   await dialog.getByTestId("anchor-popover-anchor-apply-to-fields").click();
   await expect(dialog.getByPlaceholder("Fields")).toBeVisible({

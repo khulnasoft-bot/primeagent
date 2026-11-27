@@ -1,9 +1,9 @@
 /**
  * Attribute bundle that opts a field out of browser + password-manager autofill.
  *
- * Primeagent component-configuration fields are not login/web forms, yet browsers
+ * PrimeAgent component-configuration fields are not login/web forms, yet browsers
  * (notably Chrome) and password managers heuristically classify them as
- * credential fields and inject saved values into them. Because Primeagent
+ * credential fields and inject saved values into them. Because PrimeAgent
  * autosaves, an injected value silently overwrites the real one and persists it,
  * corrupting the flow.
  *

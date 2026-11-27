@@ -20,10 +20,10 @@ def _get_version_info():
         ValueError: If the package is not found from the list of package names.
     """
     package_options = [
-        ("primeagent", "Primeagent"),
-        ("primeagent-base", "Primeagent"),
-        ("primeagent-nightly", "Primeagent Nightly"),
-        ("primeagent-base-nightly", "Primeagent Nightly"),
+        ("primeagent", "PrimeAgent"),
+        ("primeagent-base", "PrimeAgent"),
+        ("primeagent-nightly", "PrimeAgent Nightly"),
+        ("primeagent-base-nightly", "PrimeAgent Nightly"),
     ]
     __version__ = None
     for pkg_name, display_name in package_options:

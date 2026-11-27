@@ -42,7 +42,7 @@ TARGET_REVISION_HINT = (
     'print(ScriptDirectory.from_config(c).get_current_head())"'
 )
 
-# The migration c3e1d5a7f902_add_user_retired_at, in primeagent/alembic/versions. A Primeagent that has it keeps a
+# The migration c3e1d5a7f902_add_user_retired_at, in primeagent/alembic/versions. A PrimeAgent that has it keeps a
 # never-signed-in default superuser that owns rows, where an older one deletes it.
 _KEEPS_DEFAULT_SUPERUSER = "c3e1d5a7f902"  # pragma: allowlist secret
 
@@ -76,13 +76,13 @@ async def run_preflight(
         add(version)
         schema = await check_schema(session)
         if schema.status != "ok":
-            # The remaining checks read through this Primeagent's models, which on another
+            # The remaining checks read through this PrimeAgent's models, which on another
             # schema would misread rows. Nothing migrates the source to make them fit.
             await session.rollback()
             add(replace(schema, name="source: schema"))
             return report
         if not target_revision and target_version and version.status == "ok":
-            # A target at this version or newer holds this Primeagent's migrations, so this head stands for its own.
+            # A target at this version or newer holds this PrimeAgent's migrations, so this head stands for its own.
             target_revision = script_directory().get_current_head()
         add(await check_default_superuser(session, target_revision))
         add(await check_target_key(session, target_secret_key))
@@ -100,9 +100,9 @@ async def check_version_direction(
 
     So the source's revision has to be one the target's image already contains.
     A source ahead of the target would need migrations run backwards, which no
-    Primeagent supports.
+    PrimeAgent supports.
 
-    Admins know the Primeagent version their target runs, so that is enough. The
+    Admins know the PrimeAgent version their target runs, so that is enough. The
     revision is exact, so it wins when both are given: two images built from
     different commits can carry the same version.
     """
@@ -138,8 +138,8 @@ async def check_version_direction(
         return CheckResult(
             name,
             "warn",
-            f"target revision {target_revision} is not one this Primeagent knows, so it may be newer; "
-            "run the preflight with the target's Primeagent version to be sure",
+            f"target revision {target_revision} is not one this PrimeAgent knows, so it may be newer; "
+            "run the preflight with the target's PrimeAgent version to be sure",
         )
 
     behind = [revision for revision in source_revisions if revision not in target_ancestry]
@@ -158,9 +158,9 @@ async def check_version_direction(
 
 
 def check_target_version(target_version: str) -> CheckResult:
-    """Is the target's Primeagent at least the version this instance runs?
+    """Is the target's PrimeAgent at least the version this instance runs?
 
-    This instance's database is at this Primeagent's head, or the schema check stops
+    This instance's database is at this PrimeAgent's head, or the schema check stops
     the preflight, so its version stands for its schema.
     """
     from packaging.version import InvalidVersion, Version
@@ -175,21 +175,21 @@ def check_target_version(target_version: str) -> CheckResult:
         return CheckResult(
             name,
             "warn",
-            f"{target_version!r} is not a Primeagent version, such as {source}; the version was not checked",
+            f"{target_version!r} is not a PrimeAgent version, such as {source}; the version was not checked",
         )
     if target < source:
         return CheckResult(
             name,
             "fail",
-            f"the target runs Primeagent {target}, older than this instance's {source}; "
+            f"the target runs PrimeAgent {target}, older than this instance's {source}; "
             "attaching would need its migrations run backwards",
         )
     if target == source:
-        return CheckResult(name, "ok", f"source and target both run Primeagent {source}")
+        return CheckResult(name, "ok", f"source and target both run PrimeAgent {source}")
     return CheckResult(
         name,
         "ok",
-        f"the target runs Primeagent {target}, newer than this instance's {source}; attaching migrates forward. "
+        f"the target runs PrimeAgent {target}, newer than this instance's {source}; attaching migrates forward. "
         f"This instance cannot confirm that {target} was released, so check the number",
     )
 
@@ -197,7 +197,7 @@ def check_target_version(target_version: str) -> CheckResult:
 async def check_default_superuser(session: AsyncSession, target_revision: str | None = None) -> CheckResult:
     """Will the default superuser survive the target's first boot?
 
-    With AUTO_LOGIN off, Primeagent deletes the default superuser when it has never
+    With AUTO_LOGIN off, PrimeAgent deletes the default superuser when it has never
     signed in, and on Postgres the delete takes
     everything that user owns with it. The fix keeps the user: it claims the account
     for PRIMEAGENT_SUPERUSER or deactivates it, and setting last_login_at skips both.
@@ -205,7 +205,7 @@ async def check_default_superuser(session: AsyncSession, target_revision: str | 
     here tells which kind of target this is, so the advice covers both.
 
     An account that has signed in is kept, with the password it has unless that
-    is the old default. While AUTO_LOGIN is on that password can be one Primeagent
+    is the old default. While AUTO_LOGIN is on that password can be one PrimeAgent
     made, so the check says to set one before the move, and passes once the
     PRIMEAGENT_SUPERUSER_PASSWORD it sees signs in as the account. It reads both as
     this command sees them, so the command has to run with the server's environment.
@@ -271,10 +271,10 @@ async def check_default_superuser(session: AsyncSession, target_revision: str | 
         name,
         "fail",
         f"{DEFAULT_SUPERUSER!r} has never signed in and owns rows; "
-        "a target with AUTO_LOGIN off deletes it on first boot unless its Primeagent keeps such an account",
+        "a target with AUTO_LOGIN off deletes it on first boot unless its PrimeAgent keeps such an account",
         [
             ", ".join(f"{table}: {count}" for table, count in sorted(owned.items())),
-            "if the target's Primeagent keeps it (its migrations add user.retired_at), change nothing: "
+            "if the target's PrimeAgent keeps it (its migrations add user.retired_at), change nothing: "
             f"PRIMEAGENT_SUPERUSER={DEFAULT_SUPERUSER} claims the account with the configured password, and its API "
             "keys, including any minted while AUTO_LOGIN was on, keep working; any other name deactivates it, which "
             "stops them. Setting last_login_at on such a target skips both",

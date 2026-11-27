@@ -1,7 +1,7 @@
 """Integration tests for the component dynamic import system.
 
 These tests intentionally use core components only. Provider/bundle component
-compatibility belongs in the owning bundle's test suite so the core Primeagent
+compatibility belongs in the owning bundle's test suite so the core PrimeAgent
 test suite keeps collecting when optional bundles are not installed.
 """
 

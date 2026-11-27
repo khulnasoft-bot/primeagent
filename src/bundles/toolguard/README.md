@@ -1,6 +1,6 @@
 # wfx-toolguard
 
-`wfx-toolguard` is the standalone Primeagent extension that provides the
+`wfx-toolguard` is the standalone PrimeAgent extension that provides the
 `PoliciesComponent` and its ToolGuard runtime integration.
 
 It is installed by the full `primeagent` distribution. Users of `wfx` or

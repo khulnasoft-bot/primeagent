@@ -39,8 +39,8 @@ rate limits or GA date. Cost: blocks INT-10 until an unknown GA date.
 
 Pros: every substrate is GA today (fact 5); scope tiers are chosen per action, so Gmail send stays sensitive; no
 dependency on the preview program; INT-9 pinned mode is not needed for Google in 1.13. The component identity and
-saved-flow schema are Primeagent-owned, so a later swap to the MCP server changes only the adapter.
-Cons: Primeagent maintains thin adapters over google-api-python-client for five methods.
+saved-flow schema are PrimeAgent-owned, so a later swap to the MCP server changes only the adapter.
+Cons: PrimeAgent maintains thin adapters over google-api-python-client for five methods.
 Cost: inside the INT-10 estimate (5 engineer-weeks); no external lead time.
 
 ### Option C: Mixed (MCP for Calendar, SDK for Gmail and Drive)

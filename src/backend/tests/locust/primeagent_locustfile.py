@@ -1,6 +1,6 @@
-"""Primeagent API Locust Load Testing File.
+"""PrimeAgent API Locust Load Testing File.
 
-Comprehensive load testing for Primeagent API with multiple user behaviors and performance analysis.
+Comprehensive load testing for PrimeAgent API with multiple user behaviors and performance analysis.
 Based on production-ready patterns with proper error handling, metrics tracking, and reporting.
 
 Usage:
@@ -17,7 +17,7 @@ Usage:
     locust -f locustfile.py --host http://localhost:7860 --worker --master-host=localhost
 
 Environment Variables:
-    - PRIMEAGENT_HOST: Base URL for the Primeagent server (default: http://localhost:7860)
+    - PRIMEAGENT_HOST: Base URL for the PrimeAgent server (default: http://localhost:7860)
     - FLOW_ID: Flow ID to test (required)
     - API_KEY: API key for authentication (required)
     - MIN_WAIT: Minimum wait time between requests in ms (default: 2000)
@@ -81,7 +81,7 @@ def setup_error_logging():
 
     error_logger.addHandler(error_handler)
 
-    # Try to capture Primeagent logs
+    # Try to capture PrimeAgent logs
     primeagent_log_paths = [
         "primeagent.log",
         "logs/primeagent.log",
@@ -97,9 +97,9 @@ def setup_error_logging():
     print("📝 Error logging setup:")
     print(f"   • Detailed errors: {ERROR_LOG_FILE}")
     if PRIMEAGENT_LOG_FILE:
-        print(f"   • Primeagent logs: {PRIMEAGENT_LOG_FILE}")
+        print(f"   • PrimeAgent logs: {PRIMEAGENT_LOG_FILE}")
     else:
-        print("   • Primeagent logs: Not found (will monitor common locations)")
+        print("   • PrimeAgent logs: Not found (will monitor common locations)")
 
 
 def log_detailed_error(
@@ -180,12 +180,12 @@ def save_error_summary():
 
 
 def capture_primeagent_logs():
-    """Capture recent Primeagent logs if available."""
+    """Capture recent PrimeAgent logs if available."""
     if not PRIMEAGENT_LOG_FILE or not Path(PRIMEAGENT_LOG_FILE).exists():
         return None
 
     try:
-        # Read last 1000 lines of Primeagent log
+        # Read last 1000 lines of PrimeAgent log
         with open(PRIMEAGENT_LOG_FILE) as f:
             lines = f.readlines()
             recent_lines = lines[-1000:] if len(lines) > 1000 else lines
@@ -194,17 +194,17 @@ def capture_primeagent_logs():
         captured_log_file = f"primeagent_server_logs_during_test_{timestamp}.log"
 
         with open(captured_log_file, "w") as f:
-            f.write("# Primeagent server logs captured during load test\n")
+            f.write("# PrimeAgent server logs captured during load test\n")
             f.write(f"# Original log file: {PRIMEAGENT_LOG_FILE}\n")
             f.write(f"# Capture time: {datetime.now().isoformat()}\n")
             f.write(f"# Lines captured: {len(recent_lines)}\n\n")
             f.writelines(recent_lines)
 
-        print(f"📋 Primeagent logs captured: {captured_log_file}")
+        print(f"📋 PrimeAgent logs captured: {captured_log_file}")
         return captured_log_file
 
     except Exception as e:
-        print(f"⚠️  Could not capture Primeagent logs: {e}")
+        print(f"⚠️  Could not capture PrimeAgent logs: {e}")
         return None
 
 
@@ -350,7 +350,7 @@ def on_test_stop(environment, **_kwargs):
     # Save detailed error information
     save_error_summary()
 
-    # Capture Primeagent logs
+    # Capture PrimeAgent logs
     capture_primeagent_logs()
 
     # Set exit code for CI/CD
@@ -361,8 +361,8 @@ def on_test_stop(environment, **_kwargs):
     _env_bags.pop(environment, None)
 
 
-class BasePrimeagentUser(FastHttpUser):
-    """Base class for all Primeagent API load testing user types."""
+class BasePrimeAgentUser(FastHttpUser):
+    """Base class for all PrimeAgent API load testing user types."""
 
     abstract = True
     REQUEST_TIMEOUT = float(os.getenv("REQUEST_TIMEOUT", "30.0"))
@@ -394,7 +394,7 @@ class BasePrimeagentUser(FastHttpUser):
         """Make a request with proper error handling and timing."""
         message = TEST_MESSAGES.get(message_type, TEST_MESSAGES["simple"])
 
-        # Primeagent API payload structure
+        # PrimeAgent API payload structure
         payload = {
             "input_value": message,
             "output_type": "chat",
@@ -431,7 +431,7 @@ class BasePrimeagentUser(FastHttpUser):
                 if response.status_code == 200:
                     try:
                         data = response.json()
-                        # Primeagent API success check - look for outputs
+                        # PrimeAgent API success check - look for outputs
                         if data.get("outputs"):
                             return response.success()
                         # Check for error messages in the response
@@ -509,7 +509,7 @@ class BasePrimeagentUser(FastHttpUser):
             raise
 
 
-class NormalUser(BasePrimeagentUser):
+class NormalUser(BasePrimeAgentUser):
     """Normal user simulating typical API interactions."""
 
     weight = 3
@@ -534,7 +534,7 @@ class NormalUser(BasePrimeagentUser):
         self.make_request(message_type="complex")
 
 
-class AggressiveUser(BasePrimeagentUser):
+class AggressiveUser(BasePrimeAgentUser):
     """Aggressive user with minimal wait times."""
 
     weight = 3
@@ -546,7 +546,7 @@ class AggressiveUser(BasePrimeagentUser):
         self.make_request(message_type="simple", tag_suffix="-rapid")
 
 
-class SustainedLoadUser(BasePrimeagentUser):
+class SustainedLoadUser(BasePrimeAgentUser):
     """Maintains exactly 1 request/second for steady load testing."""
 
     weight = 3
@@ -558,7 +558,7 @@ class SustainedLoadUser(BasePrimeagentUser):
         self.make_request(message_type="medium", tag_suffix="-steady")
 
 
-class TailLatencyHunter(BasePrimeagentUser):
+class TailLatencyHunter(BasePrimeAgentUser):
     """Mixed workload designed to expose tail latency issues."""
 
     weight = 3
@@ -573,7 +573,7 @@ class TailLatencyHunter(BasePrimeagentUser):
             self.make_request(message_type="large", tag_suffix="-tail-heavy")
 
 
-class ScalabilityTestUser(BasePrimeagentUser):
+class ScalabilityTestUser(BasePrimeAgentUser):
     """Tests for scalability limits."""
 
     weight = 3
@@ -585,7 +585,7 @@ class ScalabilityTestUser(BasePrimeagentUser):
         self.make_request(message_type="medium", tag_suffix="-scale")
 
 
-class BurstUser(BasePrimeagentUser):
+class BurstUser(BasePrimeAgentUser):
     """Sends bursts of requests to test connection pooling."""
 
     weight = 3

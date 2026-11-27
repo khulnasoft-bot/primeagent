@@ -1,7 +1,7 @@
 """wfx-serpingapi: Serping API Search bundle.
 
 This package is the distribution unit ``wfx-serpingapi``.  At runtime
-Primeagent's loader discovers ``extension.json`` shipped alongside this
+PrimeAgent's loader discovers ``extension.json`` shipped alongside this
 ``__init__.py`` and registers ``SerpingApiSearchComponent`` under the
 namespaced ID ``ext:serpingapi:SerpingApiSearchComponent@official``.
 

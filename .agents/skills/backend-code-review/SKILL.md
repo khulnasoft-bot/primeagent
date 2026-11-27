@@ -88,7 +88,7 @@ Check for:
 ### 4. File Structure Review
 
 Check for:
-- Production files exceeding ~500 lines of code (excluding imports, types, and docstrings). Files above 600 lines are a red flag and should be split by responsibility. Why: Files above 500 lines have statistically higher defect rates and take longer to review. They signal multiple responsibilities (SRP violation). In Primeagent, services like `DatabaseService` that grow beyond this limit should have their CRUD operations extracted to dedicated modules.
+- Production files exceeding ~500 lines of code (excluding imports, types, and docstrings). Files above 600 lines are a red flag and should be split by responsibility. Why: Files above 500 lines have statistically higher defect rates and take longer to review. They signal multiple responsibilities (SRP violation). In PrimeAgent, services like `DatabaseService` that grow beyond this limit should have their CRUD operations extracted to dedicated modules.
 - Test files exceeding ~1000 lines. Split by logical grouping if exceeded.
 - No more than 5 functions with different responsibilities in a single file (per AGENTS-example.md).
 - Each file has a single reason to exist and a single reason to change (SRP).
@@ -134,7 +134,7 @@ Check for:
 
 For pending-change reviews, verify the author has run:
 - `make format_backend` (Ruff formatter) — inconsistent formatting creates noisy diffs that hide real changes in code review. Format first, review second.
-- `make lint` (MyPy type checking) — type errors caught at lint time are 10x cheaper to fix than runtime crashes in production. Primeagent services use duck typing via `Service` base class; MyPy catches mismatches early.
+- `make lint` (MyPy type checking) — type errors caught at lint time are 10x cheaper to fix than runtime crashes in production. PrimeAgent services use duck typing via `Service` base class; MyPy catches mismatches early.
 - `make unit_tests` (pytest) — a failing test means the change breaks existing behavior. Never merge with failing tests; investigate whether the code or the test is wrong.
 
 ## Required Output Format

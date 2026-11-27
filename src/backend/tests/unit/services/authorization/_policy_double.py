@@ -1,6 +1,6 @@
 """In-test authorization enforcer for OSS RBAC integration tests.
 
-The OSS :class:`PrimeagentAuthorizationService` is a pass-through: ``enforce()``
+The OSS :class:`PrimeAgentAuthorizationService` is a pass-through: ``enforce()``
 always returns ``True`` and ``SUPPORTS_CROSS_USER_FETCH`` is ``False``. That makes
 it impossible to assert allow/deny semantics against the real routes — every
 request is allowed and cross-user fetch never widens. This module supplies a

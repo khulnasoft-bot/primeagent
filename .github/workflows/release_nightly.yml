@@ -1,19 +1,19 @@
-name: Primeagent Nightly Build
-run-name: Primeagent Nightly Release by @${{ github.actor }}
+name: PrimeAgent Nightly Build
+run-name: PrimeAgent Nightly Release by @${{ github.actor }}
 
 on:
   workflow_call:
     inputs:
       build_docker_base:
-        description: "Build Docker Image for Primeagent Nightly Base"
+        description: "Build Docker Image for PrimeAgent Nightly Base"
         required: true
         type: boolean
       build_docker_main:
-        description: "Build Docker Image for Primeagent Nightly"
+        description: "Build Docker Image for PrimeAgent Nightly"
         required: true
         type: boolean
       build_docker_ep:
-        description: "Build Docker Image for Primeagent Nightly with Entrypoint"
+        description: "Build Docker Image for PrimeAgent Nightly with Entrypoint"
         required: false
         type: boolean
         default: false
@@ -154,7 +154,7 @@ jobs:
           path: src/wfx/dist
 
   build-nightly-base:
-    name: Build Primeagent Nightly Base
+    name: Build PrimeAgent Nightly Base
     needs: [build-nightly-wfx]
     if: ${{ always() && (needs.build-nightly-wfx.result == 'success' || inputs.build_wfx == false) }}
     runs-on: ubuntu-latest
@@ -221,7 +221,7 @@ jobs:
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "skipped=false" >> $GITHUB_OUTPUT
 
-      - name: Build Primeagent Base for distribution
+      - name: Build PrimeAgent Base for distribution
         run: |
           rm -rf src/backend/base/dist
           rm -rf dist
@@ -230,7 +230,7 @@ jobs:
           uv run --no-project --with packaging python scripts/ci/check_core_dependency_pins.py \
             dist/primeagent_base-*.whl --dependency-version "$WFX_VERSION"
 
-      - name: Test Primeagent Base CLI
+      - name: Test PrimeAgent Base CLI
         env:
           PRIMEAGENT_SUPERUSER_PASSWORD: ci-startup-only-password  # pragma: allowlist secret
         run: |
@@ -265,7 +265,7 @@ jobs:
           path: src/backend/base/dist
 
   build-nightly-main:
-    name: Build Primeagent Nightly Main
+    name: Build PrimeAgent Nightly Main
     needs: [build-nightly-base]
     runs-on: ubuntu-latest
     outputs:
@@ -332,12 +332,12 @@ jobs:
           # Strip the leading `v` from the version
           version=$(echo $version | sed 's/^v//')
           echo "version=$version" >> $GITHUB_OUTPUT
-      - name: Build Primeagent Main for distribution
+      - name: Build PrimeAgent Main for distribution
         run: |
           make build main=true args="--no-sources --wheel"
           uv run --no-project --with packaging python scripts/ci/check_core_dependency_pins.py \
             dist/primeagent-*.whl --dependency-version "${{ inputs.nightly_tag_base }}"
-      - name: Test Primeagent Main CLI
+      - name: Test PrimeAgent Main CLI
         env:
           PRIMEAGENT_SUPERUSER_PASSWORD: ci-startup-only-password  # pragma: allowlist secret
         run: |
@@ -357,7 +357,7 @@ jobs:
             echo "Server terminated successfully"
           fi
 
-      - name: Prepare Primeagent Main artifact
+      - name: Prepare PrimeAgent Main artifact
         run: |
           shopt -s nullglob
           MAIN_WHEELS=(dist/primeagent-*.whl)
@@ -476,7 +476,7 @@ jobs:
           make sdk_publish
 
   publish-nightly-base:
-    name: Publish Primeagent Base Nightly to PyPI
+    name: Publish PrimeAgent Base Nightly to PyPI
     needs: [build-nightly-base, build-nightly-main, test-cross-platform, publish-nightly-bundles]
     if: ${{ always() && needs.build-nightly-base.result == 'success' && needs.test-cross-platform.result == 'success' && (needs.publish-nightly-bundles.result == 'success' || needs.build-nightly-main.outputs.bundles-found != '1') }}
     runs-on: ubuntu-latest
@@ -770,7 +770,7 @@ jobs:
           PY
 
   publish-nightly-main:
-    name: Publish Primeagent Main Nightly to PyPI
+    name: Publish PrimeAgent Main Nightly to PyPI
     needs: [build-nightly-main, test-cross-platform, publish-nightly-base, check-nightly-main-pypi-dependencies]
     if: ${{ always() && needs.build-nightly-main.result == 'success' && needs.test-cross-platform.result == 'success' && needs.publish-nightly-base.result == 'success' && needs.check-nightly-main-pypi-dependencies.result == 'success' }}
     runs-on: ubuntu-latest
@@ -799,7 +799,7 @@ jobs:
           make publish main=true
 
   call_docker_build_base:
-    name: Call Docker Build Workflow for Primeagent Base
+    name: Call Docker Build Workflow for PrimeAgent Base
     if: ${{ always() && inputs.build_docker_base }}
     needs: [build-nightly-base, build-nightly-main]
     uses: ./.github/workflows/docker-nightly-build.yml
@@ -813,7 +813,7 @@ jobs:
       TEMP_GHCR_TOKEN: ${{ secrets.TEMP_GHCR_TOKEN }}
 
   call_docker_build_main:
-    name: Call Docker Build Workflow for Primeagent
+    name: Call Docker Build Workflow for PrimeAgent
     if: ${{ always() && inputs.build_docker_main }}
     needs: [build-nightly-main, call_docker_build_base]
     uses: ./.github/workflows/docker-nightly-build.yml
@@ -839,7 +839,7 @@ jobs:
   #   secrets: inherit
 
   # call_docker_build_main_ep:
-  #   name: Call Docker Build Workflow for Primeagent with Entrypoint
+  #   name: Call Docker Build Workflow for PrimeAgent with Entrypoint
   #   if: ${{ always() && inputs.build_docker_ep }}
   #   needs: [build-nightly-main, call_docker_build_main]
   #   uses: ./.github/workflows/docker-build-v2.yml

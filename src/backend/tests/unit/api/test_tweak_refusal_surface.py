@@ -98,7 +98,7 @@ async def test_refused_tweak_returns_422_on_the_v1_advanced_run(client, simple_a
 async def test_off_refuses_component_targeted_inputs_on_the_v1_advanced_run(
     client, simple_api_test, created_api_key, monkeypatch
 ):
-    """The Primeagent HTTP path must enforce the WFX targeted-input guard."""
+    """The PrimeAgent HTTP path must enforce the WFX targeted-input guard."""
     from primeagent.services.deps import get_settings_service
 
     monkeypatch.setattr(get_settings_service().settings, "tweaks_policy", "off")

@@ -199,7 +199,7 @@ def provider_variable_from_env(var_key: str) -> str | None:
     accepted name shapes would leave a provider enabled but undiscoverable.
 
     Provider keys are conventionally bare (``GOOGLE_API_KEY``), but some .env
-    templates prefix everything with ``PRIMEAGENT_`` (matching how Primeagent reads
+    templates prefix everything with ``PRIMEAGENT_`` (matching how PrimeAgent reads
     its own settings). Accept ``PRIMEAGENT_<VAR>`` as a fallback so e.g.
     ``PRIMEAGENT_GOOGLE_API_KEY`` enables Gemini exactly like ``GOOGLE_API_KEY``.
     The bare name keeps precedence — no behavior change when it is set. The

@@ -1,6 +1,6 @@
-# Primeagent on Grafana + Loki
+# PrimeAgent on Grafana + Loki
 
-Reference stack that ingests Primeagent's structured JSON logs into [Loki](https://grafana.com/oss/loki/) and visualizes them with a pre-provisioned Grafana dashboard.
+Reference stack that ingests PrimeAgent's structured JSON logs into [Loki](https://grafana.com/oss/loki/) and visualizes them with a pre-provisioned Grafana dashboard.
 
 Use this as a starting point. The compose file, Alloy config, dashboard JSON, and legacy Promtail configuration are independent of the rest of `deploy/` and can be lifted into any environment.
 
@@ -9,12 +9,12 @@ Use this as a starting point. The compose file, Alloy config, dashboard JSON, an
 ## What you get
 
 - **Loki 3.2** on `:3100`
-- **Alloy 1.18** scraping a directory of Primeagent log files
-- **Grafana 11.3** on `:3000` with the Loki datasource and the `Primeagent Logs` dashboard already provisioned
+- **Alloy 1.18** scraping a directory of PrimeAgent log files
+- **Grafana 11.3** on `:3000` with the Loki datasource and the `PrimeAgent Logs` dashboard already provisioned
 
-## Prerequisites on the Primeagent side
+## Prerequisites on the PrimeAgent side
 
-The dashboard expects Primeagent to be running in JSON mode with service metadata set. At minimum:
+The dashboard expects PrimeAgent to be running in JSON mode with service metadata set. At minimum:
 
 ```bash
 PRIMEAGENT_LOG_ENV=container
@@ -24,9 +24,9 @@ PRIMEAGENT_VERSION=1.10.0
 PRIMEAGENT_ENVIRONMENT=production
 ```
 
-Alloy scrapes a directory of `*.log` files, so `PRIMEAGENT_LOG_FILE` must point at a file inside the directory you expose to Alloy as `PRIMEAGENT_LOG_DIR` (see [Run](#run)). Set both to the same directory, otherwise Alloy watches an empty folder and the dashboard stays blank. Use an absolute path: `PRIMEAGENT_LOG_FILE` is resolved against Primeagent's working directory, not this one.
+Alloy scrapes a directory of `*.log` files, so `PRIMEAGENT_LOG_FILE` must point at a file inside the directory you expose to Alloy as `PRIMEAGENT_LOG_DIR` (see [Run](#run)). Set both to the same directory, otherwise Alloy watches an empty folder and the dashboard stays blank. Use an absolute path: `PRIMEAGENT_LOG_FILE` is resolved against PrimeAgent's working directory, not this one.
 
-In JSON mode the file is a single JSON stream: application logs and third-party stdlib loggers (`uvicorn`, `sqlalchemy`, `httpx`, `langchain`) are all rendered as JSON and run through PII redaction, so the `stage.json` parse stage and the **Stdlib intercept routing** panel work against it directly. This stack scrapes a file, so `PRIMEAGENT_LOG_FILE` is required. If you instead run Primeagent as a container, you can drop the file and scrape its stdout by swapping Alloy's `loki.source.file` target for [`loki.source.docker`](https://grafana.com/docs/alloy/latest/reference/components/loki/loki.source.docker/).
+In JSON mode the file is a single JSON stream: application logs and third-party stdlib loggers (`uvicorn`, `sqlalchemy`, `httpx`, `langchain`) are all rendered as JSON and run through PII redaction, so the `stage.json` parse stage and the **Stdlib intercept routing** panel work against it directly. This stack scrapes a file, so `PRIMEAGENT_LOG_FILE` is required. If you instead run PrimeAgent as a container, you can drop the file and scrape its stdout by swapping Alloy's `loki.source.file` target for [`loki.source.docker`](https://grafana.com/docs/alloy/latest/reference/components/loki/loki.source.docker/).
 
 See [Logs and observability](../../../docs/docs/Develop/observability-grafana-loki.mdx) for the full list of environment variables (per-logger overrides, extra PII redaction keys, trace correlation, etc.).
 
@@ -51,9 +51,9 @@ To stop:
 docker compose down -v
 ```
 
-### Quick smoke test (no Primeagent required)
+### Quick smoke test (no PrimeAgent required)
 
-To verify the stack end to end without running Primeagent, write a sample record into the bundled `./logs` directory and query Loki directly:
+To verify the stack end to end without running PrimeAgent, write a sample record into the bundled `./logs` directory and query Loki directly:
 
 ```bash
 mkdir -p logs

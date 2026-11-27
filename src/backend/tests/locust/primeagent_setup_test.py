@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Primeagent Load Test Setup CLI
+"""PrimeAgent Load Test Setup CLI
 
-This script sets up a complete Primeagent test environment by:
-1. Starting Primeagent (optional)
+This script sets up a complete PrimeAgent test environment by:
+1. Starting PrimeAgent (optional)
 2. Creating a test user account
 3. Authenticating and getting JWT tokens
 4. Creating API keys
@@ -53,7 +53,7 @@ async def authenticate_setup_client(client) -> tuple[str, str, str]:
 
 
 async def get_starter_projects_from_api(host: str, access_token: str) -> list[dict]:
-    """Get starter projects from Primeagent API."""
+    """Get starter projects from PrimeAgent API."""
     import httpx
 
     # Ensure proper URL formatting
@@ -101,10 +101,10 @@ async def get_starter_projects_from_api(host: str, access_token: str) -> list[di
 
 
 async def list_available_flows(host: str, access_token: str) -> list[tuple[str, str, str]]:
-    """List all available starter project flows from Primeagent API.
+    """List all available starter project flows from PrimeAgent API.
 
     Args:
-        host: Primeagent host URL
+        host: PrimeAgent host URL
         access_token: JWT access token for authentication
 
     Returns:
@@ -160,7 +160,7 @@ async def get_flow_data_by_name(host: str, access_token: str, flow_name: str) ->
     """Get flow data for a specific starter project by name.
 
     Args:
-        host: Primeagent host URL
+        host: PrimeAgent host URL
         access_token: JWT access token for authentication
         flow_name: Name of the flow to retrieve
 
@@ -221,7 +221,7 @@ async def select_flow_interactive(host: str, access_token: str) -> str | None:
 
 
 async def setup_primeagent_environment(host: str, flow_name: str | None = None, interactive: bool = False) -> dict:
-    """Set up complete Primeagent environment with real starter project flows."""
+    """Set up complete PrimeAgent environment with real starter project flows."""
     try:
         import httpx
     except ImportError:
@@ -243,12 +243,12 @@ async def setup_primeagent_environment(host: str, flow_name: str | None = None, 
 
     async with httpx.AsyncClient(base_url=host, timeout=60.0) as client:
         # Step 1: Health check
-        print(f"\n1. Checking Primeagent health at {host}...")
+        print(f"\n1. Checking PrimeAgent health at {host}...")
         try:
             health_response = await client.get("/health")
             if health_response.status_code != 200:
                 raise Exception(f"Health check failed: {health_response.status_code}")
-            print("   ✅ Primeagent is running and accessible")
+            print("   ✅ PrimeAgent is running and accessible")
         except Exception as e:
             print(f"   ❌ Health check failed: {e}")
             raise
@@ -330,7 +330,7 @@ async def setup_primeagent_environment(host: str, flow_name: str | None = None, 
 
         try:
             # Prepare flow data for upload
-            # Remove the id to let Primeagent generate a new one
+            # Remove the id to let PrimeAgent generate a new one
             flow_upload_data = flow_data.copy()
             if "id" in flow_upload_data:
                 del flow_upload_data["id"]
@@ -435,7 +435,7 @@ def save_credentials(setup_state: dict, output_file: str):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Set up Primeagent load test environment with real starter project flows",
+        description="Set up PrimeAgent load test environment with real starter project flows",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -459,7 +459,7 @@ Examples:
     parser.add_argument(
         "--host",
         default="http://localhost:7860",
-        help="Primeagent host URL (default: http://localhost:7860, use https:// for remote instances)",
+        help="PrimeAgent host URL (default: http://localhost:7860, use https:// for remote instances)",
     )
     parser.add_argument("--flow", help="Name of the starter project flow to use")
     parser.add_argument("--interactive", action="store_true", help="Interactive flow selection")
@@ -484,9 +484,9 @@ Examples:
                 try:
                     health_response = await client.get("/health")
                     if health_response.status_code != 200:
-                        raise Exception(f"Primeagent not available at {args.host}")
+                        raise Exception(f"PrimeAgent not available at {args.host}")
                 except Exception as e:
-                    print(f"❌ Cannot connect to Primeagent at {args.host}: {e}")
+                    print(f"❌ Cannot connect to PrimeAgent at {args.host}: {e}")
                     sys.exit(1)
 
                 # Authenticate to get access token

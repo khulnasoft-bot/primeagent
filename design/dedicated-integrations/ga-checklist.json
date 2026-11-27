@@ -8,7 +8,7 @@
       "status": "pending-signoff",
       "pending": {
         "owner": "release owner",
-        "reason": "Hosted live validation requires a deployed hosted environment with the Primeagent-owned OAuth registrations; automated evidence covers the shared code paths but the signed hosted run is a human gate."
+        "reason": "Hosted live validation requires a deployed hosted environment with the PrimeAgent-owned OAuth registrations; automated evidence covers the shared code paths but the signed hosted run is a human gate."
       }
     },
     "self_managed": {
@@ -22,7 +22,7 @@
       "status": "pending-signoff",
       "pending": {
         "owner": "release owner",
-        "reason": "Desktop validation requires the Tauri build exercising the loopback_redirect path with Primeagent-owned public clients; automated tests cover the loopback configuration rules but the signed Desktop run is a human gate."
+        "reason": "Desktop validation requires the Tauri build exercising the loopback_redirect path with PrimeAgent-owned public clients; automated tests cover the loopback configuration rules but the signed Desktop run is a human gate."
       }
     },
     "headless": {

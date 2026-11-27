@@ -107,7 +107,7 @@ safetensors 0.8.0, and Python 3.14.3 on macOS:
   loaded successfully through both APIs on both releases.
 
 All files were disposable local fixtures; no host data or external model was used.
-This confirms the dependency bug, not reachability from every Primeagent feature.
+This confirms the dependency bug, not reachability from every PrimeAgent feature.
 The lock pulls Accelerate through `docling-slim`'s `models-local` and `standard`
 extras. The local Docling bundle requires that stack. A complete backport needs
 both containment and non-regular-file handling, with explicit tests for legitimate
@@ -161,7 +161,7 @@ These six published advisories are candidates for the reported Mend total of six
 The actual Mend identifiers were unavailable, so the mapping remains unconfirmed.
 Each needs its own exposure assessment; a package-query result alone is incomplete.
 
-Built-in Primeagent paths use Chroma clients, including embedded `PersistentClient`,
+Built-in PrimeAgent paths use Chroma clients, including embedded `PersistentClient`,
 and do not themselves start Chroma's Python FastAPI server. This is relevant to
 specific server advisories, but is not sufficient to waive all six findings or
 assess a user-operated Chroma server.
@@ -207,7 +207,7 @@ See [manual installation instructions](../src/bundles/wfx-bundles/README.md#open
 That opt-in restores the upstream cache consumers, including File Description
 Generator's `DoclingDescriptionBuilder` with caching enabled. **Such environments
 remain affected** and require their own security assessment. This removal covers
-Primeagent-managed dependencies, not user-installed OpenDsStar environments.
+PrimeAgent-managed dependencies, not user-installed OpenDsStar environments.
 
 The dependency regression check rejects OpenDsStar or DiskCache in `uv.lock` and
 in the bundle generator. The full-workspace export, Mend's Python 3.12/Linux

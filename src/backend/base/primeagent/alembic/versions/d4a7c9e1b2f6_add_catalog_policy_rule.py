@@ -584,7 +584,7 @@ def _validate_sqlite_collations(conn: sa.Connection) -> None:
 def _validate_existing_table(conn: sa.Connection) -> None:
     """Validate stable structure without writing probe rows.
 
-    Primeagent calls SQLModel ``create_all`` before Alembic on a fresh install, so
+    PrimeAgent calls SQLModel ``create_all`` before Alembic on a fresh install, so
     this path is normal startup behavior. Keep the checks limited to stable
     structural invariants so future model changes do not invalidate this
     historical migration.

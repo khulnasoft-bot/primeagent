@@ -539,7 +539,7 @@ class TestKeyFileManagement:
 
 @pytest.mark.usefixtures("client")
 class TestMigrationWithRealDatabase:
-    """Integration tests using real Primeagent database fixtures."""
+    """Integration tests using real PrimeAgent database fixtures."""
 
     async def test_credential_variable_stored_encrypted(
         self,
@@ -610,10 +610,10 @@ class TestMigrationWithRealDatabase:
 
 @pytest.mark.usefixtures("client")
 class TestMigrationCompatibility:
-    """Test that migration script is compatible with Primeagent's encryption."""
+    """Test that migration script is compatible with PrimeAgent's encryption."""
 
     def test_script_encryption_matches_primeagent(self, migrate_module):
-        """Verify migration script produces same results as Primeagent's auth utils."""
+        """Verify migration script produces same results as PrimeAgent's auth utils."""
         from primeagent.services.auth import utils as auth_utils
 
         settings_service = get_settings_service()
@@ -621,7 +621,7 @@ class TestMigrationCompatibility:
 
         plaintext = "test-api-key-compatibility"
 
-        # Encrypt with Primeagent
+        # Encrypt with PrimeAgent
         primeagent_encrypted = auth_utils.encrypt_api_key(plaintext, settings_service)
 
         # Decrypt with migration script
@@ -631,7 +631,7 @@ class TestMigrationCompatibility:
         # Encrypt with migration script
         script_encrypted = migrate_module.encrypt_with_key(plaintext, secret_key)
 
-        # Decrypt with Primeagent
+        # Decrypt with PrimeAgent
         primeagent_decrypted = auth_utils.decrypt_api_key(script_encrypted, settings_service)
         assert primeagent_decrypted == plaintext
 
@@ -1249,7 +1249,7 @@ class TestKeySources:
         )
 
         assert self._stored_api_key(migrate_module, engine, new_key) == "lf-api-key-value"
-        # Primeagent reads secret_key as it is, so the newline that ends a key file must not reach it.
+        # PrimeAgent reads secret_key as it is, so the newline that ends a key file must not reach it.
         assert (config_dir / "secret_key").read_text() == new_key
 
     def test_reads_keys_and_database_url_from_the_environment(
@@ -1710,7 +1710,7 @@ class TestRotationOnAppWrittenDatabase:
         from sqlmodel import Session, select
 
         engine, config_dir, url, app_key = app_db
-        # The default folder Primeagent creates for every user leaves auth_settings unset.
+        # The default folder PrimeAgent creates for every user leaves auth_settings unset.
         with Session(engine) as session:
             session.add(Folder(name="Starter Project", user_id=session.exec(select(User)).one().id))
             session.commit()
@@ -1775,7 +1775,7 @@ class TestRotationOnAppWrittenDatabase:
 
     def test_env_secret_key_must_be_updated_before_restart(self, migrate_module, app_db, new_key, monkeypatch, capsys):
         _, config_dir, url, app_key = app_db
-        # Primeagent uses this over the key file and writes it back over the file on start.
+        # PrimeAgent uses this over the key file and writes it back over the file on start.
         monkeypatch.setenv("PRIMEAGENT_SECRET_KEY", app_key)
 
         migrate_module.migrate(config_dir, url, old_key=app_key, new_key=new_key)

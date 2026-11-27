@@ -57,7 +57,7 @@ def test_full_release_requires_and_consumes_the_aligned_base_artifact() -> None:
     main_build = _job_block(WORKFLOW_PATH, "build-main", "build-bundles")
 
     assert "primeagent ($main_version) and primeagent-base ($base_version) must be version-aligned" in validation
-    assert "Please enable 'release_package_base' when releasing Primeagent" in validation
+    assert "Please enable 'release_package_base' when releasing PrimeAgent" in validation
     assert "Download base artifact" in main_build
     assert "Pin primeagent-base release dependency" in main_build
     assert "update_bundle_prerelease_dependencies.py" in main_build

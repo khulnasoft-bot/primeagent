@@ -201,7 +201,7 @@ async def run_flow_for_openai_responses(
         event_manager = create_stream_tokens_event_manager(queue=asyncio_queue)
 
         async def openai_stream_generator() -> AsyncGenerator[str, None]:
-            """Convert Primeagent events to OpenAI Responses API streaming format."""
+            """Convert PrimeAgent events to OpenAI Responses API streaming format."""
             # Around the create_task only: the task copies the context at creation, and there is
             # no await inside the scope, so nothing straddles a suspension point of this generator.
             with execution_protocol("openai_responses"):
@@ -811,7 +811,7 @@ async def create_response(
     """Create a response using OpenAI Responses API format.
 
     This endpoint accepts a flow_id in the model parameter and processes
-    the input through the specified Primeagent flow.
+    the input through the specified PrimeAgent flow.
 
     Args:
         request: OpenAI Responses API request with model (flow_id) and input

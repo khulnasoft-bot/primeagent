@@ -369,7 +369,7 @@ class URLComponent(Component):
     def _resolve_byte_limit(env_var: str, setting_name: str, fallback: int) -> int:
         """Resolve one byte cap from settings, or the environment when no service is available.
 
-        The settings service applies Primeagent's normal configuration precedence. Reading the
+        The settings service applies PrimeAgent's normal configuration precedence. Reading the
         process environment directly is only a fallback for standalone ``wfx`` execution.
         """
         try:

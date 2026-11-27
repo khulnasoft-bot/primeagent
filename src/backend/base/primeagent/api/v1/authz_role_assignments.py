@@ -51,7 +51,7 @@ router = APIRouter(prefix="/authz/role-assignments", tags=["Authorization"])
 # See ``authz_roles._LIST_MAX_LIMIT`` — same bound, applied to assignments.
 _LIST_MAX_LIMIT = 200
 _LIST_DEFAULT_LIMIT = 100
-OperationId = Annotated[str | None, Header(alias="X-Primeagent-Operation-ID", max_length=128)]
+OperationId = Annotated[str | None, Header(alias="X-PrimeAgent-Operation-ID", max_length=128)]
 _LEGACY_SUPERUSER_DENIAL = "Superuser required to administer role assignments."
 
 SCOPE_CONFLICT_DETAIL = (
@@ -378,7 +378,7 @@ async def create_assignment(
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=exc.public_detail,
-            headers={"X-Primeagent-Error-Code": "access_ceiling"},
+            headers={"X-PrimeAgent-Error-Code": "access_ceiling"},
         ) from exc
     except IntegrityError as exc:
         await session.rollback()
@@ -497,7 +497,7 @@ async def delete_assignment(
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail="IdP-derived assignments cannot be deleted through the manual assignment API",
-            headers={"X-Primeagent-Error-Code": "externally_managed"},
+            headers={"X-PrimeAgent-Error-Code": "externally_managed"},
         )
     if manual_grant is not None and len(grants) > 1:
         surviving_grants = [grant for grant in grants if grant is not manual_grant]
@@ -562,7 +562,7 @@ async def delete_assignment(
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
             detail=exc.public_detail,
-            headers={"X-Primeagent-Error-Code": "access_ceiling"},
+            headers={"X-PrimeAgent-Error-Code": "access_ceiling"},
         ) from exc
 
     await session.delete(assignment)

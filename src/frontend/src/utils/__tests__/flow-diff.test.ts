@@ -412,7 +412,7 @@ describe("values that are not plain strings", () => {
 });
 
 describe("targets whose id contains the key separator", () => {
-  // A real Primeagent edge id: it embeds serialized handles, colons included.
+  // A real PrimeAgent edge id: it embeds serialized handles, colons included.
   const REAL_EDGE_ID =
     "reactflow__edge-ChatInput-tKQ4d{œdataTypeœ:œChatInputœ,œidœ:œChatInput-tKQ4dœ}-Agent-EXpSZ{œfieldNameœ:œinput_valueœ}";
 

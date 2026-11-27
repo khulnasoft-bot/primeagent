@@ -1,7 +1,7 @@
 [project]
 name = "wfx-oracle"
 version = "0.2.0"
-description = "Oracle Database components (Doc Loader, Autonomous Database Loader, Embeddings, Vector Store) as a standalone Primeagent Extension Bundle."
+description = "Oracle Database components (Doc Loader, Autonomous Database Loader, Embeddings, Vector Store) as a standalone PrimeAgent Extension Bundle."
 readme = "README.md"
 requires-python = ">=3.10,<3.15"
 license = { text = "MIT" }

@@ -24,7 +24,7 @@ async def _read_back(root: Path, name: str, entry: dict) -> tuple[int, int]:
 
 
 def test_seed_writes_sqlite_knowledge_bases(tmp_path):
-    # A subprocess, because the script configures Primeagent's services from the environment.
+    # A subprocess, because the script configures PrimeAgent's services from the environment.
     manifest_path = tmp_path / "manifest.json"
     result = subprocess.run(  # noqa: S603
         [sys.executable, str(SCRIPT), "--chunks", "3", "--manifest", str(manifest_path)],

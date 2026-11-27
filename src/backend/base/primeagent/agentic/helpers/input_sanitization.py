@@ -4,7 +4,7 @@ Security: Validates and sanitizes user input BEFORE it reaches the LLM. Detects 
 injection (instruction override, system prompt leaking, role hijacking) and, via
 content_safety, slurs and explicit profanity.
 
-Injection patterns are intentionally specific, to avoid firing on legitimate Primeagent
+Injection patterns are intentionally specific, to avoid firing on legitimate PrimeAgent
 questions such as "how do I ignore errors".
 
 Trust boundary (LE-2323): the injection patterns describe what an UNTRUSTED party may
@@ -25,9 +25,9 @@ MAX_INPUT_LENGTH = 2000
 
 REFUSAL_MESSAGE = (
     "I'm sorry, but I can't process that request. "
-    "I'm the Primeagent Assistant and I can help you with "
-    "Primeagent components, flows, and technical questions. "
-    "Please rephrase your question about Primeagent."
+    "I'm the PrimeAgent Assistant and I can help you with "
+    "PrimeAgent components, flows, and technical questions. "
+    "Please rephrase your question about PrimeAgent."
 )
 
 ACT_AS_PATTERN = re.compile(r"\bact\s+as\s+(a|an|if\s+you\s+were)\s+", re.IGNORECASE)

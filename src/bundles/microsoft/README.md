@@ -1,6 +1,6 @@
 # wfx-microsoft
 
-Microsoft 365 and Teams actions for Primeagent, backed by **delegated** Microsoft Graph
+Microsoft 365 and Teams actions for PrimeAgent, backed by **delegated** Microsoft Graph
 v1.0 permissions. Application (app-only) permissions are deliberately excluded.
 
 ## Install

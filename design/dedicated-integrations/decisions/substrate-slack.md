@@ -36,7 +36,7 @@ Pros: exercises the strategic substrate where it is closest to production; user-
 subject to the non-Marketplace Web API reduction (fact 6); Slack maintains the tool schemas.
 Cons: two auth and error paths in one bundle; requires INT-9 pinned mode (3 engineer-weeks, delivered in 1.13 by the
 2026-09-04 amendment below); the hosted
-Primeagent-owned app must be directory-published (fact 2), which is a Slack review with its own lead time; GA is now cited (fact 3); tool identifiers for the four user actions are not in the docs (fact 8).
+PrimeAgent-owned app must be directory-published (fact 2), which is a Slack review with its own lead time; GA is now cited (fact 3); tool identifiers for the four user actions are not in the docs (fact 8).
 Cost: INT-9 plus the Marketplace listing lead time for hosted.
 
 ### Option B: Web API throughout (selected for 1.13)
@@ -57,7 +57,7 @@ bot use cases (post as app, react, list members) disappear from wave 1. Not reco
 Option B for 1.13. Every `slack.user.*` and `slack.bot.*` action runs on the documented Slack Web API. User actions
 use a user-token authorization-code profile; bot actions use the workspace-install bot-token profile and remain
 unavailable on Desktop (fact 5). Hosted and self-managed registrations are confidential clients; Desktop user
-actions use a Primeagent-owned, PKCE-enabled public client with loopback redirect (a second Slack app, with a
+actions use a PrimeAgent-owned, PKCE-enabled public client with loopback redirect (a second Slack app, with a
 customer-owned registration as the override; `decisions/desktop-oauth-ownership.md`); headless credentials are
 externally provisioned. `substrate_decision.chosen` in `matrices/slack.json` is `["rest"]`.
 
@@ -99,7 +99,7 @@ Consequently:
 - The hosted Slack app still needs a Slack Marketplace listing to avoid the reduced
   `conversations.replies` rate tier; the estimate records it as calendar risk.
 - Desktop hides bot actions in both options (fact 5).
-- Desktop Slack user actions use a second, Primeagent-owned, PKCE-enabled Slack app; because PKCE opt-in is one-way
+- Desktop Slack user actions use a second, PrimeAgent-owned, PKCE-enabled Slack app; because PKCE opt-in is one-way
   and marks the app public (fact 9), it cannot share a registration with the confidential-client hosted install. A
   customer-owned PKCE app remains the override (`decisions/desktop-oauth-ownership.md`). INT-5 records client type
   and owner per context through the named OAuth profiles in `connection-contract.md` section 8.

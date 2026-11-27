@@ -223,7 +223,7 @@ export function shouldSettleApiRequestOnResponse(rawUrl, contentType) {
     return false;
   }
 
-  // Primeagent also uses NDJSON for finite polling responses. Only the explicit
+  // PrimeAgent also uses NDJSON for finite polling responses. Only the explicit
   // streaming/direct delivery modes can legitimately outlive the test while
   // their response headers already provide the final HTTP status.
   const deliveryMode = new URL(rawUrl, "http://localhost").searchParams.get(

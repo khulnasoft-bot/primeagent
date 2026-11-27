@@ -13,7 +13,7 @@ from wfx.utils.constants import (
     REASONING_OPENAI_MODELS,
 )
 
-# Primeagent-specific constants
+# PrimeAgent-specific constants
 PRIMEAGENT_GLOBAL_VAR_HEADER_PREFIX = "x-primeagent-global-var-"
 
 __all__ = [

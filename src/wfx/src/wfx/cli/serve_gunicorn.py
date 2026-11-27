@@ -4,7 +4,7 @@ Uses ``preload_app=True`` so the master builds the warm app once and forks
 workers (copy-on-write). ``--max-requests`` recycles workers to bound memory (worker
 hygiene, not per-request isolation — see ``_launch_workers`` for the isolation story).
 
-The ``pre_fork`` hook (mirrors ``primeagent.server.PrimeagentApplication``) runs in
+The ``pre_fork`` hook (mirrors ``primeagent.server.PrimeAgentApplication``) runs in
 the master immediately before each worker is forked: it ``gc.freeze()``s the
 fully-built, warmed preload heap so workers inherit it via copy-on-write without
 the GC dirtying shared pages (preserving the preload memory savings), and warns

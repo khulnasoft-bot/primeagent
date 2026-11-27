@@ -1,6 +1,6 @@
-"""Resolve the FileSystem sandbox root for the Primeagent Assistant.
+"""Resolve the FileSystem sandbox root for the PrimeAgent Assistant.
 
-The shipped PrimeagentAssistant flow embeds a FileSystemTool whose `root_path`
+The shipped PrimeAgentAssistant flow embeds a FileSystemTool whose `root_path`
 must be a non-empty, OS-appropriate directory at runtime. Hardcoding any
 value (developer's home, /tmp, etc.) breaks portability across macOS, Linux,
 Windows and Docker, so the path is resolved here.

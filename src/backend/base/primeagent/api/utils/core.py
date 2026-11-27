@@ -269,10 +269,10 @@ async def check_primeagent_version(component: StoreComponentCreate) -> None:
 
     primeagent_version = await get_lf_version_from_pypi()
     if primeagent_version is None:
-        raise HTTPException(status_code=500, detail="Unable to verify the latest version of Primeagent")
+        raise HTTPException(status_code=500, detail="Unable to verify the latest version of PrimeAgent")
     if primeagent_version != component.last_tested_version:
         await logger.awarning(
-            f"Your version of Primeagent ({component.last_tested_version}) is outdated. "
+            f"Your version of PrimeAgent ({component.last_tested_version}) is outdated. "
             f"Please update to the latest version ({primeagent_version}) and try again."
         )
 
@@ -427,7 +427,7 @@ def extract_global_variables_from_headers(headers, *, include_auth_headers: bool
 
     SECURITY NOTE: Only pass ``include_auth_headers=True`` from MCP call sites
     (see ``api/v1/mcp_projects.py``). On non-MCP routes such as ``/run`` and
-    ``/workflow``, ``x-api-key`` is Primeagent's own authentication key — exposing
+    ``/workflow``, ``x-api-key`` is PrimeAgent's own authentication key — exposing
     it in ``request_variables`` would make it readable by any component that
     reads the graph context.
 

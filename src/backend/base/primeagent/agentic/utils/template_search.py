@@ -1,4 +1,4 @@
-"""Template search and loading utilities for Primeagent."""
+"""Template search and loading utilities for PrimeAgent."""
 
 import json
 from pathlib import Path

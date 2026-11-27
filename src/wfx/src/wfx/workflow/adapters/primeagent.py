@@ -89,7 +89,7 @@ _PRIMEAGENT_DURABLE_EVENTS: frozenset[str] = frozenset(
 )
 
 
-class PrimeagentAdapter:
+class PrimeAgentAdapter:
     """Passthrough adapter: each EventManager event becomes one wire event.
 
     On a terminal ``end_vertex`` it ALSO emits a normalized ``output`` event whose
@@ -190,4 +190,4 @@ class PrimeagentAdapter:
         return event_type in _PRIMEAGENT_DURABLE_EVENTS
 
 
-register_stream_adapter("primeagent", PrimeagentAdapter)
+register_stream_adapter("primeagent", PrimeAgentAdapter)

@@ -3,9 +3,9 @@ title: Administer users and teams with the API and CLI
 slug: /admin-api-cli
 ---
 
-Primeagent provides a command-line interface for administering user, team, role, and role assignment. The CLI calls the existing `/api/v1` routes with a Primeagent API key.
+PrimeAgent provides a command-line interface for administering user, team, role, and role assignment. The CLI calls the existing `/api/v1` routes with a PrimeAgent API key.
 
-`primeagent admin` is documented separately here from the [Primeagent CLI](/configuration-cli) because Primeagent CLI commands start the server or change the local installation, while `primeagent admin` calls a Primeagent server that is already running.
+`primeagent admin` is documented separately here from the [PrimeAgent CLI](/configuration-cli) because PrimeAgent CLI commands start the server or change the local installation, while `primeagent admin` calls a PrimeAgent server that is already running.
 
 A role assignment controls what a user can do, but requires an [authorization plugin](./authorization) to be installed and `PRIMEAGENT_AUTHZ_ENABLED` to be set to `true`.
 
@@ -21,13 +21,13 @@ Check the caller's permissions and optional Enterprise features with `GET /api/v
 
 ## Authenticate the CLI
 
-The administration CLI sends `X-API-Key` and a unique `X-Primeagent-Operation-ID` on every API request.
+The administration CLI sends `X-API-Key` and a unique `X-PrimeAgent-Operation-ID` on every API request.
 
 To authenticate the CLI, do the following:
 
-1. Create a [Primeagent API key](/api-keys-and-authentication#primeagent-api-keys) for the account that will run the commands. A superuser can administer every resource. A non-superuser can administer a resource only when an authorization plugin grants that resource's permission.
+1. Create a [PrimeAgent API key](/api-keys-and-authentication#primeagent-api-keys) for the account that will run the commands. A superuser can administer every resource. A non-superuser can administer a resource only when an authorization plugin grants that resource's permission.
 
-2. Save a profile as JSON. A profile stores the Primeagent server URL and the name of the environment variable that contains the API key. It does not store the actual key. The default file is `admin-profiles.json` in the Primeagent user configuration directory:
+2. Save a profile as JSON. A profile stores the PrimeAgent server URL and the name of the environment variable that contains the API key. It does not store the actual key. The default file is `admin-profiles.json` in the PrimeAgent user configuration directory:
 
    - **macOS**: `~/Library/Application Support/primeagent/admin-profiles.json`
    - **Linux**: `~/.config/primeagent/admin-profiles.json`
@@ -144,7 +144,7 @@ To assign a role, do the following:
 
 ## Apply a saved administration file
 
-Use an administration file when you want the same users, teams, roles, and assignments on another Primeagent server, or checked into source control.
+Use an administration file when you want the same users, teams, roles, and assignments on another PrimeAgent server, or checked into source control.
 
 To apply a saved administration file, do the following:
 
@@ -223,7 +223,7 @@ A script can call the same routes the CLI calls.
 
 To call the administration API, do the following:
 
-1. Create a [Primeagent API key](/api-keys-and-authentication#primeagent-api-keys) for the account that will call the API. A superuser can administer every resource.
+1. Create a [PrimeAgent API key](/api-keys-and-authentication#primeagent-api-keys) for the account that will call the API. A superuser can administer every resource.
    Include the created key in the request's `x-api-key` header.
 
 2. Call the route for the action.
@@ -257,13 +257,13 @@ To call the administration API, do the following:
      -H "x-api-key: $PRIMEAGENT_API_KEY"
    ```
 
-3. If the request is refused, read the status code and the `X-Primeagent-Error-Code` header.
+3. If the request is refused, read the status code and the `X-PrimeAgent-Error-Code` header.
 
    | Response | Header                                           | When                                                                             |
    | -------- | ------------------------------------------------ | -------------------------------------------------------------------------------- |
-   | `403`    | `X-Primeagent-Error-Code: administration_denied` | The caller is not allowed to administer that resource.                           |
-   | `409`    | `X-Primeagent-Error-Code: externally_managed`    | The change would edit a membership or assignment owned by the identity provider. |
-   | `409`    | `X-Primeagent-Error-Code: access_ceiling`        | The authorization plugin rejected the change as a privilege escalation.          |
+   | `403`    | `X-PrimeAgent-Error-Code: administration_denied` | The caller is not allowed to administer that resource.                           |
+   | `409`    | `X-PrimeAgent-Error-Code: externally_managed`    | The change would edit a membership or assignment owned by the identity provider. |
+   | `409`    | `X-PrimeAgent-Error-Code: access_ceiling`        | The authorization plugin rejected the change as a privilege escalation.          |
 
-To record user, team, role, and role-assignment changes in the [authorization audit log](./authorization#audit-log-api), set `PRIMEAGENT_AUTHZ_AUDIT_ENABLED=true` and restart Primeagent to enable audit logging.
+To record user, team, role, and role-assignment changes in the [authorization audit log](./authorization#audit-log-api), set `PRIMEAGENT_AUTHZ_AUDIT_ENABLED=true` and restart PrimeAgent to enable audit logging.
 The log stores who made the change and which fields changed. Passwords and API keys are omitted.

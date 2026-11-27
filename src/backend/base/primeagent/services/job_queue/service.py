@@ -1002,7 +1002,7 @@ class RedisJobQueueService(JobQueueService):
         logger.debug("RedisJobQueueService started.")
 
     # Startup connectivity probe tunables (overridable in tests). A short retry
-    # window tolerates Redis that comes up a beat after Primeagent, e.g. a
+    # window tolerates Redis that comes up a beat after PrimeAgent, e.g. a
     # docker-compose service without a healthcheck-gated dependency.
     _STARTUP_PROBE_ATTEMPTS = 5
     _STARTUP_PROBE_BACKOFF_S = 1.0
@@ -1074,7 +1074,7 @@ class RedisJobQueueService(JobQueueService):
             await logger.aerror(
                 f"RedisJobQueueService: cannot reach Redis at {self.connection_target} — {exc}. "
                 "Build events will NOT be delivered. "
-                "Set PRIMEAGENT_JOB_QUEUE_TYPE=asyncio or start Redis before running Primeagent."
+                "Set PRIMEAGENT_JOB_QUEUE_TYPE=asyncio or start Redis before running PrimeAgent."
             )
 
     async def stop(self) -> None:

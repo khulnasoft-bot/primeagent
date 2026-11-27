@@ -1,5 +1,5 @@
 import type { Route } from "@playwright/test";
-import { expect, type PrimeagentPage, test } from "../../fixtures";
+import { expect, type PrimeAgentPage, test } from "../../fixtures";
 import { TIMEOUTS } from "../../utils/constants/timeouts";
 
 /**
@@ -55,7 +55,7 @@ function buildMessages(count: number) {
 }
 
 /** Rows the grid currently exposes as keyboard tab stops. Must never be empty. */
-async function getTabbableRowIndexes(page: PrimeagentPage): Promise<string[]> {
+async function getTabbableRowIndexes(page: PrimeAgentPage): Promise<string[]> {
   return page.evaluate(() =>
     [...document.querySelectorAll('[role="row"]')]
       .filter((row) => {
@@ -66,7 +66,7 @@ async function getTabbableRowIndexes(page: PrimeagentPage): Promise<string[]> {
   );
 }
 
-async function getViewportMetrics(page: PrimeagentPage) {
+async function getViewportMetrics(page: PrimeAgentPage) {
   return page.evaluate(() => {
     const viewport = document.querySelector(".ag-body-viewport");
     if (!viewport) throw new Error("grid body viewport not found");
@@ -78,7 +78,7 @@ async function getViewportMetrics(page: PrimeagentPage) {
   });
 }
 
-async function scrollGridTo(page: PrimeagentPage, scrollTop: number) {
+async function scrollGridTo(page: PrimeAgentPage, scrollTop: number) {
   await page.evaluate((top) => {
     const viewport = document.querySelector(".ag-body-viewport");
     if (!viewport) throw new Error("grid body viewport not found");

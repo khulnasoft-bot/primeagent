@@ -1,6 +1,6 @@
 # wfx-ollama
 
-Ollama language-model and embedding components as a standalone Primeagent
+Ollama language-model and embedding components as a standalone PrimeAgent
 Extension Bundle.
 
 ## Install
@@ -23,5 +23,5 @@ uv run wfx extension validate src/bundles/ollama/src/wfx_ollama
 ```
 
 The bundle graduated from the manifest-less `wfx-bundles[ollama]` provider in
-Primeagent 1.12. Its bundle and class names are unchanged, so existing saved
+PrimeAgent 1.12. Its bundle and class names are unchanged, so existing saved
 flows retain their canonical IDs.

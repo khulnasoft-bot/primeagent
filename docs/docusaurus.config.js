@@ -11,9 +11,9 @@ const isProduction = process.env.NODE_ENV === "production";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Primeagent Documentation",
+  title: "PrimeAgent Documentation",
   tagline:
-    "Primeagent is a low-code app builder for RAG and multi-agent AI applications.",
+    "PrimeAgent is a low-code app builder for RAG and multi-agent AI applications.",
   favicon: "img/favicon.ico",
   url: "https://prime.khulnasoft.com",
   baseUrl: process.env.BASE_URL ? process.env.BASE_URL : "/docs/",
@@ -223,7 +223,7 @@ const config = {
     ],
   ],
   plugins: [
-    // Alias so MDX can import code from the Primeagent repo with !!raw-loader!@primeagent/src/...
+    // Alias so MDX can import code from the PrimeAgent repo with !!raw-loader!@primeagent/src/...
     function primeagentCodeImportPlugin(context) {
       return {
         name: "primeagent-code-import",
@@ -255,7 +255,7 @@ const config = {
             to: "/",
             from: [
               "/whats-new-a-new-chapter-primeagent",
-              "/👋 Welcome-to-Primeagent",
+              "/👋 Welcome-to-PrimeAgent",
               "/getting-started-welcome-to-primeagent",
               "/guides-new-to-llms",
               "/about-primeagent",
@@ -530,7 +530,7 @@ const config = {
       navbar: {
         hideOnScroll: false,
         logo: {
-          alt: "Primeagent",
+          alt: "PrimeAgent",
           src: "img/lf-docs-light.svg",
           srcDark: "img/lf-docs-dark.svg",
         },
@@ -552,7 +552,7 @@ const config = {
             "data-channel": "docs",
             "data-element-id": "social-github",
             "data-namespace": "header",
-            "data-platform-title": "Primeagent",
+            "data-platform-title": "PrimeAgent",
           },
           {
             position: "right",
@@ -566,7 +566,7 @@ const config = {
             "data-channel": "docs",
             "data-element-id": "social-twitter",
             "data-namespace": "header",
-            "data-platform-title": "Primeagent",
+            "data-platform-title": "PrimeAgent",
           },
           {
             position: "right",
@@ -580,7 +580,7 @@ const config = {
             "data-channel": "docs",
             "data-element-id": "social-discord",
             "data-namespace": "header",
-            "data-platform-title": "Primeagent",
+            "data-platform-title": "PrimeAgent",
           },
         ],
       },
@@ -616,7 +616,7 @@ const config = {
             items: [
               {
                 html: `<div class="footer-links">
-                  <span>© ${new Date().getFullYear()} Primeagent</span>
+                  <span>© ${new Date().getFullYear()} PrimeAgent</span>
                   <span id="preferenceCenterContainer"> ·&nbsp; <a href="#" onclick="if(typeof window !== 'undefined' && window.truste && window.truste.eu && window.truste.eu.clickListener) { window.truste.eu.clickListener(); } return false;" style="cursor: pointer;">Manage Privacy Choices</a></span>
                   </div>`,
               },

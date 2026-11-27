@@ -105,7 +105,7 @@ it("names orphaned folders and retries discovery without a migration ID", async 
     screen.getByText(status.inventory!.storage_directory!),
   ).toBeInTheDocument();
   expect(screen.getByText("former-owner/my-base")).toBeInTheDocument();
-  expect(screen.getByText(/another Primeagent database/)).toBeInTheDocument();
+  expect(screen.getByText(/another PrimeAgent database/)).toBeInTheDocument();
   expect(await axe(document.body)).toHaveNoViolations();
   fireEvent.click(screen.getByRole("button", { name: /retry storage check/i }));
   expect(mutate).toHaveBeenCalledWith({ inventory: true }, expect.any(Object));
@@ -146,7 +146,7 @@ it("explains an unfinished storage check instead of naming earlier folders", () 
     screen.getByText(/last storage check did not finish/i),
   ).toBeInTheDocument();
   expect(
-    screen.queryByText(/another Primeagent database/),
+    screen.queryByText(/another PrimeAgent database/),
   ).not.toBeInTheDocument();
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
   expect(
@@ -232,7 +232,7 @@ it("lets an administrator retry the bound migration and reports scheduling failu
   mutate.mockImplementation((_params, options) => options.onError());
   render(<StorageUpgradePanel kbId="kb-id" />, { wrapper: wrapper() });
   expect(
-    screen.getByText(/Stop all other Primeagent processes on this host/),
+    screen.getByText(/Stop all other PrimeAgent processes on this host/),
   ).toBeInTheDocument();
   fireEvent.click(screen.getByRole("button", { name: /retry upgrade/i }));
   expect(mutate).toHaveBeenCalledWith(
@@ -270,7 +270,7 @@ it.each(["panel", "dialog"])(
     }
     expect(
       screen.getByText(
-        "Stop all other Primeagent processes on this host, then retry the upgrade. This includes instances using different databases or knowledge directories.",
+        "Stop all other PrimeAgent processes on this host, then retry the upgrade. This includes instances using different databases or knowledge directories.",
       ),
     ).toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: /retry upgrade/i }));
@@ -283,7 +283,7 @@ it.each(["panel", "dialog"])(
       /resolve the issue shown above/,
     );
     expect(
-      screen.getByText(/Stop all other Primeagent processes on this host/),
+      screen.getByText(/Stop all other PrimeAgent processes on this host/),
     ).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole("button", { name: /retry upgrade/i }));

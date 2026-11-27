@@ -1,4 +1,4 @@
-"""Pure flow-building utilities for constructing Primeagent flows programmatically.
+"""Pure flow-building utilities for constructing PrimeAgent flows programmatically.
 
 All functions operate on plain dicts — no I/O, no network, no global state.
 """

@@ -22,7 +22,7 @@ Set the command to `wfx-mcp` (or `uvx --from wfx wfx-mcp`) and pass the followin
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `PRIMEAGENT_SERVER_URL` | URL of your Primeagent instance | `http://localhost:7860` |
+| `PRIMEAGENT_SERVER_URL` | URL of your PrimeAgent instance | `http://localhost:7860` |
 | `PRIMEAGENT_API_KEY` | API key for authentication | — |
 | `X-PRIMEAGENT-GLOBAL-VAR-<NAME>` | Optional global variable override forwarded as an HTTP header | — |
 
@@ -74,7 +74,7 @@ named `X-PRIMEAGENT-GLOBAL-VAR-<NAME>` to your MCP client configuration. For exa
 }
 ```
 
-`wfx-mcp` forwards the entry as a header on its Primeagent API requests, including
+`wfx-mcp` forwards the entry as a header on its PrimeAgent API requests, including
 streaming flow runs. A flow referencing `ENVIRONMENT` receives `staging` instead
 of its stored value. Prefix matching is case-insensitive, and empty values are
 ignored. Other environment entries are not forwarded as headers.
@@ -101,7 +101,7 @@ The server exposes the following tool groups to the connected MCP client.
 
 | Tool | Description |
 |------|-------------|
-| `login` | Authenticate with a Primeagent server using username and password. Not needed if `PRIMEAGENT_API_KEY` is set. |
+| `login` | Authenticate with a PrimeAgent server using username and password. Not needed if `PRIMEAGENT_API_KEY` is set. |
 
 ### Flows
 
@@ -121,7 +121,7 @@ The server exposes the following tool groups to the connected MCP client.
 
 | Tool | Description |
 |------|-------------|
-| `list_starter_projects` | List Primeagent's built-in example flows |
+| `list_starter_projects` | List PrimeAgent's built-in example flows |
 | `use_starter_project` | Create a new flow from a starter project template |
 
 ### Components
@@ -194,7 +194,7 @@ The `batch` tool lets you send multiple actions in a single call, with `$N.field
 
 ## Quickstart: build and run a flow with Claude Code
 
-This example shows how to connect Claude Code to a running Primeagent instance using `wfx-mcp`, then build, validate, and run a chatbot flow from your terminal.
+This example shows how to connect Claude Code to a running PrimeAgent instance using `wfx-mcp`, then build, validate, and run a chatbot flow from your terminal.
 
 ### Prerequisites
 
@@ -240,7 +240,7 @@ claude
 For example:
 
 ```
-Create a simple agent chatbot flow in Primeagent using OpenAI, validate the flow, and then run it with the message "What is Primeagent?"
+Create a simple agent chatbot flow in PrimeAgent using OpenAI, validate the flow, and then run it with the message "What is PrimeAgent?"
 ```
 
 Given this instruction, Claude Code will typically do the following:

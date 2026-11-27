@@ -1,4 +1,4 @@
-"""Admin endpoints that walk a superuser through moving this instance to a new Primeagent instance.
+"""Admin endpoints that walk a superuser through moving this instance to a new PrimeAgent instance.
 
 Each step runs the verified command as a child process instead of calling its
 functions here. The commands read their configuration from the environment, and the
@@ -222,7 +222,7 @@ async def run_checks(request: CheckRequest, admin: Superuser) -> StreamingRespon
     Read-only, so it is safe to run while the instance serves traffic.
     """
     _require_not_started(_read_record())
-    # Admins paste what the target shows, such as "Primeagent v1.13.0".
+    # Admins paste what the target shows, such as "PrimeAgent v1.13.0".
     version = re.sub(r"^(primeagent\s+)?v?", "", request.target_version.strip(), flags=re.IGNORECASE)
     verdict = check_target_version(version)
     if verdict.status == "warn":
@@ -254,7 +254,7 @@ async def run_checks(request: CheckRequest, admin: Superuser) -> StreamingRespon
     }
     record["steps"]["check_source"] = step
     _write_record(record)
-    await logger.ainfo(f"Migration: user_id={admin.id} started the source checks against Primeagent {version}")
+    await logger.ainfo(f"Migration: user_id={admin.id} started the source checks against PrimeAgent {version}")
     return _ClosingStream(_stream_checks(step), media_type="application/x-ndjson")
 
 
@@ -457,7 +457,7 @@ async def save_destinations(http_request: Request, admin: Superuser) -> dict[str
                 "ok": False,
                 "code": "pgvector_env_missing",
                 "reason": "Set PGVECTOR_CONNECTION_STRING to the database this instance keeps its knowledge bases in, "
-                "then restart Primeagent.",
+                "then restart PrimeAgent.",
             }
         results["vectors"] = results.get("vectors") or (
             await asyncio.to_thread(probe_vectors, address)
@@ -592,7 +592,7 @@ async def confirm_backup(request: BackupRequest, admin: Superuser) -> dict[str, 
 
 @router.post(f"/steps/{CHECK_STEP}/runs", status_code=202)
 async def start_check(admin: Superuser) -> dict[str, str]:
-    """Start the check of the copy: Primeagent's own integrity check, pointed at what the copies wrote.
+    """Start the check of the copy: PrimeAgent's own integrity check, pointed at what the copies wrote.
 
     It runs before the new instance is started, while the destination holds what the copies left
     there and nothing else, so a copy that went well reads the same as this instance. It reads the
@@ -1116,7 +1116,7 @@ async def _stream_checks(step: dict[str, Any]) -> AsyncIterator[bytes]:
 
 
 def _event(event: dict[str, Any]) -> bytes:
-    # A blank line after each event, as Primeagent's other streams send them.
+    # A blank line after each event, as PrimeAgent's other streams send them.
     return (json.dumps(event) + "\n\n").encode()
 
 
@@ -1621,7 +1621,7 @@ def _alone_with(path: Path) -> Iterator[None]:
     """Keep other workers from saving the record while one look at its generation and one save happen."""
     if fcntl is None:
         # ponytail: with no flock, two workers can still save between each other's look and save. Use
-        # msvcrt.locking if Primeagent runs several workers on Windows.
+        # msvcrt.locking if PrimeAgent runs several workers on Windows.
         yield
         return
     # ponytail: a blocking lock on the event loop, held for one small read and one rename.

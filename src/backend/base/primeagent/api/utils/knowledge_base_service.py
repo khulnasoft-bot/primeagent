@@ -272,7 +272,7 @@ async def backfill_all_users_from_disk(
     Legacy-recovery only. The ``knowledge_base`` row is the sole authority for KB
     metadata and nothing in the steady-state code path reads the on-disk
     ``embedding_metadata.json`` sidecar any more, so this exists purely to adopt
-    directories written by a Primeagent version that predates that change. It is
+    directories written by a PrimeAgent version that predates that change. It is
     opt-in at startup (``PRIMEAGENT_KB_DISK_RECONCILE_ENABLED``) and available on
     demand as ``primeagent reconcile-kb-from-disk``.
 

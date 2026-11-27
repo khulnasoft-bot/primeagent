@@ -141,7 +141,7 @@ def _application_telemetry_withheld() -> Iterator[None]:
             _boundary_installed = True
         elif not _boundary_installed:
             msg = (
-                "Traceloop was initialised without the filter that keeps Primeagent's own "
+                "Traceloop was initialised without the filter that keeps PrimeAgent's own "
                 "telemetry out of its exporter, so the integration has been disabled rather "
                 "than shipping the service's HTTP and flow spans to the vendor. This means the "
                 "installed traceloop-sdk no longer builds its exporter through "
@@ -152,7 +152,7 @@ def _application_telemetry_withheld() -> Iterator[None]:
 
 
 class TraceloopTracer(BaseTracer):
-    """Traceloop tracer for Primeagent."""
+    """Traceloop tracer for PrimeAgent."""
 
     def __init__(
         self,
