@@ -243,7 +243,7 @@ qdrant-vectors = ["langchain-qdrant>=1.0.0,<2.0.0"]
 weaviate = ["weaviate-client>=4.10.2,<5.0.0"]
 # Retired in 1.13. Kept as an empty installation compatibility alias.
 chroma = []
-upstash = ["upstash-vector==0.6.0"]
+upstash = ["upstash-vector==0.8.0"]
 pinecone = ["langchain-pinecone~=0.2.13; python_version < '3.14'"]
 milvus = ["langchain-milvus~=0.3.2"]
 mongodb-vectors = ["langchain-mongodb>=0.11.0"]
