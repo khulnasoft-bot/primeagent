@@ -172,7 +172,7 @@ function requestedToolCall(body) {
   const calculatorRequest = arithmeticExpression
     ? body.tools.find(
         (tool) =>
-          /(?:calculat|evaluate_expression)/i.test(
+          /(?:calculate|evaluate_expression)/i.test(
             tool?.function?.name ?? "",
           ) && !calledTools.has(tool.function.name),
       )

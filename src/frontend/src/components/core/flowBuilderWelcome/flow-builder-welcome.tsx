@@ -30,7 +30,7 @@ interface FlowBuilderWelcomeProps {
   /** Called when the user dismisses the overlay (backdrop click, Escape). */
   onClose: () => void;
   /** Called when the user clicks an icon on the faux sidebar rail — the
-   *  parent should open the real sidebar with that section pre-selected and
+   *  parent should open the real sidebar with that section preselected and
    *  then close the welcome. */
   onSelectRailItem: (section: SidebarSection) => void;
 }

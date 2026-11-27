@@ -7,7 +7,7 @@ This page is the reference for the `extension.json` manifest used by manifest-sh
 
 The `wfx-bundles` metapackage uses manifest-less discovery through the `wfx.bundles` group and does not use `extension.json`.
 
-The canonical JSON Schema lives at [`https://schemas.prime.khulnasoft.com/extension/v1.json`](https://schemas.prime.khulnasoft.com/extension/v1.json) and is generated from the Pydantic model at [`wfx.extension.manifest.ExtensionManifest`](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/extension/manifest.py).
+The canonical JSON Schema lives at [`https://prime.khulnasoft.com/schemas/extension/v1.json`](https://prime.khulnasoft.com/schemas/extension/v1.json) and is generated from the Pydantic model at [`wfx.extension.manifest.ExtensionManifest`](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/extension/manifest.py).
 
 To export the live schema, run:
 
@@ -19,7 +19,7 @@ Use the `$schema` reference in your manifest so editors can autocomplete and val
 
 ```json
 {
-  "$schema": "https://schemas.prime.khulnasoft.com/extension/v1.json",
+  "$schema": "https://prime.khulnasoft.com/schemas/extension/v1.json",
   "id": "wfx-my-extension",
   "version": "0.1.0",
   "name": "My extension",
@@ -79,7 +79,7 @@ A provider-only extension can add a provider without adding a component bundle:
 
 ```json
 {
-  "$schema": "https://schemas.prime.khulnasoft.com/extension/v1.json",
+  "$schema": "https://prime.khulnasoft.com/schemas/extension/v1.json",
   "id": "wfx-acme-models",
   "version": "0.1.0",
   "name": "Acme Models",
@@ -144,7 +144,7 @@ Additional capability keys are rejected with `extra="forbid"` so a misspelled ke
 
 ## Deferred fields
 
-The schema strips these names from the published `properties` map but reserves them via [`x-deferred-fields`](https://schemas.prime.khulnasoft.com/extension/v1.json), so a manifest that sets one gets a specific error code instead of the generic "additional property" message.
+The schema strips these names from the published `properties` map but reserves them via [`x-deferred-fields`](https://prime.khulnasoft.com/schemas/extension/v1.json), so a manifest that sets one gets a specific error code instead of the generic "additional property" message.
 
 | Reserved key      | Replacement error code             | Future epic                   |
 | ----------------- | ---------------------------------- | ----------------------------- |

@@ -100,7 +100,7 @@ substitute names + the runtime-dep block. The non-obvious bits:
 
 ```json
 {
-  "$schema": "https://schemas.prime.khulnasoft.com/extension/v1.json",
+  "$schema": "https://prime.khulnasoft.com/schemas/extension/v1.json",
   "id": "wfx-<bundle>",
   "version": "0.1.0",
   "name": "<Human-readable bundle name>",

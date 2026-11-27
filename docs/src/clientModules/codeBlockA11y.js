@@ -5,9 +5,9 @@
 // non-scrollable blocks lose the needless tabindex.
 
 function updateCodeBlocks() {
-  const pres = document.querySelectorAll("pre.prism-code");
+  const press = document.querySelectorAll("pre.prism-code");
   let index = 0;
-  for (const pre of pres) {
+  for (const pre of press) {
     index += 1;
     const scrollable =
       pre.scrollWidth > pre.clientWidth || pre.scrollHeight > pre.clientHeight;

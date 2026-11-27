@@ -60,7 +60,7 @@ test(
     await textInput.press("ArrowRight"); // Move cursor to position 1
     await textInput.press("ArrowRight"); // Move cursor to position 2
     await textInput.pressSequentially("Y", { delay: 100 }); // Type at position 2
-    await expect(textInput).toHaveValue(/^teY/);
+    await expect(textInput).toHaveValue(/^they/);
     await textInput.fill(textValue);
     await expect(textInput).toHaveValue(textValue);
 

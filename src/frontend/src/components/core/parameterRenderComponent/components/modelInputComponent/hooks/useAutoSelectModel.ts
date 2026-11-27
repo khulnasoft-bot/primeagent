@@ -75,7 +75,7 @@ export function useAutoSelectModel({
     }
 
     // Only a stale selection is replaced: an unvalidated env-harvested credential
-    // already marks a provider enabled, so filling an empty field pre-selected one (LE-2168).
+    // already marks a provider enabled, so filling an empty field preselected one (LE-2168).
     if (!isSavedValueStale) return;
 
     const firstOption = flatOptions[0];

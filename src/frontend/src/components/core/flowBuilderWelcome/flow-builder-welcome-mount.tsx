@@ -115,7 +115,7 @@ export function FlowBuilderWelcomeMount() {
   }, []);
 
   // Faux rail icon → open the real sidebar to its FULL expanded view with
-  // that section pre-selected, then dismiss the welcome. Order: section
+  // that section preselected, then dismiss the welcome. Order: section
   // first (so the panel opens already showing the right content), then
   // open, then close.
   const handleSelectRailItem = useCallback(

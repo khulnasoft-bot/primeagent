@@ -74,7 +74,7 @@ manifest's own shape) and from the ``"v0"`` initial-state marker in
 BUNDLE_API.md's changelog (which is documentation prose); the integer
 contract version is ``1`` from day one."""
 
-EXTENSION_SCHEMA_URL: str = f"https://schemas.prime.khulnasoft.com/extension/v{SCHEMA_VERSION}.json"
+EXTENSION_SCHEMA_URL: str = f"https://prime.khulnasoft.com/schemas/extension/v{SCHEMA_VERSION}.json"
 """Canonical hosting URL for the published JSON Schema.  Authors point their
 ``$schema`` field here for editor autocompletion."""
 

@@ -224,6 +224,14 @@ the deserialize half is covered by
 
 ## Changelog
 
+- **Extension schema URL host change (2026-11-28).** `EXTENSION_SCHEMA_URL` and the
+  `$schema` pointers emitted by `wfx extension init` and shipped in every bundled
+  `extension.json` now use `https://prime.khulnasoft.com/schemas/extension/v1.json`
+  instead of `https://schemas.prime.khulnasoft.com/extension/v1.json`. The schema
+  content and version are unchanged; authors should update vendored `$schema`
+  pointers, and older pointers remain valid for editors that resolve either host.
+  No Python signatures change, so `BUNDLE_API_VERSION` remains `1`.
+
 - **Google Workspace network diagnostics (2026-10-15).** `wfx.integrations` exports
   `IntegrationNetworkError` with the additive `network-error` code. Google transport
   failures report a fixed reason and API hostname, with server-network guidance in

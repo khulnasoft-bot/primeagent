@@ -1981,7 +1981,7 @@ The skip-all single-message bridge (ADR-MCP-017) needs to suppress the propose_p
 2. **Clear `content` retroactively** — works for the message body but the message bubble would still render an empty assistant turn with avatar, name, and zero text. Visually noisy.
 3. **Add a generic `hidden` flag on `AssistantMessage`** — `AssistantMessageItem` early-returns `null` when set. Cheap, generic, future-proof.
 
-The current implementation actually uses both #2 and #3 in different code paths: the propose_plan handler clears `content` (so even if the message ever becomes visible the preamble is gone), AND the reuse-message path resets `hidden: false` when re-using a slot (so the same id can become visible later in a different role).
+The current implementation actually uses both #2 and #3 in different code paths: the propose_plan handler clears `content` (so even if the message ever becomes visible the preamble is gone), AND the reuse-message path resets `hidden: false` when reusing a slot (so the same id can become visible later in a different role).
 
 #### Decision
 

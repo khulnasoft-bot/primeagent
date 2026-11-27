@@ -1752,7 +1752,7 @@ The error branch now drains first, yields each pending update as a `flow_update`
 
 #### Recovered failures are visible, not silent
 
-When the assistant recovers on its own — swapping models, or retrying with adjusted params — the recovery used to be invisible: the turn merely looked slow, and the user had no idea a different model produced the answer. `build_recovered_notice` shapes a non-fatal notice for both kinds (`model_fallback`, `model_remediation`); they ride on the terminal `complete` event as an additive `notices` field and render as a discreet **(i)** next to the message metadata. A clean turn carries no notice, and a notice never turns a successful turn into an error state.
+When the assistant recovers on its own — swapping models, or retrying with adjusted params — the recovery used to be invisible: the turn merely looked slow, and the user had no idea a different model produced the answer. `build_recovered_notice` shapes a non-fatal notice for both kinds (`model_fallback`, `model_remediation`); they ride on the terminal `complete` event as an additive `notices` field and render as a discrete **(i)** next to the message metadata. A clean turn carries no notice, and a notice never turns a successful turn into an error state.
 
 **Trade-offs:**
 

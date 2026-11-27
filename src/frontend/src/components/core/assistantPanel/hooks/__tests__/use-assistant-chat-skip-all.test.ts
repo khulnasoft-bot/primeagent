@@ -406,7 +406,7 @@ describe("useAssistantChat — skip-all", () => {
       await flushTimers();
 
       // One user message + ONE assistant message. The auto-approval
-      // re-uses the same assistant slot instead of appending a second
+      // reuses the same assistant slot instead of appending a second
       // assistant message.
       expect(result.current.messages).toHaveLength(2);
       expect(result.current.messages[0].role).toBe("user");

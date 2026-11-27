@@ -262,14 +262,14 @@ describe("project creation errors", () => {
     expect(screen.getByTestId("sidebar-nav-foreign-id")).toBeInTheDocument();
     const ownLabel = screen.getByText("Starter Project");
     const foreignLabel = screen.getByText("Starter Project — other-user");
-    fireEvent.doubleClick(foreignLabel);
+    fireEvent.double - click(foreignLabel);
 
     expect(
       screen.queryByTestId("input-project-foreign-id"),
     ).not.toBeInTheDocument();
     expect(mockMutateUpdateFolder).not.toHaveBeenCalled();
 
-    fireEvent.doubleClick(ownLabel);
+    fireEvent.double - click(ownLabel);
 
     const ownInput = screen.getByTestId("input-project-own-id");
     expect(
