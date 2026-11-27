@@ -66,7 +66,7 @@ An uninitialized bundle returns `503`.
 
 3.  Read the current policy bundle, and copy `revision`.
 
-          <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
@@ -86,7 +86,7 @@ An uninitialized bundle returns `503`.
     print(response.json())
     ```
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
@@ -107,7 +107,7 @@ An uninitialized bundle returns `503`.
     console.log(await response.json());
     ```
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
@@ -118,11 +118,11 @@ An uninitialized bundle returns `503`.
       -H "x-api-key: $PRIMEAGENT_API_KEY"
     ```
 
-          </TabItem>
+    </TabItem>
 
     </Tabs>
 
-          <details>
+    <details>
 
     <summary>Result</summary>
 
@@ -144,7 +144,7 @@ An uninitialized bundle returns `503`.
     }
     ```
 
-          </details>
+    </details>
 
     :::tip
     If `managed_externally` is `true`, an external controller owns policy.
@@ -155,7 +155,7 @@ An uninitialized bundle returns `503`.
     Send the `revision` number copied from step 3 as `expected_revision`.
     Send `[]` for a list you want unrestricted.
 
-          <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
@@ -189,7 +189,7 @@ An uninitialized bundle returns `503`.
     print(response.json())
     ```
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
@@ -226,7 +226,7 @@ An uninitialized bundle returns `503`.
     console.log(await response.json());
     ```
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
@@ -246,7 +246,7 @@ An uninitialized bundle returns `503`.
       }'
     ```
 
-          </TabItem>
+    </TabItem>
 
     </Tabs>
 

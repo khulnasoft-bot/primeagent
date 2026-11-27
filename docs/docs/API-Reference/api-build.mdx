@@ -43,7 +43,7 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
 
 1.  Send a POST request to the `/build/$FLOW_ID/flow` endpoint:
 
-          <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
@@ -51,7 +51,7 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
       {examplePythonApiBuildBuildFlowAndStreamEvents}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
@@ -59,7 +59,7 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
       {exampleJavascriptApiBuildBuildFlowAndStreamEvents}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
@@ -67,11 +67,11 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
       {exampleApiBuildBuildFlowAndStreamEvents}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     </Tabs>
 
-          <details>
+    <details>
 
     <summary>Result</summary>
 
@@ -79,11 +79,11 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
       {resultApiBuildResultBuildFlowAndStreamEvents}
     </CodeBlock>
 
-          </details>
+    </details>
 
 2.  After receiving a job ID from the build endpoint, use the `/build/$JOB_ID/events` endpoint to stream the execution results:
 
-          <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
@@ -91,7 +91,7 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
       {examplePythonApiBuildBuildFlowAndStreamEvents2}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
@@ -99,7 +99,7 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
       {exampleJavascriptApiBuildBuildFlowAndStreamEvents2}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
@@ -107,11 +107,11 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
       {exampleApiBuildBuildFlowAndStreamEvents2}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     </Tabs>
 
-          <details>
+    <details>
 
     <summary>Result</summary>
 
@@ -119,7 +119,7 @@ This endpoint builds and executes a flow, returning a job ID that can be used to
       {resultApiBuildResultBuildFlowAndStreamEvents2}
     </CodeBlock>
 
-          </details>
+    </details>
 
 The `/build/$FLOW_ID/events` endpoint has a `stream` query parameter that defaults to `true`.
 To disable streaming and get all events at once, set `?stream=false`.

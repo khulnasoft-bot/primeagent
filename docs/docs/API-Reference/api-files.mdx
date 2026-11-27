@@ -131,7 +131,7 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
 
 1.  Attach the image to a `POST /v1/files/upload/$FLOW_ID` request with `--form` (`-F`) and the file path:
 
-          <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
@@ -139,7 +139,7 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
       {examplePythonApiFilesUploadImageFilesV1}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
@@ -147,13 +147,13 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
       {exampleJavascriptApiFilesUploadImageFilesV1}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
     <CodeBlock language="bash">{exampleApiFilesUploadImageFilesV1}</CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     </Tabs>
 
@@ -172,7 +172,7 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
     The following example runs the **Basic Prompting** template flow, passing the image file and the query `describe this image` as input for the **Chat Input** component.
     In this case, the file path is specified in `tweaks`.
 
-          <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
@@ -180,7 +180,7 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
       {examplePythonApiFilesUploadImageFilesV12}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
@@ -188,13 +188,13 @@ To change this limit, set the `PRIMEAGENT_MAX_FILE_SIZE_UPLOAD` [environment var
       {exampleJavascriptApiFilesUploadImageFilesV12}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
     <CodeBlock language="bash">{exampleApiFilesUploadImageFilesV12}</CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     </Tabs>
 
@@ -310,37 +310,37 @@ The file is uploaded in the format `USER_ID/FILE_ID.FILE_EXTENSION`, such as `07
 
 1.  To retrieve your current `user_id`, call the `/whoami` endpoint:
 
-        <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
-        <CodeBlock language="python">{examplePythonApiFilesUploadFileV2}</CodeBlock>
+    <CodeBlock language="python">{examplePythonApiFilesUploadFileV2}</CodeBlock>
 
-        </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
-        <CodeBlock language="javascript">
+    <CodeBlock language="javascript">
           {exampleJavascriptApiFilesUploadFileV2}
-        </CodeBlock>
+    </CodeBlock>
 
-        </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
-        <CodeBlock language="bash">{exampleApiFilesUploadFileV2}</CodeBlock>
+    <CodeBlock language="bash">{exampleApiFilesUploadFileV2}</CodeBlock>
 
-        </TabItem>
+    </TabItem>
 
     </Tabs>
 
-        <details>
+    <details>
 
     <summary>Result</summary>
 
-        <CodeBlock language="text">{resultApiFilesResultUploadFileV2}</CodeBlock>
+    <CodeBlock language="text">{resultApiFilesResultUploadFileV2}</CodeBlock>
 
-        </details>
+    </details>
 
 2.  In the POST request to `v2/files`, replace **@FILE_NAME.EXTENSION** with the uploaded file name and its extension.
     You must include the ampersand (`@`) in the request to instruct curl to upload the contents of the file, not the string `FILE_NAME.EXTENSION`.
@@ -392,7 +392,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
     Replace **FILE_NAME.EXTENSION** with the name and extension of the file you want to upload.
     This is the same step described in [Upload file (v2)](#upload-file-v2), but since you need the filename to upload to your flow, it is included here.
 
-          <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
@@ -400,7 +400,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
       {examplePythonApiFilesSendFilesToYourFlowsV2}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
@@ -408,7 +408,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
       {exampleJavascriptApiFilesSendFilesToYourFlowsV2}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
@@ -416,7 +416,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
       {exampleApiFilesSendFilesToYourFlowsV2}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     </Tabs>
 
@@ -437,7 +437,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
 
 3.  Run the flow, passing the `path` to the `Read-File` component in the `tweaks` object:
 
-          <Tabs>
+    <Tabs>
 
     <TabItem value="Python" label="Python" default>
 
@@ -445,7 +445,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
       {examplePythonApiFilesSendFilesToYourFlowsV22}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="JavaScript" label="JavaScript">
 
@@ -453,7 +453,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
       {exampleJavascriptApiFilesSendFilesToYourFlowsV22}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     <TabItem value="curl" label="curl">
 
@@ -461,7 +461,7 @@ The default file limit is 1024 MB. To configure this value, change the `PRIMEAGE
       {exampleApiFilesSendFilesToYourFlowsV22}
     </CodeBlock>
 
-          </TabItem>
+    </TabItem>
 
     </Tabs>
 

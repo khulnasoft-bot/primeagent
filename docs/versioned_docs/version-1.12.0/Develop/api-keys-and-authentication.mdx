@@ -212,11 +212,11 @@ To generate a secret encryption key for `PRIMEAGENT_SECRET_KEY`, do the followin
 
 1.  Run the command to generate and copy a secret to the clipboard.
 
-        <Tabs>
+    <Tabs>
 
     <TabItem value="unix" label="macOS or Linux">
 
-- **macOS**: Generate a secret key and copy it to the clipboard:
+    - **macOS**: Generate a secret key and copy it to the clipboard:
 
       ```bash
       python3 -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')" | pbcopy
@@ -234,11 +234,11 @@ To generate a secret encryption key for `PRIMEAGENT_SECRET_KEY`, do the followin
         python3 -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
         ```
 
-      </TabItem>
+    </TabItem>
 
-  <TabItem value="windows" label="Windows">
+    <TabItem value="windows" label="Windows">
 
-- Generate a secret key and copy it to the clipboard:
+    - Generate a secret key and copy it to the clipboard:
 
       ```bash
       python -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
@@ -252,9 +252,9 @@ To generate a secret encryption key for `PRIMEAGENT_SECRET_KEY`, do the followin
         python -c "from secrets import token_urlsafe; print(f'PRIMEAGENT_SECRET_KEY={token_urlsafe(32)}')"
         ```
 
-      </TabItem>
+    </TabItem>
 
-  </Tabs>
+    </Tabs>
 
 2.  Paste the value into your `.env` file:
 
@@ -855,8 +855,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
 
 4. Create a user:
 
-      <Tabs groupId="users-api">
-<TabItem value="Python" label="Python" default>
+   <Tabs groupId="users-api">
+   <TabItem value="Python" label="Python" default>
 
    ```python
    import os
@@ -878,8 +878,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    print(response.json())
    ```
 
-      </TabItem>
-<TabItem value="typescript" label="TypeScript">
+   </TabItem>
+   <TabItem value="typescript" label="TypeScript">
 
    ```typescript
    const url = `${process.env.PRIMEAGENT_URL}/api/v1/users/`;
@@ -903,8 +903,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    console.log(await response.json());
    ```
 
-      </TabItem>
-<TabItem value="curl" label="curl">
+   </TabItem>
+   <TabItem value="curl" label="curl">
 
    ```bash
    curl -X POST \
@@ -917,8 +917,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
      }'
    ```
 
-      </TabItem>
-</Tabs>
+   </TabItem>
+   </Tabs>
 
    The response includes the user's `id`.
    New accounts are inactive when `PRIMEAGENT_NEW_USER_IS_ACTIVE=False` (the default, and the value in the `.env` example above).
@@ -926,8 +926,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
 5. Activate the account so the user can sign in.
    Replace `USER_ID` with the `id` from the create response:
 
-      <Tabs groupId="users-api">
-<TabItem value="Python" label="Python" default>
+   <Tabs groupId="users-api">
+   <TabItem value="Python" label="Python" default>
 
    ```python
    import os
@@ -949,8 +949,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    print(response.json())
    ```
 
-      </TabItem>
-<TabItem value="typescript" label="TypeScript">
+   </TabItem>
+   <TabItem value="typescript" label="TypeScript">
 
    ```typescript
    const userId = "USER_ID";
@@ -972,8 +972,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    console.log(await response.json());
    ```
 
-      </TabItem>
-<TabItem value="curl" label="curl">
+   </TabItem>
+   <TabItem value="curl" label="curl">
 
    ```bash
    curl -X PATCH \
@@ -985,8 +985,8 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
      }'
    ```
 
-      </TabItem>
-</Tabs>
+   </TabItem>
+   </Tabs>
 
    To grant administrative privileges, include `"is_superuser": true` in the same request.
    To reset another user's password, `PATCH /api/v1/users/{id}` with `"password": "<new password>"`. That path does not require the current password. `PATCH /api/v1/users/{id}/reset-password` is self-service: it must be called as that user and requires `current_password`. See [Update user](./api-users#update-user).

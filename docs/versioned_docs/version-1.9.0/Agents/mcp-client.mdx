@@ -138,8 +138,8 @@ To modify the **MCP Tools** component's environment variables with tweaks, do th
 
    The following examples demonstrate a request structure with the `env` object nested under `mcp_server` in the `tweaks` payload:
 
-      <Tabs groupId="language">
-<TabItem value="python" label="Python" default>
+   <Tabs groupId="language">
+   <TabItem value="python" label="Python" default>
 
    ```python
    import requests
@@ -176,8 +176,8 @@ To modify the **MCP Tools** component's environment variables with tweaks, do th
    print(response.json())
    ```
 
-      </TabItem>
-<TabItem value="typescript" label="TypeScript">
+   </TabItem>
+   <TabItem value="typescript" label="TypeScript">
 
    ```typescript
    const PRIMEAGENT_SERVER_ADDRESS = "http://localhost:7860";
@@ -215,8 +215,8 @@ To modify the **MCP Tools** component's environment variables with tweaks, do th
    console.log(data);
    ```
 
-      </TabItem>
-<TabItem value="curl" label="cURL">
+   </TabItem>
+   <TabItem value="curl" label="cURL">
 
    ```bash
    curl --request POST \
@@ -241,8 +241,8 @@ To modify the **MCP Tools** component's environment variables with tweaks, do th
      }'
    ```
 
-      </TabItem>
-</Tabs>
+   </TabItem>
+   </Tabs>
 
    Replace `MCP_TOOLS_COMPONENT_ID`, `PRIMEAGENT_API_KEY`, `PRIMEAGENT_SERVER_ADDRESS`, and `FLOW_ID` with the actual values from your PrimeAgent deployment.
 

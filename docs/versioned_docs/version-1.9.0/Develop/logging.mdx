@@ -51,41 +51,41 @@ To monitor PrimeAgent logs as they are generated, you can follow the log file:
 
 1. Change to your [PrimeAgent config directory](#log-storage):
 
-      <Tabs groupId="cd-command">
-<TabItem value="macOS" label="macOS" default>
+   <Tabs groupId="cd-command">
+   <TabItem value="macOS" label="macOS" default>
 
    ```bash
    cd /Users/**USERNAME**/Library/Caches/primeagent
    ```
 
-      </TabItem>
-<TabItem value="Windows" label="Windows">
+   </TabItem>
+   <TabItem value="Windows" label="Windows">
 
    ```cmd
    cd C:\Users\**USERNAME**\AppData\Local\com.PrimeAgentDesktop\logs
    ```
 
-      </TabItem>
-</Tabs>
+   </TabItem>
+   </Tabs>
 
 2. Tail the main log file:
 
-      <Tabs groupId="tail-command">
-<TabItem value="macOS" label="macOS" default>
+   <Tabs groupId="tail-command">
+   <TabItem value="macOS" label="macOS" default>
 
    ```bash
    tail -f primeagent.log
    ```
 
-      </TabItem>
-<TabItem value="Windows" label="Windows">
+   </TabItem>
+   <TabItem value="Windows" label="Windows">
 
    ```cmd
    Get-Content -Wait -Path primeagent.log
    ```
 
-      </TabItem>
-</Tabs>
+   </TabItem>
+   </Tabs>
 
    If you don't see new log entries, check that PrimeAgent is running, and perform some actions to generate logs events. You can also check the terminal where you started PrimeAgent to see if logs are being printed there.
 

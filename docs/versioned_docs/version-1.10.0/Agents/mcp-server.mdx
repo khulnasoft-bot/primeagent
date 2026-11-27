@@ -365,7 +365,7 @@ You can use MCP Inspector to monitor your flows and get insights into how they a
 3.  In the MCP Inspector UI, enter the connection details for your PrimeAgent project's MCP server.
     The field values depend on your server's method of [authentication](#authentication).
 
-        <Tabs groupId="auth-type">
+    <Tabs groupId="auth-type">
 
     <TabItem value="API key" label="API key" default>
 
@@ -376,7 +376,7 @@ You can use MCP Inspector to monitor your flows and get insights into how they a
                 mcp-proxy --headers x-api-key YOUR_API_KEY http://PRIMEAGENT_SERVER_ADDRESS/api/v1/mcp/project/PROJECT_ID/streamable
                 ```
 
-        </TabItem>
+    </TabItem>
 
     <TabItem value="OAuth" label="OAuth">
 
@@ -387,7 +387,7 @@ You can use MCP Inspector to monitor your flows and get insights into how they a
                 mcp-composer --mode stdio --sse-url http://localhost:9000/sse --disable-composer-tools --client_auth_type oauth
                 ```
 
-        </TabItem>
+    </TabItem>
 
     <TabItem value="None" label="None">
 
@@ -397,7 +397,7 @@ You can use MCP Inspector to monitor your flows and get insights into how they a
                 http://localhost:7860/api/v1/mcp/project/d359cbd4-6fa2-4002-9d53-fa05c645319c/streamable
                 ```
 
-        </TabItem>
+    </TabItem>
 
     </Tabs>
 

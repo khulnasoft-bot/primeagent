@@ -80,8 +80,8 @@ If it detects a supported environment variable, then it automatically adopts the
 
 3. Define [PrimeAgent environment variables](#supported-variables) in the `.env` file.
 
-      <details>
-<summary>Example: .env</summary>
+   <details>
+   <summary>Example: .env</summary>
 
    ```text
    DO_NOT_TRACK=True
@@ -118,21 +118,21 @@ If it detects a supported environment variable, then it automatically adopts the
 
    For additional examples, see [`.env.example`](https://github.com/khulnasoft-bot/primeagent/blob/main/.env.example) in the PrimeAgent repository.
 
-      </details>
+   </details>
 
 4. Save and close `.env`.
 
 5. Start PrimeAgent with your `.env` file:
 
-      <Tabs>
-<TabItem value="local" label="Local" default>
+   <Tabs>
+   <TabItem value="local" label="Local" default>
 
    ```bash
    uv run primeagent run --env-file .env
    ```
 
-      </TabItem>
-<TabItem value="docker" label="Docker">
+   </TabItem>
+   <TabItem value="docker" label="Docker">
 
    ```bash
    docker run -it --rm \
@@ -141,8 +141,8 @@ If it detects a supported environment variable, then it automatically adopts the
        khulnasoft/primeagent:latest
    ```
 
-      </TabItem>
-</Tabs>
+   </TabItem>
+   </Tabs>
 
    If your `.env` file isn't in the same directory, provide the path to your `.env` file.
 
