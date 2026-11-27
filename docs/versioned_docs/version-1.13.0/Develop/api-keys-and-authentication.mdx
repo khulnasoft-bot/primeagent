@@ -1003,7 +1003,7 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
 4. Create a user:
 
    <Tabs groupId="users-api">
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    ```python
    import os
@@ -1026,7 +1026,7 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    ```
 
    </TabItem>
-<TabItem value="typescript" label="TypeScript">
+   <TabItem value="typescript" label="TypeScript">
 
    ```typescript
    const url = `${process.env.PRIMEAGENT_URL}/api/v1/users/`;
@@ -1051,7 +1051,7 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    ```
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    ```bash
    curl -X POST \
@@ -1065,7 +1065,7 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    ```
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    The response includes the user's `id`.
    New accounts are inactive when `PRIMEAGENT_NEW_USER_IS_ACTIVE=False` (the default, and the value in the `.env` example above).
@@ -1074,7 +1074,7 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    Replace `USER_ID` with the `id` from the create response:
 
    <Tabs groupId="users-api">
-<TabItem value="Python" label="Python" default>
+   <TabItem value="Python" label="Python" default>
 
    ```python
    import os
@@ -1097,7 +1097,7 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    ```
 
    </TabItem>
-<TabItem value="typescript" label="TypeScript">
+   <TabItem value="typescript" label="TypeScript">
 
    ```typescript
    const userId = "USER_ID";
@@ -1120,7 +1120,7 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    ```
 
    </TabItem>
-<TabItem value="curl" label="curl">
+   <TabItem value="curl" label="curl">
 
    ```bash
    curl -X PATCH \
@@ -1133,7 +1133,7 @@ Superusers add, activate, list, and delete users, set **Superuser**, and set oth
    ```
 
    </TabItem>
-</Tabs>
+   </Tabs>
 
    To grant administrative privileges, include `"is_superuser": true` in the same request.
    To reset another user's password, `PATCH /api/v1/users/{id}` with `"password": "<new password>"`. That path does not require the current password. `PATCH /api/v1/users/{id}/reset-password` is self-service: it must be called as that user and requires `current_password`. See [Update user](./api-users#update-user).
