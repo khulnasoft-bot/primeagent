@@ -92,6 +92,6 @@ The following remediations were already present in the uncommitted working tree 
 
 ## Remaining risks requiring human action
 
-1. **Open PRs** #13, #23, #25 are unreviewed and target `main`/`realease/v2`. Review before merge.
+1. **Open PRs** #13, #23, #25 are unreviewed and target `main`/`release/v2`. Review before merge.
 2. **login.py API-key cookie** — sensitive data in a session cookie; security team to decide whether to move to server-side sessions.
 3. **CodeQL alerts on already-defended paths** — consider tuning CodeQL or adding allowlist comments so `is_relative_to`/`realpath`+startswith are recognized as sanitizers, reducing noise.

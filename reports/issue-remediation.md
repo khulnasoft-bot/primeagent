@@ -16,7 +16,7 @@ The `gh issue list --state open` query returned `[]`: there are no open GitHub i
 
 | PR | Title | Base | Head | Labels | Action required |
 |---|---|---|---|---|---|
-| #25 | fix | realease/v2 | main | (none) | Review; targets a release branch |
+| #25 | fix | release/v2 | main | (none) | Review; targets a release branch |
 | #23 | chore: update test durations | main | update-test-durations-1793021304 | (none) | Review |
 | #13 | chore: add vercel/railway deploy configs, consolidate deps at root… | main | main | ignore-for-release | Review; labeled ignore-for-release |
 

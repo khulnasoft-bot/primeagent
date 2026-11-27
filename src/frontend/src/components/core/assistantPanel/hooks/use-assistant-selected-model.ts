@@ -9,7 +9,7 @@ import type { AssistantModel } from "../assistant-panel.types";
  *
  * Both the AssistantInput (inside the panel) and the FlowBuilderWelcome
  * input (canvas overlay) consume this so a user who picks a model in one
- * place sees it pre-selected in the other.
+ * place sees it preselected in the other.
  */
 export const ASSISTANT_MODEL_STORAGE_KEY =
   "primeagent-assistant-selected-model";

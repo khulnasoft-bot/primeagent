@@ -34,7 +34,7 @@ describe("NodeDescription read-only mode", () => {
       />,
     );
 
-    fireEvent.doubleClick(screen.getByTestId("generic-node-desc"));
+    fireEvent.double - click(screen.getByTestId("generic-node-desc"));
 
     expect(setEditNameDescription).not.toHaveBeenCalled();
     expect(mockTakeSnapshot).not.toHaveBeenCalled();

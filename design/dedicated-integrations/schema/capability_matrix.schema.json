@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://schemas.prime.khulnasoft.com/design/dedicated-integrations/capability-matrix-v1.json",
+  "$id": "https://prime.khulnasoft.com/schemas/design/dedicated-integrations/capability-matrix-v1.json",
   "title": "Dedicated Integrations wave-1 capability matrix",
   "description": "One provider's wave-1 capability matrix for the discovery gate. This remains the historical planning record; runtime capability manifests use the matching Pydantic enums in src/wfx/src/wfx/integrations/capabilities.py. Tests and scripts/ci/check_capability_matrices.py guard enum parity.",
   "type": "object",

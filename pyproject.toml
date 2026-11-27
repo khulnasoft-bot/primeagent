@@ -34,6 +34,7 @@ dependencies = [
     "wfx-amazon>=0.2.2,<1.0.0",
     "wfx-cohere>=0.2.0,<1.0.0",
     "wfx-oracle>=0.2.0,<1.0.0",
+    "wfx-rea>=0.1.0,<1.0.0",
     "wfx-vllm>=0.2.0,<1.0.0",
     "wfx-openai-compatible>=0.2.0,<1.0.0",
     "wfx-google>=0.3.5,<1.0.0",
@@ -111,6 +112,7 @@ wfx-ollama = { workspace = true }
 wfx-amazon = { workspace = true }
 wfx-cohere = { workspace = true }
 wfx-oracle = { workspace = true }
+wfx-rea = { workspace = true }
 wfx-firecrawl = { workspace = true }
 wfx-nextplaid = { workspace = true }
 wfx-paddle = { workspace = true }
@@ -151,6 +153,7 @@ members = [
     "src/bundles/amazon",
     "src/bundles/cohere",
     "src/bundles/oracle",
+    "src/bundles/rea",
     "src/bundles/firecrawl",
     "src/bundles/nextplaid",
     "src/bundles/paddle",
@@ -607,7 +610,7 @@ external = ["RUF027"]
     "T201",    # Print statements (needed for CLI output)
     "S603",    # Subprocess calls (needed for running commands)
     "S607",    # Starting process with partial executable path
-    "S104",    # Binding to all interfaces (needed for Primeagent server)
+    "S104",    # Binding to all interfaces (needed for PrimeAgent server)
     "S105",    # Hardcoded passwords (test credentials)
     "FBT001",  # Boolean-typed positional arguments (common in CLI)
     "FBT002",  # Boolean default arguments (common in CLI tools)

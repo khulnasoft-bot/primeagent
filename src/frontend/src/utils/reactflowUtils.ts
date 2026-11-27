@@ -34,8 +34,8 @@ import getFieldTitle from "../CustomNodes/utils/get-field-title";
 import {
   INPUT_TYPES,
   IS_MAC,
-  PRIMEAGENT_SUPPORTED_TYPES,
   OUTPUT_TYPES,
+  PRIMEAGENT_SUPPORTED_TYPES,
   specialCharsRegex,
 } from "../constants/constants";
 import { DESCRIPTIONS } from "../flow_constants";
@@ -1542,8 +1542,8 @@ export function generateFlow(
     id: uid.randomUUID(5),
   };
   // filter edges that are not connected to selected nodes on both ends
-  // using O(n²) aproach because the number of edges is small
-  // in the future we can use a better aproach using a set
+  // using O(n²) approach because the number of edges is small
+  // in the future we can use a better approach using a set
   return {
     newFlow,
     removedEdges: edges.filter(

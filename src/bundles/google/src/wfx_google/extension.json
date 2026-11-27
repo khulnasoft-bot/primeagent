@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schemas.prime.khulnasoft.com/extension/v1.json",
+  "$schema": "https://prime.khulnasoft.com/schemas/extension/v1.json",
   "id": "wfx-google",
   "version": "0.3.5",
   "name": "Google",

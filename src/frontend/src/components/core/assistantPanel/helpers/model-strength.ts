@@ -1,7 +1,7 @@
 /**
  * classifyModelStrength — pattern-heuristic detector for "weak" agent models.
  *
- * Drives a discreet UX hint in the composer ("Smaller models may underperform
+ * Drives a discrete UX hint in the composer ("Smaller models may underperform
  * on agent tasks") when the user picks a small/lite model from the dropdown.
  * Pure, deterministic, no I/O, no dependencies — safe to call at render time.
  *

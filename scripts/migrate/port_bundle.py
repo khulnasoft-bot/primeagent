@@ -216,7 +216,7 @@ RUFF_SECTION_TEMPLATE = """\
 
 EXTENSION_JSON_TEMPLATE = """\
 {{
-  "$schema": "https://schemas.prime.khulnasoft.com/extension/v1.json",
+  "$schema": "https://prime.khulnasoft.com/schemas/extension/v1.json",
   "id": "wfx-{bundle}",
   "version": "0.1.0",
   "name": "{display_name}",

@@ -568,7 +568,7 @@ def schema_command(
 
     Use to vendor a copy under ``schemas/`` or to confirm the canonical shape
     for editor tooling.  The schema's ``$id`` always points at
-    ``schemas.prime.khulnasoft.com/extension/v1.json``; the release pipeline uploads
+    ``prime.khulnasoft.com/schemas/extension/v1.json``; the release pipeline uploads
     this same artifact.
     """
     from wfx.extension.schema import build_schema_json

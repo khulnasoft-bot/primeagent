@@ -1,7 +1,7 @@
 /**
  * classifyModelStrength — pattern-heuristic detector for "weak" agent models.
  *
- * Drives a discreet hint in the assistant composer ("Smaller models may
+ * Drives a discrete hint in the assistant composer ("Smaller models may
  * underperform on agent tasks") when the user picks a small/lite model.
  * Pure, deterministic, no I/O. Adversarial coverage across every provider
  * the assistant integrates with — adding a new provider here is how we

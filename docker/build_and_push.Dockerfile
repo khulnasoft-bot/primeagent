@@ -187,7 +187,7 @@ FROM ${PYTHON_IMAGE} AS runtime
 USER root
 
 RUN microdnf update -y \
-    && microdnf install -y curl git gnupg libpq mount shadow-utils tar xz \
+    && microdnf install -y curl git gnupg libpq shadow-utils tar xz \
     && microdnf clean all
 
 RUN python3.14 -m pip install --no-cache-dir --upgrade "pip==26.2.1"
@@ -217,7 +217,7 @@ RUN mkdir -p /app/.npm /opt/app-root/src/.npm \
     && chown -R 1000:0 /app/.npm /opt/app-root/src/.npm \
     && chmod -R g+rwX /app/.npm /opt/app-root/src/.npm
 
-LABEL org.opencontainers.image.authors=['Primeagent'] \
+LABEL org.opencontainers.image.authors=['PrimeAgent'] \
       org.opencontainers.image.licenses=MIT \
       org.opencontainers.image.url=https://github.com/khulnasoft-bot/primeagent \
       org.opencontainers.image.source=https://github.com/khulnasoft-bot/primeagent
@@ -241,7 +241,7 @@ CMD ["primeagent", "run"]
 
 ################################
 # BASE IMAGE
-# Service-complete Primeagent without provider bundle distributions.
+# Service-complete PrimeAgent without provider bundle distributions.
 ################################
 FROM runtime AS base
 

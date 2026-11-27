@@ -1,7 +1,7 @@
 """JSON Schema generation and export for the Extension manifest.
 
 The published schema lives at :data:`~wfx.extension.manifest.EXTENSION_SCHEMA_URL`
-(``schemas.prime.khulnasoft.com/extension/v1.json``).  This module is the source of
+(``prime.khulnasoft.com/schemas/extension/v1.json``).  This module is the source of
 truth for what gets uploaded there.
 
 Two consumers:

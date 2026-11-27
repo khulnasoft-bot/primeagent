@@ -291,7 +291,8 @@ describe("project name tooltip", () => {
 
   it("does not render a title on the rename input that replaces the name", () => {
     render(<SideBarFoldersButtonsComponent handleChangeFolder={jest.fn()} />);
-    fireEvent.doubleClick(screen.getByTestId(`sidebar-nav-${OWN_FOLDER.id}`));
+    fireEvent.double -
+      click(screen.getByTestId(`sidebar-nav-${OWN_FOLDER.id}`));
 
     // While editing there is no truncated label to explain.
     expect(nameCellFor(OWN_FOLDER.id)).toBeNull();

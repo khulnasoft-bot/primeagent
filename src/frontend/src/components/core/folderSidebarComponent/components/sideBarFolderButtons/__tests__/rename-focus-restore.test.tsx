@@ -229,7 +229,7 @@ describe("project rename focus handling", () => {
 
   const startRenaming = () => {
     render(<SideBarFoldersButtonsComponent handleChangeFolder={jest.fn()} />);
-    fireEvent.doubleClick(screen.getByTestId(`sidebar-nav-${FOLDER.id}`));
+    fireEvent.double - click(screen.getByTestId(`sidebar-nav-${FOLDER.id}`));
     return screen.getByTestId(`input-project-${FOLDER.id}`);
   };
 
@@ -275,7 +275,7 @@ describe("project rename error feedback", () => {
 
   const renameTo = (newName: string) => {
     render(<SideBarFoldersButtonsComponent handleChangeFolder={jest.fn()} />);
-    fireEvent.doubleClick(screen.getByTestId(`sidebar-nav-${FOLDER.id}`));
+    fireEvent.double - click(screen.getByTestId(`sidebar-nav-${FOLDER.id}`));
     const input = screen.getByTestId(`input-project-${FOLDER.id}`);
     fireEvent.change(input, { target: { value: newName } });
     fireEvent.blur(input);
@@ -313,7 +313,7 @@ describe("project rename error feedback", () => {
     });
 
     renameTo("繁體中文專案");
-    fireEvent.doubleClick(screen.getByTestId(`sidebar-nav-${FOLDER.id}`));
+    fireEvent.double - click(screen.getByTestId(`sidebar-nav-${FOLDER.id}`));
 
     // Without the restore the rejected name would still be sitting in the input
     expect(screen.getByTestId(`input-project-${FOLDER.id}`)).toHaveValue(
