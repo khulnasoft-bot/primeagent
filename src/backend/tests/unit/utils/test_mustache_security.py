@@ -100,9 +100,9 @@ class TestMustacheSecurity:
     def test_safe_render_multiple_variables(self):
         """Test rendering with multiple variables."""
         template = "{{greeting}} {{name}}, welcome to {{place}}!"
-        variables = {"greeting": "Hello", "name": "Alice", "place": "Primeagent"}
+        variables = {"greeting": "Hello", "name": "Alice", "place": "PrimeAgent"}
         result = safe_mustache_render(template, variables)
-        assert result == "Hello Alice, welcome to Primeagent!"
+        assert result == "Hello Alice, welcome to PrimeAgent!"
 
     def test_safe_render_underscore_variables(self):
         """Test rendering with underscore variable names."""

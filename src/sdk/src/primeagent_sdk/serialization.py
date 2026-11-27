@@ -1,6 +1,6 @@
 """Git-friendly flow serialization for primeagent-sdk.
 
-``normalize_flow`` transforms a raw Primeagent flow dict into a stable,
+``normalize_flow`` transforms a raw PrimeAgent flow dict into a stable,
 diff-friendly representation suitable for committing to version control:
 
 - **Volatile fields stripped** -- ``updated_at``, ``user_id``, ``folder_id``,
@@ -133,7 +133,7 @@ def normalize_flow(
     Parameters
     ----------
     flow:
-        Raw flow dict as returned by the Primeagent API or read from a ``.json``
+        Raw flow dict as returned by the PrimeAgent API or read from a ``.json``
         file.
     strip_volatile:
         Remove top-level fields that carry instance-specific state

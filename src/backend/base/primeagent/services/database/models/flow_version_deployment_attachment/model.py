@@ -36,7 +36,7 @@ class FlowVersionDeploymentAttachment(SQLModel, table=True):  # type: ignore[cal
         description=(
             "Opaque provider-assigned identifier for the materialized snapshot "
             "(e.g. a wxO tool ID, a K8s ConfigMap name, an S3 key). "
-            "Links this Primeagent flow version to its provider-side resource."
+            "Links this PrimeAgent flow version to its provider-side resource."
         ),
     )
     created_at: datetime | None = Field(

@@ -2,7 +2,7 @@
 # ci-test.sh
 #
 # PURPOSE
-#   Run pytest flow-integration tests against a live Primeagent instance
+#   Run pytest flow-integration tests against a live PrimeAgent instance
 #   using the primeagent-sdk `flow_runner` fixture.
 #
 # USAGE
@@ -12,7 +12,7 @@
 # ENVIRONMENT VARIABLES — connection (pick one approach)
 #
 #   Approach A: direct URL + key (simplest)
-#     PRIMEAGENT_URL        URL of the target Primeagent instance.
+#     PRIMEAGENT_URL        URL of the target PrimeAgent instance.
 #                         e.g. https://staging.primeagent.example.com
 #     PRIMEAGENT_API_KEY    API key for that instance.
 #

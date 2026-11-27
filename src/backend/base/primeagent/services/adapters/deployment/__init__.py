@@ -1,1 +1,1 @@
-"""Primeagent deployment adapter implementations."""
+"""PrimeAgent deployment adapter implementations."""

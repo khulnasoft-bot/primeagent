@@ -79,6 +79,40 @@ async def test_read_folder(client: AsyncClient, logged_in_headers, basic_case):
         assert "id" in result, "The dictionary must contain a key called 'id'"
 
 
+async def test_read_folder_redirect_rejects_crlf_in_search(client: AsyncClient, logged_in_headers):
+    """CRLF characters in the search query are rejected."""
+    response = await client.get(
+        "api/v1/folders/123e4567-e89b-12d3-a456-426614174000",
+        params={"search": "foo\r\nLocation: http://evil.com"},
+        headers=logged_in_headers,
+    )
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+async def test_read_folder_redirect_rejects_control_chars_in_search(client: AsyncClient, logged_in_headers):
+    """Any control character (code < 0x20) in the search query is rejected."""
+    response = await client.get(
+        "api/v1/folders/123e4567-e89b-12d3-a456-426614174000",
+        params={"search": "foo\x01bar"},
+        headers=logged_in_headers,
+    )
+    assert response.status_code == status.HTTP_400_BAD_REQUEST
+
+
+async def test_read_folder_redirect_allows_safe_search(client: AsyncClient, logged_in_headers):
+    """A normal search value is still reflected into the redirect."""
+    response = await client.get(
+        "api/v1/folders/123e4567-e89b-12d3-a456-426614174000",
+        params={"search": "my flow"},
+        headers=logged_in_headers,
+    )
+    assert response.status_code in (
+        status.HTTP_200_OK,
+        status.HTTP_307_TEMPORARY_REDIRECT,
+        status.HTTP_404_NOT_FOUND,
+    )
+
+
 async def test_update_folder(client: AsyncClient, logged_in_headers, basic_case):
     # Configure client to follow redirects
     client.follow_redirects = True

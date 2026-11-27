@@ -1,16 +1,16 @@
 # WFX MCP Server
 
-`wfx-mcp` is an MCP (Model Context Protocol) server that gives any MCP-compatible client full programmatic control over a Primeagent instance to build and run flows.
+`wfx-mcp` is an MCP (Model Context Protocol) server that gives any MCP-compatible client full programmatic control over a PrimeAgent instance to build and run flows.
 
 The server is implemented in `src/wfx/src/wfx/mcp/` using [FastMCP](https://github.com/jlowin/fastmcp).
-It connects to Primeagent's REST API.
+It connects to PrimeAgent's REST API.
 Flow data is never cached server-side, so every mutating tool does a GET → modify → PATCH cycle.
 The component registry is cached on first access per session.
 
 ## Prerequisites
 
-- A running Primeagent instance
-- A Primeagent API key
+- A running PrimeAgent instance
+- A PrimeAgent API key
 - `wfx` installed (`uv pip install wfx`), **or** `uv` installed if you want to run via `uvx` without a permanent install
 
 ## Connect a client
@@ -22,8 +22,9 @@ Set the command to `wfx-mcp` (or `uvx --from wfx wfx-mcp`) and pass the followin
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `PRIMEAGENT_SERVER_URL` | URL of your Primeagent instance | `http://localhost:7860` |
+| `PRIMEAGENT_SERVER_URL` | URL of your PrimeAgent instance | `http://localhost:7860` |
 | `PRIMEAGENT_API_KEY` | API key for authentication | — |
+| `X-PRIMEAGENT-GLOBAL-VAR-<NAME>` | Optional global variable override forwarded as an HTTP header | — |
 
 For example, to connect to Claude Desktop, add the following to the Claude Desktop configuration file at `~/Library/Application Support/Claude/claude_desktop_config.json`:
 
@@ -58,6 +59,40 @@ If `wfx` is not installed globally, use it through `uvx` instead.
 }
 ```
 
+### Global variable overrides
+
+To override a stored global variable when running flows, add an environment entry
+named `X-PRIMEAGENT-GLOBAL-VAR-<NAME>` to your MCP client configuration. For example:
+
+```json
+{
+  "env": {
+    "PRIMEAGENT_SERVER_URL": "http://localhost:7860",
+    "PRIMEAGENT_API_KEY": "<your-api-key>",
+    "X-PRIMEAGENT-GLOBAL-VAR-ENVIRONMENT": "staging"
+  }
+}
+```
+
+`wfx-mcp` forwards the entry as a header on its PrimeAgent API requests, including
+streaming flow runs. A flow referencing `ENVIRONMENT` receives `staging` instead
+of its stored value. Prefix matching is case-insensitive, and empty values are
+ignored. Other environment entries are not forwarded as headers.
+
+Names must include a variable name and use valid HTTP header characters. Values
+must be ASCII, contain no control characters except internal tabs, and have no
+leading or trailing whitespace. Invalid entries are rejected without including
+their values in the error message.
+
+When overrides are configured, redirects must stay on the same scheme, host, and
+port as `PRIMEAGENT_SERVER_URL`. Configure the final server URL if a proxy redirects
+to another origin, including an HTTP-to-HTTPS redirect, to keep override values
+from being forwarded to a different server.
+
+These overrides are captured when the HTTP client is created and apply to all
+requests from that client. Restart the MCP server after changing its environment
+configuration. They do not modify the stored global variables.
+
 ## Server tools
 
 The server exposes the following tool groups to the connected MCP client.
@@ -66,7 +101,7 @@ The server exposes the following tool groups to the connected MCP client.
 
 | Tool | Description |
 |------|-------------|
-| `login` | Authenticate with a Primeagent server using username and password. Not needed if `PRIMEAGENT_API_KEY` is set. |
+| `login` | Authenticate with a PrimeAgent server using username and password. Not needed if `PRIMEAGENT_API_KEY` is set. |
 
 ### Flows
 
@@ -86,7 +121,7 @@ The server exposes the following tool groups to the connected MCP client.
 
 | Tool | Description |
 |------|-------------|
-| `list_starter_projects` | List Primeagent's built-in example flows |
+| `list_starter_projects` | List PrimeAgent's built-in example flows |
 | `use_starter_project` | Create a new flow from a starter project template |
 
 ### Components
@@ -159,13 +194,13 @@ The `batch` tool lets you send multiple actions in a single call, with `$N.field
 
 ## Quickstart: build and run a flow with Claude Code
 
-This example shows how to connect Claude Code to a running Primeagent instance using `wfx-mcp`, then build, validate, and run a chatbot flow from your terminal.
+This example shows how to connect Claude Code to a running PrimeAgent instance using `wfx-mcp`, then build, validate, and run a chatbot flow from your terminal.
 
 ### Prerequisites
 
-- A Primeagent server running at `http://localhost:7860`
-- A Primeagent API key. Create one in the Primeagent UI under **Settings → Primeagent API → Create new API key**.
-- An OpenAI API key. This example uses Primeagent's Agent component with OpenAI. Add your OpenAI API key as a Global Variable in Primeagent under **Settings → Global Variables** so all flows can use it automatically, or pass it explicitly when prompted. If you prefer a different provider, adjust the prompt accordingly.
+- A PrimeAgent server running at `http://localhost:7860`
+- A PrimeAgent API key. Create one in the PrimeAgent UI under **Settings → PrimeAgent API → Create new API key**.
+- An OpenAI API key. This example uses PrimeAgent's Agent component with OpenAI. Add your OpenAI API key as a Global Variable in PrimeAgent under **Settings → Global Variables** so all flows can use it automatically, or pass it explicitly when prompted. If you prefer a different provider, adjust the prompt accordingly.
 - `uv` installed. The `uvx` command used to run `wfx-mcp` requires `uv`. For more information, see the [uv docs](https://docs.astral.sh/uv/getting-started/installation/).
 - Claude Code installed. For more information, see the [Claude Code docs](https://docs.anthropic.com/en/docs/claude-code).
 
@@ -193,7 +228,7 @@ The output should include:
 primeagent: uvx --from wfx wfx-mcp
 ```
 
-This confirms that Claude Code knows to spawn an `wfx-mcp` process when it needs to talk to Primeagent.
+This confirms that Claude Code knows to spawn an `wfx-mcp` process when it needs to talk to PrimeAgent.
 
 3. Start Claude Code in your terminal:
 
@@ -205,7 +240,7 @@ claude
 For example:
 
 ```
-Create a simple agent chatbot flow in Primeagent using OpenAI, validate the flow, and then run it with the message "What is Primeagent?"
+Create a simple agent chatbot flow in PrimeAgent using OpenAI, validate the flow, and then run it with the message "What is PrimeAgent?"
 ```
 
 Given this instruction, Claude Code will typically do the following:
@@ -215,10 +250,10 @@ Given this instruction, Claude Code will typically do the following:
     3. Validate that every component is correctly connected using `validate_flow`.
     4. Run the flow using `run_flow` and return the response.
 
-The flow appears in your Primeagent UI at `http://localhost:7860` because `wfx-mcp` creates it through the Primeagent API. The answer is printed in your terminal:
+The flow appears in your PrimeAgent UI at `http://localhost:7860` because `wfx-mcp` creates it through the PrimeAgent API. The answer is printed in your terminal:
 
 ```
-Primeagent is a visual workflow builder for AI-powered agents. It lets you
+PrimeAgent is a visual workflow builder for AI-powered agents. It lets you
 connect LLMs, tools, and data sources in a drag-and-drop UI, then expose
 the result as an API endpoint or run it from the command line.
 ```
@@ -229,7 +264,7 @@ the result as an API endpoint or run it from the command line.
 Use `uvx --from wfx wfx-mcp`, not `uvx wfx-mcp`. The `wfx-mcp` binary ships inside the `wfx` package, and there is no standalone `wfx-mcp` package on PyPI.
 
 * 403 Forbidden when Claude Code tries to use tools
-The API key is invalid or expired. Create a new API key in Primeagent under **Settings → Primeagent API**, and then remove and re-add the MCP server:
+The API key is invalid or expired. Create a new API key in PrimeAgent under **Settings → PrimeAgent API**, and then remove and re-add the MCP server:
 ```bash
 claude mcp remove primeagent
 claude mcp add primeagent \
@@ -239,4 +274,4 @@ claude mcp add primeagent \
 ```
 
 * Flow validation fails with an LLM provider error
-The API key for your LLM provider is not configured. Add it as a Global Variable in Primeagent (**Settings → Global Variables → Add**), and then ask Claude Code to validate the flow again.
+The API key for your LLM provider is not configured. Add it as a Global Variable in PrimeAgent (**Settings → Global Variables → Add**), and then ask Claude Code to validate the flow again.

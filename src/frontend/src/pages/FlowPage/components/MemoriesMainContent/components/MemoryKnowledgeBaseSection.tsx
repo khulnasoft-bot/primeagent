@@ -1,6 +1,7 @@
 import type { UIEvent } from "react";
 import { useTranslation } from "react-i18next";
 import IconComponent from "@/components/common/genericIconComponent";
+import { StorageUpgradePanel } from "@/components/common/storageUpgradeNotice";
 import StringReader from "@/components/common/stringReaderComponent";
 import Loading from "@/components/ui/loading";
 import {
@@ -25,6 +26,8 @@ import { MemoryKnowledgeBaseSectionProps } from "../types";
 const noop = () => {};
 
 export function MemoryKnowledgeBaseSection({
+  storageState,
+  storageKbId,
   docsData,
   docsLoading,
   fetchNextMessagesPage,
@@ -34,6 +37,15 @@ export function MemoryKnowledgeBaseSection({
   handleOpenDocumentPanel,
 }: MemoryKnowledgeBaseSectionProps) {
   const { t } = useTranslation();
+  const upgradeFallback = (
+    <p className="text-sm">
+      {t(
+        storageState === "migrating"
+          ? "storageUpgrade.automatic"
+          : "storageUpgrade.contactAdmin",
+      )}
+    </p>
+  );
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
     if (!hasNextMessagesPage || isFetchingNextMessagesPage) return;
     const el = e.currentTarget;
@@ -57,7 +69,7 @@ export function MemoryKnowledgeBaseSection({
               <TooltipContent className="max-w-xs">
                 <p>{t("memory.memoryBaseTooltip")}</p>
                 <a
-                  href="https://docs.prime.khulnasoft.com/memory-bases"
+                  href="https://prime.khulnasoft.com/docs/memory-bases"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-1 flex items-center gap-1 text-xs text-primary underline"
@@ -84,6 +96,18 @@ export function MemoryKnowledgeBaseSection({
       </div>
 
       <div className="flex-1 overflow-auto" onScroll={handleScroll}>
+        {storageState && storageState !== "ready" && (
+          <div className="space-y-3 p-4">
+            {storageKbId ? (
+              <StorageUpgradePanel
+                kbId={storageKbId}
+                fallback={upgradeFallback}
+              />
+            ) : (
+              upgradeFallback
+            )}
+          </div>
+        )}
         {docsLoading ? (
           <div className="flex h-32 items-center justify-center">
             <Loading size={32} className="text-primary" />
@@ -101,7 +125,7 @@ export function MemoryKnowledgeBaseSection({
               {t("memory.noChunksRunFlow")}
             </p>
             <a
-              href="https://docs.prime.khulnasoft.com/memory-bases"
+              href="https://prime.khulnasoft.com/docs/memory-bases"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1 text-xs text-primary underline"

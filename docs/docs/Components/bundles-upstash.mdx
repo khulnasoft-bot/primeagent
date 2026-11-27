@@ -4,12 +4,17 @@ slug: /bundles-upstash
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
-import PartialConditionalParams from '@site/docs/_partial-conditional-params.mdx';
-import PartialVectorSearchResults from '@site/docs/_partial-vector-search-results.mdx';
-import PartialVectorStoreInstance from '@site/docs/_partial-vector-store-instance.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import PartialConditionalParams from "@site/docs/_partial-conditional-params.mdx";
+import PartialVectorSearchResults from "@site/docs/_partial-vector-search-results.mdx";
+import PartialVectorStoreInstance from "@site/docs/_partial-vector-store-instance.mdx";
+import PartialWfxBundlesInstall from "@site/docs/_partial-bundle-wfx-bundles-install.mdx";
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<PartialWfxBundlesInstall />
+
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with PrimeAgent.
 
 This page describes the components that are available in the **Upstash** bundle.
 
@@ -40,14 +45,14 @@ You can inspect a vector store component's parameters to learn more about the in
 
 For information about accepted values and functionality, see the [Upstash documentation](https://upstash.com/docs/introduction) or inspect [component code](/concepts-components#component-code).
 
-| Name            | Type         | Description                               |
-| --------------- | ------------ | ----------------------------------------- |
-| index_url       | String       | Input parameter. The URL of the Upstash index.              |
-| index_token     | SecretString | Input parameter. The token for the Upstash index.           |
-| text_key        | String       | Input parameter. The key in the record to use as text.      |
-| namespace       | String       | Input parameter. The namespace for the index.                   |
-| search_query    | String       | Input parameter. The query for similarity search.               |
-| metadata_filter | String       | Input parameter. Filter documents by metadata.             |
-| ingest_data     | Data         | Input parameter. The data to be ingested into the vector store. |
-| embedding       | Embeddings   | Input parameter. The embedding function to use.      |
-| number_of_results | Integer    | Input parameter. The number of results to return in search.     |
+| Name              | Type         | Description                                                     |
+| ----------------- | ------------ | --------------------------------------------------------------- |
+| index_url         | String       | Input parameter. The URL of the Upstash index.                  |
+| index_token       | SecretString | Input parameter. The token for the Upstash index.               |
+| text_key          | String       | Input parameter. The key in the record to use as text.          |
+| namespace         | String       | Input parameter. The namespace for the index.                   |
+| search_query      | String       | Input parameter. The query for similarity search.               |
+| metadata_filter   | String       | Input parameter. Filter documents by metadata.                  |
+| ingest_data       | JSON         | Input parameter. The data to be ingested into the vector store. |
+| embedding         | Embeddings   | Input parameter. The embedding function to use.                 |
+| number_of_results | Integer      | Input parameter. The number of results to return in search.     |

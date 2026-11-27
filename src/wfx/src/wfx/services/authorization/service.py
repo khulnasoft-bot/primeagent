@@ -1,4 +1,4 @@
-"""Default authorization service for WFX (allows all; Primeagent or plugins provide enforcement)."""
+"""Default authorization service for WFX (allows all; PrimeAgent or plugins provide enforcement)."""
 
 from __future__ import annotations
 

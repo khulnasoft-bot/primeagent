@@ -147,7 +147,7 @@ describe("McpJsonContent", () => {
     const link = screen.getByText("setup guide").closest("a");
     expect(link).toHaveAttribute(
       "href",
-      expect.stringContaining("docs.prime.khulnasoft.com"),
+      expect.stringContaining("prime.khulnasoft.com/docs"),
     );
   });
 

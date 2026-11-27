@@ -67,7 +67,7 @@ _EXTENSION_JSON_TEMPLATE = """\
 
 
 def _have_pip() -> bool:
-    """Return True iff ``python -m pip`` is invokable in the current process."""
+    """Return True iff ``python -m pip`` is invocable in the current process."""
     try:
         result = subprocess.run(  # noqa: S603 - sys.executable is trusted
             [sys.executable, "-m", "pip", "--version"],

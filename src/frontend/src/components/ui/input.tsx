@@ -17,7 +17,7 @@ export interface InputProps
   endIconClassName?: string;
   /**
    * Opt back into browser / password-manager autofill. Defaults to false so
-   * Primeagent inputs (node-config fields, modals) suppress autofill — otherwise
+   * PrimeAgent inputs (node-config fields, modals) suppress autofill — otherwise
    * the browser can inject saved credentials that autosave then persists,
    * corrupting flows. Only real credential-entry forms (login / signup / admin
    * login) set this to true.
@@ -69,7 +69,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       );
 
     return (
-      <label
+      // Neutral wrapper: a wrapping <label> would add the visual placeholder
+      // span to the input's accessible name and double-label fields that are
+      // already labeled externally (a11y-action-plan 1.2).
+      <div
         className={cn(
           "relative block h-fit w-full text-sm",
           icon ? className : "",
@@ -95,6 +98,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         <span
+          aria-hidden="true"
           className={cn(
             "pointer-events-none absolute top-1/2 -translate-y-1/2 pl-px text-placeholder-foreground",
             icon ? "left-9" : "left-3",
@@ -111,7 +115,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             {resolvedEndIcon}
           </div>
         )}
-      </label>
+      </div>
     );
   },
 );

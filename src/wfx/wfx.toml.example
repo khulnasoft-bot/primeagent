@@ -1,6 +1,6 @@
-# Primeagent Service Configuration
+# PrimeAgent Service Configuration
 #
-# This file tells WFX to use Primeagent's full-featured service implementations
+# This file tells WFX to use PrimeAgent's full-featured service implementations
 # instead of the minimal/noop services built into WFX.
 #
 # Usage:
@@ -12,7 +12,7 @@
 #   - wfx serve (when run from primeagent project)
 
 [services]
-# Core Services - Full-featured Primeagent implementations
+# Core Services - Full-featured PrimeAgent implementations
 database_service = "primeagent.services.database.service:DatabaseService"
 storage_service = "primeagent.services.storage.local:LocalStorageService"
 cache_service = "primeagent.services.cache.service:ThreadingInMemoryCache"
@@ -20,6 +20,13 @@ cache_service = "primeagent.services.cache.service:ThreadingInMemoryCache"
 # Authentication & Session Management
 auth_service = "primeagent.services.auth.service:AuthService"
 session_service = "primeagent.services.session.service:SessionService"
+
+# Model Provider Policy (optional; the built-in implementation allows every registered provider)
+# model_provider_policy_service = "acme_primeagent.policy:AcmeModelProviderPolicyService"
+
+# Connection Resolver (optional; the built-in EnvConnectionResolver reads
+# LF_CONNECTION__<PROVIDER>__<NAME> from the request scope, then the environment)
+# connection_resolver_service = "acme_primeagent.connections:AcmeConnectionResolver"
 
 # Chat & Communication
 chat_service = "primeagent.services.chat.service:ChatService"

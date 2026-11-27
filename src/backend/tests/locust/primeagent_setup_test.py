@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Primeagent Load Test Setup CLI
+"""PrimeAgent Load Test Setup CLI
 
-This script sets up a complete Primeagent test environment by:
-1. Starting Primeagent (optional)
+This script sets up a complete PrimeAgent test environment by:
+1. Starting PrimeAgent (optional)
 2. Creating a test user account
 3. Authenticating and getting JWT tokens
 4. Creating API keys
@@ -19,12 +19,41 @@ Usage:
 import argparse
 import asyncio
 import json
+import os
 import sys
 import time
 
 
+async def authenticate_setup_client(client) -> tuple[str, str, str]:
+    """Return an access token using explicit credentials or AUTO_LOGIN."""
+    configured_username = os.environ.get("PRIMEAGENT_SUPERUSER", "")
+    password = os.environ.get("PRIMEAGENT_SUPERUSER_PASSWORD", "")
+
+    if configured_username and not password:
+        raise RuntimeError("Set PRIMEAGENT_SUPERUSER_PASSWORD when PRIMEAGENT_SUPERUSER is set, or unset both.")
+
+    if password:
+        username = configured_username or "primeagent"
+        login_response = await client.post(
+            "/api/v1/login",
+            data={"username": username, "password": password},
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+        )
+        if login_response.status_code != 200:
+            raise RuntimeError(f"Login failed: {login_response.status_code} - {login_response.text}")
+        return login_response.json()["access_token"], username, "<redacted>"
+
+    auto_login_response = await client.get("/api/v1/auto_login")
+    if auto_login_response.status_code != 200:
+        raise RuntimeError(
+            "Authentication failed. Set PRIMEAGENT_SUPERUSER_PASSWORD and optionally PRIMEAGENT_SUPERUSER, "
+            "or enable PRIMEAGENT_AUTO_LOGIN."
+        )
+    return auto_login_response.json()["access_token"], "auto-login", ""
+
+
 async def get_starter_projects_from_api(host: str, access_token: str) -> list[dict]:
-    """Get starter projects from Primeagent API."""
+    """Get starter projects from PrimeAgent API."""
     import httpx
 
     # Ensure proper URL formatting
@@ -72,10 +101,10 @@ async def get_starter_projects_from_api(host: str, access_token: str) -> list[di
 
 
 async def list_available_flows(host: str, access_token: str) -> list[tuple[str, str, str]]:
-    """List all available starter project flows from Primeagent API.
+    """List all available starter project flows from PrimeAgent API.
 
     Args:
-        host: Primeagent host URL
+        host: PrimeAgent host URL
         access_token: JWT access token for authentication
 
     Returns:
@@ -131,7 +160,7 @@ async def get_flow_data_by_name(host: str, access_token: str, flow_name: str) ->
     """Get flow data for a specific starter project by name.
 
     Args:
-        host: Primeagent host URL
+        host: PrimeAgent host URL
         access_token: JWT access token for authentication
         flow_name: Name of the flow to retrieve
 
@@ -192,7 +221,7 @@ async def select_flow_interactive(host: str, access_token: str) -> str | None:
 
 
 async def setup_primeagent_environment(host: str, flow_name: str | None = None, interactive: bool = False) -> dict:
-    """Set up complete Primeagent environment with real starter project flows."""
+    """Set up complete PrimeAgent environment with real starter project flows."""
     try:
         import httpx
     except ImportError:
@@ -200,14 +229,10 @@ async def setup_primeagent_environment(host: str, flow_name: str | None = None, 
         print("Install with: pip install httpx")
         sys.exit(1)
 
-    # Configuration - use default Primeagent credentials
-    username = "primeagent"
-    password = "primeagent"
-
     setup_state = {
         "host": host,
-        "username": username,
-        "password": password,
+        "username": None,
+        "password": None,
         "user_id": None,
         "access_token": None,
         "api_key": None,
@@ -218,46 +243,31 @@ async def setup_primeagent_environment(host: str, flow_name: str | None = None, 
 
     async with httpx.AsyncClient(base_url=host, timeout=60.0) as client:
         # Step 1: Health check
-        print(f"\n1. Checking Primeagent health at {host}...")
+        print(f"\n1. Checking PrimeAgent health at {host}...")
         try:
             health_response = await client.get("/health")
             if health_response.status_code != 200:
                 raise Exception(f"Health check failed: {health_response.status_code}")
-            print("   ✅ Primeagent is running and accessible")
+            print("   ✅ PrimeAgent is running and accessible")
         except Exception as e:
             print(f"   ❌ Health check failed: {e}")
             raise
 
-        # Step 2: Skip user creation, use default credentials
-        print("2. Using default Primeagent credentials...")
-        print(f"   ✅ Using username: {username}")
-
-        # Step 3: Login to get JWT token
-        print("3. Authenticating...")
-        login_data = {
-            "username": username,
-            "password": password,
-        }
+        # Step 2: Authenticate with configured credentials or AUTO_LOGIN
+        print("2. Authenticating...")
 
         try:
-            login_response = await client.post(
-                "/api/v1/login",
-                data=login_data,  # OAuth2PasswordRequestForm expects form data
-                headers={"Content-Type": "application/x-www-form-urlencoded"},
-            )
-
-            if login_response.status_code != 200:
-                raise Exception(f"Login failed: {login_response.status_code} - {login_response.text}")
-
-            tokens = login_response.json()
-            setup_state["access_token"] = tokens["access_token"]
+            access_token, username, password = await authenticate_setup_client(client)
+            setup_state["access_token"] = access_token
+            setup_state["username"] = username
+            setup_state["password"] = password
             print("   ✅ Authentication successful")
         except Exception as e:
             print(f"   ❌ Authentication failed: {e}")
             raise
 
-        # Step 4: Create API key
-        print("4. Creating API key...")
+        # Step 3: Create API key
+        print("3. Creating API key...")
         headers = {"Authorization": f"Bearer {setup_state['access_token']}"}
 
         try:
@@ -274,8 +284,8 @@ async def setup_primeagent_environment(host: str, flow_name: str | None = None, 
             print(f"   ❌ API key creation failed: {e}")
             raise
 
-        # Step 5: Select and load flow from API
-        print("5. Selecting starter project flow...")
+        # Step 4: Select and load flow from API
+        print("4. Selecting starter project flow...")
 
         # Flow selection logic
         selected_flow_name = None
@@ -315,12 +325,12 @@ async def setup_primeagent_environment(host: str, flow_name: str | None = None, 
         print(f"   ✅ Selected flow: {setup_state['flow_name']}")
         print(f"   Description: {flow_data.get('description', 'No description')}")
 
-        # Step 6: Upload the selected flow
-        print(f"6. Uploading flow: {setup_state['flow_name']}...")
+        # Step 5: Upload the selected flow
+        print(f"5. Uploading flow: {setup_state['flow_name']}...")
 
         try:
             # Prepare flow data for upload
-            # Remove the id to let Primeagent generate a new one
+            # Remove the id to let PrimeAgent generate a new one
             flow_upload_data = flow_data.copy()
             if "id" in flow_upload_data:
                 del flow_upload_data["id"]
@@ -425,7 +435,7 @@ def save_credentials(setup_state: dict, output_file: str):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Set up Primeagent load test environment with real starter project flows",
+        description="Set up PrimeAgent load test environment with real starter project flows",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
@@ -449,7 +459,7 @@ Examples:
     parser.add_argument(
         "--host",
         default="http://localhost:7860",
-        help="Primeagent host URL (default: http://localhost:7860, use https:// for remote instances)",
+        help="PrimeAgent host URL (default: http://localhost:7860, use https:// for remote instances)",
     )
     parser.add_argument("--flow", help="Name of the starter project flow to use")
     parser.add_argument("--interactive", action="store_true", help="Interactive flow selection")
@@ -469,38 +479,25 @@ Examples:
                 print("Install with: pip install httpx")
                 sys.exit(1)
 
-            # Quick authentication to access the API
-            username = "primeagent"
-            password = "primeagent"
-
             async with httpx.AsyncClient(base_url=args.host, timeout=30.0) as client:
                 # Health check
                 try:
                     health_response = await client.get("/health")
                     if health_response.status_code != 200:
-                        raise Exception(f"Primeagent not available at {args.host}")
+                        raise Exception(f"PrimeAgent not available at {args.host}")
                 except Exception as e:
-                    print(f"❌ Cannot connect to Primeagent at {args.host}: {e}")
+                    print(f"❌ Cannot connect to PrimeAgent at {args.host}: {e}")
                     sys.exit(1)
 
-                # Login to get access token
+                # Authenticate to get access token
                 try:
-                    login_data = {"username": username, "password": password}
-                    login_response = await client.post(
-                        "/api/v1/login",
-                        data=login_data,
-                        headers={"Content-Type": "application/x-www-form-urlencoded"},
-                    )
-
-                    if login_response.status_code != 200:
-                        raise Exception(f"Authentication failed: {login_response.status_code}")
-
-                    tokens = login_response.json()
-                    access_token = tokens["access_token"]
+                    access_token, _, _ = await authenticate_setup_client(client)
 
                 except Exception as e:
                     print(f"❌ Authentication failed: {e}")
-                    print("Make sure Primeagent is running with default credentials (primeagent/primeagent)")
+                    print(
+                        "Set PRIMEAGENT_SUPERUSER_PASSWORD and optionally PRIMEAGENT_SUPERUSER, or enable PRIMEAGENT_AUTO_LOGIN."
+                    )
                     sys.exit(1)
 
                 # Get flows from API

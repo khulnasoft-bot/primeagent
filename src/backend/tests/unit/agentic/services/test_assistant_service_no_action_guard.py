@@ -115,8 +115,8 @@ async def test_should_not_guard_question_intent_text_only():
 
     def streaming_factory(**_kw):
         async def gen():
-            yield "token", "Primeagent is a visual framework."
-            yield "end", {"result": "Primeagent is a visual framework."}
+            yield "token", "PrimeAgent is a visual framework."
+            yield "end", {"result": "PrimeAgent is a visual framework."}
 
         return gen()
 

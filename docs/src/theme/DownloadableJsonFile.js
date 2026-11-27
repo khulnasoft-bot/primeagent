@@ -5,7 +5,7 @@ const DownloadableJsonFile = ({ source, title }) => {
       .then((response) => response.blob())
       .then((blob) => {
         const url = window.URL.createObjectURL(
-          new Blob([blob], { type: "application/json" })
+          new Blob([blob], { type: "application/json" }),
         );
         const link = document.createElement("a");
         link.href = url;

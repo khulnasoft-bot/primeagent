@@ -4,26 +4,26 @@ slug: /components-custom-components
 ---
 
 import Icon from "@site/src/components/icon";
-import Tabs from '@theme/Tabs';
-import TabItem from '@theme/TabItem';
-import PartialBasicComponentStructure from '../_partial-basic-component-structure.mdx';
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import PartialBasicComponentStructure from "../_partial-basic-component-structure.mdx";
 
-Create your own custom components to add any functionality you need to Primeagent, from API integrations to data processing.
+Create your own custom components to add any functionality you need to PrimeAgent, from API integrations to data processing.
 
-In Primeagent's node-based environment, each node is a "component" that performs discrete functions.
-Custom components in Primeagent are built upon:
+In PrimeAgent's node-based environment, each node is a "component" that performs discrete functions.
+Custom components in PrimeAgent are built upon:
 
-* The Python class that inherits from `Component`.
-* Class-level attributes that identify and describe the component.
-* [Input and output lists](#inputs-and-outputs) that determine data flow.
-* Methods that define the component's behavior and logic.
-* Internal variables for [Error handling and logging](#error-handling-and-logging)
+- The Python class that inherits from `Component`.
+- Class-level attributes that identify and describe the component.
+- [Input and output lists](#inputs-and-outputs) that determine data flow.
+- Methods that define the component's behavior and logic.
+- Internal variables for [Error handling and logging](#error-handling-and-logging)
 
-Use the [Custom component quickstart](#quickstart) to add an example component to Primeagent, and then use the reference guide that follows for more advanced component customization.
+Use the [Custom component quickstart](#quickstart) to add an example component to PrimeAgent, and then use the reference guide that follows for more advanced component customization.
 
 ## Custom component quickstart {#quickstart}
 
-Create a custom `DataFrameProcessor` component by creating a Python file, saving it in the correct folder, including an `__init__.py` file, and loading it into Primeagent.
+Create a custom `DataFrameProcessor` component by creating a Python file, saving it in the correct folder, including an `__init__.py` file, and loading it into PrimeAgent.
 
 ### Create a Python file
 
@@ -31,15 +31,15 @@ Create a custom `DataFrameProcessor` component by creating a Python file, saving
 
 ### Save the custom component {#custom-component-path}
 
-Save the custom component in the Primeagent directory where the UI will discover and load it.
+Save the custom component in the PrimeAgent directory where the UI will discover and load it.
 
-By default, Primeagent looks for custom components in the `src/wfx/src/wfx/components` directory.
+By default, PrimeAgent looks for custom components in the `src/wfx/src/wfx/components` directory.
 
 When saving components in the default directory, components must be organized in a specific directory structure to be properly loaded and displayed in the visual editor.
 
 Components must be placed inside category folders, not directly in the base directory.
 
-The category folder name determines where the component appears in the Primeagent <Icon name="Component" aria-hidden="true" /> **Core components** menu.
+The category folder name determines where the component appears in the PrimeAgent <Icon name="Component" aria-hidden="true" /> **Core components** menu.
 For example, to add the example `DataFrameProcessor` component to the **Data** category, place it in the `data` subfolder:
 
 ```
@@ -59,6 +59,7 @@ If you're creating custom components in a different location using the `PRIMEAGE
 ```
 
 You can have multiple category folders to organize components into different categories, with multiple components inside each folder:
+
 ```
 /app/custom_components/
     ├── data/
@@ -70,9 +71,19 @@ You can have multiple category folders to organize components into different cat
         └── custom_tool.py
 ```
 
+:::warning Directory Depth Limitation
+
+Components can be at most 2 levels deep.
+
+For example, `data/custom_component.py` is discoverable, but `data/tools/custom_component.py` is not discoverable.
+
+To increase the depth limit, modify `MAX_DEPTH` in `src/wfx/src/wfx/custom/directory_reader/directory_reader.py`. Subdirectories will still appear as separate categories, not nested hierarchies.
+
+:::
+
 ### Create the `__init__.py` file
 
-Each category directory **must** contain an `__init__.py` file for Primeagent to properly recognize and load the components.
+Each category directory **must** contain an `__init__.py` file for PrimeAgent to properly recognize and load the components.
 This is a Python package requirement that ensures the directory is treated as a module.
 
 To include the `DataFrameProcessor` component, create a file named `__init__.py` in your component's directory with the following content.
@@ -134,11 +145,11 @@ Ensure the application builds your component.
 1. To rebuild the backend and frontend, run `make install_frontend && make build_frontend && make install_backend && uv run primeagent run --port 7860`.
 
 2. Refresh the frontend application.
-Your new `DataFrameProcessor` component is available in the <Icon name="Component" aria-hidden="true" /> **Core components** menu under the **Data** category in the visual editor.
+   Your new `DataFrameProcessor` component is available in the <Icon name="Component" aria-hidden="true" /> **Core components** menu under the **Data** category in the visual editor.
 
 ### Docker deployment
 
-When running Primeagent in Docker, mount your custom components directory and set the `PRIMEAGENT_COMPONENTS_PATH` environment variable in the `docker run` command to point to the custom components directory.
+When running PrimeAgent in Docker, mount your custom components directory and set the `PRIMEAGENT_COMPONENTS_PATH` environment variable in the `docker run` command to point to the custom components directory.
 
 ```bash
 docker run -d \
@@ -160,57 +171,60 @@ Create the same custom components directory structure as the example in [Save th
 
 ## How components execute
 
-Primeagent's engine manages:
+PrimeAgent's engine manages:
 
-1. **Instantiation**:  A component is created and internal structures are initialized.
+1. **Instantiation**: A component is created and internal structures are initialized.
 2. **Assigning Inputs**: Values from the visual editor or connections are assigned to component fields.
 3. **Validation and Setup**: Optional hooks like `_pre_run_setup`.
 4. **Outputs Generation**: `run()` or `build_results()` triggers output methods.
 
 You can customize execution by overriding these optional hooks in your custom component code.
 
-* **`_pre_run_setup()`** - Used during **Validation and Setup**.
-    Add this method inside your component class to initialize component state before execution begins:
-    ```python
-    class MyComponent(Component):
-        # ... your inputs, outputs, and other attributes ...
+- **`_pre_run_setup()`** - Used during **Validation and Setup**.
+  Add this method inside your component class to initialize component state before execution begins:
 
-        def _pre_run_setup(self):
-            if not hasattr(self, "_initialized"):
-                self._initialized = True
-                self.iteration = 0
-    ```
+  ```python
+  class MyComponent(Component):
+      # ... your inputs, outputs, and other attributes ...
 
-* **Override `run` or `_run`** - Used during **Outputs Generation**.
-    Add this method inside your component class to customize the main execution logic:
-    ```python
-    class MyComponent(Component):
+      def _pre_run_setup(self):
+          if not hasattr(self, "_initialized"):
+              self._initialized = True
+              self.iteration = 0
+  ```
 
-        async def_run(self):
-            # Custom execution logic here
-            # This runs instead of the default output method calls
-            pass
-    ```
+- **Override `run` or `_run`** - Used during **Outputs Generation**.
+  Add this method inside your component class to customize the main execution logic:
 
-* **Store data in `self.ctx`**.
-    Use `self.ctx` in any of your component methods to share data between method calls.
-    ```python
-    class MyComponent(Component):
+  ```python
+  class MyComponent(Component):
 
-        def _pre_run_setup(self):
-            # Initialize counter in setup
-            self.ctx["processed_items"] = 0
+      async def_run(self):
+          # Custom execution logic here
+          # This runs instead of the default output method calls
+          pass
+  ```
 
-        def process_data(self) -> Data:
-            # Increment counter during processing
-            self.ctx["processed_items"] += 1
-            return Data(data={"item": f"processed {self.ctx['processed_items']}"})
+- **Store data in `self.ctx`**.
+  Use `self.ctx` in any of your component methods to share data between method calls.
 
-        def get_summary(self) -> Data:
-            # Access counter in different method
-            total = self.ctx["processed_items"]
-            return Data(data={"summary": f"Processed {total} items total"})
-    ```
+  ```python
+  class MyComponent(Component):
+
+      def _pre_run_setup(self):
+          # Initialize counter in setup
+          self.ctx["processed_items"] = 0
+
+      def process_data(self) -> Data:
+          # Increment counter during processing
+          self.ctx["processed_items"] += 1
+          return Data(data={"item": f"processed {self.ctx['processed_items']}"})
+
+      def get_summary(self) -> Data:
+          # Access counter in different method
+          total = self.ctx["processed_items"]
+          return Data(data={"summary": f"Processed {total} items total"})
+  ```
 
 ## Inputs and outputs
 
@@ -218,7 +232,15 @@ Inputs and outputs are **class-level configurations** that define how data flows
 
 ### Inputs
 
-Inputs are defined in a class-level `inputs` list. When Primeagent loads the component, it uses this list to render component fields and [ports](/concepts-components#component-ports) in the visual editor. Users or other components provide values or connections to fill these inputs.
+:::warning Input names can't match method names
+As of PrimeAgent 1.12.4, the input `name` must not match a method on `Component` or `CustomComponent`, or any method your component class defines.
+
+Names that commonly collide include `index`, `start`, `stop`, `run`, `log`, `validate`, and `variables`. Properties and plain attributes, such as `code`, `description`, `inputs`, and `flow_name`, remain valid input names.
+
+If an existing component uses one of these names, rename the input `name` and update any connections that target it. The display name can stay the same.
+:::
+
+Inputs are defined in a class-level `inputs` list. When PrimeAgent loads the component, it uses this list to render component fields and [ports](/concepts-components#component-ports) in the visual editor. Users or other components provide values or connections to fill these inputs.
 
 An input is usually an instance of a class from `wfx.io` (such as `StrInput`, `DataInput`, or `MessageTextInput`).
 
@@ -241,9 +263,9 @@ The `BoolInput` creates a boolean toggle that's enabled by default with `value=T
 The `DropdownInput` provides a selection menu with three predefined options: "Fast", "Safe", and "Experimental".
 The `value="Safe"` sets "Safe" as the default selection, and you access the user's choice with `self.mode`.
 
-For a list of all available parameters, see the [BaseInputMixin definition](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/inputs/input_mixin.py) in the Primeagent codebase.
+For a list of all available parameters, see the [BaseInputMixin definition](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/inputs/input_mixin.py) in the PrimeAgent codebase.
 
-For a list of all available input types, see the [input type definitions](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/inputs/inputs.py) in the Primeagent codebase.
+For a list of all available input types, see the [input type definitions](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/inputs/inputs.py) in the PrimeAgent codebase.
 
 ```python
 from wfx.io import StrInput, DataInput, MultilineInput, IntInput, BoolInput, DropdownInput, FileInput, CodeInput, ModelInput, HandleInput, Output
@@ -251,11 +273,11 @@ from wfx.io import StrInput, DataInput, MultilineInput, IntInput, BoolInput, Dro
 
 ### Outputs
 
-Outputs are defined in a class-level `outputs` list. When Primeagent renders a component, each output becomes a connector point in the visual editor. When you connect something to an output, Primeagent automatically calls the corresponding method and passes the returned object to the next component.
+Outputs are defined in a class-level `outputs` list. When PrimeAgent renders a component, each output becomes a connector point in the visual editor. When you connect something to an output, PrimeAgent automatically calls the corresponding method and passes the returned object to the next component.
 
 An output is usually an instance of `Output` from `wfx.io`.
 
-For example, this component has one `output` that returns a `DataFrame`:
+For example, this component has one `output` that returns a `Table`:
 
 ```python
 from wfx.io import Output
@@ -276,23 +298,24 @@ def build_df(self) -> DataFrame:
     return df
 ```
 
-The `Output` creates a connector point in the visual editor labeled **DataFrame Output**. The `name="df_out"` parameter identifies this output, while `display_name="DataFrame Output"` shows the label in the UI. The `method="build_df"` parameter tells Primeagent to call the `build_df` method when this output is connected to another component.
+The `Output` creates a connector point in the visual editor labeled **DataFrame Output**. The `name="df_out"` parameter identifies this output, while `display_name="DataFrame Output"` shows the label in the UI. The `method="build_df"` parameter tells PrimeAgent to call the `build_df` method when this output is connected to another component.
 
-The `build_df` method processes data and returns a `DataFrame`. The `-> DataFrame` type annotation helps Primeagent validate connections and provides color-coding in the visual editor. You can also set `self.status` to show progress messages in the UI.
+The `build_df` method processes data and returns a `Table`. The `-> DataFrame` type annotation helps PrimeAgent validate connections and provides color-coding in the visual editor. You can also set `self.status` to show progress messages in the UI.
 
-For a complete list of all available parameters, see the [Output class definition](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/template/field/base.py) in the Primeagent codebase. Common parameters include:
+For a complete list of all available parameters, see the [Output class definition](https://github.com/khulnasoft-bot/primeagent/blob/main/src/wfx/src/wfx/template/field/base.py) in the PrimeAgent codebase. Common parameters include:
 
 **Additional return types:**
-* **`Message`**: Structured chat messages
-* **`Data`**: Flexible object with `.data` and optional `.text`
-* **`DataFrame`**: Tabular data (pandas DataFrame subclass)
-* **Primitive types**: `str`, `int`, `bool`, not recommended for type consistency
+
+- **`Message`**: Structured chat messages
+- **`JSON`**: Flexible object with `.data` and optional `.text`
+- **`Table`**: Tabular data (pandas DataFrame subclass)
+- **Primitive types**: `str`, `int`, `bool`, not recommended for type consistency
 
 #### Associated methods
 
-Each output is linked to a method where the output method name must match the method name. The method typically returns objects like `Message`, `Data`, or `DataFrame`, and can use inputs with `self.<input_name>`.
+Each output is linked to a method where the output method name must match the method name. The method typically returns objects like `Message`, `JSON`, or `Table`, and can use inputs with `self.<input_name>`.
 
-For example, the `Output` defines a connector point called `file_contents` that will call the `read_file` method when connected. The `read_file` method accesses the filename input with `self.filename`, reads the file content, sets a status message, and returns the content wrapped in a `Data` object.
+For example, the `Output` defines a connector point called `file_contents` that will call the `read_file` method when connected. The `read_file` method accesses the filename input with `self.filename`, reads the file content, sets a status message, and returns the content wrapped in a `JSON` object.
 
 ```python
 Output(
@@ -309,13 +332,13 @@ def read_file(self) -> Data:
     return Data(data={"content": content})
 ```
 
-
 #### Components with multiple outputs
 
 A component can define multiple outputs.
 Each output can have a different corresponding method.
 
 For example:
+
 ```python
 outputs = [
     Output(display_name="Processed Data", name="processed_data", method="process_data"),
@@ -323,18 +346,18 @@ outputs = [
 ]
 ```
 
-By default, components in Primeagent that produce multiple outputs only allow one output selection in the visual editor.
+By default, components in PrimeAgent that produce multiple outputs only allow one output selection in the visual editor.
 The component will have only one output port where the user can select the preferred output type.
 
 This behavior is controlled by the `group_outputs` parameter:
 
 - **`group_outputs=False` (default)**: When a component has more than one output and `group_outputs` is `false` or not set, the outputs are grouped in the visual editor, and the user must select one.
 
-    Use this option when the component is expected to return only one type of output when used in a flow.
+  Use this option when the component is expected to return only one type of output when used in a flow.
 
 - **`group_outputs=True`**: All outputs are available simultaneously in the visual editor. The component has one output port for each output, and the user can connect zero or more outputs to other components.
 
-    Use this option when the component is expected to return multiple values that are used in parallel by downstream components or processes.
+  Use this option when the component is expected to return multiple values that are used in parallel by downstream components or processes.
 
 <Tabs>
 <TabItem value="false" label="False or not set" default>
@@ -401,9 +424,9 @@ inputs = [
 
 ## Typed annotations
 
-In Primeagent, typed annotations allow Primeagent to visually guide users and maintain flow consistency.
+In PrimeAgent, typed annotations allow PrimeAgent to visually guide users and maintain flow consistency.
 Always annotate your output methods with return types like `-> Data`, `-> Message`, or `-> DataFrame` to enable proper visual editor color-coding and validation.
-Use `Data`, `Message`, or `DataFrame` wrappers instead of returning plain structures for better consistency. Stay consistent with types across your components to make flows predictable and easier to build.
+Use `JSON`, `Message`, or `Table` wrappers instead of returning plain structures for better consistency. Stay consistent with types across your components to make flows predictable and easier to build.
 
 Typed annotations provide color-coding where outputs like `-> Data` or `-> Message` get distinct colors, automatic validation that blocks incompatible connections, and improved readability for users to quickly understand data flow between components.
 
@@ -422,7 +445,7 @@ def produce_message(self) -> Message:
 </TabItem>
 <TabItem value="data" label="Data">
 
-For structured data like dicts or partial texts. Connects only to `DataInput` (ports that accept `Data`).
+For structured data like dicts or partial texts. Connects only to `DataInput` (ports that accept `JSON`).
 
 ```python
 def get_processed_data(self) -> Data:
@@ -433,7 +456,7 @@ def get_processed_data(self) -> Data:
 </TabItem>
 <TabItem value="dataframe" label="DataFrame">
 
-For tabular data. Connects only to `DataFrameInput` (ports that accept `DataFrame`).
+For tabular data. Connects only to `DataFrameInput` (ports that accept `Table`).
 
 ```python
 def build_df(self) -> DataFrame:
@@ -444,7 +467,7 @@ def build_df(self) -> DataFrame:
 </TabItem>
 <TabItem value="primitives" label="Primitive Types">
 
-Returning primitives is allowed, but wrapping in `Data` or `Message` is recommended for better consistency in the visual editor.
+Returning primitives is allowed, but wrapping in `JSON` or `Message` is recommended for better consistency in the visual editor.
 
 ```python
 def compute_sum(self) -> int:
@@ -454,10 +477,9 @@ def compute_sum(self) -> int:
 </TabItem>
 </Tabs>
 
-
 ## Enable dynamic fields
 
-In **Primeagent**, dynamic fields allow inputs to change or appear based on user interactions. You can make an input dynamic by setting `dynamic=True`. Optionally, setting `real_time_refresh=True` triggers the `update_build_config` method to adjust the input's visibility or properties in real time, creating a contextual visual editor experience that only exposes relevant fields based on the user's choices.
+In **PrimeAgent**, dynamic fields allow inputs to change or appear based on user interactions. You can make an input dynamic by setting `dynamic=True`. Optionally, setting `real_time_refresh=True` triggers the `update_build_config` method to adjust the input's visibility or properties in real time, creating a contextual visual editor experience that only exposes relevant fields based on the user's choices.
 
 In this example, the operator field triggers updates with `real_time_refresh=True`.
 The `regex_pattern` field is initially hidden and controlled with `dynamic=True`.
@@ -490,7 +512,7 @@ class RegexRouter(Component):
 
 ### Show or hide fields based on user selections
 
-When a user changes a field with `real_time_refresh=True`, Primeagent calls your `update_build_config` method.
+When a user changes a field with `real_time_refresh=True`, PrimeAgent calls your `update_build_config` method.
 
 This method lets you show, hide, or modify other fields based on what the user selected.
 
@@ -508,7 +530,8 @@ def update_build_config(self, build_config: dict, field_value: str, field_name: 
 
 You can modify additional field properties in `update_build_config` other than just `show` and `hide`.
 
-* **`required`**: Make fields required or optional dynamically
+- **`required`**: Make fields required or optional dynamically
+
   ```python
   if field_value == "regex":
       build_config["regex_pattern"]["required"] = True
@@ -516,7 +539,8 @@ You can modify additional field properties in `update_build_config` other than j
       build_config["regex_pattern"]["required"] = False
   ```
 
-* **`advanced`**: Move fields to the "Advanced" section
+- **`advanced`**: Move fields to the "Advanced" section
+
   ```python
   if field_value == "experimental":
       build_config["regex_pattern"]["advanced"] = False  # Show in main section
@@ -524,7 +548,7 @@ You can modify additional field properties in `update_build_config` other than j
       build_config["regex_pattern"]["advanced"] = True   # Hide in advanced
   ```
 
-* **`options`**: Change dropdown options based on other selections
+- **`options`**: Change dropdown options based on other selections
   ```python
   if field_value == "regex":
       build_config["operator"]["options"] = ["regex", "contains", "starts_with"]
@@ -534,7 +558,7 @@ You can modify additional field properties in `update_build_config` other than j
 
 ## Error handling and logging
 
-You can raise standard Python exceptions such as `ValueError` or specialized exceptions like `ToolException` when validation fails. Primeagent automatically catches these and displays appropriate error messages in the visual editor, helping users quickly identify what went wrong.
+You can raise standard Python exceptions such as `ValueError` or specialized exceptions like `ToolException` when validation fails. PrimeAgent automatically catches these and displays appropriate error messages in the visual editor, helping users quickly identify what went wrong.
 
 ```python
 def compute_result(self) -> str:
@@ -543,7 +567,7 @@ def compute_result(self) -> str:
     # ...
 ```
 
-Alternatively, instead of stopping a flow abruptly, you can return a `Data` object containing an `"error"` field. This approach allows the flow to continue operating and enables downstream components to detect and handle the error gracefully.
+Alternatively, instead of stopping a flow abruptly, you can return a `JSON` object containing an `"error"` field. This approach allows the flow to continue operating and enables downstream components to detect and handle the error gracefully.
 
 ```python
 def run_model(self) -> Data:
@@ -553,7 +577,7 @@ def run_model(self) -> Data:
         return Data(data={"error": str(e)})
 ```
 
-Primeagent provides several tools to help you debug and manage component execution. You can use `self.status` to display short messages about execution results directly in the visual editor, making troubleshooting easier for users.
+PrimeAgent provides several tools to help you debug and manage component execution. You can use `self.status` to display short messages about execution results directly in the visual editor, making troubleshooting easier for users.
 
 ```python
 def parse_data(self) -> Data:
@@ -575,7 +599,7 @@ if not self.user_input or len(self.user_input.strip()) == 0:
 
 You can log key execution details inside components using `self.log()`. These logs are stored as structured data and displayed in the "Logs" or "Events" section of the component's detail view, and can be accessed later through the **Logs** button in the visual editor or exported files.
 
-Component logs are distinct from Primeagent's main application logging system. `self.log()` creates component-specific logs that appear in the UI, while Primeagent's main logging system uses [structlog](https://www.structlog.org) for application-level logging  that outputs to `primeagent.log` files. For more information, see [Logs](/logging).
+Component logs are distinct from PrimeAgent's main application logging system. `self.log()` creates component-specific logs that appear in the UI, while PrimeAgent's main logging system uses [structlog](https://www.structlog.org) for application-level logging that outputs to `primeagent.log` files. For more information, see [Logs](/logging).
 
 This example logs a message when the component starts processing a file.
 
@@ -584,6 +608,6 @@ def process_file(self, file_path: str):
 self.log(f"Processing file {file_path}")
 ```
 
-## Contribute custom components to Primeagent
+## Contribute custom components to PrimeAgent
 
-To contribute your custom component to the Primeagent project, see [Contribute components](/contributing-components).
+To contribute your custom component to the PrimeAgent project, see [Contribute components](/contributing-components).

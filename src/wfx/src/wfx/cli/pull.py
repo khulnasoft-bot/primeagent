@@ -1,6 +1,6 @@
-"""wfx pull -- fetch flows from a remote Primeagent instance to local files.
+"""wfx pull -- fetch flows from a remote PrimeAgent instance to local files.
 
-Downloads flows from a live Primeagent instance, normalizes them for version
+Downloads flows from a live PrimeAgent instance, normalizes them for version
 control, and writes them to a local directory.  Repeated pulls are safe:
 existing files are overwritten with the latest remote state.
 

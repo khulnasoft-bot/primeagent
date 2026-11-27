@@ -348,7 +348,7 @@ def docling_worker(
 
     except ModuleNotFoundError:
         msg = (
-            "Docling is an optional dependency of Primeagent. "
+            "Docling is an optional dependency of PrimeAgent. "
             "Install with `uv pip install 'primeagent[docling]'` "
             "or refer to the documentation"
         )

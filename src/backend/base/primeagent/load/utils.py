@@ -10,11 +10,11 @@ GET_FLOW_ERROR_BODY_LIMIT = 500
 
 
 def get_flow(url: str, flow_id: str):
-    """Get the details of a flow from Primeagent.
+    """Get the details of a flow from PrimeAgent.
 
     Args:
-        url (str): The host URL of Primeagent.
-        port (int): The port number of Primeagent.
+        url (str): The host URL of PrimeAgent.
+        port (int): The port number of PrimeAgent.
         flow_id (UUID): The ID of the flow to retrieve.
 
     Returns:

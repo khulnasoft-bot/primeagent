@@ -1,1 +1,1 @@
-"""Template testing module for Primeagent."""
+"""Template testing module for PrimeAgent."""

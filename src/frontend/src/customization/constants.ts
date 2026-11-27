@@ -1,9 +1,9 @@
-//Primeagent Desktop Base URL
+//PrimeAgent Desktop Base URL
 export const baseURL = "";
 
 export const customDefaultShortcuts = [
   {
-    display_name: "Controls",
+    display_name: "Parameters",
     name: "Advanced Settings",
     shortcut: "mod+shift+a",
   },

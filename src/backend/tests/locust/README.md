@@ -1,13 +1,13 @@
-# Primeagent Load Testing
+# PrimeAgent Load Testing
 
-This directory contains comprehensive load testing tools for both Primeagent and WFX APIs using Locust.
+This directory contains comprehensive load testing tools for both PrimeAgent and WFX APIs using Locust.
 
 ## 🔧 **Two Testing Systems**
 
-### **Primeagent API Testing** (Enhanced System)
+### **PrimeAgent API Testing** (Enhanced System)
 
 - Files: `primeagent_*.py`
-- Tests the main Primeagent application API
+- Tests the main PrimeAgent application API
 - Includes automatic setup, real starter projects, and comprehensive error logging
 
 ### **WFX API Testing** (Complex Serve)
@@ -23,8 +23,8 @@ This directory contains comprehensive load testing tools for both Primeagent and
 - **Multiple User Types**: Different user behaviors to simulate realistic load patterns
 - **Load Test Shapes**: Predefined load patterns for different testing scenarios
 - **Comprehensive Metrics**: Performance grading and detailed reporting
-- **Enhanced Error Logging**: Detailed connection error analysis and Primeagent log capture
-- **Easy Setup**: One-command execution with automatic Primeagent startup
+- **Enhanced Error Logging**: Detailed connection error analysis and PrimeAgent log capture
+- **Easy Setup**: One-command execution with automatic PrimeAgent startup
 
 ## Quick Start
 
@@ -61,7 +61,7 @@ make load_test_help
 
 ## 🌐 **Remote Instance Testing**
 
-For testing against a remote Primeagent instance:
+For testing against a remote PrimeAgent instance:
 
 ### Setup for Remote Testing
 
@@ -93,7 +93,7 @@ python diagnose_remote.py --host https://your-remote-instance.com --load-test 5
 
 #### Step 1: Setup (Run Once)
 
-Choose and set up a real Primeagent starter project for testing:
+Choose and set up a real PrimeAgent starter project for testing:
 
 ```bash
 # Interactive flow selection
@@ -108,7 +108,7 @@ python primeagent_setup_test.py --list-flows
 
 This will:
 
-- Use default Primeagent credentials (primeagent/primeagent)
+- Use `PRIMEAGENT_SUPERUSER` / `PRIMEAGENT_SUPERUSER_PASSWORD` or AUTO_LOGIN
 - Generate API keys
 - Upload a real starter project flow
 - Provide credentials for load testing
@@ -135,7 +135,7 @@ python primeagent_setup_test.py --host https://your-remote-instance.com --intera
 # Save credentials to file
 python primeagent_setup_test.py --interactive --save-credentials my_test_creds.json
 
-# Test against existing remote Primeagent instance
+# Test against existing remote PrimeAgent instance
 python primeagent_run_load_test.py --host https://your-remote-instance.com --no-start-primeagent
 
 # Save results to CSV and HTML
@@ -175,7 +175,7 @@ Use with: `--shape ramp100` or `--shape stepramp`
 
 ## Environment Variables
 
-- `PRIMEAGENT_HOST`: Base URL for Primeagent server (default: http://localhost:7860)
+- `PRIMEAGENT_HOST`: Base URL for PrimeAgent server (default: http://localhost:7860)
 - `SHAPE`: Load test shape (ramp100, stepramp)
 - `REQUEST_TIMEOUT`: Request timeout in seconds (default: 30.0)
 
@@ -183,16 +183,16 @@ Use with: `--shape ramp100` or `--shape stepramp`
 
 ### Setup Process (`primeagent_setup_test.py`)
 
-1. **Health Check**: Verify Primeagent is running
+1. **Health Check**: Verify PrimeAgent is running
 2. **Flow Selection**: Choose from 40+ real starter project flows
-3. **Authentication**: Login with default credentials (primeagent/primeagent)
+3. **Authentication**: Login with configured credentials or AUTO_LOGIN
 4. **API Key Generation**: Create API key for load testing
 5. **Flow Upload**: Upload the selected starter project flow
 6. **Credential Export**: Provide environment variables for testing
 
 ### Real Starter Project Flows
 
-Instead of simple test flows, the system uses real Primeagent starter projects:
+Instead of simple test flows, the system uses real PrimeAgent starter projects:
 
 - **Basic Prompting**: Simple LLM interaction
 - **Memory Chatbot**: Conversational AI with memory
@@ -239,8 +239,8 @@ The test tracks:
 
 ### Common Issues
 
-1. **Setup Failed**: Ensure Primeagent is accessible and not in read-only mode
-2. **Authentication Errors**: Verify default credentials (primeagent/primeagent) are enabled
+1. **Setup Failed**: Ensure PrimeAgent is accessible and not in read-only mode
+2. **Authentication Errors**: Set `PRIMEAGENT_SUPERUSER` and `PRIMEAGENT_SUPERUSER_PASSWORD`, or enable `PRIMEAGENT_AUTO_LOGIN`
 3. **Flow Creation Failed**: Verify the user has permission to create flows
 4. **Connection Errors**: Check network connectivity and firewall settings
 5. **Status Code 0 Errors**: Usually indicates connection overload - reduce user count or spawn rate
@@ -249,8 +249,8 @@ The test tracks:
 
 For debugging, you can:
 
-1. Run Primeagent manually with `--log-level debug`
-2. Check the Primeagent logs for detailed error information
+1. Run PrimeAgent manually with `--log-level debug`
+2. Check the PrimeAgent logs for detailed error information
 3. Use the web UI to verify the test flow was created correctly
 4. Test API endpoints manually with curl or httpx
 5. Use the diagnostic tool for remote instances: `python diagnose_remote.py --host <url> --load-test 10`
@@ -259,7 +259,7 @@ For debugging, you can:
 
 If automatic setup fails, you can set up manually:
 
-1. Start Primeagent: `python -m primeagent run --auto-login`
+1. Start PrimeAgent: `python -m primeagent run --auto-login`
 2. Create a user account through the UI
 3. Create an API key in the settings
 4. Create a simple flow and note its ID
@@ -275,7 +275,7 @@ locust -f primeagent_locustfile.py --host http://localhost:7860
 
 When adding new user types or test scenarios:
 
-1. Inherit from `BasePrimeagentUser`
+1. Inherit from `BasePrimeAgentUser`
 2. Implement task methods with `@task` decorator
 3. Use `self.make_request()` for consistent error handling
 4. Add appropriate weight and wait_time settings

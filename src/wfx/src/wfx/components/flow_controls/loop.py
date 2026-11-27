@@ -21,7 +21,7 @@ class LoopComponent(Component):
         "Iterates through Data or Message objects, processing items individually "
         "and aggregating results from loop inputs."
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/loop"
+    documentation: str = "https://prime.khulnasoft.com/docs/loop"
     icon = "infinity"
 
     inputs = [

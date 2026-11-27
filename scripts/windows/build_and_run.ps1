@@ -1,6 +1,6 @@
 #!/usr/bin/env pwsh
 
-Write-Host "Starting Primeagent build and run process..." -ForegroundColor Green
+Write-Host "Starting PrimeAgent build and run process..." -ForegroundColor Green
 
 # Check if .env file exists and set env file parameter
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
@@ -12,7 +12,7 @@ if (Test-Path $envPath) {
     $useEnvFile = $true
 } else {
     Write-Host ".env file not found at: $envPath" -ForegroundColor Yellow
-    Write-Host "Primeagent will use default configuration" -ForegroundColor Yellow
+    Write-Host "PrimeAgent will use default configuration" -ForegroundColor Yellow
 }
 
 # Step 1: Install frontend dependencies
@@ -82,8 +82,8 @@ try {
     exit 1
 }
 
-# Step 4: Run Primeagent
-Write-Host "`nStep 4: Running Primeagent..." -ForegroundColor Yellow
+# Step 4: Run PrimeAgent
+Write-Host "`nStep 4: Running PrimeAgent..." -ForegroundColor Yellow
 Write-Host "`nAttention: Wait until uvicorn is running before opening the browser" -ForegroundColor Red
 try {
     # Change to project root directory for uv
@@ -100,5 +100,5 @@ try {
     exit 1
 }
 
-Write-Host "`nPrimeagent build and run process completed!" -ForegroundColor Green
+Write-Host "`nPrimeAgent build and run process completed!" -ForegroundColor Green
 Read-Host "Press Enter to exit"

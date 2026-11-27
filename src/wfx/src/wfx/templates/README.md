@@ -94,7 +94,7 @@ They are copied to `ci/` by `wfx init`.
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `PRIMEAGENT_URL` | — | URL of target Primeagent instance (Approach A) |
+| `PRIMEAGENT_URL` | — | URL of target PrimeAgent instance (Approach A) |
 | `PRIMEAGENT_API_KEY` | — | API key for target instance (Approach A) |
 | `PRIMEAGENT_ENV` | — | Environment name from config (Approach B) |
 | `PRIMEAGENT_ENVIRONMENTS_FILE` | `primeagent-environments.toml` | Path to environments config (Approach B) |
@@ -107,7 +107,7 @@ They are copied to `ci/` by `wfx init`.
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `PRIMEAGENT_URL` | — | URL of target Primeagent instance (Approach A) |
+| `PRIMEAGENT_URL` | — | URL of target PrimeAgent instance (Approach A) |
 | `PRIMEAGENT_API_KEY` | — | API key for target instance (Approach A) |
 | `PRIMEAGENT_ENV` | — | Environment name from config (Approach B) |
 | `PRIMEAGENT_ENVIRONMENTS_FILE` | `primeagent-environments.toml` | Path to environments config (Approach B) |
@@ -149,8 +149,8 @@ Create `tests/test_flows.py`:
 
 ```python
 def test_rag_flow(flow_runner):
-    response = flow_runner("rag-endpoint", "What is Primeagent?")
-    assert "Primeagent" in response.first_text_output()
+    response = flow_runner("rag-endpoint", "What is PrimeAgent?")
+    assert "PrimeAgent" in response.first_text_output()
 
 async def test_async_flow(async_flow_runner):
     response = await async_flow_runner("my-endpoint", "Hello!")

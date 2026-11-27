@@ -2,7 +2,7 @@
 
 Context: the agent's run-time security scanner refuses to ``exec`` any flow whose
 node ``code`` field has forbidden imports/calls. The scanner was designed to
-catch LLM-generated component code, but it was also flagging *built-in* Primeagent
+catch LLM-generated component code, but it was also flagging *built-in* PrimeAgent
 components (e.g., ``URLComponent`` uses ``importlib.util.find_spec`` for optional
 dependency detection and ``os.environ.get`` for proxy config). Those built-ins
 are part of the trusted code surface — the assistant adds them via the

@@ -463,7 +463,7 @@ async def validate_connection(connections_client: ConnectionsClient, *, app_id: 
         raise InvalidContentError(message=msg)
 
     if config.security_scheme != ConnectionSecurityScheme.KEY_VALUE:
-        msg = f"Connection '{app_id}' must use key-value credentials for Primeagent flows."
+        msg = f"Connection '{app_id}' must use key-value credentials for PrimeAgent flows."
         raise InvalidContentError(message=msg)
 
     runtime_credentials = await asyncio.to_thread(

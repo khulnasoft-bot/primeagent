@@ -1,9 +1,9 @@
 {
-  "description": "Starter project flows frozen at a specific Primeagent release tag. These files must never be modified — they represent the exact flow state from that release and are used to verify that the upgrade machinery works on real-world flows.",
+  "description": "Starter project flows frozen at a specific PrimeAgent release tag. These files must never be modified — they represent the exact flow state from that release and are used to verify that the upgrade machinery works on real-world flows.",
   "sources": [
     {
       "tag": "v1.9.0",
-      "repo": "khulnasoft/primeagent",
+      "repo": "khulnasoft-bot/primeagent",
       "source_dir": "src/backend/base/primeagent/initial_setup/starter_projects",
       "files": {
         "basic_prompting.json": "Basic Prompting.json",

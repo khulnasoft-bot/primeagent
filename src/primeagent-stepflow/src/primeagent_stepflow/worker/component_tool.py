@@ -1,4 +1,4 @@
-"""Component for creating tool wrappers from Primeagent components."""
+"""Component for creating tool wrappers from PrimeAgent components."""
 
 from typing import Any
 
@@ -6,9 +6,9 @@ from stepflow_py.worker import StepflowContext
 
 
 async def component_tool_executor(input_data: dict[str, Any], context: StepflowContext) -> dict[str, Any]:
-    """Create a tool wrapper from Primeagent component code and inputs.
+    """Create a tool wrapper from PrimeAgent component code and inputs.
 
-    This component takes a Primeagent component's code/JSON and static inputs,
+    This component takes a PrimeAgent component's code/JSON and static inputs,
     then creates a serializable tool wrapper that can be used by agents.
 
     Step references in static_inputs are resolved by the Stepflow orchestrator
@@ -144,10 +144,10 @@ def _extract_tool_input_schema(component_code: dict[str, Any]) -> dict[str, Any]
 
 
 def _map_primeagent_type_to_json_schema(primeagent_type: str) -> str:
-    """Map Primeagent field types to JSON Schema types.
+    """Map PrimeAgent field types to JSON Schema types.
 
     Args:
-        primeagent_type: Primeagent field type (e.g., "str", "int", "bool")
+        primeagent_type: PrimeAgent field type (e.g., "str", "int", "bool")
 
     Returns:
         JSON Schema type string

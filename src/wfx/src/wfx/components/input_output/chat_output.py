@@ -22,7 +22,7 @@ from wfx.utils.constants import (
 class ChatOutput(ChatComponent):
     display_name = "Chat Output"
     description = "Display a chat message in the Playground."
-    documentation: str = "https://docs.prime.khulnasoft.com/chat-input-and-output"
+    documentation: str = "https://prime.khulnasoft.com/docs/chat-input-and-output"
     icon = "MessagesSquare"
     name = "ChatOutput"
     minimized = True
@@ -193,9 +193,9 @@ class ChatOutput(ChatComponent):
     def convert_to_string(self) -> str | Generator[Any, None, None]:
         """Convert input data to string with proper error handling."""
         self._validate_input()
+        clean_data: bool = getattr(self, "clean_data", False)
         if isinstance(self.input_value, list):
-            clean_data: bool = getattr(self, "clean_data", False)
             return "\n".join([safe_convert(item, clean_data=clean_data) for item in self.input_value])
         if isinstance(self.input_value, Generator):
             return self.input_value
-        return safe_convert(self.input_value)
+        return safe_convert(self.input_value, clean_data=clean_data)

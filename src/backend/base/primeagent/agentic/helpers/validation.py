@@ -30,7 +30,7 @@ class _ReturnChecker(ast.NodeVisitor):
                 break
         self.generic_visit(node)
 
-    # Primeagent components commonly use async output methods
+    # PrimeAgent components commonly use async output methods
     visit_AsyncFunctionDef = visit_FunctionDef  # noqa: N815
 
 
@@ -241,6 +241,9 @@ async def _execute_output_methods_for_validation(cc_instance) -> str | None:
         return None
 
     try:
+        from wfx.services.model_provider_policy import ModelProviderPolicyPurpose
+
+        cc_instance.require_model_provider_policy(ModelProviderPolicyPurpose.USE)
         await cc_instance._build_results()  # noqa: SLF001 — sandbox bypass of send_error/tracing
     except ValidationError as exc:
         return _format_validation_error(exc)
@@ -273,7 +276,30 @@ async def validate_component_runtime(code: str, user_id: str | None = None) -> s
     reasons. Only pydantic-schema errors — which are almost always LLM-coding
     mistakes — are surfaced so the retry loop can recover before the component
     is handed to the user.
+
+    SECURITY: this "sandbox" only swallows exceptions; it does not constrain what the code can do
+    (it compiles+execs the module/class body and runs output methods in-process). When the operator
+    has disabled custom components (``allow_custom_components=false``), we must NOT execute
+    tenant-influenced generated code — otherwise the assistant becomes a code-execution path that
+    bypasses the platform-wide policy. Refuse before any instantiation in that case.
     """
+    from wfx.services.deps import get_settings_service
+
+    if not get_settings_service().settings.allow_custom_components:
+        return (
+            "Custom component execution is disabled on this server "
+            "(allow_custom_components=false); generated components cannot be validated or run."
+        )
+
+    # This helper is itself an in-process execution boundary. Keep the security
+    # scan here as defense in depth so a future or direct caller cannot bypass
+    # the assistant service's earlier scan by calling the runtime validator.
+    from primeagent.agentic.helpers.code_security import scan_code_security
+
+    security_result = scan_code_security(code)
+    if not security_result.is_safe:
+        return "Generated component failed security validation: " + "; ".join(security_result.violations)
+
     try:
         from wfx.custom.custom_component.component import Component as ComponentClass
         from wfx.custom.utils import build_custom_component_template
@@ -334,7 +360,7 @@ def validate_component_code(code: str) -> ValidationResult:
                 is_valid=False,
                 code=code,
                 error=(
-                    f"Output name {_RESERVED_OUTPUT_NAME!r} is reserved by Primeagent for the "
+                    f"Output name {_RESERVED_OUTPUT_NAME!r} is reserved by PrimeAgent for the "
                     "synthetic Tool sentinel that the wiring layer auto-generates when a "
                     "component is flipped to Tool Mode. Declaring it on your own Output "
                     "collides with that sentinel and the runtime will drop your tool. "
@@ -349,7 +375,7 @@ def validate_component_code(code: str) -> ValidationResult:
                 is_valid=False,
                 code=code,
                 error=(
-                    f"Output method {_RESERVED_OUTPUT_METHOD!r} is reserved by Primeagent for "
+                    f"Output method {_RESERVED_OUTPUT_METHOD!r} is reserved by PrimeAgent for "
                     "the synthetic Tool sentinel. Defining your own method with that name "
                     "shadows the Component base implementation and breaks tool exposure. "
                     "Rename the method to describe its action (e.g. 'get_item', 'fetch_price')."

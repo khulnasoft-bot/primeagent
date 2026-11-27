@@ -1,5 +1,5 @@
 /**
- * Persistent flag tracking whether the user has discovered the Primeagent
+ * Persistent flag tracking whether the user has discovered the PrimeAgent
  * Assistant. Used to suppress the onboarding affordances ("New" pill on the
  * canvas controls button + idle tooltip) once the user has acknowledged the
  * feature.

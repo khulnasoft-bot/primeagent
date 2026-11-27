@@ -4,7 +4,7 @@ from types import SimpleNamespace
 from uuid import uuid4
 
 import pytest
-from primeagent.services.authorization.service import PrimeagentAuthorizationService
+from primeagent.services.authorization.service import PrimeAgentAuthorizationService
 
 
 @pytest.fixture
@@ -15,7 +15,7 @@ def authz_service():
             AUTHZ_SUPERUSER_BYPASS=True,
         )
     )
-    return PrimeagentAuthorizationService(settings)
+    return PrimeAgentAuthorizationService(settings)
 
 
 @pytest.mark.anyio
@@ -38,7 +38,7 @@ async def test_enforce_allows_non_superuser_when_enabled():
             AUTHZ_SUPERUSER_BYPASS=True,
         )
     )
-    service = PrimeagentAuthorizationService(settings)
+    service = PrimeAgentAuthorizationService(settings)
     user_id = uuid4()
     assert await service.enforce(
         user_id=user_id,
@@ -78,7 +78,7 @@ async def test_batch_enforce_allows_non_superuser_when_enabled():
             AUTHZ_SUPERUSER_BYPASS=True,
         )
     )
-    service = PrimeagentAuthorizationService(settings)
+    service = PrimeAgentAuthorizationService(settings)
     requests = [("flow:a", "read"), ("flow:b", "write")]
     result = await service.batch_enforce(
         user_id=uuid4(),
@@ -109,7 +109,7 @@ async def test_get_allowed_actions_returns_all_actions():
             AUTHZ_SUPERUSER_BYPASS=True,
         )
     )
-    service = PrimeagentAuthorizationService(settings)
+    service = PrimeAgentAuthorizationService(settings)
     actions = ["read", "write", "delete"]
     result = await service.get_allowed_actions(
         user_id=uuid4(),

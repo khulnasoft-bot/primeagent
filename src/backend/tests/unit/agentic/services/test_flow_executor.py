@@ -810,10 +810,6 @@ class TestBugsAndEdgeCases:
     """Tests that challenge the code — exposing real bugs and untested edge cases."""
 
     @pytest.mark.asyncio
-    @pytest.mark.xfail(
-        reason="BUG: L47 graph.context['request_variables'] crashes with TypeError when context is None",
-        strict=True,
-    )
     async def test_run_graph_context_none_crashes(self):
         """_run_graph_with_events should handle graph.context being None."""
         mock_graph = MagicMock()
@@ -892,10 +888,6 @@ class TestBugsAndEdgeCases:
         assert result.has_result is True
 
     @pytest.mark.asyncio
-    @pytest.mark.xfail(
-        reason="BUG: L107 same context None crash — duplicated code, duplicated bug",
-        strict=True,
-    )
     async def test_execute_flow_file_context_none_crashes(self):
         """execute_flow_file should handle graph.context being None."""
         mock_graph = MagicMock()

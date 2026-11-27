@@ -4,6 +4,9 @@ import type { AlertItemType } from "../types/alerts";
 import type { AlertStoreType } from "../types/zustand/alert";
 import { customStringify } from "../utils/reactflowUtils";
 
+// Cap the notification history so a long session never grows unbounded.
+const MAX_NOTIFICATIONS = 100;
+
 const useAlertStore = create<AlertStoreType>((set, get) => ({
   errorData: { title: "", list: [] },
   noticeData: { title: "", link: "" },
@@ -13,9 +16,13 @@ const useAlertStore = create<AlertStoreType>((set, get) => ({
   tempNotificationList: [],
   addNotificationToHistory: (notification: Omit<AlertItemType, "id">) => {
     const newNotification = { ...notification, id: uniqueId() };
+    const nextList = [newNotification, ...get().notificationList].slice(
+      0,
+      MAX_NOTIFICATIONS,
+    );
     set({
       notificationCenter: true,
-      notificationList: [newNotification, ...get().notificationList],
+      notificationList: nextList,
     });
   },
   addNotificationToTempList: (notification: Omit<AlertItemType, "id">) => {
@@ -39,8 +46,12 @@ const useAlertStore = create<AlertStoreType>((set, get) => ({
         );
       })
     ) {
+      const nextList = [newNotification, ...get().tempNotificationList].slice(
+        0,
+        MAX_NOTIFICATIONS,
+      );
       set({
-        tempNotificationList: [newNotification, ...get().tempNotificationList],
+        tempNotificationList: nextList,
       });
     }
   },

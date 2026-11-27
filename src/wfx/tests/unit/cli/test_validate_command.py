@@ -1,6 +1,6 @@
 """Unit tests for wfx validate — structural, extended checks, directory scanning, strict mode.
 
-All tests run entirely in-process (no running Primeagent instance or component
+All tests run entirely in-process (no running PrimeAgent instance or component
 registry required).  Level-2 component checks are skipped via skip_components=True
 so the registry never needs to be loaded.
 """
@@ -8,8 +8,9 @@ so the registry never needs to be loaded.
 from __future__ import annotations
 
 import json
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 import pytest
 from wfx.cli.validate import (
@@ -19,6 +20,7 @@ from wfx.cli.validate import (
     _check_unused_nodes,
     _check_version_mismatch,
     _expand_paths,
+    _get_lf_version,
     validate_command,
     validate_flow_file,
 )
@@ -58,6 +60,24 @@ def _make_result(issues=None) -> ValidationResult:
     if issues:
         result.issues = issues
     return result
+
+
+def test_installed_version_falls_back_to_base_distribution():
+    versions = {"primeagent-base": "1.12.0"}
+
+    def get_version(package: str) -> str:
+        if package not in versions:
+            raise PackageNotFoundError(package)
+        return versions[package]
+
+    with patch("importlib.metadata.version", side_effect=get_version) as version_mock:
+        assert _get_lf_version() == "1.12.0"
+
+    assert version_mock.call_args_list == [
+        call("primeagent"),
+        call("primeagent-nightly"),
+        call("primeagent-base"),
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -691,7 +711,7 @@ class TestVersionMismatch:
         assert len(result.warnings) == 2
 
     def test_primeagent_not_installed_skips_check(self):
-        """If Primeagent is not installed, version check is skipped silently."""
+        """If PrimeAgent is not installed, version check is skipped silently."""
         flow = {**_MINIMAL_VALID, "data": {"nodes": [_NODE_WITH_VERSION], "edges": []}}
         result = self._make_result()
         with patch("wfx.cli.validation.core._get_lf_version", return_value=None):

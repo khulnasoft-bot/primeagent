@@ -8,7 +8,7 @@ from wfx.schema.message import Message
 class ConditionalRouterComponent(Component):
     display_name = "If-Else"
     description = "Routes an input message to a corresponding output based on text comparison."
-    documentation: str = "https://docs.prime.khulnasoft.com/if-else"
+    documentation: str = "https://prime.khulnasoft.com/docs/if-else"
     icon = "split"
     name = "ConditionalRouter"
 

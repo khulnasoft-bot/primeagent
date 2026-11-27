@@ -4,28 +4,41 @@ on:
   pull_request:
     paths:
       - "src/frontend/**"
+    types: [opened, synchronize, reopened, labeled]
 
+# autofix-ci/action uploads a diff artifact and the autofix.ci GitHub App
+# applies it with its own credentials, so no job here needs write access to
+# the repo.
 permissions:
   contents: read
 
 env:
   NODE_VERSION: "22"
+
 jobs:
   autofix:
-    if: ${{ github.actor != 'github-actions[bot]' }}
+    name: Format Frontend
+    if: >-
+      github.event.action != 'labeled'
+      && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+          # Full history so we can diff the PR branch against its merge base
+          # and only touch files this PR changed.
+          fetch-depth: 0
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         id: setup-node
         with:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Cache Node.js dependencies
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         id: npm-cache
         with:
           path: ~/.npm
@@ -37,10 +50,34 @@ jobs:
         run: |
           cd src/frontend
           npm ci
-        if: ${{ steps.setup-node.outputs.cache-hit != 'true' }}
-      - name: Run Biome
-        run: |
-          cd src/frontend
-          npm run format
 
-      - uses: autofix-ci/action@635ffb0c9798bd160680f18fd73371e355b85f27
+      - name: Format changed frontend files
+        run: |
+          # Only format files this PR changed (diff against the merge base with
+          # its target branch) so we don't reformat unrelated files and create
+          # noisy diffs.
+          BASE_REF="${{ github.base_ref || 'main' }}"
+          MERGE_BASE=$(git merge-base HEAD "origin/$BASE_REF")
+
+          CHANGED_FILES=$(git diff --name-only --diff-filter=ACMR \
+            "$MERGE_BASE"...HEAD -- 'src/frontend/' \
+            | grep -E '\.(tsx?|jsx?|c(js|ts)|m(js|ts)|jsonc?)$' \
+            || true)
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No frontend files changed in this PR — skipping format."
+            exit 0
+          fi
+
+          echo "=== Files to format ==="
+          echo "$CHANGED_FILES"
+
+          # Strip the src/frontend/ prefix since we run biome from that dir.
+          RELATIVE_FILES=$(echo "$CHANGED_FILES" | sed 's|^src/frontend/||')
+
+          cd src/frontend
+          # NUL-delimit so paths with spaces aren't split by xargs.
+          printf '%s\n' "$RELATIVE_FILES" | tr '\n' '\0' \
+            | xargs -0 npx @biomejs/biome format --write
+
+      - uses: autofix-ci/action@c5b2d67aa2274e7b5a18224e8171550871fc7e4a

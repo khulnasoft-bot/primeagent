@@ -35,19 +35,25 @@ class ComponentsSettings(BaseModel):
     successfully either way.) Set ``True`` to opt into "prepackaged flows are the source of
     truth on restart" semantics, typically for CI/CD pipelines.
     """
+    load_flows_preserve_variable_bindings: bool = True
+    """Preserve global-variable bindings configured in the UI when reloading an existing flow.
+
+    The flow file remains authoritative for the rest of the flow structure and for bindings it
+    explicitly defines. Set this to ``False`` to restore blind ``data`` replacement on restart.
+    """
     bundle_urls: list[str] = []
 
     lazy_load_components: bool = False
-    """If set to True, Primeagent will only partially load components at startup and fully load them on demand.
+    """If set to True, PrimeAgent will only partially load components at startup and fully load them on demand.
     This significantly reduces startup time but may cause a slight delay when a component is first used."""
 
     # Starter Projects
     create_starter_projects: bool = True
-    """If set to True, Primeagent will create starter projects. If False, skips all starter project setup.
+    """If set to True, PrimeAgent will create starter projects. If False, skips all starter project setup.
     Note that this doesn't check if the starter projects are already loaded in the db;
     this is intended to be used to skip all startup project logic."""
     update_starter_projects: bool = True
-    """If set to True, Primeagent will update starter projects."""
+    """If set to True, PrimeAgent will update starter projects."""
 
     # Extension reload (Mode A only)
     enable_extension_reload: bool = False

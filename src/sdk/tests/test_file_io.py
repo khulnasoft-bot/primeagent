@@ -10,7 +10,7 @@ from uuid import UUID
 import httpx
 import pytest
 from primeagent_sdk import AsyncClient, Client
-from primeagent_sdk.exceptions import PrimeagentHTTPError
+from primeagent_sdk.exceptions import PrimeAgentHTTPError
 from primeagent_sdk.models import Flow
 
 # ---------------------------------------------------------------------------
@@ -250,7 +250,7 @@ def test_pull_returns_dict_without_output() -> None:
 @pytest.mark.unit
 def test_pull_raises_on_http_error() -> None:
     client = _sync_client(_MockTransport(status=404, body={"detail": "Not found"}))
-    with pytest.raises(PrimeagentHTTPError):
+    with pytest.raises(PrimeAgentHTTPError):
         client.pull(_FLOW_ID)
     client.close()
 

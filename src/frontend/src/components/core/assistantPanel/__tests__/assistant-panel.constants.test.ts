@@ -7,8 +7,8 @@ import {
 
 describe("assistant-panel.constants", () => {
   describe("ASSISTANT_TITLE", () => {
-    it("should be Primeagent Assistant", () => {
-      expect(ASSISTANT_TITLE).toBe("Primeagent Assistant");
+    it("should be PrimeAgent Assistant", () => {
+      expect(ASSISTANT_TITLE).toBe("PrimeAgent Assistant");
     });
   });
 

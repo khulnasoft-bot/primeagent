@@ -7,7 +7,7 @@ from types import SimpleNamespace
 from uuid import uuid4
 
 import pytest
-from primeagent.services.authorization.service import PrimeagentAuthorizationService
+from primeagent.services.authorization.service import PrimeAgentAuthorizationService
 from primeagent.services.database.models.auth import AuthzAuditLog
 from primeagent.services.utils import clean_authz_audit_log
 from sqlalchemy.ext.asyncio import create_async_engine
@@ -109,7 +109,7 @@ class _RecordingLogger:
 
 @pytest.mark.anyio
 async def test_passthrough_warning_emitted_when_authz_enabled(monkeypatch):
-    """PrimeagentAuthorizationService warns when AUTHZ_ENABLED=True but plugin is missing."""
+    """PrimeAgentAuthorizationService warns when AUTHZ_ENABLED=True but plugin is missing."""
     from primeagent.services.authorization import service as authz_service_module
 
     recorder = _RecordingLogger()
@@ -121,7 +121,7 @@ async def test_passthrough_warning_emitted_when_authz_enabled(monkeypatch):
             AUTHZ_SUPERUSER_BYPASS=True,
         )
     )
-    PrimeagentAuthorizationService(settings)
+    PrimeAgentAuthorizationService(settings)
 
     warning_messages = [msg for level, msg in recorder.calls if level == "warning"]
     assert any("OSS pass-through" in msg for msg in warning_messages), (
@@ -143,7 +143,7 @@ async def test_passthrough_warning_silent_when_authz_disabled(monkeypatch):
             AUTHZ_SUPERUSER_BYPASS=True,
         )
     )
-    PrimeagentAuthorizationService(settings)
+    PrimeAgentAuthorizationService(settings)
 
     warning_messages = [msg for level, msg in recorder.calls if level == "warning"]
     assert not any("OSS pass-through" in msg for msg in warning_messages), (

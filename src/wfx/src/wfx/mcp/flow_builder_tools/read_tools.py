@@ -19,7 +19,7 @@ from ._state import _ensure_working_flow, _find_node, _load_registry_user_aware
 
 class SearchComponentTypes(Component):
     display_name = "Search Components"
-    description = "Search available Primeagent component types by name, category, or output type."
+    description = "Search available PrimeAgent component types by name, category, or output type."
     icon = "Search"
     name = "SearchComponentTypes"
 
@@ -43,6 +43,9 @@ class SearchComponentTypes(Component):
 
         def producer() -> Data:
             registry = _load_registry_user_aware()
+            from .mutate_tools import _filter_registry_by_model_provider_policy
+
+            registry = _filter_registry_by_model_provider_policy(registry)
             results = search_registry(registry, query=self.query or None)
             return Data(data={"results": results, "count": len(results)})
 
@@ -82,6 +85,9 @@ class DescribeComponentType(Component):
 
         def producer() -> Data:
             registry = _load_registry_user_aware()
+            from .mutate_tools import _filter_registry_by_model_provider_policy
+
+            registry = _filter_registry_by_model_provider_policy(registry)
             try:
                 result = describe_component(registry, component_type)
             except ValueError as e:

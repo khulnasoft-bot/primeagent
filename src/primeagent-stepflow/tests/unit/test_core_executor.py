@@ -148,9 +148,9 @@ class TestCoreExecutorErrors:
 
 
 class TestCoreExecutorWithRealComponent:
-    """Integration tests with real Primeagent components.
+    """Integration tests with real PrimeAgent components.
 
-    Note: Some Primeagent components have complex dependencies (database, etc.)
+    Note: Some PrimeAgent components have complex dependencies (database, etc.)
     These tests focus on verifying the executor can import and instantiate
     components, rather than full execution which may require more setup.
     """

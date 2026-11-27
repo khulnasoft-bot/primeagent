@@ -8,7 +8,7 @@ from wfx.schema.message import Message
 class TextInputComponent(TextComponent):
     display_name = "Text Input"
     description = "Get user text inputs."
-    documentation: str = "https://docs.prime.khulnasoft.com/text-input-and-output"
+    documentation: str = "https://prime.khulnasoft.com/docs/text-input-and-output"
     icon = "type"
     name = "TextInput"
     legacy = True

@@ -19,6 +19,8 @@ def convert_to_message(v) -> Message:
     Returns:
         Message: Converted Message object
     """
+    if isinstance(v, dict):
+        return Data(data=v).to_message()
     return v if isinstance(v, Message) else v.to_message()
 
 
@@ -33,7 +35,7 @@ def convert_to_data(v: Table | Data | Message | dict, *, auto_parse: bool) -> JS
         JSON: Converted JSON object
     """
     if isinstance(v, dict):
-        return Data(v)
+        return Data(data=v)
     if isinstance(v, Message):
         data = Data(data={"text": v.data["text"]})
         return parse_structured_data(data) if auto_parse else data
@@ -142,7 +144,7 @@ def _parse_csv_to_data(text: str) -> JSON:
 class TypeConverterComponent(Component):
     display_name = "Type Convert"
     description = "Convert between different types (Message, JSON, Table)"
-    documentation: str = "https://docs.prime.khulnasoft.com/type-convert"
+    documentation: str = "https://prime.khulnasoft.com/docs/type-convert"
     icon = "repeat"
 
     inputs = [

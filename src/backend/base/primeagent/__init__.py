@@ -1,4 +1,4 @@
-"""Primeagent backwards compatibility layer.
+"""PrimeAgent backwards compatibility layer.
 
 This module provides backwards compatibility by forwarding imports from
 primeagent.* to wfx.* to maintain compatibility with existing code that
@@ -43,7 +43,7 @@ from typing import Any  # noqa: E402
 # during the move (e.g. ``knowledge_bases`` -> ``files_and_knowledge``).
 
 
-class _PrimeagentComponentsAliasLoader(importlib.abc.Loader):
+class _PrimeAgentComponentsAliasLoader(importlib.abc.Loader):
     """Loader that fronts ``wfx.components.<rest>`` as ``primeagent.components.<rest>``.
 
     ``create_module`` returns the wfx module object directly so attribute
@@ -64,7 +64,7 @@ class _PrimeagentComponentsAliasLoader(importlib.abc.Loader):
         return None
 
 
-class _PrimeagentComponentsAliasFinder(importlib.abc.MetaPathFinder):
+class _PrimeAgentComponentsAliasFinder(importlib.abc.MetaPathFinder):
     """Bridge ``primeagent.components.<rest>`` -> ``wfx.components.<rest>`` for arbitrary subpackages.
 
     Replaces a stack of per-subpackage physical shim files with a single
@@ -108,12 +108,12 @@ class _PrimeagentComponentsAliasFinder(importlib.abc.MetaPathFinder):
         is_package = wfx_spec.submodule_search_locations is not None
         return importlib.machinery.ModuleSpec(
             fullname,
-            _PrimeagentComponentsAliasLoader(fullname, wfx_name),
+            _PrimeAgentComponentsAliasLoader(fullname, wfx_name),
             is_package=is_package,
         )
 
 
-class PrimeagentCompatibilityModule(ModuleType):
+class PrimeAgentCompatibilityModule(ModuleType):
     """A module that forwards attribute access to the corresponding wfx module."""
 
     def __init__(self, name: str, wfx_module_name: str):
@@ -163,8 +163,8 @@ def _setup_compatibility_modules():
     # finder handles every subpackage (including ones added later when a new
     # bundle is extracted), so the explicit per-helper entries that used to
     # live in module_mappings are no longer needed here.
-    if not any(isinstance(f, _PrimeagentComponentsAliasFinder) for f in sys.meta_path):
-        sys.meta_path.insert(0, _PrimeagentComponentsAliasFinder())
+    if not any(isinstance(f, _PrimeAgentComponentsAliasFinder) for f in sys.meta_path):
+        sys.meta_path.insert(0, _PrimeAgentComponentsAliasFinder())
 
     # Define all the modules we need to support
     module_mappings = {
@@ -182,7 +182,7 @@ def _setup_compatibility_modules():
         "primeagent.template.field": "wfx.template.field",
         "primeagent.template.field.base": "wfx.template.field.base",
         # ``primeagent.components.*`` is bridged dynamically by
-        # ``_PrimeagentComponentsAliasFinder`` registered above, so no
+        # ``_PrimeAgentComponentsAliasFinder`` registered above, so no
         # entries are needed here.
         # Individual modules that exist in wfx
         "primeagent.base.agents": "wfx.base.agents",
@@ -224,7 +224,7 @@ def _setup_compatibility_modules():
                 spec = importlib.util.find_spec(wfx_name)
                 if spec is not None:
                     # Create compatibility module
-                    compat_module = PrimeagentCompatibilityModule(primeagent_name, wfx_name)
+                    compat_module = PrimeAgentCompatibilityModule(primeagent_name, wfx_name)
                     sys.modules[primeagent_name] = compat_module
 
                     # Set up the module hierarchy
@@ -253,7 +253,7 @@ def _setup_compatibility_modules():
     # Handle modules that exist only in primeagent (like knowledge_bases)
     # These need special handling because they're not in wfx yet.
     # ``primeagent.components.knowledge_bases`` is no longer listed here:
-    # ``_PrimeagentComponentsAliasFinder`` rewrites it to
+    # ``_PrimeAgentComponentsAliasFinder`` rewrites it to
     # ``wfx.components.files_and_knowledge`` via the override map and the
     # physical shim file used to live under ``components/knowledge_bases/``
     # has been removed.

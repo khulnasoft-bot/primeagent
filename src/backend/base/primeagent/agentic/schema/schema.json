@@ -2,8 +2,8 @@
     "nudges": [
       {
         "id": "welcomeNudge",
-        "display_text": "Welcome to Primeagent Assistant!",
-        "description": "Let’s help you start building your first Primeagent app.",
+        "display_text": "Welcome to PrimeAgent Assistant!",
+        "description": "Let’s help you start building your first PrimeAgent app.",
         "type": "route",
         "trigger": {
           "action": "navigate",
@@ -18,7 +18,7 @@
       {
         "id": "createFlow",
         "display_text": "Create a New Flow",
-        "description": "Start a new Primeagent project to design your agent pipeline.",
+        "description": "Start a new PrimeAgent project to design your agent pipeline.",
         "type": "route",
         "trigger": {
           "action": "navigate",
@@ -33,7 +33,7 @@
       {
         "id": "openComponent",
         "display_text": "Browse Components",
-        "description": "Explore and add new components to your Primeagent workspace.",
+        "description": "Explore and add new components to your PrimeAgent workspace.",
         "type": "route",
         "trigger": {
           "action": "navigate",
@@ -48,7 +48,7 @@
       {
         "id": "openLanguageModelComponent",
         "display_text": "Open LanguageModelComponent",
-        "description": "Quickly view and configure the LanguageModelComponent in Primeagent.",
+        "description": "Quickly view and configure the LanguageModelComponent in PrimeAgent.",
         "type": "route",
         "trigger": {
           "action": "navigate",
@@ -63,7 +63,7 @@
       {
         "id": "exploreTemplates",
         "display_text": "Explore Templates",
-        "description": "Jumpstart your project with pre-built Primeagent templates.",
+        "description": "Jumpstart your project with pre-built PrimeAgent templates.",
         "type": "route",
         "trigger": {
           "action": "navigate",
@@ -77,12 +77,12 @@
       },
       {
         "id": "docsNudge",
-        "display_text": "Read Primeagent Docs",
+        "display_text": "Read PrimeAgent Docs",
         "description": "Learn about nodes, connections, and advanced flow building.",
         "type": "button_preview",
         "trigger": {
           "action": "navigate",
-          "payload": { "path": "https://docs.prime.khulnasoft.com" }
+          "payload": { "path": "https://prime.khulnasoft.com/docs" }
         },
         "ui": {
           "icon": "book-open",
@@ -93,12 +93,12 @@
       {
         "id": "feedbackPrompt",
         "display_text": "Share Feedback",
-        "description": "Have ideas or issues with your Primeagent experience? Let’s improve together.",
+        "description": "Have ideas or issues with your PrimeAgent experience? Let’s improve together.",
         "type": "chat_input",
         "trigger": {
           "action": "send_message",
           "payload": {
-            "text": "I’d like to share feedback about my Primeagent experience."
+            "text": "I’d like to share feedback about my PrimeAgent experience."
           }
         },
         "ui": {

@@ -1,6 +1,6 @@
 """Unit tests for wfx login -- login_command and helpers.
 
-All tests run entirely in-process; no real Primeagent instance or SDK required.
+All tests run entirely in-process; no real PrimeAgent instance or SDK required.
 The SDK module is replaced wholesale with MagicMock so only the login logic
 (key masking, connection probing, success/failure output) is under test.
 """
@@ -28,16 +28,16 @@ _EXACT_KEY = "exactly8"  # pragma: allowlist secret  (exactly 8 chars)
 # ---------------------------------------------------------------------------
 
 
-class _FakePrimeagentAuthError(Exception):
-    """Stand-in for primeagent_sdk.PrimeagentAuthError in unit tests."""
+class _FakePrimeAgentAuthError(Exception):
+    """Stand-in for primeagent_sdk.PrimeAgentAuthError in unit tests."""
 
 
-class _FakePrimeagentConnectionError(Exception):
-    """Stand-in for primeagent_sdk.PrimeagentConnectionError in unit tests."""
+class _FakePrimeAgentConnectionError(Exception):
+    """Stand-in for primeagent_sdk.PrimeAgentConnectionError in unit tests."""
 
 
-class _FakePrimeagentHTTPError(Exception):
-    """Stand-in for primeagent_sdk.PrimeagentHTTPError in unit tests."""
+class _FakePrimeAgentHTTPError(Exception):
+    """Stand-in for primeagent_sdk.PrimeAgentHTTPError in unit tests."""
 
     def __init__(self, status_code: int, detail: str) -> None:
         self.status_code = status_code
@@ -70,9 +70,9 @@ def _make_sdk_mock(client_mock: MagicMock | None = None) -> MagicMock:
         client_mock = _make_client_mock()
     sdk = MagicMock()
     sdk.Client.return_value = client_mock
-    sdk.PrimeagentAuthError = _FakePrimeagentAuthError
-    sdk.PrimeagentConnectionError = _FakePrimeagentConnectionError
-    sdk.PrimeagentHTTPError = _FakePrimeagentHTTPError
+    sdk.PrimeAgentAuthError = _FakePrimeAgentAuthError
+    sdk.PrimeAgentConnectionError = _FakePrimeAgentConnectionError
+    sdk.PrimeAgentHTTPError = _FakePrimeAgentHTTPError
     return sdk
 
 
@@ -191,7 +191,7 @@ class TestProbeConnection:
         from wfx.cli.login import _probe_connection
 
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentAuthError("unauthorized")
+        client.list_flows.side_effect = _FakePrimeAgentAuthError("unauthorized")
         sdk = _make_sdk_mock(client_mock=client)
         ok, msg, count = _probe_connection(client, sdk)
         assert ok is False
@@ -202,7 +202,7 @@ class TestProbeConnection:
         from wfx.cli.login import _probe_connection
 
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentConnectionError("refused")
+        client.list_flows.side_effect = _FakePrimeAgentConnectionError("refused")
         sdk = _make_sdk_mock(client_mock=client)
         ok, msg, count = _probe_connection(client, sdk)
         assert ok is False
@@ -213,7 +213,7 @@ class TestProbeConnection:
         from wfx.cli.login import _probe_connection
 
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentHTTPError(503, "service unavailable")
+        client.list_flows.side_effect = _FakePrimeAgentHTTPError(503, "service unavailable")
         sdk = _make_sdk_mock(client_mock=client)
         ok, msg, count = _probe_connection(client, sdk)
         assert ok is False
@@ -247,7 +247,7 @@ class TestProbeConnection:
 
         original_msg = "Connection refused at port 7860"
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentConnectionError(original_msg)
+        client.list_flows.side_effect = _FakePrimeAgentConnectionError(original_msg)
         sdk = _make_sdk_mock(client_mock=client)
         _, msg, _ = _probe_connection(client, sdk)
         assert original_msg in msg
@@ -305,7 +305,7 @@ class TestLoginCommandSuccess:
 class TestLoginCommandAuthFailure:
     def test_auth_error_raises_exit_1(self):
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentAuthError("unauthorized")
+        client.list_flows.side_effect = _FakePrimeAgentAuthError("unauthorized")
         sdk = _make_sdk_mock(client_mock=client)
         env_cfg = _make_env_cfg()
         with pytest.raises(typer.Exit) as exc_info:
@@ -315,7 +315,7 @@ class TestLoginCommandAuthFailure:
     def test_auth_failure_with_api_key_includes_masked_key(self):
         """When auth fails and a key is configured, masked key is shown on stderr."""
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentAuthError("forbidden")
+        client.list_flows.side_effect = _FakePrimeAgentAuthError("forbidden")
         sdk = _make_sdk_mock(client_mock=client)
         env_cfg = _make_env_cfg(api_key=_API_KEY)
         with pytest.raises(typer.Exit):
@@ -330,7 +330,7 @@ class TestLoginCommandAuthFailure:
 class TestLoginCommandConnectionFailure:
     def test_connection_error_raises_exit_1(self):
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentConnectionError("timeout")
+        client.list_flows.side_effect = _FakePrimeAgentConnectionError("timeout")
         sdk = _make_sdk_mock(client_mock=client)
         env_cfg = _make_env_cfg()
         with pytest.raises(typer.Exit) as exc_info:
@@ -346,7 +346,7 @@ class TestLoginCommandConnectionFailure:
 class TestLoginCommandHTTPError:
     def test_http_error_raises_exit_1(self):
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentHTTPError(500, "internal server error")
+        client.list_flows.side_effect = _FakePrimeAgentHTTPError(500, "internal server error")
         sdk = _make_sdk_mock(client_mock=client)
         env_cfg = _make_env_cfg()
         with pytest.raises(typer.Exit) as exc_info:
@@ -355,7 +355,7 @@ class TestLoginCommandHTTPError:
 
     def test_http_404_raises_exit_1(self):
         client = _make_client_mock()
-        client.list_flows.side_effect = _FakePrimeagentHTTPError(404, "not found")
+        client.list_flows.side_effect = _FakePrimeAgentHTTPError(404, "not found")
         sdk = _make_sdk_mock(client_mock=client)
         env_cfg = _make_env_cfg()
         with pytest.raises(typer.Exit) as exc_info:

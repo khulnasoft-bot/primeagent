@@ -1,14 +1,14 @@
-"""Stepflow-level tweaks for Primeagent component configuration.
+"""Stepflow-level tweaks for PrimeAgent component configuration.
 
 This module provides utilities for applying tweaks to Stepflow workflows
-that were translated from Primeagent. Tweaks are applied by modifying the
-input fields of Primeagent UDF executor steps before execution.
+that were translated from PrimeAgent. Tweaks are applied by modifying the
+input fields of PrimeAgent UDF executor steps before execution.
 
 Key features:
 - Apply tweaks to translated Stepflow workflows at execution time
-- Target UDF executor steps using original Primeagent node IDs
+- Target UDF executor steps using original PrimeAgent node IDs
 - Modify step input fields directly (not blob data)
-- Compatible with Primeagent API tweak format
+- Compatible with PrimeAgent API tweak format
 
 Note: Test utilities and environment variable integration are in
 tests/helpers/tweaks_builder.py to keep this production code lean.
@@ -50,7 +50,7 @@ def apply_stepflow_tweaks_to_dict(
         step_id = step_dict.get("id", "")
         component = step_dict.get("component", "")
 
-        # Check if this is a Primeagent executor step (custom_code or core)
+        # Check if this is a PrimeAgent executor step (custom_code or core)
         is_primeagent_step = (
             step_id.startswith("primeagent_")
             and not step_id.endswith("_blob")
@@ -58,7 +58,7 @@ def apply_stepflow_tweaks_to_dict(
         )
 
         if is_primeagent_step:
-            # Extract Primeagent node ID
+            # Extract PrimeAgent node ID
             primeagent_node_id = step_id[len("primeagent_") :]
 
             if primeagent_node_id in tweaks:
@@ -78,7 +78,7 @@ def apply_stepflow_tweaks_to_dict(
 def convert_tweaks_to_overrides(
     tweaks: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, dict[str, Any]] | None:
-    """Convert Primeagent tweaks format to Stepflow overrides format.
+    """Convert PrimeAgent tweaks format to Stepflow overrides format.
 
     This function transforms tweaks from the early binding format (modifying flow)
     to the late binding format (runtime overrides). Instead of modifying the flow
@@ -118,7 +118,7 @@ def convert_tweaks_to_overrides(
     overrides = {}
 
     for primeagent_node_id, field_tweaks in tweaks.items():
-        # Convert Primeagent node ID to Stepflow step ID format
+        # Convert PrimeAgent node ID to Stepflow step ID format
         step_id = f"primeagent_{primeagent_node_id}"
 
         # Create the override value structure that matches step.input structure

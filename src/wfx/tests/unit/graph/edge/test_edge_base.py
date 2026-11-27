@@ -5,10 +5,10 @@ from wfx.components.input_output import ChatInput, ChatOutput
 from wfx.graph.graph.base import Graph
 
 
-@pytest.mark.skip("Temporarilty disabled")
+@pytest.mark.skip("Temporarily disabled")
 def test_edge_raises_error_on_invalid_target_handle():
-    from wfx.components.openai.openai_chat_model import OpenAIModelComponent
     from wfx.components.processing import PromptComponent
+    from wfx_openai.components.openai.openai_chat_model import OpenAIModelComponent
 
     template = """Answer the user as if you were a pirate.
 

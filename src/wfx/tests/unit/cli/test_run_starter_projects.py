@@ -83,7 +83,7 @@ class TestRunStarterProjects:
                     if "primeagent" in line and ("No module named" in line or "Module" in line):
                         error_line = line.strip()
                         break
-                pytest.fail(f"Primeagent import error found in {template_file.name}.\nError: {error_line}")
+                pytest.fail(f"PrimeAgent import error found in {template_file.name}.\nError: {error_line}")
 
             # Check for wfx import errors (these indicate structural issues)
             if "No module named 'wfx." in all_output or "Module wfx." in all_output:
@@ -186,7 +186,7 @@ class TestRunStarterProjects:
             all_output = result.output
 
             # More specific checks for these basic templates
-            assert "No module named 'primeagent'" not in all_output, f"Primeagent import error in {template_name}"
+            assert "No module named 'primeagent'" not in all_output, f"PrimeAgent import error in {template_name}"
 
             # Check for module not found errors specifically related to primeagent
             # (Settings service errors are runtime errors, not import errors)

@@ -14,7 +14,7 @@ class RunFlowComponent(RunFlowBaseComponent):
         "Executes another flow from within the same project. Can also be used as a tool for agents."
         " \n **Select a Flow to use the tool mode**"
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/run-flow"
+    documentation: str = "https://prime.khulnasoft.com/docs/run-flow"
     beta = True
     name = "RunFlow"
     icon = "Workflow"

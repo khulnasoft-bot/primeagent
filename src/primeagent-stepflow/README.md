@@ -1,3 +1,3 @@
 # primeagent-stepflow
 
-Stepflow execution backend for Primeagent.
+Stepflow execution backend for PrimeAgent.

@@ -5,7 +5,7 @@ from __future__ import annotations
 from types import SimpleNamespace
 
 from primeagent.services.authorization.factory import AuthorizationServiceFactory
-from primeagent.services.authorization.service import PrimeagentAuthorizationService
+from primeagent.services.authorization.service import PrimeAgentAuthorizationService
 from wfx.services.authorization.base import BaseAuthorizationService
 
 
@@ -23,7 +23,7 @@ def test_create_returns_base_authorization_service():
     factory = AuthorizationServiceFactory()
     service = factory.create(_make_settings_service())
     assert isinstance(service, BaseAuthorizationService)
-    assert isinstance(service, PrimeagentAuthorizationService)
+    assert isinstance(service, PrimeAgentAuthorizationService)
 
 
 def test_create_uses_injected_settings_service():

@@ -4,9 +4,14 @@ slug: /bundles-sambanova
 ---
 
 import Icon from "@site/src/components/icon";
-import PartialParams from '@site/docs/_partial-hidden-params.mdx';
+import PartialParams from "@site/docs/_partial-hidden-params.mdx";
+import PartialWfxBundlesInstall from "@site/docs/_partial-bundle-wfx-bundles-install.mdx";
 
-<Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) contain custom components that support specific third-party integrations with Primeagent.
+<PartialWfxBundlesInstall />
+
+<Icon name="Blocks" aria-hidden="true" />
+[**Bundles**](/components-bundle-components) contain custom components that
+support specific third-party integrations with PrimeAgent.
 
 This page describes the components that are available in the **SambaNova** bundle.
 
@@ -26,10 +31,10 @@ For more information, see [Language model components](/components-models).
 
 <PartialParams />
 
-| Name | Type | Description |
-|------|------|-------------|
-| sambanova_url | String | Input parameter. Base URL path for API requests. Default: `https://api.sambanova.ai/v1/chat/completions`. |
-| sambanova_api_key | SecretString | Input parameter. Your SambaNova API Key. |
-| model_name | String | Input parameter. The name of the SambaNova model to use. Options include various Llama models. |
-| max_tokens | Integer | Input parameter. The maximum number of tokens to generate. Set to 0 for unlimited tokens. |
-| temperature | Float | Input parameter. Controls randomness in the output. Range: [0.0, 1.0]. Default: 0.07. |
+| Name              | Type         | Description                                                                                               |
+| ----------------- | ------------ | --------------------------------------------------------------------------------------------------------- |
+| sambanova_url     | String       | Input parameter. Base URL path for API requests. Default: `https://api.sambanova.ai/v1/chat/completions`. |
+| sambanova_api_key | SecretString | Input parameter. Your SambaNova API Key.                                                                  |
+| model_name        | String       | Input parameter. The name of the SambaNova model to use. Options include various Llama models.            |
+| max_tokens        | Integer      | Input parameter. The maximum number of tokens to generate. Set to 0 for unlimited tokens.                 |
+| temperature       | Float        | Input parameter. Controls randomness in the output. Range: [0.0, 1.0]. Default: 0.07.                     |

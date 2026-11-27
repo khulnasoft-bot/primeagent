@@ -6,7 +6,7 @@ from types import SimpleNamespace
 from uuid import uuid4
 
 import pytest
-from primeagent.services.authorization.service import PrimeagentAuthorizationService
+from primeagent.services.authorization.service import PrimeAgentAuthorizationService
 
 
 @pytest.fixture
@@ -14,7 +14,7 @@ def authz_service():
     settings = SimpleNamespace(
         auth_settings=SimpleNamespace(AUTHZ_ENABLED=False, AUTHZ_SUPERUSER_BYPASS=True),
     )
-    return PrimeagentAuthorizationService(settings)
+    return PrimeAgentAuthorizationService(settings)
 
 
 @pytest.mark.anyio

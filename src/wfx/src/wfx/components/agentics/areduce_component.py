@@ -42,8 +42,9 @@ class AreduceComponent(BaseAgenticComponent):
         "Analyze the entire input dataframe at once and generate a new dataframe "
         "following the instruction and the required schema"
     )
-    documentation: str = "https://docs.prime.khulnasoft.com/bundles-agentics"
+    documentation: str = "https://prime.khulnasoft.com/docs/bundles-agentics"
     icon = "Agentics"
+    legacy = True
 
     inputs = [
         *get_model_provider_inputs(),

@@ -1,7 +1,7 @@
 """Bug #5 (PR-12575): PRIMEAGENT_GOOGLE_API_KEY is not recognized as a Google credential.
 
 A user who prefixes their provider key with ``PRIMEAGENT_`` (a common .env
-convention — Primeagent reads its own settings under that prefix) gets the
+convention — PrimeAgent reads its own settings under that prefix) gets the
 provider treated as unconfigured: e.g. Gemini never appears in the assistant
 model selector even with a valid key, because the credential resolver only read
 the bare variable name (``GOOGLE_API_KEY``) from the environment.
@@ -15,7 +15,7 @@ from __future__ import annotations
 from wfx.base.models.unified_models.credentials import get_all_variables_for_provider
 
 
-class TestPrimeagentPrefixedProviderKeys:
+class TestPrimeAgentPrefixedProviderKeys:
     def test_should_resolve_google_key_from_primeagent_prefixed_env_var(self, monkeypatch):
         # GIVEN only the PRIMEAGENT_-prefixed variant is set.
         monkeypatch.delenv("GOOGLE_API_KEY", raising=False)

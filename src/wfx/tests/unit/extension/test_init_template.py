@@ -218,7 +218,7 @@ def test_manifest_carries_schema_pointer(tmp_path: Path) -> None:
     init_extension(_options(target))
     payload = (target / "extension.json").read_text(encoding="utf-8")
     assert '"$schema"' in payload
-    assert "schemas.prime.khulnasoft.com/extension/v1.json" in payload
+    assert "prime.khulnasoft.com/schemas/extension/v1.json" in payload
 
 
 def test_init_template_regexes_match_manifest_schema() -> None:

@@ -1,14 +1,14 @@
-"""Exceptions raised by the Primeagent SDK."""
+"""Exceptions raised by the PrimeAgent SDK."""
 
 from __future__ import annotations
 
 
-class PrimeagentError(Exception):
-    """Base class for all Primeagent SDK errors."""
+class PrimeAgentError(Exception):
+    """Base class for all PrimeAgent SDK errors."""
 
 
-class PrimeagentHTTPError(PrimeagentError):
-    """An HTTP error was returned by the Primeagent API."""
+class PrimeAgentHTTPError(PrimeAgentError):
+    """An HTTP error was returned by the PrimeAgent API."""
 
     def __init__(self, status_code: int, detail: str) -> None:
         self.status_code = status_code
@@ -16,31 +16,31 @@ class PrimeagentHTTPError(PrimeagentError):
         super().__init__(f"HTTP {status_code}: {detail}")
 
 
-class PrimeagentNotFoundError(PrimeagentHTTPError):
+class PrimeAgentNotFoundError(PrimeAgentHTTPError):
     """The requested resource was not found (404)."""
 
 
-class PrimeagentAuthError(PrimeagentHTTPError):
+class PrimeAgentAuthError(PrimeAgentHTTPError):
     """Authentication failed (401/403)."""
 
 
-class PrimeagentValidationError(PrimeagentHTTPError):
+class PrimeAgentValidationError(PrimeAgentHTTPError):
     """The request payload was rejected by the server (422)."""
 
 
-class PrimeagentConnectionError(PrimeagentError):
-    """Could not connect to the Primeagent instance."""
+class PrimeAgentConnectionError(PrimeAgentError):
+    """Could not connect to the PrimeAgent instance."""
 
 
-class PrimeagentTimeoutError(PrimeagentError):
+class PrimeAgentTimeoutError(PrimeAgentError):
     """A background job or polling operation exceeded its timeout.
 
-    Adapted from ``PrimeagentV2TimeoutError`` in khulnasoft/sdk PR #1
+    Adapted from ``PrimeAgentV2TimeoutError`` in khulnasoft-bot/sdk PR #1
     (Janardan Singh Kavia, IBM Corp., Apache 2.0).
     """
 
 
-class EnvironmentNotFoundError(PrimeagentError):
+class EnvironmentNotFoundError(PrimeAgentError):
     """The named environment is not defined in the environments config."""
 
     def __init__(self, name: str) -> None:
@@ -50,5 +50,5 @@ class EnvironmentNotFoundError(PrimeagentError):
         )
 
 
-class EnvironmentConfigError(PrimeagentError):
+class EnvironmentConfigError(PrimeAgentError):
     """The environments config file is malformed or missing required fields."""

@@ -1,5 +1,5 @@
-"""Primeagent to Stepflow translation components."""
+"""PrimeAgent to Stepflow translation components."""
 
-from .translator import PrimeagentConverter
+from .translator import PrimeAgentConverter
 
-__all__ = ["PrimeagentConverter"]
+__all__ = ["PrimeAgentConverter"]

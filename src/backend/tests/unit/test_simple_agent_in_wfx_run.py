@@ -22,9 +22,9 @@ class TestAgentInWfxRun:
     @pytest.fixture
     def simple_agent_script_content(self):
         """The simple_agent.py script content for testing wfx run."""
-        return '''"""A simple agent flow example for Primeagent.
+        return '''"""A simple agent flow example for PrimeAgent.
 
-This script demonstrates how to set up a conversational agent using Primeagent's
+This script demonstrates how to set up a conversational agent using PrimeAgent's
 Agent component with proper async handling.
 
 Features:

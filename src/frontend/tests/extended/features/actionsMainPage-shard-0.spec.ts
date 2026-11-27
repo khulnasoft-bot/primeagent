@@ -1,5 +1,5 @@
 import { expect, test } from "../../fixtures";
-import { addFlowToTestOnEmptyPrimeagent } from "../../utils/add-flow-to-test-on-empty-primeagent";
+import { addFlowToTestOnEmptyPrimeAgent } from "../../utils/add-flow-to-test-on-empty-primeagent";
 import { adjustScreenView } from "../../utils/adjust-screen-view";
 import { awaitBootstrapTest } from "../../utils/await-bootstrap-test";
 
@@ -7,7 +7,9 @@ import { TEXTS } from "../../utils/constants/texts";
 
 test(
   "user should be able to download a flow or a component",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 
@@ -73,7 +75,9 @@ test(
 
 test(
   "user should be able to upload a flow or a component",
-  { tag: ["@release", "@api", "@workspace"] },
+  {
+    tag: ["@release", "@api", "@workspace"],
+  },
   async ({ page }) => {
     await page.goto("/");
     await page.waitForSelector('[data-testid="mainpage_title"]', {
@@ -83,7 +87,7 @@ test(
       .getByTestId("new_project_btn_empty_page")
       .count();
     if (countEmptyButton > 0) {
-      await addFlowToTestOnEmptyPrimeagent(page);
+      await addFlowToTestOnEmptyPrimeAgent(page);
     }
     await page.getByTestId("upload-project-button").last().click();
   },
@@ -91,7 +95,9 @@ test(
 
 test(
   "user should be able to duplicate a flow or a component",
-  { tag: ["@release", "@workspace"] },
+  {
+    tag: ["@release", "@workspace"],
+  },
   async ({ page }) => {
     await awaitBootstrapTest(page);
 

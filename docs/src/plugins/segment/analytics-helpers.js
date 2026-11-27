@@ -2,7 +2,7 @@
  * Get common properties that should be included in all events
  */
 export function getCommonProperties() {
-  if (typeof window === 'undefined' || !window.digitalData?.commonProperties) {
+  if (typeof window === "undefined" || !window.digitalData?.commonProperties) {
     return {};
   }
 
@@ -22,11 +22,11 @@ export function getCommonProperties() {
  * Get user ID for identify calls
  */
 export function getUserId() {
-  if (typeof window === 'undefined' || !window.digitalData?.commonProperties) {
-    return 'IBMid-ANONYMOUS';
+  if (typeof window === "undefined" || !window.digitalData?.commonProperties) {
+    return "IBMid-ANONYMOUS";
   }
 
-  return window.digitalData.commonProperties.userId || 'IBMid-ANONYMOUS';
+  return window.digitalData.commonProperties.userId || "IBMid-ANONYMOUS";
 }
 
 /**
@@ -34,7 +34,7 @@ export function getUserId() {
  * Should be called before any track events
  */
 export function identifyUser() {
-  if (typeof window === 'undefined' || !window.analytics?.identify) {
+  if (typeof window === "undefined" || !window.analytics?.identify) {
     return;
   }
 
@@ -48,7 +48,7 @@ export function identifyUser() {
  * Enhanced track function that includes common properties
  */
 export function trackEvent(eventName, properties = {}) {
-  if (typeof window === 'undefined' || !window.analytics?.track) {
+  if (typeof window === "undefined" || !window.analytics?.track) {
     return;
   }
 
@@ -62,7 +62,7 @@ export function trackEvent(eventName, properties = {}) {
  * Enhanced page function that includes common properties
  */
 export function trackPage(name, properties = {}) {
-  if (typeof window === 'undefined' || !window.analytics?.page) {
+  if (typeof window === "undefined" || !window.analytics?.page) {
     return;
   }
 

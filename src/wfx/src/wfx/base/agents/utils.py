@@ -61,7 +61,7 @@ def data_to_messages(data: list[Data | Message]) -> list[BaseMessage]:
             else:
                 logger.warning("Skipping message with empty content in chat history")
         except (ValueError, AttributeError) as e:
-            logger.warning(f"Failed to convert message to BaseMessage: {e}")
+            logger.warning("Failed to convert message to BaseMessage", exc_info=e)
             continue
     return messages
 
@@ -179,7 +179,7 @@ def safe_cache_set(cache: CacheService, key, value):
     try:
         cache.set(key, value)
     except (AttributeError, TypeError) as e:
-        logger.warning(f"Failed to set cache key '{key}': {e}")
+        logger.warning(f"Failed to set cache key '{key}'", exc_info=e)
 
 
 def maybe_unflatten_dict(flat: dict[str, Any]) -> dict[str, Any]:
@@ -247,10 +247,10 @@ def resolve_agent_verbose() -> bool:
 
     When ``verbose`` is truthy, ``AgentExecutor`` attaches a ``StdOutCallbackHandler``
     that writes ``> Entering new ... chain`` / ``> Finished chain.`` lines straight to
-    **stdout** via ``print()`` -- bypassing Primeagent's logging system entirely (no log
+    **stdout** via ``print()`` -- bypassing PrimeAgent's logging system entirely (no log
     level, no formatting). That output is pure noise in container/Kubernetes/OpenShift
     deployments where stdout is harvested as logs, and the same agent steps are already
-    surfaced through Primeagent's own event stream (the "Agent Steps" content blocks).
+    surfaced through PrimeAgent's own event stream (the "Agent Steps" content blocks).
 
     The markers are therefore **off by default** and gated behind LangChain's own
     ``LANGCHAIN_VERBOSE`` environment variable -- the conventional switch for this
