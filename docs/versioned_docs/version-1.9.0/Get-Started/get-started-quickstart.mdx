@@ -16,7 +16,8 @@ Get started with PrimeAgent by loading a template flow, running it, and then ser
 - Create an [OpenAI API key](https://platform.openai.com/api-keys)
 - Create a [PrimeAgent API key](/api-keys-and-authentication)
 
-    <details>
+      <details>
+
   <summary>Create a PrimeAgent API key</summary>
 
   A PrimeAgent API key is a user-specific token you can use with PrimeAgent.
@@ -46,7 +47,7 @@ Get started with PrimeAgent by loading a template flow, running it, and then ser
           }'
           ```
 
-    </details>
+      </details>
 
 :::tip
 If you encounter the error "An API key must be passed as query or header" when attempting to sign up, see [Troubleshooting](/troubleshoot#an-api-key-must-be-passed-as-query-or-header).
@@ -66,15 +67,15 @@ Many components can be tools for agents, including [Model Context Protocol (MCP)
    <PartialGlobalModelProviders />
 3. In the **Agent** component, select your configured model from the **Language Model** dropdown.
 
-   <details>
-   <summary>Access more models and providers</summary>
+      <details>
+<summary>Access more models and providers</summary>
 
    There are two ways to access more models and providers:
 
    - Edit PrimeAgent's global <Icon name="BrainCog" aria-hidden="true" /> **Models** configuration. These providers and models are part of PrimeAgent's core functionality. Use the **Ollama** provider to connect to any model hosted on a local or remote Ollama instance.
    - Connect any [additional language model component](/components-models#additional-language-models) to the **Agent** component's **Language Model** port.
 
-   </details>
+      </details>
 
 4. To run the flow, click <Icon name="Play" aria-hidden="true"/> **Playground**.
 
@@ -115,8 +116,8 @@ PrimeAgent provides code snippets to help you get started with the PrimeAgent AP
    Replace these values if you're using the code for a different server or flow.
    The default PrimeAgent server address is `http://localhost:7860`.
 
-   <Tabs>
-   <TabItem value="Python" label="Python" default>
+      <Tabs>
+<TabItem value="Python" label="Python" default>
 
    ```python
    import requests
@@ -150,8 +151,8 @@ PrimeAgent provides code snippets to help you get started with the PrimeAgent AP
        print(f"Error parsing response: {e}")
    ```
 
-   </TabItem>
-   <TabItem value="JavaScript" label="JavaScript">
+      </TabItem>
+<TabItem value="JavaScript" label="JavaScript">
 
    ```js
    const payload = {
@@ -176,8 +177,8 @@ PrimeAgent provides code snippets to help you get started with the PrimeAgent AP
      .catch((err) => console.error(err));
    ```
 
-   </TabItem>
-   <TabItem value="curl" label="curl">
+      </TabItem>
+<TabItem value="curl" label="curl">
 
    ```bash
    curl --request POST \
@@ -193,8 +194,8 @@ PrimeAgent provides code snippets to help you get started with the PrimeAgent AP
    # A 200 response confirms the call succeeded.
    ```
 
-   </TabItem>
-   </Tabs>
+      </TabItem>
+</Tabs>
 
 2. Copy the snippet, paste it in a script file, and then run the script to send the request.
    If you are using the curl snippet, you can run the command directly in your terminal.

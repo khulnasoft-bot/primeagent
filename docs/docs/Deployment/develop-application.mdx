@@ -177,71 +177,72 @@ Build and run your PrimeAgent Docker image to test it.
 This example runs the container locally.
 For information about publishing your image on Docker Hub and running a PrimeAgent container remotely, see [Deploy to Docker Hub and Kubernetes](#deploy-docker).
 
-1. Build the Docker image:
+1.  Build the Docker image:
 
-   ```bash
-   docker build -t primeagent-pokedex:1.2.0 .
-   ```
+    ```bash
+    docker build -t primeagent-pokedex:1.2.0 .
+    ```
 
-2. Run the Docker container to start your PrimeAgent server:
+2.  Run the Docker container to start your PrimeAgent server:
 
-   ```bash
-   docker run -p 7860:7860 primeagent-pokedex:1.2.0
-   ```
+    ```bash
+    docker run -p 7860:7860 primeagent-pokedex:1.2.0
+    ```
 
-3. To confirm that the container is serving your flows as expected, use the PrimeAgent API to run a flow:
+3.  To confirm that the container is serving your flows as expected, use the PrimeAgent API to run a flow:
 
-   1. Open one of the JSON files in your application's `/flows` folder, and then find the flow's `id` in the [additional metadata and project information](/concepts-flows-import#additional-metadata-and-project-information).
+    1.  Open one of the JSON files in your application's `/flows` folder, and then find the flow's `id` in the [additional metadata and project information](/concepts-flows-import#additional-metadata-and-project-information).
 
-      There are many `id` values; make sure you get the ID for the entire flow, not the ID for an individual component.
-      If your flow is complex, try searching for the flow's name, which is typically near the flow's `id`.
+        There are many `id` values; make sure you get the ID for the entire flow, not the ID for an individual component.
+        If your flow is complex, try searching for the flow's name, which is typically near the flow's `id`.
 
-      ```json
-      "name": "Basic Prompting",
-      "description": "Perform basic prompting with an OpenAI model.",
-      "id": "e4167236-938f-4aca-845b-21de3f399858",
-      ```
+        ```json
+        "name": "Basic Prompting",
+        "description": "Perform basic prompting with an OpenAI model.",
+        "id": "e4167236-938f-4aca-845b-21de3f399858",
+        ```
 
-   2. Send a POST request to the [`/v1/run/$FLOW_ID`](/api-flows-run#run-flow) endpoint using the flow ID from the previous step .
+    2.  Send a POST request to the [`/v1/run/$FLOW_ID`](/api-flows-run#run-flow) endpoint using the flow ID from the previous step .
 
-      The following example runs a simple LLM chat flow that responds to a chat input string.
-      If necessary, modify the payload for your flow.
-      For example, if your flow doesn't have a **Chat Input** component, you must modify the payload to provide the expected input for your flow.
+              The following example runs a simple LLM chat flow that responds to a chat input string.
+              If necessary, modify the payload for your flow.
+              For example, if your flow doesn't have a **Chat Input** component, you must modify the payload to provide the expected input for your flow.
 
-      ```bash
-      curl --request POST \
-        --url 'http://localhost:7860/api/v1/run/e4167236-938f-4aca-845b-21de3f399858?stream=true' \
-        --header 'Content-Type: application/json' \
-        --header 'x-api-key: REPLACE_WITH_A_SECURE_API_KEY' \
-        --data '{
-          "input_value": "Tell me about Charizard.",
-          "output_type": "chat",
-          "input_type": "chat",
-          "session_id": "charizard_test_request"
-      }'
-      ```
+              ```bash
+              curl --request POST \
+                --url 'http://localhost:7860/api/v1/run/e4167236-938f-4aca-845b-21de3f399858?stream=true' \
+                --header 'Content-Type: application/json' \
+                --header 'x-api-key: REPLACE_WITH_A_SECURE_API_KEY' \
+                --data '{
+                  "input_value": "Tell me about Charizard.",
+                  "output_type": "chat",
+                  "input_type": "chat",
+                  "session_id": "charizard_test_request"
+              }'
+              ```
 
-      <details>
-      <summary>About this example</summary>
+              <details>
 
-      This command runs the **Pokédex** template flow.
-      It provides chat input about a specific Pokémon, uses an optional custom `session_id`, and enables response streaming with `?stream=true`.
+        <summary>About this example</summary>
 
-      The default [session ID](/session-id) is the flow ID.
-      Custom session IDs can help isolate unique conversation threads to keep the LLM's context clean, and they can help identify specific conversations in flow logs to make debugging easier.
+              This command runs the **Pokédex** template flow.
+              It provides chat input about a specific Pokémon, uses an optional custom `session_id`, and enables response streaming with `?stream=true`.
 
-      This command uses response streaming because the Pokédex flow can return a large amount of text.
-      To use batching, set `?stream=false`.
+              The default [session ID](/session-id) is the flow ID.
+              Custom session IDs can help isolate unique conversation threads to keep the LLM's context clean, and they can help identify specific conversations in flow logs to make debugging easier.
 
-      </details>
+              This command uses response streaming because the Pokédex flow can return a large amount of text.
+              To use batching, set `?stream=false`.
 
-   3. Verify that the request succeeds and the response is valid, depending on the specific flow you ran.
+              </details>
 
-      This confirms that your PrimeAgent Docker image is correctly configured and this flow is accessible through the PrimeAgent API server that is hosted on the container.
-      When you build and test your entire application stack, your front-end application can use PrimeAgent API requests to trigger the flows served by your PrimeAgent container in the same way you manually tested the flow in the previous step.
+    3.  Verify that the request succeeds and the response is valid, depending on the specific flow you ran.
 
-      This example triggered a flow by sending chat input to the `/v1/run/$FLOW_ID` endpoint.
-      For more examples of flow triggers, see [Trigger flows with webhooks](/webhook) and the tutorial to [Create a chatbot that can ingest files](/chat-with-files).
+        This confirms that your PrimeAgent Docker image is correctly configured and this flow is accessible through the PrimeAgent API server that is hosted on the container.
+        When you build and test your entire application stack, your front-end application can use PrimeAgent API requests to trigger the flows served by your PrimeAgent container in the same way you manually tested the flow in the previous step.
+
+        This example triggered a flow by sending chat input to the `/v1/run/$FLOW_ID` endpoint.
+        For more examples of flow triggers, see [Trigger flows with webhooks](/webhook) and the tutorial to [Create a chatbot that can ingest files](/chat-with-files).
 
 ## Deploy to Docker Hub and Kubernetes {#deploy-docker}
 

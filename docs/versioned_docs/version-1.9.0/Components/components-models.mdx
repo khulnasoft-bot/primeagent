@@ -25,75 +25,76 @@ One of the most common use cases of language model components is to chat with LL
 
 The following example uses a language model component in a chatbot flow similar to the **Basic Prompting** template.
 
-1. <PartialGlobalModelProviders />
+1.  <PartialGlobalModelProviders />
 
-   :::tip My preferred provider or model isn't listed
-   If you want to use a provider or model that isn't built-in to PrimeAgent's global <Icon name="BrainCog" aria-hidden="true" /> **Models**, you can replace the **Language Model** component with any [additional language model component](#additional-language-models).
+    :::tip My preferred provider or model isn't listed
+    If you want to use a provider or model that isn't built-in to PrimeAgent's global <Icon name="BrainCog" aria-hidden="true" /> **Models**, you can replace the **Language Model** component with any [additional language model component](#additional-language-models).
 
-   Browse <Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) or <Icon name="Search" aria-hidden="true" /> **Search** for your preferred provider to find additional language models.
+    Browse <Icon name="Blocks" aria-hidden="true" /> [**Bundles**](/components-bundle-components) or <Icon name="Search" aria-hidden="true" /> **Search** for your preferred provider to find additional language models.
 
-   Alternatively, you can use Ollama to host your preferred model, and then configure your Ollama service in PrimeAgent's global <Icon name="BrainCog" aria-hidden="true" /> **Models**.
-   Or, create your own custom component to support any provider and model of your choice, and then use your custom component in place of the **Language Model** core component. As a shortcut, use an existing language model component as the basis for your custom component.
-   :::
+    Alternatively, you can use Ollama to host your preferred model, and then configure your Ollama service in PrimeAgent's global <Icon name="BrainCog" aria-hidden="true" /> **Models**.
+    Or, create your own custom component to support any provider and model of your choice, and then use your custom component in place of the **Language Model** core component. As a shortcut, use an existing language model component as the basis for your custom component.
+    :::
 
-2. Add the **Language Model** core component to your flow, and then select your model from the **Language Model** field.
+2.  Add the **Language Model** core component to your flow, and then select your model from the **Language Model** field.
 
-   Optionally, to configure API keys and enable or disable models, click **Manage Model Providers** to open the **Model Providers** pane.
+    Optionally, to configure API keys and enable or disable models, click **Manage Model Providers** to open the **Model Providers** pane.
 
-3. In the [component inspection panel](/concepts-components#component-menus), enable the **System Message** parameter.
+3.  In the [component inspection panel](/concepts-components#component-menus), enable the **System Message** parameter.
 
-4. Add a [**Prompt Template** component](/components-prompts) to your flow.
+4.  Add a [**Prompt Template** component](/components-prompts) to your flow.
 
-5. In the **Template** field, enter some instructions for the LLM, such as `You are an expert in geography who is tutoring high school students`.
+5.  In the **Template** field, enter some instructions for the LLM, such as `You are an expert in geography who is tutoring high school students`.
 
-6. Connect the **Prompt Template** component's output to the **Language Model** component's **System Message** input.
+6.  Connect the **Prompt Template** component's output to the **Language Model** component's **System Message** input.
 
-7. Add [**Chat Input** and **Chat Output** components](/chat-input-and-output) to your flow.
-   These components are required for direct chat interaction with an LLM.
+7.  Add [**Chat Input** and **Chat Output** components](/chat-input-and-output) to your flow.
+    These components are required for direct chat interaction with an LLM.
 
-8. Connect the **Chat Input** component to the **Language Model** component's **Input**, and then connect the **Language Model** component's **Message** output to the **Chat Output** component.
+8.  Connect the **Chat Input** component to the **Language Model** component's **Input**, and then connect the **Language Model** component's **Message** output to the **Chat Output** component.
 
-   ![A basic prompting flow with Language Model, Prompt Template, Chat Input, and Chat Output components](/img/component-language-model.png)
+    ![A basic prompting flow with Language Model, Prompt Template, Chat Input, and Chat Output components](/img/component-language-model.png)
 
-9. Open the **Playground**, and ask a question to chat with the LLM and test the flow, such as `What is the capital of Utah?`.
+9.  Open the **Playground**, and ask a question to chat with the LLM and test the flow, such as `What is the capital of Utah?`.
 
-   <details>
-   <summary>Result</summary>
+       <details>
+<summary>Result</summary>
 
-   The following response is an example of an OpenAI model's response.
-   Your actual response may vary based on the model version at the time of your request, your template, and input.
+    The following response is an example of an OpenAI model's response.
+    Your actual response may vary based on the model version at the time of your request, your template, and input.
 
-   ```
-   The capital of Utah is Salt Lake City. It is not only the largest city in the state but also serves as the cultural and economic center of Utah. Salt Lake City was founded in 1847 by Mormon pioneers and is known for its proximity to the Great Salt Lake and its role in the history of the Church of Jesus Christ of Latter-day Saints. For more information, you can refer to sources such as the U.S. Geological Survey or the official state website of Utah.
-   ```
+    ```
+    The capital of Utah is Salt Lake City. It is not only the largest city in the state but also serves as the cultural and economic center of Utah. Salt Lake City was founded in 1847 by Mormon pioneers and is known for its proximity to the Great Salt Lake and its role in the history of the Church of Jesus Christ of Latter-day Saints. For more information, you can refer to sources such as the U.S. Geological Survey or the official state website of Utah.
+    ```
 
-   </details>
+       </details>
 
 10. Optional: Try a different model or provider to see how the response changes.
 
-    If you enabled multiple models in PrimeAgent's global **Model Providers** pane, select a different model in the **Language Model** field. To open the **Model Providers** pane, click your profile icon, select **Settings**, and then click <Icon name="Brain" aria-hidden="true"/> **Model Providers**.
-    Then, open the **Playground**, ask the same question as you did before, and then compare the content and format of the responses.
+        If you enabled multiple models in PrimeAgent's global **Model Providers** pane, select a different model in the **Language Model** field. To open the **Model Providers** pane, click your profile icon, select **Settings**, and then click <Icon name="Brain" aria-hidden="true"/> **Model Providers**.
+        Then, open the **Playground**, ask the same question as you did before, and then compare the content and format of the responses.
 
-    This helps you understand how different models handle the same request so you can choose the best model for your use case.
-    You can also learn more about different models in each model provider's documentation.
+        This helps you understand how different models handle the same request so you can choose the best model for your use case.
+        You can also learn more about different models in each model provider's documentation.
 
-    <details>
+        <details>
+
     <summary>Result</summary>
 
-    The following response is an example of an Anthropic model's response.
-    Your actual response may vary based on the model version at the time of your request, your template, and input.
+        The following response is an example of an Anthropic model's response.
+        Your actual response may vary based on the model version at the time of your request, your template, and input.
 
-    Note that this response is shorter and includes sources, whereas the previous OpenAI response was more encyclopedic and didn't cite sources.
+        Note that this response is shorter and includes sources, whereas the previous OpenAI response was more encyclopedic and didn't cite sources.
 
-    ```
-    The capital of Utah is Salt Lake City. It is also the most populous city in the state. Salt Lake City has been the capital of Utah since 1896, when Utah became a state.
-    Sources:
-    Utah State Government Official Website (utah.gov)
-    U.S. Census Bureau
-    Encyclopedia Britannica
-    ```
+        ```
+        The capital of Utah is Salt Lake City. It is also the most populous city in the state. Salt Lake City has been the capital of Utah since 1896, when Utah became a state.
+        Sources:
+        Utah State Government Official Website (utah.gov)
+        U.S. Census Bureau
+        Encyclopedia Britannica
+        ```
 
-    </details>
+        </details>
 
 </TabItem>
 <TabItem value="drivers" label="Drivers">

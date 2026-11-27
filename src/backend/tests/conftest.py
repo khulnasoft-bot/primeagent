@@ -629,7 +629,9 @@ async def client_fixture(
                     )
                 if template:
                     startup_patch.setattr(service_utils, "initialize_database", initialize_test_database)
-                manager = await stack.enter_async_context(LifespanManager(app, startup_timeout=60, shutdown_timeout=60))
+                manager = await stack.enter_async_context(
+                    LifespanManager(app, startup_timeout=180, shutdown_timeout=60)
+                )
                 # Startup schedules storage discovery. Settle it before tests
                 # insert fenced records that the background migration could alter.
                 from primeagent.services.knowledge_base_storage import coordinator

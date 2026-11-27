@@ -260,6 +260,10 @@ def get_lifespan(*, fix_migration=False, version=None):
         # early failure (e.g. an unresolvable PRIMEAGENT_DATABASE_URL) is masked by a
         # secondary error during cleanup. See issue #13634.
         temp_dirs: list = []
+        # Set once startup reaches ``yield``; lets the CancelledError handler
+        # below tell a mid-startup cancellation (must propagate) apart from a
+        # shutdown-time cancellation (logged and cleaned up as before).
+        started = False
 
         try:
             start_time = asyncio.get_event_loop().time()
@@ -760,8 +764,15 @@ def get_lifespan(*, fix_migration=False, version=None):
             # is initialized by this point.
             await _run_enterprise_lifespan_hooks("startup")
 
+            started = True
             yield
         except asyncio.CancelledError:
+            if not started:
+                # Startup was cancelled before the app began serving (e.g. a
+                # lifespan startup timeout). Swallowing it here would end the
+                # generator without yielding and surface as a misleading
+                # "generator didn't yield" instead of the real cancellation.
+                raise
             await logger.adebug("Lifespan received cancellation signal")
         except UnsupportedPostgreSQLVersionError:
             # Normally caught by the pre-flight check in __main__.py; on direct uvicorn

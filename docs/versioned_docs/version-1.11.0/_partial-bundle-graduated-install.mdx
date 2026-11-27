@@ -25,6 +25,7 @@ export const GraduatedBundleInstall = ({ packageName }) => {
 const { name, coreSupport } = providers[packageName] ?? { name: packageName, coreSupport: false };
 
 return (
+
 <Admonition type="tip">
 {coreSupport && (
 <p>

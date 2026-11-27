@@ -7,7 +7,7 @@ import CodeBlock from "@theme/CodeBlock";
 import exampleApiBuildBuildFlowAndStreamEvents from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-build/build-flow-and-stream-events.sh";
 import resultApiBuildResultBuildFlowAndStreamEvents from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-build/result-build-flow-and-stream-events.json";
 import exampleApiBuildBuildFlowAndStreamEvents2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-build/build-flow-and-stream-events-2.sh";
-import resultApiBuildResultBuildFlowAndStreamEvents2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-build/result-build-flow-and-stream-events-2.json";
+import resultApiBuildResultBuildFlowAndStreamEvents2 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-build/result-build-flow-and-stream-events-2.txt";
 import exampleApiBuildBuildFlowAndStreamEvents3 from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-build/build-flow-and-stream-events-3.sh";
 import exampleApiBuildSetStartAndStopPoints from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-build/set-start-and-stop-points.sh";
 import exampleApiBuildOverrideFlowParameters from "!!raw-loader!@site/docs/API-Reference/curl-examples/api-build/override-flow-parameters.sh";
@@ -41,75 +41,85 @@ You might need to use or understand these endpoints when contributing to the Pri
 
 This endpoint builds and executes a flow, returning a job ID that can be used to stream execution events.
 
-1. Send a POST request to the `/build/$FLOW_ID/flow` endpoint:
+1.  Send a POST request to the `/build/$FLOW_ID/flow` endpoint:
 
-   <Tabs>
-   <TabItem value="Python" label="Python" default>
+          <Tabs>
 
-   <CodeBlock language="python">
-     {examplePythonApiBuildBuildFlowAndStreamEvents}
-   </CodeBlock>
+    <TabItem value="Python" label="Python" default>
 
-   </TabItem>
-   <TabItem value="JavaScript" label="JavaScript">
+    <CodeBlock language="python">
+      {examplePythonApiBuildBuildFlowAndStreamEvents}
+    </CodeBlock>
 
-   <CodeBlock language="javascript">
-     {exampleJavascriptApiBuildBuildFlowAndStreamEvents}
-   </CodeBlock>
+          </TabItem>
 
-   </TabItem>
-   <TabItem value="curl" label="curl">
+    <TabItem value="JavaScript" label="JavaScript">
 
-   <CodeBlock language="bash">
-     {exampleApiBuildBuildFlowAndStreamEvents}
-   </CodeBlock>
+    <CodeBlock language="javascript">
+      {exampleJavascriptApiBuildBuildFlowAndStreamEvents}
+    </CodeBlock>
 
-   </TabItem>
-   </Tabs>
+          </TabItem>
 
-   <details>
-   <summary>Result</summary>
+    <TabItem value="curl" label="curl">
 
-   <CodeBlock language="json">
-     {resultApiBuildResultBuildFlowAndStreamEvents}
-   </CodeBlock>
+    <CodeBlock language="bash">
+      {exampleApiBuildBuildFlowAndStreamEvents}
+    </CodeBlock>
 
-   </details>
+          </TabItem>
 
-2. After receiving a job ID from the build endpoint, use the `/build/$JOB_ID/events` endpoint to stream the execution results:
+    </Tabs>
 
-   <Tabs>
-   <TabItem value="Python" label="Python" default>
+          <details>
 
-   <CodeBlock language="python">
-     {examplePythonApiBuildBuildFlowAndStreamEvents2}
-   </CodeBlock>
+    <summary>Result</summary>
 
-   </TabItem>
-   <TabItem value="JavaScript" label="JavaScript">
+    <CodeBlock language="json">
+      {resultApiBuildResultBuildFlowAndStreamEvents}
+    </CodeBlock>
 
-   <CodeBlock language="javascript">
-     {exampleJavascriptApiBuildBuildFlowAndStreamEvents2}
-   </CodeBlock>
+          </details>
 
-   </TabItem>
-   <TabItem value="curl" label="curl">
+2.  After receiving a job ID from the build endpoint, use the `/build/$JOB_ID/events` endpoint to stream the execution results:
 
-   <CodeBlock language="bash">
-     {exampleApiBuildBuildFlowAndStreamEvents2}
-   </CodeBlock>
+          <Tabs>
 
-   </TabItem>
-   </Tabs>
+    <TabItem value="Python" label="Python" default>
 
-   <details>
-   <summary>Result</summary>
+    <CodeBlock language="python">
+      {examplePythonApiBuildBuildFlowAndStreamEvents2}
+    </CodeBlock>
 
-   <CodeBlock language="json">
-     {resultApiBuildResultBuildFlowAndStreamEvents2}
-   </CodeBlock>
+          </TabItem>
 
-   </details>
+    <TabItem value="JavaScript" label="JavaScript">
+
+    <CodeBlock language="javascript">
+      {exampleJavascriptApiBuildBuildFlowAndStreamEvents2}
+    </CodeBlock>
+
+          </TabItem>
+
+    <TabItem value="curl" label="curl">
+
+    <CodeBlock language="bash">
+      {exampleApiBuildBuildFlowAndStreamEvents2}
+    </CodeBlock>
+
+          </TabItem>
+
+    </Tabs>
+
+          <details>
+
+    <summary>Result</summary>
+
+    <CodeBlock language="json">
+      {resultApiBuildResultBuildFlowAndStreamEvents2}
+    </CodeBlock>
+
+          </details>
 
 The `/build/$FLOW_ID/events` endpoint has a `stream` query parameter that defaults to `true`.
 To disable streaming and get all events at once, set `?stream=false`.

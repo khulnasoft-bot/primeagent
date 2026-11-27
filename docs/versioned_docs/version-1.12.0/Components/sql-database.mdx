@@ -25,13 +25,14 @@ Instead, you only need to provide enough context for the agent to understand tha
 
 1. Use your own sample database or create a test database.
 
-   <details>
-   <summary>Create a test SQL database</summary>
-   1. Create a database called `test.db`:
+      <details>
+<summary>Create a test SQL database</summary>
 
-      ```shell
-      sqlite3 test.db
-      ```
+1. Create a database called `test.db`:
+
+   ```shell
+   sqlite3 test.db
+   ```
 
    2. Add some values to the database:
 
@@ -68,22 +69,22 @@ Instead, you only need to provide enough context for the agent to understand tha
 
    </details>
 
-2. Add an **SQL Database** component to your flow.
+1. Add an **SQL Database** component to your flow.
 
-3. In the **Database URL** field, add the connection string for your database, such as `sqlite:///test.db`.
+1. In the **Database URL** field, add the connection string for your database, such as `sqlite:///test.db`.
 
    At this point, you can enter an SQL query in the **SQL Query** field or use the [port](/concepts-components#component-ports) to pass a query from another component, such as a **Chat Input** component.
    If you need more space, click <Icon name="Expand" aria-hidden="true"/> **Expand** to open a full-screen text field.
 
    However, to make this component more dynamic in an agentic context, use an **Agent** component to transform natural language input to SQL queries, as explained in the following steps.
 
-4. Click the **SQL Database** component to expose the [component's header menu](/concepts-components#component-menus), and then enable **Tool Mode**.
+1. Click the **SQL Database** component to expose the [component's header menu](/concepts-components#component-menus), and then enable **Tool Mode**.
 
    You can now use this component as a tool for an agent.
    In **Tool Mode**, no query is set in the **SQL Database** component because the agent will generate and send one if it determines that the tool is required to complete the user's request.
    For more information, see [Configure tools for agents](/agents-tools).
 
-5. Add an **Agent** component to your flow, and then enter your OpenAI API key.
+1. Add an **Agent** component to your flow, and then enter your OpenAI API key.
 
    The default model is an OpenAI model.
    If you want to use a different model, edit the **Model Provider**, **Model Name**, and **API Key** fields accordingly.
@@ -91,11 +92,11 @@ Instead, you only need to provide enough context for the agent to understand tha
    If you need to execute highly specialized queries, consider selecting a model that is trained for tasks like advanced SQL queries.
    If your preferred model isn't in the **Agent** component's built-in model list, set **Model Provider** to **Connect other models**, and then connect any [language model component](/components-models).
 
-6. Connect the **SQL Database** component's **Toolset** output to the **Agent** component's **Tools** input.
+1. Connect the **SQL Database** component's **Toolset** output to the **Agent** component's **Tools** input.
 
    ![SQL Database component connected to an Agent component](/img/component-sql-database.png)
 
-7. Click **Playground**, and then ask the agent a question about the data in your database, such as `Which users are in my database?`
+1. Click **Playground**, and then ask the agent a question about the data in your database, such as `Which users are in my database?`
 
    The agent determines that it needs to query the database to answer the question, uses the LLM to generate an SQL query, and then uses the **SQL Database** component's `RUN_SQL_QUERY` action to run the query on your database.
    Finally, it returns the results in a conversational format, unless you provide instructions to return raw results or a different format.

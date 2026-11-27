@@ -26,41 +26,42 @@ The only requirement is that the preceding component must create `Table` output 
 
 1.  Create a new flow or use an existing flow.
 
-    <details>
+        <details>
+
     <summary>Example: API response extraction flow</summary>
 
-    The following example flow uses five components to extract `JSON` from an API response, transform it to a `Table`, and then perform further processing on tabular data using a **Table Operations** component.
-    The sixth component, **Chat Output**, is optional in this example.
-    It only serves as a convenient way for you to view the final output in the **Playground**, rather than inspecting the component logs.
+        The following example flow uses five components to extract `JSON` from an API response, transform it to a `Table`, and then perform further processing on tabular data using a **Table Operations** component.
+        The sixth component, **Chat Output**, is optional in this example.
+        It only serves as a convenient way for you to view the final output in the **Playground**, rather than inspecting the component logs.
 
-    ![A flow that ingests an API response, extracts it to a Table with a Smart Transform component, and then processes it through a Table Operations component](/img/component-dataframe-operations.png)
+        ![A flow that ingests an API response, extracts it to a Table with a Smart Transform component, and then processes it through a Table Operations component](/img/component-dataframe-operations.png)
 
-    If you want to use this example to test the **Table Operations** component, do the following:
+        If you want to use this example to test the **Table Operations** component, do the following:
 
-    1. Create a flow with the following components:
+        1. Create a flow with the following components:
 
-       - **API Request**
-       - **Language Model**
-       - **Smart Transform**
-       - **Type Convert**
+           - **API Request**
+           - **Language Model**
+           - **Smart Transform**
+           - **Type Convert**
 
-    2. Configure the [**Smart Transform** component](/smart-transform) and its dependencies:
+        2. Configure the [**Smart Transform** component](/smart-transform) and its dependencies:
 
-       - **API Request**: Configure the [**API Request** component](/api-request) to get JSON data from an endpoint of your choice, and then connect the **API Response** output to the **Smart Transform** component's **Data** input.
-       - **Language Model**: Select your preferred provider and model, and then enter a valid API key.
-         Change the output to **Language Model**, and then connect the `LanguageModel` output to the **Smart Transform** component's **Language Model** input.
-       - **Smart Transform**: In the **Instructions** field, enter natural language instructions to extract data from the API response.
-         Your instructions depend on the response content and desired outcome.
-         For example, if the response contains a large `result` field, you might provide instructions like `explode the result field out into a Data object`.
+           - **API Request**: Configure the [**API Request** component](/api-request) to get JSON data from an endpoint of your choice, and then connect the **API Response** output to the **Smart Transform** component's **Data** input.
+           - **Language Model**: Select your preferred provider and model, and then enter a valid API key.
+             Change the output to **Language Model**, and then connect the `LanguageModel` output to the **Smart Transform** component's **Language Model** input.
+           - **Smart Transform**: In the **Instructions** field, enter natural language instructions to extract data from the API response.
+             Your instructions depend on the response content and desired outcome.
+             For example, if the response contains a large `result` field, you might provide instructions like `explode the result field out into a Data object`.
 
-    3. Convert the **Smart Transform** component's output from `JSON` to `Table`:
+        3. Convert the **Smart Transform** component's output from `JSON` to `Table`:
 
-       1. Connect the **Filtered Data** output to the **Type Convert** component's **JSON** input.
-       2. Set the **Type Convert** component's **Output Type** to **Table**.
+           1. Connect the **Filtered Data** output to the **Type Convert** component's **JSON** input.
+           2. Set the **Type Convert** component's **Output Type** to **Table**.
 
-    Now the flow is ready for you to add the **Table Operations** component.
+        Now the flow is ready for you to add the **Table Operations** component.
 
-    </details>
+        </details>
 
 2.  Add a **Table Operations** component to the flow, and then connect `Table` output from another component to the **Table** input.
 

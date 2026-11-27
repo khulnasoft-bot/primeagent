@@ -55,219 +55,228 @@ Apply any [database migrations](./database-migrations) before sending requests t
 An uninitialized bundle returns `503`.
 :::
 
-1. Create a [superuser API key](/api-keys-and-authentication#create-a-primeagent-api-key).
+1.  Create a [superuser API key](/api-keys-and-authentication#create-a-primeagent-api-key).
 
-2. Query how many flows a component would affect before you block it.
+2.  Query how many flows a component would affect before you block it.
 
-   `GET /api/v1/catalog-policy/usage` returns the number of affected flows.
-   `GET /api/v1/catalog-policy/usage/flows?component=PythonREPLComponent` lists the affected flows.
+    `GET /api/v1/catalog-policy/usage` returns the number of affected flows.
+    `GET /api/v1/catalog-policy/usage/flows?component=PythonREPLComponent` lists the affected flows.
 
-   For field names and key formats, see [How to name what you block](#keys).
+    For field names and key formats, see [How to name what you block](#keys).
 
-3. Read the current policy bundle, and copy `revision`.
+3.  Read the current policy bundle, and copy `revision`.
 
-   <Tabs>
-   <TabItem value="Python" label="Python" default>
+          <Tabs>
 
-   ```python
-   import os
+    <TabItem value="Python" label="Python" default>
 
-   import requests
+    ```python
+    import os
 
-   url = f"{os.environ['PRIMEAGENT_URL']}/api/v1/policy-bundle"
-   headers = {
-       "accept": "application/json",
-       "x-api-key": os.environ["PRIMEAGENT_API_KEY"],
-   }
+    import requests
 
-   response = requests.get(url, headers=headers)
-   response.raise_for_status()
-   print(response.json())
-   ```
+    url = f"{os.environ['PRIMEAGENT_URL']}/api/v1/policy-bundle"
+    headers = {
+        "accept": "application/json",
+        "x-api-key": os.environ["PRIMEAGENT_API_KEY"],
+    }
 
-   </TabItem>
-   <TabItem value="JavaScript" label="JavaScript">
+    response = requests.get(url, headers=headers)
+    response.raise_for_status()
+    print(response.json())
+    ```
 
-   ```javascript
-   const url = `${process.env.PRIMEAGENT_URL}/api/v1/policy-bundle`;
+          </TabItem>
 
-   const response = await fetch(url, {
-     method: "GET",
-     headers: {
-       accept: "application/json",
-       "x-api-key": process.env.PRIMEAGENT_API_KEY,
-     },
-   });
+    <TabItem value="JavaScript" label="JavaScript">
 
-   if (!response.ok) {
-     throw new Error(`HTTP ${response.status}`);
-   }
-   console.log(await response.json());
-   ```
+    ```javascript
+    const url = `${process.env.PRIMEAGENT_URL}/api/v1/policy-bundle`;
 
-   </TabItem>
-   <TabItem value="curl" label="curl">
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        "x-api-key": process.env.PRIMEAGENT_API_KEY,
+      },
+    });
 
-   ```bash
-   curl -X GET \
-     "$PRIMEAGENT_URL/api/v1/policy-bundle" \
-     -H "accept: application/json" \
-     -H "x-api-key: $PRIMEAGENT_API_KEY"
-   ```
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    console.log(await response.json());
+    ```
 
-   </TabItem>
-   </Tabs>
+          </TabItem>
 
-   <details>
-   <summary>Result</summary>
+    <TabItem value="curl" label="curl">
 
-   ```json
-   {
-     "revision": 1,
-     "initialized": true,
-     "source": "default",
-     "approved_provider_ids": [],
-     "blocked_component_keys": [],
-     "blocked_template_keys": [],
-     "blocked_model_keys": [],
-     "content_hash": "ef74cccb21593ac02fc514e669c911768e740b1135d7a91d3fb15f72837ab762",
-     "created_at": null,
-     "created_by": null,
-     "reason": null,
-     "rollback_of_revision": null,
-     "managed_externally": false
-   }
-   ```
+    ```bash
+    curl -X GET \
+      "$PRIMEAGENT_URL/api/v1/policy-bundle" \
+      -H "accept: application/json" \
+      -H "x-api-key: $PRIMEAGENT_API_KEY"
+    ```
 
-   </details>
+          </TabItem>
 
-   :::tip
-   If `managed_externally` is `true`, an external controller owns policy.
-   Reads still work. Writes return `409`.
-   :::
+    </Tabs>
 
-4. Replace the bundle with a `PUT` request that includes every list you want in effect.
-   Send the `revision` number copied from step 3 as `expected_revision`.
-   Send `[]` for a list you want unrestricted.
+          <details>
 
-   <Tabs>
-   <TabItem value="Python" label="Python" default>
+    <summary>Result</summary>
 
-   ```python
-   import os
+    ```json
+    {
+      "revision": 1,
+      "initialized": true,
+      "source": "default",
+      "approved_provider_ids": [],
+      "blocked_component_keys": [],
+      "blocked_template_keys": [],
+      "blocked_model_keys": [],
+      "content_hash": "ef74cccb21593ac02fc514e669c911768e740b1135d7a91d3fb15f72837ab762",
+      "created_at": null,
+      "created_by": null,
+      "reason": null,
+      "rollback_of_revision": null,
+      "managed_externally": false
+    }
+    ```
 
-   import requests
+          </details>
 
-   base = os.environ["PRIMEAGENT_URL"]
-   headers = {
-       "accept": "application/json",
-       "Content-Type": "application/json",
-       "x-api-key": os.environ["PRIMEAGENT_API_KEY"],
-   }
+    :::tip
+    If `managed_externally` is `true`, an external controller owns policy.
+    Reads still work. Writes return `409`.
+    :::
 
-   current = requests.get(f"{base}/api/v1/policy-bundle", headers=headers)
-   current.raise_for_status()
-   revision = current.json()["revision"]
+4.  Replace the bundle with a `PUT` request that includes every list you want in effect.
+    Send the `revision` number copied from step 3 as `expected_revision`.
+    Send `[]` for a list you want unrestricted.
 
-   payload = {
-       "expected_revision": revision,
-       "approved_provider_ids": ["openai", "anthropic"],
-       "blocked_component_keys": ["PythonREPLComponent"],
-       "blocked_template_keys": [],
-       "blocked_model_keys": ["openai::llm::gpt-4o"],
-       "reason": "Limit providers and block code execution",
-   }
+          <Tabs>
 
-   response = requests.put(f"{base}/api/v1/policy-bundle", headers=headers, json=payload)
-   response.raise_for_status()
-   print(response.json())
-   ```
+    <TabItem value="Python" label="Python" default>
 
-   </TabItem>
-   <TabItem value="JavaScript" label="JavaScript">
+    ```python
+    import os
 
-   ```javascript
-   const base = process.env.PRIMEAGENT_URL;
-   const headers = {
-     accept: "application/json",
-     "Content-Type": "application/json",
-     "x-api-key": process.env.PRIMEAGENT_API_KEY,
-   };
+    import requests
 
-   const current = await fetch(`${base}/api/v1/policy-bundle`, { headers });
-   if (!current.ok) {
-     throw new Error(`HTTP ${current.status}`);
-   }
-   const revision = (await current.json()).revision;
+    base = os.environ["PRIMEAGENT_URL"]
+    headers = {
+        "accept": "application/json",
+        "Content-Type": "application/json",
+        "x-api-key": os.environ["PRIMEAGENT_API_KEY"],
+    }
 
-   const response = await fetch(`${base}/api/v1/policy-bundle`, {
-     method: "PUT",
-     headers,
-     body: JSON.stringify({
-       expected_revision: revision,
-       approved_provider_ids: ["openai", "anthropic"],
-       blocked_component_keys: ["PythonREPLComponent"],
-       blocked_template_keys": [],
-       blocked_model_keys": ["openai::llm::gpt-4o"],
-       reason: "Limit providers and block code execution",
-     }),
-   });
+    current = requests.get(f"{base}/api/v1/policy-bundle", headers=headers)
+    current.raise_for_status()
+    revision = current.json()["revision"]
 
-   if (!response.ok) {
-     throw new Error(`HTTP ${response.status}`);
-   }
-   console.log(await response.json());
-   ```
+    payload = {
+        "expected_revision": revision,
+        "approved_provider_ids": ["openai", "anthropic"],
+        "blocked_component_keys": ["PythonREPLComponent"],
+        "blocked_template_keys": [],
+        "blocked_model_keys": ["openai::llm::gpt-4o"],
+        "reason": "Limit providers and block code execution",
+    }
 
-   </TabItem>
-   <TabItem value="curl" label="curl">
+    response = requests.put(f"{base}/api/v1/policy-bundle", headers=headers, json=payload)
+    response.raise_for_status()
+    print(response.json())
+    ```
 
-   ```bash
-   curl -X PUT \
-     "$PRIMEAGENT_URL/api/v1/policy-bundle" \
-     -H "accept: application/json" \
-     -H "Content-Type: application/json" \
-     -H "x-api-key: $PRIMEAGENT_API_KEY" \
-     -d '{
-       "expected_revision": 1,
-       "approved_provider_ids": ["openai", "anthropic"],
-       "blocked_component_keys": ["PythonREPLComponent"],
-       "blocked_template_keys": [],
-       "blocked_model_keys": ["openai::llm::gpt-4o"],
-       "reason": "Limit providers and block code execution"
-     }'
-   ```
+          </TabItem>
 
-   </TabItem>
-   </Tabs>
+    <TabItem value="JavaScript" label="JavaScript">
 
-   If another user updated the policy first, the `PUT` returns `409`.
-   Repeat from step 3 with an updated `revision` number.
+    ```javascript
+    const base = process.env.PRIMEAGENT_URL;
+    const headers = {
+      accept: "application/json",
+      "Content-Type": "application/json",
+      "x-api-key": process.env.PRIMEAGENT_API_KEY,
+    };
 
-   ```json
-   {
-     "detail": {
-       "message": "Policy bundle revision conflict",
-       "expected_revision": 1,
-       "active_revision": 2
-     }
-   }
-   ```
+    const current = await fetch(`${base}/api/v1/policy-bundle`, { headers });
+    if (!current.ok) {
+      throw new Error(`HTTP ${current.status}`);
+    }
+    const revision = (await current.json()).revision;
 
-5. Optional: Undo a prior revision.
+    const response = await fetch(`${base}/api/v1/policy-bundle`, {
+      method: "PUT",
+      headers,
+      body: JSON.stringify({
+        expected_revision: revision,
+        approved_provider_ids: ["openai", "anthropic"],
+        blocked_component_keys: ["PythonREPLComponent"],
+        blocked_template_keys": [],
+        blocked_model_keys": ["openai::llm::gpt-4o"],
+        reason: "Limit providers and block code execution",
+      }),
+    });
 
-   `GET /api/v1/policy-bundle/history` lists prior bundle policy revisions.
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    console.log(await response.json());
+    ```
 
-   To restore a revision, `POST` to `/api/v1/policy-bundle/rollback/{revision}` with the current `expected_revision`:
+          </TabItem>
 
-   ```bash
-   curl -X POST \
-     "$PRIMEAGENT_URL/api/v1/policy-bundle/rollback/1" \
-     -H "accept: application/json" \
-     -H "Content-Type: application/json" \
-     -H "x-api-key: $PRIMEAGENT_API_KEY" \
-     -d '{"expected_revision": 2, "reason": "Revert last change"}'
-   ```
+    <TabItem value="curl" label="curl">
+
+    ```bash
+    curl -X PUT \
+      "$PRIMEAGENT_URL/api/v1/policy-bundle" \
+      -H "accept: application/json" \
+      -H "Content-Type: application/json" \
+      -H "x-api-key: $PRIMEAGENT_API_KEY" \
+      -d '{
+        "expected_revision": 1,
+        "approved_provider_ids": ["openai", "anthropic"],
+        "blocked_component_keys": ["PythonREPLComponent"],
+        "blocked_template_keys": [],
+        "blocked_model_keys": ["openai::llm::gpt-4o"],
+        "reason": "Limit providers and block code execution"
+      }'
+    ```
+
+          </TabItem>
+
+    </Tabs>
+
+    If another user updated the policy first, the `PUT` returns `409`.
+    Repeat from step 3 with an updated `revision` number.
+
+    ```json
+    {
+      "detail": {
+        "message": "Policy bundle revision conflict",
+        "expected_revision": 1,
+        "active_revision": 2
+      }
+    }
+    ```
+
+5.  Optional: Undo a prior revision.
+
+    `GET /api/v1/policy-bundle/history` lists prior bundle policy revisions.
+
+    To restore a revision, `POST` to `/api/v1/policy-bundle/rollback/{revision}` with the current `expected_revision`:
+
+    ```bash
+    curl -X POST \
+      "$PRIMEAGENT_URL/api/v1/policy-bundle/rollback/1" \
+      -H "accept: application/json" \
+      -H "Content-Type: application/json" \
+      -H "x-api-key: $PRIMEAGENT_API_KEY" \
+      -d '{"expected_revision": 2, "reason": "Revert last change"}'
+    ```
 
 ## How to name blocked items {#keys}
 

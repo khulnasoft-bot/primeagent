@@ -136,123 +136,127 @@ For more information, see [Input schema (tweaks)](/concepts-publish#input-schema
 
 To modify the **MCP Tools** component's environment variables with tweaks, do the following:
 
-1. Open the flow that contains your **MCP Tools** component.
-2. To find the **MCP Tools** component's unique ID, in your **MCP Tools** component, click <Icon name="SlidersHorizontal" aria-hidden="true"/> **Controls**.
-   The component's ID is displayed in the **Controls** pane, such as `MCPTools-Bzahc`.
-3. Send a POST request to the PrimeAgent server's `/run` endpoint, and include tweaks to the **MCP Tools** component.
+1.  Open the flow that contains your **MCP Tools** component.
+2.  To find the **MCP Tools** component's unique ID, in your **MCP Tools** component, click <Icon name="SlidersHorizontal" aria-hidden="true"/> **Controls**.
+    The component's ID is displayed in the **Controls** pane, such as `MCPTools-Bzahc`.
+3.  Send a POST request to the PrimeAgent server's `/run` endpoint, and include tweaks to the **MCP Tools** component.
 
-   The following examples demonstrate a request structure with the `env` object nested under `mcp_server` in the `tweaks` payload:
+    The following examples demonstrate a request structure with the `env` object nested under `mcp_server` in the `tweaks` payload:
 
-   <Tabs groupId="language">
-   <TabItem value="python" label="Python" default>
+          <Tabs groupId="language">
 
-   ```python
-   import requests
-   import os
+    <TabItem value="python" label="Python" default>
 
-   PRIMEAGENT_SERVER_ADDRESS = "http://localhost:7860"
-   FLOW_ID = "your-flow-id"
-   PRIMEAGENT_API_KEY = os.getenv("PRIMEAGENT_API_KEY")
-   MCP_TOOLS_COMPONENT_ID = "MCPTools-Bzahc"
+    ```python
+    import requests
+    import os
 
-   url = f"{PRIMEAGENT_SERVER_ADDRESS}/api/v1/run/{FLOW_ID}?stream=false"
-   headers = {
-       "Content-Type": "application/json",
-       "x-api-key": PRIMEAGENT_API_KEY
-   }
-   payload = {
-       "output_type": "chat",
-       "input_type": "chat",
-       "input_value": "What sales data is available to me?",
-       "tweaks": {
-           MCP_TOOLS_COMPONENT_ID: {
-               "mcp_server": {
-                   "env": {
-                       "API_URL": "https://api.example.com",
-                       "API_KEY": "your-mcp-server-api-key",
-                       "ENVIRONMENT": "production"
-                   }
-               }
-           }
-       }
-   }
+    PRIMEAGENT_SERVER_ADDRESS = "http://localhost:7860"
+    FLOW_ID = "your-flow-id"
+    PRIMEAGENT_API_KEY = os.getenv("PRIMEAGENT_API_KEY")
+    MCP_TOOLS_COMPONENT_ID = "MCPTools-Bzahc"
 
-   response = requests.post(url, json=payload, headers=headers)
-   print(response.json())
-   ```
+    url = f"{PRIMEAGENT_SERVER_ADDRESS}/api/v1/run/{FLOW_ID}?stream=false"
+    headers = {
+        "Content-Type": "application/json",
+        "x-api-key": PRIMEAGENT_API_KEY
+    }
+    payload = {
+        "output_type": "chat",
+        "input_type": "chat",
+        "input_value": "What sales data is available to me?",
+        "tweaks": {
+            MCP_TOOLS_COMPONENT_ID: {
+                "mcp_server": {
+                    "env": {
+                        "API_URL": "https://api.example.com",
+                        "API_KEY": "your-mcp-server-api-key",
+                        "ENVIRONMENT": "production"
+                    }
+                }
+            }
+        }
+    }
 
-   </TabItem>
-   <TabItem value="typescript" label="TypeScript">
+    response = requests.post(url, json=payload, headers=headers)
+    print(response.json())
+    ```
 
-   ```typescript
-   const PRIMEAGENT_SERVER_ADDRESS = "http://localhost:7860";
-   const FLOW_ID = "your-flow-id";
-   const PRIMEAGENT_API_KEY = process.env.PRIMEAGENT_API_KEY || "";
-   const MCP_TOOLS_COMPONENT_ID = "MCPTools-Bzahc";
+          </TabItem>
 
-   const url = `${PRIMEAGENT_SERVER_ADDRESS}/api/v1/run/${FLOW_ID}?stream=false`;
+    <TabItem value="typescript" label="TypeScript">
 
-   const response = await fetch(url, {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-       "x-api-key": PRIMEAGENT_API_KEY,
-     },
-     body: JSON.stringify({
-       output_type: "chat",
-       input_type: "chat",
-       input_value: "What sales data is available to me?",
-       tweaks: {
-         [MCP_TOOLS_COMPONENT_ID]: {
-           mcp_server: {
-             env: {
-               API_URL: "https://api.example.com",
-               API_KEY: "your-mcp-server-api-key",
-               ENVIRONMENT: "production",
-             },
-           },
-         },
-       },
-     }),
-   });
+    ```typescript
+    const PRIMEAGENT_SERVER_ADDRESS = "http://localhost:7860";
+    const FLOW_ID = "your-flow-id";
+    const PRIMEAGENT_API_KEY = process.env.PRIMEAGENT_API_KEY || "";
+    const MCP_TOOLS_COMPONENT_ID = "MCPTools-Bzahc";
 
-   const data = await response.json();
-   console.log(data);
-   ```
+    const url = `${PRIMEAGENT_SERVER_ADDRESS}/api/v1/run/${FLOW_ID}?stream=false`;
 
-   </TabItem>
-   <TabItem value="curl" label="cURL">
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": PRIMEAGENT_API_KEY,
+      },
+      body: JSON.stringify({
+        output_type: "chat",
+        input_type: "chat",
+        input_value: "What sales data is available to me?",
+        tweaks: {
+          [MCP_TOOLS_COMPONENT_ID]: {
+            mcp_server: {
+              env: {
+                API_URL: "https://api.example.com",
+                API_KEY: "your-mcp-server-api-key",
+                ENVIRONMENT: "production",
+              },
+            },
+          },
+        },
+      }),
+    });
 
-   ```bash
-   curl --request POST \
-     --url "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID?stream=false" \
-     --header "Content-Type: application/json" \
-     --header "x-api-key: PRIMEAGENT_API_KEY" \
-     --data '{
-       "output_type": "chat",
-       "input_type": "chat",
-       "input_value": "What sales data is available to me?",
-       "tweaks": {
-         "MCP_TOOLS_COMPONENT_ID": {
-           "mcp_server": {
-             "env": {
-               "API_URL": "https://api.example.com",
-               "API_KEY": "your-mcp-server-api-key",
-               "ENVIRONMENT": "production"
-             }
-           }
-         }
-       }
-     }'
-   ```
+    const data = await response.json();
+    console.log(data);
+    ```
 
-   </TabItem>
-   </Tabs>
+          </TabItem>
 
-   Replace `MCP_TOOLS_COMPONENT_ID`, `PRIMEAGENT_API_KEY`, `PRIMEAGENT_SERVER_ADDRESS`, and `FLOW_ID` with the actual values from your PrimeAgent deployment.
+    <TabItem value="curl" label="cURL">
 
-   PrimeAgent doesn't automatically discover or expose which environment variables your MCP server accepts from the **MCP Tools** component.
-   To determine which environment variables your MCP server accepts, see the MCP server's documentation. For example, the [Astra DB MCP server](https://github.com/datastax/astra-db-mcp) requires `ASTRA_DB_APPLICATION_TOKEN` and `ASTRA_DB_API_ENDPOINT`, with an optional variable for `ASTRA_DB_KEYSPACE`, as documented in its repository.
+    ```bash
+    curl --request POST \
+      --url "http://PRIMEAGENT_SERVER_ADDRESS/api/v1/run/FLOW_ID?stream=false" \
+      --header "Content-Type: application/json" \
+      --header "x-api-key: PRIMEAGENT_API_KEY" \
+      --data '{
+        "output_type": "chat",
+        "input_type": "chat",
+        "input_value": "What sales data is available to me?",
+        "tweaks": {
+          "MCP_TOOLS_COMPONENT_ID": {
+            "mcp_server": {
+              "env": {
+                "API_URL": "https://api.example.com",
+                "API_KEY": "your-mcp-server-api-key",
+                "ENVIRONMENT": "production"
+              }
+            }
+          }
+        }
+      }'
+    ```
+
+          </TabItem>
+
+    </Tabs>
+
+    Replace `MCP_TOOLS_COMPONENT_ID`, `PRIMEAGENT_API_KEY`, `PRIMEAGENT_SERVER_ADDRESS`, and `FLOW_ID` with the actual values from your PrimeAgent deployment.
+
+    PrimeAgent doesn't automatically discover or expose which environment variables your MCP server accepts from the **MCP Tools** component.
+    To determine which environment variables your MCP server accepts, see the MCP server's documentation. For example, the [Astra DB MCP server](https://github.com/datastax/astra-db-mcp) requires `ASTRA_DB_APPLICATION_TOKEN` and `ASTRA_DB_API_ENDPOINT`, with an optional variable for `ASTRA_DB_KEYSPACE`, as documented in its repository.
 
 ## Use global variables in MCP server headers {#use-global-variables-in-mcp-server-headers}
 

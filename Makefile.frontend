@@ -6,7 +6,7 @@ FRONTEND_DIR = src/frontend
 NPM = npm
 A11Y_WORKERS ?= 5
 
-.PHONY: install_frontend install_frontendci install_frontendc frontend_deps_check build_frontend run_frontend frontend frontendc format_frontend tests_frontend test_frontend_a11y_scan test_frontend_a11y_scan_blocking test_frontend_a11y_scan_update test_frontend_a11y_suite test_frontend test_frontend_watch test_frontend_coverage test_frontend_verbose test_frontend_ci test_frontend_a11y_unit_ci test_frontend_clean test_frontend_file test_frontend_pattern test_frontend_snapshots test_frontend_config test_frontend_bail test_frontend_silent test_frontend_coverage_open help_frontend storybook storybook_build storybook_network
+.PHONY: install_frontend install_frontendci install_frontendc frontend_deps_check build_frontend deploy_frontend_pages run_frontend frontend frontendc format_frontend tests_frontend test_frontend_a11y_scan test_frontend_a11y_scan_blocking test_frontend_a11y_scan_update test_frontend_a11y_suite test_frontend test_frontend_watch test_frontend_coverage test_frontend_verbose test_frontend_ci test_frontend_a11y_unit_ci test_frontend_clean test_frontend_file test_frontend_pattern test_frontend_snapshots test_frontend_config test_frontend_bail test_frontend_silent test_frontend_coverage_open help_frontend storybook storybook_build storybook_network
 
 ######################
 # FRONTEND DEPENDENCIES
@@ -45,6 +45,12 @@ build_frontend: ## build the frontend static files
 	@echo 'Copying build files...'
 	@cp -r $(FRONTEND_DIR)/build/. src/backend/base/primeagent/frontend
 	@echo '==== Frontend build complete ===='
+
+deploy_frontend_pages: ## deploy frontend build to Cloudflare Pages (requires wrangler login)
+	@command -v wrangler >/dev/null 2>&1 || { echo "Error: wrangler is not installed. Run 'npm install -g wrangler' first."; exit 1; }
+	@cd $(FRONTEND_DIR) && npm run build >/dev/null 2>&1 || { echo "Frontend build failed"; exit 1; }
+	@echo '/* /index.html 200' > $(FRONTEND_DIR)/build/_redirects
+	CLOUDFLARE_ACCOUNT_ID=$${CLOUDFLARE_ACCOUNT_ID:-7916524f02909f6dfe5fc8ad38306822} wrangler pages deploy $(FRONTEND_DIR)/build --project-name=$${CF_PAGES_PROJECT:-primeagent} --commit-dirty=true
 
 ######################
 # FRONTEND DEVELOPMENT
@@ -264,6 +270,7 @@ help_frontend: ## show frontend help
 	@echo ''
 	@echo "$(GREEN)Build & Development:$(NC)"
 	@echo "  $(GREEN)make build_frontend$(NC)       - Build frontend static files"
+	@echo "  $(GREEN)make deploy_frontend_pages$(NC) - Deploy frontend build to Cloudflare Pages"
 	@echo "  $(GREEN)make run_frontend$(NC)         - Run the frontend development server"
 	@echo "  $(GREEN)make frontend$(NC)             - Install dependencies and run frontend in dev mode"
 	@echo "  $(GREEN)make frontendc$(NC)            - Clean install dependencies and run frontend"

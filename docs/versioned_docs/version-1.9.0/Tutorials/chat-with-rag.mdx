@@ -21,19 +21,20 @@ This tutorial demonstrates how you can use PrimeAgent to create a chatbot applic
 
 1.  In PrimeAgent, click **New Flow**, and then select the **Vector Store RAG** template.
 
-    <details>
+        <details>
+
     <summary>About the Vector Store RAG template</summary>
 
-    This template has two flows.
+        This template has two flows.
 
-    The **Load Data Flow** populates a vector store with data from a file.
-    This data is used to respond to queries submitted to the **Retriever Flow**.
+        The **Load Data Flow** populates a vector store with data from a file.
+        This data is used to respond to queries submitted to the **Retriever Flow**.
 
-    Specifically, the **Load Data Flow** ingests data from a local file, splits the data into chunks, loads and indexes the data in your vector database, and then computes embeddings for the chunks. The embeddings are also stored with the loaded data. This flow only needs to run when you need to load data into your vector database.
+        Specifically, the **Load Data Flow** ingests data from a local file, splits the data into chunks, loads and indexes the data in your vector database, and then computes embeddings for the chunks. The embeddings are also stored with the loaded data. This flow only needs to run when you need to load data into your vector database.
 
-    The **Retriever Flow** receives chat input, generates an embedding for the input, and then uses several components to reconstruct chunks into text and generate a response by comparing the new embedding to the stored embeddings to find similar data.
+        The **Retriever Flow** receives chat input, generates an embedding for the input, and then uses several components to reconstruct chunks into text and generate a response by comparing the new embedding to the stored embeddings to find similar data.
 
-    </details>
+        </details>
 
 2.  Add your **OpenAI** API key to both **OpenAI Embeddings** components.
 
@@ -207,8 +208,8 @@ This tutorial uses JavaScript for demonstration purposes.
 
 3. Save and run the script to send the requests and test the flow.
 
-   <details>
-   <summary>Result</summary>
+      <details>
+<summary>Result</summary>
 
    The following is an example response from this tutorial's flow. Due to the nature of LLMs and variations in your inputs, your response might be different.
 
@@ -222,7 +223,7 @@ This tutorial uses JavaScript for demonstration purposes.
    If you have any specific questions about Briggs & Stratton engines or need further information, feel free to ask!
    ```
 
-   </details>
+      </details>
 
 ## Next steps
 

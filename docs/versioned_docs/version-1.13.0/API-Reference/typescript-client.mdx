@@ -154,118 +154,119 @@ This example builds on the quickstart with additional features for interacting w
 
 4.  Run the modified TypeScript application to run the flow with `tweaks`, `session_id`, and streaming:
 
-    ```tsx
-    import { PrimeAgentClient } from "@datastax/primeagent-client";
+        ```tsx
+        import { PrimeAgentClient } from "@datastax/primeagent-client";
 
-    const baseUrl = "http://localhost:7860";
-    const client = new PrimeAgentClient({ baseUrl });
+        const baseUrl = "http://localhost:7860";
+        const client = new PrimeAgentClient({ baseUrl });
 
-    async function runFlow() {
-      const flowId = "aa5a238b-02c0-4f03-bc5c-cc3a83335cdf";
-      const input = "Is anyone there?";
-      const tweaks = { model_name: "gpt-4o-mini" };
-      const session_id = "test-session";
+        async function runFlow() {
+          const flowId = "aa5a238b-02c0-4f03-bc5c-cc3a83335cdf";
+          const input = "Is anyone there?";
+          const tweaks = { model_name: "gpt-4o-mini" };
+          const session_id = "test-session";
 
-      const response = await client.flow(flowId).stream(input, {
-        session_id,
-        tweaks,
-      });
+          const response = await client.flow(flowId).stream(input, {
+            session_id,
+            tweaks,
+          });
 
-      for await (const event of response) {
-        console.log(event);
-      }
-    }
-    runFlow().catch(console.error);
-    ```
+          for await (const event of response) {
+            console.log(event);
+          }
+        }
+        runFlow().catch(console.error);
+        ```
 
-    Replace the following:
+        Replace the following:
 
-    - `baseUrl`: The URL of your PrimeAgent server.
-    - `flowId`: The ID of the flow you want to run.
-    - `input`: The chat input message you want to send to trigger the flow, assuming the flow has a **Chat Input** component.
-    - `tweaks`: Any tweak modifiers to apply to the flow run.
-      This example changes the LLM used by a component in the flow.
-    - `session_id`: Pass a custom session ID.
-      If omitted or empty, the flow ID is the default session ID.
+        - `baseUrl`: The URL of your PrimeAgent server.
+        - `flowId`: The ID of the flow you want to run.
+        - `input`: The chat input message you want to send to trigger the flow, assuming the flow has a **Chat Input** component.
+        - `tweaks`: Any tweak modifiers to apply to the flow run.
+          This example changes the LLM used by a component in the flow.
+        - `session_id`: Pass a custom session ID.
+          If omitted or empty, the flow ID is the default session ID.
 
-    <details>
+        <details>
+
     <summary>Result</summary>
 
-    With streaming enabled, the response includes the flow metadata and timestamped events for flow activity.
-    For example:
+        With streaming enabled, the response includes the flow metadata and timestamped events for flow activity.
+        For example:
 
-    ```text
-    {
-      event: 'add_message',
-      data: {
-        timestamp: '2025-05-23 15:52:48 UTC',
-        sender: 'User',
-        sender_name: 'User',
-        session_id: 'test-session',
-        text: 'Is anyone there?',
-        files: [],
-        error: false,
-        edit: false,
-        properties: {
-          text_color: '',
-          background_color: '',
-          edited: false,
-          source: [Object],
-          icon: '',
-          allow_markdown: false,
-          positive_feedback: null,
-          state: 'complete',
-          targets: []
-        },
-        category: 'message',
-        content_blocks: [],
-        id: '7f096715-3f2d-4d84-88d6-5e2f76bf3fbe',
-        flow_id: 'aa5a238b-02c0-4f03-bc5c-cc3a83335cdf',
-        duration: null
-      }
-    }
-    {
-      event: 'token',
-      data: {
-        chunk: 'Absolutely',
-        id: 'c5a99314-6b23-488b-84e2-038aa3e87fb5',
-        timestamp: '2025-05-23 15:52:48 UTC'
-      }
-    }
-    {
-      event: 'token',
-      data: {
-        chunk: ',',
-        id: 'c5a99314-6b23-488b-84e2-038aa3e87fb5',
-        timestamp: '2025-05-23 15:52:48 UTC'
-      }
-    }
-    {
-      event: 'token',
-      data: {
-        chunk: " I'm",
-        id: 'c5a99314-6b23-488b-84e2-038aa3e87fb5',
-        timestamp: '2025-05-23 15:52:48 UTC'
-      }
-    }
-    {
-      event: 'token',
-      data: {
-        chunk: ' here',
-        id: 'c5a99314-6b23-488b-84e2-038aa3e87fb5',
-        timestamp: '2025-05-23 15:52:48 UTC'
-      }
-    }
+        ```text
+        {
+          event: 'add_message',
+          data: {
+            timestamp: '2025-05-23 15:52:48 UTC',
+            sender: 'User',
+            sender_name: 'User',
+            session_id: 'test-session',
+            text: 'Is anyone there?',
+            files: [],
+            error: false,
+            edit: false,
+            properties: {
+              text_color: '',
+              background_color: '',
+              edited: false,
+              source: [Object],
+              icon: '',
+              allow_markdown: false,
+              positive_feedback: null,
+              state: 'complete',
+              targets: []
+            },
+            category: 'message',
+            content_blocks: [],
+            id: '7f096715-3f2d-4d84-88d6-5e2f76bf3fbe',
+            flow_id: 'aa5a238b-02c0-4f03-bc5c-cc3a83335cdf',
+            duration: null
+          }
+        }
+        {
+          event: 'token',
+          data: {
+            chunk: 'Absolutely',
+            id: 'c5a99314-6b23-488b-84e2-038aa3e87fb5',
+            timestamp: '2025-05-23 15:52:48 UTC'
+          }
+        }
+        {
+          event: 'token',
+          data: {
+            chunk: ',',
+            id: 'c5a99314-6b23-488b-84e2-038aa3e87fb5',
+            timestamp: '2025-05-23 15:52:48 UTC'
+          }
+        }
+        {
+          event: 'token',
+          data: {
+            chunk: " I'm",
+            id: 'c5a99314-6b23-488b-84e2-038aa3e87fb5',
+            timestamp: '2025-05-23 15:52:48 UTC'
+          }
+        }
+        {
+          event: 'token',
+          data: {
+            chunk: ' here',
+            id: 'c5a99314-6b23-488b-84e2-038aa3e87fb5',
+            timestamp: '2025-05-23 15:52:48 UTC'
+          }
+        }
 
-    // this response is abbreviated
+        // this response is abbreviated
 
-    {
-      event: 'end',
-      data: { result: { session_id: 'test-session', outputs: [Array] } }
-    }
-    ```
+        {
+          event: 'end',
+          data: { result: { session_id: 'test-session', outputs: [Array] } }
+        }
+        ```
 
-    </details>
+        </details>
 
 ## Retrieve PrimeAgent logs with the TypeScript client
 

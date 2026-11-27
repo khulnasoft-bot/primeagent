@@ -34,72 +34,79 @@ For more information, see [Configure an external PostgreSQL database](/configura
 
 3.  Configure PrimeAgent with the `.env` or `docker-compose.yml` files.
 
-    <Tabs groupId="environment">
+        <Tabs groupId="environment">
+
     <TabItem value=".env" label=".env" default>
-    1. Create a `.env` file in the `primeagent` directory:
 
-       ```shell
-       touch .env
-       ```
+4.  Create a `.env` file in the `primeagent` directory:
 
-    2. Add the connection string to the `.env` file:
+        ```shell
+        touch .env
+        ```
 
-       ```text
-       PRIMEAGENT_DATABASE_URL="postgresql://primeagent:securepassword@postgres:5432/primeagent"
-       ```
+        2. Add the connection string to the `.env` file:
 
-    For more environment variables, see the `.env.example` file in the PrimeAgent repository.
+           ```text
+           PRIMEAGENT_DATABASE_URL="postgresql://primeagent:securepassword@postgres:5432/primeagent"
+           ```
 
-    </TabItem>
+        For more environment variables, see the `.env.example` file in the PrimeAgent repository.
+
+        </TabItem>
+
     <TabItem value="docker-compose.yml" label="docker-compose.yml">
 
-    Use the sample `docker-compose.yml` from the PrimeAgent Repository.
-    You can use the default values or customize them as needed.
+        Use the sample `docker-compose.yml` from the PrimeAgent Repository.
+        You can use the default values or customize them as needed.
 
-    ```yaml
-    version: "3"
-    services:
-      primeagent:
-        image: khulnasoft/primeagent:latest
-        ports:
-          - "7860:7860"
-        environment:
-          - PRIMEAGENT_DATABASE_URL=postgresql://primeagent:primeagent@postgres:5432/primeagent
-      postgres:
-        image: postgres:16
-        ports:
-          - "5432:5432"
-        environment:
-          - POSTGRES_USER=primeagent
-          - POSTGRES_PASSWORD=primeagent
-          - POSTGRES_DB=primeagent
+        ```yaml
+        version: "3"
+        services:
+          primeagent:
+            image: khulnasoft/primeagent:latest
+            ports:
+              - "7860:7860"
+            environment:
+              - PRIMEAGENT_DATABASE_URL=postgresql://primeagent:primeagent@postgres:5432/primeagent
+          postgres:
+            image: postgres:16
+            ports:
+              - "5432:5432"
+            environment:
+              - POSTGRES_USER=primeagent
+              - POSTGRES_PASSWORD=primeagent
+              - POSTGRES_DB=primeagent
+            volumes:
+              - primeagent-postgres:/var/lib/postgresql/data
         volumes:
-          - primeagent-postgres:/var/lib/postgresql/data
-    volumes:
-      - primeagent-postgres:
-    ```
+          - primeagent-postgres:
+        ```
 
-    </TabItem>
+        </TabItem>
+
     </Tabs>
 
-4.  Start PrimeAgent with your PostgreSQL connection:
+5.  Start PrimeAgent with your PostgreSQL connection:
 
-    <Tabs groupId="environment">
+        <Tabs groupId="environment">
+
     <TabItem value=".env" label=".env" default>
 
-    ```shell
-    uv run primeagent run --env-file .env
-    ```
+        ```shell
+        uv run primeagent run --env-file .env
+        ```
 
-    </TabItem>
+        </TabItem>
+
     <TabItem value="docker-compose.yml" label="docker-compose.yml">
 
-    Navigate to the directory containing `docker-compose.yml`, and then run `docker-compose up`.
+        Navigate to the directory containing `docker-compose.yml`, and then run `docker-compose up`.
 
-    </TabItem>
+        </TabItem>
+
     </Tabs>
 
-5.  Optional: Run migrations.
+6.  Optional: Run migrations.
 
     PrimeAgent uses migrations to manage its database schema.
     When you first connect to PostgreSQL, PrimeAgent automatically runs migrations to create the necessary tables.
@@ -116,7 +123,7 @@ For more information, see [Configure an external PostgreSQL database](/configura
        This is a destructive operation that can delete data.
        For more information, see [`primeagent migration`](/configuration-cli#primeagent-migration).
 
-6.  To verify the configuration, create any flow using the PrimeAgent visual editor or API, and then query your database to confirm the tables and activity are recorded there. The content of the flow doesn't matter; you only need to confirm that the flow is stored in your PostgreSQL database.
+7.  To verify the configuration, create any flow using the PrimeAgent visual editor or API, and then query your database to confirm the tables and activity are recorded there. The content of the flow doesn't matter; you only need to confirm that the flow is stored in your PostgreSQL database.
     You can query the database in two ways:
 
         * Query the database container:

@@ -17,10 +17,10 @@ This setup encrypts all communications between users and your PrimeAgent server.
 - A DNS record configured to point your domain to your server's external IP address
   For example, if your server's IP is `203.0.113.1`, configure your DNS like this:
   `bash
-    Type: A
-    Name: primeagent.example.com
-    Value: 203.0.113.1
-    `
+Type: A
+Name: primeagent.example.com
+Value: 203.0.113.1
+`
 
 ## Connect to your server with SSH
 
@@ -58,7 +58,8 @@ This setup encrypts all communications between users and your PrimeAgent server.
 5.  When prompted for a key fingerprint, type `yes`.
     The terminal output indicates if the connection succeeds or fails.
     The following response was returned after connecting to a Digital Ocean cloud server.
-    ```bash
+
+    ````bash
     System information as of Wed Oct 8 21:40:43 UTC 2025
 
           System load:  0.02              Processes:             103
@@ -66,6 +67,7 @@ This setup encrypts all communications between users and your PrimeAgent server.
           Memory usage: 10%               IPv4 address for eth0: 165.227.176.236
           Swap usage:   0%                IPv4 address for eth0: 10.17.0.5
         ```
+    ````
 
 ## Install PrimeAgent on your server
 
@@ -133,8 +135,8 @@ Nginx is a reverse proxy that receives external requests and forwards them to yo
 3. Create an Nginx configuration file.
    Replace **DOMAIN_NAME** with your actual domain name, such as `primeagent.example.com`.
    `bash
-    sudo nano /etc/nginx/sites-available/DOMAIN_NAME
-    `
+sudo nano /etc/nginx/sites-available/DOMAIN_NAME
+`
 
 4. Paste the following content to the configuration file you created at `/etc/nginx/sites-available/DOMAIN_NAME`.
 

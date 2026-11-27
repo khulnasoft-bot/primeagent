@@ -66,8 +66,8 @@ An uninitialized bundle returns `503`.
 
 3. Read the current policy bundle, and copy `revision`.
 
-   <Tabs>
-   <TabItem value="Python" label="Python" default>
+      <Tabs>
+<TabItem value="Python" label="Python" default>
 
    ```python
    import os
@@ -85,8 +85,8 @@ An uninitialized bundle returns `503`.
    print(response.json())
    ```
 
-   </TabItem>
-   <TabItem value="JavaScript" label="JavaScript">
+      </TabItem>
+<TabItem value="JavaScript" label="JavaScript">
 
    ```javascript
    const url = `${process.env.PRIMEAGENT_URL}/api/v1/policy-bundle`;
@@ -105,8 +105,8 @@ An uninitialized bundle returns `503`.
    console.log(await response.json());
    ```
 
-   </TabItem>
-   <TabItem value="curl" label="curl">
+      </TabItem>
+<TabItem value="curl" label="curl">
 
    ```bash
    curl -X GET \
@@ -115,11 +115,11 @@ An uninitialized bundle returns `503`.
      -H "x-api-key: $PRIMEAGENT_API_KEY"
    ```
 
-   </TabItem>
-   </Tabs>
+      </TabItem>
+</Tabs>
 
-   <details>
-   <summary>Result</summary>
+      <details>
+<summary>Result</summary>
 
    ```json
    {
@@ -139,7 +139,7 @@ An uninitialized bundle returns `503`.
    }
    ```
 
-   </details>
+      </details>
 
    :::tip
    If `managed_externally` is `true`, an external controller owns policy.
@@ -150,8 +150,8 @@ An uninitialized bundle returns `503`.
    Send the `revision` number copied from step 3 as `expected_revision`.
    Send `[]` for a list you want unrestricted.
 
-   <Tabs>
-   <TabItem value="Python" label="Python" default>
+      <Tabs>
+<TabItem value="Python" label="Python" default>
 
    ```python
    import os
@@ -183,8 +183,8 @@ An uninitialized bundle returns `503`.
    print(response.json())
    ```
 
-   </TabItem>
-   <TabItem value="JavaScript" label="JavaScript">
+      </TabItem>
+<TabItem value="JavaScript" label="JavaScript">
 
    ```javascript
    const base = process.env.PRIMEAGENT_URL;
@@ -219,8 +219,8 @@ An uninitialized bundle returns `503`.
    console.log(await response.json());
    ```
 
-   </TabItem>
-   <TabItem value="curl" label="curl">
+      </TabItem>
+<TabItem value="curl" label="curl">
 
    ```bash
    curl -X PUT \
@@ -238,8 +238,8 @@ An uninitialized bundle returns `503`.
      }'
    ```
 
-   </TabItem>
-   </Tabs>
+      </TabItem>
+</Tabs>
 
    If another user updated the policy first, the `PUT` returns `409`.
    Repeat from step 3 with an updated `revision` number.
