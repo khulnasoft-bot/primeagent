@@ -37,7 +37,7 @@ Repository = "https://github.com/khulnasoft-bot/primeagent"
 wfx-openai-compatible = "wfx_openai_compatible"
 
 [build-system]
-requires = ["hatchling==1.31.0"]
+requires = ["hatchling==1.33.0"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
